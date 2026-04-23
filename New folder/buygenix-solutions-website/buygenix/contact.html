@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us – BuyGenix Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start;}
+.contact-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:28px;transition:all 0.3s;display:flex;align-items:flex-start;gap:18px;margin-bottom:16px;cursor:pointer;}
+.contact-card:hover{border-color:rgba(200,151,42,0.35);background:rgba(200,151,42,0.06);transform:translateX(4px);}
+.contact-card-icon{width:50px;height:50px;border-radius:12px;background:linear-gradient(135deg,rgba(200,151,42,0.2),rgba(200,151,42,0.05));border:1px solid rgba(200,151,42,0.25);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.contact-card h4{font-size:13px;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:6px;}
+.contact-card p{font-size:15px;color:var(--white);font-weight:500;}
+.contact-card span{font-size:12px;color:rgba(255,255,255,0.4);margin-top:3px;display:block;}
+.form-card{background:rgba(255,255,255,0.97);border-radius:20px;padding:40px;}
+.form-card h2{font-size:26px;color:var(--navy);margin-bottom:8px;}
+.form-card p{font-size:14px;color:var(--text-mid);margin-bottom:28px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;border:1.5px solid var(--border);border-radius:9px;padding:12px 15px;font-size:14px;font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);transition:all 0.2s;outline:none;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,58,92,0.08);}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:var(--white);padding:15px;border:none;border-radius:10px;font-weight:600;font-size:15px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.25s;}
+.form-submit:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,27,42,0.25);}
+.social-connect{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:28px;margin-top:28px;}
+.social-connect h3{font-size:16px;color:var(--white);margin-bottom:18px;}
+.social-btns{display:flex;flex-direction:column;gap:12px;}
+.social-link{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);transition:all 0.25s;cursor:pointer;}
+.social-link:hover{background:rgba(255,255,255,0.06);border-color:rgba(200,151,42,0.25);transform:translateX(3px);}
+.social-link-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.social-link.insta .social-link-icon{background:linear-gradient(135deg,#833AB4,#FD1D1D,#F77737);}
+.social-link.fb .social-link-icon{background:#1877F2;}
+.social-link.wa .social-link-icon{background:#25D366;}
+.social-link.email .social-link-icon{background:rgba(200,151,42,0.2);border:1px solid rgba(200,151,42,0.3);}
+.social-link h4{font-size:14px;color:var(--white);margin-bottom:2px;}
+.social-link p{font-size:12px;color:rgba(255,255,255,0.45);}
+.hours-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.hour-item{background:rgba(255,255,255,0.04);border-radius:10px;padding:12px 14px;}
+.hour-item h5{font-size:11px;color:var(--gold);font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:5px;}
+.hour-item p{font-size:13px;color:rgba(255,255,255,0.7);}
+.faq-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;}
+.faq-strip-item{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:22px;}
+.faq-strip-item h4{font-size:15px;color:var(--white);margin-bottom:8px;}
+.faq-strip-item p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.7;}
+.success-msg{display:none;background:rgba(29,122,110,0.12);border:1px solid rgba(29,122,110,0.3);border-radius:12px;padding:20px;text-align:center;margin-top:16px;}
+.success-msg h4{font-size:16px;color:#4ECDC4;margin-bottom:6px;}
+.success-msg p{font-size:13px;color:rgba(0,0,0,0.6);}
+@media(max-width:900px){.contact-grid{grid-template-columns:1fr;}.faq-strip{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<canvas id="ocean-mini"></canvas>
+<div class="page-overlay"></div>
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">💬</a>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">BG</div>
+    <div class="logo-text"><span>BuyGenix Solutions</span><span>B2B Import Export Platform</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html" class="active">Contact</a>
+    <a href="terms.html">T&C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans →</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-label">📬 Get In Touch</div>
+  <h1>We're Here to<br><span class="gold">Help You Grow</span></h1>
+  <p>Have questions about our services, membership plans, or partnership opportunities? Our team responds within 24 working hours. For fastest response, reach us on WhatsApp.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- MAIN CONTACT GRID -->
+  <div class="contact-grid" style="margin-bottom:48px;">
+
+    <!-- LEFT: CONTACT INFO -->
+    <div>
+      <div style="margin-bottom:24px;">
+        <span class="badge-label">Contact Channels</span>
+        <h2 style="font-size:24px;color:var(--white);margin-top:10px;margin-bottom:6px;">Reach Us Directly</h2>
+        <p style="font-size:14px;color:rgba(255,255,255,0.5);">We're available across multiple channels. Choose what works best for you.</p>
+      </div>
+
+      <a href="mailto:info@buygenixsolutions.com" class="contact-card" style="display:flex;text-decoration:none;">
+        <div class="contact-card-icon">📧</div>
+        <div>
+          <h4>Email Us</h4>
+          <p>info@buygenixsolutions.com</p>
+          <span>General enquiries & membership questions</span>
+        </div>
+      </a>
+
+      <a href="https://wa.me/91XXXXXXXXXX" class="contact-card" style="display:flex;text-decoration:none;">
+        <div class="contact-card-icon">💬</div>
+        <div>
+          <h4>WhatsApp Business</h4>
+          <p>+91 XXXXX XXXXX</p>
+          <span>Fastest response — usually within 2 hours</span>
+        </div>
+      </a>
+
+      <a href="https://instagram.com/buygenixsolutions" class="contact-card" style="display:flex;text-decoration:none;" target="_blank">
+        <div class="contact-card-icon">📷</div>
+        <div>
+          <h4>Instagram</h4>
+          <p>@buygenixsolutions</p>
+          <span>Follow for leads, tips & trade updates</span>
+        </div>
+      </a>
+
+      <a href="https://facebook.com/buygenixsolutions" class="contact-card" style="display:flex;text-decoration:none;" target="_blank">
+        <div class="contact-card-icon">📘</div>
+        <div>
+          <h4>Facebook</h4>
+          <p>facebook.com/buygenixsolutions</p>
+          <span>Updates, offers & community discussions</span>
+        </div>
+      </a>
+
+      <!-- BUSINESS HOURS -->
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:24px;margin-top:24px;">
+        <h3 style="font-size:16px;color:var(--white);margin-bottom:16px;">🕐 Business Hours</h3>
+        <div class="hours-grid">
+          <div class="hour-item"><h5>Monday – Friday</h5><p>10:00 AM – 7:00 PM</p></div>
+          <div class="hour-item"><h5>Saturday</h5><p>10:00 AM – 4:00 PM</p></div>
+          <div class="hour-item"><h5>Sunday</h5><p>Closed</p></div>
+          <div class="hour-item"><h5>WhatsApp Response</h5><p>7 Days, 9AM–9PM</p></div>
+        </div>
+        <p style="font-size:12px;color:rgba(255,255,255,0.35);margin-top:14px;">All times are Indian Standard Time (IST). Response time may vary during national holidays. Email enquiries are acknowledged within 4 business hours.</p>
+      </div>
+
+      <!-- ESCALATION -->
+      <div style="background:rgba(200,151,42,0.07);border:1px solid rgba(200,151,42,0.2);border-radius:14px;padding:20px;margin-top:18px;">
+        <h4 style="font-size:14px;color:var(--gold);margin-bottom:8px;">📋 For Specific Departments</h4>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span style="color:rgba(255,255,255,0.55);">Membership & Sales</span>
+            <span style="color:var(--white);">sales@buygenixsolutions.com</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span style="color:rgba(255,255,255,0.55);">Member Support</span>
+            <span style="color:var(--white);">support@buygenixsolutions.com</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span style="color:rgba(255,255,255,0.55);">Billing & Invoices</span>
+            <span style="color:var(--white);">billing@buygenixsolutions.com</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;">
+            <span style="color:rgba(255,255,255,0.55);">Privacy & Legal</span>
+            <span style="color:var(--white);">privacy@buygenixsolutions.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: ENQUIRY FORM -->
+    <div class="form-card">
+      <h2>Send an Enquiry</h2>
+      <p>Fill in the details below and we will get back to you within 24 working hours with a personalised response.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Full Name *</label>
+          <input type="text" id="fname" placeholder="Rajesh Kumar" required>
+        </div>
+        <div class="form-group">
+          <label>Business Name *</label>
+          <input type="text" id="bname" placeholder="Your Company Pvt Ltd">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Mobile / WhatsApp *</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="email" placeholder="you@yourcompany.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>City & State</label>
+        <input type="text" id="city" placeholder="Delhi, India">
+      </div>
+      <div class="form-group">
+        <label>I am interested in *</label>
+        <select id="service">
+          <option value="">— Select a Service —</option>
+          <option>Membership Plan — Starter (₹4,999/yr)</option>
+          <option>Membership Plan — Growth (₹12,999/yr)</option>
+          <option>Membership Plan — Professional (₹24,999/yr)</option>
+          <option>Membership Plan — Enterprise (₹44,999/yr)</option>
+          <option>Buy Leads (Indian Buyers)</option>
+          <option>Buy Leads (International Buyers)</option>
+          <option>Catalogue Service</option>
+          <option>GST Registration Assistance</option>
+          <option>SEO Package</option>
+          <option>SMO Package</option>
+          <option>SEO + SMO Bundle</option>
+          <option>Virtual Business Card</option>
+          <option>Referral / Partnership Programme</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Product / Industry Sector</label>
+        <input type="text" placeholder="e.g. Textiles, Spices, Engineering Goods">
+      </div>
+      <div class="form-group">
+        <label>Your Message *</label>
+        <textarea id="msg" rows="5" placeholder="Tell us about your business, what products you export/import, and what you're looking for. The more detail you share, the more specific our response can be..." required></textarea>
+      </div>
+      <div style="background:#FEF3CD;border-radius:10px;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#7A5A00;line-height:1.6;">
+        🔒 <strong>Your information is safe with us.</strong> We do not share your personal details with any third party except as described in our <a href="privacy.html" style="color:#8B6514;text-decoration:underline;">Privacy Policy</a>. By submitting this form you agree to our <a href="terms.html" style="color:#8B6514;text-decoration:underline;">Terms & Conditions</a>.
+      </div>
+      <button class="form-submit" onclick="submitForm()">Submit Enquiry — We'll Respond in 24 Hours →</button>
+      <div class="success-msg" id="successMsg">
+        <h4>✅ Enquiry Received!</h4>
+        <p>Thank you for reaching out. Our team will contact you within 24 working hours on your provided email and WhatsApp number. For faster response, you can also WhatsApp us directly.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WHAT HAPPENS NEXT -->
+  <div class="section-glass" style="margin-bottom:32px;">
+    <div class="badge-label">What to Expect</div>
+    <h2 style="font-size:24px;margin-bottom:28px;">What Happens After You Contact Us</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+      <div style="text-align:center;padding:20px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E8A820);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 auto 14px;">1</div>
+        <h4 style="font-size:15px;color:var(--white);margin-bottom:6px;">Acknowledgement</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);">You receive an acknowledgement email within 4 business hours of your submission.</p>
+      </div>
+      <div style="text-align:center;padding:20px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E8A820);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 auto 14px;">2</div>
+        <h4 style="font-size:15px;color:var(--white);margin-bottom:6px;">Team Review</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);">Our sales team reviews your enquiry and identifies the best service match for your needs.</p>
+      </div>
+      <div style="text-align:center;padding:20px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E8A820);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 auto 14px;">3</div>
+        <h4 style="font-size:15px;color:var(--white);margin-bottom:6px;">Personalised Response</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);">A dedicated executive contacts you via WhatsApp or email with a tailored proposal.</p>
+      </div>
+      <div style="text-align:center;padding:20px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#E8A820);color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin:0 auto 14px;">4</div>
+        <h4 style="font-size:15px;color:var(--white);margin-bottom:6px;">Onboarding</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,0.5);">Upon membership activation, your dedicated RM completes your onboarding within 48 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ STRIP -->
+  <div style="margin-bottom:0;">
+    <span class="badge-label">Common Questions</span>
+    <h2 style="font-size:24px;color:var(--white);margin:12px 0 28px;">Before You Contact Us</h2>
+    <div class="faq-strip">
+      <div class="faq-strip-item">
+        <h4>Can I see a demo before purchasing?</h4>
+        <p>Yes. Contact us and we can walk you through a platform demo and show you a sample of the lead data available for your product category.</p>
+      </div>
+      <div class="faq-strip-item">
+        <h4>Do you offer custom or tailored plans?</h4>
+        <p>For large enterprises or trading houses with specific requirements beyond our standard plans, we can discuss a custom arrangement. Contact our sales team directly.</p>
+      </div>
+      <div class="faq-strip-item">
+        <h4>How quickly can I access leads after payment?</h4>
+        <p>Your membership is activated within 24 working hours of confirmed payment. Lead access begins immediately upon activation. Your RM contacts you within 48 hours.</p>
+      </div>
+      <div class="faq-strip-item">
+        <h4>What payment methods do you accept?</h4>
+        <p>We accept all major payment methods including UPI (PhonePe, GPay, Paytm), NEFT/RTGS bank transfer, debit/credit cards, and net banking.</p>
+      </div>
+      <div class="faq-strip-item">
+        <h4>Is my contact information shared with buyers?</h4>
+        <p>Only if you subscribe to the Business Promotion service. Your business name and product categories are shared with relevant buyers. Full contact details are shared only upon mutual interest expressed by the buyer.</p>
+      </div>
+      <div class="faq-strip-item">
+        <h4>Can I upgrade my plan mid-year?</h4>
+        <p>Yes. You may upgrade to a higher plan at any time by paying the pro-rated difference. Downgrading to a lower plan during an active subscription period is not permitted.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-icon">BG</div><div class="logo-text"><span>BuyGenix Solutions</span><span>B2B Import Export Platform</span></div></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers globally.</p>
+      <div class="social-row">
+        <div class="social-btn" onclick="window.open('https://instagram.com/buygenixsolutions')">📷</div>
+        <div class="social-btn" onclick="window.open('https://facebook.com/buygenixsolutions')">📘</div>
+        <div class="social-btn">💬</div>
+        <div class="social-btn">📧</div>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO & SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms & Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2024 BuyGenix Solutions. All rights reserved.</p><p>🇮🇳 Made in India | Serving Exporters Globally</p></div>
+</footer>
+<script src="shared.js"></script>
+<script>
+function submitForm(){
+  const req=[document.getElementById('fname'),document.getElementById('phone'),document.getElementById('email'),document.getElementById('service'),document.getElementById('msg')];
+  const missing=req.filter(el=>!el.value.trim());
+  if(missing.length){missing[0].focus();missing[0].style.borderColor='#E24B4A';setTimeout(()=>missing[0].style.borderColor='',2000);return;}
+  document.getElementById('successMsg').style.display='block';
+  document.querySelector('.form-submit').textContent='✅ Enquiry Submitted';
+  document.querySelector('.form-submit').disabled=true;
+  document.querySelector('.form-submit').style.background='#1D7A6E';
+  document.getElementById('successMsg').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+</script>
+</body>
+</html>

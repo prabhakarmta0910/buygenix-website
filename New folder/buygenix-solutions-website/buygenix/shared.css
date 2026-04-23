@@ -1,0 +1,54 @@
+/* shared nav + footer CSS for all inner pages */
+:root{--gold:#C8972A;--gold-light:#F5E6C0;--gold-dark:#8B6514;--navy:#0D1B2A;--navy-mid:#1B3A5C;--navy-light:#E8EDF5;--teal:#1D7A6E;--teal-light:#E0F3F1;--cream:#FDFAF4;--cream2:#F4EFE3;--white:#FFFFFF;--text-dark:#0D1B2A;--text-mid:#4A5568;--text-light:#718096;--border:#D9CEB8;--radius:12px;--radius-lg:20px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+h1,h2,h3,h4,h5{font-family:'Playfair Display',serif;line-height:1.2;}
+a{text-decoration:none;color:inherit;}
+#ocean-mini{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.55;}
+.page-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,rgba(13,27,42,0.82) 0%,rgba(13,27,42,0.65) 100%);z-index:1;pointer-events:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(13,27,42,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,151,42,0.2);}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--gold) 0%,#E8A820 100%);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;color:var(--navy);font-size:18px;font-weight:700;box-shadow:0 4px 16px rgba(200,151,42,0.4);}
+.logo-text span:first-child{display:block;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);}
+.logo-text span:last-child{display:block;font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;}
+.nav-links{display:flex;align-items:center;gap:6px;}
+.nav-links a{font-size:13.5px;font-weight:500;color:rgba(255,255,255,0.8);padding:8px 14px;border-radius:8px;transition:all 0.2s;white-space:nowrap;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);background:rgba(200,151,42,0.1);}
+.nav-cta{background:var(--gold)!important;color:var(--navy)!important;font-weight:600!important;padding:9px 20px!important;border-radius:8px!important;}
+.nav-cta:hover{background:#D9A830!important;box-shadow:0 4px 16px rgba(200,151,42,0.4)!important;}
+.page-hero{position:relative;z-index:2;padding:140px 5% 80px;max-width:1200px;margin:0 auto;}
+.page-hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(200,151,42,0.15);border:1px solid rgba(200,151,42,0.35);color:var(--gold-light);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:1px;margin-bottom:24px;}
+.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--white);margin-bottom:16px;}
+.page-hero h1 .gold{color:var(--gold);font-style:italic;}
+.page-hero p{font-size:17px;color:rgba(255,255,255,0.65);max-width:620px;line-height:1.75;}
+.content-wrap{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 5% 80px;}
+.section-glass{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:48px;margin-bottom:32px;backdrop-filter:blur(12px);}
+.section-glass.light{background:rgba(253,250,244,0.97);border-color:var(--border);}
+.section-glass h2{font-size:28px;color:var(--white);margin-bottom:20px;}
+.section-glass.light h2{color:var(--navy);}
+.section-glass p,.section-glass li{font-size:14.5px;color:rgba(255,255,255,0.7);line-height:1.8;}
+.section-glass.light p,.section-glass.light li{color:var(--text-mid);}
+.section-glass ul,.section-glass ol{padding-left:20px;display:flex;flex-direction:column;gap:8px;}
+.section-glass h3{font-size:18px;color:var(--gold-light);margin:24px 0 10px;}
+.section-glass.light h3{color:var(--navy);}
+.badge-label{display:inline-block;background:rgba(200,151,42,0.15);border:1px solid rgba(200,151,42,0.3);color:var(--gold);padding:4px 14px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;}
+.badge-label.dark{background:rgba(200,151,42,0.12);color:var(--gold-dark);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#E8A820);color:var(--navy);padding:14px 32px;border-radius:10px;font-weight:700;font-size:15px;transition:all 0.25s;display:inline-block;box-shadow:0 6px 24px rgba(200,151,42,0.35);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(200,151,42,0.5);}
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:200;background:#25D366;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 6px 24px rgba(37,211,102,0.45);animation:pulse 2.5s ease infinite;transition:transform 0.2s;}
+.wa-float:hover{transform:scale(1.12);}
+@keyframes pulse{0%,100%{box-shadow:0 6px 24px rgba(37,211,102,0.45)}50%{box-shadow:0 6px 36px rgba(37,211,102,0.7)}}
+footer{position:relative;z-index:2;background:#07101A;padding:64px 5% 24px;border-top:1px solid rgba(200,151,42,0.2);}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.7;max-width:280px;margin-top:14px;}
+.social-row{display:flex;gap:10px;margin-top:18px;}
+.social-btn{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all 0.2s;}
+.social-btn:hover{background:rgba(200,151,42,0.15);border-color:rgba(200,151,42,0.35);}
+.footer-col h4{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:16px;font-family:'DM Sans',sans-serif;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,0.45);transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--gold);}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:22px;display:flex;justify-content:space-between;align-items:center;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.28);}
+@media(max-width:960px){.footer-grid{grid-template-columns:1fr 1fr;}nav .nav-links{display:none;}}
