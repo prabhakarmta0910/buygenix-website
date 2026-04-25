@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GST Registration &#8211; BuyGenix Solutions</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
+.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
+.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
+.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
+
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px;}
+.step-box{background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius);padding:22px;transition:all 0.3s;}
+.step-box:hover{border-color:rgba(21,101,192,0.25);background:var(--blue-pale);}
+.step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;margin-bottom:12px;font-family:'Cormorant Garamond',serif;}
+.step-box h4{font-size:15px;color:var(--text-h);margin-bottom:7px;}
+.step-box p{font-size:13px;color:var(--text-m);line-height:1.7;}
+.two-col{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:start;}
+.price-card{background:#fff;border:2px solid var(--blue-deep);border-radius:var(--radius-lg);padding:34px;}
+.price-big{font-size:48px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);margin:8px 0 4px;}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-l);font-size:14px;}
+.price-row:last-of-type{border:none;}
+.price-row strong{color:var(--text-h);}
+.price-row span{color:var(--text-m);}
+.price-note{background:#FFFDE7;border-left:3px solid #F9A825;border-radius:0 10px 10px 0;padding:13px 16px;margin-top:18px;font-size:13px;color:#5D4037;line-height:1.7;}
+.tl{position:relative;padding-left:30px;}
+.tl::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:1px;background:rgba(21,101,192,0.2);}
+.tl-item{position:relative;padding-bottom:26px;}
+.tl-dot{position:absolute;left:-25px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--blue-mid);box-shadow:0 0 8px rgba(21,101,192,0.3);}
+.tl-item h4{font-size:15px;color:var(--text-h);margin-bottom:4px;}
+.tl-item p{font-size:13px;color:var(--text-m);}
+.tl-day{font-size:11px;color:var(--blue-deep);font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.faq-item{border-bottom:1px solid var(--border-l);padding:18px 0;cursor:pointer;}
+.faq-item:last-child{border:none;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--text-h);font-weight:500;}
+.faq-a{font-size:13.5px;color:var(--text-m);margin-top:12px;line-height:1.75;display:none;}
+.faq-item.open .faq-a{display:block;}
+.faq-item.open .faq-icon{transform:rotate(45deg);color:var(--blue-deep);}
+.faq-icon{transition:all 0.2s;color:var(--text-l);font-size:20px;}
+@media(max-width:860px){.steps-grid,.two-col{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+<canvas id="bg-mini"></canvas>
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html" class="active">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-badge">&#128203; Compliance Services</div>
+  <h1>GST Registration<br><span class='accent'>Made Simple</span></h1>
+  <p>We guide you through the entire GST registration process &#8212; from document collection to GSTIN certificate delivery. Professional facilitation, transparent pricing, zero hidden charges.</p>
+  
+</div>
+<div class="content-wrap">
+
+<div class="glass-card" data-reveal>
+  <span class="badge">Overview</span>
+  <h2>What is GST Registration &amp; Why You Need It</h2>
+  <p>Goods and Services Tax (GST) is India&#39;s unified indirect tax system. GST registration is mandatory for any business with an annual turnover exceeding &#8377;20 lakhs and for all businesses engaged in interstate trade or export-import activities &#8212; irrespective of turnover.</p>
+  <p style="margin-top:12px;">For exporters, a GSTIN is your gateway to claiming Input Tax Credit (ITC), issuing GST-compliant tax invoices, applying for IGST refunds on exports, and engaging in formal B2B transactions with credibility.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;">
+    <div style="background:var(--blue-pale);border-radius:var(--radius);padding:18px;text-align:center;"><div style="font-size:26px;margin-bottom:8px;">&#9878;&#65039;</div><h4 style="font-size:14px;color:var(--text-h);margin-bottom:5px;">Legal Compliance</h4><p style="font-size:12px;color:var(--text-m);">Mandatory for exporters &amp; inter-state traders</p></div>
+    <div style="background:var(--teal-lt);border-radius:var(--radius);padding:18px;text-align:center;"><div style="font-size:26px;margin-bottom:8px;">&#128176;</div><h4 style="font-size:14px;color:var(--text-h);margin-bottom:5px;">ITC Benefits</h4><p style="font-size:12px;color:var(--text-m);">Claim Input Tax Credit on your purchases</p></div>
+    <div style="background:var(--purple-pale);border-radius:var(--radius);padding:18px;text-align:center;"><div style="font-size:26px;margin-bottom:8px;">&#127758;</div><h4 style="font-size:14px;color:var(--text-h);margin-bottom:5px;">Export Refunds</h4><p style="font-size:12px;color:var(--text-m);">Claim IGST refunds on zero-rated exports</p></div>
+  </div>
+</div>
+
+<div class="glass-card" data-reveal>
+  <span class="badge">Process</span>
+  <h2>Our Step-by-Step Assistance Process</h2>
+  <div class="steps-grid">
+    <div class="step-box" data-tilt><div class="step-num">1</div><h4>Initial Consultation</h4><p>Our expert discusses your business type, turnover, and applicable GST category &#8212; Regular, Composition, or e-commerce &#8212; before proceeding.</p></div>
+    <div class="step-box" data-tilt><div class="step-num">2</div><h4>Document Collection</h4><p>We provide a precise checklist based on your entity type (Proprietorship, Partnership, LLP, or Pvt Ltd) and verify documents for accuracy.</p></div>
+    <div class="step-box" data-tilt><div class="step-num">3</div><h4>Application Filing</h4><p>Our associate fills Form GST REG-01 on the official GST portal with meticulous accuracy to avoid rejection or clarification notices.</p></div>
+    <div class="step-box" data-tilt><div class="step-num">4</div><h4>OTP Verification</h4><p>We guide you through OTP verification on your registered mobile and email. We share the Application Reference Number (ARN) immediately.</p></div>
+    <div class="step-box" data-tilt><div class="step-num">5</div><h4>Status Tracking</h4><p>We proactively track your application and assist in responding to any clarification notice raised by the GST officer within prescribed timelines.</p></div>
+    <div class="step-box" data-tilt><div class="step-num">6</div><h4>Certificate Delivery</h4><p>Upon approval, your GSTIN certificate is downloaded and delivered to you via email and WhatsApp immediately. You are now GST compliant.</p></div>
+  </div>
+</div>
+
+<div class="glass-card" data-reveal>
+  <span class="badge">Timeline</span>
+  <h2>Expected Processing Timeline</h2>
+  <div class="tl" style="margin-top:22px;">
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-day">Day 1</div><h4>Consultation &amp; Document Checklist</h4><p>We consult with you and provide the complete document checklist tailored to your business type.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-day">Day 1&#8211;2</div><h4>Document Submission to Us</h4><p>You submit all required documents. We verify and notify you of any gaps or corrections required.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-day">Day 2&#8211;3</div><h4>Application Filed on GST Portal</h4><p>We file your application and share the Application Reference Number (ARN) with you for tracking.</p></div>
+    <div class="tl-item"><div class="tl-dot"></div><div class="tl-day">Day 3&#8211;10</div><h4>Government Processing</h4><p>The GST authority reviews your application. Most cases are processed within 7 working days if documents are complete.</p></div>
+    <div class="tl-item" style="padding-bottom:0;"><div class="tl-dot"></div><div class="tl-day">Day 10&#8211;15</div><h4>GSTIN Certificate Received</h4><p>Your GSTIN is activated and the certificate is delivered to you digitally.</p></div>
+  </div>
+</div>
+
+<div class="two-col" data-reveal>
+  <div class="glass-card" style="margin-bottom:0;">
+    <span class="badge">FAQ</span>
+    <h2 style="font-size:22px;margin-bottom:18px;">Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Is GST registration free on the government portal?<span class="faq-icon">+</span></div><div class="faq-a">Yes. The Government of India charges no fee for GST registration on the official portal (gst.gov.in). BuyGenix Solutions charges a professional facilitation fee only for our documentation assistance and end-to-end support. The government fee remains nil.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Do I need GST registration to export from India?<span class="faq-icon">+</span></div><div class="faq-a">Yes, GST registration is mandatory for exporters. Exports are treated as &#8216;zero-rated&#8217; supplies under GST, meaning you can export without paying GST and claim refunds on input taxes. Without a GSTIN, you cannot issue valid tax invoices for exports.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">What if my application receives a clarification notice?<span class="faq-icon">+</span></div><div class="faq-a">Our service covers one complete application cycle including responding to any Show Cause Notice (SCN) issued by the GST officer within the normal processing period. We help you draft the appropriate response at no additional charge.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Is BuyGenix Solutions a government-affiliated body?<span class="faq-icon">+</span></div><div class="faq-a">No. BuyGenix Solutions is a private B2B services company. We are not affiliated with, endorsed by, or a representative of the GST Council, GSTN, or any government authority. We act solely as a private facilitation service.</div></div>
+    <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">How long does the GSTIN remain valid?<span class="faq-icon">+</span></div><div class="faq-a">A GSTIN does not expire as long as the business continues to file GST returns and comply with applicable provisions. Cancellation occurs only upon voluntary surrender or government action for non-compliance.</div></div>
+  </div>
+  <div>
+    <div class="price-card" data-tilt>
+      <span class="badge">Service Pricing</span>
+      <h2 style="color:var(--text-h);font-size:20px;margin-bottom:4px;">GST Registration Assistance</h2>
+      <p style="font-size:13px;color:var(--text-m);margin-bottom:10px;">Professional facilitation fee</p>
+      <div class="price-big">&#8377;1,499</div>
+      <p style="font-size:12px;color:var(--text-l);margin-bottom:18px;">+ 18% GST on service fee</p>
+      <div class="price-row"><strong>Government Portal Fee</strong><span style="color:var(--teal);font-weight:600;">&#8377;0 (NIL)</span></div>
+      <div class="price-row"><strong>Our Service Fee</strong><span>&#8377;1,499 + GST</span></div>
+      <div class="price-row"><strong>Turnaround Time</strong><span>7&#8211;15 Working Days</span></div>
+      <div class="price-row"><strong>Support Mode</strong><span>WhatsApp + Email</span></div>
+      <div class="price-row"><strong>Clarification Response</strong><span>Included (1 cycle)</span></div>
+      <div class="price-row"><strong>Certificate Format</strong><span>Digital PDF</span></div>
+      <div class="price-note">&#9888;&#65039; <strong>Important:</strong> BuyGenix Solutions acts as a documentation facilitator only. GST registration approval, rejection or timelines are at the sole discretion of the GST authority and are outside our control. Our fee is non-refundable once the application has been filed on the portal.</div>
+      <a href="contact.html" class="btn-primary" style="display:block;text-align:center;margin-top:22px;">Apply for GST Registration &#8594;</a>
+    </div>
+  </div>
+</div>
+
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
+        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
+          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
+          <div class="footer-social">&#128172;</div>
+          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
+      <p>buygenixsolutions@gmail.com</p>
+    </div>
+  </div>
+</footer>
+<script src="shared.js"></script>
+<script>function toggleFaq(el){el.classList.toggle('open');}</script>
+</body>
+</html>
