@@ -3,208 +3,508 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuyGenix Solutions – B2B Import Export Platform India</title>
-<meta name="description" content="India's premier B2B platform for export-import businesses. Verified buyer leads, catalogue services, dedicated RM, SEO/SMO and GST registration.">
+<title>BuyGenix Solutions — India's Premier B2B Export-Import Platform</title>
+<meta name="description" content="Connect with verified global buyers. Grow your export business with BuyGenix Solutions — buyer leads, digital catalogues, GST assistance and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-.hero{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:90px 5% 60px;overflow:hidden;}
-.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(227,242,253,0.92) 0%,rgba(240,245,255,0.75) 50%,rgba(243,229,245,0.55) 100%);z-index:-1;}
-.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:7px 18px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:0.5px;margin-bottom:22px;box-shadow:0 2px 12px rgba(21,101,192,0.1);animation:fadeUp 0.7s ease both;}
-.hero h1{font-size:clamp(42px,5.5vw,70px);color:var(--text-h);margin-bottom:20px;animation:fadeUp 0.7s 0.1s ease both;line-height:1.1;}
-.hero h1 .grad{background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue-mid) 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.hero-sub{font-size:17px;color:var(--text-m);line-height:1.75;max-width:520px;margin-bottom:36px;animation:fadeUp 0.7s 0.2s ease both;}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 0.7s 0.3s ease both;}
-.trust-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;animation:fadeUp 0.7s 0.4s ease both;}
-.trust-pill{background:#fff;border:1px solid var(--border-l);padding:6px 14px;border-radius:100px;font-size:12px;color:var(--text-m);font-weight:500;box-shadow:0 1px 6px rgba(21,101,192,0.06);}
-.hero-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:36px;animation:fadeUp 0.7s 0.45s ease both;}
-.hero-stat{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm);transition:all 0.3s;cursor:default;}
-.hero-stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
-.hero-stat strong{display:block;font-size:32px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);margin-bottom:2px;}
-.hero-stat span{font-size:12px;color:var(--text-l);text-transform:uppercase;letter-spacing:0.5px;}
-.hero-img-montage{position:relative;width:100%;aspect-ratio:0.9;animation:fadeUp 0.7s 0.3s ease both;}
-.montage-main{width:88%;border-radius:22px;overflow:hidden;box-shadow:0 32px 80px rgba(21,101,192,0.2);position:relative;}
-.montage-main img{width:100%;height:100%;object-fit:cover;display:block;}
-.montage-float{position:absolute;right:-12px;top:26%;background:#fff;border-radius:14px;padding:14px 18px;box-shadow:0 12px 40px rgba(21,101,192,0.18);border:1px solid var(--border-l);min-width:138px;animation:floatCard 3s ease-in-out infinite;}
-.montage-float strong{display:block;font-size:22px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);}
-.montage-float span{font-size:12px;color:var(--text-l);}
-.montage-float2{position:absolute;right:2px;top:63%;background:#fff;border-radius:14px;padding:12px 16px;box-shadow:0 12px 40px rgba(21,101,192,0.15);border:1px solid var(--border-l);min-width:116px;animation:floatCard 3.5s 0.8s ease-in-out infinite;}
-@keyframes floatCard{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 2;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 110px 4% 80px;
+}
+.hero-inner { max-width: 1280px; margin: 0 auto; width: 100%; }
+.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.hero-left {}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, var(--gold-pale), #FFF8E7);
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  padding: 7px 20px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  animation: fadeUp 0.7s ease both;
+}
+.hero h1 {
+  font-size: clamp(44px, 5.5vw, 78px);
+  color: var(--navy);
+  margin-bottom: 22px;
+  line-height: 1.08;
+  animation: fadeUp 0.7s 0.1s ease both;
+}
+.hero h1 .accent { color: var(--gold); font-style: italic; }
+.hero h1 .line2 { display: block; }
+.hero-sub {
+  font-size: 17px;
+  color: var(--text-mid);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp 0.7s 0.3s ease both;
+}
+.hero-trust {
+  display: flex; align-items: center; gap: 16px;
+  margin-top: 36px;
+  animation: fadeUp 0.7s 0.4s ease both;
+}
+.trust-avatars {
+  display: flex;
+}
+.trust-avatars span {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid white;
+  background: linear-gradient(135deg, var(--sky), var(--sky-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  margin-left: -10px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.trust-avatars span:first-child { margin-left: 0; }
+.trust-text { font-size: 13px; color: var(--text-mid); }
+.trust-text strong { color: var(--navy); }
 
-.ticker-wrap{position:relative;z-index:2;background:var(--text-h);padding:13px 0;overflow:hidden;}
-.ticker-track{display:flex;gap:52px;animation:tickerRoll 38s linear infinite;white-space:nowrap;}
-.ticker-track span{color:rgba(255,255,255,0.6);font-size:13px;}
-.ticker-track span strong{color:var(--blue-light);font-weight:600;}
-.ticker-sep{color:rgba(66,165,245,0.35)!important;}
-@keyframes tickerRoll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+/* Hero right — 3D floating card stack */
+.hero-right {
+  position: relative;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+.hero-card-main {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 24px 80px rgba(11,25,41,0.14), 0 4px 16px rgba(11,25,41,0.06);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: floatCard 6s ease-in-out infinite;
+}
+.hero-card-main::before {
+  content: '';
+  position: absolute; inset: -1px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, var(--sky-mid), var(--gold-pale), var(--sky-mid));
+  z-index: -1;
+  opacity: 0.7;
+}
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(0.5deg); }
+}
+.hero-card-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--gold-pale); color: var(--gold);
+  padding: 5px 12px; border-radius: 100px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  margin-bottom: 18px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.hero-card-title {
+  font-size: 20px; color: var(--navy); font-weight: 700;
+  margin-bottom: 6px;
+}
+.hero-card-sub { font-size: 13px; color: var(--text-mid); margin-bottom: 20px; }
+.lead-row {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--sky);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.lead-row-flag { font-size: 18px; margin-right: 10px; }
+.lead-row-name { font-weight: 600; color: var(--navy); }
+.lead-row-cat { font-size: 11px; color: var(--text-light); }
+.lead-row-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.badge-new { background: #E8F5E9; color: #1D7A3A; }
+.badge-hot { background: #FFF3E0; color: #E65100; }
+.badge-verify { background: #E3F2FD; color: #1565C0; }
+.hero-card-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--border-soft);
+}
+.hero-card-stat { text-align: center; }
+.hero-card-stat strong { display: block; font-size: 22px; color: var(--navy); font-family: 'Cormorant Garamond', serif; }
+.hero-card-stat span { font-size: 11px; color: var(--text-light); font-family: 'Space Grotesk', sans-serif; }
 
-.sec{position:relative;z-index:2;padding:88px 5%;}
-.sec-inner{max-width:1200px;margin:0 auto;}
-.sec-head{margin-bottom:52px;}
-.sec-head h2{font-size:clamp(30px,4vw,48px);margin-bottom:12px;}
-.sec-head p{font-size:16px;color:var(--text-m);max-width:580px;}
-.sec-alt{background:var(--bg2);}
-.sec-white{background:var(--surface);}
+.hero-float-pill {
+  position: absolute;
+  background: white;
+  border-radius: 14px;
+  padding: 12px 16px;
+  box-shadow: 0 8px 32px rgba(11,25,41,0.1);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+  animation: floatPill 4s ease-in-out infinite;
+}
+.hero-float-pill:nth-child(2) { animation-delay: 1s; top: -18px; right: -18px; }
+.hero-float-pill:nth-child(3) { animation-delay: 2s; bottom: 30px; left: -24px; }
+@keyframes floatPill {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
 
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-.svc-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:32px 26px;box-shadow:var(--shadow-sm);transition:all 0.35s;position:relative;overflow:hidden;cursor:pointer;}
-.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue-deep),var(--purple));transform:scaleX(0);transition:transform 0.3s;}
-.svc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-6px);border-color:rgba(21,101,192,0.15);}
-.svc-card:hover::after{transform:scaleX(1);}
-.svc-icon{width:52px;height:52px;border-radius:13px;background:linear-gradient(135deg,var(--blue-pale),var(--purple-pale));display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;}
-.svc-card h3{font-size:20px;color:var(--text-h);margin-bottom:10px;}
-.svc-card p{font-size:13.5px;color:var(--text-m);line-height:1.7;}
-.svc-tag{display:inline-block;background:var(--teal-lt);color:var(--teal);padding:3px 11px;border-radius:100px;font-size:11px;font-weight:600;margin-top:14px;}
+/* ── STATS BAR ── */
+.stats-strip {
+  position: relative; z-index: 2;
+  background: white;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  padding: 36px 4%;
+  box-shadow: 0 4px 24px rgba(11,25,41,0.04);
+}
+.stats-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 8px 20px;
+  border-right: 1px solid var(--border-soft);
+}
+.stat-item:last-child { border-right: none; }
+.stat-item .counter-val { font-size: 44px; }
 
-.img-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px;}
-.img-strip-item{border-radius:var(--radius);overflow:hidden;position:relative;aspect-ratio:4/3;box-shadow:var(--shadow-sm);transition:all 0.3s;}
-.img-strip-item:hover{transform:scale(1.03);box-shadow:var(--shadow-md);}
-.img-strip-item img{width:100%;height:100%;object-fit:cover;display:block;}
-.img-strip-label{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(transparent,rgba(13,27,62,0.82));color:#fff;font-size:12px;font-weight:600;}
+/* ── SERVICES SECTION ── */
+.section {
+  position: relative; z-index: 2;
+  padding: 90px 4%;
+}
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-head { text-align: center; margin-bottom: 56px; }
+.section-head h2 { font-size: clamp(32px, 4vw, 50px); color: var(--navy); margin-bottom: 14px; }
+.section-head p { font-size: 16px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
 
-.leads-duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.lead-panel{border-radius:var(--radius-lg);padding:36px 32px;position:relative;overflow:hidden;box-shadow:var(--shadow-md);}
-.lead-panel.indian{background:linear-gradient(135deg,#E3F2FD,#F3E5F5);border:1px solid rgba(21,101,192,0.12);}
-.lead-panel.intl{background:linear-gradient(135deg,#E0F2F1,#E8F5E9);border:1px solid rgba(0,105,92,0.12);}
-.lead-panel h3{font-size:24px;color:var(--text-h);margin-bottom:10px;}
-.lead-panel p{font-size:14px;color:var(--text-m);margin-bottom:18px;}
-.lead-feat{list-style:none;display:flex;flex-direction:column;gap:9px;}
-.lead-feat li{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--text-b);}
-.lead-feat .ck{color:var(--teal);font-weight:700;}
-.blur-row{display:flex;justify-content:space-between;font-size:13px;color:var(--text-b);padding:7px 0;border-bottom:1px solid rgba(21,101,192,0.08);}
-.blur-row:last-child{border:none;}
-.blurred{filter:blur(5px);user-select:none;color:var(--text-l);}
-.sample-box{background:rgba(255,255,255,0.75);border-radius:12px;padding:16px;margin-top:20px;border:1px solid rgba(21,101,192,0.1);}
-.sample-label{font-size:11px;color:var(--text-l);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;font-weight:600;}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+.svc-card {
+  background: white;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 34px 28px;
+  transition: all 0.35s;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.svc-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s;
+}
+.svc-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-gold);
+}
+.svc-card:hover::after { transform: scaleX(1); }
+.svc-icon {
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  background: var(--sky);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; margin-bottom: 20px;
+  transition: background 0.3s;
+}
+.svc-card:hover .svc-icon { background: var(--gold-pale); }
+.svc-card h3 { font-size: 20px; color: var(--navy); margin-bottom: 10px; }
+.svc-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; }
+.svc-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 18px; font-size: 13px; font-weight: 600;
+  color: var(--gold); font-family: 'Space Grotesk', sans-serif;
+  transition: gap 0.2s;
+}
+.svc-card:hover .svc-link { gap: 10px; }
 
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-.plan{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:30px 22px;position:relative;transition:all 0.3s;box-shadow:var(--shadow-sm);}
-.plan.popular{border:2px solid var(--blue-deep);box-shadow:var(--shadow-lg);transform:translateY(-6px);}
-.pop-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--blue-deep),var(--blue-mid));color:#fff;padding:4px 20px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap;}
-.plan-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue-deep);margin-bottom:6px;}
-.plan-for{font-size:11px;color:var(--text-l);margin-bottom:14px;line-height:1.5;}
-.plan-orig{font-size:13px;color:var(--text-l);text-decoration:line-through;margin-bottom:3px;}
-.plan-price{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--text-h);line-height:1;margin-bottom:3px;}
-.plan-price sub{font-size:13px;font-family:'Outfit',sans-serif;color:var(--text-l);font-weight:400;}
-.plan-save{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:18px;}
-.plan-sep{height:1px;background:var(--border-l);margin:16px 0;}
-.plan-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
-.plan-feats li{font-size:12.5px;color:var(--text-m);display:flex;align-items:flex-start;gap:7px;line-height:1.45;}
-.pf-ok{color:var(--teal);flex-shrink:0;font-size:12px;margin-top:1px;}
-.pf-no{color:var(--text-l);flex-shrink:0;font-size:12px;margin-top:1px;}
-.pf-dim{color:var(--text-l)!important;}
-.plan-btn{width:100%;padding:12px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all 0.2s;font-family:'Outfit',sans-serif;}
-.plan-btn-blue{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));color:#fff;box-shadow:0 4px 14px rgba(21,101,192,0.25);}
-.plan-btn-blue:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(21,101,192,0.35);}
-.plan-btn-outline{background:transparent;border:1.5px solid var(--border)!important;color:var(--text-b);}
-.plan-btn-outline:hover{background:var(--blue-pale);border-color:var(--blue-mid)!important;color:var(--blue-deep);}
+/* ── LEADS PREVIEW ── */
+.leads-section { background: var(--navy); }
+.leads-section .section-head h2 { color: white; }
+.leads-section .section-head p { color: rgba(255,255,255,0.6); }
+.leads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 0; }
+.lead-showcase {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  position: relative; overflow: hidden;
+}
+.lead-showcase::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+}
+.lead-showcase h3 { font-size: 22px; color: white; margin-bottom: 8px; }
+.lead-showcase p { font-size: 13.5px; color: rgba(255,255,255,0.5); margin-bottom: 22px; }
+.lead-table { width: 100%; }
+.lead-table-head {
+  display: grid; grid-template-columns: 2fr 1.5fr 1fr;
+  font-size: 10px; font-weight: 700;
+  color: var(--gold); letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 0 0 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.lead-row-grid {
+  display: grid; grid-template-columns: 2fr 1.5fr 1fr;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px;
+  align-items: center;
+}
+.lead-row-grid:last-child { border: none; }
+.lr-name { color: white; font-weight: 500; }
+.lr-prod { color: rgba(255,255,255,0.5); font-size: 12px; }
+.lr-blurred { filter: blur(5px); color: rgba(255,255,255,0.4); user-select: none; font-size: 12px; }
+.lead-cta-strip {
+  background: rgba(212,160,23,0.1);
+  border: 1px solid rgba(212,160,23,0.2);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-top: 18px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.lead-cta-strip p { font-size: 13px; color: rgba(255,255,255,0.7); }
+.lead-cta-strip a {
+  font-size: 12px; font-weight: 700; color: var(--gold-light);
+  font-family: 'Space Grotesk', sans-serif;
+  white-space: nowrap;
+}
 
-.testimonial-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;}
-.video-container{border-radius:var(--radius-lg);overflow:hidden;box-shadow:0 24px 64px rgba(13,27,62,0.22);position:relative;background:#0d1b3e;aspect-ratio:16/9;}
-.video-container video{width:100%;height:100%;object-fit:cover;}
-.video-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(13,27,62,0.38);transition:all 0.3s;cursor:pointer;}
-.video-overlay:hover{background:rgba(13,27,62,0.18);}
-.play-btn{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(0,0,0,0.28);transition:all 0.25s;}
-.play-btn:hover{transform:scale(1.1);}
-.play-btn svg{width:28px;height:28px;margin-left:4px;fill:var(--blue-deep);}
-.t-quote{font-family:'Cormorant Garamond',serif;font-size:21px;font-style:italic;color:var(--text-h);line-height:1.6;position:relative;padding-left:26px;margin-bottom:18px;}
-.t-quote::before{content:'"';position:absolute;left:0;top:-8px;font-size:60px;color:var(--blue-pale);font-family:'Cormorant Garamond',serif;line-height:1;}
-.t-person{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
-.t-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--blue-pale),var(--purple-pale));display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--blue-deep);}
-.t-name{font-size:15px;font-weight:600;color:var(--text-h);}
-.t-role{font-size:13px;color:var(--text-m);}
-.t-stars{color:#F9A825;font-size:16px;margin-top:3px;}
-.t-highlights{display:flex;flex-direction:column;gap:12px;}
-.t-hi{display:flex;align-items:flex-start;gap:12px;background:var(--surface2);border-radius:var(--radius);padding:13px 15px;border:1px solid var(--border-l);}
-.t-hi-icon{font-size:18px;flex-shrink:0;}
-.t-hi p{font-size:13px;color:var(--text-m);line-height:1.6;}
+/* ── MEMBERSHIP PREVIEW ── */
+.membership-light { background: var(--cream); }
+.plans-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 0;
+}
+.plan-card {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 20px;
+  padding: 28px 22px;
+  position: relative;
+  transition: all 0.3s;
+}
+.plan-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-mid); }
+.plan-card.featured {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-gold);
+}
+.plan-star {
+  position: absolute; top: -13px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  color: white;
+  padding: 4px 20px; border-radius: 100px;
+  font-size: 10.5px; font-weight: 700;
+  white-space: nowrap;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.plan-tier {
+  font-size: 11px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--gold);
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 4px;
+}
+.plan-desc { font-size: 11.5px; color: var(--text-light); margin-bottom: 16px; line-height: 1.5; }
+.plan-price-wrap { margin-bottom: 18px; }
+.plan-orig { font-size: 12px; color: var(--text-light); text-decoration: line-through; }
+.plan-price { font-size: 38px; color: var(--navy); font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1; }
+.plan-price sub { font-size: 14px; color: var(--text-light); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; }
+.plan-save { font-size: 11.5px; color: #1D7A3A; font-weight: 600; margin-top: 3px; }
+.plan-divider { height: 1px; background: var(--border-soft); margin: 14px 0; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+.plan-features li {
+  font-size: 12px; color: var(--text-body);
+  display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+}
+.pf-yes { color: #1D7A3A; font-size: 11px; margin-top: 1px; flex-shrink: 0; font-weight: 700; }
+.pf-no { color: #CBD5E0; font-size: 11px; margin-top: 1px; flex-shrink: 0; font-weight: 700; }
+.pf-dim { color: var(--text-light); }
+.plan-btn-wrap { width: 100%; }
+.plan-card .btn-primary, .plan-card .btn-gold { width: 100%; justify-content: center; padding: 12px 20px; }
 
-.rm-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
-.rm-features{display:flex;flex-direction:column;gap:20px;margin-top:28px;}
-.rm-feat{display:flex;align-items:flex-start;gap:16px;}
-.rm-icon{width:46px;height:46px;border-radius:12px;background:var(--blue-pale);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.rm-feat h4{font-size:15px;color:var(--text-h);margin-bottom:4px;}
-.rm-feat p{font-size:13px;color:var(--text-m);}
-.rm-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:34px;box-shadow:var(--shadow-lg);}
-.rm-avatar-row{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
-.rm-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;}
-.rm-avatar-row h4{font-size:17px;color:var(--text-h);}
-.rm-avatar-row p{font-size:13px;color:var(--text-m);}
-.rm-vbadge{background:var(--teal-lt);color:var(--teal);padding:2px 10px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block;margin-top:4px;}
-.rm-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.rm-stat{background:var(--bg2);border-radius:10px;padding:12px;text-align:center;}
-.rm-stat strong{display:block;font-size:22px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);}
-.rm-stat span{font-size:11px;color:var(--text-l);}
-.rm-quote{border-left:3px solid var(--blue-mid);background:var(--bg2);border-radius:0 10px 10px 0;padding:14px 16px;font-size:13.5px;color:var(--text-m);font-style:italic;line-height:1.7;}
+/* ── PROCESS SECTION ── */
+.process-section { background: white; }
+.process-steps {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  position: relative; margin-top: 0;
+}
+.process-steps::before {
+  content: '';
+  position: absolute; top: 32px; left: calc(12.5% + 16px); right: calc(12.5% + 16px);
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright), var(--gold));
+  z-index: 0;
+}
+.process-step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+.step-num {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 700;
+  color: var(--gold);
+  margin: 0 auto 18px;
+  box-shadow: 0 4px 16px rgba(212,160,23,0.15);
+}
+.process-step h4 { font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+.process-step p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
 
-.bizcard-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
-.virtual-card{background:linear-gradient(135deg,#0D1B3E 0%,#1B3A5C 50%,#1565C0 100%);border-radius:22px;padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(13,27,62,0.3);}
-.vc-shine{position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(66,165,245,0.2) 0%,transparent 70%);pointer-events:none;}
-.vc-brand{font-size:12px;color:rgba(255,255,255,0.55);letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
-.vc-name{font-family:'Cormorant Garamond',serif;font-size:28px;color:#fff;margin-bottom:4px;}
-.vc-role{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:28px;}
-.vc-rows{display:flex;flex-direction:column;gap:11px;}
-.vc-row{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.75);}
-.vc-row strong{font-size:10px;color:var(--blue-light);width:60px;flex-shrink:0;text-transform:uppercase;letter-spacing:0.5px;}
-.vc-socials{display:flex;gap:10px;margin-top:24px;}
-.vc-s{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:7px 14px;border-radius:100px;font-size:12px;cursor:pointer;transition:all 0.2s;}
-.vc-s:hover{background:rgba(66,165,245,0.2);}
-.vc-qr{position:absolute;bottom:24px;right:24px;width:56px;height:56px;background:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:7px;color:var(--text-m);text-align:center;line-height:1.4;}
-.bc-feats{display:flex;flex-direction:column;gap:18px;}
-.bc-feat{display:flex;align-items:flex-start;gap:14px;}
-.bc-dot{width:8px;height:8px;border-radius:50%;background:var(--blue-mid);flex-shrink:0;margin-top:7px;}
-.bc-feat h4{font-size:15px;color:var(--text-h);margin-bottom:4px;}
-.bc-feat p{font-size:13px;color:var(--text-m);}
+/* ── TESTIMONIALS ── */
+.testimonials-section { background: var(--sky); }
+.testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.testi-card {
+  background: white; border-radius: var(--radius-lg);
+  padding: 32px; box-shadow: var(--shadow-soft);
+  border: 1px solid var(--border-soft);
+  position: relative;
+}
+.testi-quote {
+  font-size: 42px; line-height: 1; color: var(--gold);
+  font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 12px;
+}
+.testi-text { font-size: 14.5px; color: var(--text-body); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--sky), var(--sky-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 16px; color: var(--navy);
+  flex-shrink: 0;
+}
+.testi-name { font-size: 14px; font-weight: 600; color: var(--navy); }
+.testi-role { font-size: 12px; color: var(--text-light); }
+.testi-stars { color: var(--gold-bright); font-size: 13px; margin-bottom: 12px; }
 
-.seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-.seo-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-sm);transition:all 0.3s;}
-.seo-card.hl{border:2px solid var(--blue-mid);}
-.seo-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
-.seo-card h3{font-size:19px;color:var(--text-h);margin-bottom:10px;}
-.seo-card p{font-size:13px;color:var(--text-m);margin-bottom:16px;}
-.seo-price{font-size:26px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);margin-bottom:4px;}
-.seo-price span{font-size:13px;color:var(--text-l);font-family:'Outfit',sans-serif;}
-.seo-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.seo-list li{font-size:13px;color:var(--text-m);display:flex;align-items:center;gap:8px;}
-.seo-list li::before{content:'→';color:var(--blue-mid);font-weight:700;}
+/* ── WHY CHOOSE US ── */
+.why-section {}
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.why-image-block { position: relative; }
+.why-img-main {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.why-img-main img { width: 100%; height: 380px; object-fit: cover; display: block; }
+.why-float-stat {
+  position: absolute; bottom: -18px; right: -18px;
+  background: white; border-radius: 18px;
+  padding: 18px 22px;
+  box-shadow: var(--shadow-mid);
+  text-align: center;
+}
+.why-features { display: flex; flex-direction: column; gap: 20px; }
+.why-feat-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 18px; border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  background: white;
+  transition: all 0.3s;
+}
+.why-feat-item:hover { border-color: var(--border-gold); box-shadow: var(--shadow-soft); }
+.why-feat-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: var(--gold-pale); display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.why-feat-item h4 { font-size: 15px; color: var(--navy); margin-bottom: 4px; }
+.why-feat-item p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
 
-.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-.cat-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius);padding:22px 16px;text-align:center;cursor:pointer;transition:all 0.3s;box-shadow:var(--shadow-sm);}
-.cat-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--blue-mid);}
-.cat-icon{font-size:32px;margin-bottom:12px;}
-.cat-card h4{font-size:14px;color:var(--text-h);margin-bottom:5px;}
-.cat-card p{font-size:12px;color:var(--text-l);}
-.cat-tags{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-top:10px;}
-.cat-tags span{background:var(--surface2);color:var(--text-m);padding:2px 8px;border-radius:100px;font-size:10px;}
+/* ── CTA BANNER ── */
+.cta-banner {
+  position: relative; z-index: 2;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid), var(--slate));
+  padding: 80px 4%;
+  overflow: hidden;
+}
+.cta-banner::before {
+  content: '';
+  position: absolute; top: -50%; right: -10%;
+  width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,160,23,0.12), transparent 70%);
+  pointer-events: none;
+}
+.cta-inner {
+  max-width: 700px; margin: 0 auto; text-align: center;
+  position: relative; z-index: 1;
+}
+.cta-inner h2 { font-size: clamp(32px, 4vw, 52px); color: white; margin-bottom: 16px; }
+.cta-inner p { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 36px; line-height: 1.8; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
-.mlm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-.mlm-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:28px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;}
-.mlm-card.hl{border:2px solid var(--blue-mid);box-shadow:var(--shadow-md);}
-.mlm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
-.mlm-icon{font-size:38px;margin-bottom:12px;}
-.mlm-card h3{font-size:18px;color:var(--text-h);margin-bottom:8px;}
-.mlm-card p{font-size:13px;color:var(--text-m);margin-bottom:16px;}
-.mlm-earn{background:var(--bg2);border-radius:10px;padding:14px;}
-.mlm-earn strong{display:block;font-size:30px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);}
-.mlm-earn span{font-size:12px;color:var(--text-l);}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-@media(max-width:960px){
-  .hero-inner,.rm-grid,.bizcard-grid,.leads-duo,.testimonial-wrap{grid-template-columns:1fr;}
-  .svc-grid,.pricing-grid,.mlm-grid,.seo-grid{grid-template-columns:1fr 1fr;}
-  .cat-grid{grid-template-columns:repeat(2,1fr);}
-  .img-strip{grid-template-columns:1fr 1fr;}
-  .hero h1{font-size:40px;}
-  .plan.popular{transform:none;}
+@media (max-width: 1024px) {
+  .hero-grid, .why-grid { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .plans-preview-grid { grid-template-columns: 1fr 1fr; }
+  .leads-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .process-steps::before { display: none; }
+  .stats-inner { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .plans-preview-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .process-steps { grid-template-columns: 1fr; }
+  .stat-item { border-right: none; border-bottom: 1px solid var(--border-soft); }
 }
 </style>
 </head>
 <body>
-<canvas id="bg-canvas"></canvas>
-<a href="https://wa.me/91XXXXXXXXXX" class="wa-float" title="Chat on WhatsApp">💬</a>
 
+<canvas id="bg-canvas"></canvas>
+<div class="page-overlay"></div>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/917XXXXXXXXX" class="wa-float" title="Chat on WhatsApp">💬</a>
+
+<!-- Navigation -->
 <nav>
-  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
+  <div class="logo">
+    <div class="logo-svg-wrap"></div>
+    <span class="logo-tagline">B2B Export &amp; Import<br>Platform</span>
+  </div>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
     <a href="services.html">Services</a>
@@ -212,443 +512,550 @@
     <a href="gst.html">GST Registration</a>
     <a href="contact.html">Contact</a>
     <a href="terms.html">T&amp;C</a>
-    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+    <a href="membership.html" class="nav-cta">Membership Plans →</a>
+  </div>
+  <div class="nav-burger">
+    <span></span><span></span><span></span>
   </div>
 </nav>
 
-<div class="ticker-wrap" style="margin-top:74px;">
+<div class="mobile-nav-overlay">
+  <a href="index.html">Home</a>
+  <a href="services.html">Services</a>
+  <a href="about.html">About Us</a>
+  <a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a>
+  <a href="terms.html">T&amp;C</a>
+  <a href="membership.html" class="nav-cta">Membership Plans →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-eyebrow">🇮🇳 India's B2B Export Platform</div>
+        <h1>
+          Connect with<br>
+          <span class="accent">Verified Global</span>
+          <span class="line2">Buyers. Grow Fast.</span>
+        </h1>
+        <p class="hero-sub">BuyGenix Solutions gives Indian exporters access to verified buyer leads, digital catalogues, dedicated relationship managers, and everything needed to win in global trade.</p>
+        <div class="hero-btns">
+          <a href="membership.html" class="btn-gold">View Membership Plans →</a>
+          <a href="contact.html" class="btn-outline">Talk to Our Team</a>
+        </div>
+        <div class="hero-trust">
+          <div class="trust-avatars">
+            <span>AR</span><span>SK</span><span>PM</span><span>RJ</span><span>+</span>
+          </div>
+          <p class="trust-text"><strong>1,000+ exporters</strong> already growing with BuyGenix</p>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div style="position:relative;padding:20px;">
+          <!-- Float pills -->
+          <div class="hero-float-pill" style="position:absolute;top:-10px;right:0px;">
+            ✅ <span>Lead Verified</span>
+          </div>
+          <div class="hero-float-pill" style="position:absolute;bottom:10px;left:-20px;">
+            🌍 <span>50+ Countries</span>
+          </div>
+          <!-- Main card -->
+          <div class="hero-card-main tilt-card">
+            <div class="hero-card-badge">🔥 Live Buyer Leads</div>
+            <div class="hero-card-title">Active Buyers Sourcing Now</div>
+            <div class="hero-card-sub">Updated daily · Verified contacts</div>
+            <div class="lead-row">
+              <span>
+                <span class="lead-row-flag">🇺🇸</span>
+                <span class="lead-row-name">GlobalTrade LLC</span><br>
+                <span class="lead-row-cat">Organic Spices · New York</span>
+              </span>
+              <span class="lead-row-badge badge-hot">HOT</span>
+            </div>
+            <div class="lead-row">
+              <span>
+                <span class="lead-row-flag">🇦🇪</span>
+                <span class="lead-row-name">AlRashid Trading</span><br>
+                <span class="lead-row-cat">Textile Fabrics · Dubai</span>
+              </span>
+              <span class="lead-row-badge badge-new">NEW</span>
+            </div>
+            <div class="lead-row">
+              <span>
+                <span class="lead-row-flag">🇬🇧</span>
+                <span class="lead-row-name">BritImports Ltd.</span><br>
+                <span class="lead-row-cat">Engineering Goods · London</span>
+              </span>
+              <span class="lead-row-badge badge-verify">VERIFIED</span>
+            </div>
+            <div class="hero-card-footer">
+              <div class="hero-card-stat">
+                <strong>5,000+</strong>
+                <span>Buyer Profiles</span>
+              </div>
+              <div class="hero-card-stat">
+                <strong>50+</strong>
+                <span>Countries</span>
+              </div>
+              <div class="hero-card-stat">
+                <strong>98%</strong>
+                <span>Verified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
   <div class="ticker-track">
-    <span>&#127757; <strong>5,000+</strong> Verified Buyers</span><span class="ticker-sep">&#10022;</span>
-    <span>&#128230; <strong>200+</strong> Product Categories</span><span class="ticker-sep">&#10022;</span>
-    <span>&#127988; Indian Buyer Leads &#8212; Updated Monthly</span><span class="ticker-sep">&#10022;</span>
-    <span>&#127758; International Buyers from <strong>50+ Countries</strong></span><span class="ticker-sep">&#10022;</span>
-    <span>&#128179; Virtual Business Cards</span><span class="ticker-sep">&#10022;</span>
-    <span>&#128269; SEO &amp; SMO Services</span><span class="ticker-sep">&#10022;</span>
-    <span>&#128203; GST Registration Assistance</span><span class="ticker-sep">&#10022;</span>
-    <span>&#129309; Dedicated Relationship Manager</span><span class="ticker-sep">&#10022;</span>
-    <span>&#127757; <strong>5,000+</strong> Verified Buyers</span><span class="ticker-sep">&#10022;</span>
-    <span>&#128230; <strong>200+</strong> Product Categories</span><span class="ticker-sep">&#10022;</span>
-    <span>&#127988; Indian Buyer Leads &#8212; Updated Monthly</span><span class="ticker-sep">&#10022;</span>
-    <span>&#127758; International Buyers from <strong>50+ Countries</strong></span><span class="ticker-sep">&#10022;</span>
+    <span>🌐 <strong>50+</strong> Countries Covered</span>
+    <span>📋 <strong>5,000+</strong> Verified Buyer Profiles</span>
+    <span>🇮🇳 India-Based B2B Platform</span>
+    <span>💼 <strong>200+</strong> Product Categories</span>
+    <span>⭐ <strong>98%</strong> Member Satisfaction</span>
+    <span>🤝 Dedicated Relationship Manager</span>
+    <span>🔒 GST Registration Assistance</span>
+    <span>📊 Monthly Performance Reports</span>
+    <span>💳 Virtual Business Card Included</span>
+    <span>📢 Active Business Promotion</span>
+    <span>💰 3-Level Referral Programme</span>
+    <span>🌐 <strong>50+</strong> Countries Covered</span>
+    <span>📋 <strong>5,000+</strong> Verified Buyer Profiles</span>
+    <span>🇮🇳 India-Based B2B Platform</span>
+    <span>💼 <strong>200+</strong> Product Categories</span>
+    <span>⭐ <strong>98%</strong> Member Satisfaction</span>
+    <span>🤝 Dedicated Relationship Manager</span>
+    <span>🔒 GST Registration Assistance</span>
   </div>
 </div>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-badge">&#128674; India's Premier B2B Export-Import Platform</div>
-      <h1>Connect India to the<br><span class="grad">World's Markets</span></h1>
-      <p class="hero-sub">Verified buyer leads, dedicated relationship managers, professional catalogues and digital tools &#8212; everything your export business needs to grow globally.</p>
-      <div class="hero-btns">
-        <a href="membership.html" class="btn-primary">View Membership Plans</a>
-        <a href="services.html" class="btn-outline">Explore Services</a>
-      </div>
-      <div class="trust-bar">
-        <span class="trust-pill">&#127988; Made in India</span>
-        <span class="trust-pill">&#9989; Verified Buyers</span>
-        <span class="trust-pill">&#128274; Secure Platform</span>
-        <span class="trust-pill">&#128231; buygenixsolutions@gmail.com</span>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat" data-tilt><strong id="c1">0</strong><span>Active Buyers</span></div>
-        <div class="hero-stat" data-tilt><strong id="c2">0</strong><span>Countries Covered</span></div>
-        <div class="hero-stat" data-tilt><strong id="c3">0</strong><span>Product Categories</span></div>
-        <div class="hero-stat" data-tilt><strong id="c4">0</strong><span>% Satisfaction</span></div>
-      </div>
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="counter-val" data-count="5000" data-suffix="+">0</div>
+      <div class="counter-label">Verified Buyers</div>
     </div>
-    <div class="hero-img-montage">
-      <div class="montage-main">
-        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop" alt="Container port export shipping" loading="lazy">
-      </div>
-      <div class="montage-float"><strong>5,000+</strong><span>Verified Buyers</span></div>
-      <div class="montage-float2"><strong style="font-size:18px;font-family:'Cormorant Garamond',serif;color:var(--teal);">50+</strong><span style="font-size:11px;color:var(--text-l);">Countries</span></div>
+    <div class="stat-item reveal">
+      <div class="counter-val" data-count="50" data-suffix="+">0</div>
+      <div class="counter-label">Countries Covered</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="counter-val" data-count="200" data-suffix="+">0</div>
+      <div class="counter-label">Product Categories</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="counter-val" data-count="1000" data-suffix="+">0</div>
+      <div class="counter-label">Members Served</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="counter-val" data-count="98" data-suffix="%">0</div>
+      <div class="counter-label">Member Satisfaction</div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label reveal">Our Services</div>
+      <h2 class="reveal">Everything Your Export Business Needs</h2>
+      <p class="reveal">From buyer discovery to digital identity — one platform for your complete export growth journey.</p>
+    </div>
+    <div class="services-grid">
+      <a href="services.html#leads" class="svc-card tilt-card reveal">
+        <div class="svc-icon">📋</div>
+        <h3>Buyer Lead Generation</h3>
+        <p>Access verified Indian and international buyer leads with direct contacts, product requirements, and buying volumes across 50+ countries.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+      <a href="services.html#catalogue" class="svc-card tilt-card reveal">
+        <div class="svc-icon">🗂️</div>
+        <h3>Digital Product Catalogue</h3>
+        <p>Professional multi-level product catalogue with shareable links, QR codes, and embedded buyer enquiry forms for a lasting impression.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+      <a href="services.html#rm" class="svc-card tilt-card reveal">
+        <div class="svc-icon">🤝</div>
+        <h3>Dedicated Relationship Manager</h3>
+        <p>A real human RM who coordinates your leads, tracks your goals, and represents your business interests every month — not a chatbot.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+      <a href="services.html#promotion" class="svc-card tilt-card reveal">
+        <div class="svc-icon">📢</div>
+        <h3>Business Promotion</h3>
+        <p>Active promotion of your business to relevant buyers through our network, newsletters, and social media channels — up to weekly.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+      <a href="services.html#bizcard" class="svc-card tilt-card reveal">
+        <div class="svc-icon">💳</div>
+        <h3>Virtual Business Card</h3>
+        <p>Smart digital card shareable via WhatsApp, email, or QR code. Real-time updates — your contacts always have your latest information.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+      <a href="services.html#seo" class="svc-card tilt-card reveal">
+        <div class="svc-icon">🔍</div>
+        <h3>SEO &amp; Social Media</h3>
+        <p>Be found on Google and seen on social media. Our digital marketing service covers on-page SEO, GMB setup, Instagram and Facebook management.</p>
+        <span class="svc-link">Explore Service →</span>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:40px;" class="reveal">
+      <a href="services.html" class="btn-primary">View All Services →</a>
     </div>
   </div>
 </section>
 
-<section class="sec sec-white">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">What We Offer</span>
-      <h2>Complete B2B Growth Platform</h2>
-      <p>From buyer lead generation to digital identity &#8212; BuyGenix Solutions powers your entire export-import journey.</p>
+<!-- LEADS SHOWCASE -->
+<section class="section leads-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label dark reveal">Live Buyer Intelligence</div>
+      <h2 class="reveal">Real Buyers. Real Requirements. Real Results.</h2>
+      <p class="reveal" style="color:rgba(255,255,255,0.6);">Our database is updated monthly with fresh, verified buyer profiles. Members download leads in CSV/Excel and reach buyers directly.</p>
     </div>
-    <div class="svc-grid">
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#128203;</div><h3>Buy Leads</h3><p>Verified Indian &amp; international buyer contact details with product requirements, quantities, and buying frequency.</p><span class="svc-tag">Core Service</span></div>
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#128193;</div><h3>Catalogue Service</h3><p>Multi-level digital product catalogue with professional design and global sharing via shareable link and QR code.</p><span class="svc-tag">Digital Marketing</span></div>
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#129309;</div><h3>Relationship Manager</h3><p>Individual RM assigned throughout your membership for lead matching, support and proactive business promotion.</p><span class="svc-tag">Personal Support</span></div>
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#128226;</div><h3>Business Promotion</h3><p>Your profile proactively shared with relevant buyers for upcoming procurement requirements.</p><span class="svc-tag">Outreach</span></div>
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#128179;</div><h3>Virtual Business Card</h3><p>Smart digital business card with QR code, shareable link, and social media integration &#8212; always up to date.</p><span class="svc-tag">Brand Identity</span></div>
-      <div class="svc-card" data-tilt data-reveal onclick="location.href='services.html'"><div class="svc-icon">&#128269;</div><h3>SEO &amp; SMO</h3><p>Search engine and social media optimisation to increase digital visibility and attract buyers online organically.</p><span class="svc-tag">Digital Growth</span></div>
-    </div>
-    <div class="img-strip" data-reveal>
-      <div class="img-strip-item"><img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=400&q=75&auto=format&fit=crop" alt="International trade cargo" loading="lazy"><div class="img-strip-label">International Trade</div></div>
-      <div class="img-strip-item"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=75&auto=format&fit=crop" alt="Business deal" loading="lazy"><div class="img-strip-label">Buyer Connections</div></div>
-      <div class="img-strip-item"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=75&auto=format&fit=crop" alt="Digital marketing" loading="lazy"><div class="img-strip-label">Digital Growth</div></div>
-      <div class="img-strip-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=75&auto=format&fit=crop" alt="Business professional" loading="lazy"><div class="img-strip-label">Expert Support</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Lead Intelligence</span>
-      <h2>Indian &amp; International Buyer Leads</h2>
-      <p>Access a curated database of verified buyers actively sourcing products from India &#8212; domestic and global.</p>
-    </div>
-    <div class="leads-duo" data-reveal>
-      <div class="lead-panel indian">
-        <h3>&#127988; Indian Buyer Leads</h3>
-        <p>Domestic importers, distributors and bulk buyers across all major product categories in India.</p>
-        <ul class="lead-feat">
-          <li><span class="ck">&#10003;</span> Verified contact details (phone, email, WhatsApp)</li>
-          <li><span class="ck">&#10003;</span> Product requirement and buying frequency</li>
-          <li><span class="ck">&#10003;</span> City and state-wise filtering</li>
-          <li><span class="ck">&#10003;</span> Monthly buying volume indicators</li>
-          <li><span class="ck">&#10003;</span> Updated database &#8212; no outdated contacts</li>
-        </ul>
-        <div class="sample-box">
-          <div class="sample-label">Sample Preview (Members Only)</div>
-          <div class="blur-row"><span>Company</span><span class="blurred">Sharma Textiles Pvt Ltd</span></div>
-          <div class="blur-row"><span>Location</span><span class="blurred">Surat, Gujarat</span></div>
-          <div class="blur-row"><span>Product</span><span>Cotton Fabric &#8212; 5000 mtrs/mo</span></div>
-          <div class="blur-row"><span>Contact</span><span class="blurred">+91 98XXX XXXXX</span></div>
-        </div>
-      </div>
-      <div class="lead-panel intl">
-        <h3>&#127758; International Buyer Leads</h3>
-        <p>Overseas buyers and sourcing companies actively importing from India across 50+ countries.</p>
-        <ul class="lead-feat">
-          <li><span class="ck">&#10003;</span> Country-wise buyer profiles with company details</li>
-          <li><span class="ck">&#10003;</span> Company website and LinkedIn contact</li>
-          <li><span class="ck">&#10003;</span> Import volume and product categories</li>
-          <li><span class="ck">&#10003;</span> USA, UK, UAE, Europe, Southeast Asia coverage</li>
-          <li><span class="ck">&#10003;</span> Fresh leads added to database monthly</li>
-        </ul>
-        <div class="sample-box">
-          <div class="sample-label">Sample Preview (Members Only)</div>
-          <div class="blur-row"><span>Company</span><span class="blurred">Global Spice Imports LLC</span></div>
-          <div class="blur-row"><span>Country</span><span>USA &#127482;&#127480;</span></div>
-          <div class="blur-row"><span>Product</span><span>Organic Spices &#8212; Large Volume</span></div>
-          <div class="blur-row"><span>Contact</span><span class="blurred">contact@blur.com</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-white">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Membership Plans</span>
-      <h2>Plans for Every Scale of Business</h2>
-      <p>From startups to large enterprises &#8212; affordable annual plans designed for every stage of your export journey.</p>
-    </div>
-    <div class="pricing-grid" data-reveal>
-      <div class="plan" data-tilt>
-        <div class="plan-name">Starter</div>
-        <div class="plan-for">For startups &amp; first-time exporters</div>
-        <div class="plan-orig">&#8377;8,999/yr</div>
-        <div class="plan-price">&#8377;4,999<sub>+GST</sub></div>
-        <div class="plan-save">Save &#8377;4,000</div>
-        <div class="plan-sep"></div>
-        <ul class="plan-feats">
-          <li><span class="pf-ok">&#10003;</span> 15 Indian Buyer Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> Basic Catalogue (5 products)</li>
-          <li><span class="pf-ok">&#10003;</span> 1x Virtual Business Card</li>
-          <li><span class="pf-ok">&#10003;</span> Email Support</li>
-          <li class="pf-dim"><span class="pf-no">&#10007;</span> International Leads</li>
-          <li class="pf-dim"><span class="pf-no">&#10007;</span> Dedicated RM</li>
-        </ul>
-        <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
-      </div>
-      <div class="plan popular" data-tilt>
-        <div class="pop-badge">&#11088; Most Popular</div>
-        <div class="plan-name">Growth</div>
-        <div class="plan-for">For small &amp; medium exporters scaling up</div>
-        <div class="plan-orig">&#8377;24,999/yr</div>
-        <div class="plan-price">&#8377;12,999<sub>+GST</sub></div>
-        <div class="plan-save">Save &#8377;12,000</div>
-        <div class="plan-sep"></div>
-        <ul class="plan-feats">
-          <li><span class="pf-ok">&#10003;</span> 40 Indian Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> 15 International Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> Catalogue (20 products)</li>
-          <li><span class="pf-ok">&#10003;</span> Dedicated RM (Email + WhatsApp)</li>
-          <li><span class="pf-ok">&#10003;</span> Business Promotion (Quarterly)</li>
-          <li><span class="pf-ok">&#10003;</span> Basic SEO (on-page)</li>
-        </ul>
-        <button class="plan-btn plan-btn-blue" onclick="location.href='contact.html'">Get Started &#8594;</button>
-      </div>
-      <div class="plan" data-tilt>
-        <div class="plan-name">Professional</div>
-        <div class="plan-for">For established exporters wanting a complete suite</div>
-        <div class="plan-orig">&#8377;49,999/yr</div>
-        <div class="plan-price">&#8377;24,999<sub>+GST</sub></div>
-        <div class="plan-save">Save &#8377;25,000</div>
-        <div class="plan-sep"></div>
-        <ul class="plan-feats">
-          <li><span class="pf-ok">&#10003;</span> 80 Indian Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> 35 International Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> Catalogue (40 products)</li>
-          <li><span class="pf-ok">&#10003;</span> Priority RM (Phone + WhatsApp)</li>
-          <li><span class="pf-ok">&#10003;</span> SEO + SMO Package</li>
-          <li><span class="pf-ok">&#10003;</span> GST Registration Assistance</li>
-        </ul>
-        <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
-      </div>
-      <div class="plan" data-tilt>
-        <div class="plan-name">Enterprise</div>
-        <div class="plan-for">For large trading houses &amp; multi-category operations</div>
-        <div class="plan-orig">&#8377;89,999/yr</div>
-        <div class="plan-price">&#8377;44,999<sub>+GST</sub></div>
-        <div class="plan-save">Save &#8377;45,000</div>
-        <div class="plan-sep"></div>
-        <ul class="plan-feats">
-          <li><span class="pf-ok">&#10003;</span> Unlimited Indian Leads</li>
-          <li><span class="pf-ok">&#10003;</span> 80 International Leads/month</li>
-          <li><span class="pf-ok">&#10003;</span> Unlimited Catalogue products</li>
-          <li><span class="pf-ok">&#10003;</span> Senior RM &#8212; Priority 24x7</li>
-          <li><span class="pf-ok">&#10003;</span> Full SEO + SMO Strategy</li>
-          <li><span class="pf-ok">&#10003;</span> 5x Team Business Cards</li>
-        </ul>
-        <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
-      </div>
-    </div>
-    <p style="text-align:center;margin-top:18px;font-size:12px;color:var(--text-l);">All prices exclusive of 18% GST &#183; Annual billing &#183; Non-refundable after activation &#183; <a href="membership.html" style="color:var(--blue-mid);">Full comparison &#8594;</a></p>
-  </div>
-</section>
-
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Product Categories</span>
-      <h2>Multi-Level Product Catalogue</h2>
-      <p>Deep category structure covering all major Indian export verticals with professional presentation.</p>
-    </div>
-    <div class="cat-grid" data-reveal>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#128085;</div><h4>Textiles &amp; Apparel</h4><p>Garments, Fabric, Yarn</p><div class="cat-tags"><span>Woven</span><span>Knitted</span><span>Technical</span><span>Home</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#127807;</div><h4>Agriculture &amp; Food</h4><p>Spices, Grains, Pulses</p><div class="cat-tags"><span>Spices</span><span>Cereals</span><span>Organic</span><span>Processed</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#9881;&#65039;</div><h4>Engineering &amp; Metals</h4><p>Machinery, Auto Parts</p><div class="cat-tags"><span>Steel</span><span>Castings</span><span>Forgings</span><span>Machinery</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#128138;</div><h4>Pharma &amp; Chemicals</h4><p>APIs, Generics, Dyes</p><div class="cat-tags"><span>APIs</span><span>Formulations</span><span>Dyes</span><span>Agro</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#128142;</div><h4>Gems &amp; Jewellery</h4><p>Gold, Silver, Diamonds</p><div class="cat-tags"><span>Gold</span><span>Silver</span><span>Diamonds</span><span>Imitation</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#129717;</div><h4>Handicrafts &amp; Decor</h4><p>Wood, Brass, Handmade</p><div class="cat-tags"><span>Wooden</span><span>Brass</span><span>Handmade</span><span>Decor</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#128268;</div><h4>Electronics &amp; IT</h4><p>Consumer, Industrial</p><div class="cat-tags"><span>Consumer</span><span>Industrial</span><span>IT</span><span>LED</span></div></div>
-      <div class="cat-card" data-tilt><div class="cat-icon">&#129396;</div><h4>Beauty &amp; FMCG</h4><p>Cosmetics, Herbal</p><div class="cat-tags"><span>Cosmetics</span><span>Herbal</span><span>Packaged</span><span>Beverages</span></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-white">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Member Stories</span>
-      <h2>Hear from Our Members</h2>
-      <p>Real exporters sharing how BuyGenix Solutions transformed their buyer pipeline and business growth.</p>
-    </div>
-    <div class="testimonial-wrap" data-reveal>
-      <div class="video-container" id="videoWrap">
-        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&auto=format&fit=crop" alt="Member testimonial" id="videoThumb" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
-          <div class="play-btn">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <div class="leads-grid">
+      <div class="lead-showcase reveal-left">
+        <h3>🇮🇳 Indian Domestic Buyers</h3>
+        <p>Wholesalers, distributors, and manufacturers sourcing from Indian exporters</p>
+        <div class="lead-table">
+          <div class="lead-table-head">
+            <span>Buyer / Company</span>
+            <span>Product Needed</span>
+            <span>Contact</span>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Mehta Traders Pvt. Ltd.</div>
+              <div class="lr-prod">Mumbai, Maharashtra</div>
+            </div>
+            <div class="lr-prod">Organic Turmeric, 5MT/mo</div>
+            <div class="lr-blurred">+91 98XXX XXXXX</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Sunrise Exports Co.</div>
+              <div class="lr-prod">Surat, Gujarat</div>
+            </div>
+            <div class="lr-prod">Cotton Fabrics, 10,000m</div>
+            <div class="lr-blurred">+91 77XXX XXXXX</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Delhi Agro Foods Ltd.</div>
+              <div class="lr-prod">New Delhi</div>
+            </div>
+            <div class="lr-prod">Basmati Rice, 20MT/mo</div>
+            <div class="lr-blurred">+91 88XXX XXXXX</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Ganesh Engineering Works</div>
+              <div class="lr-prod">Ludhiana, Punjab</div>
+            </div>
+            <div class="lr-prod">Auto Components</div>
+            <div class="lr-blurred">+91 70XXX XXXXX</div>
           </div>
         </div>
-        <video id="testimonialVideo" style="display:none;width:100%;height:100%;object-fit:cover;" controls>
-          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
-        </video>
+        <div class="lead-cta-strip">
+          <p>🔒 Full contacts available to members</p>
+          <a href="membership.html">Unlock Leads →</a>
+        </div>
       </div>
-      <div>
-        <p class="t-quote">Within just 3 months of joining BuyGenix Solutions on the Growth plan, I received 12 genuine international buyer enquiries. My dedicated RM was incredibly proactive. I finally feel like I have a real business partner in my export journey.</p>
-        <div class="t-person">
-          <div class="t-avatar">PM</div>
+      <div class="lead-showcase reveal-right">
+        <h3>🌍 International Buyers — 50+ Countries</h3>
+        <p>Global importers actively sourcing products from India</p>
+        <div class="lead-table">
+          <div class="lead-table-head">
+            <span>Buyer / Company</span>
+            <span>Product Needed</span>
+            <span>Country</span>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">NaturePure LLC</div>
+              <div class="lr-prod">Health &amp; Wellness</div>
+            </div>
+            <div class="lr-prod">Ayurvedic Herbs, 500kg/mo</div>
+            <div class="lr-prod" style="color:var(--gold-light);">🇺🇸 USA</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Khaleeji Stores FZE</div>
+              <div class="lr-prod">Retail &amp; FMCG</div>
+            </div>
+            <div class="lr-prod">Packaged Spices, 2MT/mo</div>
+            <div class="lr-prod" style="color:var(--gold-light);">🇦🇪 UAE</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">EuroTextile GmbH</div>
+              <div class="lr-prod">Fashion &amp; Fabric</div>
+            </div>
+            <div class="lr-prod">Silk Garments, 3000 pcs</div>
+            <div class="lr-prod" style="color:var(--gold-light);">🇩🇪 Germany</div>
+          </div>
+          <div class="lead-row-grid">
+            <div>
+              <div class="lr-name">Pacific Metals Pty</div>
+              <div class="lr-prod">Industrial Goods</div>
+            </div>
+            <div class="lr-prod">Brass Fittings, 50MT/yr</div>
+            <div class="lr-prod" style="color:var(--gold-light);">🇦🇺 Australia</div>
+          </div>
+        </div>
+        <div class="lead-cta-strip">
+          <p>🌐 Available on Growth plan and above</p>
+          <a href="membership.html">See Plans →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIP PREVIEW -->
+<section class="section membership-light">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label reveal">Membership Plans</div>
+      <h2 class="reveal">Built for Every Stage of Your Export Journey</h2>
+      <p class="reveal">From first-time exporters to established trading houses — choose the plan that fits your scale, budget, and ambitions.</p>
+    </div>
+    <div class="plans-preview-grid">
+      <div class="plan-card reveal tilt-card">
+        <div class="plan-tier">Starter</div>
+        <div class="plan-desc">First-time exporters &amp; startups exploring global trade</div>
+        <div class="plan-price-wrap">
+          <div class="plan-orig">₹8,999/year</div>
+          <div class="plan-price">₹4,999<sub>+GST</sub></div>
+          <div class="plan-save">Save ₹4,000 · Launch Offer</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="pf-yes">✓</span> 15 Indian Buyer Leads/mo</li>
+          <li><span class="pf-yes">✓</span> 5-Product Catalogue</li>
+          <li><span class="pf-yes">✓</span> Virtual Business Card</li>
+          <li><span class="pf-yes">✓</span> Platform Access (1yr)</li>
+          <li><span class="pf-no">✗</span> <span class="pf-dim">International Leads</span></li>
+          <li><span class="pf-no">✗</span> <span class="pf-dim">Dedicated RM</span></li>
+        </ul>
+        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
+      </div>
+      <div class="plan-card featured reveal tilt-card">
+        <div class="plan-star">⭐ Most Popular</div>
+        <div class="plan-tier">Growth</div>
+        <div class="plan-desc">Small &amp; medium exporters ready to scale their buyer network</div>
+        <div class="plan-price-wrap">
+          <div class="plan-orig">₹24,999/year</div>
+          <div class="plan-price">₹12,999<sub>+GST</sub></div>
+          <div class="plan-save">Save ₹12,000 · Best Value 🔥</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="pf-yes">✓</span> 40 Indian + 15 Intl Leads/mo</li>
+          <li><span class="pf-yes">✓</span> 20-Product Catalogue</li>
+          <li><span class="pf-yes">✓</span> Dedicated RM (Email+WhatsApp)</li>
+          <li><span class="pf-yes">✓</span> Business Promotion (Quarterly)</li>
+          <li><span class="pf-yes">✓</span> Monthly Performance Report</li>
+          <li><span class="pf-yes">✓</span> Basic SEO</li>
+        </ul>
+        <a href="contact.html" class="btn-gold plan-btn-wrap">Choose Growth →</a>
+      </div>
+      <div class="plan-card reveal tilt-card">
+        <div class="plan-tier">Professional</div>
+        <div class="plan-desc">Established exporters who want full digital presence and lead flow</div>
+        <div class="plan-price-wrap">
+          <div class="plan-orig">₹49,999/year</div>
+          <div class="plan-price">₹24,999<sub>+GST</sub></div>
+          <div class="plan-save">Save ₹25,000</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="pf-yes">✓</span> 80 Indian + 35 Intl Leads/mo</li>
+          <li><span class="pf-yes">✓</span> 40-Product Catalogue</li>
+          <li><span class="pf-yes">✓</span> Priority RM (Phone+WhatsApp)</li>
+          <li><span class="pf-yes">✓</span> Monthly Promotion</li>
+          <li><span class="pf-yes">✓</span> Full SEO + SMO Included</li>
+          <li><span class="pf-yes">✓</span> GST Registration Included</li>
+        </ul>
+        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
+      </div>
+      <div class="plan-card reveal tilt-card">
+        <div class="plan-tier">Enterprise</div>
+        <div class="plan-desc">Large exporters &amp; trading houses needing maximum coverage</div>
+        <div class="plan-price-wrap">
+          <div class="plan-orig">₹89,999/year</div>
+          <div class="plan-price">₹44,999<sub>+GST</sub></div>
+          <div class="plan-save">Save ₹45,000</div>
+        </div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li><span class="pf-yes">✓</span> Unlimited Indian + 80 Intl Leads</li>
+          <li><span class="pf-yes">✓</span> Unlimited Product Catalogue</li>
+          <li><span class="pf-yes">✓</span> Senior Priority RM</li>
+          <li><span class="pf-yes">✓</span> Weekly Promotion</li>
+          <li><span class="pf-yes">✓</span> Full SEO Strategy + 5 Cards</li>
+          <li><span class="pf-yes">✓</span> Monthly Strategy Call</li>
+        </ul>
+        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px;" class="reveal">
+      <a href="membership.html" class="btn-primary">Compare All Plans in Detail →</a>
+      <p style="margin-top:12px;font-size:12px;color:var(--text-light);">All prices exclude 18% GST · Annual billing only · 12-month access</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section process-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label reveal">How It Works</div>
+      <h2 class="reveal">From Sign-Up to First Buyer Contact in 48 Hours</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="step-num">1</div>
+        <h4>Choose Your Plan</h4>
+        <p>Select the membership that fits your export stage and business goals. Contact our team if you need guidance.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">2</div>
+        <h4>Activate &amp; Onboard</h4>
+        <p>Membership activates within 24 hours of payment. Your dedicated RM completes onboarding within 48 hours.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">3</div>
+        <h4>Access Buyer Leads</h4>
+        <p>Download your monthly lead batch in CSV/Excel format. Reach out to verified buyers directly using their contact details.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-num">4</div>
+        <h4>Grow with Support</h4>
+        <p>Your RM tracks results, your catalogue gets promoted, and your business grows month after month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label reveal">Member Stories</div>
+      <h2 class="reveal">Exporters Thriving with BuyGenix</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card tilt-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">Within two months of joining BuyGenix on the Growth plan, I had connected with three international buyers from the UAE and Germany. The leads were genuinely verified — not the usual junk lists.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RS</div>
           <div>
-            <div class="t-name">Priya Mehta</div>
-            <div class="t-role">Director &#8212; Mehta Spice Exports, Ahmedabad</div>
-            <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div class="testi-name">Rajesh Sharma</div>
+            <div class="testi-role">Spice Exporter · Rajasthan</div>
           </div>
         </div>
-        <div class="t-highlights">
-          <div class="t-hi"><span class="t-hi-icon">&#127919;</span><p><strong>12 buyer enquiries</strong> received within 3 months of Growth plan activation.</p></div>
-          <div class="t-hi"><span class="t-hi-icon">&#127758;</span><p><strong>3 international deals</strong> closed with buyers from UAE, UK and Singapore.</p></div>
-          <div class="t-hi"><span class="t-hi-icon">&#128176;</span><p><strong>Membership ROI achieved</strong> within the first month. Exceptional value for a small business.</p></div>
+      </div>
+      <div class="testi-card tilt-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">My RM helped me rewrite my product descriptions and set up my catalogue. I had no idea how professional it would look. Buyers actually started contacting me through the catalogue link.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">PP</div>
+          <div>
+            <div class="testi-name">Priya Patel</div>
+            <div class="testi-role">Textile Manufacturer · Surat</div>
+          </div>
         </div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
-          <a href="membership.html" class="btn-primary">Start Your Journey &#8594;</a>
-          <a href="contact.html" class="btn-outline">Talk to Us First</a>
+      </div>
+      <div class="testi-card tilt-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p class="testi-text">I was sceptical at first, but the referral programme alone has earned me ₹18,000 in commissions in 6 months. Plus the leads are great — I've closed two orders from US buyers already.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AK</div>
+          <div>
+            <div class="testi-name">Anil Kumar</div>
+            <div class="testi-role">Agricultural Exporter · Punjab</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="rm-grid" data-reveal>
-      <div>
-        <span class="badge">Dedicated Support</span>
-        <h2>Your Personal Relationship Manager</h2>
-        <p style="font-size:16px;color:var(--text-m);margin-top:12px;">Every BuyGenix member gets an individual RM who works as your export growth partner throughout the entire membership period.</p>
-        <div class="rm-features">
-          <div class="rm-feat"><div class="rm-icon">&#128222;</div><div><h4>Onboarding &amp; Setup</h4><p>Complete setup of your profile, catalogue, and digital business card from day one.</p></div></div>
-          <div class="rm-feat"><div class="rm-icon">&#127919;</div><div><h4>Proactive Lead Matching</h4><p>Your RM actively identifies buyers matching your products and makes warm introductions.</p></div></div>
-          <div class="rm-feat"><div class="rm-icon">&#128226;</div><div><h4>Business Sharing</h4><p>Your details proactively shared with relevant buyers for upcoming procurement needs.</p></div></div>
-          <div class="rm-feat"><div class="rm-icon">&#128202;</div><div><h4>Monthly Reports</h4><p>Regular updates on lead activity, catalogue views, and buyer interest metrics.</p></div></div>
-        </div>
-      </div>
-      <div>
-        <div class="rm-card" data-tilt>
-          <div class="rm-avatar-row">
-            <div class="rm-avatar">RS</div>
-            <div><h4>Rahul Sharma</h4><p>Your Relationship Manager</p><span class="rm-vbadge">&#10003; Verified Expert</span></div>
-          </div>
-          <div class="rm-stats-row">
-            <div class="rm-stat"><strong>48</strong><span>Clients</span></div>
-            <div class="rm-stat"><strong>4.9&#9733;</strong><span>Rating</span></div>
-            <div class="rm-stat"><strong>3 Yrs</strong><span>Experience</span></div>
-          </div>
-          <div class="rm-quote">"I am personally committed to helping your business connect with the right buyers. Your success is my mission throughout your membership."</div>
-          <button class="btn-primary" style="width:100%;margin-top:20px;padding:12px;display:block;text-align:center;border:none;" onclick="location.href='contact.html'">Request Your RM &#8594;</button>
-        </div>
-      </div>
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <div class="cta-inner reveal">
+    <div class="section-label dark" style="margin-bottom:16px;">Start Today</div>
+    <h2>Ready to Find Your Next Global Buyer?</h2>
+    <p>Join 1,000+ Indian exporters already using BuyGenix Solutions to discover verified buyers, build their digital presence, and grow globally.</p>
+    <div class="cta-btns">
+      <a href="membership.html" class="btn-gold">View Membership Plans →</a>
+      <a href="contact.html" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white;">Talk to Our Team</a>
     </div>
   </div>
-</section>
+</div>
 
-<section class="sec sec-white">
-  <div class="sec-inner">
-    <div class="bizcard-grid" data-reveal>
-      <div>
-        <span class="badge">Digital Identity</span>
-        <h2>Virtual Business Card</h2>
-        <p style="font-size:16px;color:var(--text-m);margin-top:12px;margin-bottom:28px;">A smart digital card that replaces paper. Share via WhatsApp, email or QR code &#8212; your contact always has your latest information.</p>
-        <div class="bc-feats">
-          <div class="bc-feat"><div class="bc-dot"></div><div><h4>Shareable Link &amp; QR Code</h4><p>Share via WhatsApp, email, or print the QR on packaging and invoices.</p></div></div>
-          <div class="bc-feat"><div class="bc-dot"></div><div><h4>Always Up to Date</h4><p>Change your contact details any time &#8212; all shared cards update instantly.</p></div></div>
-          <div class="bc-feat"><div class="bc-dot"></div><div><h4>Social Media Integration</h4><p>Links to Instagram @buygenixsolutions, Facebook, WhatsApp Business, and LinkedIn.</p></div></div>
-          <div class="bc-feat"><div class="bc-dot"></div><div><h4>Professional Brand Look</h4><p>Custom designed with your logo, brand colours and product category showcase.</p></div></div>
-        </div>
-      </div>
-      <div>
-        <div class="virtual-card" data-tilt>
-          <div class="vc-shine"></div>
-          <div class="vc-brand">BuyGenix Solutions Member</div>
-          <div class="vc-name">Rajesh Kumar</div>
-          <div class="vc-role">Export Manager &#183; Member Since 2024</div>
-          <div class="vc-rows">
-            <div class="vc-row"><strong>Email</strong><span>rajesh@company.com</span></div>
-            <div class="vc-row"><strong>Phone</strong><span>+91 98765 43210</span></div>
-            <div class="vc-row"><strong>City</strong><span>New Delhi, India</span></div>
-            <div class="vc-row"><strong>Exports</strong><span>Handicrafts, Textiles</span></div>
-          </div>
-          <div class="vc-socials">
-            <div class="vc-s">&#128247; Instagram</div>
-            <div class="vc-s">&#128216; Facebook</div>
-            <div class="vc-s">&#128172; WhatsApp</div>
-          </div>
-          <div class="vc-qr">QR Code</div>
-        </div>
-        <p style="text-align:center;font-size:12px;color:var(--text-l);margin-top:12px;">Sample Virtual Business Card</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-alt">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Digital Growth</span>
-      <h2>SEO &amp; Social Media Optimisation</h2>
-      <p>Be found by buyers searching for your products online. We manage your entire digital presence.</p>
-    </div>
-    <div class="seo-grid" data-reveal>
-      <div class="seo-card" data-tilt><h3>&#128269; SEO Package</h3><p>On-page and off-page search engine optimisation to rank on Google when buyers search your products.</p><div class="seo-price">&#8377;6,999<span>/month</span></div><ul class="seo-list"><li>Keyword research &amp; mapping</li><li>On-page optimisation (meta, headers)</li><li>Google My Business setup</li><li>Monthly performance report</li><li>5 target keywords</li></ul></div>
-      <div class="seo-card hl" data-tilt><h3>&#128241; SMO Package</h3><p>Instagram &amp; Facebook management to build brand awareness and attract buyers via social media channels.</p><div class="seo-price">&#8377;5,999<span>/month</span></div><ul class="seo-list"><li>Instagram + Facebook management</li><li>10 designed posts per month</li><li>BuyGenix brand integration</li><li>Engagement growth strategy</li><li>Monthly analytics report</li></ul></div>
-      <div class="seo-card" data-tilt><h3>&#128640; SEO + SMO Bundle</h3><p>Complete digital marketing combo &#8212; rank on Google and grow social media simultaneously.</p><div class="seo-price">&#8377;10,999<span>/month</span></div><ul class="seo-list"><li>Everything in SEO + SMO</li><li>14 social posts/month</li><li>Priority execution</li><li>Weekly review call</li><li>Save &#8377;1,999 vs separate</li></ul></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec sec-white">
-  <div class="sec-inner">
-    <div class="sec-head" data-reveal>
-      <span class="badge">Referral Programme</span>
-      <h2>Earn by Referring Businesses</h2>
-      <p>Refer businesses to BuyGenix and earn commission on every membership sold &#8212; up to 3 levels deep.</p>
-    </div>
-    <div class="mlm-grid" data-reveal>
-      <div class="mlm-card" data-tilt><div class="mlm-icon">&#129351;</div><h3>Level 1 &#8212; Direct</h3><p>You refer a business that purchases any plan. Earn commission on their membership value.</p><div class="mlm-earn"><strong>15%</strong><span>of membership value earned</span></div><p style="font-size:12px;color:var(--text-l);margin-top:10px;">Growth plan &#8377;12,999 &#8594; You earn &#8377;1,950</p></div>
-      <div class="mlm-card hl" data-tilt><div class="mlm-icon">&#129352;</div><h3>Level 2 &#8212; Indirect</h3><p>Your referral refers someone new. You earn commission on that membership too.</p><div class="mlm-earn"><strong>8%</strong><span>of membership value earned</span></div><p style="font-size:12px;color:var(--text-l);margin-top:10px;">Professional &#8377;24,999 &#8594; You earn &#8377;2,000</p></div>
-      <div class="mlm-card" data-tilt><div class="mlm-icon">&#129353;</div><h3>Level 3 &#8212; Extended</h3><p>Earn on the third degree of your network as your referral circle expands.</p><div class="mlm-earn"><strong>4%</strong><span>of membership value earned</span></div><p style="font-size:12px;color:var(--text-l);margin-top:10px;">Enterprise &#8377;44,999 &#8594; You earn &#8377;1,800</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" style="background:linear-gradient(135deg,var(--blue-deep) 0%,var(--blue-mid) 60%,var(--purple) 100%);padding:80px 5%;">
-  <div class="sec-inner" style="text-align:center;" data-reveal>
-    <h2 style="font-size:48px;color:#fff;margin-bottom:16px;">Ready to Find Your Next Buyer?</h2>
-    <p style="font-size:18px;color:rgba(255,255,255,0.72);margin-bottom:36px;max-width:580px;margin-left:auto;margin-right:auto;">Join hundreds of Indian exporters already growing with BuyGenix Solutions. Start your membership today.</p>
-    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="membership.html" style="background:#fff;color:var(--blue-deep);padding:15px 34px;border-radius:11px;font-weight:700;font-size:15px;display:inline-block;box-shadow:0 6px 24px rgba(0,0,0,0.18);">View All Plans &#8594;</a>
-      <a href="mailto:buygenixsolutions@gmail.com" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.38);padding:15px 34px;border-radius:11px;font-weight:500;font-size:15px;display:inline-block;">&#128231; Email Us</a>
-    </div>
-    <p style="color:rgba(255,255,255,0.45);font-size:13px;margin-top:20px;">buygenixsolutions@gmail.com &#183; @buygenixsolutions on Instagram &amp; Facebook</p>
-  </div>
-</section>
-
+<!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
-        <p>India's growing B2B platform connecting exporters with verified buyers globally. Memberships for startups to large enterprises.</p>
-        <div class="footer-socials">
-          <div class="footer-social" onclick="window.open('https://instagram.com/buygenixsolutions')" title="Instagram">&#128247;</div>
-          <div class="footer-social" onclick="window.open('https://facebook.com/buygenixsolutions')" title="Facebook">&#128216;</div>
-          <div class="footer-social" title="WhatsApp">&#128172;</div>
-          <div class="footer-social" onclick="window.open('mailto:buygenixsolutions@gmail.com')" title="Email">&#128231;</div>
-        </div>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-svg-wrap-footer"></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Built in Delhi, serving exporters globally.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/buygenixsolutions" target="_blank" title="Instagram">📷</a>
+        <a href="https://facebook.com/buygenixsolutions" target="_blank" title="Facebook">📘</a>
+        <a href="https://wa.me/917XXXXXXXXX" target="_blank" title="WhatsApp">💬</a>
+        <a href="mailto:Buygenixsolutions@gmail.com" title="Email">📧</a>
       </div>
-      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership Plans</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue Service</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li><li><a href="services.html">Virtual Business Card</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
     </div>
-    <div class="footer-bottom">
-      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
-      <p>buygenixsolutions@gmail.com</p>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="membership.html">Membership Plans</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
     </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#leads">Buyer Leads</a></li>
+        <li><a href="services.html#catalogue">Product Catalogue</a></li>
+        <li><a href="services.html#rm">Relationship Manager</a></li>
+        <li><a href="services.html#seo">SEO &amp; SMO</a></li>
+        <li><a href="gst.html">GST Registration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Disclaimer</a></li>
+        <li><a href="contact.html">Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BuyGenix Solutions. All rights reserved. | Buygenixsolutions@gmail.com</p>
+    <p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p>
   </div>
 </footer>
 
 <script src="shared.js"></script>
-<script>
-function animateCounters(){
-  const targets=[{el:'c1',val:5000,suffix:'+'},{el:'c2',val:50,suffix:'+'},{el:'c3',val:200,suffix:'+'},{el:'c4',val:98,suffix:'%'}];
-  targets.forEach(function(t){
-    var elem=document.getElementById(t.el);
-    if(!elem)return;
-    var current=0,step=Math.ceil(t.val/55);
-    var timer=setInterval(function(){
-      current=Math.min(current+step,t.val);
-      elem.textContent=(t.val>=1000?(current/1000).toFixed(1)+'K':current)+t.suffix;
-      if(current>=t.val)clearInterval(timer);
-    },28);
-  });
-}
-var statsEl=document.querySelector('.hero-stats');
-if(statsEl){
-  var obs=new IntersectionObserver(function(entries){if(entries[0].isIntersecting){animateCounters();obs.disconnect();}},{threshold:0.3});
-  obs.observe(statsEl);
-}
-function playVideo(){
-  var overlay=document.getElementById('videoOverlay');
-  var video=document.getElementById('testimonialVideo');
-  var thumb=document.getElementById('videoThumb');
-  if(thumb)thumb.style.display='none';
-  if(overlay)overlay.style.display='none';
-  if(video){video.style.display='block';video.play();}
-}
-</script>
 </body>
 </html>

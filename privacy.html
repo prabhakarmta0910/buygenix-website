@@ -3,258 +3,239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy &#8211; BuyGenix Solutions</title>
+<title>Privacy Policy – BuyGenix Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
-.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
-.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
-.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
-.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
-
-.priv-sec{border-bottom:1px solid var(--border-l);padding-bottom:32px;margin-bottom:32px;}
-.priv-sec:last-child{border:none;padding-bottom:0;margin-bottom:0;}
-.priv-sec .sec-num{font-size:11px;color:var(--blue-deep);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-.priv-sec h2{font-size:22px;color:var(--text-h);margin-bottom:14px;}
-.priv-sec p{font-size:14px;color:var(--text-m);line-height:1.85;margin-bottom:10px;}
-.priv-sec ul,.priv-sec ol{padding-left:20px;display:flex;flex-direction:column;gap:8px;margin:10px 0;}
-.priv-sec li{font-size:14px;color:var(--text-m);line-height:1.8;}
-.priv-sec strong{color:var(--text-b);}
-.data-tbl{width:100%;border-collapse:collapse;margin:16px 0;}
-.data-tbl th{background:var(--blue-pale);color:var(--blue-deep);font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:11px 14px;text-align:left;border-bottom:1px solid rgba(21,101,192,0.15);}
-.data-tbl td{padding:11px 14px;font-size:13px;color:var(--text-m);border-bottom:1px solid var(--border-l);vertical-align:top;}
-.data-tbl tr:last-child td{border:none;}
-.toc-priv{background:var(--blue-pale);border:1px solid rgba(21,101,192,0.15);border-radius:var(--radius);padding:24px;margin-bottom:24px;}
-.toc-priv h3{font-size:14px;color:var(--blue-deep);margin-bottom:12px;}
-.toc-priv ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;}
-.toc-priv ol li a{font-size:13px;color:var(--text-m);transition:color 0.2s;}
-.toc-priv ol li a:hover{color:var(--blue-deep);}
-.info-box{background:var(--teal-lt);border:1px solid rgba(0,105,92,0.15);border-radius:var(--radius);padding:18px;margin:14px 0;}
-.info-box p{font-size:13.5px;color:var(--text-m);margin:0;}
-
+.legal-layout { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: start; }
+.legal-toc { position: sticky; top: 96px; background: white; border: 1px solid var(--border-soft); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-soft); }
+.legal-toc h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-family: 'Space Grotesk'; }
+.legal-toc a { display: block; font-size: 13px; color: var(--text-mid); padding: 7px 0; border-bottom: 1px solid var(--border-soft); transition: color 0.2s; }
+.legal-toc a:last-child { border: none; }
+.legal-toc a:hover { color: var(--gold); }
+.legal-section { background: white; border-radius: var(--radius-lg); padding: 36px; margin-bottom: 20px; border: 1px solid var(--border-soft); }
+.legal-section h2 { font-size: 22px; color: var(--navy); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gold-pale); }
+.legal-section p, .legal-section li { font-size: 13.5px; color: var(--text-body); line-height: 1.85; margin-bottom: 10px; }
+.legal-section ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.legal-section strong { color: var(--navy); }
+.legal-section h3 { font-size: 16px; color: var(--navy); margin: 18px 0 8px; font-family: 'Space Grotesk'; font-weight: 700; }
+.legal-meta { background: var(--sky); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.legal-meta p { font-size: 12.5px; color: var(--text-mid); }
+@media (max-width: 900px) { .legal-layout { grid-template-columns: 1fr; } .legal-toc { position: static; } }
 </style>
 </head>
 <body>
-<canvas id="bg-mini"></canvas>
-<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+
+<canvas id="bg-canvas"></canvas>
+<div class="page-overlay"></div>
+<a href="https://wa.me/917XXXXXXXXX" class="wa-float">💬</a>
+
 <nav>
-  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="about.html">About Us</a>
-    <a href="gst.html">GST Registration</a>
-    <a href="contact.html">Contact</a>
-    <a href="terms.html" class="active">T&amp;C</a>
-    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+  <div class="logo">
+    <div class="logo-svg-wrap"></div>
+    <span class="logo-tagline">B2B Export &amp; Import<br>Platform</span>
   </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a>
+    <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans →</a>
+  </div>
+  <div class="nav-burger"><span></span><span></span><span></span></div>
 </nav>
-<div class="page-hero">
-  <div class="page-hero-badge">&#128274; Data Protection</div>
-  <h1>Privacy<br><span class='accent'>Policy</span></h1>
-  <p>Your privacy is of paramount importance to BuyGenix Solutions. This Privacy Policy describes how we collect, use, store, protect, and process your personal and business information when you interact with our platform or services.</p>
-  <p class="last-upd">Last Updated: December 2024 | Version 2.0</p>
+<div class="mobile-nav-overlay">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
+  <a href="membership.html" class="nav-cta">Membership Plans →</a>
 </div>
+
+<div class="page-hero">
+  <div class="hero-badge">🔒 Legal</div>
+  <h1>Privacy <span class="accent">Policy</span></h1>
+  <p>Your privacy matters to us. This policy explains what information we collect, how we use it, and your rights as a user and member of BuyGenix Solutions.</p>
+</div>
+
 <div class="content-wrap">
 
-<div style="background:var(--teal-lt);border:1px solid rgba(0,105,92,0.15);border-radius:var(--radius);padding:20px;margin-bottom:24px;" data-reveal>
-  <p style="font-size:14px;color:var(--text-m);line-height:1.8;"><strong style="color:var(--teal);">Our Privacy Commitment:</strong> BuyGenix Solutions is committed to protecting your personal information and handling it with transparency, integrity, and respect. We collect only the data necessary to deliver our services, we do not sell your personal data to advertisers or unrelated third parties, and we implement reasonable technical and organisational safeguards to protect what you share with us.</p>
-</div>
-
-<div class="toc-priv" data-reveal>
-  <h3>&#128203; Contents</h3>
-  <ol>
-    <li><a href="#p1">Information We Collect</a></li>
-    <li><a href="#p2">How We Collect Information</a></li>
-    <li><a href="#p3">How We Use Your Information</a></li>
-    <li><a href="#p4">Information Sharing &amp; Disclosure</a></li>
-    <li><a href="#p5">Lead Database &#8212; Data Sources &amp; Compliance</a></li>
-    <li><a href="#p6">Cookies &amp; Tracking Technologies</a></li>
-    <li><a href="#p7">Data Retention</a></li>
-    <li><a href="#p8">Data Security</a></li>
-    <li><a href="#p9">Your Rights &amp; Choices</a></li>
-    <li><a href="#p10">Children&#39;s Privacy</a></li>
-    <li><a href="#p11">Changes to This Policy</a></li>
-    <li><a href="#p12">Contact for Privacy Concerns</a></li>
-  </ol>
-</div>
-
-<div class="glass-card" data-reveal>
-  <div class="priv-sec" id="p1">
-    <div class="sec-num">Section 1</div>
-    <h2>Information We Collect</h2>
-    <p>We collect the following categories of information depending on how you interact with our platform:</p>
-    <table class="data-tbl">
-      <tr><th>Category</th><th>Examples</th><th>Purpose</th></tr>
-      <tr><td><strong>Identity Information</strong></td><td>Full name, business name, designation, PAN (for GST service)</td><td>Account creation, compliance, service delivery</td></tr>
-      <tr><td><strong>Contact Information</strong></td><td>Email address, mobile number, WhatsApp number, city, state</td><td>Communication, service delivery, support</td></tr>
-      <tr><td><strong>Business Information</strong></td><td>Industry sector, product categories, export experience, annual turnover range</td><td>Lead matching, catalogue creation, RM assignment</td></tr>
-      <tr><td><strong>Payment Information</strong></td><td>Transaction ID, payment method type, amount paid, date of payment</td><td>Billing, invoicing, compliance</td></tr>
-      <tr><td><strong>Technical Information</strong></td><td>IP address, browser type, device type, pages visited, session duration</td><td>Platform security, analytics, improvement</td></tr>
-      <tr><td><strong>Communication Records</strong></td><td>Emails sent and received, WhatsApp messages with RM, enquiry form submissions</td><td>Service quality, dispute resolution, training</td></tr>
-    </table>
-    <div class="info-box"><p><strong>Note on Sensitive Information:</strong> We do not intentionally collect sensitive personal data such as biometric data, health data, caste, religion, or political affiliation. For GST registration services, PAN and Aadhaar details are processed solely for the purpose of filing the GST application and are not stored beyond service completion.</p></div>
+  <div class="legal-meta">
+    <p><strong>Effective Date:</strong> January 1, 2025</p>
+    <p><strong>Last Updated:</strong> April 2025</p>
+    <p><strong>Applies To:</strong> BuyGenix Solutions platform and all services</p>
   </div>
 
-  <div class="priv-sec" id="p2">
-    <div class="sec-num">Section 2</div>
-    <h2>How We Collect Information</h2>
-    <ul>
-      <li><strong>Direct Submission:</strong> When you fill our enquiry forms, purchase a membership, submit documents for GST registration, or communicate with our team.</li>
-      <li><strong>Account Registration:</strong> When you create a member profile on our platform.</li>
-      <li><strong>Automatic Collection:</strong> Our web server and analytics tools automatically collect technical information such as IP address, browser data, and browsing behaviour through cookies and server logs.</li>
-      <li><strong>Third-Party Sources:</strong> We may receive information about your business from publicly available sources such as the MCA, trade directories, GSTIN portal, and other government databases to verify your business credentials.</li>
-      <li><strong>Referral Information:</strong> If you were referred by an existing member, we receive your contact information from the referring party to process the referral.</li>
-    </ul>
-  </div>
-
-  <div class="priv-sec" id="p3">
-    <div class="sec-num">Section 3</div>
-    <h2>How We Use Your Information</h2>
-    <p>Your information is used exclusively for the following purposes:</p>
-    <ol>
-      <li><strong>Service Delivery:</strong> Providing the services you have subscribed to, including lead access, catalogue publication, RM assignment, and SEO/SMO execution.</li>
-      <li><strong>Account Management:</strong> Creating, maintaining, and managing your membership account, issuing invoices, and processing renewals.</li>
-      <li><strong>Communication:</strong> Sending service updates, lead notifications, membership reminders, support responses, and business opportunity alerts.</li>
-      <li><strong>Business Matching:</strong> Sharing your business profile with relevant buyers as part of the business promotion service.</li>
-      <li><strong>Legal Compliance:</strong> Meeting our obligations under applicable laws including GST compliance and information security regulations.</li>
-      <li><strong>Platform Improvement:</strong> Analysing usage patterns to improve platform features, service quality, and user experience.</li>
-      <li><strong>Fraud Prevention:</strong> Monitoring for suspicious activity, unauthorised data access, and referral fraud.</li>
-    </ol>
-    <div class="info-box"><p><strong>We Do NOT Use Your Data For:</strong> Selling to advertisers, profiling for unrelated marketing, sharing with data brokers, or any purpose not expressly stated above. Your information is not monetised beyond the scope of delivering our stated services.</p></div>
-  </div>
-
-  <div class="priv-sec" id="p4">
-    <div class="sec-num">Section 4</div>
-    <h2>Information Sharing &amp; Third-Party Disclosure</h2>
-    <p>BuyGenix Solutions does not sell, rent, or trade your personal information to any third party. We share information only in the following limited, necessary, and lawful circumstances:</p>
-    <ul>
-      <li><strong>With Buyers (Promotion Service):</strong> As part of the business promotion service, your business name, product categories, and contact details may be shared with relevant buyers.</li>
-      <li><strong>With Service Partners:</strong> Trusted technology partners (hosting, email delivery, analytics) who process data on our behalf under strict confidentiality agreements.</li>
-      <li><strong>With Government Authorities:</strong> We will disclose information to law enforcement, regulatory bodies, or courts when legally required by a valid court order or applicable law.</li>
-      <li><strong>Business Transfer:</strong> In the event of a merger, acquisition, or sale of our business, your information may be transferred to the acquirer subject to equivalent privacy protections.</li>
-      <li><strong>With Your Consent:</strong> In any other circumstance, we will seek your explicit prior consent.</li>
-    </ul>
-  </div>
-
-  <div class="priv-sec" id="p5">
-    <div class="sec-num">Section 5</div>
-    <h2>Lead Database &#8212; Data Sources &amp; Compliance</h2>
-    <ul>
-      <li><strong>Source of Lead Data:</strong> Buyer information in our database is compiled from publicly available sources including government trade portals, export-import directories, business registration databases, trade fair participation lists, voluntary enquiry submissions, and publicly accessible business profiles.</li>
-      <li><strong>No Covert Collection:</strong> We do not collect lead data through covert means, data breaches, or unauthorised access.</li>
-      <li><strong>Opt-Out for Buyers:</strong> Any buyer or business entity whose information appears in our database may request removal by contacting us at privacy@buygenixsolutions.com. We will process removal requests within 15 working days.</li>
-      <li><strong>Member Responsibility:</strong> Members who access lead data are independently responsible for ensuring their outreach communications comply with applicable anti-spam laws and the TCCCPR regulations.</li>
-    </ul>
-  </div>
-
-  <div class="priv-sec" id="p6">
-    <div class="sec-num">Section 6</div>
-    <h2>Cookies &amp; Tracking Technologies</h2>
-    <p>Our website uses cookies and similar tracking technologies. The following types of cookies may be active:</p>
-    <ul>
-      <li><strong>Essential Cookies:</strong> Required for the website to function properly. These cannot be disabled as they are necessary for security and session management.</li>
-      <li><strong>Analytics Cookies:</strong> Used to understand how visitors interact with our website. We may use Google Analytics or similar tools with aggregated, anonymised data.</li>
-      <li><strong>Preference Cookies:</strong> Remember your settings and preferences to personalise your experience on return visits.</li>
-      <li><strong>Social Media Cookies:</strong> If you engage with our Instagram @buygenixsolutions or Facebook page, those platforms may place cookies as per their own privacy policies.</li>
-    </ul>
-    <p>You may disable non-essential cookies through your browser settings. Continued use of our website without changing your cookie settings constitutes consent to our cookie use.</p>
-  </div>
-
-  <div class="priv-sec" id="p7">
-    <div class="sec-num">Section 7</div>
-    <h2>Data Retention</h2>
-    <ul>
-      <li><strong>Active Members:</strong> All account information is retained for the full duration of the active membership and for three (3) years following membership expiry.</li>
-      <li><strong>GST Registration Documents:</strong> Identity and compliance documents are retained for one (1) year post-service completion and then permanently deleted.</li>
-      <li><strong>Communication Records:</strong> Email and WhatsApp communications are retained for two (2) years for quality assurance and dispute resolution.</li>
-      <li><strong>Payment Records:</strong> Transaction records are retained for a minimum of seven (7) years to comply with financial record-keeping requirements under Indian law.</li>
-    </ul>
-  </div>
-
-  <div class="priv-sec" id="p8">
-    <div class="sec-num">Section 8</div>
-    <h2>Data Security Measures</h2>
-    <p>BuyGenix Solutions implements reasonable and appropriate technical and organisational security measures including:</p>
-    <ul>
-      <li>SSL/TLS encryption for all data transmitted between your browser and our servers</li>
-      <li>Access controls limiting data access to authorised personnel on a need-to-know basis</li>
-      <li>Secure, password-protected internal systems with two-factor authentication for administrative access</li>
-      <li>Confidentiality obligations imposed on all employees, contractors, and service partners who handle personal data</li>
-    </ul>
-    <div class="info-box"><p><strong>Security Limitation Notice:</strong> No method of data transmission over the internet or electronic storage is 100% secure. We cannot guarantee absolute security. In the event of a data breach that materially affects your information, we will notify you as required by applicable law.</p></div>
-  </div>
-
-  <div class="priv-sec" id="p9">
-    <div class="sec-num">Section 9</div>
-    <h2>Your Rights &amp; Choices</h2>
-    <ul>
-      <li><strong>Right to Access:</strong> You may request a copy of the personal information we hold about you.</li>
-      <li><strong>Right to Correction:</strong> You may request correction of any inaccurate or incomplete information.</li>
-      <li><strong>Right to Deletion:</strong> You may request deletion of your personal data subject to our legal retention obligations.</li>
-      <li><strong>Right to Opt-Out of Marketing:</strong> You may opt out of receiving marketing communications at any time. Service-related communications cannot be opted out of during active membership.</li>
-      <li><strong>Right to Object:</strong> You may object to specific processing activities where our processing is based on legitimate interests.</li>
-    </ul>
-    <p>To exercise any of the above rights, please contact us at <strong style="color:var(--blue-deep);">privacy@buygenixsolutions.com</strong>. We will respond within 30 working days.</p>
-  </div>
-
-  <div class="priv-sec" id="p10">
-    <div class="sec-num">Section 10</div>
-    <h2>Children&#39;s Privacy</h2>
-    <p>BuyGenix Solutions is a B2B business platform intended exclusively for business entities and individuals who are at least 18 years of age and legally authorised to enter into binding commercial agreements. We do not knowingly collect, process, or retain any personal information from persons under the age of 18. If we become aware that a minor has provided us with personal information, we will take immediate steps to delete such information.</p>
-  </div>
-
-  <div class="priv-sec" id="p11">
-    <div class="sec-num">Section 11</div>
-    <h2>Changes to This Privacy Policy</h2>
-    <p>BuyGenix Solutions reserves the right to update, modify, or revise this Privacy Policy at any time. When we make material changes, we will update the &#8220;Last Updated&#8221; date, post a prominent notice on our website for a minimum of 30 days, and send an email notification to active members where the change materially affects how their data is processed. Your continued use of our platform after the effective date constitutes acceptance of the revised Privacy Policy.</p>
-  </div>
-
-  <div class="priv-sec" id="p12">
-    <div class="sec-num">Section 12</div>
-    <h2>Contact Us for Privacy Concerns</h2>
-    <p>For any questions, concerns, requests, or complaints regarding this Privacy Policy or the handling of your personal information, please reach out to our privacy contact:</p>
-    <div style="background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius);padding:22px;margin-top:14px;">
-      <p style="margin-bottom:8px;"><strong style="color:var(--blue-deep);">Privacy Officer &#8212; BuyGenix Solutions</strong></p>
-      <p>Email: <strong>privacy@buygenixsolutions.com</strong></p>
-      <p>General: <strong>buygenixsolutions@gmail.com</strong></p>
-      <p>Response Time: Within 30 working days of receipt</p>
+  <div class="legal-layout">
+    <div class="legal-toc">
+      <h4>Contents</h4>
+      <a href="#collection">1. Information We Collect</a>
+      <a href="#use">2. How We Use Your Data</a>
+      <a href="#sharing">3. Data Sharing</a>
+      <a href="#storage">4. Data Storage &amp; Security</a>
+      <a href="#cookies">5. Cookies</a>
+      <a href="#rights">6. Your Rights</a>
+      <a href="#third-party">7. Third-Party Services</a>
+      <a href="#children">8. Children's Privacy</a>
+      <a href="#changes">9. Policy Changes</a>
+      <a href="#contact-privacy">10. Contact Us</a>
     </div>
-  </div>
-</div>
 
-<div style="text-align:center;padding:30px;background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius-lg);margin-top:8px;" data-reveal>
-  <p style="font-size:13px;color:var(--text-m);margin-bottom:16px;">Read our full legal framework</p>
-  <a href="terms.html" class="btn-primary" style="margin-right:12px;">Terms &amp; Conditions</a>
-  <a href="contact.html" class="btn-outline">Contact Privacy Team</a>
-</div>
+    <div class="legal-body">
 
-</div>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
-        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
-        <div class="footer-socials">
-          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
-          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
-          <div class="footer-social">&#128172;</div>
-          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+      <div class="legal-section" id="collection">
+        <h2>1. Information We Collect</h2>
+        <h3>1.1 Information You Provide</h3>
+        <p>When you contact us, register for membership, or use our services, we collect:</p>
+        <ul>
+          <li>Full name and business name</li>
+          <li>Email address and phone/WhatsApp number</li>
+          <li>Business address and GSTIN (if provided)</li>
+          <li>Product categories and export/import interests</li>
+          <li>Payment information (processed via third-party payment gateways — we do not store card details)</li>
+          <li>Communications you send us via email, WhatsApp, or our contact form</li>
+        </ul>
+        <h3>1.2 Information Collected Automatically</h3>
+        <p>When you visit our website, we may automatically collect:</p>
+        <ul>
+          <li>IP address and approximate location</li>
+          <li>Browser type and version</li>
+          <li>Pages visited and time spent</li>
+          <li>Referring website or source</li>
+          <li>Device type (desktop/mobile)</li>
+        </ul>
+      </div>
+
+      <div class="legal-section" id="use">
+        <h2>2. How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Process and activate your membership</li>
+          <li>Deliver buyer leads relevant to your product category</li>
+          <li>Assign and facilitate communication with your Relationship Manager</li>
+          <li>Send your monthly performance reports and lead batches</li>
+          <li>Respond to your enquiries and support requests</li>
+          <li>Send service-related communications (activation, renewal reminders, updates)</li>
+          <li>Process referral commissions under the referral programme</li>
+          <li>Improve our platform, services, and buyer database quality</li>
+          <li>Comply with legal obligations applicable to us as a business</li>
+        </ul>
+        <p>We do <strong>not</strong> use your data for unsolicited third-party advertising.</p>
+      </div>
+
+      <div class="legal-section" id="sharing">
+        <h2>3. Data Sharing &amp; Disclosure</h2>
+        <p>BuyGenix Solutions does <strong>not sell</strong> your personal information to any third party.</p>
+        <p>We may share limited information with:</p>
+        <ul>
+          <li><strong>Service providers:</strong> Payment gateways, email service providers, and hosting companies who process data on our behalf under confidentiality agreements</li>
+          <li><strong>Your Relationship Manager:</strong> Your contact details and business profile are shared with your assigned RM for the purpose of providing membership services</li>
+          <li><strong>Legal authorities:</strong> If required by law, court order, or government request</li>
+        </ul>
+        <p>Any data sharing is limited to what is strictly necessary for service delivery.</p>
+      </div>
+
+      <div class="legal-section" id="storage">
+        <h2>4. Data Storage &amp; Security</h2>
+        <p>Your data is stored on servers within India and protected using industry-standard security measures including encryption, access controls, and regular security audits.</p>
+        <p>We retain your personal data for the duration of your membership and for a period of 3 years thereafter, after which it is securely deleted or anonymised.</p>
+        <p>While we implement appropriate security measures, no system is completely secure. We encourage you to use strong passwords and to contact us immediately if you suspect any unauthorised access.</p>
+      </div>
+
+      <div class="legal-section" id="cookies">
+        <h2>5. Cookies &amp; Tracking Technologies</h2>
+        <p>Our website uses cookies to improve your browsing experience. Cookies are small text files stored on your device. We use:</p>
+        <ul>
+          <li><strong>Essential cookies:</strong> Required for the website to function correctly</li>
+          <li><strong>Analytics cookies:</strong> To understand how visitors use our website (aggregated, anonymous data)</li>
+          <li><strong>Preference cookies:</strong> To remember your settings and preferences</li>
+        </ul>
+        <p>You can disable cookies in your browser settings, though this may affect some website functionality.</p>
+      </div>
+
+      <div class="legal-section" id="rights">
+        <h2>6. Your Rights</h2>
+        <p>As a user of BuyGenix Solutions, you have the right to:</p>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+          <li><strong>Correction:</strong> Request correction of inaccurate or incomplete data</li>
+          <li><strong>Deletion:</strong> Request deletion of your personal data (subject to legal retention requirements)</li>
+          <li><strong>Objection:</strong> Object to specific uses of your data</li>
+          <li><strong>Portability:</strong> Request your data in a portable format</li>
+        </ul>
+        <p>To exercise any of these rights, contact us at <a href="mailto:Buygenixsolutions@gmail.com" style="color:var(--gold);">Buygenixsolutions@gmail.com</a>. We will respond within 30 days.</p>
+      </div>
+
+      <div class="legal-section" id="third-party">
+        <h2>7. Third-Party Services</h2>
+        <p>Our website and services may contain links to third-party websites including Instagram, Facebook, and WhatsApp. We are not responsible for the privacy practices of these platforms. We encourage you to review their privacy policies independently.</p>
+        <p>Payment processing is handled by third-party payment gateways. We do not store your payment card details on our servers.</p>
+      </div>
+
+      <div class="legal-section" id="children">
+        <h2>8. Children's Privacy</h2>
+        <p>BuyGenix Solutions services are intended for business use by adults aged 18 and above. We do not knowingly collect personal information from individuals under 18. If we become aware that we have inadvertently collected information from a minor, we will delete it promptly.</p>
+      </div>
+
+      <div class="legal-section" id="changes">
+        <h2>9. Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify active members of material changes via email. The updated policy will always be available on our website with the effective date clearly indicated.</p>
+      </div>
+
+      <div class="legal-section" id="contact-privacy">
+        <h2>10. Contact Us About Privacy</h2>
+        <p>For any privacy-related questions, data access requests, or concerns, please contact:</p>
+        <p>
+          <strong>BuyGenix Solutions — Privacy Team</strong><br>
+          Delhi, India 🇮🇳<br>
+          Email: <a href="mailto:Buygenixsolutions@gmail.com" style="color:var(--gold);">Buygenixsolutions@gmail.com</a>
+        </p>
+        <p style="margin-top:16px;">We aim to respond to all privacy enquiries within 5–7 working days.</p>
+        <div style="margin-top:20px;">
+          <a href="terms.html" class="btn-outline" style="margin-right:12px;">View Terms &amp; Conditions →</a>
+          <a href="contact.html" class="btn-primary">Contact Us</a>
         </div>
       </div>
-      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
-    </div>
-    <div class="footer-bottom">
-      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
-      <p>buygenixsolutions@gmail.com</p>
+
     </div>
   </div>
-</footer>
-<script src="shared.js"></script>
 
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-svg-wrap-footer"></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a>
+        <a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a>
+        <a href="https://wa.me/917XXXXXXXXX">💬</a>
+        <a href="mailto:Buygenixsolutions@gmail.com">📧</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="services.html#leads">Buyer Leads</a></li>
+      <li><a href="services.html#catalogue">Product Catalogue</a></li>
+      <li><a href="services.html#seo">SEO &amp; SMO</a></li>
+      <li><a href="gst.html">GST Registration</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BuyGenix Solutions. All rights reserved. | Buygenixsolutions@gmail.com</p>
+    <p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
 </body>
 </html>

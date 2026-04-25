@@ -3,297 +3,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms &amp; Conditions &#8211; BuyGenix Solutions</title>
+<title>Terms &amp; Conditions – BuyGenix Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
-.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
-.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
-.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
-.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
-.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
+.legal-layout { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: start; }
+.legal-toc {
+  position: sticky; top: 96px;
+  background: white; border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg); padding: 24px;
+  box-shadow: var(--shadow-soft);
+}
+.legal-toc h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-family: 'Space Grotesk'; }
+.legal-toc a { display: block; font-size: 13px; color: var(--text-mid); padding: 7px 0; border-bottom: 1px solid var(--border-soft); transition: color 0.2s; }
+.legal-toc a:last-child { border: none; }
+.legal-toc a:hover { color: var(--gold); }
 
-.toc-card{background:var(--blue-pale);border:1px solid rgba(21,101,192,0.15);border-radius:var(--radius);padding:26px;margin-bottom:28px;}
-.toc-card h3{font-size:15px;color:var(--blue-deep);margin-bottom:12px;}
-.toc-card ol{padding-left:18px;display:flex;flex-direction:column;gap:6px;}
-.toc-card ol li a{font-size:13px;color:var(--text-m);transition:color 0.2s;}
-.toc-card ol li a:hover{color:var(--blue-deep);}
-.clause{border-bottom:1px solid var(--border-l);padding-bottom:32px;margin-bottom:32px;}
-.clause:last-child{border:none;padding-bottom:0;margin-bottom:0;}
-.clause-num{font-size:11px;color:var(--blue-deep);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-.clause h2{font-size:22px;color:var(--text-h);margin-bottom:14px;}
-.clause p{font-size:14px;color:var(--text-m);line-height:1.85;margin-bottom:10px;}
-.clause ul,.clause ol{padding-left:20px;display:flex;flex-direction:column;gap:8px;margin:10px 0;}
-.clause li{font-size:14px;color:var(--text-m);line-height:1.8;}
-.clause strong{color:var(--text-b);}
-.hi-box{background:var(--blue-pale);border-left:3px solid var(--blue-mid);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;}
-.hi-box p{font-size:13.5px;color:var(--text-m);margin:0;}
-.warn-box{background:#FFF3E0;border-left:3px solid #F57C00;border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0;}
-.warn-box p{font-size:13.5px;color:#5D4037;margin:0;}
+.legal-body {}
+.legal-section { background: white; border-radius: var(--radius-lg); padding: 36px; margin-bottom: 20px; border: 1px solid var(--border-soft); }
+.legal-section h2 { font-size: 22px; color: var(--navy); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gold-pale); }
+.legal-section p, .legal-section li { font-size: 13.5px; color: var(--text-body); line-height: 1.85; margin-bottom: 10px; }
+.legal-section ul, .legal-section ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.legal-section strong { color: var(--navy); }
+.legal-section h3 { font-size: 16px; color: var(--navy); margin: 18px 0 8px; font-family: 'Space Grotesk'; font-weight: 700; }
 
+.legal-meta { background: var(--sky); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+.legal-meta p { font-size: 12.5px; color: var(--text-mid); }
+.legal-meta strong { color: var(--navy); }
+
+@media (max-width: 900px) { .legal-layout { grid-template-columns: 1fr; } .legal-toc { position: static; } }
 </style>
 </head>
 <body>
-<canvas id="bg-mini"></canvas>
-<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+
+<canvas id="bg-canvas"></canvas>
+<div class="page-overlay"></div>
+<a href="https://wa.me/917XXXXXXXXX" class="wa-float">💬</a>
+
 <nav>
-  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="services.html">Services</a>
-    <a href="about.html">About Us</a>
-    <a href="gst.html">GST Registration</a>
-    <a href="contact.html">Contact</a>
-    <a href="terms.html" class="active">T&amp;C</a>
-    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+  <div class="logo">
+    <div class="logo-svg-wrap"></div>
+    <span class="logo-tagline">B2B Export &amp; Import<br>Platform</span>
   </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a><a href="services.html">Services</a>
+    <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a><a href="terms.html" class="active">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans →</a>
+  </div>
+  <div class="nav-burger"><span></span><span></span><span></span></div>
 </nav>
-<div class="page-hero">
-  <div class="page-hero-badge">&#9878;&#65039; Legal Framework</div>
-  <h1>Terms &amp;<br><span class='accent'>Conditions</span></h1>
-  <p>These Terms and Conditions constitute a legally binding agreement between BuyGenix Solutions and its members, subscribers, visitors, and users. Please read carefully before engaging with our platform or purchasing any service.</p>
-  <p class="last-upd">Last Updated: December 2024 | Version 2.1</p>
+<div class="mobile-nav-overlay">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
+  <a href="membership.html" class="nav-cta">Membership Plans →</a>
 </div>
+
+<div class="page-hero">
+  <div class="hero-badge">📋 Legal</div>
+  <h1>Terms &amp; <span class="accent">Conditions</span></h1>
+  <p>Please read these Terms and Conditions carefully before purchasing any membership or using any service offered by BuyGenix Solutions. Your use of our platform constitutes acceptance of these terms.</p>
+</div>
+
 <div class="content-wrap">
 
-<div style="background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);border-radius:var(--radius);padding:20px;margin-bottom:28px;" data-reveal>
-  <p style="font-size:14px;color:var(--text-m);line-height:1.8;"><strong style="color:var(--blue-deep);">IMPORTANT LEGAL NOTICE:</strong> By accessing the website, purchasing any membership, using any service, making any payment, submitting any information, or engaging with BuyGenix Solutions in any capacity whatsoever, you unconditionally agree to be bound by all the terms, conditions, disclaimers, policies, and obligations set forth herein. If you do not agree with any provision of these Terms, you must immediately discontinue use of our platform and services.</p>
-</div>
-
-<div class="toc-card" data-reveal>
-  <h3>&#128203; Table of Contents</h3>
-  <ol>
-    <li><a href="#def">Definitions &amp; Interpretation</a></li>
-    <li><a href="#services-clause">Nature of Services &amp; Limitations</a></li>
-    <li><a href="#membership-clause">Membership, Subscription &amp; Payments</a></li>
-    <li><a href="#leads-clause">Buy Leads &#8212; Usage Policy &amp; Restrictions</a></li>
-    <li><a href="#catalogue-clause">Catalogue &amp; Content Services</a></li>
-    <li><a href="#rm-clause">Relationship Manager Services</a></li>
-    <li><a href="#digital-clause">SEO, SMO &amp; Digital Services</a></li>
-    <li><a href="#gst-clause">GST Registration Facilitation</a></li>
-    <li><a href="#referral-clause">Referral &amp; Multi-Level Programme</a></li>
-    <li><a href="#ip-clause">Intellectual Property Rights</a></li>
-    <li><a href="#disclaimer-clause">Disclaimer of Warranties &amp; Liability</a></li>
-    <li><a href="#indemnity-clause">Indemnification</a></li>
-    <li><a href="#termination-clause">Termination &amp; Suspension</a></li>
-    <li><a href="#governing-clause">Governing Law &amp; Dispute Resolution</a></li>
-    <li><a href="#misc-clause">Miscellaneous Provisions</a></li>
-  </ol>
-</div>
-
-<div class="glass-card" data-reveal>
-  <div class="clause" id="def">
-    <div class="clause-num">Clause 1</div>
-    <h2>Definitions &amp; Interpretation</h2>
-    <p>For the purposes of these Terms and Conditions, the following definitions shall apply:</p>
-    <ul>
-      <li><strong>&#8220;BuyGenix Solutions,&#8221; &#8220;Company,&#8221; &#8220;We,&#8221; or &#8220;Our&#8221;</strong> refers to BuyGenix Solutions, its proprietors, directors, employees, agents, affiliates, successors, and assigns.</li>
-      <li><strong>&#8220;Member,&#8221; &#8220;Subscriber,&#8221; or &#8220;You&#8221;</strong> refers to any individual, firm, company, or other legal entity that has registered, subscribed, or engaged with BuyGenix Solutions&#39; platform or services.</li>
-      <li><strong>&#8220;Platform&#8221;</strong> means the website located at buygenixsolutions.com and all associated web pages and digital properties.</li>
-      <li><strong>&#8220;Services&#8221;</strong> collectively refers to all offerings including buy leads, catalogue listing, relationship manager support, SEO/SMO services, virtual business cards, GST registration facilitation, and membership plans.</li>
-      <li><strong>&#8220;Buy Leads&#8221;</strong> means the database of buyer information, contact details, trade requirements, and associated data made available to subscribers.</li>
-      <li><strong>&#8220;Membership Plan&#8221;</strong> refers to the annual subscription package purchased by the User granting access to specified Services.</li>
-      <li><strong>&#8220;Working Days&#8221;</strong> means Monday to Saturday excluding national holidays in India.</li>
-    </ul>
+  <div class="legal-meta">
+    <p><strong>Effective Date:</strong> January 1, 2025</p>
+    <p><strong>Last Updated:</strong> April 2025</p>
+    <p><strong>Jurisdiction:</strong> Delhi, India</p>
   </div>
 
-  <div class="clause" id="services-clause">
-    <div class="clause-num">Clause 2</div>
-    <h2>Nature of Services &amp; Inherent Limitations</h2>
-    <p>BuyGenix Solutions is a B2B information and facilitation platform. All Services are provided on a commercially reasonable best-effort basis.</p>
-    <div class="hi-box"><p><strong>Non-Guarantee of Results:</strong> BuyGenix Solutions expressly does not guarantee, promise, warrant, or represent any specific business outcome, conversion, sale, transaction, partnership, profit, or revenue as a result of using any Service. Success of business activities depends entirely on the User&#39;s own business acumen, product quality, market conditions, and buyer decisions, all of which are beyond our control.</p></div>
-    <ul>
-      <li>The accuracy of lead data reflects information available at the time of compilation. Buyer contact information is subject to change, and BuyGenix Solutions shall not be held liable for outdated, incorrect, or unresponsive leads.</li>
-      <li>Digital marketing services (SEO, SMO) are subject to the algorithms, policies, and decisions of third-party platforms including Google, Instagram, and Facebook.</li>
-      <li>BuyGenix Solutions does not represent, act as agent for, or have any affiliation with any buyer, seller, government body, or third-party entity listed or referenced on the platform.</li>
-    </ul>
-  </div>
+  <div class="legal-layout">
 
-  <div class="clause" id="membership-clause">
-    <div class="clause-num">Clause 3</div>
-    <h2>Membership, Subscription &amp; Payment Terms</h2>
-    <ol>
-      <li><strong>Annual Cycle:</strong> All memberships are sold on a twelve (12) calendar month subscription basis from the date of activation.</li>
-      <li><strong>Activation:</strong> Membership becomes active only upon receipt of full payment and formal confirmation from BuyGenix Solutions. Partial payments do not constitute activation.</li>
-      <li><strong>Strict Non-Refund Policy:</strong> All membership fees and service charges paid to BuyGenix Solutions are <strong>strictly non-refundable</strong> under all circumstances once the membership has been activated and access to the platform or any lead data has been granted.</li>
-      <li><strong>Non-Transferability:</strong> Memberships are non-transferable and issued exclusively to the registered business entity.</li>
-      <li><strong>Plan Modifications:</strong> BuyGenix Solutions reserves the right to modify the features, lead quotas, pricing, and scope of any membership plan at any time with thirty (30) days&#39; prior written notice.</li>
-      <li><strong>GST on Services:</strong> All prices are exclusive of Goods and Services Tax (GST) at the applicable rate of 18% unless otherwise specified.</li>
-      <li><strong>Renewal:</strong> Renewal is the sole responsibility of the Member. Access to services ceases automatically on the expiry date.</li>
-    </ol>
-    <div class="warn-box"><p><strong>&#9888; Non-Refund Notice:</strong> By purchasing any membership or service, the Member explicitly acknowledges that they have read, understood, and agreed to the non-refund policy. No claim for refund, chargeback, or reversal shall be entertained after activation, irrespective of usage level or lead response rate.</p></div>
-  </div>
+    <!-- TOC -->
+    <div class="legal-toc">
+      <h4>Contents</h4>
+      <a href="#acceptance">1. Acceptance of Terms</a>
+      <a href="#services">2. Services Offered</a>
+      <a href="#membership">3. Membership &amp; Payment</a>
+      <a href="#leads">4. Buyer Leads Policy</a>
+      <a href="#refund">5. Refund Policy</a>
+      <a href="#referral">6. Referral Programme</a>
+      <a href="#disclaimer">7. Disclaimer</a>
+      <a href="#ip">8. Intellectual Property</a>
+      <a href="#liability">9. Limitation of Liability</a>
+      <a href="#conduct">10. User Conduct</a>
+      <a href="#termination">11. Termination</a>
+      <a href="#governing">12. Governing Law</a>
+      <a href="#contact-legal">13. Contact</a>
+    </div>
 
-  <div class="clause" id="leads-clause">
-    <div class="clause-num">Clause 4</div>
-    <h2>Buy Leads &#8212; Usage Policy &amp; Strict Restrictions</h2>
-    <ol>
-      <li><strong>Single-User Licence:</strong> Lead data is licenced exclusively to the subscribing business entity for internal business development purposes only.</li>
-      <li><strong>Absolute Prohibition on Redistribution:</strong> The Member shall not sell, resell, distribute, share, publish, broadcast, sublicence, transfer, or make available any portion of the lead database to any third party. Violation constitutes a material breach and shall subject the violating party to legal action including claims for damages.</li>
-      <li><strong>Prohibition on Scraping:</strong> Any automated extraction, scraping, data mining, or systematic downloading using bots, scripts, or automated tools is strictly prohibited and constitutes an offence under the Information Technology Act, 2000.</li>
-      <li><strong>Lead Accuracy Disclaimer:</strong> BuyGenix Solutions expressly disclaims any warranty regarding the accuracy, completeness, currency, or commercial viability of any lead information.</li>
-      <li><strong>Monthly Credit Lapse:</strong> Lead credits are allocated monthly and unused credits do not carry forward. No compensation shall be provided for unused credits.</li>
-      <li><strong>Ethical Use:</strong> All communications with leads must be conducted professionally, ethically, and in full compliance with applicable anti-spam regulations.</li>
-    </ol>
-  </div>
+    <!-- BODY -->
+    <div class="legal-body">
 
-  <div class="clause" id="catalogue-clause">
-    <div class="clause-num">Clause 5</div>
-    <h2>Catalogue &amp; Content Services</h2>
-    <p>By submitting content, images, and product information for catalogue listing, the Member grants BuyGenix Solutions a non-exclusive, royalty-free, worldwide licence to publish, display, distribute, and promote such content on the platform for the duration of the membership.</p>
-    <ul>
-      <li>The Member warrants that all submitted content is original, accurate, and does not infringe upon any third party&#39;s intellectual property or other rights.</li>
-      <li>BuyGenix Solutions reserves the right to reject, modify, or remove any content that violates our content standards or applicable laws.</li>
-      <li>BuyGenix Solutions shall not be liable for any claim arising from inaccurate product descriptions or quality misrepresentation submitted by the Member.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="acceptance">
+        <h2>1. Acceptance of Terms</h2>
+        <p>By accessing the BuyGenix Solutions website, purchasing a membership, or using any of our services, you ("Member" or "User") agree to be legally bound by these Terms and Conditions ("Terms"). If you do not agree to these Terms, please do not use our services.</p>
+        <p>BuyGenix Solutions ("Company," "we," "us," or "our") reserves the right to modify these Terms at any time. Continued use of our services following any modification constitutes acceptance of the updated Terms. We will make reasonable efforts to notify members of material changes.</p>
+      </div>
 
-  <div class="clause" id="rm-clause">
-    <div class="clause-num">Clause 6</div>
-    <h2>Relationship Manager Services</h2>
-    <ul>
-      <li>The RM acts as a support coordinator and facilitator. The RM is not a legal representative, financial advisor, broker, or agent of the Member.</li>
-      <li>BuyGenix Solutions reserves the right to assign, reassign, or replace the designated RM at any time without prior notice and without obligation to provide compensation.</li>
-      <li>Response times advertised are target metrics, not guarantees. BuyGenix Solutions shall not be held liable for delayed responses arising from technical issues, holidays, or force majeure events.</li>
-      <li>Verbal commitments or representations made by the RM that contradict these Terms in writing are not binding on BuyGenix Solutions.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="services">
+        <h2>2. Services Offered</h2>
+        <p>BuyGenix Solutions is a private B2B digital services company offering the following services to registered members:</p>
+        <ul>
+          <li>Indian and international buyer lead databases (CSV/Excel format)</li>
+          <li>Digital product catalogue creation and hosting</li>
+          <li>Dedicated Relationship Manager support (Growth plan and above)</li>
+          <li>Business promotion to registered buyers</li>
+          <li>Virtual business card creation and hosting</li>
+          <li>SEO and Social Media Optimisation (SMO) services (Professional plan and above)</li>
+          <li>GST registration assistance (Professional plan and above)</li>
+          <li>3-level referral earnings programme</li>
+        </ul>
+        <p><strong>Important:</strong> BuyGenix Solutions is not affiliated with any government body, trade ministry, export promotion council, or regulatory authority. All services are provided by us as an independent private platform.</p>
+      </div>
 
-  <div class="clause" id="digital-clause">
-    <div class="clause-num">Clause 7</div>
-    <h2>SEO, SMO &amp; Digital Marketing Services</h2>
-    <div class="hi-box"><p><strong>Algorithm Dependency Disclaimer:</strong> Search engine rankings and social media reach are determined by the proprietary algorithms of Google, Meta (Instagram/Facebook), and other third-party platforms. These algorithms change frequently and without notice. BuyGenix Solutions makes no guarantee of specific ranking positions, organic reach, follower growth targets, or any quantifiable digital metric.</p></div>
-    <ul>
-      <li>Monthly service fees for SEO/SMO are non-refundable once the service cycle has commenced, regardless of results observed.</li>
-      <li>Services require the Member&#39;s timely cooperation in providing brand materials and approvals. Delays caused by the Member shall not be grounds for service extension or refund.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="membership">
+        <h2>3. Membership &amp; Payment</h2>
+        <h3>3.1 Plan Selection</h3>
+        <p>Members may choose from Starter, Growth, Professional, or Enterprise annual membership plans. Features and lead allocations are as described on our official membership page and are subject to change.</p>
+        <h3>3.2 Billing</h3>
+        <p>All memberships are billed annually. Prices are exclusive of 18% GST, which will be added at checkout. Payment is due in full before membership activation.</p>
+        <h3>3.3 Activation</h3>
+        <p>Membership activates within 24 working hours of confirmed payment receipt. Lead access begins immediately upon activation. Your RM (where applicable) contacts you within 48 working hours.</p>
+        <h3>3.4 Plan Upgrades</h3>
+        <p>Members may upgrade their plan at any time by paying the pro-rated difference between plans. Downgrading during an active subscription period is not permitted.</p>
+        <h3>3.5 Renewal</h3>
+        <p>Memberships are not automatically renewed. You must manually renew before expiry to continue receiving services. Lead access and RM support terminate upon membership expiry.</p>
+      </div>
 
-  <div class="clause" id="gst-clause">
-    <div class="clause-num">Clause 8</div>
-    <h2>GST Registration Facilitation Services</h2>
-    <ol>
-      <li><strong>Facilitation Only:</strong> BuyGenix Solutions provides documentation assistance and application facilitation only. We are not a government-recognised practitioner, Chartered Accountant firm, or legal consultant.</li>
-      <li><strong>No Approval Guarantee:</strong> Approval of GST registration applications is at the sole, absolute, and unreviewable discretion of the GST Officer and GST Authority. BuyGenix Solutions has no influence over the GST authority&#39;s decision-making process.</li>
-      <li><strong>Government Fee Exclusion:</strong> Our service fee covers professional facilitation only. Any government-imposed fees or penalties are the sole financial responsibility of the Member.</li>
-      <li><strong>Accuracy of Information:</strong> The Member bears full responsibility for the accuracy and completeness of all information and documents provided. Filing incorrect or fraudulent information constitutes an offence under the CGST Act, 2017.</li>
-    </ol>
-  </div>
+      <div class="legal-section" id="leads">
+        <h2>4. Buyer Leads Policy</h2>
+        <h3>4.1 Nature of Leads</h3>
+        <p>Buyer leads provided by BuyGenix Solutions are sourced from publicly available directories, trade portals, and our proprietary network. While we make reasonable efforts to verify leads before delivery, we <strong>do not guarantee</strong> that every buyer lead will result in a business transaction or confirmed order.</p>
+        <h3>4.2 Monthly Allocation</h3>
+        <p>Lead credits are allocated on the 1st of each calendar month. Unused lead credits <strong>do not carry forward</strong> to the following month and are forfeited.</p>
+        <h3>4.3 Data Usage</h3>
+        <p>Buyer leads are provided for personal business use only. You may not sell, sublicense, share, or redistribute lead data to any third party. Violation of this clause may result in immediate membership termination without refund.</p>
+        <h3>4.4 No Guarantee of Business Outcome</h3>
+        <p>BuyGenix Solutions makes no representations or warranties regarding the outcome of any buyer contact made using our leads. Business results depend on factors outside our control including product quality, pricing, communication, and market conditions.</p>
+      </div>
 
-  <div class="clause" id="referral-clause">
-    <div class="clause-num">Clause 9</div>
-    <h2>Referral &amp; Multi-Level Marketing Programme</h2>
-    <ol>
-      <li>Commission is earned only upon confirmed receipt and clearance of the referred member&#39;s full payment.</li>
-      <li>BuyGenix Solutions reserves the right to modify, suspend, or terminate the referral programme at any time with thirty (30) days&#39; notice.</li>
-      <li><strong>Fraud Prevention:</strong> Self-referrals, family referrals created solely for commission gain, fake memberships, or any scheme designed to artificially inflate referral earnings shall result in immediate and permanent ban, forfeiture of all accrued earnings, and potential civil or criminal action.</li>
-      <li>Minimum payout threshold is &#8377;500. Earnings below this threshold accumulate and are paid when the threshold is crossed.</li>
-      <li>Commission rates may be revised at BuyGenix Solutions&#39; discretion with prior notice. Changes do not apply retrospectively.</li>
-    </ol>
-  </div>
+      <div class="legal-section" id="refund">
+        <h2>5. Refund Policy</h2>
+        <p><strong>All membership purchases are non-refundable once the membership has been activated.</strong></p>
+        <p>Before purchasing, we encourage you to:</p>
+        <ul>
+          <li>Request a demo by contacting our team</li>
+          <li>Review all plan features carefully on our membership page</li>
+          <li>Ask our team any questions about lead quality or service scope</li>
+        </ul>
+        <p>In the event of a technical error that prevents you from accessing services you have paid for, please contact us at <a href="mailto:Buygenixsolutions@gmail.com" style="color:var(--gold);">Buygenixsolutions@gmail.com</a> within 7 days and we will investigate and make reasonable efforts to resolve the issue.</p>
+        <p>Refunds will not be issued on the basis of business outcome, market conditions, or failure to utilise provided lead credits.</p>
+      </div>
 
-  <div class="clause" id="ip-clause">
-    <div class="clause-num">Clause 10</div>
-    <h2>Intellectual Property Rights</h2>
-    <p>All content, code, design, graphics, databases, methodologies, trademarks, trade names, logos, and proprietary information on the BuyGenix Solutions platform are the exclusive intellectual property of BuyGenix Solutions or its licensors and are protected under the Copyright Act, 1957, the Trade Marks Act, 1999, and the Information Technology Act, 2000.</p>
-    <ul>
-      <li>No content may be reproduced, republished, transmitted, distributed, or adapted without prior written authorisation.</li>
-      <li>The name &#8220;BuyGenix Solutions&#8221; and all associated logos are proprietary trade marks. Unauthorised use constitutes trade mark infringement and shall be actionable at law.</li>
-      <li>Reverse engineering, decompiling, or attempting to extract source code or database structures is strictly prohibited.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="referral">
+        <h2>6. Referral Programme</h2>
+        <h3>6.1 Programme Overview</h3>
+        <p>BuyGenix Solutions operates a 3-level referral programme where active members can earn commissions by referring other businesses to the platform.</p>
+        <h3>6.2 Commission Rates</h3>
+        <ul>
+          <li>Level 1 (Direct referral): 15% of referred member's plan value</li>
+          <li>Level 2 (Referral of referral): 8% of plan value</li>
+          <li>Level 3 (Extended network): 4% of plan value</li>
+        </ul>
+        <h3>6.3 Eligibility</h3>
+        <p>You must hold an active BuyGenix membership to participate in and earn from the referral programme. Commissions are only paid when the referred person purchases and activates a membership.</p>
+        <h3>6.4 Payout</h3>
+        <p>Commissions are paid monthly via bank transfer or UPI. Minimum payout threshold is ₹500. Commissions not meeting the threshold roll over to the next month.</p>
+        <h3>6.5 Prohibited Practices</h3>
+        <p>Self-referrals, fraudulent referrals, and creation of multiple accounts for the purpose of generating commissions are strictly prohibited and will result in immediate disqualification and account termination.</p>
+      </div>
 
-  <div class="clause" id="disclaimer-clause">
-    <div class="clause-num">Clause 11</div>
-    <h2>Disclaimer of Warranties &amp; Limitation of Liability</h2>
-    <div class="hi-box"><p><strong>SERVICES PROVIDED &#8220;AS IS&#8221;:</strong> All services are provided on an &#8220;as is&#8221; and &#8220;as available&#8221; basis without any warranty, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, accuracy, completeness, or non-infringement.</p></div>
-    <ol>
-      <li><strong>Maximum Liability Cap:</strong> The total aggregate liability of BuyGenix Solutions to the Member for all claims arising from the Services shall not exceed the total fees paid by the Member for the specific service giving rise to the claim during the three (3) months immediately preceding the claim.</li>
-      <li><strong>Exclusion of Consequential Damages:</strong> BuyGenix Solutions shall not be liable for any indirect, incidental, special, exemplary, punitive, or consequential damages including loss of profits, revenue, business opportunity, or goodwill.</li>
-      <li><strong>Force Majeure:</strong> BuyGenix Solutions shall not be liable for any failure or delay in performance caused by events beyond our reasonable control including acts of God, government action, internet outages, natural disasters, or pandemics.</li>
-    </ol>
-  </div>
+      <div class="legal-section" id="disclaimer">
+        <h2>7. Disclaimer</h2>
+        <p>BuyGenix Solutions is a <strong>private digital services company</strong>. We are <strong>not</strong> affiliated with, endorsed by, or associated with:</p>
+        <ul>
+          <li>The Government of India or any state government</li>
+          <li>The Ministry of Commerce and Industry</li>
+          <li>FIEO (Federation of Indian Export Organisations)</li>
+          <li>APEDA, MPEDA, or any Export Promotion Council</li>
+          <li>ECGC or any trade finance body</li>
+          <li>The GSTN (we assist with registration but are not an official GSTN body)</li>
+        </ul>
+        <p>Services are provided on a best-effort basis. We do not guarantee specific business outcomes, order values, or number of successful buyer connections as a result of membership.</p>
+      </div>
 
-  <div class="clause" id="indemnity-clause">
-    <div class="clause-num">Clause 12</div>
-    <h2>Member Indemnification</h2>
-    <p>The Member agrees to fully indemnify, defend, and hold harmless BuyGenix Solutions and its officers, directors, employees, agents, and representatives from and against any and all claims, damages, losses, costs, expenses (including reasonable legal fees), and liabilities arising out of or related to:</p>
-    <ul>
-      <li>The Member&#39;s use or misuse of the platform or any Service;</li>
-      <li>Breach of any representation, warranty, or obligation under these Terms;</li>
-      <li>Infringement of any third party&#39;s intellectual property, privacy, or other rights;</li>
-      <li>Fraudulent, illegal, or unethical use of lead data or any other information obtained through the platform.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="ip">
+        <h2>8. Intellectual Property</h2>
+        <p>All content on the BuyGenix Solutions website including but not limited to text, graphics, logos, icons, images, data compilations, and software is the property of BuyGenix Solutions and is protected under applicable intellectual property laws.</p>
+        <p>Members are granted a limited, non-exclusive, non-transferable licence to access and use the platform for their own business purposes. No content may be reproduced, distributed, or used commercially without prior written consent.</p>
+      </div>
 
-  <div class="clause" id="termination-clause">
-    <div class="clause-num">Clause 13</div>
-    <h2>Termination &amp; Account Suspension</h2>
-    <p>BuyGenix Solutions reserves the absolute right to immediately terminate or suspend a Member&#39;s account and access to all Services, without prior notice and without any refund obligation, in the following circumstances:</p>
-    <ul>
-      <li>Material breach of any provision of these Terms and Conditions;</li>
-      <li>Attempted or actual redistribution, resale, or misuse of lead data;</li>
-      <li>Discovery of fraudulent activity including fake referrals or chargebacks;</li>
-      <li>Use of the platform for illegal, defamatory, harassing, or unethical purposes;</li>
-      <li>Non-payment of dues or initiation of bank chargebacks on legitimate charges.</li>
-    </ul>
-  </div>
+      <div class="legal-section" id="liability">
+        <h2>9. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, BuyGenix Solutions shall not be liable for any indirect, incidental, special, consequential, or punitive damages including without limitation, loss of profits, data, business, or goodwill arising out of or in connection with the use of our services.</p>
+        <p>Our total aggregate liability in connection with any claim arising from or related to these Terms or our services shall not exceed the amount you paid us in the 12 months immediately preceding the event giving rise to the claim.</p>
+      </div>
 
-  <div class="clause" id="governing-clause">
-    <div class="clause-num">Clause 14</div>
-    <h2>Governing Law &amp; Dispute Resolution</h2>
-    <ol>
-      <li><strong>Governing Law:</strong> These Terms shall be governed by the laws of the Republic of India.</li>
-      <li><strong>Exclusive Jurisdiction:</strong> The courts of Delhi, India shall have exclusive jurisdiction over all disputes.</li>
-      <li><strong>Mandatory Prior Resolution:</strong> Before initiating any formal legal proceedings, the disputing party must submit a written grievance to BuyGenix Solutions by email. BuyGenix Solutions shall endeavour to resolve the matter within thirty (30) working days.</li>
-      <li><strong>Arbitration Option:</strong> At BuyGenix Solutions&#39; election, disputes may be referred to binding arbitration under the Arbitration and Conciliation Act, 1996 with a sole arbitrator. The seat of arbitration shall be Delhi, India.</li>
-    </ol>
-  </div>
+      <div class="legal-section" id="conduct">
+        <h2>10. User Conduct</h2>
+        <p>As a member, you agree not to:</p>
+        <ul>
+          <li>Use leads or platform data for spam, unsolicited marketing, or any illegal purpose</li>
+          <li>Share, resell, or distribute any lead data to third parties</li>
+          <li>Attempt to reverse engineer, scrape, or copy platform data</li>
+          <li>Make false or misleading representations about BuyGenix or any third party</li>
+          <li>Engage in any fraudulent activity including false referrals or fake reviews</li>
+          <li>Violate any applicable Indian or international law in connection with our services</li>
+        </ul>
+      </div>
 
-  <div class="clause" id="misc-clause">
-    <div class="clause-num">Clause 15</div>
-    <h2>Miscellaneous Provisions</h2>
-    <ul>
-      <li><strong>Entire Agreement:</strong> These Terms, together with the Privacy Policy and any service-specific terms, constitute the entire agreement between the parties.</li>
-      <li><strong>Severability:</strong> If any provision is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect.</li>
-      <li><strong>No Waiver:</strong> Failure by BuyGenix Solutions to enforce any provision shall not constitute a waiver of the right to enforce such provision at any future time.</li>
-      <li><strong>Amendments:</strong> BuyGenix Solutions reserves the right to amend these Terms at any time. Amendments are effective upon posting on the website.</li>
-      <li><strong>Electronic Communications:</strong> By engaging with BuyGenix Solutions, you consent to receiving all notices and communications electronically.</li>
-    </ul>
-  </div>
-</div>
+      <div class="legal-section" id="termination">
+        <h2>11. Termination</h2>
+        <p>BuyGenix Solutions reserves the right to suspend or terminate your membership at any time if you violate these Terms, without notice and without refund. You may request account closure at any time by contacting us, though no refund will be issued for the unused portion of an annual membership.</p>
+      </div>
 
-<div style="text-align:center;padding:32px;background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius-lg);margin-top:8px;" data-reveal>
-  <p style="font-size:13px;color:var(--text-m);margin-bottom:16px;">Questions about these Terms? Contact our team.</p>
-  <a href="contact.html" class="btn-primary">Contact Us &#8594;</a>
-  <p style="font-size:11px;color:var(--text-l);margin-top:14px;">&#169; 2024 BuyGenix Solutions. These Terms were last reviewed in December 2024.</p>
-</div>
+      <div class="legal-section" id="governing">
+        <h2>12. Governing Law &amp; Dispute Resolution</h2>
+        <p>These Terms shall be governed by and construed in accordance with the laws of India. Any dispute arising from or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of Delhi, India.</p>
+        <p>Before initiating any formal legal proceedings, both parties agree to attempt resolution through good-faith negotiation for a period of 30 days.</p>
+      </div>
 
-</div>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
-        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
-        <div class="footer-socials">
-          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
-          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
-          <div class="footer-social">&#128172;</div>
-          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+      <div class="legal-section" id="contact-legal">
+        <h2>13. Contact for Legal Enquiries</h2>
+        <p>For any questions or concerns regarding these Terms and Conditions, please contact:</p>
+        <p><strong>BuyGenix Solutions</strong><br>
+        Delhi, India 🇮🇳<br>
+        Email: <a href="mailto:Buygenixsolutions@gmail.com" style="color:var(--gold);">Buygenixsolutions@gmail.com</a><br>
+        Instagram: <a href="https://instagram.com/buygenixsolutions" style="color:var(--gold);">@buygenixsolutions</a>
+        </p>
+        <div style="margin-top:20px;">
+          <a href="privacy.html" class="btn-outline" style="margin-right:12px;">View Privacy Policy →</a>
+          <a href="contact.html" class="btn-primary">Contact Us</a>
         </div>
       </div>
-      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
-      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
-    </div>
-    <div class="footer-bottom">
-      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
-      <p>buygenixsolutions@gmail.com</p>
+
     </div>
   </div>
-</footer>
-<script src="shared.js"></script>
 
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-svg-wrap-footer"></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a>
+        <a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a>
+        <a href="https://wa.me/917XXXXXXXXX">💬</a>
+        <a href="mailto:Buygenixsolutions@gmail.com">📧</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="services.html#leads">Buyer Leads</a></li>
+      <li><a href="services.html#catalogue">Product Catalogue</a></li>
+      <li><a href="services.html#seo">SEO &amp; SMO</a></li>
+      <li><a href="gst.html">GST Registration</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BuyGenix Solutions. All rights reserved. | Buygenixsolutions@gmail.com</p>
+    <p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
 </body>
 </html>
