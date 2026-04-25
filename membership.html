@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membership Plans – BuyGenix Solutions</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
+.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
+.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
+.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
+
+.plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px;}
+.plan{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:30px 22px;position:relative;transition:all 0.3s;box-shadow:var(--shadow-sm);}
+.plan.popular{border:2px solid var(--blue-deep);box-shadow:var(--shadow-lg);transform:translateY(-6px);}
+.pop-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--blue-deep),var(--blue-mid));color:#fff;padding:4px 20px;border-radius:100px;font-size:11px;font-weight:700;white-space:nowrap;}
+.plan-name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue-deep);margin-bottom:6px;}
+.plan-for{font-size:11px;color:var(--text-l);margin-bottom:14px;line-height:1.5;}
+.plan-orig{font-size:13px;color:var(--text-l);text-decoration:line-through;margin-bottom:3px;}
+.plan-price{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--text-h);line-height:1;margin-bottom:3px;}
+.plan-price sub{font-size:13px;font-family:'Outfit',sans-serif;color:var(--text-l);font-weight:400;}
+.plan-save{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:18px;}
+.plan-sep{height:1px;background:var(--border-l);margin:16px 0;}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px;}
+.plan-feats li{font-size:12.5px;color:var(--text-m);display:flex;align-items:flex-start;gap:7px;line-height:1.45;}
+.pf-ok{color:var(--teal);flex-shrink:0;font-size:12px;}
+.pf-no{color:var(--text-l);flex-shrink:0;font-size:12px;}
+.pf-dim{color:var(--text-l)!important;}
+.plan-btn{width:100%;padding:12px;border-radius:9px;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all 0.2s;font-family:'Outfit',sans-serif;}
+.plan-btn-blue{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid));color:#fff;box-shadow:0 4px 14px rgba(21,101,192,0.25);}
+.plan-btn-blue:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(21,101,192,0.35);}
+.plan-btn-outline{background:transparent;border:1.5px solid var(--border)!important;color:var(--text-b);}
+.plan-btn-outline:hover{background:var(--blue-pale);border-color:var(--blue-mid)!important;color:var(--blue-deep);}
+.cmp-tbl{width:100%;border-collapse:collapse;}
+.cmp-tbl th{background:var(--blue-pale);color:var(--blue-deep);font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:13px 16px;text-align:center;border-bottom:1px solid rgba(21,101,192,0.15);}
+.cmp-tbl th:first-child{text-align:left;}
+.cmp-tbl td{padding:11px 16px;font-size:13px;color:var(--text-m);border-bottom:1px solid var(--border-l);text-align:center;vertical-align:middle;}
+.cmp-tbl td:first-child{text-align:left;color:var(--text-b);font-weight:500;}
+.cmp-tbl .yes{color:var(--teal);font-weight:600;}
+.cmp-tbl .no-f{color:var(--text-l);}
+.cmp-tbl .cat-row td{background:var(--bg2);color:var(--blue-deep);font-size:11px;text-transform:uppercase;letter-spacing:1px;font-weight:600;padding:9px 16px;}
+.mlm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px;}
+.mlm-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:26px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;}
+.mlm-card.hl{border:2px solid var(--blue-mid);}
+.mlm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.mlm-earn{background:var(--bg2);border-radius:10px;padding:14px;margin:14px 0;}
+.mlm-earn strong{display:block;font-size:30px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);}
+.mlm-earn span{font-size:12px;color:var(--text-l);}
+@media(max-width:960px){.plans-grid{grid-template-columns:1fr 1fr;}.plan.popular{transform:none;}.mlm-grid{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+<canvas id="bg-mini"></canvas>
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="active" class="nav-cta">Membership Plans &#8594;</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-badge">&#128142; Membership Plans</div>
+  <h1>Plans Designed for<br><span class='accent'>Every Exporter</span></h1>
+  <p>Whether you&#39;re just starting out or running a large trading house &#8212; we have a membership that fits your scale, budget, and ambitions. All plans are 12-month annual subscriptions.</p>
+</div>
+<div class="content-wrap">
+
+<div class="plans-grid" data-reveal>
+  <div class="plan" data-tilt>
+    <div class="plan-name">Starter</div>
+    <div class="plan-for">For first-time exporters &amp; startups exploring trade</div>
+    <div class="plan-orig">&#8377;8,999/year</div>
+    <div class="plan-price">&#8377;4,999<sub>+GST</sub></div>
+    <div class="plan-save">Save &#8377;4,000 &#8212; Launch Offer</div>
+    <div class="plan-sep"></div>
+    <ul class="plan-feats">
+      <li><span class="pf-ok">&#10003;</span> 15 Indian Buyer Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> Basic Catalogue &#8212; 5 products</li>
+      <li><span class="pf-ok">&#10003;</span> 1&#215; Virtual Business Card</li>
+      <li><span class="pf-ok">&#10003;</span> Email Support</li>
+      <li><span class="pf-ok">&#10003;</span> Platform Access (1 year)</li>
+      <li class="pf-dim"><span class="pf-no">&#10007;</span> International Leads</li>
+      <li class="pf-dim"><span class="pf-no">&#10007;</span> Dedicated RM</li>
+      <li class="pf-dim"><span class="pf-no">&#10007;</span> Business Promotion</li>
+    </ul>
+    <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
+  </div>
+  <div class="plan popular" data-tilt>
+    <div class="pop-badge">&#11088; Most Popular</div>
+    <div class="plan-name">Growth</div>
+    <div class="plan-for">For small &amp; medium exporters ready to scale buyer network</div>
+    <div class="plan-orig">&#8377;24,999/year</div>
+    <div class="plan-price">&#8377;12,999<sub>+GST</sub></div>
+    <div class="plan-save">Save &#8377;12,000 &#8212; Best Value</div>
+    <div class="plan-sep"></div>
+    <ul class="plan-feats">
+      <li><span class="pf-ok">&#10003;</span> 40 Indian Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> 15 International Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> Catalogue &#8212; 20 products</li>
+      <li><span class="pf-ok">&#10003;</span> Dedicated RM (Email + WhatsApp)</li>
+      <li><span class="pf-ok">&#10003;</span> 1&#215; Virtual Business Card</li>
+      <li><span class="pf-ok">&#10003;</span> Business Promotion (Quarterly)</li>
+      <li><span class="pf-ok">&#10003;</span> Basic SEO (on-page setup)</li>
+      <li><span class="pf-ok">&#10003;</span> Monthly performance report</li>
+    </ul>
+    <button class="plan-btn plan-btn-blue" onclick="location.href='contact.html'">Get Started &#8594;</button>
+  </div>
+  <div class="plan" data-tilt>
+    <div class="plan-name">Professional</div>
+    <div class="plan-for">For established exporters wanting a complete digital suite</div>
+    <div class="plan-orig">&#8377;49,999/year</div>
+    <div class="plan-price">&#8377;24,999<sub>+GST</sub></div>
+    <div class="plan-save">Save &#8377;25,000 &#8212; Premium</div>
+    <div class="plan-sep"></div>
+    <ul class="plan-feats">
+      <li><span class="pf-ok">&#10003;</span> 80 Indian Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> 35 International Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> Catalogue &#8212; 40 products</li>
+      <li><span class="pf-ok">&#10003;</span> Priority RM (Phone + WhatsApp)</li>
+      <li><span class="pf-ok">&#10003;</span> 1&#215; Virtual Business Card</li>
+      <li><span class="pf-ok">&#10003;</span> Business Promotion (Monthly)</li>
+      <li><span class="pf-ok">&#10003;</span> Full SEO + SMO Package</li>
+      <li><span class="pf-ok">&#10003;</span> GST Registration Assistance</li>
+    </ul>
+    <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
+  </div>
+  <div class="plan" data-tilt>
+    <div class="plan-name">Enterprise</div>
+    <div class="plan-for">For large trading houses &amp; multi-category operations</div>
+    <div class="plan-orig">&#8377;89,999/year</div>
+    <div class="plan-price">&#8377;44,999<sub>+GST</sub></div>
+    <div class="plan-save">Save &#8377;45,000 &#8212; Full Suite</div>
+    <div class="plan-sep"></div>
+    <ul class="plan-feats">
+      <li><span class="pf-ok">&#10003;</span> Unlimited Indian Leads</li>
+      <li><span class="pf-ok">&#10003;</span> 80 International Leads/month</li>
+      <li><span class="pf-ok">&#10003;</span> Unlimited Catalogue products</li>
+      <li><span class="pf-ok">&#10003;</span> Senior RM &#8212; Priority 24&#215;7</li>
+      <li><span class="pf-ok">&#10003;</span> 5&#215; Team Business Cards</li>
+      <li><span class="pf-ok">&#10003;</span> Business Promotion (Weekly)</li>
+      <li><span class="pf-ok">&#10003;</span> Full SEO + SMO Strategy</li>
+      <li><span class="pf-ok">&#10003;</span> GST Registration Assistance</li>
+    </ul>
+    <button class="plan-btn plan-btn-outline" onclick="location.href='contact.html'">Get Started</button>
+  </div>
+</div>
+<p style="text-align:center;margin-top:20px;font-size:12px;color:var(--text-l);" data-reveal>All prices exclusive of 18% GST &#183; Annual billing only &#183; Non-refundable after activation &#183; Plans expire after 12 months &#183; Monthly lead credits do not carry forward</p>
+
+<div class="glass-card" style="margin-top:40px;" data-reveal>
+  <span class="badge">Full Comparison</span>
+  <h2 style="font-size:24px;margin-bottom:22px;">Detailed Feature Comparison</h2>
+  <div style="overflow-x:auto;">
+    <table class="cmp-tbl">
+      <tr><th>Feature</th><th>Starter</th><th>Growth</th><th>Professional</th><th>Enterprise</th></tr>
+      <tr class="cat-row"><td colspan="5">Lead Generation</td></tr>
+      <tr><td>Indian Buyer Leads / Month</td><td>15</td><td>40</td><td>80</td><td class="yes">Unlimited</td></tr>
+      <tr><td>International Leads / Month</td><td class="no-f">&#8212;</td><td>15</td><td>35</td><td>80</td></tr>
+      <tr><td>WhatsApp Contacts in Leads</td><td class="no-f">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+      <tr class="cat-row"><td colspan="5">Catalogue &amp; Profile</td></tr>
+      <tr><td>Product Listings</td><td>5</td><td>20</td><td>40</td><td class="yes">Unlimited</td></tr>
+      <tr><td>Multi-Level Categories</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+      <tr><td>Shareable Catalogue Link</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+      <tr class="cat-row"><td colspan="5">Support</td></tr>
+      <tr><td>Support Type</td><td>Email Only</td><td>RM (Email+WA)</td><td>Priority RM</td><td class="yes">Senior RM 24&#215;7</td></tr>
+      <tr><td>Monthly Performance Report</td><td class="no-f">&#10007;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+      <tr><td>Business Promotion</td><td class="no-f">&#10007;</td><td>Quarterly</td><td>Monthly</td><td class="yes">Weekly</td></tr>
+      <tr class="cat-row"><td colspan="5">Digital Services</td></tr>
+      <tr><td>Virtual Business Card(s)</td><td>1</td><td>1</td><td>1</td><td class="yes">5 Team Cards</td></tr>
+      <tr><td>SEO Service</td><td class="no-f">&#10007;</td><td>Basic On-page</td><td class="yes">Full SEO</td><td class="yes">Full SEO</td></tr>
+      <tr><td>SMO / Social Media</td><td class="no-f">&#10007;</td><td class="no-f">&#10007;</td><td class="yes">&#10003; Included</td><td class="yes">&#10003; Full Strategy</td></tr>
+      <tr><td>GST Registration Assistance</td><td class="no-f">&#10007;</td><td class="no-f">&#10007;</td><td class="yes">&#10003; Included</td><td class="yes">&#10003; Included</td></tr>
+      <tr class="cat-row"><td colspan="5">Pricing</td></tr>
+      <tr><td>Annual Price (Excl. GST)</td><td>&#8377;4,999</td><td><strong style="color:var(--blue-deep);">&#8377;12,999</strong></td><td>&#8377;24,999</td><td>&#8377;44,999</td></tr>
+      <tr><td>You Save vs MRP</td><td>&#8377;4,000</td><td>&#8377;12,000</td><td>&#8377;25,000</td><td>&#8377;45,000</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="glass-card" style="background:var(--bg2);" data-reveal>
+  <span class="badge">Referral Programme</span>
+  <h2 style="font-size:26px;margin-bottom:8px;">Earn by Referring Businesses</h2>
+  <p style="font-size:14px;color:var(--text-m);margin-bottom:0;">Every BuyGenix member can participate in our multi-level referral programme and earn commission on memberships sold through their network &#8212; up to 3 levels deep.</p>
+  <div class="mlm-grid">
+    <div class="mlm-card" data-tilt><div style="font-size:36px;margin-bottom:12px;">&#129351;</div><h3 style="font-size:17px;color:var(--text-h);margin-bottom:8px;">Level 1 &#8212; Direct</h3><p style="font-size:13px;color:var(--text-m);margin-bottom:0;">Business you directly referred purchases a plan. Commission credited on confirmed payment.</p><div class="mlm-earn"><strong>15%</strong><span>of plan value earned</span></div><p style="font-size:12px;color:var(--text-l);">Growth &#8377;12,999 &#8594; You earn &#8377;1,950</p></div>
+    <div class="mlm-card hl" data-tilt><div style="font-size:36px;margin-bottom:12px;">&#129352;</div><h3 style="font-size:17px;color:var(--text-h);margin-bottom:8px;">Level 2 &#8212; Indirect</h3><p style="font-size:13px;color:var(--text-m);margin-bottom:0;">The business you referred further refers someone who buys. You earn on that sale too.</p><div class="mlm-earn"><strong>8%</strong><span>of plan value earned</span></div><p style="font-size:12px;color:var(--text-l);">Professional &#8377;24,999 &#8594; You earn &#8377;2,000</p></div>
+    <div class="mlm-card" data-tilt><div style="font-size:36px;margin-bottom:12px;">&#129353;</div><h3 style="font-size:17px;color:var(--text-h);margin-bottom:8px;">Level 3 &#8212; Extended</h3><p style="font-size:13px;color:var(--text-m);margin-bottom:0;">As your network grows to a 3rd degree, you continue earning commission passively.</p><div class="mlm-earn"><strong>4%</strong><span>of plan value earned</span></div><p style="font-size:12px;color:var(--text-l);">Enterprise &#8377;44,999 &#8594; You earn &#8377;1,800</p></div>
+  </div>
+  <div style="background:#fff;border:1px solid var(--border-l);border-radius:var(--radius);padding:16px 20px;margin-top:20px;"><p style="font-size:13px;color:var(--text-m);line-height:1.7;">Commission paid monthly via bank transfer/UPI. Minimum payout &#8377;500. Active membership required to participate. See <a href="terms.html" style="color:var(--blue-mid);">Terms &amp; Conditions</a> for full programme rules.</p></div>
+</div>
+
+<div style="text-align:center;padding:40px;background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid),var(--purple));border-radius:var(--radius-lg);margin-top:8px;" data-reveal>
+  <h2 style="font-size:28px;color:#fff;margin-bottom:12px;">Not Sure Which Plan to Choose?</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,0.72);margin-bottom:28px;">Talk to our team &#8212; we&#39;ll recommend the right plan based on your product category, target market, and business goals.</p>
+  <a href="contact.html" style="background:#fff;color:var(--blue-deep);padding:14px 32px;border-radius:11px;font-weight:700;font-size:15px;display:inline-block;margin-right:12px;">Talk to Our Team &#8594;</a>
+  <a href="https://wa.me/91XXXXXXXXXX" style="background:#25D366;color:#fff;padding:14px 28px;border-radius:11px;font-weight:600;font-size:15px;display:inline-block;">&#128172; WhatsApp Us</a>
+</div>
+
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
+        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
+          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
+          <div class="footer-social">&#128172;</div>
+          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
+      <p>buygenixsolutions@gmail.com</p>
+    </div>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services – BuyGenix Solutions</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
+.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
+.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
+.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
+
+.svc-detail{background:rgba(255,255,255,0.95);border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:40px;margin-bottom:26px;box-shadow:var(--shadow-md);transition:all 0.3s;position:relative;overflow:hidden;}
+.svc-detail::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--blue-deep),var(--purple));border-radius:4px 0 0 4px;opacity:0;transition:opacity 0.3s;}
+.svc-detail:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+.svc-detail:hover::before{opacity:1;}
+.svc-hdr{display:flex;align-items:flex-start;gap:18px;margin-bottom:22px;}
+.svc-icon-lg{width:58px;height:58px;border-radius:14px;background:linear-gradient(135deg,var(--blue-pale),var(--purple-pale));border:1px solid rgba(21,101,192,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.svc-hdr h2{font-size:24px;color:var(--text-h);margin-bottom:8px;}
+.svc-hdr p{font-size:14px;color:var(--text-m);line-height:1.7;}
+.svc-body{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:start;}
+.svc-feats{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.svc-feats li{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--text-m);}
+.svc-feats li::before{content:'&#8594;';color:var(--blue-mid);font-weight:700;flex-shrink:0;margin-top:1px;}
+.mini-card{background:var(--bg2);border-radius:var(--radius);padding:20px;border:1px solid var(--border-l);}
+.mini-card h4{font-size:13px;font-weight:600;color:var(--text-h);margin-bottom:12px;}
+.mini-row{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid var(--border-l);}
+.mini-row:last-child{border:none;}
+.mini-row strong{color:var(--text-h);}
+.mini-row span{color:var(--text-m);}
+.cat-tree{background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius);padding:20px;margin-top:16px;}
+.cat-parent{font-size:13px;font-weight:600;color:var(--text-h);margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border-l);}
+.cat-children{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.cat-child{background:var(--blue-pale);color:var(--blue-deep);padding:3px 11px;border-radius:100px;font-size:11px;font-weight:500;}
+.cat-gc{background:var(--surface2);color:var(--text-m);padding:2px 9px;border-radius:100px;font-size:10px;}
+@media(max-width:860px){.svc-body{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+<canvas id="bg-mini"></canvas>
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html" class="active">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-badge">&#128674; Our Services</div>
+  <h1>Everything Your<br><span class='accent'>Export Business Needs</span></h1>
+  <p>Six powerful services, one platform. From buyer lead generation to digital identity and GST compliance &#8212; BuyGenix Solutions covers your complete B2B growth journey.</p>
+</div>
+<div class="content-wrap">
+
+<div data-reveal>
+  <span class="badge">Buy Leads</span>
+  <div class="svc-detail" id="leads" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#128203;</div><div><h2>Buy Leads &#8212; Indian &amp; International Buyers</h2><p>Our flagship service. Access a curated, verified database of active buyers sourcing products from India &#8212; both domestically and internationally across 50+ countries.</p></div></div>
+    <div class="svc-body">
+      <div>
+        <h3 style="font-size:15px;color:var(--text-h);margin-bottom:12px;">&#127988; Indian Buyer Leads Include:</h3>
+        <ul class="svc-feats"><li>Verified company name, type, and industry sector</li><li>Decision-maker contact: name, phone, WhatsApp, email</li><li>Specific product requirements with quantity and frequency</li><li>City, state, and regional targeting filters</li><li>Monthly buying volume and import history indicators</li><li>Lead freshness rating (date of last verification)</li></ul>
+        <h3 style="font-size:15px;color:var(--text-h);margin:20px 0 12px;">&#127758; International Buyer Leads Include:</h3>
+        <ul class="svc-feats"><li>Country-wise categorised overseas buyer profiles</li><li>Company name, website, and LinkedIn profile</li><li>Import category, volume range, and sourcing history</li><li>Direct contact email and LinkedIn connection details</li><li>Coverage: USA, UK, UAE, Europe, Southeast Asia, Australia</li><li>New international leads added to database monthly</li></ul>
+      </div>
+      <div>
+        <div class="mini-card"><h4>Lead Quota by Plan</h4><div class="mini-row"><strong>Starter</strong><span>15 Indian/month</span></div><div class="mini-row"><strong>Growth</strong><span>40 Indian + 15 Intl/month</span></div><div class="mini-row"><strong>Professional</strong><span>80 Indian + 35 Intl/month</span></div><div class="mini-row"><strong>Enterprise</strong><span>Unlimited + 80 Intl/month</span></div></div>
+        <div style="background:var(--blue-pale);border-radius:var(--radius);padding:14px;margin-top:12px;border:1px solid rgba(21,101,192,0.15);"><p style="font-size:12px;color:var(--text-m);line-height:1.7;">Monthly credits allocated on 1st of each month. Unused credits do not carry over. Leads available in CSV/Excel format for download.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-reveal>
+  <span class="badge">Catalogue</span>
+  <div class="svc-detail" id="catalogue" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#128193;</div><div><h2>Digital Product Catalogue Service</h2><p>A professionally structured, shareable digital catalogue showcasing your products with multi-level categorisation.</p></div></div>
+    <div class="svc-body">
+      <ul class="svc-feats"><li>Multi-level product tree: Category &#8594; Sub-category &#8594; Product</li><li>High-resolution product images (up to 5 per product)</li><li>Detailed product descriptions, specifications, and MOQ</li><li>Shareable link and QR code for the full catalogue</li><li>Mobile-optimised catalogue layout for buyers</li><li>Export certifications and compliance badges display</li><li>Virtual business card integration for seamless sharing</li><li>Buyer enquiry capture form embedded in catalogue</li></ul>
+      <div>
+        <div class="cat-tree">
+          <p style="font-size:11px;color:var(--blue-deep);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;">Sample Category Structure</p>
+          <div class="cat-parent">&#127807; Agriculture &amp; Food Products</div>
+          <div class="cat-children"><span class="cat-child">Spices &amp; Condiments</span><span class="cat-child">Organic Products</span><span class="cat-child">Processed Foods</span></div>
+          <div class="cat-children"><span class="cat-gc">Red Chilli</span><span class="cat-gc">Turmeric</span><span class="cat-gc">Cumin</span><span class="cat-gc">Coriander</span></div>
+          <div class="cat-parent">&#128085; Textiles &amp; Apparel</div>
+          <div class="cat-children"><span class="cat-child">Woven Fabrics</span><span class="cat-child">Ready-Made Garments</span><span class="cat-child">Technical Textiles</span></div>
+        </div>
+        <div class="mini-card" style="margin-top:14px;"><h4>Product Limits by Plan</h4><div class="mini-row"><strong>Starter</strong><span>5 products</span></div><div class="mini-row"><strong>Growth</strong><span>20 products</span></div><div class="mini-row"><strong>Professional</strong><span>40 products</span></div><div class="mini-row"><strong>Enterprise</strong><span>Unlimited</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-reveal>
+  <span class="badge">Relationship Manager</span>
+  <div class="svc-detail" id="rm" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#129309;</div><div><h2>Dedicated Relationship Manager</h2><p>Unlike generic B2B platforms where you're on your own, BuyGenix assigns you a personal RM who stays with you throughout your membership &#8212; your growth partner.</p></div></div>
+    <ul class="svc-feats"><li>Full onboarding: profile setup, catalogue creation, business card activation</li><li>Proactive lead matching based on your specific product categories</li><li>Sharing your business details with relevant incoming buyer enquiries</li><li>Monthly performance reports: lead views, catalogue traffic, buyer interest</li><li>Priority WhatsApp and email access to your assigned RM</li><li>Assistance in responding to buyer enquiries professionally</li><li>Coordination of GST, SEO/SMO and any other subscribed services</li><li>Guidance on export documentation and trade practices (advisory only)</li></ul>
+    <div style="background:var(--blue-pale);border-left:3px solid var(--blue-mid);border-radius:0 10px 10px 0;padding:14px 18px;margin-top:20px;"><p style="font-size:13px;color:var(--text-m);">RM available on Growth, Professional, and Enterprise plans. Starter plan members receive shared team email support. RM may be reassigned by BuyGenix Solutions based on operational requirements.</p></div>
+  </div>
+</div>
+
+<div data-reveal>
+  <span class="badge">Business Promotion</span>
+  <div class="svc-detail" id="promotion" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#128226;</div><div><h2>Business Promotion &amp; Buyer Sharing</h2><p>Your business doesn&#39;t just sit on a directory &#8212; we actively promote it. Our team shares your profile with relevant buyers who have upcoming procurement requirements.</p></div></div>
+    <div class="svc-body">
+      <ul class="svc-feats"><li>Your business profile shared directly with relevant buyer enquiries</li><li>Inclusion in category-specific buyer-matching broadcasts</li><li>Feature in our buyer newsletter sent to registered buyers</li><li>Social media promotion on @buygenixsolutions (higher plans)</li><li>Personalised introduction emails sent to matching buyers</li><li>Quarterly business overview shared with buyer network</li></ul>
+      <div class="mini-card"><h4>Promotion Frequency by Plan</h4><div class="mini-row"><strong>Starter</strong><span>Not included</span></div><div class="mini-row"><strong>Growth</strong><span>Quarterly (4x/year)</span></div><div class="mini-row"><strong>Professional</strong><span>Monthly (12x/year)</span></div><div class="mini-row"><strong>Enterprise</strong><span>Weekly (50x/year)</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div data-reveal>
+  <span class="badge">Virtual Business Card</span>
+  <div class="svc-detail" id="bizcard" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#128179;</div><div><h2>Virtual Business Card</h2><p>A smart digital business card that replaces the old paper card. Share via WhatsApp, email, QR code, or a direct link &#8212; your contact always has your latest information.</p></div></div>
+    <ul class="svc-feats"><li>Professional design matching your brand identity and colours</li><li>Instant share via WhatsApp, email, SMS or unique URL</li><li>QR code generation &#8212; print on packaging, invoices, or physical materials</li><li>Real-time updates: change your number or email and all shared cards update instantly</li><li>Links to Instagram @buygenixsolutions, Facebook, WhatsApp Business and LinkedIn</li><li>Product categories and export certifications displayed on card</li><li>Contact-save prompt: buyers save your details to phone in one tap</li><li>Starter, Growth, Professional: 1 card | Enterprise: 5 team member cards</li></ul>
+  </div>
+</div>
+
+<div data-reveal>
+  <span class="badge">SEO &amp; SMO</span>
+  <div class="svc-detail" id="seo" data-tilt>
+    <div class="svc-hdr"><div class="svc-icon-lg">&#128269;</div><div><h2>SEO &amp; Social Media Optimisation</h2><p>Be found when buyers search for your products on Google. Be seen when buyers scroll social media. Our digital marketing increases visibility on both fronts.</p></div></div>
+    <div class="svc-body">
+      <div>
+        <h3 style="font-size:15px;color:var(--text-h);margin-bottom:12px;">SEO Services Include:</h3>
+        <ul class="svc-feats"><li>Keyword research specific to your export products and target markets</li><li>On-page optimisation: title tags, meta descriptions, heading structure</li><li>Google My Business (GMB) profile setup and optimisation</li><li>Basic off-page link building and directory submissions</li><li>Monthly ranking report and performance analytics</li></ul>
+        <h3 style="font-size:15px;color:var(--text-h);margin:20px 0 12px;">SMO Services Include:</h3>
+        <ul class="svc-feats"><li>Instagram and Facebook page management and content calendar</li><li>10&#8211;14 professionally designed posts per month</li><li>Export-import themed content aligned with your product range</li><li>Hashtag strategy and audience growth activities</li><li>Monthly social analytics: reach, engagement, follower growth</li></ul>
+      </div>
+      <div class="mini-card"><h4>Pricing Summary</h4><div class="mini-row"><strong>SEO Only</strong><span>&#8377;6,999/month</span></div><div class="mini-row"><strong>SMO Only</strong><span>&#8377;5,999/month</span></div><div class="mini-row"><strong>SEO + SMO Bundle</strong><span>&#8377;10,999/month</span></div><div class="mini-row"><strong>Bundle Saving</strong><span>&#8377;1,999/month</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:16px;" data-reveal>
+  <a href="membership.html" class="btn-primary">View Membership Plans &#8594;</a>
+  <a href="contact.html" class="btn-outline" style="margin-left:14px;">Talk to Our Team</a>
+</div>
+
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
+        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
+          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
+          <div class="footer-social">&#128172;</div>
+          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
+      <p>buygenixsolutions@gmail.com</p>
+    </div>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>

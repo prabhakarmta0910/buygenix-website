@@ -1,0 +1,31 @@
+<svg width="100%" viewBox="0 0 680 280" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Buygenix Solutions Logo</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Buygenix Solutions logo with blue to purple gradient text and arrow icon</desc>
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1565C0"/>
+      <stop offset="55%" style="stop-color:#1976D2"/>
+      <stop offset="100%" style="stop-color:#7B1FA2"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1565C0"/>
+      <stop offset="100%" style="stop-color:#42A5F5"/>
+    </linearGradient>
+  <mask id="imagine-text-gaps-rfe9pf" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="680" height="280" fill="white"/><rect x="-4" y="-16.199999809265137" width="92.01250457763672" height="156.8000030517578" fill="black" rx="2"/><rect x="164" y="65.80000305175781" width="370.7749938964844" height="111.20000457763672" fill="black" rx="2"/><rect x="376" y="163" width="198.0124969482422" height="53.60000228881836" fill="black" rx="2"/></mask></defs>
+
+  <!-- B letter shape -->
+  <g transform="translate(95, 60)" style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+    <!-- Arrow swoosh curve behind B -->
+    <path d="M 12 108 C -10 70, -10 30, 20 8" fill="none" stroke="url(#arrowGrad)" stroke-width="5" stroke-linecap="round" mask="url(#imagine-text-gaps-rfe9pf)" style="fill:none;color:rgb(0, 0, 0);stroke-width:5px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <!-- Arrow head pointing up-right -->
+    <path d="M 20 8 L 48 0 L 36 26" fill="#42A5F5" style="fill:rgb(66, 165, 245);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+    <!-- B letter -->
+    <text x="0" y="105" font-family="Arial Black, Arial, sans-serif" font-size="108" font-weight="900" fill="url(#brandGrad)" style="stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Arial Black&quot;, Arial, sans-serif;font-size:108px;font-weight:900;text-anchor:start;dominant-baseline:auto">B</text>
+  </g>
+
+  <!-- uygenix text -->
+  <text x="168" y="155" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="700" fill="url(#brandGrad)" style="stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, Helvetica, sans-serif;font-size:96px;font-weight:700;text-anchor:start;dominant-baseline:auto">uygenix</text>
+
+  <!-- Solutions text -->
+  <text x="380" y="205" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="400" fill="#424242" letter-spacing="1" style="fill:rgb(66, 66, 66);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Arial, Helvetica, sans-serif;font-size:44px;font-weight:400;text-anchor:start;dominant-baseline:auto">Solutions</text>
+</svg>

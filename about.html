@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us – BuyGenix Solutions</title>
+<link rel="stylesheet" href="shared.css">
+<style>
+.page-hero{position:relative;z-index:2;padding:130px 5% 70px;max-width:1200px;margin:0 auto;}
+.page-hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-pale);border:1px solid rgba(21,101,192,0.2);color:var(--blue-deep);padding:6px 16px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:22px;}
+.page-hero h1{font-size:clamp(36px,5vw,64px);color:var(--text-h);margin-bottom:16px;}
+.page-hero h1 .accent{background:linear-gradient(135deg,var(--blue-deep),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.page-hero p{font-size:17px;color:var(--text-m);max-width:640px;line-height:1.75;}
+.last-upd{font-size:12px;color:var(--text-l);margin-top:8px;}
+
+.about-intro{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-bottom:32px;}
+.stat-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:36px;}
+.stat-item{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius);padding:22px 16px;text-align:center;box-shadow:var(--shadow-sm);transition:all 0.3s;}
+.stat-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.stat-item strong{display:block;font-size:36px;font-family:'Cormorant Garamond',serif;color:var(--blue-deep);margin-bottom:4px;}
+.stat-item span{font-size:12px;color:var(--text-l);text-transform:uppercase;letter-spacing:0.5px;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:28px;}
+.val-card{background:#fff;border:1px solid var(--border-l);border-radius:var(--radius-lg);padding:26px;transition:all 0.3s;box-shadow:var(--shadow-sm);}
+.val-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+.val-icon{font-size:30px;margin-bottom:12px;}
+.val-card h4{font-size:17px;color:var(--text-h);margin-bottom:8px;}
+.val-card p{font-size:13px;color:var(--text-m);line-height:1.7;}
+.mission-box{background:linear-gradient(135deg,var(--blue-deep),var(--blue-mid),var(--purple));border-radius:var(--radius-lg);padding:48px;text-align:center;margin:28px 0;color:#fff;}
+.mission-box h2{font-size:32px;color:#fff;margin-bottom:16px;}
+.mission-box p{font-size:16px;color:rgba(255,255,255,0.78);max-width:700px;margin:0 auto;line-height:1.8;}
+.compare-tbl{width:100%;border-collapse:collapse;}
+.compare-tbl th{background:var(--blue-pale);color:var(--blue-deep);font-size:12px;text-transform:uppercase;letter-spacing:1px;padding:13px 16px;text-align:center;border-bottom:1px solid rgba(21,101,192,0.15);}
+.compare-tbl th:first-child{text-align:left;}
+.compare-tbl td{padding:11px 16px;font-size:13px;color:var(--text-m);border-bottom:1px solid var(--border-l);text-align:center;}
+.compare-tbl td:first-child{text-align:left;color:var(--text-b);font-weight:500;}
+.compare-tbl .yes{color:var(--teal);font-weight:600;}
+.compare-tbl .no-f{color:var(--text-l);}
+@media(max-width:860px){.about-intro,.values-grid,.stat-bar{grid-template-columns:1fr 1fr;}.values-grid{grid-template-columns:1fr;}}
+
+</style>
+</head>
+<body>
+<canvas id="bg-mini"></canvas>
+<a href="https://wa.me/91XXXXXXXXXX" class="wa-float">&#128172;</a>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="logo.svg" alt="BuyGenix Solutions"></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html" class="active">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans &#8594;</a>
+  </div>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-badge">&#127758; Our Story</div>
+  <h1>Building India&#39;s<br><span class='accent'>Export-Import Bridge</span></h1>
+  <p>BuyGenix Solutions was founded with one mission: to make global trade accessible, affordable, and actionable for every Indian business &#8212; from first-time exporters to established trading houses.</p>
+</div>
+<div class="content-wrap">
+
+<div class="stat-bar" data-reveal>
+  <div class="stat-item" data-tilt><strong>5,000+</strong><span>Verified Buyers</span></div>
+  <div class="stat-item" data-tilt><strong>50+</strong><span>Countries</span></div>
+  <div class="stat-item" data-tilt><strong>200+</strong><span>Product Categories</span></div>
+  <div class="stat-item" data-tilt><strong>98%</strong><span>Member Satisfaction</span></div>
+</div>
+
+<div class="glass-card" data-reveal>
+  <div class="about-intro">
+    <div>
+      <span class="badge">Who We Are</span>
+      <h2 style="font-size:30px;margin:10px 0 16px;">Built by Exporters, for Exporters</h2>
+      <p>BuyGenix Solutions is an India-based B2B digital platform designed specifically for the export-import trade community. We understand the real challenges exporters face: finding reliable buyers, maintaining a professional digital presence, navigating compliance requirements, and building trust with overseas clients.</p>
+      <p style="margin-top:14px;">Our platform combines buyer lead intelligence, digital marketing, professional cataloguing, and personalised support &#8212; all in one affordable membership &#8212; so that exporters of every size can compete and grow in the global market.</p>
+      <p style="margin-top:14px;">We are a private digital services company. We are not affiliated with any government body, trade ministry, or official export promotion council. We operate as an independent B2B marketplace facilitator.</p>
+    </div>
+    <div>
+      <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80&auto=format&fit=crop" alt="BuyGenix team at work" style="width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);object-fit:cover;aspect-ratio:4/3;" loading="lazy">
+    </div>
+  </div>
+  <div style="background:var(--bg2);border-radius:var(--radius);padding:24px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:8px;">
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px solid var(--border-l);"><span style="color:var(--text-m);">Platform Launch</span><strong style="color:var(--text-h);">2023</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;border-bottom:1px solid var(--border-l);"><span style="color:var(--text-m);">Headquarters</span><strong style="color:var(--text-h);">Delhi, India &#127988;</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;"><span style="color:var(--text-m);">Instagram</span><strong style="color:var(--text-h);">@buygenixsolutions</strong></div>
+    <div style="display:flex;justify-content:space-between;font-size:14px;padding:8px 0;"><span style="color:var(--text-m);">Email</span><strong style="color:var(--text-h);">buygenixsolutions@gmail.com</strong></div>
+  </div>
+</div>
+
+<div class="mission-box" data-reveal>
+  <h2>Our Mission</h2>
+  <p>&#8220;To democratise access to global trade opportunities for every Indian business by providing affordable, verified buyer intelligence, professional digital tools, and dedicated human support &#8212; empowering exporters to grow confidently in both domestic and international markets.&#8221;</p>
+</div>
+
+<div class="glass-card" data-reveal>
+  <span class="badge">Our Values</span>
+  <h2 style="font-size:28px;margin-bottom:6px;">What Drives Everything We Do</h2>
+  <div class="values-grid">
+    <div class="val-card" data-tilt><div class="val-icon">&#127919;</div><h4>Verified Quality</h4><p>Every buyer lead in our database goes through a verification process. Your time is valuable &#8212; we ensure it&#39;s not spent chasing outdated or unqualified contacts.</p></div>
+    <div class="val-card" data-tilt><div class="val-icon">&#129309;</div><h4>Human-First Support</h4><p>Unlike fully automated platforms, every member deserves human attention. Your Relationship Manager is a real person committed to your specific success.</p></div>
+    <div class="val-card" data-tilt><div class="val-icon">&#128161;</div><h4>Accessibility</h4><p>Global trade should not be reserved for large corporations. Our pricing is specifically designed to be accessible for startups, MSMEs, and growing exporters.</p></div>
+    <div class="val-card" data-tilt><div class="val-icon">&#128274;</div><h4>Transparency</h4><p>We are upfront about what our services can and cannot guarantee. No false promises, no hidden charges &#8212; honest, clear service terms and consistent delivery.</p></div>
+    <div class="val-card" data-tilt><div class="val-icon">&#127807;</div><h4>Long-Term Partnership</h4><p>We measure success by your growth. Our referral programme, RM system, and regular buyer-sharing activities are designed to build lasting business value.</p></div>
+    <div class="val-card" data-tilt><div class="val-icon">&#127988;</div><h4>India-Focused</h4><p>Built in India, for Indian exporters. Every feature is designed around the specific needs, challenges, and opportunities of the Indian export-import ecosystem.</p></div>
+  </div>
+</div>
+
+<div class="glass-card" data-reveal>
+  <span class="badge">Why Choose Us</span>
+  <h2 style="font-size:26px;margin-bottom:22px;">BuyGenix Solutions vs Generic Directories</h2>
+  <div style="overflow-x:auto;">
+    <table class="compare-tbl">
+      <tr><th>Feature</th><th>BuyGenix Solutions</th><th>Generic Directories</th></tr>
+      <tr><td>Dedicated Relationship Manager</td><td class="yes">&#10003; Yes (Growth+ plans)</td><td class="no-f">&#10007; No</td></tr>
+      <tr><td>International Buyer Leads</td><td class="yes">&#10003; 50+ Countries</td><td class="no-f">Limited</td></tr>
+      <tr><td>GST Registration Assistance</td><td class="yes">&#10003; Included</td><td class="no-f">&#10007; No</td></tr>
+      <tr><td>Virtual Business Card</td><td class="yes">&#10003; All Plans</td><td class="no-f">&#10007; No</td></tr>
+      <tr><td>SEO + SMO Services</td><td class="yes">&#10003; Available</td><td class="no-f">&#10007; No</td></tr>
+      <tr><td>3-Level Referral Programme</td><td class="yes">&#10003; 15% / 8% / 4%</td><td class="no-f">&#10007; No</td></tr>
+    </table>
+  </div>
+</div>
+
+<div style="text-align:center;padding:40px;background:var(--bg2);border:1px solid var(--border-l);border-radius:var(--radius-lg);" data-reveal>
+  <h2 style="font-size:28px;margin-bottom:12px;">Ready to Start Growing?</h2>
+  <p style="font-size:15px;color:var(--text-m);margin-bottom:28px;">Join hundreds of Indian exporters already using BuyGenix Solutions to find buyers and grow globally.</p>
+  <a href="membership.html" class="btn-primary">View Membership Plans &#8594;</a>
+  <a href="contact.html" class="btn-outline" style="margin-left:14px;">Talk to Us First</a>
+</div>
+
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="logo.svg" alt="BuyGenix Solutions"></div>
+        <p>India&#39;s growing B2B platform connecting exporters with verified buyers globally.</p>
+        <div class="footer-socials">
+          <div class="footer-social" onclick="window.open(&#39;https://instagram.com/buygenixsolutions&#39;)">&#128247;</div>
+          <div class="footer-social" onclick="window.open(&#39;https://facebook.com/buygenixsolutions&#39;)">&#128216;</div>
+          <div class="footer-social">&#128172;</div>
+          <div class="footer-social" onclick="window.open(&#39;mailto:buygenixsolutions@gmail.com&#39;)">&#128231;</div>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Buy Leads</a></li><li><a href="services.html">Catalogue</a></li><li><a href="services.html">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&#169; 2024 BuyGenix Solutions. All rights reserved. &#127988; Made in India</p>
+      <p>buygenixsolutions@gmail.com</p>
+    </div>
+  </div>
+</footer>
+<script src="shared.js"></script>
+</body>
+</html>
