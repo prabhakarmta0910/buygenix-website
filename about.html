@@ -42,7 +42,7 @@
 
 /* WHO WE ARE */
 .who-grid {
-  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  display: grid; grid-template-columns: 0.9fr 1.1fr;
   gap: 36px; align-items: start; margin-bottom: 32px;
 }
 .info-panel {
@@ -229,15 +229,9 @@
 
   <!-- WHO WE ARE -->
   <div class="who-grid">
-    <div class="card-glass reveal-left" style="padding:44px;">
-      <div class="section-label" style="margin-bottom:12px;">Who We Are</div>
-      <h2 style="font-size:30px;color:var(--navy);margin-bottom:16px;">A Platform Built by Exporters, for Exporters</h2>
-      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;">BuyGenix Solutions is an India-based B2B digital platform designed specifically for the export-import trade community. We understand the real challenges exporters face every day: finding reliable international and domestic buyers, maintaining a professional digital presence, navigating compliance requirements, and building trust with overseas clients.</p>
-      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;">Our platform combines buyer lead intelligence, digital marketing, professional cataloguing, and personalised relationship manager support — all in one affordable annual membership — so that exporters of every size can compete confidently in the global marketplace.</p>
-      <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;">We are headquartered in Delhi and our team works entirely in service of one goal: making Indian exporters globally competitive.</p>
-    </div>
 
-    <div class="reveal-right">
+    <!-- LEFT: Info panel + Timeline (naturally taller) -->
+    <div class="reveal-left">
       <div class="info-panel" style="margin-bottom:20px;">
         <div class="section-label" style="margin-bottom:16px;">By the Numbers</div>
         <div class="info-row"><span class="key">Platform Launch</span><span class="val">2023</span></div>
@@ -282,6 +276,55 @@
         </div>
       </div>
     </div>
+
+    <!-- RIGHT: Who we are text + what we offer -->
+    <div class="reveal-right">
+      <div class="card-glass" style="padding:44px; margin-bottom:20px;">
+        <div class="section-label" style="margin-bottom:12px;">Who We Are</div>
+        <h2 style="font-size:30px;color:var(--navy);margin-bottom:16px;">A Platform Built by Exporters, for Exporters</h2>
+        <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;">BuyGenix Solutions is an India-based B2B digital platform designed specifically for the export-import trade community. We understand the real challenges exporters face every day: finding reliable international and domestic buyers, maintaining a professional digital presence, navigating compliance requirements, and building trust with overseas clients.</p>
+        <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;margin-bottom:14px;">Our platform combines buyer lead intelligence, digital marketing, professional cataloguing, and personalised relationship manager support — all in one affordable annual membership — so that exporters of every size can compete confidently in the global marketplace.</p>
+        <p style="font-size:14.5px;color:var(--text-mid);line-height:1.85;">We are headquartered in Delhi and our team works entirely in service of one goal: making Indian exporters globally competitive.</p>
+      </div>
+
+      <!-- What we offer — quick pills to fill remaining space -->
+      <div class="card-glass" style="padding:32px;">
+        <div class="section-label" style="margin-bottom:16px;">What We Offer</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="background:var(--sky);border-radius:12px;padding:16px;">
+            <div style="font-size:22px;margin-bottom:8px;">🎯</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">Verified Buyer Leads</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Real-time delivery via WhatsApp &amp; Email. Indian &amp; International buyers.</div>
+          </div>
+          <div style="background:var(--sky);border-radius:12px;padding:16px;">
+            <div style="font-size:22px;margin-bottom:8px;">📋</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">Digital Catalogue</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Shareable product catalogue with QR code for every member.</div>
+          </div>
+          <div style="background:var(--sky);border-radius:12px;padding:16px;">
+            <div style="font-size:22px;margin-bottom:8px;">🤝</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">Dedicated RM</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">A real human relationship manager on WhatsApp &amp; phone.</div>
+          </div>
+          <div style="background:var(--sky);border-radius:12px;padding:16px;">
+            <div style="font-size:22px;margin-bottom:8px;">📈</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">SEO &amp; Social Media</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Full digital presence management included in Pro+ plans.</div>
+          </div>
+          <div style="background:var(--gold-pale);border-radius:12px;padding:16px;border:1px solid var(--border-gold);">
+            <div style="font-size:22px;margin-bottom:8px;">📝</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">GST Registration</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">Compliance assistance included in Professional &amp; Enterprise plans.</div>
+          </div>
+          <div style="background:var(--gold-pale);border-radius:12px;padding:16px;border:1px solid var(--border-gold);">
+            <div style="font-size:22px;margin-bottom:8px;">💰</div>
+            <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px;">Referral Earnings</div>
+            <div style="font-size:12px;color:var(--text-mid);line-height:1.6;">3-level referral programme. Earn up to 15% per referral.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- MISSION -->
