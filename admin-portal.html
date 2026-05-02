@@ -149,10 +149,89 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .ng{background:var(--g)}.nr{background:var(--red)}.ngr{background:var(--green)}
 
 @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.r2,.r31{grid-template-columns:1fr}.chat-layout{grid-template-columns:1fr;height:auto}.clist{display:none}}
+
+/* ── ADMIN LOGIN SCREEN ── */
+#admin-login{position:fixed;inset:0;z-index:999;background:var(--n);display:flex;align-items:center;justify-content:center;padding:24px}
+#admin-login canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.al-card{background:#fff;border-radius:20px;padding:40px 36px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.35);position:relative;z-index:2;animation:alIn .5s cubic-bezier(.16,1,.3,1)}
+@keyframes alIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.al-logo{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:28px}
+.al-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#DC2626;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;font-family:'Space Grotesk';margin-top:4px}
+.al-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--n);text-align:center;margin-bottom:4px}
+.al-sub{font-size:12.5px;color:var(--tm);text-align:center;margin-bottom:24px;line-height:1.55}
+.al-field{margin-bottom:14px}
+.al-field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tm);font-family:'Space Grotesk';margin-bottom:6px}
+.al-field-wrap{position:relative}
+.al-field-wrap .aic{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none}
+.al-field-wrap input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:13.5px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .18s,box-shadow .18s}
+.al-field-wrap input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
+.al-field-wrap input::placeholder{color:#B0C4D8}
+.al-field-wrap input[type=password]{letter-spacing:2px}
+.al-btn{width:100%;height:46px;background:linear-gradient(135deg,var(--n),var(--n2));color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.al-btn::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--g),var(--gm))}
+.al-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(11,25,41,.28)}
+.al-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.al-err{background:#FEF2F2;border:1px solid rgba(239,68,68,.22);border-radius:8px;color:#DC2626;font-size:12px;padding:9px 13px;margin-bottom:12px;display:none}
+.al-hint{margin-top:18px;background:var(--gp);border:1px solid var(--gb);border-radius:9px;padding:13px 15px}
+.al-hint-title{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--g);font-family:'Space Grotesk';margin-bottom:8px}
+.al-hint-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid rgba(184,134,11,.1)}
+.al-hint-row:last-child{border:none}
+.al-hint-row .lbl{color:var(--tm)}
+.al-hint-row .val{font-family:'Space Grotesk';font-weight:600;color:var(--n)}
+.al-spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <script src="bgx-data.js"></script>
+
+<!-- ══ ADMIN LOGIN SCREEN ══ -->
+<div id="admin-login">
+  <canvas id="al-canvas"></canvas>
+  <div class="al-card">
+    <div class="al-logo">
+      <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="height:34px;width:auto">
+        <defs>
+          <linearGradient id="alG1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient>
+          <linearGradient id="alG2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient>
+        </defs>
+        <g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#alG2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#alG1)">B</text></g>
+        <text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#alG1)">uygenix</text>
+        <text x="248" y="162" font-family="Arial" font-size="34" fill="#4A6A8A">Solutions</text>
+      </svg>
+      <div class="al-badge">🔐 Admin Access Only</div>
+    </div>
+    <div class="al-title">Admin Sign In</div>
+    <p class="al-sub">This portal is restricted to BuyGenix team members only.</p>
+    <div class="al-err" id="al-err"></div>
+    <div class="al-field">
+      <label>Username</label>
+      <div class="al-field-wrap">
+        <span class="aic">👤</span>
+        <input type="text" id="al-user" placeholder="Enter admin username" onkeydown="if(event.key==='Enter')document.getElementById('al-pass').focus()">
+      </div>
+    </div>
+    <div class="al-field">
+      <label>Password</label>
+      <div class="al-field-wrap">
+        <span class="aic">🔑</span>
+        <input type="password" id="al-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')adminLogin()">
+      </div>
+    </div>
+    <button class="al-btn" id="al-btn" onclick="adminLogin()">
+      <span id="al-btn-txt">Sign In to Admin CRM →</span>
+    </button>
+    <div class="al-hint">
+      <div class="al-hint-title">🧪 Demo Credentials</div>
+      <div class="al-hint-row"><span class="lbl">Admin</span><span class="val">admin / buygenix2025</span></div>
+      <div class="al-hint-row"><span class="lbl">Super Admin</span><span class="val">superadmin / BGX@Super#99</span></div>
+    </div>
+    <p style="margin-top:16px;text-align:center;font-size:11.5px;color:var(--tl)">
+      Not a team member? <a href="login.html" style="color:var(--g);font-weight:600">Client Login →</a>
+    </p>
+  </div>
+</div>
+
 
 <aside class="sidebar">
   <div class="sh">
@@ -181,9 +260,13 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
   </nav>
   <div class="sf">
     <div class="su">
-      <div class="sa">A</div>
-      <div><div style="font-size:12px;font-weight:600;color:#fff">Admin</div><div style="font-size:10px;color:var(--gm);font-family:'Space Grotesk'">BuyGenix Solutions</div></div>
+      <div class="sa" id="admin-ava">A</div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#fff" id="admin-display-name">Admin</div>
+        <div style="font-size:10px;color:var(--gm);font-family:'Space Grotesk'" id="admin-display-role">BuyGenix Solutions</div>
+      </div>
     </div>
+    <button onclick="adminLogout()" style="width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.38);font-size:11px;font-family:'Space Grotesk';cursor:pointer;transition:all .18s;letter-spacing:.3px;margin-top:2px" onmouseover="this.style.background='rgba(239,68,68,.15)';this.style.color='#EF4444'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.color='rgba(255,255,255,.38)'">⬅ Sign Out</button>
   </div>
 </aside>
 
@@ -991,9 +1074,199 @@ function changeRM(clientId) {
 
 /* ─ INIT ALL ─ */
 document.addEventListener('DOMContentLoaded', ()=>{
+  initAdminLoginCanvas();
+  checkAdminSession();
+});
+
+/* ══════════════════════════════════════════
+   ADMIN LOGIN / LOGOUT SYSTEM
+══════════════════════════════════════════ */
+
+/* Admin accounts — in production move these server-side */
+const ADMIN_ACCOUNTS = [
+  { username:'admin',      password:'buygenix2025', name:'Admin',       role:'BuyGenix Solutions',  initials:'A'  },
+  { username:'superadmin', password:'BGX@Super#99', name:'Super Admin', role:'BuyGenix Solutions',  initials:'SA' },
+  { username:'priya',      password:'priya@rm123',  name:'Priya Mehra', role:'Relationship Manager',initials:'PM' },
+  { username:'arjun',      password:'arjun@rm123',  name:'Arjun Kapoor',role:'Relationship Manager',initials:'AK' },
+  { username:'divya',      password:'divya@rm123',  name:'Divya Singh', role:'Relationship Manager',initials:'DS' },
+];
+
+function checkAdminSession() {
+  const saved = sessionStorage.getItem('bgx_admin_user');
+  if (saved) {
+    const admin = JSON.parse(saved);
+    enterAdminDashboard(admin);
+  }
+  /* else: login screen stays visible (already displayed by default) */
+}
+
+function adminLogin() {
+  const user = document.getElementById('al-user').value.trim();
+  const pass = document.getElementById('al-pass').value;
+  const btn  = document.getElementById('al-btn');
+  const txt  = document.getElementById('al-btn-txt');
+  const err  = document.getElementById('al-err');
+
+  err.style.display = 'none';
+
+  if (!user || !pass) {
+    err.textContent = '⚠ Please enter both username and password.';
+    err.style.display = 'block';
+    return;
+  }
+
+  const account = ADMIN_ACCOUNTS.find(
+    a => a.username.toLowerCase() === user.toLowerCase() && a.password === pass
+  );
+
+  if (!account) {
+    err.textContent = '⚠ Incorrect username or password. Please try again.';
+    err.style.display = 'block';
+    document.getElementById('al-pass').value = '';
+    document.getElementById('al-pass').focus();
+    return;
+  }
+
+  /* Success */
+  btn.disabled = true;
+  txt.innerHTML = '<span class="al-spin"></span> Signing in…';
+
+  sessionStorage.setItem('bgx_admin_user', JSON.stringify(account));
+
+  setTimeout(() => enterAdminDashboard(account), 900);
+}
+
+function enterAdminDashboard(admin) {
+  /* Hide login screen */
+  const loginEl = document.getElementById('admin-login');
+  loginEl.style.opacity = '0';
+  loginEl.style.transition = 'opacity .35s';
+  setTimeout(() => loginEl.style.display = 'none', 350);
+
+  /* Update sidebar user info */
+  document.getElementById('admin-ava').textContent         = admin.initials;
+  document.getElementById('admin-display-name').textContent = admin.name;
+  document.getElementById('admin-display-role').textContent = admin.role;
+
+  /* Show topbar greeting */
+  document.getElementById('page-title').textContent = 'Dashboard';
+
+  /* Init CRM */
   initDropdowns();
   renderDash();
-});
+}
+
+function adminLogout() {
+  if (!confirm('Sign out of Admin CRM?')) return;
+  sessionStorage.removeItem('bgx_admin_user');
+  /* Reset login form */
+  document.getElementById('al-user').value = '';
+  document.getElementById('al-pass').value = '';
+  document.getElementById('al-btn').disabled = false;
+  document.getElementById('al-btn-txt').textContent = 'Sign In to Admin CRM →';
+  document.getElementById('al-err').style.display = 'none';
+  /* Show login screen */
+  const loginEl = document.getElementById('admin-login');
+  loginEl.style.display = 'flex';
+  loginEl.style.opacity = '0';
+  requestAnimationFrame(() => {
+    loginEl.style.transition = 'opacity .35s';
+    loginEl.style.opacity = '1';
+  });
+}
+
+/* Canvas animation for login screen */
+function initAdminLoginCanvas() {
+  const canvas = document.getElementById('al-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], t = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    nodes = [];
+    const n = Math.floor((W * H) / 14000);
+    for (let i = 0; i < n; i++) {
+      nodes.push({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r:  Math.random() * 2 + 0.8,
+        o:  Math.random() * 0.25 + 0.05
+      });
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    /* Only draw if login screen is visible */
+    const loginEl = document.getElementById('admin-login');
+    if (loginEl.style.display === 'none') { t += 0.008; requestAnimationFrame(draw); return; }
+
+    ctx.clearRect(0, 0, W, H);
+
+    /* Deep navy gradient */
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, 'rgba(11,25,41,1)');
+    bg.addColorStop(1, 'rgba(15,40,64,1)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Gold orb top-right */
+    const orb = ctx.createRadialGradient(W * 0.85, H * 0.15, 0, W * 0.85, H * 0.15, Math.min(W, H) * 0.35);
+    orb.addColorStop(0, 'rgba(184,134,11,0.12)');
+    orb.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Navy orb bottom-left */
+    const orb2 = ctx.createRadialGradient(W * 0.1, H * 0.85, 0, W * 0.1, H * 0.85, Math.min(W, H) * 0.3);
+    orb2.addColorStop(0, 'rgba(27,58,92,0.5)');
+    orb2.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb2;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Moving nodes */
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+      ctx.globalAlpha = n.o * (0.6 + Math.sin(t + n.x * 0.01) * 0.4);
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    /* Connections */
+    ctx.strokeStyle = 'rgba(184,134,11,0.08)';
+    ctx.lineWidth = 0.7;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < 120) {
+          ctx.globalAlpha = (1 - d / 120) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.globalAlpha = 1;
+    t += 0.008;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
 </script>
 </body>
 </html>
