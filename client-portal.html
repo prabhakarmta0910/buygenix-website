@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuyGenix — Client Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--n:#0B1929;--n2:#1B3A5C;--g:#B8860B;--gm:#D4A017;--gp:#FFF8E7;--gb:rgba(184,134,11,.22);--sky:#EAF2FB;--skm:#D0E4F5;--tb:#2C3E50;--tm:#4A6A8A;--tl:#7A9BBD;--bs:rgba(0,0,0,.07);--ss:0 2px 14px rgba(11,25,41,.06);--sm:0 6px 28px rgba(11,25,41,.10);--sl:0 18px 56px rgba(11,25,41,.14);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--sb:252px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--sky);color:var(--tb);min-height:100vh;overflow-x:hidden}
+a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
+canvas#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+/* SIDEBAR */
+.sb{width:var(--sb);min-height:100vh;background:var(--n);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;box-shadow:4px 0 24px rgba(11,25,41,.18);transition:transform .3s}
+.sh{padding:22px 19px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sl{display:flex;align-items:center;gap:9px}
+.sl-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff}.sl-t em{color:var(--gm);font-style:italic}
+.sl-s{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Grotesk';margin-top:2px}
+.snav{flex:1;padding:18px 13px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.ss{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:12px 10px 4px;font-family:'Space Grotesk'}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,.48);font-size:12.5px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .16s;cursor:pointer}
+.ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
+.ni.on{background:rgba(184,134,11,.17);color:var(--gm);font-weight:600}
+.ni .ic{width:16px;text-align:center;font-size:13px;flex-shrink:0}
+.ni .bx{margin-left:auto;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--g);color:#fff}
+.ni .bx.red{background:var(--red)}
+.sf{padding:16px 13px;border-top:1px solid rgba(255,255,255,.06)}
+.su{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.04);margin-bottom:9px}
+.sa{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gm));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.btn-lo{width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.38);font-size:11px;font-family:'Space Grotesk';cursor:pointer;transition:all .16s}
+.btn-lo:hover{background:rgba(255,255,255,.09);color:rgba(255,255,255,.7)}
+
+/* MAIN */
+.main{margin-left:var(--sb);flex:1;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:2}
+.topbar{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--bs);padding:0 28px;height:57px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--ss)}
+.tt{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--n)}
+.tr{display:flex;align-items:center;gap:11px}
+.tchip{display:flex;align-items:center;gap:5px;background:var(--gp);border:1px solid var(--gb);padding:5px 12px;border-radius:100px;font-size:11px;color:var(--g);font-weight:600;font-family:'Space Grotesk'}
+.twa{width:34px;height:34px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .16s}
+.twa:hover{transform:scale(1.1)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px}
+.burger span{display:block;width:20px;height:2px;background:var(--n);border-radius:2px}
+.content{padding:24px 28px;flex:1}
+
+/* PANELS */
+.panel{display:none}.panel.on{display:block;animation:fi .26s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* STAT CARDS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.sc{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--bs);box-shadow:var(--ss);position:relative;overflow:hidden;transition:transform .16s,box-shadow .16s}
+.sc:hover{transform:translateY(-2px);box-shadow:var(--sm)}
+.sc::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%}
+.sc.c1::before{background:var(--n2)}.sc.c2::before{background:var(--g)}.sc.c3::before{background:var(--green)}.sc.c4::before{background:var(--red)}
+.sc-i{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px}
+.sc.c1 .sc-i{background:rgba(27,58,92,.1)}.sc.c2 .sc-i{background:rgba(184,134,11,.1)}.sc.c3 .sc-i{background:rgba(16,185,129,.1)}.sc.c4 .sc-i{background:rgba(239,68,68,.1)}
+.sc-v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--n);line-height:1;margin-bottom:3px}
+.sc-l{font-size:11px;color:var(--tm)}
+.sc-tr{position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
+.tup{background:rgba(16,185,129,.1);color:var(--green)}.twn{background:rgba(245,158,11,.1);color:var(--amber)}
+
+/* CARD */
+.card{background:#fff;border-radius:14px;border:1px solid var(--bs);box-shadow:var(--ss);overflow:hidden;margin-bottom:16px}
+.ch{padding:14px 18px;border-bottom:1px solid var(--bs);display:flex;align-items:center;justify-content:space-between}
+.ct{font-family:'Space Grotesk';font-size:13px;font-weight:700;color:var(--n)}
+.csub{font-size:10.5px;color:var(--tl);margin-top:1px}
+.cb{padding:18px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.r31{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';padding:8px 13px;text-align:left;border-bottom:1px solid var(--bs);background:var(--sky)}
+.tbl td{padding:10px 13px;font-size:12px;border-bottom:1px solid var(--bs);color:var(--tb);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}.tbl tr:hover td{background:var(--sky)}
+
+/* BLURRED LEAD ROW */
+.blur-cell{filter:blur(5px);user-select:none;color:var(--n);font-weight:600;transition:filter .3s}
+.lead-row-locked{cursor:pointer;position:relative}
+.lead-row-locked:hover td{background:var(--gp)}
+.unlock-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(184,134,11,.9);color:#fff;font-size:10.5px;font-weight:700;padding:4px 12px;border-radius:100px;white-space:nowrap;pointer-events:none;display:none;font-family:'Space Grotesk';letter-spacing:.5px}
+.lead-row-locked:hover .unlock-overlay{display:block}
+.lock-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;background:rgba(184,134,11,.1);color:var(--g);font-family:'Space Grotesk'}
+
+/* BADGES */
+.bdg{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;font-family:'Space Grotesk'}
+.bh{background:rgba(239,68,68,.08);color:#DC2626}.bw{background:rgba(245,158,11,.1);color:#D97706}.bn{background:rgba(27,58,92,.08);color:var(--n2)}.bc{background:rgba(16,185,129,.08);color:var(--green)}.ba{background:rgba(16,185,129,.1);color:var(--green)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:7px;font-size:11.5px;font-weight:600;font-family:'Space Grotesk';border:none;transition:all .16s;cursor:pointer}
+.bp{background:var(--n);color:#fff}.bp:hover{background:var(--n2)}
+.bg{background:var(--g);color:#fff}.bg:hover{background:var(--gm)}
+.bo{background:#fff;border:1.5px solid var(--bs);color:var(--tm)}.bo:hover{border-color:var(--gb);color:var(--g)}
+.bsm{padding:5px 11px;font-size:11px}
+
+/* PBAR */
+.pb-w{margin-bottom:13px}
+.pb-l{display:flex;justify-content:space-between;font-size:11px;color:var(--tm);margin-bottom:5px}
+.pb-l strong{color:var(--n)}
+.pb-t{height:6px;background:var(--sky);border-radius:100px;overflow:hidden}
+.pb-f{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--n2),var(--g))}
+
+/* PLAN CARD */
+.pc{background:linear-gradient(135deg,var(--n) 0%,var(--n2) 100%);border-radius:14px;padding:20px;color:#fff;position:relative;overflow:hidden}
+.pc::before{content:'';position:absolute;bottom:-14px;right:-14px;width:90px;height:90px;background:rgba(184,134,11,.1);border-radius:50%}
+.pc-tier{font-size:9px;font-weight:700;letter-spacing:2px;color:var(--gm);font-family:'Space Grotesk';text-transform:uppercase;margin-bottom:3px}
+.pc-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;margin-bottom:13px}
+.pc-f{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,.72);margin-bottom:6px}
+.pc-f .ck{color:var(--gm);font-weight:700}
+.pc-r{font-size:11px;color:rgba(255,255,255,.36);border-top:1px solid rgba(255,255,255,.08);padding-top:11px;margin-top:7px}
+.pc-r strong{color:rgba(255,255,255,.6)}
+
+/* CHAT */
+.chat-wrap{display:flex;flex-direction:column;height:440px}
+.cmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cmsgs::-webkit-scrollbar{width:3px}.cmsgs::-webkit-scrollbar-thumb{background:var(--skm);border-radius:3px}
+.msg{display:flex;gap:8px;align-items:flex-end;animation:mi .22s ease}
+@keyframes mi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.msg.out{flex-direction:row-reverse}
+.mav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
+.msg.in .mav{background:linear-gradient(135deg,var(--n),var(--n2))}.msg.out .mav{background:linear-gradient(135deg,var(--g),var(--gm))}
+.mbu{max-width:74%;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.55}
+.msg.in .mbu{background:var(--sky);color:var(--tb);border-radius:3px 12px 12px 12px}
+.msg.out .mbu{background:var(--n);color:#fff;border-radius:12px 3px 12px 12px}
+.mti{font-size:9.5px;color:var(--tl);margin-top:2px}.msg.out .mti{text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 14px;border-top:1px solid var(--bs)}
+.chip{padding:5px 11px;border:1.5px solid var(--gb);background:var(--gp);border-radius:100px;font-size:11px;color:var(--g);font-weight:600;cursor:pointer;transition:all .16s;font-family:'Space Grotesk'}
+.chip:hover{background:var(--g);color:#fff;border-color:var(--g)}
+.cft{padding:10px 14px;border-top:1px solid var(--bs);display:flex;gap:7px;align-items:center}
+.cin{flex:1;padding:8px 13px;border:1.5px solid var(--bs);border-radius:100px;font-size:12.5px;font-family:'Plus Jakarta Sans';outline:none;color:var(--n);background:var(--sky);transition:all .16s}
+.cin:focus{border-color:var(--g);background:#fff}
+.csend{width:34px;height:34px;border-radius:50%;background:var(--n);border:none;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .16s;flex-shrink:0}
+.csend:hover{background:var(--g)}
+
+/* DRAWER */
+.drw-bg{position:fixed;inset:0;background:rgba(11,25,41,.5);z-index:200;display:flex;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .22s}
+.drw-bg.open{opacity:1;pointer-events:all}
+.drw{width:340px;max-width:95vw;background:#fff;height:100vh;overflow-y:auto;padding:26px 22px;transform:translateX(40px);transition:transform .24s;box-shadow:var(--sl);position:relative}
+.drw-bg.open .drw{transform:none}
+.drw h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px}
+.dx{position:absolute;top:16px;right:16px;background:var(--sky);border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.dr{padding:9px 0;border-bottom:1px solid var(--bs)}.dr:last-child{border:none}
+.dr-l{font-size:9.5px;font-weight:700;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+.dr-v{font-size:13px;color:var(--n);font-weight:500}
+
+/* UNLOCK MODAL */
+.unlock-bg{position:fixed;inset:0;background:rgba(11,25,41,.6);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
+.unlock-bg.open{opacity:1;pointer-events:all}
+.unlock-modal{background:#fff;border-radius:20px;padding:32px;width:100%;max-width:440px;box-shadow:var(--sl);transform:translateY(18px);transition:transform .22s;text-align:center}
+.unlock-bg.open .unlock-modal{transform:none}
+.unlock-modal h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--n);margin-bottom:8px}
+.unlock-modal p{font-size:12.5px;color:var(--tm);margin-bottom:20px;line-height:1.6}
+
+/* PERF GRID */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.pi{background:var(--sky);border-radius:12px;padding:15px;text-align:center}
+.pi-v{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--n)}
+.pi-l{font-size:10.5px;color:var(--tm);margin-top:3px}
+
+/* FORM */
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:10.5px;font-weight:700;color:var(--tm);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:8px 12px;border:1.5px solid var(--bs);border-radius:7px;font-size:12.5px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .16s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(184,134,11,.08)}
+.fg textarea{resize:vertical;min-height:80px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+
+/* HTBL */
+.htbl{width:100%;border-collapse:collapse}
+.htbl th{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';padding:8px 13px;text-align:left;background:var(--sky);border-bottom:1px solid var(--bs)}
+.htbl td{padding:10px 13px;font-size:12px;border-bottom:1px solid var(--bs);color:var(--tb)}
+.htbl tr:last-child td{border-bottom:none}.htbl tr:hover td{background:var(--sky)}
+
+/* ALERT */
+.alert-bar{background:var(--gp);border:1px solid var(--gb);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:20px;font-size:12.5px;color:var(--tb)}
+.alert-bar strong{color:var(--g)}
+
+/* LOGIN */
+#lp{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;background:var(--sky)}
+.lcard{background:#fff;border-radius:20px;box-shadow:var(--sl);width:100%;max-width:400px;padding:40px 34px 34px;border:1px solid var(--bs);animation:cIn .5s cubic-bezier(.16,1,.3,1)}
+@keyframes cIn{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:none}}
+.l-logo{display:flex;flex-direction:column;align-items:center;gap:9px;margin-bottom:24px}
+.l-t{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--n);text-align:center}
+.l-s{font-size:12px;color:var(--tm);text-align:center;margin-bottom:24px}
+.otp-row{display:flex;gap:7px}
+.otp-row input{flex:1}
+.btn-otp{white-space:nowrap;padding:10px 13px;background:var(--sky);border:1.5px solid var(--gb);border-radius:7px;color:var(--g);font-size:11px;font-weight:700;font-family:'Space Grotesk';cursor:pointer;transition:all .16s}
+.btn-otp:hover{background:var(--gp)}.btn-otp:disabled{opacity:.5;cursor:not-allowed}
+.btn-login{width:100%;padding:12px;background:linear-gradient(135deg,var(--n),var(--n2));color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.7px;text-transform:uppercase;cursor:pointer;margin-top:5px;transition:all .2s;position:relative;overflow:hidden}
+.btn-login::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--g),var(--gm))}
+.btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(11,25,41,.22)}
+.err{background:#FEF2F2;border:1px solid rgba(239,68,68,.2);border-radius:7px;color:#DC2626;font-size:11.5px;padding:8px 12px;margin-bottom:12px;display:none}
+.l-note{margin-top:16px;text-align:center;font-size:11px;color:var(--tl)}
+.l-note a{color:var(--g);font-weight:600}
+.l-div{display:flex;align-items:center;gap:9px;margin:16px 0}
+.l-div hr{flex:1;border:none;border-top:1px solid var(--bs)}
+.l-div span{font-size:10px;color:var(--tl);font-family:'Space Grotesk';letter-spacing:1px}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:middle;margin-right:5px}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+@media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.r2,.r31{grid-template-columns:1fr}.pg{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.sb{transform:translateX(-100%)}.sb.open{transform:none}.main{margin-left:0}.burger{display:flex}.content{padding:18px 15px}.stats{grid-template-columns:1fr 1fr;gap:12px}}
+@media(max-width:480px){.stats{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<script src="bgx-data.js"></script>
+
+<!-- LOGIN -->
+<div id="lp">
+  <div class="lcard">
+    <div class="l-logo">
+      <svg viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg" style="height:34px;width:auto">
+        <defs><linearGradient id="bG" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient><linearGradient id="aG" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient></defs>
+        <g transform="translate(95,60)"><path d="M 12 108 C -10 70,-10 30,20 8" fill="none" stroke="url(#aG)" stroke-width="5" stroke-linecap="round"/><path d="M 20 8 L 48 0 L 36 26" fill="#B8860B"/><text x="0" y="105" font-family="Arial Black" font-size="108" font-weight="900" fill="url(#bG)">B</text></g>
+        <text x="168" y="155" font-family="Arial" font-size="96" font-weight="700" fill="url(#bG)">uygenix</text>
+        <text x="380" y="205" font-family="Arial" font-size="44" font-weight="400" fill="#4A6A8A">Solutions</text>
+      </svg>
+      <div style="font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk'">Client Portal</div>
+    </div>
+    <div class="l-t">Welcome Back</div>
+    <p class="l-s">Sign in to access your leads, reports &amp; support</p>
+    <div class="err" id="err"></div>
+    <div class="fg"><label>Email Address</label><input type="email" id="l-em" placeholder="yourname@business.com"></div>
+    <div class="l-div"><hr><span>Verify with OTP</span><hr></div>
+    <div class="fg"><label>One-Time Password</label>
+      <div class="otp-row">
+        <input type="text" id="l-otp" placeholder="6-digit OTP" maxlength="6" inputmode="numeric">
+        <button class="btn-otp" id="otp-btn" onclick="sendOTP()">Send OTP</button>
+      </div>
+    </div>
+    <button class="btn-login" id="l-btn" onclick="doLogin()"><span id="l-txt">Access Dashboard →</span></button>
+    <p style="margin-top:11px;text-align:center;font-size:11px;color:var(--tl)">Demo accounts — any registered email, OTP: <strong style="color:var(--g)">123456</strong></p>
+    <p style="margin-top:5px;text-align:center;font-size:10.5px;color:var(--tl)">Try: rajesh@rstextiles.com · priya@priyaspice.com · kiran@handicrafts.com</p>
+    <div class="l-note" style="margin-top:14px">Not a member? <a href="membership.html">View Plans →</a> &nbsp;·&nbsp; <a href="https://wa.me/919818187246">WhatsApp</a></div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portal" style="display:none">
+  <aside class="sb" id="sb">
+    <div class="sh">
+      <div class="sl">
+        <svg viewBox="0 0 40 40" style="height:24px;width:24px"><circle cx="20" cy="20" r="19" fill="none" stroke="rgba(184,134,11,.5)" stroke-width="1"/><text x="6" y="28" font-family="Arial Black" font-size="22" font-weight="900" fill="#fff">B</text><path d="M25 8 L32 6 L28 14" fill="#B8860B"/></svg>
+        <div><div class="sl-t">Buy<em>genix</em></div><div class="sl-s">Client Portal</div></div>
+      </div>
+    </div>
+    <nav class="snav">
+      <span class="ss">Main</span>
+      <button class="ni on" onclick="sp('dashboard',this)"><span class="ic">📊</span> Dashboard</button>
+      <button class="ni" onclick="sp('leads',this)"><span class="ic">🎯</span> My Leads <span class="bx" id="lb">0</span></button>
+      <button class="ni" onclick="sp('perf',this)"><span class="ic">📈</span> Performance</button>
+      <button class="ni" onclick="sp('history',this)"><span class="ic">🧾</span> Purchase History</button>
+      <span class="ss">Support</span>
+      <button class="ni" onclick="sp('chat',this)"><span class="ic">💬</span> Chat with BuyGenix <span class="bx red" id="cb" style="display:none">1</span></button>
+      <button class="ni" onclick="sp('ticket',this)"><span class="ic">🛎</span> Raise Ticket</button>
+      <span class="ss">Account</span>
+      <button class="ni" onclick="sp('plan',this)"><span class="ic">💎</span> My Plan</button>
+      <button class="ni" onclick="sp('ref',this)"><span class="ic">🔗</span> Refer &amp; Earn</button>
+      <a class="ni" href="index.html"><span class="ic">🌐</span> Main Website</a>
+    </nav>
+    <div class="sf">
+      <div class="su">
+        <div class="sa" id="sb-ava">—</div>
+        <div><div style="font-size:12px;font-weight:600;color:#fff" id="sb-nm">—</div><div style="font-size:10px;color:var(--gm);font-family:'Space Grotesk'" id="sb-pl">—</div></div>
+      </div>
+      <button class="btn-lo" onclick="doLogout()">⬅ Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="burger" onclick="document.getElementById('sb').classList.toggle('open')"><span></span><span></span><span></span></div>
+        <div class="tt" id="pg-t">Dashboard</div>
+      </div>
+      <div class="tr">
+        <div class="tchip" id="tb-plan">💎 —</div>
+        <a href="https://wa.me/919818187246" class="twa" target="_blank">💬</a>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="panel on" id="p-dashboard">
+        <div class="alert-bar" id="dash-alert" style="display:none">
+          <span style="font-size:16px">📬</span>
+          <span id="dash-alert-txt"></span>
+          <button onclick="this.parentElement.style.display='none'" style="margin-left:auto;background:none;border:none;font-size:15px;color:var(--tl);cursor:pointer">✕</button>
+        </div>
+        <div class="stats" id="dash-stats"></div>
+        <div class="r31">
+          <div>
+            <div class="card">
+              <div class="ch"><div><div class="ct">Recent Buyer Leads</div><div class="csub" id="dash-leads-sub">Latest assigned leads</div></div><button class="btn bo bsm" onclick="sp('leads',null)">View All →</button></div>
+              <div style="padding:0">
+                <table class="tbl">
+                  <thead><tr><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Contact</th></tr></thead>
+                  <tbody id="dash-lead-rows"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <div class="ch"><div class="ct">Lead Usage This Month</div></div>
+              <div class="cb">
+                <div class="pb-w"><div class="pb-l"><span>Used</span><strong id="usage-lbl">0 / 0</strong></div><div class="pb-t"><div class="pb-f" id="usage-bar" style="width:0%"></div></div></div>
+                <p style="font-size:11.5px;color:var(--tm)">You have <strong style="color:var(--n)" id="rem-lbl">0 leads remaining</strong>. Plan renews <strong style="color:var(--n)" id="renew-lbl">—</strong>. <a href="#" onclick="sp('plan',null);return false" style="color:var(--g);font-weight:600">Upgrade →</a></p>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="pc" id="dash-plan-card"></div>
+            <div class="card" id="dash-rm-card"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY LEADS -->
+      <div class="panel" id="p-leads">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">My Buyer Leads</div>
+            <div style="font-size:11.5px;color:var(--tl)" id="leads-sub-label">—</div>
+          </div>
+          <div style="display:flex;gap:7px;align-items:center">
+            <select id="f-country" onchange="renderLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Countries</option></select>
+            <select id="f-cat" onchange="renderLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Categories</option></select>
+            <button class="btn bp bsm" onclick="alert('CSV export available for active plan members.')">⬇ CSV</button>
+          </div>
+        </div>
+        <!-- LOCKED PREVIEW banner -->
+        <div id="locked-banner" style="display:none;background:linear-gradient(135deg,var(--n),var(--n2));border-radius:12px;padding:20px 24px;margin-bottom:16px;color:#fff;display:flex;align-items:center;gap:16px">
+          <span style="font-size:28px">🔒</span>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;margin-bottom:4px">Unlock Full Lead Details</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.7)">You can see Country, Category, Product &amp; Qty. <strong style="color:var(--gm)">Purchase leads to reveal</strong> contact name, company, email &amp; phone.</div>
+          </div>
+          <button class="btn bg" style="margin-left:auto;flex-shrink:0" onclick="openUnlock()">Unlock Leads →</button>
+        </div>
+        <div class="card">
+          <div style="padding:0;overflow-x:auto">
+            <table class="tbl">
+              <thead><tr><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Company</th><th>Contact Person</th><th>Phone</th><th>Email</th><th></th></tr></thead>
+              <tbody id="lead-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFORMANCE -->
+      <div class="panel" id="p-perf">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:16px">Performance Overview</div>
+        <div class="pg" id="perf-kpis"></div>
+        <div class="r2">
+          <div class="card"><div class="ch"><div class="ct">Leads by Category</div></div><div class="cb" id="p-cats"></div></div>
+          <div class="card"><div class="ch"><div class="ct">Top Countries</div></div><div class="cb" id="p-ctrs"></div></div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="panel" id="p-history">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Purchase History</div>
+        <div class="card"><div style="padding:0"><table class="htbl"><thead><tr><th>Date</th><th>Plan / Product</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead><tbody id="hist-body"></tbody></table></div></div>
+      </div>
+
+      <!-- CHAT WITH BUYGENIX -->
+      <div class="panel" id="p-chat">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Chat with BuyGenix</div>
+        <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Message your Relationship Manager directly. We respond within 24 hours.</p>
+        <div class="card">
+          <div class="ch" id="chat-header"></div>
+          <div class="chat-wrap">
+            <div class="cmsgs" id="chat-msgs"></div>
+            <div class="chips">
+              <button class="chip" onclick="cq('How many leads do I have left?')">Leads remaining?</button>
+              <button class="chip" onclick="cq('I have a problem with a lead')">Report issue</button>
+              <button class="chip" onclick="cq('I want to upgrade my plan')">Upgrade plan</button>
+              <button class="chip" onclick="cq('When is my renewal?')">Renewal date</button>
+              <button class="chip" onclick="cq('Can I get a top-up of leads?')">Request top-up</button>
+            </div>
+            <div class="cft">
+              <input class="cin" type="text" id="c-in" placeholder="Message your RM…" onkeydown="if(event.key==='Enter')cSend()">
+              <button class="csend" onclick="cSend()">➤</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TICKET -->
+      <div class="panel" id="p-ticket">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Raise a Support Ticket</div>
+        <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Our team responds within 24 working hours. You'll receive a ticket ID on submission.</p>
+        <div class="card"><div class="cb">
+          <div class="f2">
+            <div class="fg"><label>Your Name</label><input type="text" id="tk-nm" placeholder="Full name"></div>
+            <div class="fg"><label>Email</label><input type="email" id="tk-em" placeholder="email@business.com"></div>
+            <div class="fg"><label>Issue Type</label><select><option>Lead Quality / Missing Lead</option><option>Billing / Payment</option><option>Plan Upgrade / Downgrade</option><option>RM Query</option><option>Technical / Login Issue</option><option>Other</option></select></div>
+            <div class="fg"><label>Priority</label><select><option>Normal</option><option>High</option><option>Urgent</option></select></div>
+            <div class="fg full"><label>Describe Your Issue</label><textarea placeholder="Include lead IDs, dates, or transaction references where relevant."></textarea></div>
+          </div>
+          <button class="btn bp" onclick="submitTk()" style="margin-top:6px">Submit Ticket →</button>
+          <div id="tk-ok" style="display:none;margin-top:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green)">✅ Ticket submitted! Our team will respond within 24 hours.</div>
+        </div></div>
+      </div>
+
+      <!-- MY PLAN -->
+      <div class="panel" id="p-plan">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">My Membership Plan</div>
+        <div class="r2">
+          <div class="pc" id="plan-card-full" style="padding:24px"></div>
+          <div class="card">
+            <div class="ch"><div class="ct">Upgrade Your Plan</div></div>
+            <div class="cb" id="upgrade-options"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFER & EARN -->
+      <div class="panel" id="p-ref">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Refer &amp; Earn</div>
+        <p style="font-size:12px;color:var(--tm);margin-bottom:16px">Refer another Indian exporter to BuyGenix and earn commission on every successful membership.</p>
+        <div class="r2">
+          <div class="card">
+            <div class="ch"><div class="ct">Commission Structure</div></div>
+            <div class="cb">
+              <table class="htbl"><thead><tr><th>Plan Referred</th><th>Your Commission</th></tr></thead><tbody>
+                <tr><td>Starter Plan (100 leads)</td><td><strong style="color:var(--green)">₹500</strong></td></tr>
+                <tr><td>Growth Plan (500 leads)</td><td><strong style="color:var(--green)">₹2,000</strong></td></tr>
+                <tr><td>Professional (2,000 leads)</td><td><strong style="color:var(--green)">₹5,000</strong></td></tr>
+                <tr><td>Enterprise Plan</td><td><strong style="color:var(--green)">₹10,000+</strong></td></tr>
+              </tbody></table>
+              <div style="margin-top:14px;background:var(--gp);border:1px solid var(--gb);border-radius:8px;padding:12px 15px">
+                <div style="font-size:9.5px;font-weight:700;color:var(--g);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Your Referral Link</div>
+                <div style="font-size:12px;color:var(--n);font-family:'Space Grotesk';background:#fff;border:1px solid var(--gb);border-radius:6px;padding:7px 11px" id="ref-link-txt">buygenixsolutions.com/ref/—</div>
+                <button class="btn bo bsm" style="margin-top:7px" onclick="copyRef()">📋 Copy Link</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ct">Your Referrals</div></div>
+            <div class="cb">
+              <div id="my-referrals"></div>
+              <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bs);display:flex;justify-content:space-between">
+                <div><div style="font-size:10.5px;color:var(--tl)">Total Earned</div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--n)" id="ref-earned">₹0</div></div>
+                <div><div style="font-size:10.5px;color:var(--tl)">Pending</div><div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--amber)" id="ref-pending">₹0</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- LEAD DETAIL DRAWER -->
+<div class="drw-bg" id="drw-bg" onclick="if(event.target===this)closeDrw()">
+  <div class="drw">
+    <button class="dx" onclick="closeDrw()">✕</button>
+    <h3 id="dr-co"></h3>
+    <p style="font-size:11px;color:var(--tl);margin-bottom:16px" id="dr-sub"></p>
+    <div id="dr-body"></div>
+    <div style="margin-top:18px;display:flex;gap:7px">
+      <a id="dr-wa" href="#" class="btn bp bsm" target="_blank">💬 WhatsApp</a>
+      <a id="dr-em" href="#" class="btn bo bsm">📧 Email</a>
+    </div>
+    <div style="margin-top:12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:7px;padding:10px 13px;font-size:11px;color:var(--tb)">⚠ <strong>Confidentiality:</strong> Lead contact details are for your business use only. Do not redistribute.</div>
+  </div>
+</div>
+
+<!-- UNLOCK MODAL -->
+<div class="unlock-bg" id="unlock-bg" onclick="if(event.target===this)closeUnlock()">
+  <div class="unlock-modal">
+    <div style="font-size:36px;margin-bottom:10px">🔓</div>
+    <h3>Unlock Lead Details</h3>
+    <p>Company name, contact person, phone &amp; email are hidden until you purchase leads. Upgrade or top-up to reveal all contact details instantly.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/919818187246" class="btn bg" target="_blank">💬 Upgrade via WhatsApp</a>
+      <button class="btn bo" onclick="closeUnlock()">Maybe Later</button>
+    </div>
+    <p style="margin-top:16px;font-size:11px;color:var(--tl)">Questions? Call +91 98181 87246 or email Buygenixsolutions@gmail.com</p>
+  </div>
+</div>
+
+<script>
+/* ─ CANVAS ─ */
+(function(){const c=document.getElementById('bg'),ctx=c.getContext('2d');let W,H,ns=[];function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;ns=[];const n=Math.floor(W*H/22000);for(let i=0;i<n;i++)ns.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*2+.8,o:Math.random()*.3+.07})}resize();window.addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'rgba(232,240,252,.7)');g.addColorStop(1,'rgba(210,228,248,.6)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ns.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;ctx.globalAlpha=n.o;ctx.fillStyle='rgba(11,25,41,.4)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill()});ctx.strokeStyle='rgba(11,25,41,.05)';ctx.lineWidth=.8;for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<110){ctx.globalAlpha=(1-d/110)*.08;ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.stroke()}}ctx.globalAlpha=1;requestAnimationFrame(draw)}draw()})();
+
+/* ─ STATE ─ */
+let CLIENT = null; // set on login
+
+const QT={hot:'🔥 Hot',warm:'⚡ Warm',new:'🆕 New',conv:'✅ Converted'};
+const QC={hot:'bh',warm:'bw',new:'bn',conv:'bc'};
+
+/* ─ LOGIN ─ */
+function sendOTP(){
+  const em=document.getElementById('l-em').value.trim();
+  if(!em||!em.includes('@')){showE('Enter a valid email address first.');return}
+  const c=BGX.getClientByEmail(em);
+  if(!c){showE('No account found for this email. Please contact BuyGenix.');return}
+  const btn=document.getElementById('otp-btn');
+  btn.textContent='Sent ✓';btn.disabled=true;
+}
+function showE(m){const e=document.getElementById('err');e.textContent='⚠ '+m;e.style.display='block';setTimeout(()=>e.style.display='none',3500)}
+function doLogin(){
+  const em=document.getElementById('l-em').value.trim();
+  const otp=document.getElementById('l-otp').value.trim();
+  const btn=document.getElementById('l-btn');
+  const txt=document.getElementById('l-txt');
+  if(!em||!em.includes('@')){showE('Enter a valid email.');return}
+  const c=BGX.getClientByEmail(em);
+  if(!c){showE('No account found. Contact BuyGenix support.');return}
+  if(otp!==c.otp){showE('Invalid OTP. Contact your RM if you need help.');return}
+  txt.innerHTML='<span class="spin"></span>Signing in…';btn.disabled=true;
+  setTimeout(()=>{
+    CLIENT=c;
+    document.getElementById('lp').style.display='none';
+    document.getElementById('portal').style.display='block';
+    initPortal();
+  },1100);
+}
+function doLogout(){
+  CLIENT=null;
+  document.getElementById('lp').style.display='flex';
+  document.getElementById('portal').style.display='none';
+  document.getElementById('l-txt').textContent='Access Dashboard →';
+  document.getElementById('l-btn').disabled=false;
+  document.getElementById('l-otp').value='';
+  document.getElementById('otp-btn').textContent='Send OTP';
+  document.getElementById('otp-btn').disabled=false;
+}
+
+/* ─ INIT ─ */
+function initPortal(){
+  const plan=BGX.getPlan(CLIENT.plan);
+  const rm=BGX.getRM(CLIENT.rmId);
+  const ini=CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('sb-ava').textContent=ini;
+  document.getElementById('sb-nm').textContent=CLIENT.name;
+  document.getElementById('sb-pl').textContent=plan.label;
+  document.getElementById('tb-plan').textContent='💎 '+plan.label;
+  document.getElementById('tk-nm').value=CLIENT.name;
+  document.getElementById('tk-em').value=CLIENT.email;
+
+  // Populate filter dropdowns for leads panel
+  const countries=[...new Set(BGX.getLeadsForClient(CLIENT.id).map(l=>l.country))];
+  const catSel=document.getElementById('f-cat');
+  catSel.innerHTML='<option value="">All Categories</option>';
+  [...new Set(BGX.getLeadsForClient(CLIENT.id).map(l=>l.cat))].forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;catSel.appendChild(o)});
+  const ctrSel=document.getElementById('f-country');
+  ctrSel.innerHTML='<option value="">All Countries</option>';
+  countries.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;ctrSel.appendChild(o)});
+
+  // Check for new RM message
+  const msgs=BGX.MESSAGES[CLIENT.id]||[];
+  const lastMsg=msgs[msgs.length-1];
+  if(lastMsg&&lastMsg.from==='rm'){document.getElementById('cb').style.display='inline-flex'}
+
+  // Lead count badge
+  const myLeads=BGX.getLeadsForClient(CLIENT.id);
+  document.getElementById('lb').textContent=myLeads.length;
+
+  // Referral link
+  document.getElementById('ref-link-txt').textContent='buygenixsolutions.com/ref/'+CLIENT.name.split(' ')[0].toUpperCase()+CLIENT.id.slice(1)+'2025';
+
+  renderDash();
+}
+
+/* ─ PANELS ─ */
+const PT={dashboard:'Dashboard',leads:'My Leads',perf:'Performance',history:'Purchase History',chat:'Chat with BuyGenix',ticket:'Raise Ticket',plan:'My Plan',ref:'Refer & Earn'};
+function sp(name,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
+  document.getElementById('p-'+name)?.classList.add('on');
+  if(btn)btn.classList.add('on');
+  document.getElementById('pg-t').textContent=PT[name]||name;
+  if(name==='chat'){document.getElementById('cb').style.display='none';renderChat()}
+  if(name==='leads')renderLeads();
+  if(name==='perf')renderPerf();
+  if(name==='history')renderHistory();
+  if(name==='plan')renderPlan();
+  if(name==='ref')renderRef();
+  document.getElementById('sb').classList.remove('open');
+}
+
+/* ─ DASHBOARD ─ */
+function renderDash(){
+  if(!CLIENT)return;
+  const plan=BGX.getPlan(CLIENT.plan);
+  const rm=BGX.getRM(CLIENT.rmId);
+  const myLeads=BGX.getLeadsForClient(CLIENT.id);
+  const rem=CLIENT.limit-CLIENT.used;
+  const pct=CLIENT.limit>0?Math.round(CLIENT.used/CLIENT.limit*100):0;
+
+  // Alert
+  if(myLeads.length>0){
+    document.getElementById('dash-alert').style.display='flex';
+    document.getElementById('dash-alert-txt').innerHTML=`Your latest lead batch is ready — <strong>${myLeads.length} verified buyers</strong> across ${[...new Set(myLeads.map(l=>l.country))].length} countries assigned to your dashboard.`;
+  }
+
+  // Stats
+  const countries=[...new Set(myLeads.map(l=>l.country))].length;
+  const conv=myLeads.filter(l=>l.status==='converted').length;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="sc c1"><div class="sc-i">🎯</div><div class="sc-v">${plan.limit}</div><div class="sc-l">Monthly Lead Limit</div><div class="sc-tr twn">${plan.label}</div></div>
+    <div class="sc c2"><div class="sc-i">📤</div><div class="sc-v">${CLIENT.used}</div><div class="sc-l">Leads Used</div><div class="sc-tr tup">${pct}%</div></div>
+    <div class="sc c3"><div class="sc-i">🌍</div><div class="sc-v">${countries}</div><div class="sc-l">Countries in Leads</div><div class="sc-tr tup">active</div></div>
+    <div class="sc c4"><div class="sc-i">⏳</div><div class="sc-v">${rem}</div><div class="sc-l">Leads Remaining</div><div class="sc-tr twn">${100-pct}%</div></div>`;
+
+  // Usage bar
+  document.getElementById('usage-lbl').textContent=`${CLIENT.used} / ${CLIENT.limit}`;
+  document.getElementById('usage-bar').style.width=pct+'%';
+  document.getElementById('rem-lbl').textContent=rem+' leads remaining';
+  document.getElementById('renew-lbl').textContent=CLIENT.renewal;
+
+  // Recent leads (top 5, blurred if not purchased)
+  const recent=myLeads.slice(0,5);
+  document.getElementById('dash-leads-sub').textContent=`Showing ${recent.length} of ${myLeads.length} assigned leads`;
+  document.getElementById('dash-lead-rows').innerHTML=recent.map(l=>{
+    const unlocked=CLIENT.status==='active';
+    return `<tr class="${unlocked?'':'lead-row-locked'}" onclick="${unlocked?`openDrw('${l.id}')`:'openUnlock()'}">
+      <td>${l.country}</td>
+      <td>${l.cat}</td>
+      <td style="font-size:11.5px">${l.product}</td>
+      <td style="font-size:11.5px;color:var(--tm)">${l.qty||'—'}</td>
+      <td><span class="bdg ${QC[l.q]||'bn'}">${QT[l.q]||l.q}</span></td>
+      <td>${unlocked?`<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">View →</button>`:`<span class="lock-badge">🔒 Purchase to reveal</span>`}</td>
+    </tr>`;
+  }).join('');
+
+  // Plan card
+  document.getElementById('dash-plan-card').innerHTML=`
+    <div class="pc-tier">Your Plan</div>
+    <div class="pc-name">${plan.label}</div>
+    ${plan.limit<99999?`<div class="pc-f"><span class="ck">✓</span> ${plan.limit.toLocaleString()} leads/month</div>`:'<div class="pc-f"><span class="ck">✓</span> Unlimited leads</div>'}
+    <div class="pc-f"><span class="ck">✓</span> Phone + Email + WhatsApp leads</div>
+    <div class="pc-f"><span class="ck">✓</span> CSV export</div>
+    <div class="pc-f"><span class="ck">✓</span> Dedicated RM — ${rm?rm.name:'assigned'}</div>
+    <div class="pc-r">Billing: <strong>${CLIENT.billing}</strong> · Renews: <strong>${CLIENT.renewal}</strong></div>`;
+
+  // RM card
+  document.getElementById('dash-rm-card').innerHTML=`
+    <div class="ch"><div class="ct">Your Relationship Manager</div></div>
+    <div class="cb">
+      <div style="display:flex;align-items:center;gap:13px">
+        <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700;flex-shrink:0">${rm?rm.initials:'RM'}</div>
+        <div><div style="font-size:14px;font-weight:700;color:var(--n);font-family:'Space Grotesk'">${rm?rm.name:'Your RM'}</div><div style="font-size:11px;color:var(--tm);margin-top:1px">${rm?rm.role:'Export Consultant'}</div></div>
+      </div>
+      <div style="display:flex;gap:7px;margin-top:13px">
+        <a href="https://wa.me/${rm?(rm.phone.replace(/[^0-9]/g,'')):'919818187246'}" class="btn bp bsm" target="_blank">💬 WhatsApp</a>
+        <button class="btn bo bsm" onclick="sp('chat',null)">Open Chat</button>
+      </div>
+    </div>`;
+}
+
+/* ─ MY LEADS ─ */
+function renderLeads(){
+  if(!CLIENT)return;
+  const fc=document.getElementById('f-country')?.value||'';
+  const fcat=document.getElementById('f-cat')?.value||'';
+  let list=BGX.getLeadsForClient(CLIENT.id).filter(l=>(!fc||l.country===fc)&&(!fcat||l.cat===fcat));
+  const unlocked=CLIENT.status==='active';
+
+  document.getElementById('leads-sub-label').textContent=`${list.length} leads assigned to your account`;
+  document.getElementById('locked-banner').style.display=unlocked?'none':'flex';
+
+  document.getElementById('lead-rows').innerHTML=list.map(l=>`
+    <tr class="${unlocked?'':'lead-row-locked'}" onclick="${unlocked?`openDrw('${l.id}')`:'openUnlock()'}">
+      <td>${l.country}</td>
+      <td>${l.cat}</td>
+      <td style="font-size:11.5px">${l.product}</td>
+      <td style="font-size:11.5px;color:var(--tm)">${l.qty||'—'}</td>
+      <td><span class="bdg ${QC[l.q]||'bn'}">${QT[l.q]||l.q}</span></td>
+      <td class="${unlocked?'':'blur-cell'}">${unlocked?`<strong>${l.co}</strong>`:randomBlur()}</td>
+      <td class="${unlocked?'':'blur-cell'}">${unlocked?l.name:randomBlur()}</td>
+      <td class="${unlocked?'':'blur-cell'}" style="font-family:'Space Grotesk';font-size:11px">${unlocked?l.phone:randomBlurPhone()}</td>
+      <td class="${unlocked?'':'blur-cell'}" style="font-size:11px">${unlocked?l.email:randomBlurEmail()}</td>
+      <td>${unlocked?`<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">Details →</button>`:`<span class="lock-badge">🔒 Locked</span>`}</td>
+    </tr>`).join('');
+}
+
+function randomBlur(){const w=['Xxxxxx Trading','Xxxxxx Imports','Xxxxxx Co Ltd','Xxxxxx GmbH','Xxxxxx LLC'];return w[Math.floor(Math.random()*w.length)]}
+function randomBlurPhone(){return '+XX XX XXXX XXXX'}
+function randomBlurEmail(){return 'xxxxxx@xxxxxxxx.xxx'}
+
+/* ─ DRAWER ─ */
+function openDrw(id){
+  if(CLIENT.status!=='active'){openUnlock();return}
+  const l=BGX.LEADS.find(x=>x.id===id);
+  if(!l)return;
+  document.getElementById('dr-co').textContent=l.co;
+  document.getElementById('dr-sub').textContent=l.cat+' · '+l.country;
+  document.getElementById('dr-wa').href='https://wa.me/'+l.phone.replace(/[^0-9]/g,'');
+  document.getElementById('dr-em').href='mailto:'+l.email;
+  document.getElementById('dr-body').innerHTML=`
+    <div class="dr"><div class="dr-l">Company</div><div class="dr-v">${l.co}</div></div>
+    <div class="dr"><div class="dr-l">Country</div><div class="dr-v">${l.country}</div></div>
+    <div class="dr"><div class="dr-l">Category</div><div class="dr-v">${l.cat}</div></div>
+    <div class="dr"><div class="dr-l">Product Interest</div><div class="dr-v">${l.product}</div></div>
+    <div class="dr"><div class="dr-l">Quantity Required</div><div class="dr-v">${l.qty||'—'}</div></div>
+    <div class="dr"><div class="dr-l">Contact Person</div><div class="dr-v">${l.name}</div></div>
+    <div class="dr"><div class="dr-l">Phone / WhatsApp</div><div class="dr-v" style="font-family:'Space Grotesk'">${l.phone}</div></div>
+    <div class="dr"><div class="dr-l">Email</div><div class="dr-v">${l.email}</div></div>
+    <div class="dr"><div class="dr-l">Lead Quality</div><div class="dr-v"><span class="bdg ${QC[l.q]||'bn'}">${QT[l.q]||l.q}</span></div></div>
+    <div class="dr"><div class="dr-l">Date Assigned</div><div class="dr-v">${l.addedDate}</div></div>`;
+  document.getElementById('drw-bg').classList.add('open');
+}
+function closeDrw(){document.getElementById('drw-bg').classList.remove('open')}
+function openUnlock(){document.getElementById('unlock-bg').classList.add('open')}
+function closeUnlock(){document.getElementById('unlock-bg').classList.remove('open')}
+
+/* ─ PERFORMANCE ─ */
+function renderPerf(){
+  if(!CLIENT)return;
+  const myLeads=BGX.getLeadsForClient(CLIENT.id);
+  const conv=myLeads.filter(l=>l.status==='converted').length;
+  const convRate=myLeads.length>0?((conv/myLeads.length)*100).toFixed(1)+'%':'0%';
+  const countries=[...new Set(myLeads.map(l=>l.country))].length;
+  document.getElementById('perf-kpis').innerHTML=`
+    <div class="pi"><div class="pi-v">${myLeads.length}</div><div class="pi-l">Total Leads Assigned</div></div>
+    <div class="pi"><div class="pi-v">${convRate}</div><div class="pi-l">Conversion Rate</div></div>
+    <div class="pi"><div class="pi-v">${conv}</div><div class="pi-l">Converted Leads</div></div>
+    <div class="pi"><div class="pi-v">${countries}</div><div class="pi-l">Countries</div></div>
+    <div class="pi"><div class="pi-v">${CLIENT.used}</div><div class="pi-l">Leads Used This Month</div></div>
+    <div class="pi"><div class="pi-v">${CLIENT.limit-CLIENT.used}</div><div class="pi-l">Remaining Balance</div></div>`;
+
+  const cats={};myLeads.forEach(l=>cats[l.cat]=(cats[l.cat]||0)+1);
+  const cmax=Math.max(1,...Object.values(cats));
+  document.getElementById('p-cats').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cmax*100)}%"></div></div></div>`).join('');
+
+  const ctrs={};myLeads.forEach(l=>ctrs[l.country]=(ctrs[l.country]||0)+1);
+  const sorted=Object.entries(ctrs).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const dmax=sorted[0]?.[1]||1;
+  document.getElementById('p-ctrs').innerHTML=sorted.map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dmax*100)}%"></div></div></div>`).join('');
+}
+
+/* ─ HISTORY ─ */
+function renderHistory(){
+  if(!CLIENT)return;
+  const hist=BGX.PURCHASES[CLIENT.id]||[];
+  document.getElementById('hist-body').innerHTML=hist.length?hist.map(h=>`
+    <tr><td>${h.date}</td><td><strong>${h.plan}</strong></td><td>${h.qty}</td><td><strong>${h.amount}</strong></td>
+    <td><span class="bdg ${h.status==='active'?'ba':h.status==='expired'?'bh':'bc'}">${h.status==='active'?'✅ Active':h.status==='expired'?'✕ Expired':'✅ Done'}</span></td></tr>`).join('')
+    :'<tr><td colspan="5" style="text-align:center;color:var(--tl);padding:24px">No purchase history yet.</td></tr>';
+}
+
+/* ─ CHAT ─ */
+function renderChat(){
+  if(!CLIENT)return;
+  const rm=BGX.getRM(CLIENT.rmId);
+  document.getElementById('chat-header').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">${rm?rm.initials:'BG'}</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--n)">${rm?rm.name:'BuyGenix Team'}</div><div style="font-size:10.5px;color:var(--green)">● Online · ${rm?rm.role:'Relationship Manager'}</div></div>
+    </div>`;
+  const msgs=BGX.MESSAGES[CLIENT.id]||[];
+  const wrap=document.getElementById('chat-msgs');
+  wrap.innerHTML=msgs.map(m=>`
+    <div class="msg ${m.from==='rm'?'in':'out'}">
+      <div class="mav">${m.from==='rm'?(rm?rm.initials:'BG'):CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div><div class="mbu">${m.text}</div><div class="mti">${m.time}</div></div>
+    </div>`).join('');
+  wrap.scrollTop=wrap.scrollHeight;
+}
+
+const AUTO_REPLIES={
+  'leaves left':()=>`Your balance: <strong>${CLIENT.limit-CLIENT.used} leads remaining</strong> out of ${CLIENT.limit} this month. Renewal: ${CLIENT.renewal}.`,
+  'how many':()=>`You've used <strong>${CLIENT.used} leads</strong> and have <strong>${CLIENT.limit-CLIENT.used} remaining</strong> this month.`,
+  'remaining':()=>`Current balance: <strong>${CLIENT.limit-CLIENT.used} leads remaining</strong> (${CLIENT.used} used of ${CLIENT.limit}). Renewal: ${CLIENT.renewal}.`,
+  'upgrade':`Great choice! I'll connect you with our team for the Professional Plan (2,000 leads/month). WhatsApp us at <strong>+91 98181 87246</strong> or I can arrange a callback.`,
+  'renewal':()=>`Your ${BGX.getPlan(CLIENT.plan).label} renews on <strong>${CLIENT.renewal}</strong>. You'll get an email reminder 7 days before.`,
+  'problem':'Sorry to hear that! Share the lead ID and issue. Our quality team will replace faulty leads within 48 hours.',
+  'issue':'Please raise a formal Support Ticket using the sidebar, or describe the issue here and I will log it immediately.',
+  'top-up':()=>`Top-up packs of 50 leads are available at ₹1,499 for ${BGX.getPlan(CLIENT.plan).label} members. Want me to process that? WhatsApp +91 98181 87246.`,
+  'hello':()=>`Hello ${CLIENT.name.split(' ')[0]}! How can I help today?`,
+  'hi':()=>`Hi ${CLIENT.name.split(' ')[0]}! Ready to help with your leads, plan, or export queries.`,
+  'plan':()=>`You're on the <strong>${BGX.getPlan(CLIENT.plan).label}</strong> — ${CLIENT.limit} leads/month, renewal ${CLIENT.renewal}. Want to explore upgrading?`,
+};
+function getAutoReply(msg){const m=msg.toLowerCase();for(const[k,v] of Object.entries(AUTO_REPLIES))if(m.includes(k))return typeof v==='function'?v():v;return`Thanks for reaching out, ${CLIENT.name.split(' ')[0]}! I've noted your query and will follow up shortly. For urgent matters, WhatsApp us at <strong>+91 98181 87246</strong>.`}
+
+function cSend(){
+  const inp=document.getElementById('c-in');
+  const txt=inp.value.trim();if(!txt||!CLIENT)return;
+  BGX.addMessage(CLIENT.id,'client',txt);
+  inp.value='';
+  renderChat();
+  setTimeout(()=>{BGX.addMessage(CLIENT.id,'rm',getAutoReply(txt));renderChat()},900);
+}
+function cq(msg){sp('chat',document.querySelector('.ni:nth-child(8)'));setTimeout(()=>{BGX.addMessage(CLIENT.id,'client',msg);renderChat();setTimeout(()=>{BGX.addMessage(CLIENT.id,'rm',getAutoReply(msg));renderChat()},900)},100)}
+
+/* ─ PLAN ─ */
+function renderPlan(){
+  if(!CLIENT)return;
+  const plan=BGX.getPlan(CLIENT.plan);
+  const rm=BGX.getRM(CLIENT.rmId);
+  document.getElementById('plan-card-full').innerHTML=`
+    <div class="pc-tier">Current Active Plan</div>
+    <div class="pc-name">${plan.label}</div>
+    ${plan.limit<99999?`<div class="pc-f"><span class="ck">✓</span> ${plan.limit.toLocaleString()} leads/month</div>`:'<div class="pc-f"><span class="ck">✓</span> Unlimited leads</div>'}
+    <div class="pc-f"><span class="ck">✓</span> Phone + Email + WhatsApp leads</div>
+    <div class="pc-f"><span class="ck">✓</span> CSV export included</div>
+    <div class="pc-f"><span class="ck">✓</span> Dedicated RM — ${rm?rm.name:'Assigned'}</div>
+    <div class="pc-f"><span class="ck">✓</span> ${plan.label==='Starter Plan'?'Email':'Priority'} support</div>
+    <div class="pc-r" style="margin-top:14px">Billing: <strong>${CLIENT.billing}</strong> · Renews: <strong>${CLIENT.renewal}</strong><br>Price: <strong>₹${plan.price.toLocaleString('en-IN')}/mo</strong></div>`;
+
+  const higher=Object.entries(BGX.PLANS).filter(([k])=>{const order=['starter','growth','professional','enterprise'];return order.indexOf(k)>order.indexOf(CLIENT.plan)});
+  document.getElementById('upgrade-options').innerHTML=higher.length?higher.map(([k,p])=>`
+    <div style="border:1.5px solid var(--bs);border-radius:10px;padding:14px;margin-bottom:10px">
+      <div style="font-size:13.5px;font-weight:700;color:var(--n);margin-bottom:6px">${p.label}</div>
+      <div style="font-size:11.5px;color:var(--tm);margin-bottom:10px">${p.limit<99999?p.limit.toLocaleString():' Unlimited'} leads/month · ₹${p.price.toLocaleString('en-IN')}/mo</div>
+      <a href="https://wa.me/919818187246" class="btn bg bsm" target="_blank">Upgrade via WhatsApp →</a>
+    </div>`).join('')
+    :'<div style="text-align:center;padding:20px;color:var(--tl)"><div style="font-size:28px;margin-bottom:8px">🏆</div><p style="font-size:12.5px">You are on our top plan!</p></div>';
+}
+
+/* ─ REFERRALS ─ */
+function renderRef(){
+  if(!CLIENT)return;
+  const myRefs=BGX.REFERRALS.filter(r=>r.referrerId===CLIENT.id);
+  const earned=myRefs.filter(r=>r.status==='paid').reduce((s,r)=>s+parseInt(r.commission.replace(/[^0-9]/g,'')),0);
+  const pending=myRefs.filter(r=>r.status==='pending').reduce((s,r)=>s+parseInt(r.commission.replace(/[^0-9]/g,'')),0);
+  document.getElementById('ref-earned').textContent='₹'+earned.toLocaleString('en-IN');
+  document.getElementById('ref-pending').textContent='₹'+pending.toLocaleString('en-IN');
+  document.getElementById('my-referrals').innerHTML=myRefs.length?`<table class="htbl"><thead><tr><th>Referred To</th><th>Plan</th><th>Commission</th><th>Status</th></tr></thead><tbody>${myRefs.map(r=>`<tr><td>${r.referred}</td><td>${r.plan}</td><td><strong style="color:var(--green)">${r.commission}</strong></td><td><span class="bdg ${r.status==='paid'?'bc':'bw'}">${r.status==='paid'?'✅ Paid':'⏳ Pending'}</span></td></tr>`).join('')}</tbody></table>`
+    :'<p style="font-size:12px;color:var(--tl);text-align:center;padding:16px">No referrals yet. Share your link to earn commissions!</p>';
+}
+
+/* ─ TICKET ─ */
+function submitTk(){document.getElementById('tk-ok').style.display='block';setTimeout(()=>document.getElementById('tk-ok').style.display='none',5000)}
+
+/* ─ COPY REF ─ */
+function copyRef(){const l=document.getElementById('ref-link-txt').textContent;navigator.clipboard?.writeText(l).then(()=>alert('✅ Referral link copied!')).catch(()=>alert('Link: '+l))}
+
+/* ─ SESSION PICKUP — reads login.html sessionStorage ─ */
+document.addEventListener('DOMContentLoaded', function() {
+  const storedId = sessionStorage.getItem('bgx_client_id');
+  if (storedId) {
+    const c = BGX.getClient(storedId);
+    if (c) {
+      CLIENT = c;
+      document.getElementById('lp').style.display = 'none';
+      document.getElementById('portal').style.display = 'block';
+      initPortal();
+      return;
+    }
+  }
+  /* No valid session — show inline login form as fallback */
+  document.getElementById('lp').style.display = 'flex';
+});
+
+/* ─ OVERRIDE LOGOUT — redirect to login.html ─ */
+function doLogout() {
+  sessionStorage.removeItem('bgx_client_id');
+  sessionStorage.removeItem('bgx_client_name');
+  sessionStorage.removeItem('bgx_client_email');
+  CLIENT = null;
+  window.location.href = 'login.html';
+}
+</script>
+</body>
+</html>
