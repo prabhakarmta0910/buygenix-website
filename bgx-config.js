@@ -77,16 +77,21 @@ window.DB = {
 
   /* ── AUTH ── */
   async loginClient(email, otp) {
-    const { data, error } = await sb
-      .from('clients')
-      .select('*')
-      .eq('email', email.toLowerCase().trim())
-      .eq('otp', otp.trim())
-      .single();
-    if (error || !data) return { success: false, error: 'Invalid email or OTP.' };
-    if (data.plan_status === 'expired')
-      return { success: false, error: 'Your membership has expired. Please contact BuyGenix to renew.' };
-    return { success: true, client: data };
+    try {
+      const { data, error } = await sb
+        .from('clients')
+        .select('*')
+        .ilike('email', email.trim())
+        .eq('otp', otp.trim())
+        .maybeSingle();
+      if (error) return { success: false, error: 'Database error: ' + error.message };
+      if (!data) return { success: false, error: 'Invalid email or OTP. Please check and try again.' };
+      if (data.plan_status === 'expired')
+        return { success: false, error: 'Your membership has expired. Please contact BuyGenix to renew.' };
+      return { success: true, client: data };
+    } catch(e) {
+      return { success: false, error: 'Connection error. Please try again.' };
+    }
   },
 
   async loginAdmin(username, password) {
