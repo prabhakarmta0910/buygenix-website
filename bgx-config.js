@@ -11,8 +11,8 @@
 
 /* ── YOUR SUPABASE CREDENTIALS ──
    Replace these two values with your own from supabase.com → Settings → API */
-const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY';
+const SUPABASE_URL      = 'https://qzaeshegpdoknsiuvidr.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
 
 /* ── Load Supabase JS client from CDN ── */
 const _sbScript = document.createElement('script');
