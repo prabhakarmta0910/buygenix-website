@@ -15,15 +15,39 @@ const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co';
 const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY';
 
 /* ── Load Supabase JS client from CDN ── */
-const _sbScript = document.createElement('script');
-_sbScript.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-_sbScript.onload = () => {
-  window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  console.log('✅ Supabase connected');
-  /* Fire custom event so pages know db is ready */
-  document.dispatchEvent(new Event('sbReady'));
-};
-document.head.appendChild(_sbScript);
+function _initSupabase() {
+  if (window.supabase) {
+    window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('✅ Supabase connected');
+    document.dispatchEvent(new Event('sbReady'));
+    return;
+  }
+  const _sbScript = document.createElement('script');
+  _sbScript.src = 'https://unpkg.com/@supabase/supabase-js@2';
+  _sbScript.onload = () => {
+    window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    console.log('✅ Supabase connected via unpkg');
+    document.dispatchEvent(new Event('sbReady'));
+  };
+  _sbScript.onerror = () => {
+    /* fallback to jsdelivr */
+    const _sb2 = document.createElement('script');
+    _sb2.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    _sb2.onload = () => {
+      window.sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('✅ Supabase connected via jsdelivr');
+      document.dispatchEvent(new Event('sbReady'));
+    };
+    document.head.appendChild(_sb2);
+  };
+  document.head.appendChild(_sbScript);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _initSupabase);
+} else {
+  _initSupabase();
+}
 
 /* ════════════════════════════════════════
    PLAN DEFINITIONS (same across all pages)
