@@ -11,8 +11,8 @@
 
 /* ── YOUR SUPABASE CREDENTIALS ──
    Replace these two values with your own from supabase.com → Settings → API */
-const SUPABASE_URL      = 'https://qzaeshegpdoknsiuvidr.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
+const SUPABASE_URL      = 'https://YOUR_PROJECT_ID.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_PUBLIC_KEY';
 
 /* ── Load Supabase JS client from CDN ── */
 const _sbScript = document.createElement('script');
@@ -90,20 +90,25 @@ window.DB = {
         return { success: false, error: 'Your membership has expired. Please contact BuyGenix to renew.' };
       return { success: true, client: data };
     } catch(e) {
-      return { success: false, error: 'Connection error. Please try again.' };
+      return { success: false, error: 'Connection error. Please try again in a moment.' };
     }
   },
 
   async loginAdmin(username, password) {
-    const { data, error } = await sb
-      .from('admin_users')
-      .select('*')
-      .eq('username', username.toLowerCase().trim())
-      .eq('password', password)
-      .eq('is_active', true)
-      .single();
-    if (error || !data) return { success: false, error: 'Invalid username or password.' };
-    return { success: true, admin: data };
+    try {
+      const { data, error } = await sb
+        .from('admin_users')
+        .select('*')
+        .ilike('username', username.trim())
+        .eq('password', password)
+        .maybeSingle();
+      if (error) return { success: false, error: 'Database error: ' + error.message };
+      if (!data) return { success: false, error: 'Invalid username or password.' };
+      if (!data.is_active) return { success: false, error: 'Account inactive. Contact admin.' };
+      return { success: true, admin: data };
+    } catch(e) {
+      return { success: false, error: 'Connection error. Please try again.' };
+    }
   },
 
   /* ── CLIENTS ── */
