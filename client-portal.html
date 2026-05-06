@@ -6,7 +6,7 @@
 <title>Client Dashboard — BuyGenix Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--n:#0B1929;--n2:#1B3A5C;--g:#B8860B;--gm:#D4A017;--gp:#FFF8E7;--gb:rgba(184,134,11,.22);--sky:#EAF2FB;--skm:#D0E4F5;--tb:#2C3E50;--tm:#4A6A8A;--tl:#7A9BBD;--bs:rgba(0,0,0,.07);--ss:0 2px 14px rgba(11,25,41,.06);--sm:0 6px 28px rgba(11,25,41,.10);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--sb:252px}
+:root{--n:#0B1929;--n2:#1B3A5C;--g:#B8860B;--gm:#D4A017;--gp:#FFF8E7;--gb:rgba(184,134,11,.22);--sky:#EAF2FB;--skm:#D0E4F5;--tb:#2C3E50;--tm:#4A6A8A;--tl:#7A9BBD;--bs:rgba(0,0,0,.07);--ss:0 2px 14px rgba(11,25,41,.06);--sm:0 6px 28px rgba(11,25,41,.10);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--sb:256px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--sky);color:var(--tb);min-height:100vh;overflow-x:hidden}
 a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
@@ -16,7 +16,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .sl{display:flex;align-items:center;gap:9px}
 .sl-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff}.sl-t em{color:var(--gm);font-style:italic}
 .sl-s{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Grotesk';margin-top:2px}
-.snav{flex:1;padding:18px 13px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.snav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
 .ss{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:12px 10px 4px;font-family:'Space Grotesk'}
 .ni{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,.48);font-size:12.5px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .16s;cursor:pointer}
 .ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
@@ -28,7 +28,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .su{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.04);margin-bottom:9px}
 .sa{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gm));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
 .blo{width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.38);font-size:11px;font-family:'Space Grotesk';cursor:pointer;transition:all .16s}
-.blo:hover{background:rgba(255,255,255,.09);color:rgba(255,255,255,.7)}
+.blo:hover{background:rgba(239,68,68,.15);color:var(--red)}
 
 .main{margin-left:var(--sb);flex:1;min-height:100vh;display:flex;flex-direction:column}
 .topbar{background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--bs);padding:0 28px;height:57px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--ss)}
@@ -45,8 +45,8 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-.sc{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--bs);box-shadow:var(--ss);position:relative;overflow:hidden;transition:transform .16s,box-shadow .16s}
-.sc:hover{transform:translateY(-2px);box-shadow:var(--sm)}
+.sc{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--bs);box-shadow:var(--ss);position:relative;overflow:hidden;transition:transform .16s}
+.sc:hover{transform:translateY(-2px)}
 .sc::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%}
 .sc.c1::before{background:var(--n2)}.sc.c2::before{background:var(--g)}.sc.c3::before{background:var(--green)}.sc.c4::before{background:var(--red)}
 .sc-i{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px}
@@ -69,12 +69,10 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .tbl td{padding:10px 13px;font-size:12px;border-bottom:1px solid var(--bs);color:var(--tb);vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}.tbl tr:hover td{background:var(--sky)}
 
-/* BLURRED / LOCKED */
-.blur{filter:blur(5px);user-select:none;pointer-events:none}
-.lock-row{cursor:pointer}.lock-row:hover td{background:var(--gp)}
+/* BLUR SYSTEM */
+.blur{filter:blur(5px);user-select:none;pointer-events:none;color:var(--n)}
+.lock-row{cursor:pointer}.lock-row:hover td{background:var(--gp)!important}
 .lock-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;background:rgba(184,134,11,.1);color:var(--g);font-family:'Space Grotesk'}
-
-/* LOCKED BANNER */
 .locked-banner{background:linear-gradient(135deg,var(--n),var(--n2));border-radius:12px;padding:18px 22px;margin-bottom:16px;display:flex;align-items:center;gap:16px}
 .locked-banner h4{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
 .locked-banner p{font-size:12px;color:rgba(255,255,255,.65)}
@@ -103,13 +101,8 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .pc-r{font-size:11px;color:rgba(255,255,255,.36);border-top:1px solid rgba(255,255,255,.08);padding-top:11px;margin-top:7px}
 .pc-r strong{color:rgba(255,255,255,.6)}
 
-/* PENDING PLAN STATE */
-.pending-banner{background:var(--gp);border:1.5px solid var(--gb);border-radius:12px;padding:18px 22px;text-align:center;margin-bottom:20px}
-.pending-banner h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--n);margin-bottom:6px}
-.pending-banner p{font-size:12.5px;color:var(--tm);line-height:1.6}
-
 /* CHAT */
-.chat-wrap{display:flex;flex-direction:column;height:420px}
+.chat-wrap{display:flex;flex-direction:column;height:460px}
 .cmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
 .cmsgs::-webkit-scrollbar{width:3px}.cmsgs::-webkit-scrollbar-thumb{background:var(--skm);border-radius:3px}
 .msg{display:flex;gap:8px;align-items:flex-end;animation:mi .22s ease}
@@ -117,9 +110,11 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .msg.out{flex-direction:row-reverse}
 .mav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
 .msg.in .mav{background:linear-gradient(135deg,var(--n),var(--n2))}.msg.out .mav{background:linear-gradient(135deg,var(--g),var(--gm))}
+.msg.ai .mav{background:linear-gradient(135deg,#7C3AED,#5B21B6)}
 .mbu{max-width:74%;padding:9px 13px;border-radius:12px;font-size:12.5px;line-height:1.55}
 .msg.in .mbu{background:var(--sky);color:var(--tb);border-radius:3px 12px 12px 12px}
 .msg.out .mbu{background:var(--n);color:#fff;border-radius:12px 3px 12px 12px}
+.msg.ai .mbu{background:linear-gradient(135deg,rgba(124,58,237,.1),rgba(91,33,182,.08));border:1px solid rgba(124,58,237,.2);color:var(--tb);border-radius:3px 12px 12px 12px}
 .mti{font-size:9.5px;color:var(--tl);margin-top:2px}.msg.out .mti{text-align:right}
 .chips{display:flex;flex-wrap:wrap;gap:6px;padding:9px 14px;border-top:1px solid var(--bs)}
 .chip{padding:5px 11px;border:1.5px solid var(--gb);background:var(--gp);border-radius:100px;font-size:11px;color:var(--g);font-weight:600;cursor:pointer;transition:all .16s;font-family:'Space Grotesk'}
@@ -129,11 +124,12 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .cin:focus{border-color:var(--g);background:#fff}
 .csend{width:34px;height:34px;border-radius:50%;background:var(--n);border:none;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .16s;flex-shrink:0}
 .csend:hover{background:var(--g)}
+.ai-badge{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:100px;background:rgba(124,58,237,.1);color:#7C3AED;font-family:'Space Grotesk';margin-bottom:4px}
 
 /* DRAWER */
 .drw-bg{position:fixed;inset:0;background:rgba(11,25,41,.5);z-index:200;display:flex;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .22s}
 .drw-bg.open{opacity:1;pointer-events:all}
-.drw{width:340px;max-width:95vw;background:#fff;height:100vh;overflow-y:auto;padding:26px 22px;transform:translateX(40px);transition:transform .24s;box-shadow:0 0 40px rgba(11,25,41,.2);position:relative}
+.drw{width:350px;max-width:95vw;background:#fff;height:100vh;overflow-y:auto;padding:26px 22px;transform:translateX(40px);transition:transform .24s;box-shadow:0 0 40px rgba(11,25,41,.2);position:relative}
 .drw-bg.open .drw{transform:none}
 .drw h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px}
 .dx{position:absolute;top:16px;right:16px;background:var(--sky);border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
@@ -149,7 +145,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .ul-modal h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--n);margin-bottom:8px}
 .ul-modal p{font-size:12.5px;color:var(--tm);margin-bottom:20px;line-height:1.6}
 
-/* FORMS */
+/* FORM */
 .fg2{margin-bottom:12px}
 .fg2 label{display:block;font-size:10.5px;font-weight:700;color:var(--tm);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:5px}
 .fg2 input,.fg2 select,.fg2 textarea{width:100%;padding:8px 12px;border:1.5px solid var(--bs);border-radius:7px;font-size:12.5px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .16s}
@@ -157,7 +153,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .fg2 textarea{resize:vertical;min-height:80px}
 .f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}
 .bsub{padding:11px 22px;background:linear-gradient(135deg,var(--n),var(--n2));color:#fff;border:none;border-radius:8px;font-size:12.5px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.7px;text-transform:uppercase;cursor:pointer;margin-top:14px;transition:all .2s}
-.bsub:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(11,25,41,.18)}
+.bsub:hover{transform:translateY(-1px)}
 
 .htbl{width:100%;border-collapse:collapse}
 .htbl th{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';padding:8px 13px;text-align:left;background:var(--sky);border-bottom:1px solid var(--bs)}
@@ -173,8 +169,16 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .alert-bar strong{color:var(--g)}
 
 .spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(11,25,41,.2);border-top-color:var(--n);border-radius:50%;animation:sp .7s linear infinite}
+.spin-w{border-color:rgba(255,255,255,.3);border-top-color:#fff}
 @keyframes sp{to{transform:rotate(360deg)}}
-.loading-state{display:flex;align-items:center;justify-content:center;padding:40px;gap:12px;color:var(--tl);font-size:13px}
+.ls{display:flex;align-items:center;justify-content:center;padding:32px;gap:10px;color:var(--tl);font-size:12.5px}
+
+.pending-banner{background:var(--gp);border:1.5px solid var(--gb);border-radius:12px;padding:18px 22px;text-align:center;margin-bottom:20px}
+.pending-banner h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:var(--n);margin-bottom:6px}
+.pending-banner p{font-size:12.5px;color:var(--tm);line-height:1.6}
+
+.ok-msg{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green);display:none;margin-top:10px}
+.err-msg{background:#FEF2F2;border:1px solid rgba(239,68,68,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--red);display:none;margin-top:10px}
 
 @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.r2,.r31{grid-template-columns:1fr}.perf-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.sb{transform:translateX(-100%)}.sb.open{transform:none}.main{margin-left:0}.burger{display:flex}.content{padding:18px 15px}.stats{grid-template-columns:1fr 1fr}}
@@ -195,6 +199,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <button class="ni" onclick="sp('history',this)"><span class="ic">🧾</span> Purchase History</button>
     <span class="ss">Support</span>
     <button class="ni" onclick="sp('chat',this)"><span class="ic">💬</span> Chat with BuyGenix <span class="bx red" id="chat-bdg" style="display:none">!</span></button>
+    <button class="ni" onclick="sp('ai',this)"><span class="ic">🤖</span> AI Assistant</button>
     <button class="ni" onclick="sp('ticket',this)"><span class="ic">🛎</span> Raise Ticket</button>
     <span class="ss">Account</span>
     <button class="ni" onclick="sp('plan',this)"><span class="ic">💎</span> My Plan</button>
@@ -227,9 +232,9 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <!-- DASHBOARD -->
     <div class="panel on" id="p-dashboard">
       <div id="dash-pending" class="pending-banner" style="display:none">
-        <h3>🕐 Membership Pending Activation</h3>
-        <p>Your account is registered. BuyGenix team will review and assign your membership plan shortly.<br>
-        Questions? <a href="https://wa.me/919818187246" target="_blank" style="color:var(--g);font-weight:600">WhatsApp us →</a></p>
+        <h3>🕐 Membership Pending</h3>
+        <p>Your account is registered. BuyGenix team will activate your membership shortly.<br>
+        <a href="https://wa.me/919818187246" target="_blank" style="color:var(--g);font-weight:600">WhatsApp us to expedite →</a></p>
       </div>
       <div class="alert-bar" id="dash-alert" style="display:none">
         <span style="font-size:16px">📬</span>
@@ -246,19 +251,19 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
         <div>
           <div class="card">
             <div class="ch"><div><div class="ct">Recent Buyer Leads</div><div class="csub" id="dash-leads-sub">Loading…</div></div><button class="btn bo bsm" onclick="sp('leads',null)">View All →</button></div>
-            <div style="padding:0"><table class="tbl"><thead><tr><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Details</th></tr></thead><tbody id="dash-lead-rows"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--tl)"><span class="spin"></span> Loading leads…</td></tr></tbody></table></div>
+            <div style="padding:0"><table class="tbl"><thead><tr><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Details</th></tr></thead><tbody id="dash-lead-rows"><tr><td colspan="6" class="ls"><span class="spin"></span></td></tr></tbody></table></div>
           </div>
           <div class="card">
             <div class="ch"><div class="ct">Monthly Lead Usage</div></div>
             <div class="cb">
-              <div class="pb-w"><div class="pb-l"><span>Used this month</span><strong id="usage-lbl">— / —</strong></div><div class="pb-t"><div class="pb-f" id="usage-bar" style="width:0%"></div></div></div>
-              <p style="font-size:11.5px;color:var(--tm)" id="usage-sub">—</p>
+              <div class="pb-w"><div class="pb-l"><span>Used</span><strong id="usage-lbl">— / —</strong></div><div class="pb-t"><div class="pb-f" id="usage-bar" style="width:0%"></div></div></div>
+              <p style="font-size:11.5px;color:var(--tm)" id="usage-sub">Loading…</p>
             </div>
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:16px">
-          <div class="pc" id="dash-plan-card"><div class="pc-tier">Your Plan</div><div class="pc-name" style="font-size:16px;margin-bottom:6px">Loading…</div></div>
-          <div class="card" id="dash-rm-card"><div class="cb" style="text-align:center;color:var(--tl);padding:24px"><span class="spin"></span></div></div>
+          <div class="pc" id="dash-plan-card"><div class="pc-tier">Your Plan</div><div class="pc-name" style="font-size:16px">Loading…</div></div>
+          <div class="card" id="dash-rm-card"><div class="cb ls"><span class="spin"></span></div></div>
         </div>
       </div>
     </div>
@@ -275,13 +280,13 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       </div>
       <div id="locked-banner" class="locked-banner" style="display:none">
         <span style="font-size:28px">🔒</span>
-        <div style="flex:1"><h4>Unlock Full Lead Details</h4><p>Country, Category, Product &amp; Qty are visible. <strong style="color:var(--gm)">Active membership required</strong> to reveal company name, contact, phone &amp; email.</p></div>
-        <button class="btn bg2" onclick="openUnlock()">Upgrade →</button>
+        <div style="flex:1"><h4>Unlock Full Lead Details</h4><p>Country, Category, Product &amp; Qty visible. Active membership required to reveal company, contact, phone &amp; email.</p></div>
+        <button class="btn bg2" onclick="openUnlock()">Get Membership →</button>
       </div>
       <div class="card"><div style="padding:0;overflow-x:auto">
         <table class="tbl">
           <thead><tr><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Company</th><th>Contact</th><th>Phone</th><th>Email</th><th></th></tr></thead>
-          <tbody id="lead-rows"><tr><td colspan="10" style="text-align:center;padding:24px;color:var(--tl)"><span class="spin"></span> Loading…</td></tr></tbody>
+          <tbody id="lead-rows"><tr><td colspan="10" class="ls"><span class="spin"></span></td></tr></tbody>
         </table>
       </div></div>
     </div>
@@ -299,27 +304,64 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <!-- HISTORY -->
     <div class="panel" id="p-history">
       <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Purchase History</div>
-      <div class="card"><div style="padding:0"><table class="htbl"><thead><tr><th>Date</th><th>Plan / Product</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead><tbody id="hist-body"><tr><td colspan="5" style="text-align:center;padding:24px;color:var(--tl)"><span class="spin"></span></td></tr></tbody></table></div></div>
+      <div class="card"><div style="padding:0"><table class="htbl"><thead><tr><th>Date</th><th>Plan / Product</th><th>Qty</th><th>Amount</th><th>Status</th></tr></thead><tbody id="hist-body"><tr><td colspan="5" class="ls"><span class="spin"></span></td></tr></tbody></table></div></div>
     </div>
 
-    <!-- CHAT -->
+    <!-- CHAT WITH RM -->
     <div class="panel" id="p-chat">
       <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Chat with BuyGenix</div>
-      <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Message your Relationship Manager directly. Responses within 24 hours.</p>
+      <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Message your Relationship Manager. Responses within 24 hours.</p>
       <div class="card">
-        <div class="ch" id="chat-hdr"></div>
+        <div class="ch" id="chat-hdr"><div class="ls"><span class="spin"></span></div></div>
         <div class="chat-wrap">
-          <div class="cmsgs" id="chat-msgs"><div class="loading-state"><span class="spin"></span> Loading messages…</div></div>
+          <div class="cmsgs" id="chat-msgs"><div class="ls"><span class="spin"></span></div></div>
           <div class="chips">
             <button class="chip" onclick="cq('How many leads do I have left?')">Leads remaining?</button>
-            <button class="chip" onclick="cq('I have an issue with a lead')">Report issue</button>
+            <button class="chip" onclick="cq('I have a problem with a lead')">Report issue</button>
             <button class="chip" onclick="cq('I want to upgrade my plan')">Upgrade plan</button>
             <button class="chip" onclick="cq('When does my plan renew?')">Renewal date</button>
-            <button class="chip" onclick="cq('Can I get a lead top-up?')">Request top-up</button>
+            <button class="chip" onclick="cq('Can I get a lead top-up?')">Top-up request</button>
           </div>
           <div class="cft">
             <input class="cin" type="text" id="c-in" placeholder="Message your RM…" onkeydown="if(event.key==='Enter')cSend()">
             <button class="csend" onclick="cSend()">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI ASSISTANT -->
+    <div class="panel" id="p-ai">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">AI Export Assistant</div>
+      <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Powered by NVIDIA AI — ask anything about your leads, plan, export queries, or BuyGenix services.</p>
+      <div class="card">
+        <div class="ch">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#5B21B6);display:flex;align-items:center;justify-content:center;font-size:14px">🤖</div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--n)">BuyGenix AI</div><div style="font-size:10.5px;color:var(--green)">● Powered by NVIDIA NIM</div></div>
+          </div>
+        </div>
+        <div class="chat-wrap">
+          <div class="cmsgs" id="ai-msgs">
+            <div class="msg ai">
+              <div class="mav">🤖</div>
+              <div>
+                <div class="ai-badge">🤖 AI Assistant</div>
+                <div class="mbu">Hello! I'm your BuyGenix AI assistant powered by NVIDIA. I can help you with your leads, plan details, export queries, and more. What would you like to know?</div>
+                <div class="mti">Ready</div>
+              </div>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip" onclick="aiQ('How many leads do I have remaining this month?')">Lead balance?</button>
+            <button class="chip" onclick="aiQ('Which countries have the most buyer leads for my category?')">Best countries?</button>
+            <button class="chip" onclick="aiQ('What documents do I need for export from India?')">Export docs?</button>
+            <button class="chip" onclick="aiQ('How can I improve my lead conversion rate?')">Improve conversions</button>
+            <button class="chip" onclick="aiQ('Tell me about upgrading my plan')">Upgrade plan?</button>
+          </div>
+          <div class="cft">
+            <input class="cin" type="text" id="ai-in" placeholder="Ask the AI anything…" onkeydown="if(event.key==='Enter')aiSend()">
+            <button class="csend" onclick="aiSend()" style="background:linear-gradient(135deg,#7C3AED,#5B21B6)">➤</button>
           </div>
         </div>
       </div>
@@ -331,15 +373,19 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       <p style="font-size:12px;color:var(--tm);margin-bottom:14px">Our team responds within 24 working hours.</p>
       <div class="card"><div class="cb">
         <div class="f2">
-          <div class="fg2"><label>Your Name</label><input type="text" id="tk-nm" placeholder="Full name"></div>
-          <div class="fg2"><label>Email</label><input type="email" id="tk-em" placeholder="email@business.com"></div>
+          <div class="fg2"><label>Your Name</label><input type="text" id="tk-nm"></div>
+          <div class="fg2"><label>Email</label><input type="email" id="tk-em"></div>
           <div class="fg2"><label>Issue Type</label><select id="tk-type"><option>Lead Quality / Missing Lead</option><option>Billing / Payment</option><option>Plan Upgrade / Downgrade</option><option>RM Query</option><option>Technical / Login Issue</option><option>Other</option></select></div>
-          <div class="fg2"><label>Priority</label><select id="tk-priority"><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></div>
-          <div class="fg2 full"><label>Describe Your Issue</label><textarea id="tk-desc" placeholder="Include lead IDs, dates, or transaction references where relevant."></textarea></div>
+          <div class="fg2"><label>Priority</label><select id="tk-pri"><option value="normal">Normal</option><option value="high">High</option><option value="urgent">Urgent</option></select></div>
+          <div class="fg2 full"><label>Describe Your Issue</label><textarea id="tk-desc" placeholder="Include lead IDs, dates, or references."></textarea></div>
         </div>
         <button class="bsub" onclick="submitTicket()">Submit Ticket →</button>
-        <div id="tk-ok" style="display:none;margin-top:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:10px 14px;font-size:12px;color:var(--green)"></div>
+        <div class="ok-msg" id="tk-ok"></div>
+        <div class="err-msg" id="tk-err"></div>
       </div></div>
+      <!-- My tickets -->
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--n);margin-bottom:12px;margin-top:8px">My Tickets</div>
+      <div class="card"><div style="padding:0"><table class="htbl"><thead><tr><th>Type</th><th>Priority</th><th>Description</th><th>Date</th><th>Status</th></tr></thead><tbody id="my-tickets"><tr><td colspan="5" class="ls"><span class="spin"></span></td></tr></tbody></table></div></div>
     </div>
 
     <!-- MY PLAN -->
@@ -351,34 +397,38 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       </div>
     </div>
 
-    <!-- REFER -->
+    <!-- REFER & EARN -->
     <div class="panel" id="p-ref">
       <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Refer &amp; Earn</div>
       <p style="font-size:12px;color:var(--tm);margin-bottom:16px">Refer another Indian exporter and earn commission on every successful membership.</p>
       <div class="r2">
-        <div class="card"><div class="ch"><div class="ct">Commission Structure</div></div><div class="cb">
-          <table class="htbl"><thead><tr><th>Plan Referred</th><th>Your Commission</th></tr></thead><tbody>
-            <tr><td>Starter Plan (100 leads)</td><td><strong style="color:var(--green)">₹500</strong></td></tr>
-            <tr><td>Growth Plan (500 leads)</td><td><strong style="color:var(--green)">₹2,000</strong></td></tr>
-            <tr><td>Professional (2,000 leads)</td><td><strong style="color:var(--green)">₹5,000</strong></td></tr>
-            <tr><td>Enterprise Plan</td><td><strong style="color:var(--green)">₹10,000+</strong></td></tr>
-          </tbody></table>
-          <div style="margin-top:14px;background:var(--gp);border:1px solid var(--gb);border-radius:8px;padding:12px 15px">
-            <div style="font-size:9.5px;font-weight:700;color:var(--g);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Your Referral Link</div>
-            <div style="font-size:12px;color:var(--n);font-family:'Space Grotesk';background:#fff;border:1px solid var(--gb);border-radius:6px;padding:7px 11px" id="ref-link-txt">Loading…</div>
-            <button class="btn bo bsm" style="margin-top:7px" onclick="copyRef()">📋 Copy Link</button>
+        <div class="card">
+          <div class="ch"><div class="ct">Commission Structure</div></div>
+          <div class="cb">
+            <table class="htbl"><thead><tr><th>Plan Referred</th><th>Your Commission</th></tr></thead><tbody>
+              <tr><td>Starter Plan (100 leads)</td><td><strong style="color:var(--green)">₹500</strong></td></tr>
+              <tr><td>Growth Plan (500 leads)</td><td><strong style="color:var(--green)">₹2,000</strong></td></tr>
+              <tr><td>Professional (2,000 leads)</td><td><strong style="color:var(--green)">₹5,000</strong></td></tr>
+              <tr><td>Enterprise Plan</td><td><strong style="color:var(--green)">₹10,000+</strong></td></tr>
+            </tbody></table>
+            <div style="margin-top:14px;background:var(--gp);border:1px solid var(--gb);border-radius:8px;padding:12px 15px">
+              <div style="font-size:9.5px;font-weight:700;color:var(--g);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Your Referral Link</div>
+              <div style="font-size:12px;color:var(--n);font-family:'Space Grotesk';background:#fff;border:1px solid var(--gb);border-radius:6px;padding:7px 11px" id="ref-link-txt">Loading…</div>
+              <button class="btn bo bsm" style="margin-top:7px" onclick="copyRef()">📋 Copy Link</button>
+            </div>
           </div>
-        </div></div>
-        <div class="card"><div class="ch"><div class="ct">Your Referrals</div></div><div class="cb" id="ref-body">
-          <div class="loading-state"><span class="spin"></span></div>
-        </div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ct">Your Referrals</div></div>
+          <div class="cb" id="ref-body"><div class="ls"><span class="spin"></span></div></div>
+        </div>
       </div>
     </div>
 
   </div>
 </main>
 
-<!-- LEAD DRAWER -->
+<!-- DRAWER -->
 <div class="drw-bg" id="drw-bg" onclick="if(event.target===this)closeDrw()">
   <div class="drw">
     <button class="dx" onclick="closeDrw()">✕</button>
@@ -389,7 +439,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       <a id="dr-wa" href="#" class="btn bp bsm" target="_blank">💬 WhatsApp</a>
       <a id="dr-em" href="#" class="btn bo bsm">📧 Email</a>
     </div>
-    <div style="margin-top:12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:7px;padding:10px 13px;font-size:11px;color:var(--tb)">⚠ <strong>Confidentiality:</strong> Lead details are for your business use only. Do not redistribute.</div>
+    <div style="margin-top:12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:7px;padding:10px 13px;font-size:11px;color:var(--tb)">⚠ <strong>Confidentiality:</strong> Lead details are for your use only. Do not redistribute.</div>
   </div>
 </div>
 
@@ -400,8 +450,8 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <h3>Unlock Lead Details</h3>
     <p>Company name, contact person, phone &amp; email are hidden until BuyGenix activates your membership. Contact us to get started.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <a href="https://wa.me/919818187246" class="btn bg2" target="_blank">💬 WhatsApp to Upgrade</a>
-      <button class="btn bo" onclick="closeUnlock()">Maybe Later</button>
+      <a href="https://wa.me/919818187246" class="btn bg2" target="_blank">💬 WhatsApp to Activate</a>
+      <button class="btn bo" onclick="closeUnlock()">Later</button>
     </div>
     <p style="margin-top:14px;font-size:11px;color:var(--tl)">+91 98181 87246 · Buygenixsolutions@gmail.com</p>
   </div>
@@ -409,26 +459,26 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 
 <script src="bgx-config.js"></script>
 <script>
-/* ── STATE ── */
+/* ─ STATE ─ */
 let CLIENT = null;
 let MY_LEADS = [];
-let MESSAGES_CACHE = [];
+let MSGS = [];
 let realtimeSub = null;
+
 const QT={hot:'🔥 Hot',warm:'⚡ Warm',new:'🆕 New',conv:'✅ Converted'};
 const QC={hot:'bh',warm:'bw',new:'bn',conv:'bc'};
 
-/* ── SESSION CHECK ── */
+/* ─ INIT ─ */
 document.addEventListener('sbReady', async () => {
   const stored = sessionStorage.getItem('bgx_client');
   if (!stored) { window.location.href = 'login.html'; return; }
   CLIENT = JSON.parse(stored);
-  /* Refresh client data from DB */
+  /* Refresh from DB */
   const fresh = await DB.getClient(CLIENT.id);
   if (fresh) { CLIENT = fresh; sessionStorage.setItem('bgx_client', JSON.stringify(CLIENT)); }
   initPortal();
 });
 
-/* ── INIT ── */
 function initPortal() {
   const plan = PLANS[CLIENT.plan] || PLANS.none;
   const ini = CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
@@ -439,109 +489,108 @@ function initPortal() {
   document.getElementById('tk-nm').value = CLIENT.name;
   document.getElementById('tk-em').value = CLIENT.email;
   document.getElementById('ref-link-txt').textContent =
-    'buygenixsolutions.com/ref/' + CLIENT.name.split(' ')[0].toUpperCase() + CLIENT.id.slice(-4).toUpperCase();
+    'buygenixsolutions.com/ref/' + CLIENT.name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'') + CLIENT.id.slice(-4).toUpperCase();
 
-  /* Subscribe to realtime messages */
+  /* Realtime chat */
   realtimeSub = DB.subscribeToMessages(CLIENT.id, msg => {
-    MESSAGES_CACHE.push(msg);
-    if (document.getElementById('p-chat').classList.contains('on')) renderChatMsgs();
-    else document.getElementById('chat-bdg').style.display = 'inline-flex';
+    if (msg.sender !== 'client') {
+      MSGS.push(msg);
+      if (document.getElementById('p-chat').classList.contains('on')) renderChatMsgs();
+      else document.getElementById('chat-bdg').style.display = 'inline-flex';
+    }
   });
 
   renderDash();
 }
 
-/* ── NAV ── */
-const PT = {dashboard:'Dashboard',leads:'My Leads',perf:'Performance',history:'Purchase History',chat:'Chat with BuyGenix',ticket:'Raise Ticket',plan:'My Plan',ref:'Refer & Earn'};
+/* ─ PANELS ─ */
+const PT = {dashboard:'Dashboard',leads:'My Leads',perf:'Performance',history:'Purchase History',chat:'Chat with BuyGenix',ai:'AI Assistant',ticket:'Raise Ticket',plan:'My Plan',ref:'Refer & Earn'};
 function sp(name, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
   document.getElementById('p-'+name)?.classList.add('on');
   if (btn) btn.classList.add('on');
   document.getElementById('pg-t').textContent = PT[name] || name;
-  if (name==='chat') { document.getElementById('chat-bdg').style.display='none'; loadChat(); }
-  if (name==='leads') renderLeads();
-  if (name==='perf')  renderPerf();
-  if (name==='history') loadHistory();
-  if (name==='plan')  renderPlan();
-  if (name==='ref')   loadRef();
+  const actions = {
+    chat:    () => { document.getElementById('chat-bdg').style.display='none'; loadChat(); },
+    leads:   renderLeads,
+    perf:    renderPerf,
+    history: loadHistory,
+    plan:    renderPlan,
+    ref:     loadRef,
+    ticket:  loadMyTickets,
+  };
+  actions[name] && actions[name]();
   document.getElementById('sb').classList.remove('open');
 }
 
-/* ── DASHBOARD ── */
+/* ─ DASHBOARD ─ */
 async function renderDash() {
   const plan = PLANS[CLIENT.plan] || PLANS.none;
-  const isPending = CLIENT.plan_status === 'pending';
+  const isPending = !CLIENT.plan || CLIENT.plan === 'none' || CLIENT.plan_status === 'pending';
   const isActive  = CLIENT.plan_status === 'active';
 
-  /* Pending banner */
   document.getElementById('dash-pending').style.display = isPending ? 'block' : 'none';
 
-  /* Load leads */
   MY_LEADS = await DB.getClientLeads(CLIENT.id, CLIENT.plan_status);
   const countries = [...new Set(MY_LEADS.filter(l=>!l._locked).map(l=>l.country))].length;
 
-  /* Alert */
   if (MY_LEADS.length > 0 && isActive) {
     document.getElementById('dash-alert').style.display = 'flex';
     document.getElementById('dash-alert-txt').innerHTML =
-      `Your latest lead batch is ready — <strong>${MY_LEADS.length} verified buyers</strong> across ${countries} countries assigned to your dashboard.`;
+      `<strong>${MY_LEADS.length} buyer leads</strong> assigned to your account across ${countries} countries.`;
   }
 
-  /* Stats */
-  const rem = CLIENT.lead_limit - CLIENT.leads_used;
+  const rem = (CLIENT.lead_limit||0) - (CLIENT.leads_used||0);
   const pct = CLIENT.lead_limit > 0 ? Math.round(CLIENT.leads_used / CLIENT.lead_limit * 100) : 0;
+
   document.getElementById('dash-stats').innerHTML = `
     <div class="sc c1"><div class="sc-i">🎯</div><div class="sc-v">${CLIENT.lead_limit||0}</div><div class="sc-l">Monthly Limit</div><div class="sc-tr twn">${plan.label}</div></div>
     <div class="sc c2"><div class="sc-i">📤</div><div class="sc-v">${CLIENT.leads_used||0}</div><div class="sc-l">Leads Used</div><div class="sc-tr tup">${pct}%</div></div>
     <div class="sc c3"><div class="sc-i">🌍</div><div class="sc-v">${countries}</div><div class="sc-l">Countries</div><div class="sc-tr tup">active</div></div>
     <div class="sc c4"><div class="sc-i">⏳</div><div class="sc-v">${rem}</div><div class="sc-l">Remaining</div><div class="sc-tr twn">${100-pct}%</div></div>`;
 
-  /* Usage bar */
+  document.getElementById('lb').textContent = MY_LEADS.length;
   document.getElementById('usage-lbl').textContent = `${CLIENT.leads_used||0} / ${CLIENT.lead_limit||0}`;
   document.getElementById('usage-bar').style.width = pct + '%';
   document.getElementById('usage-sub').innerHTML =
-    `You have <strong style="color:var(--n)">${rem} leads remaining</strong>. Renews <strong style="color:var(--n)">${CLIENT.renewal_date||'—'}</strong>. <a href="#" onclick="sp('plan',null);return false" style="color:var(--g);font-weight:600">Upgrade →</a>`;
+    `<strong style="color:var(--n)">${rem} leads remaining</strong> · Renews <strong style="color:var(--n)">${CLIENT.renewal_date||'—'}</strong> · <a href="#" onclick="sp('plan',null);return false" style="color:var(--g);font-weight:600">Upgrade →</a>`;
 
-  /* Lead count badge */
-  document.getElementById('lb').textContent = MY_LEADS.length;
-
-  /* Recent leads table (top 5) */
-  const recent = MY_LEADS.slice(0, 5);
-  document.getElementById('dash-leads-sub').textContent = `Showing ${recent.length} of ${MY_LEADS.length} assigned leads`;
-  document.getElementById('dash-lead-rows').innerHTML = recent.length ? recent.map(l => `
-    <tr class="${l._locked ? 'lock-row' : ''}" onclick="${l._locked ? 'openUnlock()' : `openDrw('${l.id}')`}">
+  document.getElementById('dash-lead-rows').innerHTML = MY_LEADS.slice(0,5).map(l=>`
+    <tr class="${l._locked?'lock-row':''}" onclick="${l._locked?'openUnlock()':`openDrw('${l.id}')`}">
       <td>${l.country}</td><td>${l.category}</td>
       <td style="font-size:11.5px">${l.product}</td>
       <td style="font-size:11.5px;color:var(--tl)">${l.quantity||'—'}</td>
       <td><span class="bdg ${QC[l.quality]||'bn'}">${QT[l.quality]||l.quality}</span></td>
-      <td>${l._locked ? '<span class="lock-badge">🔒 Locked</span>' : `<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">View →</button>`}</td>
-    </tr>`) .join('') : '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--tl)">No leads assigned yet. Your RM will assign leads shortly.</td></tr>';
+      <td>${l._locked?'<span class="lock-badge">🔒 Locked</span>':`<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">View →</button>`}</td>
+    </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--tl)">No leads assigned yet.</td></tr>';
+
+  document.getElementById('dash-leads-sub').textContent = `${MY_LEADS.length} leads assigned`;
 
   /* Plan card */
-  const rm = { name: CLIENT.rm_name||'Your RM', phone: CLIENT.rm_phone||'+91 98181 87246', email: CLIENT.rm_email||'Buygenixsolutions@gmail.com', initials: CLIENT.rm_initials||'BG', role: 'Export Consultant' };
   document.getElementById('dash-plan-card').innerHTML = `
     <div class="pc-tier">Your Plan</div>
     <div class="pc-name">${plan.label}</div>
-    ${plan.limit > 0 ? `<div class="pc-f"><span class="ck">✓</span> ${plan.limit >= 99999 ? 'Unlimited' : plan.limit} leads/month</div>` : '<div class="pc-f" style="color:rgba(255,255,255,.4)">No plan active</div>'}
+    ${CLIENT.lead_limit > 0 ? `<div class="pc-f"><span class="ck">✓</span> ${CLIENT.lead_limit >= 99999?'Unlimited':CLIENT.lead_limit} leads/month</div>` : '<div class="pc-f" style="color:rgba(255,255,255,.4)">No plan active yet</div>'}
     <div class="pc-f"><span class="ck">✓</span> Phone + Email + WhatsApp leads</div>
-    <div class="pc-f"><span class="ck">✓</span> Dedicated RM — ${rm.name}</div>
+    <div class="pc-f"><span class="ck">✓</span> Dedicated RM support</div>
     <div class="pc-r">Status: <strong>${CLIENT.plan_status||'pending'}</strong> · Renews: <strong>${CLIENT.renewal_date||'—'}</strong></div>`;
 
+  /* RM card */
   document.getElementById('dash-rm-card').innerHTML = `
     <div class="ch"><div class="ct">Your Relationship Manager</div></div>
     <div class="cb">
       <div style="display:flex;align-items:center;gap:13px">
-        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700;flex-shrink:0">${rm.initials}</div>
-        <div><div style="font-size:14px;font-weight:700;color:var(--n);font-family:'Space Grotesk'">${rm.name}</div><div style="font-size:11px;color:var(--tm);margin-top:1px">${rm.role}</div></div>
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700">${CLIENT.rm_initials||'BG'}</div>
+        <div><div style="font-size:14px;font-weight:700;color:var(--n);font-family:'Space Grotesk'">${CLIENT.rm_name||'BuyGenix Team'}</div><div style="font-size:11px;color:var(--tm)">Export Consultant</div></div>
       </div>
       <div style="display:flex;gap:7px;margin-top:13px">
-        <a href="https://wa.me/${rm.phone.replace(/[^0-9]/g,'')}" class="btn bp bsm" target="_blank">💬 WhatsApp</a>
+        <a href="https://wa.me/${(CLIENT.rm_phone||'919818187246').replace(/[^0-9]/g,'')}" class="btn bp bsm" target="_blank">💬 WhatsApp</a>
         <button class="btn bo bsm" onclick="sp('chat',null)">Open Chat</button>
       </div>
     </div>`;
 
-  /* Populate filter dropdowns for leads panel */
+  /* Populate filter dropdowns */
   const ctrs = [...new Set(MY_LEADS.map(l=>l.country))].filter(Boolean);
   const cats = [...new Set(MY_LEADS.map(l=>l.category))].filter(Boolean);
   const ctrSel = document.getElementById('f-country');
@@ -550,32 +599,32 @@ async function renderDash() {
   catSel.innerHTML = '<option value="">All Categories</option>' + cats.map(c=>`<option>${c}</option>`).join('');
 }
 
-/* ── LEADS ── */
+/* ─ LEADS ─ */
 function renderLeads() {
   const fc = document.getElementById('f-country')?.value || '';
   const fcat = document.getElementById('f-cat')?.value || '';
-  const list = MY_LEADS.filter(l => (!fc || l.country === fc) && (!fcat || l.category === fcat));
-  const hasLocked = list.some(l => l._locked);
-  document.getElementById('leads-sub-lbl').textContent = `${list.length} leads assigned to your account`;
+  const list = MY_LEADS.filter(l=>(!fc||l.country===fc)&&(!fcat||l.category===fcat));
+  const hasLocked = list.some(l=>l._locked);
+  document.getElementById('leads-sub-lbl').textContent = `${list.length} leads assigned`;
   document.getElementById('locked-banner').style.display = hasLocked ? 'flex' : 'none';
-  document.getElementById('lead-rows').innerHTML = list.length ? list.map(l => `
-    <tr class="${l._locked ? 'lock-row' : ''}" onclick="${l._locked ? 'openUnlock()' : `openDrw('${l.id}')`}">
+  document.getElementById('lead-rows').innerHTML = list.length ? list.map(l=>`
+    <tr class="${l._locked?'lock-row':''}" onclick="${l._locked?'openUnlock()':`openDrw('${l.id}')`}">
       <td>${l.country}</td><td>${l.category}</td>
       <td style="font-size:11.5px">${l.product}</td>
       <td style="font-size:11.5px;color:var(--tl)">${l.quantity||'—'}</td>
       <td><span class="bdg ${QC[l.quality]||'bn'}">${QT[l.quality]||l.quality}</span></td>
-      <td class="${l._locked?'blur':''}"><strong>${l.company}</strong></td>
+      <td class="${l._locked?'blur':''}">${l.company}</td>
       <td class="${l._locked?'blur':''}">${l.contact_name||'—'}</td>
       <td class="${l._locked?'blur':''}" style="font-family:'Space Grotesk';font-size:11px">${l.phone||'—'}</td>
       <td class="${l._locked?'blur':''}" style="font-size:11px">${l.email||'—'}</td>
-      <td>${l._locked ? '<span class="lock-badge">🔒 Locked</span>' : `<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">Details →</button>`}</td>
+      <td>${l._locked?'<span class="lock-badge">🔒</span>':`<button class="btn bo bsm" onclick="event.stopPropagation();openDrw('${l.id}')">Details →</button>`}</td>
     </tr>`).join('')
     : '<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--tl)">No leads assigned yet.</td></tr>';
 }
 
-/* ── DRAWER ── */
+/* ─ DRAWER ─ */
 function openDrw(id) {
-  const l = MY_LEADS.find(x => x.id === id);
+  const l = MY_LEADS.find(x=>x.id===id);
   if (!l || l._locked) { openUnlock(); return; }
   document.getElementById('dr-co').textContent = l.company;
   document.getElementById('dr-sub').textContent = l.category + ' · ' + l.country;
@@ -597,7 +646,7 @@ function closeDrw() { document.getElementById('drw-bg').classList.remove('open')
 function openUnlock() { document.getElementById('ul-bg').classList.add('open'); }
 function closeUnlock() { document.getElementById('ul-bg').classList.remove('open'); }
 
-/* ── PERFORMANCE ── */
+/* ─ PERFORMANCE ─ */
 function renderPerf() {
   const conv = MY_LEADS.filter(l=>l.quality==='conv').length;
   const rate = MY_LEADS.length > 0 ? ((conv/MY_LEADS.length)*100).toFixed(1) : '0';
@@ -611,46 +660,43 @@ function renderPerf() {
     <div class="pi"><div class="pi-v">${(CLIENT.lead_limit||0)-(CLIENT.leads_used||0)}</div><div class="pi-l">Remaining</div></div>`;
   const cats={};MY_LEADS.forEach(l=>cats[l.category]=(cats[l.category]||0)+1);
   const cm=Math.max(1,...Object.values(cats));
-  document.getElementById('p-cats').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cm*100)}%"></div></div></div>`).join('');
+  document.getElementById('p-cats').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cm*100)}%"></div></div></div>`).join('') || '<p style="color:var(--tl);font-size:12px">No data yet.</p>';
   const ctrc={};MY_LEADS.forEach(l=>ctrc[l.country]=(ctrc[l.country]||0)+1);
   const dm=Math.max(1,...Object.values(ctrc));
-  document.getElementById('p-ctrs').innerHTML=Object.entries(ctrc).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dm*100)}%"></div></div></div>`).join('');
+  document.getElementById('p-ctrs').innerHTML=Object.entries(ctrc).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dm*100)}%"></div></div></div>`).join('') || '<p style="color:var(--tl);font-size:12px">No data yet.</p>';
 }
 
-/* ── HISTORY ── */
+/* ─ HISTORY ─ */
 async function loadHistory() {
   const hist = await DB.getPurchases(CLIENT.id);
   document.getElementById('hist-body').innerHTML = hist.length ? hist.map(h=>`
     <tr><td>${new Date(h.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}</td>
     <td><strong>${h.description}</strong></td><td>${h.quantity||'—'}</td>
     <td><strong>₹${(h.amount||0).toLocaleString('en-IN')}</strong></td>
-    <td><span class="bdg ${h.status==='active'?'ba':h.status==='expired'?'bh':'bc'}">${h.status==='active'?'✅ Active':h.status==='expired'?'✕ Expired':'✅ Done'}</span></td></tr>`).join('')
+    <td><span class="bdg ${h.status==='active'?'ba':h.status==='expired'?'bh':'bc'}">${h.status}</span></td></tr>`).join('')
     : '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--tl)">No purchase history yet.</td></tr>';
 }
 
-/* ── CHAT ── */
+/* ─ CHAT ─ */
 async function loadChat() {
   if (!CLIENT) return;
-  const rm = { name: CLIENT.rm_name||'BuyGenix Team', initials: CLIENT.rm_initials||'BG', role: 'Relationship Manager' };
   document.getElementById('chat-hdr').innerHTML = `
     <div style="display:flex;align-items:center;gap:10px">
-      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">${rm.initials}</div>
-      <div><div style="font-size:13px;font-weight:600;color:var(--n)">${rm.name}</div><div style="font-size:10.5px;color:var(--green)">● Online · ${rm.role}</div></div>
+      <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700">${CLIENT.rm_initials||'BG'}</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--n)">${CLIENT.rm_name||'BuyGenix Team'}</div><div style="font-size:10.5px;color:var(--green)">● Online · Relationship Manager</div></div>
     </div>`;
-  MESSAGES_CACHE = await DB.getMessages(CLIENT.id);
+  MSGS = await DB.getMessages(CLIENT.id);
   await DB.markMessagesRead(CLIENT.id);
   renderChatMsgs();
 }
 
 function renderChatMsgs() {
   const wrap = document.getElementById('chat-msgs');
-  const ini = CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-  const rm_ini = CLIENT.rm_initials || 'BG';
-  wrap.innerHTML = MESSAGES_CACHE.length ? MESSAGES_CACHE.map(m=>`
+  const ini = CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2);
+  wrap.innerHTML = MSGS.length ? MSGS.map(m=>`
     <div class="msg ${m.sender==='rm'?'in':'out'}">
-      <div class="mav">${m.sender==='rm' ? rm_ini : ini}</div>
-      <div><div class="mbu">${m.text}</div>
-      <div class="mti">${new Date(m.created_at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div></div>
+      <div class="mav">${m.sender==='rm'?(CLIENT.rm_initials||'BG'):ini}</div>
+      <div><div class="mbu">${m.text}</div><div class="mti">${new Date(m.created_at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div></div>
     </div>`).join('')
     : '<div style="text-align:center;padding:24px;color:var(--tl);font-size:12.5px">No messages yet. Send your first message below!</div>';
   wrap.scrollTop = wrap.scrollHeight;
@@ -661,47 +707,109 @@ async function cSend() {
   const txt = inp.value.trim();
   if (!txt || !CLIENT) return;
   inp.value = '';
-  const ini = CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
   await DB.sendMessage(CLIENT.id, 'client', CLIENT.name, txt);
-  MESSAGES_CACHE.push({ sender:'client', text: txt, created_at: new Date().toISOString() });
+  MSGS.push({ sender:'client', text:txt, created_at: new Date().toISOString() });
   renderChatMsgs();
 }
-async function cq(msg) { sp('chat', document.querySelector('.ni:nth-child(8)')); setTimeout(async()=>{ await DB.sendMessage(CLIENT.id,'client',CLIENT.name,msg); MESSAGES_CACHE.push({sender:'client',text:msg,created_at:new Date().toISOString()}); renderChatMsgs(); }, 100); }
+async function cq(msg) { sp('chat', document.querySelector('.ni:nth-child(9)')); setTimeout(async()=>{ await DB.sendMessage(CLIENT.id,'client',CLIENT.name,msg); MSGS.push({sender:'client',text:msg,created_at:new Date().toISOString()}); renderChatMsgs(); },100); }
 
-/* ── TICKET ── */
+/* ─ AI ASSISTANT ─ */
+function addAIMsg(text, role) {
+  const wrap = document.getElementById('ai-msgs');
+  const ini = CLIENT ? CLIENT.name.split(' ').map(w=>w[0]).join('').slice(0,2) : 'U';
+  const d = document.createElement('div');
+  d.className = 'msg ' + (role==='user' ? 'out' : 'ai');
+  const t = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML = `<div class="mav">${role==='user' ? ini : '🤖'}</div><div>${role==='ai'?'<div class="ai-badge">🤖 AI Response</div>':''}<div class="mbu">${text}</div><div class="mti">${t}</div></div>`;
+  wrap.appendChild(d);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+async function aiSend() {
+  const inp = document.getElementById('ai-in');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+  addAIMsg(txt, 'user');
+  /* Thinking indicator */
+  addAIMsg('<span class="spin spin-w" style="width:12px;height:12px;border-color:rgba(124,58,237,.3);border-top-color:#7C3AED"></span> Thinking…', 'ai');
+  const thinking = document.getElementById('ai-msgs').lastChild;
+
+  /* Try NVIDIA AI first, fallback to smart local responses */
+  let reply = null;
+  if (CLIENT) reply = await AI.clientReply(CLIENT, txt);
+
+  if (!reply) {
+    /* Smart fallback responses */
+    const m = txt.toLowerCase();
+    if (m.includes('lead') && (m.includes('remain') || m.includes('left') || m.includes('how many')))
+      reply = `You have **${(CLIENT.lead_limit||0)-(CLIENT.leads_used||0)} leads remaining** out of ${CLIENT.lead_limit||0} this month. Your plan renews on ${CLIENT.renewal_date||'—'}.`;
+    else if (m.includes('plan') || m.includes('membership'))
+      reply = `You're on the **${(PLANS[CLIENT.plan]||PLANS.none).label}**. It gives you ${CLIENT.lead_limit||0} leads/month. ${CLIENT.plan_status==='active'?'Your plan is active ✅':'Your membership is '+CLIENT.plan_status+'.'}`;
+    else if (m.includes('upgrade'))
+      reply = `To upgrade your plan, WhatsApp us at **+91 98181 87246** or I'll notify your RM. Available plans: Growth (500 leads/₹12,999), Professional (2,000 leads/₹24,999), Enterprise (unlimited/custom).`;
+    else if (m.includes('renew') || m.includes('expir'))
+      reply = `Your ${(PLANS[CLIENT.plan]||PLANS.none).label} renews on **${CLIENT.renewal_date||'—'}**. You'll receive a reminder 7 days before. Want me to notify your RM for renewal assistance?`;
+    else if (m.includes('export') && m.includes('doc'))
+      reply = `For exporting from India you typically need: **IEC (Import Export Code)**, GST Registration, Export Invoice, Packing List, Bill of Lading/Airway Bill, Certificate of Origin, and sometimes FSSAI/APEDA for food products. BuyGenix can help with GSTregistration — visit our GST page!`;
+    else if (m.includes('country') || m.includes('countries'))
+      reply = `BuyGenix has buyer leads from **50+ countries**. Top markets for Indian exporters include UAE, USA, Germany, UK, Australia, Saudi Arabia, Singapore, Canada, and Netherlands. Your current leads cover ${[...new Set(MY_LEADS.map(l=>l.country))].length} countries.`;
+    else
+      reply = `I can help with your leads (${(CLIENT.lead_limit||0)-(CLIENT.leads_used||0)} remaining), plan details, export guidance, and account queries. For urgent help, WhatsApp +91 98181 87246 or chat with your RM directly. To get NVIDIA AI responses, add your API key in bgx-config.js.`;
+  }
+
+  thinking.remove();
+  addAIMsg(reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'), 'ai');
+}
+async function aiQ(msg) { sp('ai', null); setTimeout(()=>{ document.getElementById('ai-in').value = msg; aiSend(); }, 100); }
+
+/* ─ TICKET ─ */
 async function submitTicket() {
   const desc = document.getElementById('tk-desc').value.trim();
   if (!desc) { alert('Please describe your issue.'); return; }
-  const { data, error } = await DB.submitTicket(CLIENT.id, document.getElementById('tk-type').value, document.getElementById('tk-priority').value, desc);
+  const {data,error} = await DB.submitTicket(CLIENT.id, document.getElementById('tk-type').value, document.getElementById('tk-pri').value, desc);
   const ok = document.getElementById('tk-ok');
-  if (error) { ok.style.background='rgba(239,68,68,.08)'; ok.style.color='var(--red)'; ok.textContent = '⚠ Error: ' + error; }
-  else { ok.textContent = `✅ Ticket submitted! Your RM will respond within 24 hours.`; }
+  const err = document.getElementById('tk-err');
+  if (error) { err.textContent='⚠ '+error.message; err.style.display='block'; return; }
+  ok.textContent = `✅ Ticket submitted! Our team will respond within 24 hours.`;
   ok.style.display = 'block';
-  setTimeout(() => ok.style.display = 'none', 6000);
+  document.getElementById('tk-desc').value = '';
+  loadMyTickets();
+  setTimeout(()=>ok.style.display='none',5000);
 }
 
-/* ── PLAN ── */
+async function loadMyTickets() {
+  const tickets = await DB.getTickets({ clientId: CLIENT.id });
+  document.getElementById('my-tickets').innerHTML = tickets.length ? tickets.map(t=>`
+    <tr><td>${t.type}</td><td><span class="bdg ${t.priority==='urgent'?'bh':t.priority==='high'?'bw':'bn'}">${t.priority}</span></td>
+    <td style="max-width:200px;font-size:11.5px">${t.description}</td>
+    <td style="font-size:11px;color:var(--tl)">${new Date(t.created_at).toLocaleDateString('en-IN')}</td>
+    <td><span class="bdg ${t.status==='open'?'bw':t.status==='resolved'?'bc':'bn'}">${t.status}</span></td></tr>`).join('')
+    : '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--tl)">No tickets yet.</td></tr>';
+}
+
+/* ─ PLAN ─ */
 function renderPlan() {
   const plan = PLANS[CLIENT.plan] || PLANS.none;
   document.getElementById('plan-card-full').innerHTML = `
     <div class="pc-tier">Current Plan</div>
     <div class="pc-name">${plan.label}</div>
-    ${plan.limit > 0 ? `<div class="pc-f"><span class="ck">✓</span> ${plan.limit >= 99999 ? 'Unlimited' : plan.limit} leads/month</div>` : ''}
+    ${CLIENT.lead_limit > 0 ? `<div class="pc-f"><span class="ck">✓</span> ${CLIENT.lead_limit>=99999?'Unlimited':CLIENT.lead_limit} leads/month</div>` : ''}
     <div class="pc-f"><span class="ck">✓</span> Phone + Email + WhatsApp leads</div>
     <div class="pc-f"><span class="ck">✓</span> CSV export</div>
     <div class="pc-f"><span class="ck">✓</span> Dedicated RM — ${CLIENT.rm_name||'Assigned'}</div>
     <div class="pc-r" style="margin-top:14px">Billing: <strong>${CLIENT.billing_cycle||'—'}</strong> · Renews: <strong>${CLIENT.renewal_date||'—'}</strong><br>Price: <strong>₹${plan.price.toLocaleString('en-IN')}/mo</strong></div>`;
-  const order = ['starter','growth','professional','enterprise'];
-  const higher = Object.entries(PLANS).filter(([k]) => order.indexOf(k) > order.indexOf(CLIENT.plan||'none'));
+  const order=['none','starter','growth','professional','enterprise'];
+  const higher=Object.entries(PLANS).filter(([k])=>order.indexOf(k)>order.indexOf(CLIENT.plan||'none'));
   document.getElementById('upgrade-opts').innerHTML = higher.length ? higher.map(([k,p])=>`
     <div style="border:1.5px solid var(--bs);border-radius:10px;padding:14px;margin-bottom:10px">
       <div style="font-size:13.5px;font-weight:700;color:var(--n);margin-bottom:4px">${p.label}</div>
-      <div style="font-size:11.5px;color:var(--tm);margin-bottom:10px">${p.limit >= 99999 ? 'Unlimited' : p.limit} leads/month · ₹${p.price.toLocaleString('en-IN')}/mo</div>
+      <div style="font-size:11.5px;color:var(--tm);margin-bottom:10px">${p.limit>=99999?'Unlimited':p.limit} leads/month · ${p.price>0?'₹'+p.price.toLocaleString('en-IN')+'/mo':'Custom pricing'}</div>
       <a href="https://wa.me/919818187246" class="btn bg2 bsm" target="_blank" style="text-decoration:none">Upgrade via WhatsApp →</a>
     </div>`).join('') : '<div style="text-align:center;padding:20px;color:var(--tl)"><div style="font-size:28px;margin-bottom:8px">🏆</div><p style="font-size:12.5px">You are on our top plan!</p></div>';
 }
 
-/* ── REFERRALS ── */
+/* ─ REFERRALS ─ */
 async function loadRef() {
   const refs = await DB.getReferrals(CLIENT.id);
   const earned = refs.filter(r=>r.status==='paid').reduce((s,r)=>s+(r.commission||0),0);
@@ -717,12 +825,12 @@ async function loadRef() {
     </div>`;
 }
 
-/* ── CSV EXPORT ── */
+/* ─ CSV ─ */
 function exportCSV() {
-  const unlocked = MY_LEADS.filter(l => !l._locked);
-  if (!unlocked.length) { alert('No unlocked leads to export.'); return; }
+  const unlocked = MY_LEADS.filter(l=>!l._locked);
+  if (!unlocked.length) { alert('No unlocked leads to export. Activate your membership first.'); return; }
   const rows = [['Company','Country','Contact','Phone','Email','Category','Product','Quantity','Quality']];
-  unlocked.forEach(l => rows.push([l.company,l.country,l.contact_name,l.phone,l.email,l.category,l.product,l.quantity,l.quality]));
+  unlocked.forEach(l=>rows.push([l.company,l.country,l.contact_name,l.phone,l.email,l.category,l.product,l.quantity,l.quality]));
   const csv = rows.map(r=>r.map(c=>`"${(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a');
   a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
@@ -730,13 +838,13 @@ function exportCSV() {
   a.click();
 }
 
-/* ── COPY REF ── */
+/* ─ COPY REF ─ */
 function copyRef() {
   const l = document.getElementById('ref-link-txt').textContent;
   navigator.clipboard?.writeText(l).then(()=>alert('✅ Referral link copied!')).catch(()=>alert('Link: '+l));
 }
 
-/* ── LOGOUT ── */
+/* ─ LOGOUT ─ */
 function doLogout() {
   if (realtimeSub) sb.removeChannel(realtimeSub);
   sessionStorage.removeItem('bgx_client');

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Login — BuyGenix Solutions</title>
+<title>Client Login / Register — BuyGenix Solutions</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -13,162 +13,164 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 #bgc{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 2px 16px rgba(11,25,41,.06)}
-.nav-logo{display:flex;align-items:center;gap:10px}
-.nav-logo-txt{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#0B1929}
-.nav-logo-txt em{color:#B8860B;font-style:italic}
-.nav-tag{font-size:9px;color:#7A9BBD;font-family:'Space Grotesk',sans-serif;letter-spacing:.5px;line-height:1.4;border-left:1px solid #D0E4F5;padding-left:10px}
-.nav-links{display:flex;align-items:center;gap:6px}
-.nav-links a{font-size:13px;font-weight:500;color:#4A6A8A;padding:7px 12px;border-radius:8px;transition:all .2s}
-.nav-links a:hover{color:#0B1929;background:#EAF2FB}
-.nav-links .nb{background:#0B1929;color:#fff;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif}
-.nav-links .nb:hover{background:#1B3A5C}
-.nav-links .ng{background:#B8860B;color:#fff;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif}
-.nav-links .ng:hover{background:#D4A017}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 2px 16px rgba(11,25,41,.06)}
+.nl{display:flex;align-items:center;gap:10px}
+.nl-t{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#0B1929}
+.nl-t em{color:#B8860B;font-style:italic}
+.nl-tag{font-size:9px;color:#7A9BBD;font-family:'Space Grotesk';letter-spacing:.5px;line-height:1.4;border-left:1px solid #D0E4F5;padding-left:10px}
+.nr{display:flex;align-items:center;gap:6px}
+.nr a{font-size:13px;font-weight:500;color:#4A6A8A;padding:7px 12px;border-radius:8px;transition:all .2s}
+.nr a:hover{color:#0B1929;background:#EAF2FB}
+.nb{background:#0B1929!important;color:#fff!important;padding:8px 18px!important;border-radius:8px!important;font-size:13px!important;font-weight:600!important;font-family:'Space Grotesk'!important}
+.ng{background:#B8860B!important;color:#fff!important;padding:8px 18px!important;border-radius:8px!important;font-size:13px!important;font-weight:600!important;font-family:'Space Grotesk'!important}
 .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
-.burger span{display:block;width:22px;height:2px;background:#0B1929;border-radius:2px;transition:all .3s}
-.mnav{display:none;position:fixed;top:66px;left:0;right:0;background:#fff;border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 8px 32px rgba(11,25,41,.12);z-index:190;flex-direction:column;padding:16px;gap:4px}
+.burger span{display:block;width:22px;height:2px;background:#0B1929;border-radius:2px}
+.mnav{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;border-bottom:1px solid rgba(0,0,0,.06);z-index:190;flex-direction:column;padding:16px;gap:4px}
 .mnav.open{display:flex}
-.mnav a{font-size:14px;font-weight:500;color:#4A6A8A;padding:11px 14px;border-radius:8px;transition:background .2s}
-.mnav a:hover{background:#EAF2FB;color:#0B1929}
-.mnav .mg{background:#B8860B;color:#fff;text-align:center;margin-top:6px;font-weight:600}
+.mnav a{font-size:14px;font-weight:500;color:#4A6A8A;padding:11px 14px;border-radius:8px}
 
-/* PAGE GRID */
-.page{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:66px}
+/* PAGE */
+.page{position:relative;z-index:10;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:64px}
 
-/* LEFT PANEL */
-.lp{background:linear-gradient(145deg,#0B1929 0%,#1B3A5C 55%,#0F2840 100%);padding:64px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;min-height:calc(100vh - 66px)}
+/* LEFT */
+.lp{background:linear-gradient(145deg,#0B1929 0%,#1B3A5C 55%,#0F2840 100%);padding:60px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;min-height:calc(100vh - 64px)}
 .lp::before{content:'';position:absolute;bottom:-80px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(184,134,11,.13) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.lp::after{content:'';position:absolute;top:-60px;left:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(27,58,92,.5) 0%,transparent 70%);border-radius:50%;pointer-events:none}
-.lp-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.3);color:#D4A017;padding:6px 16px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:26px;width:fit-content;position:relative;z-index:1}
-.lp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3vw,46px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:18px;position:relative;z-index:1}
+.lp-eye{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.3);color:#D4A017;padding:6px 16px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Space Grotesk';margin-bottom:26px;width:fit-content;position:relative;z-index:1}
+.lp-title{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,3vw,44px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:18px;position:relative;z-index:1}
 .lp-title em{color:#D4A017;font-style:italic}
-.lp-sub{font-size:14px;color:rgba(255,255,255,.58);line-height:1.78;max-width:420px;margin-bottom:38px;position:relative;z-index:1}
-.lp-feats{display:flex;flex-direction:column;gap:16px;margin-bottom:40px;position:relative;z-index:1}
-.lp-feat{display:flex;align-items:flex-start;gap:13px}
-.lp-fi{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;margin-top:1px}
-.lp-ft strong{display:block;font-size:13.5px;font-weight:600;color:#fff;margin-bottom:3px}
-.lp-ft span{font-size:12px;color:rgba(255,255,255,.46);line-height:1.5}
-.lp-div{height:1px;background:rgba(255,255,255,.09);margin-bottom:26px;position:relative;z-index:1}
-.lp-trust{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.lp-sub{font-size:14px;color:rgba(255,255,255,.58);line-height:1.78;max-width:420px;margin-bottom:36px;position:relative;z-index:1}
+.lp-feats{display:flex;flex-direction:column;gap:14px;margin-bottom:36px;position:relative;z-index:1}
+.lp-feat{display:flex;align-items:flex-start;gap:12px}
+.lp-fi{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-top:1px}
+.lp-ft strong{display:block;font-size:13px;font-weight:600;color:#fff;margin-bottom:2px}
+.lp-ft span{font-size:11.5px;color:rgba(255,255,255,.46);line-height:1.5}
+.lp-div{height:1px;background:rgba(255,255,255,.09);margin-bottom:24px;position:relative;z-index:1}
+.lp-trust{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
 .ta{display:flex}
-.ta span{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:linear-gradient(135deg,#D0E4F5,#EAF2FB);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#0B1929;margin-left:-8px}
+.ta span{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.18);background:linear-gradient(135deg,#D0E4F5,#EAF2FB);display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;color:#0B1929;margin-left:-7px}
 .ta span:first-child{margin-left:0}
-.tt2{font-size:12px;color:rgba(255,255,255,.48)}
+.tt2{font-size:11.5px;color:rgba(255,255,255,.48)}
 .tt2 strong{color:rgba(255,255,255,.82)}
 
-/* RIGHT PANEL — FORM */
-.rp{background:#fff;display:flex;align-items:center;justify-content:center;padding:60px 48px;min-height:calc(100vh - 66px)}
-.fb{width:100%;max-width:390px}
-.fb-logo{display:flex;align-items:center;gap:8px;margin-bottom:28px}
-.ptag{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7A9BBD;font-family:'Space Grotesk',sans-serif;background:#EAF2FB;padding:4px 10px;border-radius:6px}
-.fb-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:#0B1929;margin-bottom:6px}
-.fb-sub{font-size:13px;color:#4A6A8A;margin-bottom:28px;line-height:1.6}
-.field{margin-bottom:16px}
-.field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#4A6A8A;font-family:'Space Grotesk',sans-serif;margin-bottom:7px}
+/* RIGHT */
+.rp{background:#fff;display:flex;align-items:center;justify-content:center;padding:50px 44px;min-height:calc(100vh - 64px)}
+.fb{width:100%;max-width:400px}
+
+/* TABS */
+.tabs{display:flex;background:#EAF2FB;border-radius:10px;padding:4px;margin-bottom:26px;gap:4px}
+.tab{flex:1;padding:9px;border:none;background:none;border-radius:7px;font-size:12.5px;font-weight:600;font-family:'Space Grotesk';color:#4A6A8A;cursor:pointer;transition:all .18s}
+.tab.on{background:#fff;color:#0B1929;box-shadow:0 2px 8px rgba(11,25,41,.1)}
+
+/* FORM */
+.fb-logo{display:flex;align-items:center;gap:8px;margin-bottom:22px}
+.ptag{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#7A9BBD;font-family:'Space Grotesk';background:#EAF2FB;padding:4px 10px;border-radius:6px}
+.fb-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#0B1929;margin-bottom:5px}
+.fb-sub{font-size:12.5px;color:#4A6A8A;margin-bottom:22px;line-height:1.6}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#4A6A8A;font-family:'Space Grotesk';margin-bottom:6px}
 .fw{position:relative}
-.fw .fi{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;z-index:1}
-.fw input{width:100%;padding:12px 14px 12px 42px;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:#0B1929;background:#FAFBFD;outline:none;transition:border-color .2s,box-shadow .2s}
-.fw input:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
+.fw .fi{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none;z-index:1}
+.fw input,.fw select{width:100%;padding:11px 14px 11px 40px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:13.5px;font-family:'Plus Jakarta Sans';color:#0B1929;background:#FAFBFD;outline:none;transition:border-color .2s,box-shadow .2s}
+.fw input:focus,.fw select:focus{border-color:#B8860B;box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
 .fw input::placeholder{color:#B0C4D8}
-.otp-row{display:flex;gap:9px}
+.fw select{padding-left:40px;appearance:none}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.otp-row{display:flex;gap:8px}
 .otp-row .fw{flex:1}
-.botp{white-space:nowrap;padding:0 16px;height:46px;background:#EAF2FB;border:1.5px solid rgba(184,134,11,.3);border-radius:10px;color:#B8860B;font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;flex-shrink:0}
-.botp:hover{background:#FFF8E7}
-.botp:disabled{opacity:.5;cursor:not-allowed}
-.divider{display:flex;align-items:center;gap:12px;margin:20px 0}
+.botp{white-space:nowrap;padding:0 14px;height:44px;background:#EAF2FB;border:1.5px solid rgba(184,134,11,.3);border-radius:9px;color:#B8860B;font-size:11.5px;font-weight:700;font-family:'Space Grotesk';cursor:pointer;transition:all .2s;flex-shrink:0}
+.botp:hover{background:#FFF8E7}.botp:disabled{opacity:.5;cursor:not-allowed}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0}
 .divider hr{flex:1;border:none;border-top:1px solid rgba(0,0,0,.08)}
-.divider span{font-size:10.5px;color:#B0C4D8;font-family:'Space Grotesk',sans-serif;letter-spacing:1px}
-.bln{width:100%;height:48px;background:linear-gradient(135deg,#0B1929,#1B3A5C);color:#fff;border:none;border-radius:10px;font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.divider span{font-size:10px;color:#B0C4D8;font-family:'Space Grotesk';letter-spacing:1px}
+.bln{width:100%;height:46px;background:linear-gradient(135deg,#0B1929,#1B3A5C);color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
 .bln::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#B8860B,#D4A017)}
-.bln:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(11,25,41,.24)}
+.bln:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(11,25,41,.22)}
 .bln:disabled{opacity:.7;cursor:not-allowed;transform:none}
-.spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;display:inline-block;flex-shrink:0}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;display:inline-block;flex-shrink:0}
 @keyframes sp{to{transform:rotate(360deg)}}
-.alert{display:none;align-items:center;gap:9px;padding:11px 14px;border-radius:9px;font-size:12.5px;margin-bottom:14px;line-height:1.5}
+.alert{display:none;align-items:center;gap:9px;padding:10px 13px;border-radius:8px;font-size:12.5px;margin-bottom:12px;line-height:1.5}
 .alert.err{background:#FEF2F2;border:1px solid rgba(239,68,68,.22);color:#DC2626}
 .alert.ok{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.22);color:#059669}
 .alert.show{display:flex}
-.demo-box{margin-top:20px;background:#FFF8E7;border:1px solid rgba(184,134,11,.22);border-radius:10px;padding:14px 16px}
-.demo-title{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B8860B;font-family:'Space Grotesk',sans-serif;margin-bottom:10px}
-.demo-row{display:flex;align-items:center;justify-content:space-between;padding:7px 4px;border-bottom:1px solid rgba(184,134,11,.1);cursor:pointer;border-radius:6px;transition:background .15s}
+.demo-box{margin-top:16px;background:#FFF8E7;border:1px solid rgba(184,134,11,.22);border-radius:9px;padding:12px 14px}
+.demo-title{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#B8860B;font-family:'Space Grotesk';margin-bottom:8px}
+.demo-row{display:flex;align-items:center;justify-content:space-between;padding:7px 4px;border-bottom:1px solid rgba(184,134,11,.1);cursor:pointer;border-radius:5px;transition:background .15s}
 .demo-row:last-child{border-bottom:none}
 .demo-row:hover{background:rgba(184,134,11,.07)}
-.dem-em{font-family:'Space Grotesk',sans-serif;font-size:12px;color:#2C3E50;font-weight:500}
-.dem-pl{font-size:10px;font-weight:700;background:rgba(184,134,11,.12);color:#B8860B;padding:3px 9px;border-radius:100px;font-family:'Space Grotesk',sans-serif;white-space:nowrap}
-.fb-links{margin-top:22px;text-align:center}
-.fb-links p{font-size:12.5px;color:#4A6A8A;margin-bottom:8px}
+.dem-em{font-family:'Space Grotesk';font-size:11.5px;color:#2C3E50;font-weight:500}
+.dem-pl{font-size:10px;font-weight:700;background:rgba(184,134,11,.12);color:#B8860B;padding:2px 8px;border-radius:100px;font-family:'Space Grotesk';white-space:nowrap}
+.fb-links{margin-top:18px;text-align:center}
+.fb-links p{font-size:12px;color:#4A6A8A;margin-bottom:6px}
 .fb-links a{color:#B8860B;font-weight:600}
-.fb-links a:hover{text-decoration:underline}
-.fb-links-row{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:#7A9BBD}
+.fb-links-row{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:#7A9BBD}
 .fb-links-row .dot{opacity:.4}
 
-/* WA */
-.wa{position:fixed;bottom:24px;right:24px;width:52px;height:52px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:500;transition:transform .2s}
+/* SUCCESS SCREEN */
+.success-screen{display:none;text-align:center;padding:32px 0}
+.success-screen .si{font-size:52px;margin-bottom:14px}
+.success-screen h3{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#0B1929;margin-bottom:8px}
+.success-screen p{font-size:13px;color:#4A6A8A;line-height:1.65;margin-bottom:20px}
+
+.wa{position:fixed;bottom:24px;right:24px;width:50px;height:50px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:23px;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:500;transition:transform .2s}
 .wa:hover{transform:scale(1.1)}
 
-/* FOOTER */
-footer{position:relative;z-index:10;background:#0B1929;color:rgba(255,255,255,.6);padding:48px 32px 28px}
-.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1200px;margin:0 auto 32px}
-.fb-brand p{font-size:13px;line-height:1.7;margin:14px 0 18px;max-width:280px}
-.fsoc{display:flex;gap:12px}
-.fsoc a{font-size:20px;transition:transform .2s}
-.fsoc a:hover{transform:scale(1.15)}
-.fc h4{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D4A017;margin-bottom:16px}
-.fc ul{list-style:none}
-.fc ul li{margin-bottom:10px}
-.fc ul li a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s}
-.fc ul li a:hover{color:#D4A017}
-.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+footer{position:relative;z-index:10;background:#0B1929;color:rgba(255,255,255,.6);padding:40px 32px 24px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;max-width:1200px;margin:0 auto 28px}
+.fb-brand p{font-size:13px;line-height:1.7;margin:12px 0 16px;max-width:280px}
+.fsoc{display:flex;gap:12px}.fsoc a{font-size:19px;transition:transform .2s}.fsoc a:hover{transform:scale(1.15)}
+.fc h4{font-family:'Space Grotesk';font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#D4A017;margin-bottom:14px}
+.fc ul{list-style:none}.fc ul li{margin-bottom:9px}
+.fc ul li a{font-size:13px;color:rgba(255,255,255,.5);transition:color .2s}.fc ul li a:hover{color:#D4A017}
+.fbot{max-width:1200px;margin:0 auto;border-top:1px solid rgba(255,255,255,.08);padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .fbot p{font-size:12px;color:rgba(255,255,255,.35)}
 
-@media(max-width:960px){.page{grid-template-columns:1fr}.lp{min-height:auto;padding:52px 28px 44px}.rp{min-height:auto;padding:44px 24px 52px}.nav-links{display:none}.burger{display:flex}.fg{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){nav{padding:0 20px}.lp{padding:44px 20px 36px}.rp{padding:36px 20px 44px}.fg{grid-template-columns:1fr;gap:28px}.fbot{flex-direction:column;text-align:center}}
+@media(max-width:960px){.page{grid-template-columns:1fr}.lp{min-height:auto;padding:48px 28px 40px}.rp{min-height:auto;padding:40px 22px 48px}.nr{display:none}.burger{display:flex}.fg{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){nav{padding:0 18px}.lp{padding:40px 18px 32px}.rp{padding:32px 18px 40px}.f2{grid-template-columns:1fr}.fg{grid-template-columns:1fr;gap:24px}.fbot{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
 <canvas id="bgc"></canvas>
 <a href="https://wa.me/919818187246" class="wa" target="_blank">💬</a>
 
-<nav id="main-nav">
-  <div class="nav-logo">
-    <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="height:38px;width:auto">
+<nav>
+  <div class="nl">
+    <svg viewBox="0 0 480 200" style="height:36px;width:auto">
       <defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient><linearGradient id="g2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient></defs>
       <g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#g2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#g1)">B</text></g>
       <text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#g1)">uygenix</text>
       <text x="248" y="162" font-family="Arial" font-size="34" fill="#4A6A8A">Solutions</text>
     </svg>
-    <div class="nav-tag">B2B Export &amp; Import<br>Platform</div>
+    <div class="nl-tag">B2B Export &amp; Import<br>Platform</div>
   </div>
-  <div class="nav-links">
+  <div class="nr">
     <a href="index.html">Home</a><a href="services.html">Services</a>
     <a href="about.html">About Us</a><a href="gst.html">GST Reg.</a>
     <a href="contact.html">Contact</a>
     <a href="membership.html" class="nb">Membership Plans →</a>
     <a href="login.html" class="ng">Client Login →</a>
   </div>
-  <div class="burger" id="burger" onclick="document.getElementById('mnav').classList.toggle('open')">
+  <div class="burger" onclick="document.getElementById('mn').classList.toggle('open')">
     <span></span><span></span><span></span>
   </div>
 </nav>
-<div class="mnav" id="mnav">
+<div class="mnav" id="mn">
   <a href="index.html">Home</a><a href="services.html">Services</a>
   <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
   <a href="contact.html">Contact</a><a href="membership.html">Membership Plans</a>
-  <a href="login.html" class="mg">Client Login →</a>
+  <a href="login.html" style="background:#B8860B;color:#fff;text-align:center;font-weight:600;margin-top:6px;border-radius:8px">Client Login →</a>
 </div>
 
 <div class="page">
-  <!-- LEFT BRANDING -->
+  <!-- LEFT -->
   <div class="lp">
     <div class="lp-eye">🔒 Secure Client Portal</div>
     <h1 class="lp-title">Your Export<br>Dashboard <em>Awaits</em></h1>
-    <p class="lp-sub">Log in to access your verified buyer leads, performance reports, chat with your Relationship Manager, and manage your BuyGenix membership.</p>
+    <p class="lp-sub">Log in or register to access your verified buyer leads, performance reports, chat with your Relationship Manager, and manage your BuyGenix membership.</p>
     <div class="lp-feats">
       <div class="lp-feat"><div class="lp-fi">🎯</div><div class="lp-ft"><strong>Verified Buyer Leads</strong><span>Phone, email &amp; WhatsApp contacts across 50+ countries — assigned by BuyGenix.</span></div></div>
       <div class="lp-feat"><div class="lp-fi">💬</div><div class="lp-ft"><strong>Direct RM Chat</strong><span>Message your Relationship Manager anytime from your dashboard.</span></div></div>
-      <div class="lp-feat"><div class="lp-fi">📈</div><div class="lp-ft"><strong>Performance Reports</strong><span>Lead usage, conversion rates, countries reached — updated monthly.</span></div></div>
-      <div class="lp-feat"><div class="lp-fi">🔗</div><div class="lp-ft"><strong>Refer &amp; Earn</strong><span>Earn ₹500–₹10,000 commission for every exporter you refer.</span></div></div>
+      <div class="lp-feat"><div class="lp-fi">📈</div><div class="lp-ft"><strong>Performance Reports</strong><span>Track leads, conversion rates, countries — updated monthly.</span></div></div>
+      <div class="lp-feat"><div class="lp-fi">🤖</div><div class="lp-ft"><strong>AI Export Assistant</strong><span>Get instant answers about your leads, plan, and export queries — powered by AI.</span></div></div>
     </div>
     <div class="lp-div"></div>
     <div class="lp-trust">
@@ -177,57 +179,102 @@ footer{position:relative;z-index:10;background:#0B1929;color:rgba(255,255,255,.6
     </div>
   </div>
 
-  <!-- RIGHT FORM -->
+  <!-- RIGHT -->
   <div class="rp">
     <div class="fb">
       <div class="fb-logo">
-        <svg viewBox="0 0 480 200" style="height:26px;width:auto"><defs><linearGradient id="fg1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient><linearGradient id="fg2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient></defs><g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#fg2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#fg1)">B</text></g><text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#fg1)">uygenix</text><text x="248" y="162" font-family="Arial" font-size="34" fill="#4A6A8A">Solutions</text></svg>
+        <svg viewBox="0 0 480 200" style="height:26px;width:auto">
+          <defs><linearGradient id="fg1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient><linearGradient id="fg2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient></defs>
+          <g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#fg2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#fg1)">B</text></g>
+          <text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#fg1)">uygenix</text>
+          <text x="248" y="162" font-family="Arial" font-size="34" fill="#4A6A8A">Solutions</text>
+        </svg>
         <span class="ptag">CLIENT PORTAL</span>
       </div>
-      <div class="fb-title">Welcome Back</div>
-      <p class="fb-sub">Enter your registered email and verify with OTP to sign in.</p>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab on" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="tab" id="tab-register" onclick="switchTab('register')">Register</button>
+      </div>
 
       <div class="alert err" id="msg-err">⚠ &nbsp;<span id="err-txt"></span></div>
       <div class="alert ok"  id="msg-ok">✅ &nbsp;<span id="ok-txt"></span></div>
 
-      <div class="field">
-        <label>Registered Email Address</label>
-        <div class="fw"><span class="fi">📧</span>
-          <input type="email" id="f-email" placeholder="yourname@business.com" autocomplete="email" onkeydown="if(event.key==='Enter')document.getElementById('f-otp').focus()">
+      <!-- LOGIN FORM -->
+      <div id="form-login">
+        <div class="fb-title">Welcome Back</div>
+        <p class="fb-sub">Enter your registered email and verify with OTP.</p>
+        <div class="field"><label>Email Address</label>
+          <div class="fw"><span class="fi">📧</span><input type="email" id="l-email" placeholder="yourname@business.com" onkeydown="if(event.key==='Enter')document.getElementById('l-otp').focus()"></div>
         </div>
-      </div>
-
-      <div class="divider"><hr><span>Verify with OTP</span><hr></div>
-
-      <div class="field">
-        <label>One-Time Password</label>
-        <div class="otp-row">
-          <div class="fw"><span class="fi">🔑</span>
-            <input type="text" id="f-otp" placeholder="6-digit OTP" maxlength="6" inputmode="numeric" onkeydown="if(event.key==='Enter')doLogin()">
+        <div class="divider"><hr><span>Verify with OTP</span><hr></div>
+        <div class="field"><label>One-Time Password</label>
+          <div class="otp-row">
+            <div class="fw"><span class="fi">🔑</span><input type="text" id="l-otp" placeholder="6-digit OTP" maxlength="6" inputmode="numeric" onkeydown="if(event.key==='Enter')doLogin()"></div>
+            <button class="botp" id="l-otp-btn" onclick="sendLoginOTP()">Send OTP</button>
           </div>
-          <button class="botp" id="otp-btn" onclick="sendOTP()">Send OTP</button>
+        </div>
+        <button class="bln" id="l-btn" onclick="doLogin()"><span id="l-txt">Access My Dashboard →</span></button>
+        <div class="demo-box">
+          <div class="demo-title">🧪 Demo Accounts — click to fill</div>
+          <div class="demo-row" onclick="fillDemo('rajesh@rstextiles.com')"><span class="dem-em">rajesh@rstextiles.com</span><span class="dem-pl">Growth</span></div>
+          <div class="demo-row" onclick="fillDemo('priya@priyaspice.com')"><span class="dem-em">priya@priyaspice.com</span><span class="dem-pl">Professional</span></div>
+          <div class="demo-row" onclick="fillDemo('kiran@handicrafts.com')"><span class="dem-em">kiran@handicrafts.com</span><span class="dem-pl">Starter</span></div>
+          <p style="font-size:11px;color:#7A9BBD;margin-top:8px;text-align:center">OTP for all demo accounts: <strong style="color:#B8860B">123456</strong></p>
         </div>
       </div>
 
-      <button class="bln" id="l-btn" onclick="doLogin()">
-        <span id="l-txt">Access My Dashboard →</span>
-      </button>
+      <!-- REGISTER FORM -->
+      <div id="form-register" style="display:none">
+        <div class="fb-title">Create Account</div>
+        <p class="fb-sub">Register for free. Membership assigned by BuyGenix after review.</p>
+        <div class="f2">
+          <div class="field"><label>Full Name</label><div class="fw"><span class="fi">👤</span><input type="text" id="r-name" placeholder="Your full name"></div></div>
+          <div class="field"><label>Business Name</label><div class="fw"><span class="fi">🏢</span><input type="text" id="r-biz" placeholder="Company name"></div></div>
+        </div>
+        <div class="field"><label>Email Address</label>
+          <div class="otp-row">
+            <div class="fw"><span class="fi">📧</span><input type="email" id="r-email" placeholder="yourname@business.com"></div>
+            <button class="botp" id="r-email-otp-btn" onclick="sendRegEmailOTP()">Send OTP</button>
+          </div>
+        </div>
+        <div class="field"><label>Email OTP</label><div class="fw"><span class="fi">🔑</span><input type="text" id="r-email-otp" placeholder="6-digit OTP" maxlength="6" inputmode="numeric"></div></div>
+        <div class="field"><label>Mobile Number</label>
+          <div class="otp-row">
+            <div class="fw"><span class="fi">📱</span><input type="tel" id="r-phone" placeholder="+91 XXXXX XXXXX"></div>
+            <button class="botp" id="r-phone-otp-btn" onclick="sendRegPhoneOTP()">Send OTP</button>
+          </div>
+        </div>
+        <div class="field"><label>Mobile OTP</label><div class="fw"><span class="fi">🔑</span><input type="text" id="r-phone-otp" placeholder="6-digit OTP" maxlength="6" inputmode="numeric"></div></div>
+        <div class="f2">
+          <div class="field"><label>City</label><div class="fw"><span class="fi">📍</span><input type="text" id="r-city" placeholder="Delhi, Mumbai…"></div></div>
+          <div class="field"><label>State</label><div class="fw"><span class="fi">🗺</span><input type="text" id="r-state" placeholder="Delhi, Maharashtra…"></div></div>
+        </div>
+        <div class="field"><label>Export Category</label>
+          <div class="fw"><span class="fi">📦</span>
+            <select id="r-cat">
+              <option value="">Select your product category</option>
+            </select>
+          </div>
+        </div>
+        <button class="bln" id="r-btn" onclick="doRegister()"><span id="r-txt">Create My Account →</span></button>
+      </div>
 
-      <div class="demo-box">
-        <div class="demo-title">🧪 Demo Accounts — click any to fill</div>
-        <div class="demo-row" onclick="fill('rajesh@rstextiles.com')"><span class="dem-em">rajesh@rstextiles.com</span><span class="dem-pl">Growth</span></div>
-        <div class="demo-row" onclick="fill('priya@priyaspice.com')"><span class="dem-em">priya@priyaspice.com</span><span class="dem-pl">Professional</span></div>
-        <div class="demo-row" onclick="fill('kiran@handicrafts.com')"><span class="dem-em">kiran@handicrafts.com</span><span class="dem-pl">Starter</span></div>
-        <div class="demo-row" onclick="fill('fatima@sheikhleather.com')"><span class="dem-em">fatima@sheikhleather.com</span><span class="dem-pl">Professional</span></div>
-        <p style="font-size:11px;color:#7A9BBD;margin-top:8px;text-align:center">OTP for all demo accounts: <strong style="color:#B8860B">123456</strong></p>
+      <!-- SUCCESS SCREEN -->
+      <div class="success-screen" id="reg-success">
+        <div class="si">🎉</div>
+        <h3>Account Created!</h3>
+        <p>Your BuyGenix account is registered. Our team will review and activate your membership within 24 hours.<br><br>You can now log in using your email and the OTP we've set for you.</p>
+        <button class="bln" onclick="switchTab('login')">Go to Login →</button>
       </div>
 
       <div class="fb-links">
-        <p>Not a member? <a href="membership.html">View Membership Plans →</a></p>
+        <p>Need help? <a href="https://wa.me/919818187246" target="_blank">WhatsApp us →</a></p>
         <div class="fb-links-row">
-          <a href="https://wa.me/919818187246" target="_blank">WhatsApp Support</a>
-          <span class="dot">·</span><a href="contact.html">Contact Us</a>
-          <span class="dot">·</span><a href="privacy.html">Privacy</a>
+          <a href="membership.html">View Plans</a><span class="dot">·</span>
+          <a href="contact.html">Contact Us</a><span class="dot">·</span>
+          <a href="privacy.html">Privacy</a>
         </div>
       </div>
     </div>
@@ -237,7 +284,7 @@ footer{position:relative;z-index:10;background:#0B1929;color:rgba(255,255,255,.6
 <footer>
   <div class="fg">
     <div class="fb-brand">
-      <svg viewBox="0 0 480 200" style="height:34px;width:auto"><defs><linearGradient id="gft" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#fff"/><stop offset="100%" style="stop-color:#D4A017"/></linearGradient></defs><g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="#D4A017" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#D4A017"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#gft)">B</text></g><text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#gft)">uygenix</text><text x="248" y="162" font-family="Arial" font-size="34" fill="rgba(255,255,255,0.5)">Solutions</text></svg>
+      <svg viewBox="0 0 480 200" style="height:32px;width:auto"><defs><linearGradient id="gft" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#fff"/><stop offset="100%" style="stop-color:#D4A017"/></linearGradient></defs><g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="#D4A017" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#D4A017"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#gft)">B</text></g><text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#gft)">uygenix</text><text x="248" y="162" font-family="Arial" font-size="34" fill="rgba(255,255,255,0.5)">Solutions</text></svg>
       <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p>
       <div class="fsoc"><a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a><a href="https://wa.me/919818187246">💬</a><a href="mailto:Buygenixsolutions@gmail.com">📧</a></div>
     </div>
@@ -253,41 +300,143 @@ footer{position:relative;z-index:10;background:#0B1929;color:rgba(255,255,255,.6
 /* CANVAS */
 (function(){const c=document.getElementById('bgc'),ctx=c.getContext('2d');let W,H,t=0,ns=[];function resize(){W=c.width=innerWidth;H=c.height=innerHeight;ns=[];const n=Math.floor(W*H/18000);for(let i=0;i<n;i++)ns.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*2.5+1,o:Math.random()*.35+.08})}resize();window.addEventListener('resize',resize);function draw(){ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,'rgba(232,240,252,.65)');g.addColorStop(1,'rgba(210,228,248,.55)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);ns.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;ctx.globalAlpha=n.o;ctx.fillStyle='rgba(11,25,41,.35)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill()});ctx.strokeStyle='rgba(11,25,41,.06)';ctx.lineWidth=.8;for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){ctx.globalAlpha=(1-d/130)*.1;ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.stroke()}}ctx.globalAlpha=1;t+=.007;requestAnimationFrame(draw)}draw()})();
 
+/* TABS */
+function switchTab(t) {
+  document.getElementById('tab-login').classList.toggle('on', t==='login');
+  document.getElementById('tab-register').classList.toggle('on', t==='register');
+  document.getElementById('form-login').style.display = t==='login' ? 'block' : 'none';
+  document.getElementById('form-register').style.display = t==='register' ? 'block' : 'none';
+  document.getElementById('reg-success').style.display = 'none';
+  clearAlerts();
+}
+
+/* ALERTS */
 function showErr(m){const e=document.getElementById('msg-err');document.getElementById('err-txt').textContent=m;e.classList.add('show');document.getElementById('msg-ok').classList.remove('show');setTimeout(()=>e.classList.remove('show'),5000)}
 function showOk(m){const e=document.getElementById('msg-ok');document.getElementById('ok-txt').textContent=m;e.classList.add('show');document.getElementById('msg-err').classList.remove('show')}
-function fill(email){document.getElementById('f-email').value=email;document.getElementById('f-otp').value='123456';showOk('Demo account filled — click Access My Dashboard!')}
+function clearAlerts(){document.getElementById('msg-err').classList.remove('show');document.getElementById('msg-ok').classList.remove('show')}
 
-function sendOTP(){
-  const email=document.getElementById('f-email').value.trim();
-  if(!email||!email.includes('@')){showErr('Please enter your registered email address first.');return}
-  const btn=document.getElementById('otp-btn');
-  btn.disabled=true;
-  showOk('OTP sent! For demo accounts use: 123456');
-  let s=30;const timer=setInterval(()=>{s--;btn.textContent='Resend ('+s+'s)';if(s<=0){clearInterval(timer);btn.textContent='Resend OTP';btn.disabled=false}},1000);
+/* FILL DEMO */
+function fillDemo(email) {
+  document.getElementById('l-email').value = email;
+  document.getElementById('l-otp').value = '123456';
+  showOk('Demo filled — click Access My Dashboard!');
 }
 
-async function doLogin(){
-  const email=document.getElementById('f-email').value.trim();
-  const otp=document.getElementById('f-otp').value.trim();
-  const btn=document.getElementById('l-btn');
-  const txt=document.getElementById('l-txt');
-  if(!email||!email.includes('@')){showErr('Please enter your registered email.');return}
-  if(!otp){showErr('Please enter the OTP. Click "Send OTP" first.');return}
-  btn.disabled=true;
-  txt.innerHTML='<span class="spin"></span> Signing in…';
+/* OTP COUNTDOWN */
+function startCountdown(btnId, label) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = true;
+  let s = 60;
+  const t = setInterval(() => {
+    s--;
+    btn.textContent = `Resend (${s}s)`;
+    if (s <= 0) { clearInterval(t); btn.textContent = label; btn.disabled = false; }
+  }, 1000);
+}
 
-  /* Wait for Supabase to be ready */
-  const login=async()=>{
-    const result=await DB.loginClient(email,otp);
-    if(!result.success){showErr(result.error);btn.disabled=false;txt.textContent='Access My Dashboard →';return}
-    sessionStorage.setItem('bgx_client',JSON.stringify(result.client));
-    showOk('Welcome back, '+result.client.name.split(' ')[0]+'! Redirecting…');
-    setTimeout(()=>window.location.href='client-portal.html',1000);
+/* LOGIN OTP */
+function sendLoginOTP() {
+  const email = document.getElementById('l-email').value.trim();
+  if (!email || !email.includes('@')) { showErr('Enter your registered email first.'); return; }
+  showOk(`OTP sent to ${email}. For demo accounts use: 123456`);
+  startCountdown('l-otp-btn', 'Send OTP');
+}
+
+/* LOGIN */
+async function doLogin() {
+  const email = document.getElementById('l-email').value.trim();
+  const otp   = document.getElementById('l-otp').value.trim();
+  const btn   = document.getElementById('l-btn');
+  const txt   = document.getElementById('l-txt');
+  if (!email || !email.includes('@')) { showErr('Enter your email address.'); return; }
+  if (!otp) { showErr('Enter the OTP. Click Send OTP first.'); return; }
+  btn.disabled = true; txt.innerHTML = '<span class="spin"></span> Signing in…';
+  const go = async () => {
+    const r = await DB.loginClient(email, otp);
+    if (!r.success) { showErr(r.error); btn.disabled = false; txt.textContent = 'Access My Dashboard →'; return; }
+    sessionStorage.setItem('bgx_client', JSON.stringify(r.client));
+    showOk('Welcome back, ' + r.client.name.split(' ')[0] + '! Redirecting…');
+    setTimeout(() => window.location.href = 'client-portal.html', 900);
   };
-
-  if(window.sb){await login()}
-  else{document.addEventListener('sbReady',login,{once:true})}
+  if (window.sb) await go(); else document.addEventListener('sbReady', go, { once: true });
 }
+
+/* REGISTER OTPs */
+const _otpStore = {};
+function genOTP(key) {
+  const code = String(Math.floor(100000 + Math.random() * 900000));
+  _otpStore[key] = { code, exp: Date.now() + 10 * 60 * 1000 };
+  return code;
+}
+function verifyOTP(key, code) {
+  const e = _otpStore[key];
+  if (!e) return false;
+  if (Date.now() > e.exp) { delete _otpStore[key]; return false; }
+  if (e.code !== String(code).trim()) return false;
+  delete _otpStore[key];
+  return true;
+}
+
+function sendRegEmailOTP() {
+  const email = document.getElementById('r-email').value.trim();
+  if (!email || !email.includes('@')) { showErr('Enter a valid email address.'); return; }
+  const code = genOTP('email_' + email);
+  console.log(`📧 Email OTP for ${email}: ${code}`); /* Remove in production — integrate EmailJS */
+  showOk(`OTP sent to ${email}. Check console for demo. (Code: ${code})`);
+  startCountdown('r-email-otp-btn', 'Send OTP');
+}
+
+function sendRegPhoneOTP() {
+  const phone = document.getElementById('r-phone').value.trim();
+  if (!phone || phone.length < 10) { showErr('Enter a valid mobile number.'); return; }
+  const code = genOTP('phone_' + phone);
+  console.log(`📱 Phone OTP for ${phone}: ${code}`); /* Remove in production — integrate MSG91 */
+  showOk(`OTP sent to ${phone}. Check console for demo. (Code: ${code})`);
+  startCountdown('r-phone-otp-btn', 'Send OTP');
+}
+
+/* REGISTER */
+async function doRegister() {
+  const name   = document.getElementById('r-name').value.trim();
+  const biz    = document.getElementById('r-biz').value.trim();
+  const email  = document.getElementById('r-email').value.trim();
+  const eOTP   = document.getElementById('r-email-otp').value.trim();
+  const phone  = document.getElementById('r-phone').value.trim();
+  const pOTP   = document.getElementById('r-phone-otp').value.trim();
+  const city   = document.getElementById('r-city').value.trim();
+  const state  = document.getElementById('r-state').value.trim();
+  const cat    = document.getElementById('r-cat').value;
+  const btn    = document.getElementById('r-btn');
+  const txt    = document.getElementById('r-txt');
+
+  if (!name)  { showErr('Enter your full name.'); return; }
+  if (!email || !email.includes('@')) { showErr('Enter a valid email.'); return; }
+  if (!verifyOTP('email_' + email, eOTP)) { showErr('Invalid or expired email OTP.'); return; }
+  if (!phone || phone.length < 10) { showErr('Enter a valid mobile number.'); return; }
+  if (!verifyOTP('phone_' + phone, pOTP)) { showErr('Invalid or expired mobile OTP.'); return; }
+  if (!cat) { showErr('Select your export category.'); return; }
+
+  btn.disabled = true; txt.innerHTML = '<span class="spin"></span> Creating account…';
+
+  const go = async () => {
+    const r = await DB.registerClient({ name, business: biz, email, phone, city, state, category: cat });
+    if (!r.success) { showErr(r.error); btn.disabled = false; txt.textContent = 'Create My Account →'; return; }
+    document.getElementById('form-register').style.display = 'none';
+    document.getElementById('reg-success').style.display = 'block';
+    document.getElementById('msg-ok').classList.remove('show');
+  };
+  if (window.sb) await go(); else document.addEventListener('sbReady', go, { once: true });
+}
+
+/* POPULATE CATEGORY DROPDOWN */
+document.addEventListener('sbReady', () => {
+  const sel = document.getElementById('r-cat');
+  Object.keys(CATEGORIES).forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+});
 </script>
 </body>
 </html>
