@@ -3,277 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin CRM — BuyGenix Solutions</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<title>BuyGenix — Admin CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--n:#0B1929;--n2:#1B3A5C;--g:#B8860B;--gm:#D4A017;--gp:#FFF8E7;--gb:rgba(184,134,11,.2);--sky:#EAF2FB;--skm:#D0E4F5;--tb:#2C3E50;--tm:#4A6A8A;--tl:#7A9BBD;--bs:rgba(0,0,0,.07);--ss:0 2px 12px rgba(11,25,41,.06);--sm:0 6px 28px rgba(11,25,41,.10);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--purple:#7C3AED;--sb:248px}
+:root{--n:#0B1929;--n2:#1B3A5C;--n3:#2A547A;--g:#B8860B;--gm:#D4A017;--gp:#FFF8E7;--gb:rgba(184,134,11,.2);--sky:#EAF2FB;--skm:#D0E4F5;--tb:#2C3E50;--tm:#4A6A8A;--tl:#7A9BBD;--bs:rgba(0,0,0,.07);--ss:0 2px 12px rgba(11,25,41,.06);--sm:0 6px 28px rgba(11,25,41,.10);--sl:0 18px 56px rgba(11,25,41,.14);--green:#10B981;--red:#EF4444;--amber:#F59E0B;--sb:248px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:14px}body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--sky);color:var(--tb);min-height:100vh;display:flex}
 a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 
-/* LOGIN */
-#al{position:fixed;inset:0;z-index:999;background:var(--n);display:flex;align-items:center;justify-content:center;padding:24px}
-#al canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.alc{background:#fff;border-radius:20px;padding:38px 34px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.35);position:relative;z-index:2;animation:alIn .5s cubic-bezier(.16,1,.3,1)}
-@keyframes alIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
-.al-logo{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:22px}
-.al-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#DC2626;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;font-family:'Space Grotesk'}
-.al-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--n);text-align:center;margin-bottom:4px}
-.al-sub{font-size:12px;color:var(--tm);text-align:center;margin-bottom:20px;line-height:1.55}
-.alf{margin-bottom:12px}
-.alf label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tm);font-family:'Space Grotesk';margin-bottom:5px}
-.alfw{position:relative}.alfw .ic{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;pointer-events:none}
-.alfw input{width:100%;padding:10px 14px 10px 38px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:13px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .18s}
-.alfw input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(184,134,11,.1)}
-.albtn{width:100%;height:44px;background:linear-gradient(135deg,var(--n),var(--n2));color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
-.albtn::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--g),var(--gm))}
-.albtn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(11,25,41,.28)}.albtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.al-err{background:#FEF2F2;border:1px solid rgba(239,68,68,.22);border-radius:8px;color:#DC2626;font-size:12px;padding:9px 13px;margin-bottom:12px;display:none}
-.al-hint{margin-top:16px;background:var(--gp);border:1px solid var(--gb);border-radius:9px;padding:13px 15px}
-.al-hint-title{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--g);font-family:'Space Grotesk';margin-bottom:8px}
-.al-hr{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid rgba(184,134,11,.1)}
-.al-hr:last-child{border:none}.al-hr .lbl{color:var(--tm)}.al-hr .val{font-family:'Space Grotesk';font-weight:600;color:var(--n)}
-
-/* SIDEBAR */
 .sidebar{width:var(--sb);min-height:100vh;background:var(--n);display:flex;flex-direction:column;position:fixed;top:0;left:0;z-index:100;box-shadow:4px 0 20px rgba(11,25,41,.2)}
-.sh{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sh{padding:20px 18px 15px;border-bottom:1px solid rgba(255,255,255,.06)}
 .sl{display:flex;align-items:center;gap:9px}
-.sl-t{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:#fff}.sl-t em{color:var(--gm);font-style:italic}
+.sl-t{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff}.sl-t em{color:var(--gm);font-style:italic}
 .sl-s{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Grotesk';margin-top:2px}
-.snav{flex:1;padding:14px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.snav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
 .ss{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:12px 10px 4px;font-family:'Space Grotesk'}
-.ni{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:rgba(255,255,255,.48);font-size:12.5px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .16s;cursor:pointer}
-.ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}.ni.on{background:rgba(184,134,11,.17);color:var(--gm);font-weight:600}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;color:rgba(255,255,255,.48);font-size:12.5px;font-weight:500;border:none;background:none;width:100%;text-align:left;transition:all .16s;cursor:pointer}
+.ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.8)}
+.ni.on{background:rgba(184,134,11,.17);color:var(--gm);font-weight:600}
 .ni .ic{width:16px;text-align:center;font-size:13px;flex-shrink:0}
-.ni .bx{margin-left:auto;font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:100px;background:var(--g);color:#fff}.ni .bx.red{background:var(--red)}.ni .bx.blue{background:var(--purple)}
-.sf{padding:13px 12px;border-top:1px solid rgba(255,255,255,.06)}
+.ni .bx{margin-left:auto;font-size:9px;font-weight:700;padding:2px 7px;border-radius:100px;color:#fff}
+.bx-g{background:var(--g)}.bx-r{background:var(--red)}
+.sf{padding:14px 12px;border-top:1px solid rgba(255,255,255,.06)}
 .su{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,.04);margin-bottom:8px}
 .sa{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--gm));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
-.blo{width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.38);font-size:11px;font-family:'Space Grotesk';cursor:pointer;transition:all .16s}
-.blo:hover{background:rgba(239,68,68,.15);color:var(--red)}
 
-/* MAIN */
 .main{margin-left:var(--sb);flex:1;display:flex;flex-direction:column;min-height:100vh}
-.topbar{background:#fff;border-bottom:1px solid var(--bs);padding:0 26px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--ss)}
+.topbar{background:#fff;border-bottom:1px solid var(--bs);padding:0 26px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;box-shadow:var(--ss)}
 .tt{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:var(--n)}
-.tr2{display:flex;align-items:center;gap:10px}
+.tr{display:flex;align-items:center;gap:10px}
 .tdate{font-size:11.5px;color:var(--tl);font-family:'Space Grotesk'}
 .tbell{width:32px;height:32px;border-radius:50%;background:var(--sky);border:1px solid var(--bs);display:flex;align-items:center;justify-content:center;font-size:14px;position:relative;cursor:pointer}
-.tbell-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid #fff;display:none}
-.content{padding:20px 24px;flex:1}
+.tbell-dot{position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid #fff}
+.content{padding:22px 26px;flex:1}
 
-/* PANELS */
 .panel{display:none}.panel.on{display:block;animation:fi .25s ease}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px}
-.sc{background:#fff;border-radius:13px;padding:17px;border:1px solid var(--bs);box-shadow:var(--ss);position:relative;overflow:hidden;transition:transform .16s}
-.sc:hover{transform:translateY(-2px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.sc{background:#fff;border-radius:14px;padding:18px;border:1px solid var(--bs);box-shadow:var(--ss);position:relative;overflow:hidden;transition:transform .16s,box-shadow .16s}
+.sc:hover{transform:translateY(-2px);box-shadow:var(--sm)}
 .sc::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%}
 .sc.c1::before{background:var(--n2)}.sc.c2::before{background:var(--g)}.sc.c3::before{background:var(--green)}.sc.c4::before{background:var(--red)}
-.sc-i{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:9px}
+.sc-i{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;margin-bottom:10px}
 .sc.c1 .sc-i{background:rgba(27,58,92,.1)}.sc.c2 .sc-i{background:rgba(184,134,11,.1)}.sc.c3 .sc-i{background:rgba(16,185,129,.1)}.sc.c4 .sc-i{background:rgba(239,68,68,.1)}
-.sc-v{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--n);line-height:1;margin-bottom:2px}
+.sc-v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--n);line-height:1;margin-bottom:3px}
 .sc-l{font-size:11px;color:var(--tm)}
-.sc-tr{position:absolute;top:13px;right:13px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
+.sc-tr{position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:100px}
 .tup{background:rgba(16,185,129,.1);color:var(--green)}.twn{background:rgba(245,158,11,.1);color:var(--amber)}
 
-/* CARD */
-.card{background:#fff;border-radius:13px;border:1px solid var(--bs);box-shadow:var(--ss);overflow:hidden;margin-bottom:15px}
-.ch{padding:13px 18px;border-bottom:1px solid var(--bs);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.card{background:#fff;border-radius:14px;border:1px solid var(--bs);box-shadow:var(--ss);overflow:hidden;margin-bottom:16px}
+.ch{padding:14px 18px;border-bottom:1px solid var(--bs);display:flex;align-items:center;justify-content:space-between}
 .ct{font-family:'Space Grotesk';font-size:13px;font-weight:700;color:var(--n)}
 .csub{font-size:10.5px;color:var(--tl);margin-top:1px}
-.cb{padding:17px}
-.r2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.r31{display:grid;grid-template-columns:2fr 1fr;gap:15px}
+.cb{padding:18px}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.r31{display:grid;grid-template-columns:2fr 1fr;gap:16px}
 
-/* TABLE */
 .tbl{width:100%;border-collapse:collapse}
-.tbl th{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';padding:8px 12px;text-align:left;border-bottom:1px solid var(--bs);background:var(--sky);white-space:nowrap}
-.tbl td{padding:9px 12px;font-size:12px;border-bottom:1px solid var(--bs);color:var(--tb);vertical-align:middle}
+.tbl th{font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';padding:8px 13px;text-align:left;border-bottom:1px solid var(--bs);background:var(--sky)}
+.tbl td{padding:10px 13px;font-size:12px;border-bottom:1px solid var(--bs);color:var(--tb);vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}.tbl tr:hover td{background:var(--sky)}
 .tbl td strong{color:var(--n)}
-.tbl-actions{display:flex;gap:5px;flex-wrap:wrap}
 
-/* BADGES */
-.bdg{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;font-family:'Space Grotesk';white-space:nowrap}
+.bdg{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:100px;font-family:'Space Grotesk'}
 .ba{background:rgba(16,185,129,.1);color:var(--green)}.be{background:rgba(239,68,68,.08);color:var(--red)}.bp2{background:rgba(245,158,11,.1);color:var(--amber)}
 .bh{background:rgba(239,68,68,.08);color:#DC2626}.bw{background:rgba(245,158,11,.1);color:#D97706}.bn{background:rgba(27,58,92,.08);color:var(--n2)}.bc{background:rgba(16,185,129,.08);color:var(--green)}
-.bsu{background:rgba(239,68,68,.1);color:var(--red)}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:7px;font-size:11.5px;font-weight:600;font-family:'Space Grotesk';border:none;transition:all .16s;cursor:pointer;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:7px;font-size:11.5px;font-weight:600;font-family:'Space Grotesk';border:none;transition:all .16s;cursor:pointer}
 .b-p{background:var(--n);color:#fff}.b-p:hover{background:var(--n2)}
 .b-g{background:var(--g);color:#fff}.b-g:hover{background:var(--gm)}
 .b-o{background:#fff;border:1.5px solid var(--bs);color:var(--tm)}.b-o:hover{border-color:var(--gb);color:var(--g)}
 .b-d{background:rgba(239,68,68,.09);color:var(--red);border:1.5px solid rgba(239,68,68,.18)}.b-d:hover{background:var(--red);color:#fff}
-.b-warn{background:rgba(245,158,11,.1);color:var(--amber);border:1.5px solid rgba(245,158,11,.2)}.b-warn:hover{background:var(--amber);color:#fff}
-.b-sm{padding:4px 10px;font-size:11px}
-.b-purple{background:rgba(124,58,237,.1);color:var(--purple);border:1.5px solid rgba(124,58,237,.2)}.b-purple:hover{background:var(--purple);color:#fff}
+.b-sm{padding:5px 11px;font-size:11px}
 
-/* FORM */
-.fg{margin-bottom:11px}
+.fg{margin-bottom:12px}
 .fg label{display:block;font-size:10.5px;font-weight:700;color:var(--tm);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .fg input,.fg select,.fg textarea{width:100%;padding:8px 12px;border:1.5px solid var(--bs);border-radius:7px;font-size:12.5px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .16s}
 .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(184,134,11,.08)}
-.fg textarea{resize:vertical;min-height:70px}
-.f2{display:grid;grid-template-columns:1fr 1fr;gap:11px}.full{grid-column:1/-1}
+.fg textarea{resize:vertical;min-height:75px}
+.form2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
 
-/* PBAR */
-.pb-w{margin-bottom:11px}
-.pb-l{display:flex;justify-content:space-between;font-size:11px;color:var(--tm);margin-bottom:4px}
+.pb-w{margin-bottom:12px}
+.pb-l{display:flex;justify-content:space-between;font-size:11px;color:var(--tm);margin-bottom:5px}
 .pb-l strong{color:var(--n)}
 .pb-t{height:6px;background:var(--sky);border-radius:100px;overflow:hidden}
 .pb-f{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--n2),var(--g))}
 
-/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(11,25,41,.5);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s}
 .modal-bg.open{opacity:1;pointer-events:all}
-.modal{background:#fff;border-radius:18px;padding:26px;width:100%;max-width:580px;box-shadow:0 24px 64px rgba(11,25,41,.2);transform:translateY(18px);transition:transform .22s;max-height:92vh;overflow-y:auto;position:relative}
+.modal{background:#fff;border-radius:20px;padding:28px;width:100%;max-width:540px;box-shadow:var(--sl);transform:translateY(18px);transition:transform .22s;max-height:90vh;overflow-y:auto;position:relative}
 .modal-bg.open .modal{transform:none}
 .modal h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--n);margin-bottom:4px}
-.modal-sub{font-size:12px;color:var(--tm);margin-bottom:18px}
-.mx{position:absolute;top:14px;right:14px;background:var(--sky);border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.modal-sub{font-size:12px;color:var(--tm);margin-bottom:20px}
+.mx{position:absolute;top:16px;right:16px;background:var(--sky);border:none;border-radius:50%;width:28px;height:28px;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 
-/* CLIENT CARD */
-.cc{background:#fff;border:1px solid var(--bs);border-radius:11px;padding:13px;display:flex;align-items:center;gap:11px;margin-bottom:8px;cursor:pointer;transition:all .16s;box-shadow:var(--ss)}
-.cc:hover{border-color:var(--gb);transform:translateY(-1px)}.cc.sel{border-color:var(--g);box-shadow:0 0 0 2px rgba(184,134,11,.14)}
-.cca{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.cc{background:#fff;border:1px solid var(--bs);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:9px;cursor:pointer;transition:all .16s;box-shadow:var(--ss)}
+.cc:hover{border-color:var(--gb);box-shadow:var(--sm);transform:translateY(-1px)}
+.cc.sel{border-color:var(--g);box-shadow:0 0 0 2px rgba(184,134,11,.14)}
+.cca{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
 
-/* LEAD GRID */
-.lead-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:250px;overflow-y:auto;margin-bottom:13px}
-.li{border:1.5px solid var(--bs);border-radius:9px;padding:10px;cursor:pointer;transition:all .14s;background:#fff}
+.chat-layout{display:grid;grid-template-columns:240px 1fr;border-radius:14px;overflow:hidden;border:1px solid var(--bs);box-shadow:var(--ss);background:#fff;height:580px}
+.clist{border-right:1px solid var(--bs);overflow-y:auto;background:var(--sky)}
+.clh{padding:12px 15px;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';border-bottom:1px solid var(--bs)}
+.ct-item{display:flex;align-items:center;gap:9px;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--bs);transition:background .14s}
+.ct-item:hover{background:var(--skm)}.ct-item.on{background:#fff;border-right:3px solid var(--g)}
+.ct-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:#fff;flex-shrink:0}
+.ct-nm{font-size:12px;font-weight:600;color:var(--n)}
+.ct-pr{font-size:10.5px;color:var(--tl);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.ct-un{width:15px;height:15px;background:var(--g);border-radius:50%;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0}
+.cmain{display:flex;flex-direction:column}
+.chdr{padding:12px 16px;border-bottom:1px solid var(--bs);display:flex;align-items:center;gap:10px}
+.cmsgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cmsgs::-webkit-scrollbar{width:3px}.cmsgs::-webkit-scrollbar-thumb{background:var(--skm);border-radius:3px}
+.msg{display:flex;gap:8px;align-items:flex-end;animation:mi .22s ease}
+@keyframes mi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.msg.out{flex-direction:row-reverse}
+.mav{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;color:#fff;flex-shrink:0}
+.msg.in .mav{background:linear-gradient(135deg,var(--n),var(--n2))}.msg.out .mav{background:linear-gradient(135deg,var(--g),var(--gm))}
+.mbu{max-width:74%;padding:9px 12px;border-radius:11px;font-size:12px;line-height:1.5}
+.msg.in .mbu{background:var(--sky);color:var(--tb);border-radius:3px 11px 11px 11px}
+.msg.out .mbu{background:var(--n);color:#fff;border-radius:11px 3px 11px 11px}
+.mti{font-size:9.5px;color:var(--tl);margin-top:2px}.msg.out .mti{text-align:right}
+.cft{padding:10px 14px;border-top:1px solid var(--bs);display:flex;gap:7px;align-items:center}
+.cin{flex:1;padding:8px 13px;border:1.5px solid var(--bs);border-radius:100px;font-size:12.5px;font-family:'Plus Jakarta Sans';outline:none;color:var(--n);background:var(--sky);transition:all .16s}
+.cin:focus{border-color:var(--g);background:#fff}
+.csend{width:34px;height:34px;border-radius:50%;background:var(--n);border:none;color:#fff;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .16s;flex-shrink:0}
+.csend:hover{background:var(--g)}
+
+.lead-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:240px;overflow-y:auto;margin-bottom:14px}
+.li{border:1.5px solid var(--bs);border-radius:9px;padding:11px;cursor:pointer;transition:all .14s;background:#fff}
 .li:hover{border-color:var(--gb)}.li.sel{border-color:var(--g);background:var(--gp)}
 .li-co{font-size:12px;font-weight:600;color:var(--n)}
 .li-m{font-size:10.5px;color:var(--tl);margin-top:2px}
 
-/* SEARCH */
-.srch{position:relative;margin-bottom:11px}
-.srch input{width:100%;padding:8px 12px 8px 33px;border:1.5px solid var(--bs);border-radius:8px;font-size:12.5px;font-family:'Plus Jakarta Sans';outline:none;color:var(--n);background:#FAFBFD;transition:border-color .16s}
+.srch{position:relative;margin-bottom:12px}
+.srch input{width:100%;padding:8px 13px 8px 34px;border:1.5px solid var(--bs);border-radius:8px;font-size:12.5px;font-family:'Plus Jakarta Sans';outline:none;color:var(--n);background:#FAFBFD;transition:border-color .16s}
 .srch input:focus{border-color:var(--g)}
-.srch::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:11px}
+.srch::before{content:'🔍';position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:11px}
 
-/* CHAT */
-.chat-layout{display:grid;grid-template-columns:230px 1fr;border-radius:13px;overflow:hidden;border:1px solid var(--bs);box-shadow:var(--ss);background:#fff;height:560px}
-.clist{border-right:1px solid var(--bs);overflow-y:auto;background:var(--sky)}
-.clh{padding:11px 14px;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tl);font-family:'Space Grotesk';border-bottom:1px solid var(--bs)}
-.ct-item{display:flex;align-items:center;gap:9px;padding:10px 13px;cursor:pointer;border-bottom:1px solid var(--bs);transition:background .14s}
-.ct-item:hover{background:var(--skm)}.ct-item.on{background:#fff;border-right:3px solid var(--g)}
-.ct-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0}
-.ct-nm{font-size:12px;font-weight:600;color:var(--n)}
-.ct-pr{font-size:10px;color:var(--tl);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
-.ct-un{width:14px;height:14px;background:var(--red);border-radius:50%;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0}
-.cmain{display:flex;flex-direction:column}
-.chdr{padding:11px 15px;border-bottom:1px solid var(--bs);display:flex;align-items:center;gap:10px;flex-wrap:wrap;gap:8px}
-.cmsgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:9px}
-.cmsgs::-webkit-scrollbar{width:3px}.cmsgs::-webkit-scrollbar-thumb{background:var(--skm);border-radius:3px}
-.msg{display:flex;gap:7px;align-items:flex-end;animation:mi .22s ease}
-@keyframes mi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-.msg.out{flex-direction:row-reverse}
-.mav{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
-.msg.in .mav{background:linear-gradient(135deg,var(--n),var(--n2))}.msg.out .mav{background:linear-gradient(135deg,var(--g),var(--gm))}
-.mbu{max-width:74%;padding:8px 11px;border-radius:10px;font-size:12px;line-height:1.5}
-.msg.in .mbu{background:var(--sky);color:var(--tb);border-radius:3px 10px 10px 10px}
-.msg.out .mbu{background:var(--n);color:#fff;border-radius:10px 3px 10px 10px}
-.mti{font-size:9px;color:var(--tl);margin-top:2px}.msg.out .mti{text-align:right}
-.cft{padding:9px 13px;border-top:1px solid var(--bs);display:flex;gap:7px;align-items:center}
-.cin{flex:1;padding:7px 12px;border:1.5px solid var(--bs);border-radius:100px;font-size:12.5px;font-family:'Plus Jakarta Sans';outline:none;color:var(--n);background:var(--sky);transition:all .16s}
-.cin:focus{border-color:var(--g);background:#fff}
-.csend{width:32px;height:32px;border-radius:50%;background:var(--n);border:none;color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;transition:all .16s;flex-shrink:0}
-.csend:hover{background:var(--g)}
-
-/* NOTIF */
-.notif{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--bs)}
+.notif{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--bs)}
 .notif:last-child{border:none}
-.ndot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.ndot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .ng{background:var(--g)}.nr{background:var(--red)}.ngr{background:var(--green)}
 
-/* LOADING */
-.ls{display:flex;align-items:center;justify-content:center;padding:28px;gap:10px;color:var(--tl);font-size:12.5px}
-.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(11,25,41,.15);border-top-color:var(--n);border-radius:50%;animation:sp .7s linear infinite}
-.spin-w{border-color:rgba(255,255,255,.3);border-top-color:#fff}
-@keyframes sp{to{transform:rotate(360deg)}}
-
-.ok-msg{background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green);display:none;margin-top:10px}
-.err-msg{background:#FEF2F2;border:1px solid rgba(239,68,68,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--red);display:none;margin-top:10px}
-.rm-card{background:#fff;border:1px solid var(--bs);border-radius:13px;padding:16px;box-shadow:var(--ss)}
-
 @media(max-width:1100px){.stats{grid-template-columns:repeat(2,1fr)}.r2,.r31{grid-template-columns:1fr}.chat-layout{grid-template-columns:1fr;height:auto}.clist{display:none}}
+
+/* ── ADMIN LOGIN SCREEN ── */
+#admin-login{position:fixed;inset:0;z-index:999;background:var(--n);display:flex;align-items:center;justify-content:center;padding:24px}
+#admin-login canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.al-card{background:#fff;border-radius:20px;padding:40px 36px;width:100%;max-width:400px;box-shadow:0 24px 64px rgba(0,0,0,.35);position:relative;z-index:2;animation:alIn .5s cubic-bezier(.16,1,.3,1)}
+@keyframes alIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.al-logo{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:28px}
+.al-badge{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#DC2626;font-size:9.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;font-family:'Space Grotesk';margin-top:4px}
+.al-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--n);text-align:center;margin-bottom:4px}
+.al-sub{font-size:12.5px;color:var(--tm);text-align:center;margin-bottom:24px;line-height:1.55}
+.al-field{margin-bottom:14px}
+.al-field label{display:block;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--tm);font-family:'Space Grotesk';margin-bottom:6px}
+.al-field-wrap{position:relative}
+.al-field-wrap .aic{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;pointer-events:none}
+.al-field-wrap input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid rgba(0,0,0,.1);border-radius:9px;font-size:13.5px;font-family:'Plus Jakarta Sans';color:var(--n);background:#FAFBFD;outline:none;transition:border-color .18s,box-shadow .18s}
+.al-field-wrap input:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
+.al-field-wrap input::placeholder{color:#B0C4D8}
+.al-field-wrap input[type=password]{letter-spacing:2px}
+.al-btn{width:100%;height:46px;background:linear-gradient(135deg,var(--n),var(--n2));color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;font-family:'Space Grotesk';letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.al-btn::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,var(--g),var(--gm))}
+.al-btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(11,25,41,.28)}
+.al-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.al-err{background:#FEF2F2;border:1px solid rgba(239,68,68,.22);border-radius:8px;color:#DC2626;font-size:12px;padding:9px 13px;margin-bottom:12px;display:none}
+.al-hint{margin-top:18px;background:var(--gp);border:1px solid var(--gb);border-radius:9px;padding:13px 15px}
+.al-hint-title{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--g);font-family:'Space Grotesk';margin-bottom:8px}
+.al-hint-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid rgba(184,134,11,.1)}
+.al-hint-row:last-child{border:none}
+.al-hint-row .lbl{color:var(--tm)}
+.al-hint-row .val{font-family:'Space Grotesk';font-weight:600;color:var(--n)}
+.al-spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
+<!-- Supabase SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="bgx-data.js"></script>
 
-<!-- ══ ADMIN LOGIN ══ -->
-<div id="al">
+<!-- ══ ADMIN LOGIN SCREEN ══ -->
+<div id="admin-login">
   <canvas id="al-canvas"></canvas>
-  <div class="alc">
+  <div class="al-card">
     <div class="al-logo">
-      <svg viewBox="0 0 480 200" style="height:30px;width:auto">
-        <defs><linearGradient id="alg1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient><linearGradient id="alg2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient></defs>
-        <g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#alg2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#alg1)">B</text></g>
-        <text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#alg1)">uygenix</text>
+      <svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" style="height:34px;width:auto">
+        <defs>
+          <linearGradient id="alG1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient>
+          <linearGradient id="alG2" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0B1929"/><stop offset="100%" style="stop-color:#B8860B"/></linearGradient>
+        </defs>
+        <g transform="translate(10,10)"><path d="M10 90 C-5 58,-5 22,16 5" fill="none" stroke="url(#alG2)" stroke-width="4" stroke-linecap="round"/><path d="M16 5 L36 0 L28 20" fill="#B8860B"/><text x="0" y="88" font-family="Arial Black" font-size="88" font-weight="900" fill="url(#alG1)">B</text></g>
+        <text x="108" y="120" font-family="Arial" font-size="78" font-weight="700" fill="url(#alG1)">uygenix</text>
         <text x="248" y="162" font-family="Arial" font-size="34" fill="#4A6A8A">Solutions</text>
       </svg>
       <div class="al-badge">🔐 Admin Access Only</div>
     </div>
     <div class="al-title">Admin Sign In</div>
-    <p class="al-sub">Restricted to BuyGenix team members.</p>
+    <p class="al-sub">This portal is restricted to BuyGenix team members only.</p>
     <div class="al-err" id="al-err"></div>
-    <div class="alf"><label>Username</label><div class="alfw"><span class="ic">👤</span><input type="text" id="al-user" placeholder="username" onkeydown="if(event.key==='Enter')document.getElementById('al-pass').focus()"></div></div>
-    <div class="alf"><label>Password</label><div class="alfw"><span class="ic">🔑</span><input type="password" id="al-pass" placeholder="password" onkeydown="if(event.key==='Enter')adminLogin()"></div></div>
-    <button class="albtn" id="al-btn" onclick="adminLogin()"><span id="al-txt">Sign In to Admin CRM →</span></button>
-    <div class="al-hint">
-      <div class="al-hint-title">🧪 Demo Credentials</div>
-      <div class="al-hr"><span class="lbl">Admin</span><span class="val">admin / buygenix2025</span></div>
-      <div class="al-hr"><span class="lbl">Super Admin</span><span class="val">superadmin / BGX@Super#99</span></div>
-      <div class="al-hr"><span class="lbl">RM (Priya)</span><span class="val">priya / priya@rm123</span></div>
+    <div class="al-field">
+      <label>Email Address</label>
+      <div class="al-field-wrap">
+        <span class="aic">📧</span>
+        <input type="email" id="al-user" placeholder="admin@buygenixsolutions.com" autocomplete="email" onkeydown="if(event.key==='Enter')document.getElementById('al-pass').focus()">
+      </div>
     </div>
-    <p style="margin-top:14px;text-align:center;font-size:11.5px;color:var(--tl)">Not a team member? <a href="login.html" style="color:var(--g);font-weight:600">Client Login →</a></p>
+    <div class="al-field">
+      <label>Password</label>
+      <div class="al-field-wrap">
+        <span class="aic">🔑</span>
+        <input type="password" id="al-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')adminLogin()">
+      </div>
+    </div>
+    <button class="al-btn" id="al-btn" onclick="adminLogin()">
+      <span id="al-btn-txt">Sign In to Admin CRM →</span>
+    </button>
+    <p style="margin-top:16px;text-align:center;font-size:11.5px;color:var(--tl)">
+      Not a team member? <a href="login.html" style="color:var(--g);font-weight:600">Client Login →</a>
+    </p>
   </div>
 </div>
 
-<!-- ══ SIDEBAR ══ -->
+
 <aside class="sidebar">
-  <div class="sh"><div class="sl">
-    <svg viewBox="0 0 40 40" style="height:22px;width:22px"><circle cx="20" cy="20" r="19" fill="none" stroke="rgba(184,134,11,.5)" stroke-width="1"/><text x="6" y="28" font-family="Arial Black" font-size="22" font-weight="900" fill="#fff">B</text><path d="M25 8 L32 6 L28 14" fill="#B8860B"/></svg>
-    <div><div class="sl-t">Buy<em>genix</em></div><div class="sl-s">Admin CRM</div></div>
-  </div></div>
+  <div class="sh">
+    <div class="sl">
+      <svg viewBox="0 0 40 40" style="height:24px;width:24px"><circle cx="20" cy="20" r="19" fill="none" stroke="rgba(184,134,11,.5)" stroke-width="1"/><text x="6" y="28" font-family="Arial Black" font-size="22" font-weight="900" fill="#fff">B</text><path d="M25 8 L32 6 L28 14" fill="#B8860B"/></svg>
+      <div><div class="sl-t">Buy<em>genix</em></div><div class="sl-s">Admin CRM</div></div>
+    </div>
+  </div>
   <nav class="snav">
     <span class="ss">Overview</span>
     <button class="ni on" onclick="go('dash',this)"><span class="ic">📊</span> Dashboard</button>
-    <button class="ni" onclick="go('clients',this)"><span class="ic">👥</span> Clients <span class="bx" id="sb-clients">0</span></button>
-    <button class="ni" onclick="go('leads',this)"><span class="ic">🎯</span> Lead Pool <span class="bx" id="sb-leads">0</span></button>
+    <button class="ni" onclick="go('clients',this)"><span class="ic">👥</span> Clients <span class="bx bx-g" id="sb-clients-count">0</span></button>
+    <button class="ni" onclick="go('leads',this)"><span class="ic">🎯</span> Lead Pool <span class="bx bx-g" id="sb-leads-count">0</span></button>
     <span class="ss">Operations</span>
     <button class="ni" onclick="go('assign',this)"><span class="ic">📤</span> Assign Leads</button>
-    <button class="ni" onclick="go('membership',this)"><span class="ic">💎</span> Assign Membership</button>
-    <button class="ni" onclick="go('chat',this)"><span class="ic">💬</span> Client Chat <span class="bx red" id="sb-chat">0</span></button>
+    <button class="ni" onclick="go('chat',this)"><span class="ic">💬</span> Client Chat <span class="bx bx-r" id="sb-chat-count">0</span></button>
     <button class="ni" onclick="go('rms',this)"><span class="ic">👤</span> Manage RMs</button>
+    <button class="ni" onclick="go('memberships',this)"><span class="ic">💎</span> Memberships</button>
     <span class="ss">Reports</span>
     <button class="ni" onclick="go('analytics',this)"><span class="ic">📈</span> Analytics</button>
-    <button class="ni" onclick="go('tickets',this)"><span class="ic">🛎</span> Support Tickets <span class="bx red" id="sb-tickets">0</span></button>
-    <button class="ni" onclick="go('enquiries',this)"><span class="ic">📋</span> Enquiries <span class="bx" id="sb-enquiries">0</span></button>
+    <button class="ni" onclick="go('tickets',this)"><span class="ic">🛎</span> Support Tickets <span class="bx bx-r" id="sb-tickets-count">0</span></button>
     <button class="ni" onclick="go('referrals',this)"><span class="ic">🔗</span> Referrals</button>
-    <span class="ss">Links</span>
-    <a class="ni" href="login.html" target="_blank"><span class="ic">🔐</span> Client Login ↗</a>
-    <a class="ni" href="index.html" target="_blank"><span class="ic">🌐</span> Main Website ↗</a>
+    <span class="ss">Portal Links</span>
+    <a class="ni" href="login.html" target="_blank"><span class="ic">🌐</span> Client Portal ↗</a>
+    <a class="ni" href="index.html" target="_blank"><span class="ic">🏠</span> Main Website ↗</a>
   </nav>
   <div class="sf">
     <div class="su">
       <div class="sa" id="admin-ava">A</div>
-      <div><div style="font-size:12px;font-weight:600;color:#fff" id="admin-nm">Admin</div><div style="font-size:10px;color:var(--gm);font-family:'Space Grotesk'" id="admin-role">BuyGenix Solutions</div></div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#fff" id="admin-display-name">Admin</div>
+        <div style="font-size:10px;color:var(--gm);font-family:'Space Grotesk'" id="admin-display-role">BuyGenix Solutions</div>
+      </div>
     </div>
-    <button class="blo" onclick="adminLogout()">⬅ Sign Out</button>
+    <button onclick="adminLogout()" style="width:100%;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:7px;color:rgba(255,255,255,.38);font-size:11px;font-family:'Space Grotesk';cursor:pointer;transition:all .18s;letter-spacing:.3px;margin-top:2px" onmouseover="this.style.background='rgba(239,68,68,.15)';this.style.color='#EF4444'" onmouseout="this.style.background='rgba(255,255,255,.04)';this.style.color='rgba(255,255,255,.38)'">⬅ Sign Out</button>
   </div>
 </aside>
 
-<!-- ══ MAIN ══ -->
 <main class="main">
   <div class="topbar">
     <div class="tt" id="page-title">Dashboard</div>
-    <div class="tr2">
-      <div class="tdate" id="today-date"></div>
-      <div class="tbell" onclick="go('tickets',null)">🔔<div class="tbell-dot" id="tbell-dot"></div></div>
+    <div class="tr">
+      <div class="tdate" id="today"></div>
+      <div class="tbell" onclick="go('tickets',null)">🔔<div class="tbell-dot"></div></div>
     </div>
   </div>
 
@@ -281,130 +280,103 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 
     <!-- DASHBOARD -->
     <div class="panel on" id="p-dash">
-      <div class="stats" id="dash-stats"><div class="sc c1"><div class="sc-i">👥</div><div class="sc-v ls"><span class="spin"></span></div><div class="sc-l">Clients</div></div><div class="sc c2"><div class="sc-i">🎯</div><div class="sc-v ls"><span class="spin"></span></div><div class="sc-l">Leads</div></div><div class="sc c3"><div class="sc-i">💎</div><div class="sc-v ls"><span class="spin"></span></div><div class="sc-l">Revenue</div></div><div class="sc c4"><div class="sc-i">🛎</div><div class="sc-v ls"><span class="spin"></span></div><div class="sc-l">Tickets</div></div></div>
+      <div class="stats" id="dash-stats"></div>
       <div class="r31">
         <div>
           <div class="card">
-            <div class="ch"><div><div class="ct">Client Activity</div><div class="csub">Lead usage vs limit</div></div><button class="btn b-o b-sm" onclick="go('clients',null)">All →</button></div>
-            <div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Client</th><th>Plan</th><th>Status</th><th>RM</th><th>Used</th><th>Remaining</th><th>Actions</th></tr></thead><tbody id="dash-clients"><tr><td colspan="7" class="ls"><span class="spin"></span></td></tr></tbody></table></div>
+            <div class="ch"><div><div class="ct">Client Activity</div><div class="csub">Leads used vs limit this month</div></div><button class="btn b-o b-sm" onclick="go('clients',null)">All Clients →</button></div>
+            <div style="padding:0"><table class="tbl"><thead><tr><th>Client</th><th>Plan</th><th>RM</th><th>Used</th><th>Remaining</th><th>Status</th><th></th></tr></thead><tbody id="dash-clients"></tbody></table></div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:15px">
-          <div class="card"><div class="ch"><div class="ct">Lead Pool by Country</div></div><div class="cb" id="dash-countries"><div class="ls"><span class="spin"></span></div></div></div>
-          <div class="card"><div class="ch"><div class="ct">Alerts</div></div><div class="cb" style="padding:11px 17px" id="dash-alerts"><div class="ls"><span class="spin"></span></div></div></div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div class="card">
+            <div class="ch"><div class="ct">Lead Pool by Country</div></div>
+            <div class="cb" id="dash-countries"></div>
+          </div>
+          <div class="card">
+            <div class="ch"><div class="ct">Alerts</div></div>
+            <div class="cb" style="padding:12px 18px" id="dash-alerts"></div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CLIENTS -->
     <div class="panel" id="p-clients">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:8px">
-        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Client Manager</div><div style="font-size:11.5px;color:var(--tl)" id="clients-lbl">Loading…</div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Client Manager</div><div style="font-size:11.5px;color:var(--tl)" id="clients-count-label"></div></div>
         <button class="btn b-g" onclick="openModal('add-client')">+ Add Client</button>
       </div>
       <div class="r2">
         <div>
-          <div class="srch"><input type="text" id="client-search" placeholder="Search name, business, city…" oninput="filterClients(this.value)"></div>
-          <div id="client-list"><div class="ls"><span class="spin"></span></div></div>
+          <div class="srch"><input type="text" placeholder="Search clients, company, city…" oninput="filterClients(this.value)"></div>
+          <div id="client-list"></div>
         </div>
-        <div id="client-detail"><div class="card"><div class="cb" style="text-align:center;padding:40px 20px;color:var(--tl)"><div style="font-size:32px;margin-bottom:10px">👤</div><p style="font-size:12.5px">Select a client</p></div></div></div>
+        <div id="client-detail"><div class="card"><div class="cb" style="text-align:center;padding:40px 20px;color:var(--tl)"><div style="font-size:32px;margin-bottom:10px">👤</div><p style="font-size:12.5px">Select a client to view details</p></div></div></div>
       </div>
     </div>
 
     <!-- LEAD POOL -->
     <div class="panel" id="p-leads">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:8px">
-        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Lead Pool Manager</div><div style="font-size:11.5px;color:var(--tl)" id="leads-lbl">Loading…</div></div>
-        <div style="display:flex;gap:7px"><button class="btn b-o b-sm">⬇ Import CSV</button><button class="btn b-g b-sm" onclick="openModal('add-lead')">+ Add Lead</button></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Lead Pool Manager</div><div style="font-size:11.5px;color:var(--tl)" id="lead-pool-label"></div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn b-o b-sm">⬇ Import CSV</button>
+          <button class="btn b-g b-sm" onclick="openModal('add-lead')">+ Add Lead</button>
+        </div>
       </div>
       <div class="card">
-        <div style="padding:11px 17px;border-bottom:1px solid var(--bs);display:flex;gap:7px;flex-wrap:wrap;align-items:center">
-          <select id="lf-country" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Countries</option></select>
-          <select id="lf-cat" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Categories</option></select>
-          <select id="lf-status" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Status</option><option value="unassigned">Unassigned</option><option value="assigned">Assigned</option><option value="converted">Converted</option></select>
-          <select id="lf-q" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Quality</option><option value="hot">🔥 Hot</option><option value="warm">⚡ Warm</option><option value="new">🆕 New</option></select>
-          <input type="text" id="lf-search" oninput="renderLeadPool()" placeholder="Search company…" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none;min-width:140px">
+        <div style="padding:12px 18px;border-bottom:1px solid var(--bs);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select id="f-country" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Countries</option></select>
+          <select id="f-cat" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Categories</option></select>
+          <select id="f-status" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Status</option><option value="unassigned">Unassigned</option><option value="assigned">Assigned</option><option value="converted">Converted</option></select>
+          <select id="f-q" onchange="renderLeadPool()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Quality</option><option value="hot">🔥 Hot</option><option value="warm">⚡ Warm</option><option value="new">🆕 New</option></select>
+          <input type="text" id="f-search" oninput="renderLeadPool()" placeholder="Search company, product…" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none;min-width:160px">
         </div>
-        <div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th><input type="checkbox" onchange="selAll(this)"></th><th>Company</th><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Status</th><th>Actions</th></tr></thead><tbody id="lead-pool-body"><tr><td colspan="9" class="ls"><span class="spin"></span></td></tr></tbody></table></div>
+        <div style="padding:0;overflow-x:auto">
+          <table class="tbl">
+            <thead><tr><th><input type="checkbox" onchange="selectAll(this)"></th><th>Company</th><th>Country</th><th>Category</th><th>Product</th><th>Qty</th><th>Quality</th><th>Status</th><th>Assigned To</th><th></th></tr></thead>
+            <tbody id="lead-pool-body"></tbody>
+          </table>
+        </div>
       </div>
-      <div style="display:flex;gap:7px"><button class="btn b-p b-sm" onclick="bulkAssignSelected()">📤 Assign Selected</button><button class="btn b-d b-sm" onclick="bulkDeleteSelected()">🗑 Delete Selected</button></div>
+      <div style="display:flex;gap:8px"><button class="btn b-p b-sm" onclick="bulkAssign()">📤 Assign Selected</button><button class="btn b-d b-sm">🗑 Delete Selected</button></div>
     </div>
 
     <!-- ASSIGN LEADS -->
     <div class="panel" id="p-assign">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Assign Leads to Client</div>
-      <div style="background:var(--gp);border:1.5px solid var(--gb);border-radius:10px;padding:13px 17px;margin-bottom:16px;font-size:12.5px;color:var(--tb)">
-        ⚠ <strong style="color:var(--g)">Lead Balance Check:</strong> System will verify client has enough balance before assigning. Leads auto-deducted from monthly limit.
-      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Assign Leads to Client</div>
       <div class="r2">
         <div>
           <div class="card">
             <div class="ch"><div class="ct">Step 1 — Select Client</div></div>
             <div class="cb">
-              <div class="srch"><input type="text" placeholder="Search active clients…" oninput="filterAssignClients(this.value)"></div>
-              <div id="assign-client-list" style="max-height:300px;overflow-y:auto"></div>
+              <div class="srch"><input type="text" placeholder="Search clients…" oninput="filterAssignClients(this.value)"></div>
+              <div id="assign-client-list" style="max-height:320px;overflow-y:auto"></div>
             </div>
           </div>
         </div>
         <div>
           <div class="card">
-            <div class="ch"><div class="ct">Step 2 — Select Leads</div><span style="font-size:11px;color:var(--tl)" id="asel-lbl">0 selected</span></div>
+            <div class="ch"><div class="ct">Step 2 — Select Leads</div><span style="font-size:11px;color:var(--tl)" id="assign-sel-label">0 selected</span></div>
             <div class="cb">
-              <div style="display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap">
-                <select id="af-country" onchange="renderAssignLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Countries</option></select>
-                <select id="af-cat" onchange="renderAssignLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Categories</option></select>
+              <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+                <select id="a-country" onchange="renderAssignLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Countries</option></select>
+                <select id="a-cat" onchange="renderAssignLeads()" style="padding:6px 10px;border:1.5px solid var(--bs);border-radius:7px;font-size:11.5px;font-family:'Plus Jakarta Sans';color:var(--n);outline:none"><option value="">All Categories</option></select>
               </div>
-              <div class="lead-grid" id="assign-leads-grid"><div class="ls"><span class="spin"></span></div></div>
+              <div class="lead-grid" id="assign-leads-grid"></div>
               <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--bs)">
-                <span style="font-size:11.5px;color:var(--tm)" id="assign-count-lbl">Select client + leads</span>
+                <span style="font-size:11.5px;color:var(--tm)" id="assign-count-label">Select client + leads to assign</span>
                 <button class="btn b-g" onclick="doAssign()">Assign Leads →</button>
               </div>
-              <div class="ok-msg" id="assign-ok"></div>
-              <div class="err-msg" id="assign-err"></div>
             </div>
           </div>
           <div class="card">
             <div class="ch"><div class="ct">Step 3 — Notify Client</div></div>
             <div class="cb">
-              <div class="fg"><label>Message</label><textarea id="assign-msg" placeholder="Your new lead batch is ready. Check your dashboard!"></textarea></div>
-              <div style="display:flex;gap:8px">
-                <button class="btn b-p" onclick="sendAssignNotif()">✅ Notify via Chat</button>
-                <button class="btn b-o" onclick="document.getElementById('assign-msg').value=''">Clear</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ASSIGN MEMBERSHIP -->
-    <div class="panel" id="p-membership">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Assign Membership Plan</div>
-      <div style="background:var(--gp);border:1.5px solid var(--gb);border-radius:10px;padding:13px 17px;margin-bottom:16px;font-size:12.5px;color:var(--tb)">
-        ⚠ <strong style="color:var(--g)">Admin controlled only.</strong> Clients cannot self-activate. Once you assign a plan, their dashboard unlocks and leads become visible instantly.
-      </div>
-      <div class="r2">
-        <div>
-          <div class="card">
-            <div class="ch"><div class="ct">Select Client</div></div>
-            <div class="cb">
-              <div class="srch"><input type="text" placeholder="Search clients…" oninput="filterMembershipClients(this.value)"></div>
-              <div id="membership-client-list" style="max-height:380px;overflow-y:auto"><div class="ls"><span class="spin"></span></div></div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div class="card">
-            <div class="ch"><div class="ct">Assign Plan</div></div>
-            <div class="cb">
-              <div id="membership-selected" style="padding:11px;background:var(--sky);border-radius:8px;margin-bottom:13px;font-size:12.5px;color:var(--tl)">No client selected</div>
-              <div class="fg"><label>Plan</label><select id="m-plan"><option value="starter">Starter — ₹4,999/mo · 100 leads</option><option value="growth">Growth — ₹12,999/mo · 500 leads</option><option value="professional">Professional — ₹24,999/mo · 2,000 leads</option><option value="enterprise">Enterprise — Custom · Unlimited</option></select></div>
-              <div class="fg"><label>Billing Cycle</label><select id="m-billing"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option></select></div>
-              <div class="fg"><label>Assign RM</label><select id="m-rm"><option value="">Keep existing RM</option></select></div>
-              <div class="fg"><label>Notes</label><textarea id="m-notes" placeholder="Any internal notes…" style="min-height:55px"></textarea></div>
-              <button class="btn b-g" style="width:100%;justify-content:center" onclick="doAssignMembership()">✅ Activate Membership →</button>
-              <div class="ok-msg" id="membership-ok"></div>
-              <div class="err-msg" id="membership-err"></div>
+              <div class="fg"><label>Message to Client</label><textarea id="assign-msg" placeholder="Your new lead batch is ready! Verified buyers in your product category have been assigned."></textarea></div>
+              <button class="btn b-p" onclick="sendAssignNotif()">✅ Confirm &amp; Notify via Chat</button>
+              <div id="assign-ok" style="display:none;margin-top:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green)">✅ Leads assigned! Client notified.</div>
             </div>
           </div>
         </div>
@@ -413,20 +385,19 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 
     <!-- CHAT -->
     <div class="panel" id="p-chat">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Client Chat</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Client Chat</div>
       <div class="chat-layout">
-        <div class="clist"><div class="clh">Conversations</div><div id="thread-list"><div class="ls"><span class="spin"></span></div></div></div>
+        <div class="clist"><div class="clh">Conversations</div><div id="thread-list"></div></div>
         <div class="cmain">
           <div class="chdr">
             <div class="ct-av" id="ch-av">—</div>
-            <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--n)" id="ch-name">Select a client</div><div style="font-size:10.5px;color:var(--green)" id="ch-plan">—</div></div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <button class="btn b-o b-sm" onclick="viewChatClient()">Profile</button>
-              <button class="btn b-p b-sm" onclick="quickAssignFromChat()">Assign Leads</button>
-              <button class="btn b-g b-sm" onclick="quickMembershipFromChat()">Assign Plan</button>
+            <div><div style="font-size:13px;font-weight:600;color:var(--n)" id="ch-name">Select a client</div><div style="font-size:10.5px;color:var(--green)" id="ch-plan">—</div></div>
+            <div style="margin-left:auto;display:flex;gap:7px">
+              <button class="btn b-o b-sm" onclick="viewClientFromChat()">Profile</button>
+              <button class="btn b-p b-sm" onclick="go('assign',null);setTimeout(()=>preSelectClient(activeChatClient),100)">Assign Leads</button>
             </div>
           </div>
-          <div class="cmsgs" id="chat-msgs"><div class="ls">Select a client to view chat</div></div>
+          <div class="cmsgs" id="chat-msgs"></div>
           <div class="cft">
             <input class="cin" type="text" id="chat-input" placeholder="Type message to client…" onkeydown="if(event.key==='Enter')adminSend()">
             <button class="csend" onclick="adminSend()">➤</button>
@@ -437,961 +408,867 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 
     <!-- RMs -->
     <div class="panel" id="p-rms">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:8px">
-        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Relationship Managers</div><div style="font-size:11.5px;color:var(--tl)" id="rm-lbl">Loading…</div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Relationship Managers</div><div style="font-size:11.5px;color:var(--tl)" id="rm-count-label"></div></div>
         <button class="btn b-g" onclick="openModal('add-rm')">+ Add RM</button>
       </div>
-      <div id="rm-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:13px"></div>
+      <div id="rm-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px"></div>
+    </div>
+
+    <!-- MEMBERSHIPS -->
+    <div class="panel" id="p-memberships">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Membership Manager</div>
+      <div class="stats" id="plan-stats"></div>
+      <div class="card">
+        <div class="ch"><div class="ct">All Memberships</div><button class="btn b-g b-sm" onclick="openModal('add-client')">+ New</button></div>
+        <div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Client</th><th>Plan</th><th>RM</th><th>Billing</th><th>Renewal</th><th>Revenue</th><th>Status</th><th>Actions</th></tr></thead><tbody id="memberships-body"></tbody></table></div>
+      </div>
     </div>
 
     <!-- ANALYTICS -->
     <div class="panel" id="p-analytics">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Analytics & Reports</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Analytics & Reports</div>
       <div class="stats" id="analytics-stats"></div>
       <div class="r2">
         <div class="card"><div class="ch"><div class="ct">Leads by Category</div></div><div class="cb" id="a-cats"></div></div>
-        <div class="card"><div class="ch"><div class="ct">Leads by Country</div></div><div class="cb" id="a-ctrs"></div></div>
+        <div class="card"><div class="ch"><div class="ct">Leads by Country</div></div><div class="cb" id="a-countries"></div></div>
       </div>
       <div class="r2">
-        <div class="card"><div class="ch"><div class="ct">Revenue by Plan</div></div><div class="cb" id="a-rev"></div></div>
-        <div class="card"><div class="ch"><div class="ct">Client Usage</div></div><div class="cb" id="a-usage"></div></div>
+        <div class="card"><div class="ch"><div class="ct">Revenue by Plan</div></div><div class="cb" id="a-revenue"></div></div>
+        <div class="card"><div class="ch"><div class="ct">Client Lead Usage</div></div><div class="cb" id="a-usage"></div></div>
       </div>
     </div>
 
     <!-- TICKETS -->
     <div class="panel" id="p-tickets">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Support Tickets</div>
-      <div class="card"><div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Client</th><th>Type</th><th>Priority</th><th>Description</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tickets-body"><tr><td colspan="7" class="ls"><span class="spin"></span></td></tr></tbody></table></div></div>
-    </div>
-
-    <!-- ENQUIRIES -->
-    <div class="panel" id="p-enquiries">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Website Enquiries</div>
-      <div class="card"><div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Business</th><th>Category</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="enquiries-body"><tr><td colspan="8" class="ls"><span class="spin"></span></td></tr></tbody></table></div></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Support Tickets</div>
+      <div class="card"><div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Ticket ID</th><th>Client</th><th>Type</th><th>Priority</th><th>Description</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="tickets-body"></tbody></table></div></div>
     </div>
 
     <!-- REFERRALS -->
     <div class="panel" id="p-referrals">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:13px">Referral Programme</div>
-      <div class="stats" style="grid-template-columns:repeat(3,1fr)" id="ref-stats"></div>
-      <div class="card"><div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Referrer</th><th>Referred To</th><th>Plan</th><th>Commission</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead><tbody id="referrals-body"><tr><td colspan="7" class="ls"><span class="spin"></span></td></tr></tbody></table></div></div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Referral Programme</div>
+      <div class="card"><div style="padding:0"><table class="tbl"><thead><tr><th>Referrer</th><th>Referred Client</th><th>Plan</th><th>Commission</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="referrals-body"></tbody></table></div></div>
     </div>
 
   </div>
 </main>
 
-<!-- ══ MODALS ══ -->
-<!-- ADD CLIENT -->
+<!-- MODAL: ADD CLIENT -->
 <div class="modal-bg" id="modal-add-client" onclick="if(event.target===this)closeModal('add-client')">
-  <div class="modal"><button class="mx" onclick="closeModal('add-client')">✕</button>
-    <h3 id="add-client-title">Add New Client</h3><div class="modal-sub">Account starts as pending. Assign membership separately to activate.</div>
-    <input type="hidden" id="edit-client-id">
-    <div class="f2">
-      <div class="fg"><label>Full Name *</label><input type="text" id="nc-name" placeholder="Full name"></div>
-      <div class="fg"><label>Business Name</label><input type="text" id="nc-biz" placeholder="Company name"></div>
-      <div class="fg"><label>Email *</label><input type="email" id="nc-email" placeholder="email@business.com"></div>
-      <div class="fg"><label>Phone</label><input type="tel" id="nc-phone" placeholder="+91 XXXXX XXXXX"></div>
-      <div class="fg"><label>City</label><input type="text" id="nc-city"></div>
-      <div class="fg"><label>State</label><input type="text" id="nc-state"></div>
-      <div class="fg"><label>Category</label><select id="nc-cat"><option value="">Select…</option></select></div>
-      <div class="fg"><label>GSTIN</label><input type="text" id="nc-gstin" placeholder="Optional"></div>
-      <div class="fg"><label>Login OTP</label><input type="text" id="nc-otp" value="123456"></div>
-      <div class="fg"><label>Assign RM</label><select id="nc-rm"><option value="">No RM</option></select></div>
+  <div class="modal">
+    <button class="mx" onclick="closeModal('add-client')">✕</button>
+    <h3>Add New Client</h3><div class="modal-sub">Fill in details and assign a plan + RM.</div>
+    <div class="form2">
+      <div class="fg"><label>Full Name</label><input type="text" id="nc-name" placeholder="Client full name"></div>
+      <div class="fg"><label>Business Name</label><input type="text" id="nc-biz" placeholder="Company / firm"></div>
+      <div class="fg"><label>Email</label><input type="email" id="nc-email" placeholder="email@business.com"></div>
+      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" id="nc-phone" placeholder="+91 XXXXX XXXXX"></div>
+      <div class="fg"><label>City</label><input type="text" id="nc-city" placeholder="Delhi, Mumbai…"></div>
+      <div class="fg"><label>State</label><input type="text" id="nc-state" placeholder="Delhi, Maharashtra…"></div>
+      <div class="fg"><label>Product Category</label><select id="nc-cat"><option value="">Select category</option></select></div>
+      <div class="fg"><label>GSTIN (optional)</label><input type="text" id="nc-gstin" placeholder="22AAAAA0000A1Z5"></div>
+      <div class="fg"><label>Plan</label><select id="nc-plan"><option value="starter">Starter — ₹4,999/mo (100 leads)</option><option value="growth">Growth — ₹12,999/mo (500 leads)</option><option value="professional">Professional — ₹24,999/mo (2,000 leads)</option><option value="enterprise">Enterprise — Custom</option></select></div>
+      <div class="fg"><label>Billing</label><select id="nc-billing"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option></select></div>
+      <div class="fg full"><label>Assign RM</label><select id="nc-rm"></select></div>
+      <div class="fg full"><label>Login OTP (set for client)</label><input type="text" id="nc-otp" value="123456" placeholder="6-digit OTP"></div>
     </div>
     <div style="display:flex;gap:8px;margin-top:6px">
-      <button class="btn b-g" id="nc-submit-btn" onclick="submitClient()" style="flex:1;justify-content:center">Create Account</button>
+      <button class="btn b-g" onclick="addClient()" style="flex:1;justify-content:center">Create Account</button>
       <button class="btn b-o" onclick="closeModal('add-client')">Cancel</button>
     </div>
-    <div class="ok-msg" id="add-client-ok"></div>
-    <div class="err-msg" id="add-client-err"></div>
+    <div id="add-client-ok" style="display:none;margin-top:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green)"></div>
   </div>
 </div>
 
-<!-- ADD LEAD -->
+<!-- MODAL: ADD LEAD -->
 <div class="modal-bg" id="modal-add-lead" onclick="if(event.target===this)closeModal('add-lead')">
-  <div class="modal"><button class="mx" onclick="closeModal('add-lead')">✕</button>
-    <h3 id="add-lead-title">Add Lead to Pool</h3><div class="modal-sub">Add a verified buyer to the global lead pool.</div>
-    <input type="hidden" id="edit-lead-id">
-    <div class="f2">
-      <div class="fg"><label>Company Name *</label><input type="text" id="nl-co" placeholder="Buyer company"></div>
-      <div class="fg"><label>Country *</label><select id="nl-country"><option value="">Select…</option></select></div>
+  <div class="modal">
+    <button class="mx" onclick="closeModal('add-lead')">✕</button>
+    <h3>Add Lead to Pool</h3><div class="modal-sub">Enter buyer details to add to the global lead pool.</div>
+    <div class="form2">
+      <div class="fg"><label>Company Name</label><input type="text" id="nl-co" placeholder="Buyer company"></div>
+      <div class="fg"><label>Country</label><select id="nl-country"><option value="">Select country</option></select></div>
       <div class="fg"><label>Contact Person</label><input type="text" id="nl-name" placeholder="Full name"></div>
-      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" id="nl-phone"></div>
-      <div class="fg"><label>Email</label><input type="email" id="nl-email"></div>
-      <div class="fg"><label>Category</label><select id="nl-cat" onchange="syncProd()"><option value="">Select…</option></select></div>
-      <div class="fg"><label>Product</label><select id="nl-product"><option value="">Select…</option></select></div>
-      <div class="fg"><label>Quantity Required</label><input type="text" id="nl-qty" placeholder="e.g. 5 MT/month"></div>
+      <div class="fg"><label>Phone / WhatsApp</label><input type="tel" id="nl-phone" placeholder="+971 50 XXX XXXX"></div>
+      <div class="fg"><label>Email</label><input type="email" id="nl-email" placeholder="buyer@company.com"></div>
+      <div class="fg"><label>Category</label><select id="nl-cat" onchange="populateProductDropdown('nl-cat','nl-product')"><option value="">Select category</option></select></div>
+      <div class="fg"><label>Product</label><select id="nl-product"><option value="">Select product</option></select></div>
+      <div class="fg"><label>Quantity Requirement</label><input type="text" id="nl-qty" placeholder="e.g. 5 MT/month, 500 pcs"></div>
       <div class="fg"><label>Lead Quality</label><select id="nl-q"><option value="hot">🔥 Hot</option><option value="warm">⚡ Warm</option><option value="new">🆕 New</option></select></div>
-      <div class="fg"><label>Source</label><select id="nl-src"><option>Trade Show</option><option>IndiaMart</option><option>ExportersIndia</option><option>Direct Inquiry</option><option>B2B Portal</option><option>Referral</option></select></div>
+      <div class="fg"><label>Source</label><select id="nl-src"><option>Trade Show</option><option>IndiaMart</option><option>ExportersIndia</option><option>Direct Inquiry</option><option>B2B Portal</option><option>Other</option></select></div>
     </div>
-    <div style="display:flex;gap:8px;margin-top:6px">
-      <button class="btn b-g" id="nl-submit-btn" onclick="submitLead()" style="flex:1;justify-content:center">Add to Pool</button>
-      <button class="btn b-o" onclick="closeModal('add-lead')">Cancel</button>
-    </div>
-    <div class="ok-msg" id="add-lead-ok"></div>
-    <div class="err-msg" id="add-lead-err"></div>
+    <button class="btn b-g" onclick="addLead()" style="width:100%;justify-content:center;margin-top:6px">Add to Lead Pool</button>
+    <div id="add-lead-ok" style="display:none;margin-top:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green)">✅ Lead added to pool!</div>
   </div>
 </div>
 
-<!-- ADD RM -->
+<!-- MODAL: ADD RM -->
 <div class="modal-bg" id="modal-add-rm" onclick="if(event.target===this)closeModal('add-rm')">
-  <div class="modal"><button class="mx" onclick="closeModal('add-rm')">✕</button>
-    <h3 id="add-rm-title">Add Relationship Manager</h3>
-    <input type="hidden" id="edit-rm-id">
-    <div class="f2">
-      <div class="fg"><label>Full Name *</label><input type="text" id="nr-name"></div>
-      <div class="fg"><label>Role</label><input type="text" id="nr-role" value="Export Consultant"></div>
-      <div class="fg"><label>Phone *</label><input type="tel" id="nr-phone"></div>
-      <div class="fg"><label>Email *</label><input type="email" id="nr-email"></div>
-      <div class="fg"><label>Username *</label><input type="text" id="nr-user"></div>
-      <div class="fg"><label>Password *</label><input type="text" id="nr-pass"></div>
+  <div class="modal">
+    <button class="mx" onclick="closeModal('add-rm')">✕</button>
+    <h3>Add Relationship Manager</h3>
+    <div class="form2">
+      <div class="fg"><label>Full Name</label><input type="text" id="nr-name" placeholder="RM full name"></div>
+      <div class="fg"><label>Role / Designation</label><input type="text" id="nr-role" value="Export Consultant" placeholder="Senior Export Consultant"></div>
+      <div class="fg"><label>Phone</label><input type="tel" id="nr-phone" placeholder="+91 XXXXX XXXXX"></div>
+      <div class="fg full"><label>Email</label><input type="email" id="nr-email" placeholder="rm@buygenixsolutions.com"></div>
     </div>
-    <div style="display:flex;gap:8px;margin-top:6px">
-      <button class="btn b-g" id="nr-submit-btn" onclick="submitRM()" style="flex:1;justify-content:center">Add RM</button>
-      <button class="btn b-o" onclick="closeModal('add-rm')">Cancel</button>
-    </div>
-    <div class="ok-msg" id="add-rm-ok"></div>
-    <div class="err-msg" id="add-rm-err"></div>
+    <button class="btn b-g" onclick="addRM()" style="width:100%;justify-content:center;margin-top:6px">Add RM</button>
+    <div id="add-rm-ok" style="display:none;margin-top:10px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:7px;padding:9px 13px;font-size:12px;color:var(--green)">✅ RM added!</div>
   </div>
 </div>
 
-<script src="bgx-config.js"></script>
 <script>
-/* ════════════════════════════════
-   GLOBALS
-════════════════════════════════ */
-let ADMIN = null;
-let ALL_CLIENTS = [];
-let ALL_LEADS = [];
-let ALL_RMS = [];
-let activeChatClient = null;
-let assignClientId = null;
-let assignSelLeads = new Set();
-let membershipClientId = null;
-let chatRealtimeSub = null;
-let chatMsgsCache = [];
-let selLeads = new Set();
+/* ─ INIT ─ */
+document.getElementById('today').textContent = new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
 
 const QT={hot:'🔥 Hot',warm:'⚡ Warm',new:'🆕 New',conv:'✅ Converted'};
 const QC={hot:'bh',warm:'bw',new:'bn',conv:'bc'};
-document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+let selectedLeads = new Set();
+let assignClientId = null;
+let assignSelectedLeads = new Set();
+let activeChatClient = null;
 
-/* ════════════════════════════════
-   ADMIN LOGIN CANVAS
-════════════════════════════════ */
-function initLoginCanvas() {
-  const c=document.getElementById('al-canvas'),ctx=c.getContext('2d');
-  let W,H,ns=[],t=0;
-  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;ns=[];const n=Math.floor(W*H/14000);for(let i=0;i<n;i++)ns.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+.8,o:Math.random()*.22+.05})}
-  resize();window.addEventListener('resize',resize);
-  function draw(){
-    if(document.getElementById('al').style.display==='none'){requestAnimationFrame(draw);return}
-    ctx.clearRect(0,0,W,H);
-    const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0B1929');bg.addColorStop(1,'#0F2840');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-    const orb=ctx.createRadialGradient(W*.85,H*.15,0,W*.85,H*.15,Math.min(W,H)*.35);orb.addColorStop(0,'rgba(184,134,11,.12)');orb.addColorStop(1,'transparent');ctx.fillStyle=orb;ctx.fillRect(0,0,W,H);
-    ns.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;ctx.globalAlpha=n.o;ctx.fillStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill()});
-    ctx.strokeStyle='rgba(184,134,11,.08)';ctx.lineWidth=.7;
-    for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<120){ctx.globalAlpha=(1-d/120)*.15;ctx.beginPath();ctx.moveTo(ns[i].x,ns[i].y);ctx.lineTo(ns[j].x,ns[j].y);ctx.stroke()}}
-    ctx.globalAlpha=1;t+=.008;requestAnimationFrame(draw)}
-  draw();
+/* ─ POPULATE DROPDOWNS ─ */
+function populateDropdown(selId, items, placeholder='') {
+  const sel = document.getElementById(selId);
+  if(!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = placeholder ? `<option value="">${placeholder}</option>` : '';
+  items.forEach(i => { const o = document.createElement('option'); o.value=i; o.textContent=i; sel.appendChild(o); });
+  if(cur) sel.value = cur;
+}
+function populateProductDropdown(catSelId, prodSelId) {
+  const cat = document.getElementById(catSelId)?.value;
+  const prods = cat ? (BGX.CATEGORIES[cat] || []) : [];
+  populateDropdown(prodSelId, prods, 'Select product');
 }
 
-/* ════════════════════════════════
-   INIT
-════════════════════════════════ */
-document.addEventListener('sbReady', () => {
-  initLoginCanvas();
-  initDropdowns();
-  const saved = sessionStorage.getItem('bgx_admin');
-  if (saved) { ADMIN = JSON.parse(saved); enterDashboard(); }
-});
-
-/* ════════════════════════════════
-   LOGIN / LOGOUT
-════════════════════════════════ */
-async function adminLogin() {
-  const user=document.getElementById('al-user').value.trim();
-  const pass=document.getElementById('al-pass').value;
-  const err=document.getElementById('al-err');
-  const btn=document.getElementById('al-btn');
-  const txt=document.getElementById('al-txt');
-  err.style.display='none';
-  if(!user||!pass){err.textContent='⚠ Enter username and password.';err.style.display='block';return}
-  btn.disabled=true;txt.innerHTML='<span class="spin spin-w"></span> Signing in…';
-  const r=await DB.loginAdmin(user,pass);
-  if(!r.success){err.textContent='⚠ '+r.error;err.style.display='block';btn.disabled=false;txt.textContent='Sign In to Admin CRM →';return}
-  ADMIN=r.admin;
-  sessionStorage.setItem('bgx_admin',JSON.stringify(ADMIN));
-  enterDashboard();
+function initDropdowns() {
+  populateDropdown('f-country', BGX.COUNTRIES, 'All Countries');
+  populateDropdown('f-cat', Object.keys(BGX.CATEGORIES), 'All Categories');
+  populateDropdown('nl-country', BGX.COUNTRIES, 'Select country');
+  populateDropdown('nl-cat', Object.keys(BGX.CATEGORIES), 'Select category');
+  populateDropdown('nc-cat', Object.keys(BGX.CATEGORIES), 'Select category');
+  populateDropdown('a-country', BGX.COUNTRIES, 'All Countries');
+  populateDropdown('a-cat', Object.keys(BGX.CATEGORIES), 'All Categories');
+  refreshRMDropdown();
 }
 
-function enterDashboard(){
-  const al=document.getElementById('al');
-  al.style.transition='opacity .35s';al.style.opacity='0';
-  setTimeout(()=>al.style.display='none',350);
-  document.getElementById('admin-ava').textContent=ADMIN.initials||'A';
-  document.getElementById('admin-nm').textContent=ADMIN.name;
-  document.getElementById('admin-role').textContent=ADMIN.role;
-  renderDash();
+function refreshRMDropdown() {
+  const sel = document.getElementById('nc-rm');
+  if(!sel) return;
+  sel.innerHTML = BGX.RMS.map(r=>`<option value="${r.id}">${r.name} — ${r.role}</option>`).join('');
 }
 
-function adminLogout(){
-  if(!confirm('Sign out?'))return;
-  if(chatRealtimeSub)sb.removeChannel(chatRealtimeSub);
-  sessionStorage.removeItem('bgx_admin');ADMIN=null;
-  const al=document.getElementById('al');
-  al.style.display='flex';al.style.opacity='0';
-  requestAnimationFrame(()=>{al.style.transition='opacity .35s';al.style.opacity='1';});
-  document.getElementById('al-user').value='';document.getElementById('al-pass').value='';
-  document.getElementById('al-btn').disabled=false;document.getElementById('al-txt').textContent='Sign In to Admin CRM →';
-}
-
-/* ════════════════════════════════
-   DROPDOWNS
-════════════════════════════════ */
-function populateSel(id,items,placeholder=''){
-  const s=document.getElementById(id);if(!s)return;
-  s.innerHTML=(placeholder?`<option value="">${placeholder}</option>`:'')+items.map(i=>`<option value="${i}">${i}</option>`).join('');
-}
-function initDropdowns(){
-  populateSel('lf-country',COUNTRIES,'All Countries');
-  populateSel('lf-cat',Object.keys(CATEGORIES),'All Categories');
-  populateSel('nl-country',COUNTRIES,'Select country');
-  populateSel('nl-cat',Object.keys(CATEGORIES),'Select category');
-  populateSel('nc-cat',Object.keys(CATEGORIES),'Select category');
-  populateSel('af-country',COUNTRIES,'All Countries');
-  populateSel('af-cat',Object.keys(CATEGORIES),'All Categories');
-}
-function syncProd(){const cat=document.getElementById('nl-cat').value;populateSel('nl-product',cat?(CATEGORIES[cat]||[]):[],'Select product')}
-async function refreshRMDropdowns(){
-  ALL_RMS=await DB.getRMs();
-  const opts=['<option value="">No RM</option>',...ALL_RMS.map(r=>`<option value="${r.id}">${r.name} — ${r.role}</option>`)].join('');
-  ['nc-rm','m-rm'].forEach(id=>{const s=document.getElementById(id);if(s)s.innerHTML=opts});
-}
-
-/* ════════════════════════════════
-   NAV
-════════════════════════════════ */
-const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',membership:'Assign Membership',chat:'Client Chat',rms:'Relationship Managers',analytics:'Analytics',tickets:'Support Tickets',enquiries:'Website Enquiries',referrals:'Referral Programme'};
-function go(name,btn){
+/* ─ NAV ─ */
+const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',chat:'Client Chat',rms:'Relationship Managers',memberships:'Memberships',analytics:'Analytics',tickets:'Support Tickets',referrals:'Referral Programme'};
+function go(name, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
   document.getElementById('p-'+name)?.classList.add('on');
-  if(btn)btn.classList.add('on');
-  document.getElementById('page-title').textContent=TITLES[name]||name;
-  const fns={dash:renderDash,clients:renderClients,leads:renderLeadPool,assign:renderAssign,membership:renderMembership,chat:renderChat,rms:renderRMs,analytics:renderAnalytics,tickets:renderTickets,enquiries:renderEnquiries,referrals:renderReferrals};
-  fns[name]&&fns[name]();
+  if(btn) btn.classList.add('on');
+  document.getElementById('page-title').textContent = TITLES[name]||name;
+  renders[name] && renders[name]();
 }
 
-/* ════════════════════════════════
-   DASHBOARD
-════════════════════════════════ */
-async function renderDash(){
-  const[clients,leads,analytics,tickets,enquiries]=await Promise.all([DB.getClients(),DB.getLeadPool(),DB.getAnalytics(),DB.getTickets({status:'open'}),DB.getEnquiries()]);
-  ALL_CLIENTS=clients;ALL_LEADS=leads;
-  await refreshRMDropdowns();
+/* ─ RENDER FUNCTIONS ─ */
+const renders = {
+  dash:        renderDash,
+  clients:     renderClients,
+  leads:       renderLeadPool,
+  assign:      renderAssign,
+  chat:        renderChat,
+  rms:         renderRMs,
+  memberships: renderMemberships,
+  analytics:   renderAnalytics,
+  tickets:     renderTickets,
+  referrals:   renderReferrals,
+};
 
-  const active=clients.filter(c=>c.plan_status==='active').length;
-  const unassigned=leads.filter(l=>l.status==='unassigned').length;
-  const openT=tickets.length;
-  const newEnq=enquiries.filter(e=>e.status==='new').length;
+/* ─ DASHBOARD ─ */
+function renderDash() {
+  const active = BGX.CLIENTS.filter(c=>c.status==='active').length;
+  const totalLeads = BGX.LEADS.length;
+  const unassigned = BGX.LEADS.filter(l=>l.status==='unassigned').length;
+  const openTickets = BGX.TICKETS.filter(t=>t.status==='open').length;
+  document.getElementById('dash-stats').innerHTML = `
+    <div class="sc c1"><div class="sc-i">👥</div><div class="sc-v">${active}</div><div class="sc-l">Active Clients</div><div class="sc-tr tup">of ${BGX.CLIENTS.length} total</div></div>
+    <div class="sc c2"><div class="sc-i">🎯</div><div class="sc-v">${totalLeads}</div><div class="sc-l">Total Leads in Pool</div><div class="sc-tr tup">${unassigned} unassigned</div></div>
+    <div class="sc c3"><div class="sc-i">💎</div><div class="sc-v">₹${calcMRR()}</div><div class="sc-l">Monthly Revenue</div><div class="sc-tr tup">MRR</div></div>
+    <div class="sc c4"><div class="sc-i">🛎</div><div class="sc-v">${openTickets}</div><div class="sc-l">Open Tickets</div><div class="sc-tr twn">need response</div></div>`;
 
-  let mrr=0;
-  analytics.clients.filter(c=>c.plan_status==='active').forEach(c=>{
-    const p=PLANS[c.plan]||PLANS.none;
-    mrr+=(c.billing_cycle==='annual'?Math.round((p.pricePa||p.price*12)/12):p.price)||0;
-  });
-  const mrrFmt=mrr>=100000?(mrr/100000).toFixed(1)+'L':(mrr/1000).toFixed(0)+'K';
-
-  document.getElementById('dash-stats').innerHTML=`
-    <div class="sc c1"><div class="sc-i">👥</div><div class="sc-v">${active}</div><div class="sc-l">Active Clients</div><div class="sc-tr tup">of ${clients.length}</div></div>
-    <div class="sc c2"><div class="sc-i">🎯</div><div class="sc-v">${leads.length}</div><div class="sc-l">Leads in Pool</div><div class="sc-tr tup">${unassigned} free</div></div>
-    <div class="sc c3"><div class="sc-i">💎</div><div class="sc-v">₹${mrrFmt}</div><div class="sc-l">Monthly Revenue</div><div class="sc-tr tup">MRR</div></div>
-    <div class="sc c4"><div class="sc-i">🛎</div><div class="sc-v">${openT}</div><div class="sc-l">Open Tickets</div><div class="sc-tr twn">need reply</div></div>`;
-
-  document.getElementById('sb-clients').textContent=clients.length;
-  document.getElementById('sb-leads').textContent=leads.length;
-  document.getElementById('sb-tickets').textContent=openT;
-  document.getElementById('sb-enquiries').textContent=newEnq;
-  document.getElementById('sb-chat').textContent=analytics.unread?.length||0;
-  if(openT>0)document.getElementById('tbell-dot').style.display='block';
-
-  document.getElementById('dash-clients').innerHTML=clients.slice(0,7).map(c=>{
-    const plan=PLANS[c.plan]||PLANS.none;
-    const pct=c.lead_limit>0?Math.round((c.leads_used||0)/c.lead_limit*100):0;
-    const rem=(c.lead_limit||0)-(c.leads_used||0);
-    return`<tr>
-      <td><strong>${c.name}</strong><br><span style="font-size:10px;color:var(--tl)">${c.business_name||''}</span></td>
+  document.getElementById('dash-clients').innerHTML = BGX.CLIENTS.slice(0,6).map(c=>{
+    const plan = BGX.getPlan(c.plan);
+    const rm = BGX.getRM(c.rmId);
+    const pct = Math.round(c.used/c.limit*100);
+    return `<tr>
+      <td><strong>${c.name}</strong><br><span style="font-size:10px;color:var(--tl)">${c.biz}</span></td>
       <td>${plan.label}</td>
-      <td><span class="bdg ${c.plan_status==='active'?'ba':c.plan_status==='pending'?'bp2':c.plan_status==='suspended'?'bsu':'be'}">${c.plan_status}</span></td>
-      <td>${c.rm_name||'—'}</td>
-      <td>${c.leads_used||0}</td>
-      <td style="color:${pct>85?'var(--red)':pct>60?'var(--amber)':'var(--green)'};font-weight:600">${rem}</td>
-      <td class="tbl-actions">
-        <button class="btn b-o b-sm" onclick="openAssignFor('${c.id}')">Leads</button>
-        <button class="btn b-g b-sm" onclick="openMembershipFor('${c.id}')">Plan</button>
-      </td>
+      <td>${rm?rm.name:'—'}</td>
+      <td>${c.used}</td>
+      <td><span style="color:${pct>85?'var(--red)':pct>60?'var(--amber)':'var(--green)'};font-weight:600">${c.limit-c.used}</span></td>
+      <td><span class="bdg ${c.status==='active'?'ba':'be'}">${c.status==='active'?'● Active':'● Expired'}</span></td>
+      <td><button class="btn b-o b-sm" onclick="openAssignFor('${c.id}')">Assign →</button></td>
     </tr>`;
   }).join('');
 
-  const cts={};leads.forEach(l=>cts[l.country]=(cts[l.country]||0)+1);
-  const sorted=Object.entries(cts).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  const cmax=sorted[0]?.[1]||1;
-  document.getElementById('dash-countries').innerHTML=sorted.map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cmax*100)}%"></div></div></div>`).join('');
+  // Countries bar
+  const cts = {};
+  BGX.LEADS.forEach(l=>cts[l.country]=(cts[l.country]||0)+1);
+  const sorted = Object.entries(cts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const cmax = sorted[0]?.[1]||1;
+  document.getElementById('dash-countries').innerHTML = sorted.map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cmax*100)}%"></div></div></div>`).join('');
 
-  const expired=clients.filter(c=>c.plan_status==='expired');
-  const pending=clients.filter(c=>c.plan_status==='pending');
-  const lowBal=clients.filter(c=>c.plan_status==='active'&&c.lead_limit>0&&((c.lead_limit-(c.leads_used||0))/c.lead_limit)<0.15);
-  const alertHtml=[
-    ...pending.map(c=>`<div class="notif"><div class="ndot ng"></div><div><div style="font-size:12px"><strong>${c.name}</strong> — pending membership activation</div></div></div>`),
-    ...expired.map(c=>`<div class="notif"><div class="ndot nr"></div><div><div style="font-size:12px"><strong>${c.business_name||c.name}</strong> — membership expired</div></div></div>`),
-    ...lowBal.map(c=>`<div class="notif"><div class="ndot ng"></div><div><div style="font-size:12px"><strong>${c.name}</strong> — lead balance below 15% (${(c.lead_limit||0)-(c.leads_used||0)} left)</div></div></div>`),
-    ...tickets.slice(0,3).map(t=>`<div class="notif"><div class="ndot nr"></div><div><div style="font-size:12px">Ticket from <strong>${t.clients?.name||'—'}</strong>: ${t.type}</div></div></div>`),
+  // Alerts
+  const expired = BGX.CLIENTS.filter(c=>c.status==='expired');
+  const lowBal = BGX.CLIENTS.filter(c=>c.status==='active'&&(c.limit-c.used)/c.limit<0.15);
+  const openT = BGX.TICKETS.filter(t=>t.status==='open');
+  const alerts = [
+    ...expired.map(c=>`<div class="notif"><div class="ndot nr"></div><div><div style="font-size:12px;color:var(--tb)"><strong>${c.biz}</strong> — membership expired. Renewal needed.</div></div></div>`),
+    ...lowBal.map(c=>`<div class="notif"><div class="ndot ng"></div><div><div style="font-size:12px;color:var(--tb)"><strong>${c.biz}</strong> — lead balance below 15% (${c.limit-c.used} left)</div></div></div>`),
+    ...openT.map(t=>`<div class="notif"><div class="ndot nr"></div><div><div style="font-size:12px;color:var(--tb)">Ticket <strong>${t.id}</strong> (${t.client}) — ${t.type}</div></div></div>`),
   ];
-  document.getElementById('dash-alerts').innerHTML=alertHtml.length?alertHtml.join(''):'<p style="font-size:12px;color:var(--tl);text-align:center">No alerts 🎉</p>';
+  document.getElementById('dash-alerts').innerHTML = alerts.length ? alerts.join('') : '<p style="font-size:12px;color:var(--tl);text-align:center">No alerts 🎉</p>';
+
+  // Update sidebar counts
+  document.getElementById('sb-clients-count').textContent = BGX.CLIENTS.length;
+  document.getElementById('sb-leads-count').textContent = BGX.LEADS.length;
+  document.getElementById('sb-chat-count').textContent = BGX.CLIENTS.reduce((s,c)=>{const msgs=BGX.MESSAGES[c.id]||[];const last=msgs[msgs.length-1];return s+(last&&last.from==='client'?1:0)},0);
+  document.getElementById('sb-tickets-count').textContent = BGX.TICKETS.filter(t=>t.status==='open').length;
 }
 
-/* ════════════════════════════════
-   CLIENTS — FULL CRUD
-════════════════════════════════ */
-async function renderClients(filter=''){
-  if(!ALL_CLIENTS.length)ALL_CLIENTS=await DB.getClients();
-  const list=filter?ALL_CLIENTS.filter(c=>c.name.toLowerCase().includes(filter)||(c.business_name&&c.business_name.toLowerCase().includes(filter))||(c.city&&c.city.toLowerCase().includes(filter))):ALL_CLIENTS;
-  document.getElementById('clients-lbl').textContent=`${list.length} clients`;
-  document.getElementById('client-list').innerHTML=list.map(c=>`
+function calcMRR() {
+  let total = 0;
+  BGX.CLIENTS.filter(c=>c.status==='active').forEach(c=>{
+    const p = BGX.getPlan(c.plan);
+    total += c.billing==='annual' ? Math.round(p.pricePa/12) : p.price;
+  });
+  return total >= 100000 ? (total/100000).toFixed(1)+'L' : (total/1000).toFixed(0)+'K';
+}
+
+/* ─ CLIENTS ─ */
+function renderClients(filter='') {
+  const list = BGX.CLIENTS.filter(c=>!filter||c.name.toLowerCase().includes(filter)||c.biz.toLowerCase().includes(filter)||c.city.toLowerCase().includes(filter));
+  document.getElementById('clients-count-label').textContent = `${list.length} clients`;
+  document.getElementById('client-list').innerHTML = list.map(c=>`
     <div class="cc" onclick="showClientDetail('${c.id}')">
       <div class="cca">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:600;color:var(--n)">${c.name}</div>
-        <div style="font-size:10.5px;color:var(--tl)">${c.business_name||''} · ${c.city||''}</div>
+        <div style="font-size:10.5px;color:var(--tl)">${c.biz} · ${c.city} · ${c.cat}</div>
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:11px;font-weight:700;color:var(--g);font-family:'Space Grotesk'">${(PLANS[c.plan]||PLANS.none).label}</div>
-        <div style="font-size:10px;color:var(--tl)">${c.leads_used||0}/${c.lead_limit||0}</div>
+        <div style="font-size:11px;font-weight:700;color:var(--g);font-family:'Space Grotesk'">${BGX.getPlan(c.plan).label}</div>
+        <div style="font-size:10px;color:var(--tl)">${c.used}/${c.limit} leads</div>
       </div>
-      <span class="bdg ${c.plan_status==='active'?'ba':c.plan_status==='pending'?'bp2':c.plan_status==='suspended'?'bsu':'be'}" style="margin-left:7px">${c.plan_status}</span>
+      <span class="bdg ${c.status==='active'?'ba':'be'}" style="margin-left:8px">${c.status==='active'?'●':'✕'}</span>
     </div>`).join('');
 }
-function filterClients(v){renderClients(v.toLowerCase())}
+function filterClients(v){ renderClients(v.toLowerCase()) }
 
-async function showClientDetail(id){
-  const c=ALL_CLIENTS.find(x=>x.id===id);if(!c)return;
-  const plan=PLANS[c.plan]||PLANS.none;
-  const pct=c.lead_limit>0?Math.round((c.leads_used||0)/c.lead_limit*100):0;
-  document.getElementById('client-detail').innerHTML=`
+function showClientDetail(id) {
+  const c = BGX.getClient(id);
+  const plan = BGX.getPlan(c.plan);
+  const rm = BGX.getRM(c.rmId);
+  const pct = Math.round(c.used/c.limit*100);
+  const myLeads = BGX.getLeadsForClient(id);
+  document.getElementById('client-detail').innerHTML = `
     <div class="card">
-      <div class="ch">
-        <div><div class="ct">${c.name}</div><div class="csub">${c.business_name||''}</div></div>
-        <span class="bdg ${c.plan_status==='active'?'ba':c.plan_status==='pending'?'bp2':c.plan_status==='suspended'?'bsu':'be'}">${c.plan_status}</span>
-      </div>
+      <div class="ch"><div><div class="ct">${c.name}</div><div class="csub">${c.biz}</div></div><span class="bdg ${c.status==='active'?'ba':'be'}">${c.status==='active'?'● Active':'● Expired'}</span></div>
       <div class="cb">
-        <div class="f2" style="margin-bottom:13px">
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Email</div><div style="font-size:12.5px;color:var(--n)">${c.email}</div></div>
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Phone</div><div style="font-size:12.5px;color:var(--n)">${c.phone||'—'}</div></div>
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">City</div><div style="font-size:12.5px;color:var(--n)">${c.city||'—'}, ${c.state||'—'}</div></div>
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Category</div><div style="font-size:12.5px;color:var(--n)">${c.category||'—'}</div></div>
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">RM</div><div style="font-size:12.5px;font-weight:600;color:var(--n)">${c.rm_name||'Unassigned'}</div></div>
-          <div><div style="font-size:9.5px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">OTP</div><div style="font-size:12.5px;font-family:'Space Grotesk';color:var(--n)">${c.otp||'—'}</div></div>
+        <div class="form2" style="margin-bottom:14px">
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Email</div><div style="font-size:12.5px;color:var(--n)">${c.email}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Phone</div><div style="font-size:12.5px;color:var(--n)">${c.phone}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">City / State</div><div style="font-size:12.5px;color:var(--n)">${c.city}, ${c.state}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Category</div><div style="font-size:12.5px;color:var(--n)">${c.cat}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Products</div><div style="font-size:12px;color:var(--n)">${c.products.join(', ')}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">GSTIN</div><div style="font-size:12px;color:var(--n)">${c.gstin||'—'}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">RM Assigned</div><div style="font-size:12.5px;color:var(--n);font-weight:600">${rm?rm.name:'Unassigned'}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Login OTP</div><div style="font-size:12.5px;color:var(--n);font-family:'Space Grotesk'">${c.otp}</div></div>
         </div>
         <div class="pb-w">
-          <div class="pb-l"><span>Lead Usage</span><strong>${c.leads_used||0} / ${c.lead_limit||0} (${pct}%)</strong></div>
+          <div class="pb-l"><span>Lead Usage</span><strong>${c.used} / ${c.limit} (${pct}%)</strong></div>
           <div class="pb-t"><div class="pb-f" style="width:${pct}%"></div></div>
         </div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
-          <button class="btn b-p b-sm" onclick="openAssignFor('${c.id}')">📤 Assign Leads</button>
-          <button class="btn b-g b-sm" onclick="openMembershipFor('${c.id}')">💎 Assign Plan</button>
-          <button class="btn b-o b-sm" onclick="openChatWith('${c.id}')">💬 Chat</button>
-          <button class="btn b-o b-sm" onclick="editClient('${c.id}')">✏️ Edit</button>
-          ${c.plan_status==='suspended'
-            ?`<button class="btn b-warn b-sm" onclick="toggleSuspend('${c.id}',false)">▶ Unsuspend</button>`
-            :`<button class="btn b-warn b-sm" onclick="toggleSuspend('${c.id}',true)">⏸ Suspend</button>`}
-          <button class="btn b-d b-sm" onclick="deleteClient('${c.id}','${c.name}')">🗑 Delete</button>
+        <div style="font-size:11.5px;color:var(--tm);margin-bottom:14px">Leads assigned to this client: <strong style="color:var(--n)">${myLeads.length}</strong></div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap">
+          <button class="btn b-p b-sm" onclick="openAssignFor('${id}')">📤 Assign Leads</button>
+          <button class="btn b-o b-sm" onclick="openChatWith('${id}')">💬 Open Chat</button>
+          <button class="btn b-g b-sm" onclick="changeRM('${id}')">👤 Change RM</button>
         </div>
       </div>
     </div>`;
 }
 
-function editClient(id){
-  const c=ALL_CLIENTS.find(x=>x.id===id);if(!c)return;
-  document.getElementById('add-client-title').textContent='Edit Client';
-  document.getElementById('nc-submit-btn').textContent='Save Changes';
-  document.getElementById('nc-submit-btn').onclick=()=>updateClientSubmit();
-  document.getElementById('edit-client-id').value=id;
-  document.getElementById('nc-name').value=c.name||'';
-  document.getElementById('nc-biz').value=c.business_name||'';
-  document.getElementById('nc-email').value=c.email||'';
-  document.getElementById('nc-phone').value=c.phone||'';
-  document.getElementById('nc-city').value=c.city||'';
-  document.getElementById('nc-state').value=c.state||'';
-  document.getElementById('nc-cat').value=c.category||'';
-  document.getElementById('nc-gstin').value=c.gstin||'';
-  document.getElementById('nc-otp').value=c.otp||'123456';
-  document.getElementById('nc-rm').value=c.rm_id||'';
-  openModal('add-client');
-}
-
-async function toggleSuspend(id,suspend){
-  if(!confirm(suspend?'Suspend this client? They will not be able to login.':'Unsuspend this client?'))return;
-  const r=await DB.suspendClient(id,suspend);
-  if(r.success){ALL_CLIENTS=await DB.getClients();renderClients();showClientDetail(id);}
-  else alert('Error: '+r.error);
-}
-
-async function deleteClient(id,name){
-  if(!confirm(`DELETE ${name}? This removes ALL their data including leads, messages, and history. This cannot be undone.`))return;
-  if(!confirm(`Are you absolutely sure you want to delete ${name}?`))return;
-  const r=await DB.deleteClient(id);
-  if(r.success){ALL_CLIENTS=await DB.getClients();renderClients();document.getElementById('client-detail').innerHTML='<div class="card"><div class="cb" style="text-align:center;padding:40px 20px;color:var(--tl)"><div style="font-size:32px;margin-bottom:10px">✅</div><p>Client deleted.</p></div></div>';}
-  else alert('Error: '+r.error);
-}
-
-/* ════════════════════════════════
-   CLIENT SUBMIT (Add / Edit)
-════════════════════════════════ */
-async function submitClient(){
-  const name=document.getElementById('nc-name').value.trim();
-  const email=document.getElementById('nc-email').value.trim();
-  if(!name||!email){showModalMsg('add-client-err','Name and email are required.');return}
-  const data={
-    name,email,
-    business_name:document.getElementById('nc-biz').value.trim(),
-    phone:document.getElementById('nc-phone').value.trim(),
-    city:document.getElementById('nc-city').value.trim(),
-    state:document.getElementById('nc-state').value.trim(),
-    category:document.getElementById('nc-cat').value,
-    gstin:document.getElementById('nc-gstin').value.trim(),
-    otp:document.getElementById('nc-otp').value.trim()||'123456',
-    rm_id:document.getElementById('nc-rm').value||null,
-    plan:'none',plan_status:'pending',lead_limit:0,leads_used:0,
-  };
-  const r=await DB.addClient(data);
-  if(!r.success){showModalMsg('add-client-err','⚠ '+r.error);return}
-  showModalMsg('add-client-ok',`✅ Account created! Login: ${email} / OTP: ${data.otp}`);
-  ALL_CLIENTS=await DB.getClients();renderClients();
-  setTimeout(()=>closeModal('add-client'),3000);
-}
-
-async function updateClientSubmit(){
-  const id=document.getElementById('edit-client-id').value;
-  if(!id)return;
-  const r=await DB.updateClient(id,{
-    name:document.getElementById('nc-name').value.trim(),
-    business_name:document.getElementById('nc-biz').value.trim(),
-    email:document.getElementById('nc-email').value.trim(),
-    phone:document.getElementById('nc-phone').value.trim(),
-    city:document.getElementById('nc-city').value.trim(),
-    state:document.getElementById('nc-state').value.trim(),
-    category:document.getElementById('nc-cat').value,
-    gstin:document.getElementById('nc-gstin').value.trim(),
-    otp:document.getElementById('nc-otp').value.trim(),
-    rm_id:document.getElementById('nc-rm').value||null,
-  });
-  if(!r.success){showModalMsg('add-client-err','⚠ '+r.error);return}
-  showModalMsg('add-client-ok','✅ Client updated!');
-  ALL_CLIENTS=await DB.getClients();renderClients();showClientDetail(id);
-  setTimeout(()=>closeModal('add-client'),2000);
-}
-
-/* ════════════════════════════════
-   LEAD POOL — FULL CRUD
-════════════════════════════════ */
-async function renderLeadPool(){
-  const fc=document.getElementById('lf-country').value;
-  const fcat=document.getElementById('lf-cat').value;
-  const fst=document.getElementById('lf-status').value;
-  const fq=document.getElementById('lf-q').value;
-  const fs=document.getElementById('lf-search').value.toLowerCase();
-  ALL_LEADS=await DB.getLeadPool({country:fc||undefined,category:fcat||undefined,status:fst||undefined,quality:fq||undefined,search:fs||undefined});
-  document.getElementById('leads-lbl').textContent=`${ALL_LEADS.length} leads`;
-  document.getElementById('lead-pool-body').innerHTML=ALL_LEADS.map(l=>`
-    <tr>
-      <td><input type="checkbox" data-id="${l.id}" onchange="toggleSelLead('${l.id}',this.checked)"></td>
-      <td><strong>${l.company}</strong></td>
-      <td>${l.country}</td><td>${l.category||'—'}</td>
-      <td style="font-size:11.5px">${l.product||'—'}</td>
-      <td style="font-size:11.5px;color:var(--tl)">${l.quantity||'—'}</td>
-      <td><span class="bdg ${QC[l.quality]||'bn'}">${QT[l.quality]||l.quality}</span></td>
+/* ─ LEAD POOL ─ */
+function renderLeadPool() {
+  const fc = document.getElementById('f-country')?.value||'';
+  const fcat = document.getElementById('f-cat')?.value||'';
+  const fst = document.getElementById('f-status')?.value||'';
+  const fq = document.getElementById('f-q')?.value||'';
+  const fs = document.getElementById('f-search')?.value?.toLowerCase()||'';
+  const list = BGX.LEADS.filter(l=>
+    (!fc||l.country===fc)&&
+    (!fcat||l.cat===fcat)&&
+    (!fst||l.status===fst)&&
+    (!fq||l.q===fq)&&
+    (!fs||l.co.toLowerCase().includes(fs)||l.product.toLowerCase().includes(fs))
+  );
+  document.getElementById('lead-pool-label').textContent = `${list.length} of ${BGX.LEADS.length} leads`;
+  document.getElementById('lead-pool-body').innerHTML = list.map(l=>{
+    const assigned = l.assignedTo.map(id=>{const c=BGX.getClient(id);return c?c.name:id}).join(', ')||'—';
+    return `<tr>
+      <td><input type="checkbox" data-id="${l.id}" onchange="toggleLead('${l.id}',this.checked)"></td>
+      <td><strong>${l.co}</strong></td>
+      <td>${l.country}</td>
+      <td>${l.cat}</td>
+      <td style="font-size:11.5px">${l.product}</td>
+      <td style="font-size:11.5px;color:var(--tm)">${l.qty}</td>
+      <td><span class="bdg ${QC[l.q]||'bn'}">${QT[l.q]||l.q}</span></td>
       <td><span class="bdg ${l.status==='unassigned'?'bn':l.status==='converted'?'bc':'ba'}">${l.status}</span></td>
-      <td class="tbl-actions">
-        <button class="btn b-o b-sm" onclick="openAssignFor(null,'${l.id}')">Assign</button>
-        <button class="btn b-o b-sm" onclick="editLead('${l.id}')">✏️</button>
-        <button class="btn b-d b-sm" onclick="deleteLead('${l.id}','${l.company.replace(/'/g,"\\'")}')">🗑</button>
-      </td>
-    </tr>`).join('');
+      <td style="font-size:11px;color:var(--tm)">${assigned}</td>
+      <td><button class="btn b-o b-sm" onclick="openAssignFor(null,'${l.id}')">Assign</button></td>
+    </tr>`;
+  }).join('');
 }
+function toggleLead(id,checked){checked?selectedLeads.add(id):selectedLeads.delete(id)}
+function selectAll(cb){document.querySelectorAll('#lead-pool-body input[type=checkbox]').forEach(c=>{c.checked=cb.checked;toggleLead(c.dataset.id,cb.checked)})}
+function bulkAssign(){if(!selectedLeads.size){alert('Select leads first');return}openModal('add-client')}
 
-function toggleSelLead(id,c){c?selLeads.add(id):selLeads.delete(id)}
-function selAll(cb){document.querySelectorAll('#lead-pool-body input[type=checkbox]').forEach(c=>{c.checked=cb.checked;toggleSelLead(c.dataset.id,cb.checked)})}
-async function bulkDeleteSelected(){
-  if(!selLeads.size){alert('Select leads first');return}
-  if(!confirm(`Delete ${selLeads.size} selected leads?`))return;
-  for(const id of selLeads)await DB.deleteLead(id);
-  selLeads.clear();ALL_LEADS=await DB.getLeadPool();renderLeadPool();
+/* ─ ASSIGN ─ */
+function renderAssign() {
+  renderAssignClients();
+  renderAssignLeads();
 }
-function bulkAssignSelected(){if(!selLeads.size){alert('Select leads first');return}go('assign',null)}
-
-function editLead(id){
-  const l=ALL_LEADS.find(x=>x.id===id);if(!l)return;
-  document.getElementById('add-lead-title').textContent='Edit Lead';
-  document.getElementById('nl-submit-btn').textContent='Save Changes';
-  document.getElementById('nl-submit-btn').onclick=()=>updateLeadSubmit();
-  document.getElementById('edit-lead-id').value=id;
-  document.getElementById('nl-co').value=l.company||'';
-  document.getElementById('nl-country').value=l.country||'';
-  document.getElementById('nl-name').value=l.contact_name||'';
-  document.getElementById('nl-phone').value=l.phone||'';
-  document.getElementById('nl-email').value=l.email||'';
-  document.getElementById('nl-cat').value=l.category||'';
-  syncProd();
-  setTimeout(()=>document.getElementById('nl-product').value=l.product||'',50);
-  document.getElementById('nl-qty').value=l.quantity||'';
-  document.getElementById('nl-q').value=l.quality||'new';
-  openModal('add-lead');
-}
-
-async function deleteLead(id,name){
-  if(!confirm(`Delete lead "${name}"? It will be removed from all client assignments.`))return;
-  const r=await DB.deleteLead(id);
-  if(r.success){ALL_LEADS=await DB.getLeadPool();renderLeadPool();}
-  else alert('Error: '+r.error);
-}
-
-async function submitLead(){
-  const co=document.getElementById('nl-co').value.trim();
-  const country=document.getElementById('nl-country').value;
-  if(!co||!country){showModalMsg('add-lead-err','Company and country required.');return}
-  const r=await DB.addLead({
-    company:co,country,
-    contact_name:document.getElementById('nl-name').value.trim(),
-    phone:document.getElementById('nl-phone').value.trim(),
-    email:document.getElementById('nl-email').value.trim(),
-    category:document.getElementById('nl-cat').value,
-    product:document.getElementById('nl-product').value||document.getElementById('nl-cat').value,
-    quantity:document.getElementById('nl-qty').value.trim(),
-    quality:document.getElementById('nl-q').value,
-    source:document.getElementById('nl-src').value,
-    added_by:ADMIN?.id,
-  });
-  if(!r.success){showModalMsg('add-lead-err','⚠ '+r.error);return}
-  showModalMsg('add-lead-ok','✅ Lead added to pool!');
-  ALL_LEADS=await DB.getLeadPool();renderLeadPool();
-  setTimeout(()=>closeModal('add-lead'),2000);
-}
-
-async function updateLeadSubmit(){
-  const id=document.getElementById('edit-lead-id').value;if(!id)return;
-  const r=await DB.updateLead(id,{
-    company:document.getElementById('nl-co').value.trim(),
-    country:document.getElementById('nl-country').value,
-    contact_name:document.getElementById('nl-name').value.trim(),
-    phone:document.getElementById('nl-phone').value.trim(),
-    email:document.getElementById('nl-email').value.trim(),
-    category:document.getElementById('nl-cat').value,
-    product:document.getElementById('nl-product').value,
-    quantity:document.getElementById('nl-qty').value.trim(),
-    quality:document.getElementById('nl-q').value,
-  });
-  if(!r.success){showModalMsg('add-lead-err','⚠ '+r.error);return}
-  showModalMsg('add-lead-ok','✅ Lead updated!');
-  ALL_LEADS=await DB.getLeadPool();renderLeadPool();
-  setTimeout(()=>closeModal('add-lead'),2000);
-}
-
-/* ════════════════════════════════
-   ASSIGN LEADS
-════════════════════════════════ */
-async function renderAssign(){
-  if(!ALL_CLIENTS.length)ALL_CLIENTS=await DB.getClients();
-  renderAssignClients();renderAssignLeads();
-}
-function renderAssignClients(filter=''){
-  const list=ALL_CLIENTS.filter(c=>c.plan_status==='active'&&(!filter||c.name.toLowerCase().includes(filter)));
-  document.getElementById('assign-client-list').innerHTML=list.map(c=>`
-    <div class="cc ${assignClientId===c.id?'sel':''}" onclick="selAssignClient('${c.id}',this)">
+function renderAssignClients(filter='') {
+  const list = BGX.CLIENTS.filter(c=>c.status==='active'&&(!filter||c.name.toLowerCase().includes(filter)||c.biz.toLowerCase().includes(filter)));
+  document.getElementById('assign-client-list').innerHTML = list.map(c=>`
+    <div class="cc ${assignClientId===c.id?'sel':''}" onclick="selectAssignClient('${c.id}',this)">
       <div class="cca">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
-      <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;color:var(--n)">${c.name}</div><div style="font-size:10.5px;color:var(--tl)">${c.category||''}</div></div>
-      <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:10.5px;font-weight:700;color:var(--g)">${(PLANS[c.plan]||PLANS.none).label}</div>
-        <div style="font-size:10px;color:var(--tl)">${(c.lead_limit||0)-(c.leads_used||0)} left</div>
-      </div>
+      <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;color:var(--n)">${c.name}</div><div style="font-size:10.5px;color:var(--tl)">${c.cat}</div></div>
+      <div style="text-align:right"><div style="font-size:10.5px;font-weight:700;color:var(--g)">${BGX.getPlan(c.plan).label}</div><div style="font-size:10px;color:var(--tl)">${c.limit-c.used} remaining</div></div>
     </div>`).join('');
 }
 function filterAssignClients(v){renderAssignClients(v.toLowerCase())}
-function selAssignClient(id,el){
-  assignClientId=id;
+function selectAssignClient(id,el) {
+  assignClientId = id;
   document.querySelectorAll('#assign-client-list .cc').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');updateAssignCount();
+  el.classList.add('sel');
+  renderAssignLeads();
 }
-async function renderAssignLeads(){
-  const ac=document.getElementById('af-country').value;
-  const acat=document.getElementById('af-cat').value;
-  const unassigned=await DB.getLeadPool({status:'unassigned',country:ac||undefined,category:acat||undefined});
-  document.getElementById('assign-leads-grid').innerHTML=unassigned.length?unassigned.map(l=>`
-    <div class="li ${assignSelLeads.has(l.id)?'sel':''}" onclick="toggleAssignLead('${l.id}',this)">
-      <div class="li-co">${l.company}</div>
+function renderAssignLeads() {
+  const ac = document.getElementById('a-country')?.value||'';
+  const acat = document.getElementById('a-cat')?.value||'';
+  const list = BGX.LEADS.filter(l=>l.status==='unassigned'&&(!ac||l.country===ac)&&(!acat||l.cat===acat));
+  document.getElementById('assign-leads-grid').innerHTML = list.map(l=>`
+    <div class="li ${assignSelectedLeads.has(l.id)?'sel':''}" onclick="toggleAssignLead('${l.id}',this)">
+      <div class="li-co">${l.co}</div>
       <div class="li-m">${l.country}</div>
-      <div class="li-m">${l.product||l.category}</div>
-      <div style="margin-top:4px"><span class="bdg ${QC[l.quality]||'bn'}" style="font-size:9.5px">${QT[l.quality]||l.quality}</span></div>
-    </div>`).join(''):'<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--tl);font-size:12px">No unassigned leads for these filters.</div>';
+      <div class="li-m">${l.product}</div>
+      <div style="margin-top:5px"><span class="bdg ${QC[l.q]||'bn'}" style="font-size:9.5px">${QT[l.q]||l.q}</span></div>
+    </div>`).join('');
+  updateAssignCount();
 }
 function toggleAssignLead(id,el){
-  if(assignSelLeads.has(id))assignSelLeads.delete(id);else assignSelLeads.add(id);
-  el.classList.toggle('sel');updateAssignCount();
+  if(assignSelectedLeads.has(id)) assignSelectedLeads.delete(id);
+  else assignSelectedLeads.add(id);
+  el.classList.toggle('sel');
+  updateAssignCount();
 }
 function updateAssignCount(){
-  const n=assignSelLeads.size;
-  document.getElementById('asel-lbl').textContent=`${n} selected`;
-  const cl=assignClientId?ALL_CLIENTS.find(c=>c.id===assignClientId):null;
-  const rem=cl?(cl.lead_limit||0)-(cl.leads_used||0):0;
-  document.getElementById('assign-count-lbl').textContent=cl&&n?`Assigning ${n} leads to ${cl.name} (${rem} remaining in balance)`:cl?'Select leads to assign':'Select a client first';
+  const n = assignSelectedLeads.size;
+  document.getElementById('assign-sel-label').textContent = `${n} selected`;
+  const cl = assignClientId ? BGX.getClient(assignClientId) : null;
+  document.getElementById('assign-count-label').textContent = cl&&n ? `Assigning ${n} leads to ${cl.name}` : 'Select client + leads';
 }
-async function doAssign(){
-  if(!assignClientId){showModalLike('assign-err','Select a client first.');return}
-  if(!assignSelLeads.size){showModalLike('assign-err','Select at least one lead.');return}
-  document.getElementById('assign-ok').style.display='none';
-  document.getElementById('assign-err').style.display='none';
-  const r=await DB.assignLeads([...assignSelLeads],assignClientId,ADMIN.id);
-  if(!r.success){document.getElementById('assign-err').textContent='⚠ '+r.error;document.getElementById('assign-err').style.display='block';return}
-  document.getElementById('assign-ok').textContent=`✅ ${r.count} leads assigned successfully! Client balance updated.`;
-  document.getElementById('assign-ok').style.display='block';
-  assignSelLeads.clear();ALL_CLIENTS=await DB.getClients();renderAssignLeads();updateAssignCount();
-  setTimeout(()=>document.getElementById('assign-ok').style.display='none',4000);
+function doAssign() {
+  if(!assignClientId){alert('Please select a client first.');return}
+  if(!assignSelectedLeads.size){alert('Please select at least one lead.');return}
+  BGX.assignLeads([...assignSelectedLeads], assignClientId);
+  assignSelectedLeads.clear();
+  renderAssignLeads();
 }
-async function sendAssignNotif(){
+function sendAssignNotif() {
   if(!assignClientId){alert('Select a client first.');return}
-  const msg=document.getElementById('assign-msg').value.trim()||'Your new lead batch has been assigned. Please check your dashboard.';
-  await DB.sendMessage(assignClientId,'rm',ADMIN.name,msg);
-  alert('✅ Message sent via chat!');
+  const msg = document.getElementById('assign-msg').value.trim()||'Your new lead batch has been assigned. Check your dashboard.';
+  BGX.addMessage(assignClientId,'rm',msg);
+  document.getElementById('assign-ok').style.display='block';
+  setTimeout(()=>document.getElementById('assign-ok').style.display='none',3000);
 }
-function openAssignFor(clientId,leadId){
-  go('assign',null);
-  if(clientId){setTimeout(()=>{assignClientId=clientId;renderAssignClients()},100)}
-  if(leadId){setTimeout(()=>{assignSelLeads.add(leadId);renderAssignLeads()},150)}
+function openAssignFor(clientId, leadId) {
+  go('assign', document.querySelector('.ni:nth-child(7)'));
+  if(clientId) setTimeout(()=>{assignClientId=clientId;renderAssignClients()},100);
+  if(leadId) setTimeout(()=>{assignSelectedLeads.add(leadId);renderAssignLeads()},150);
 }
-function showModalLike(id,msg){const el=document.getElementById(id);if(el){el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',4000);}}
+function preSelectClient(id) { if(id){assignClientId=id;renderAssignClients()} }
 
-/* ════════════════════════════════
-   MEMBERSHIP
-════════════════════════════════ */
-async function renderMembership(filter=''){
-  if(!ALL_CLIENTS.length)ALL_CLIENTS=await DB.getClients();
-  await refreshRMDropdowns();
-  const list=filter?ALL_CLIENTS.filter(c=>c.name.toLowerCase().includes(filter)):ALL_CLIENTS;
-  document.getElementById('membership-client-list').innerHTML=list.map(c=>`
-    <div class="cc ${membershipClientId===c.id?'sel':''}" onclick="selMembershipClient('${c.id}',this)">
-      <div class="cca">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
-      <div style="flex:1;min-width:0"><div style="font-size:12.5px;font-weight:600;color:var(--n)">${c.name}</div><div style="font-size:10.5px;color:var(--tl)">${c.email}</div></div>
-      <span class="bdg ${c.plan_status==='active'?'ba':c.plan_status==='pending'?'bp2':'be'}" style="margin-left:7px">${c.plan_status}</span>
-    </div>`).join('');
-}
-function filterMembershipClients(v){renderMembership(v.toLowerCase())}
-function selMembershipClient(id,el){
-  membershipClientId=id;
-  document.querySelectorAll('#membership-client-list .cc').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  const c=ALL_CLIENTS.find(x=>x.id===id);
-  document.getElementById('membership-selected').innerHTML=c?`<strong style="color:var(--n)">${c.name}</strong> · ${c.business_name||''}<br>Current: <strong>${(PLANS[c.plan]||PLANS.none).label} (${c.plan_status})</strong>`:'No client selected';
-}
-async function doAssignMembership(){
-  if(!membershipClientId){showModalMsg('membership-err','Select a client.');return}
-  const plan=document.getElementById('m-plan').value;
-  const billing=document.getElementById('m-billing').value;
-  const rmId=document.getElementById('m-rm').value;
-  document.getElementById('membership-ok').style.display='none';
-  document.getElementById('membership-err').style.display='none';
-  const r=await DB.assignMembership({clientId:membershipClientId,plan,billingCycle:billing,assignedBy:ADMIN.id,rmId:rmId||undefined});
-  if(!r.success){showModalMsg('membership-err','⚠ '+r.error);return}
-  const planInfo=PLANS[plan]||PLANS.none;
-  await DB.sendMessage(membershipClientId,'rm',ADMIN.name,
-    `Great news! Your BuyGenix ${planInfo.label} has been activated! ✅ You now have access to ${planInfo.limit>=99999?'unlimited':planInfo.limit} leads/month. Log in to your dashboard to view your assigned leads. Welcome aboard! 🎉`);
-  showModalMsg('membership-ok',`✅ ${planInfo.label} activated for client! They can now access their leads.`);
-  ALL_CLIENTS=await DB.getClients();renderMembership();
-  setTimeout(()=>document.getElementById('membership-ok').style.display='none',5000);
-}
-function openMembershipFor(clientId){
-  go('membership',null);
-  setTimeout(()=>{membershipClientId=clientId;renderMembership();},100);
-}
-
-/* ════════════════════════════════
-   CHAT
-════════════════════════════════ */
-async function renderChat(){
-  if(!ALL_CLIENTS.length)ALL_CLIENTS=await DB.getClients();
-  document.getElementById('thread-list').innerHTML=ALL_CLIENTS.map(c=>`
-    <div class="ct-item ${activeChatClient===c.id?'on':''}" onclick="openThread('${c.id}')">
+/* ─ CHAT ─ */
+function renderChat() {
+  const list = document.getElementById('thread-list');
+  list.innerHTML = BGX.CLIENTS.map((c,i)=>{
+    const msgs = BGX.MESSAGES[c.id]||[];
+    const last = msgs[msgs.length-1];
+    const hasUnread = last&&last.from==='client';
+    return `<div class="ct-item ${activeChatClient===c.id?'on':''}" onclick="openThread('${c.id}')">
       <div class="ct-av">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
-      <div style="flex:1;min-width:0"><div class="ct-nm">${c.name}</div><div class="ct-pr">${(PLANS[c.plan]||PLANS.none).label}</div></div>
-    </div>`).join('');
-  if(activeChatClient)openThread(activeChatClient);
-  else if(ALL_CLIENTS[0])openThread(ALL_CLIENTS[0].id);
-}
-async function openThread(clientId){
-  activeChatClient=clientId;
-  const c=ALL_CLIENTS.find(x=>x.id===clientId);if(!c)return;
-  document.getElementById('ch-av').textContent=c.name.split(' ').map(w=>w[0]).join('').slice(0,2);
-  document.getElementById('ch-name').textContent=c.name;
-  document.getElementById('ch-plan').textContent=(PLANS[c.plan]||PLANS.none).label+' · '+c.plan_status;
-  document.querySelectorAll('.ct-item').forEach(el=>el.classList.remove('on'));
-  chatMsgsCache=await DB.getMessages(clientId);
-  await DB.markMessagesRead(clientId);
-  renderAdminChatMsgs(c);
-  if(chatRealtimeSub)sb.removeChannel(chatRealtimeSub);
-  chatRealtimeSub=DB.subscribeToMessages(clientId,msg=>{chatMsgsCache.push(msg);renderAdminChatMsgs(c);});
-}
-function renderAdminChatMsgs(c){
-  const wrap=document.getElementById('chat-msgs');
-  const ini=c.name.split(' ').map(w=>w[0]).join('').slice(0,2);
-  wrap.innerHTML=chatMsgsCache.length?chatMsgsCache.map(m=>`
-    <div class="msg ${m.sender==='rm'?'out':'in'}">
-      <div class="mav">${m.sender==='rm'?(ADMIN?.initials||'BG'):ini}</div>
-      <div><div class="mbu">${m.text}</div><div class="mti">${new Date(m.created_at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</div></div>
-    </div>`).join(''):'<div style="text-align:center;padding:24px;color:var(--tl);font-size:12px">No messages yet.</div>';
-  wrap.scrollTop=wrap.scrollHeight;
-  /* Re-highlight thread */
-  document.querySelectorAll('.ct-item').forEach(el=>{if(el.getAttribute('onclick')?.includes(activeChatClient))el.classList.add('on');});
-}
-async function adminSend(){
-  const inp=document.getElementById('chat-input');
-  const txt=inp.value.trim();
-  if(!txt||!activeChatClient||!ADMIN)return;
-  inp.value='';
-  await DB.sendMessage(activeChatClient,'rm',ADMIN.name,txt);
-  chatMsgsCache.push({sender:'rm',text:txt,created_at:new Date().toISOString()});
-  const c=ALL_CLIENTS.find(x=>x.id===activeChatClient);
-  if(c)renderAdminChatMsgs(c);
-}
-function openChatWith(clientId){go('chat',null);setTimeout(()=>openThread(clientId),100)}
-function viewChatClient(){if(activeChatClient){go('clients',null);setTimeout(()=>showClientDetail(activeChatClient),100)}}
-function quickAssignFromChat(){if(activeChatClient)openAssignFor(activeChatClient)}
-function quickMembershipFromChat(){if(activeChatClient)openMembershipFor(activeChatClient)}
-
-/* ════════════════════════════════
-   RMs — FULL CRUD
-════════════════════════════════ */
-async function renderRMs(){
-  ALL_RMS=await DB.getRMs();
-  document.getElementById('rm-lbl').textContent=`${ALL_RMS.length} relationship managers`;
-  document.getElementById('rm-grid').innerHTML=ALL_RMS.map(rm=>{
-    const clients=ALL_CLIENTS.filter(c=>c.rm_id===rm.id).length;
-    return`<div class="rm-card">
-      <div style="display:flex;align-items:center;gap:11px;margin-bottom:11px">
-        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0">${rm.initials||'RM'}</div>
-        <div><div style="font-size:13.5px;font-weight:700;color:var(--n);font-family:'Space Grotesk'">${rm.name}</div><div style="font-size:11px;color:var(--tm)">${rm.role}</div></div>
+      <div style="flex:1;min-width:0">
+        <div class="ct-nm">${c.name}</div>
+        <div class="ct-pr">${last?last.text.slice(0,30)+'…':'No messages'}</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:11px">
-        <div style="font-size:11.5px;color:var(--tb)">📞 ${rm.phone||'—'}</div>
-        <div style="font-size:11.5px;color:var(--tb)">📧 ${rm.email||'—'}</div>
-        <div style="font-size:11.5px;color:var(--tb)">🔑 ${rm.username} / ${rm.password}</div>
-      </div>
-      <div style="font-size:11px;color:var(--tl);border-top:1px solid var(--bs);padding-top:9px;margin-bottom:9px"><strong style="color:var(--n)">${clients}</strong> clients assigned</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="btn b-o b-sm" onclick="editRM('${rm.id}')">✏️ Edit</button>
-        <button class="btn b-d b-sm" onclick="deleteRM('${rm.id}','${rm.name.replace(/'/g,"\\'")}')">🗑 Delete</button>
-      </div>
+      ${hasUnread?`<div class="ct-un">!</div>`:''}
     </div>`;
+  }).join('');
+  if(activeChatClient) openThread(activeChatClient);
+  else if(BGX.CLIENTS[0]) openThread(BGX.CLIENTS[0].id);
+}
+function openThread(clientId) {
+  activeChatClient = clientId;
+  const c = BGX.getClient(clientId);
+  const plan = BGX.getPlan(c.plan);
+  document.getElementById('ch-av').textContent = c.name.split(' ').map(w=>w[0]).join('').slice(0,2);
+  document.getElementById('ch-name').textContent = c.name;
+  document.getElementById('ch-plan').textContent = plan.label + ' · ' + c.cat;
+  // re-highlight thread
+  document.querySelectorAll('.ct-item').forEach(el=>el.classList.remove('on'));
+  const msgs = BGX.MESSAGES[clientId]||[];
+  const wrap = document.getElementById('chat-msgs');
+  wrap.innerHTML = msgs.map(m=>`
+    <div class="msg ${m.from==='rm'?'out':'in'}">
+      <div class="mav">${m.from==='rm'?'BG':c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+      <div><div class="mbu">${m.text}</div><div class="mti">${m.time}</div></div>
+    </div>`).join('');
+  wrap.scrollTop = wrap.scrollHeight;
+  renderChat(); // re-render thread list to update highlights
+}
+function adminSend() {
+  const inp = document.getElementById('chat-input');
+  const txt = inp.value.trim();
+  if(!txt||!activeChatClient) return;
+  BGX.addMessage(activeChatClient,'rm',txt);
+  inp.value = '';
+  openThread(activeChatClient);
+}
+function openChatWith(clientId) { go('chat',null); setTimeout(()=>openThread(clientId),100) }
+function viewClientFromChat() { if(activeChatClient){go('clients',null);setTimeout(()=>showClientDetail(activeChatClient),100)} }
+
+/* ─ RMs ─ */
+function renderRMs() {
+  document.getElementById('rm-count-label').textContent = `${BGX.RMS.length} relationship managers`;
+  document.getElementById('rm-grid').innerHTML = BGX.RMS.map(rm=>`
+    <div class="card">
+      <div class="cb" style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--n),var(--n2));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0">${rm.initials}</div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--n);font-family:'Space Grotesk'">${rm.name}</div><div style="font-size:11px;color:var(--tm)">${rm.role}</div></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:11.5px;color:var(--tb)">📞 ${rm.phone}</div>
+          <div style="font-size:11.5px;color:var(--tb)">📧 ${rm.email}</div>
+        </div>
+        <div style="font-size:11px;color:var(--tl);border-top:1px solid var(--bs);padding-top:10px">
+          <strong style="color:var(--n)">${rm.clients.length}</strong> clients assigned
+        </div>
+        <div style="display:flex;gap:7px">
+          <button class="btn b-o b-sm" onclick="viewRMClients('${rm.id}')">View Clients</button>
+          <button class="btn b-p b-sm" onclick="openChatWithRM('${rm.id}')">Chat</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function viewRMClients(rmId) {
+  go('clients', null);
+  setTimeout(()=>{
+    const clients = BGX.CLIENTS.filter(c=>c.rmId===rmId);
+    document.getElementById('clients-count-label').textContent = `${clients.length} clients with this RM`;
+    document.getElementById('client-list').innerHTML = clients.map(c=>`
+      <div class="cc" onclick="showClientDetail('${c.id}')">
+        <div class="cca">${c.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:600;color:var(--n)">${c.name}</div><div style="font-size:10.5px;color:var(--tl)">${c.biz}</div></div>
+        <span class="bdg ${c.status==='active'?'ba':'be'}">${c.status}</span>
+      </div>`).join('');
+  },100);
+}
+function openChatWithRM(rmId){
+  const clients = BGX.CLIENTS.filter(c=>c.rmId===rmId);
+  if(clients.length) openChatWith(clients[0].id);
+}
+
+/* ─ MEMBERSHIPS ─ */
+function renderMemberships() {
+  const counts = {};
+  BGX.CLIENTS.forEach(c=>{ counts[c.plan]=(counts[c.plan]||0)+1 });
+  const planKeys = Object.keys(BGX.PLANS);
+  const icons = {starter:'🥉',growth:'🥈',professional:'🥇',enterprise:'💎'};
+  const cols = {starter:'c1',growth:'c2',professional:'c3',enterprise:'c4'};
+  document.getElementById('plan-stats').innerHTML = planKeys.map(k=>`
+    <div class="sc ${cols[k]}"><div class="sc-i">${icons[k]}</div><div class="sc-v">${counts[k]||0}</div><div class="sc-l">${BGX.PLANS[k].label}</div></div>`).join('');
+  document.getElementById('memberships-body').innerHTML = BGX.CLIENTS.map(c=>{
+    const plan = BGX.getPlan(c.plan);
+    const rm = BGX.getRM(c.rmId);
+    const rev = c.billing==='annual'?`₹${plan.pricePa.toLocaleString('en-IN')}/yr`:`₹${plan.price.toLocaleString('en-IN')}/mo`;
+    return `<tr>
+      <td><strong>${c.name}</strong><br><span style="font-size:10px;color:var(--tl)">${c.biz}</span></td>
+      <td>${plan.label}</td>
+      <td>${rm?rm.name:'—'}</td>
+      <td>${c.billing}</td>
+      <td>${c.renewal}</td>
+      <td>${rev}</td>
+      <td><span class="bdg ${c.status==='active'?'ba':'be'}">${c.status}</span></td>
+      <td><div style="display:flex;gap:5px">
+        <button class="btn b-o b-sm" onclick="showClientDetail('${c.id}');go('clients',null)">Edit</button>
+        ${c.status==='expired'?`<button class="btn b-g b-sm">Renew</button>`:`<button class="btn b-d b-sm">Suspend</button>`}
+      </div></td>
+    </tr>`;
   }).join('');
 }
 
-function editRM(id){
-  const rm=ALL_RMS.find(x=>x.id===id);if(!rm)return;
-  document.getElementById('add-rm-title').textContent='Edit RM';
-  document.getElementById('nr-submit-btn').textContent='Save Changes';
-  document.getElementById('nr-submit-btn').onclick=()=>updateRMSubmit();
-  document.getElementById('edit-rm-id').value=id;
-  document.getElementById('nr-name').value=rm.name||'';
-  document.getElementById('nr-role').value=rm.role||'Export Consultant';
-  document.getElementById('nr-phone').value=rm.phone||'';
-  document.getElementById('nr-email').value=rm.email||'';
-  document.getElementById('nr-user').value=rm.username||'';
-  document.getElementById('nr-pass').value=rm.password||'';
-  openModal('add-rm');
+/* ─ ANALYTICS ─ */
+function renderAnalytics() {
+  const active = BGX.CLIENTS.filter(c=>c.status==='active').length;
+  const conv = BGX.LEADS.filter(l=>l.status==='converted').length;
+  document.getElementById('analytics-stats').innerHTML = `
+    <div class="sc c1"><div class="sc-i">📤</div><div class="sc-v">${BGX.LEADS.length}</div><div class="sc-l">Total Leads in Pool</div></div>
+    <div class="sc c2"><div class="sc-i">🌍</div><div class="sc-v">${[...new Set(BGX.LEADS.map(l=>l.country))].length}</div><div class="sc-l">Countries Covered</div></div>
+    <div class="sc c3"><div class="sc-i">✅</div><div class="sc-v">${conv}</div><div class="sc-l">Converted Leads</div></div>
+    <div class="sc c4"><div class="sc-i">👥</div><div class="sc-v">${active}</div><div class="sc-l">Active Clients</div></div>`;
+
+  const cats={};BGX.LEADS.forEach(l=>cats[l.cat]=(cats[l.cat]||0)+1);
+  const cmax=Math.max(...Object.values(cats));
+  document.getElementById('a-cats').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cmax*100)}%"></div></div></div>`).join('');
+
+  const ctrs={};BGX.LEADS.forEach(l=>ctrs[l.country]=(ctrs[l.country]||0)+1);
+  const sorted=Object.entries(ctrs).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const dmax=sorted[0]?.[1]||1;
+  document.getElementById('a-countries').innerHTML=sorted.map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dmax*100)}%"></div></div></div>`).join('');
+
+  const rev={};
+  BGX.CLIENTS.filter(c=>c.status==='active').forEach(c=>{const p=BGX.getPlan(c.plan);rev[p.label]=(rev[p.label]||0)+(c.billing==='annual'?Math.round(p.pricePa/12):p.price)});
+  const rmax=Math.max(...Object.values(rev));
+  document.getElementById('a-revenue').innerHTML=Object.entries(rev).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
+    <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>₹${v.toLocaleString('en-IN')}/mo</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/rmax*100)}%"></div></div></div>`).join('');
+
+  const umax=Math.max(...BGX.CLIENTS.map(c=>c.used));
+  document.getElementById('a-usage').innerHTML=BGX.CLIENTS.map(c=>`
+    <div class="pb-w"><div class="pb-l"><span>${c.name}</span><strong>${c.used}/${c.limit}</strong></div><div class="pb-t"><div class="pb-f" style="width:${c.limit>0?Math.round(c.used/c.limit*100):0}%"></div></div></div>`).join('');
 }
 
-async function deleteRM(id,name){
-  if(!confirm(`Delete RM "${name}"? Their clients will be unassigned.`))return;
-  const r=await DB.deleteRM(id);
-  if(r.success){ALL_RMS=await DB.getRMs();renderRMs();await refreshRMDropdowns();}
-  else alert('Error: '+r.error);
+/* ─ TICKETS ─ */
+function renderTickets() {
+  const pc={urgent:'be',high:'bp2',normal:'ba'};
+  document.getElementById('tickets-body').innerHTML = BGX.TICKETS.map(t=>`
+    <tr>
+      <td><strong>${t.id}</strong></td>
+      <td>${t.client}</td>
+      <td>${t.type}</td>
+      <td><span class="bdg ${pc[t.priority]}">${t.priority}</span></td>
+      <td style="max-width:180px;font-size:11.5px">${t.desc}</td>
+      <td>${t.date}</td>
+      <td><span class="bdg ${t.status==='open'?'bp2':'bc'}">${t.status==='open'?'⏳ Open':'✅ Resolved'}</span></td>
+      <td><div style="display:flex;gap:5px">
+        <button class="btn b-p b-sm" onclick="openChatWith('${t.clientId}')">Reply in Chat</button>
+        ${t.status==='open'?`<button class="btn b-o b-sm" onclick="resolveTicket('${t.id}')">Resolve</button>`:''}
+      </div></td>
+    </tr>`).join('');
+}
+function resolveTicket(id){const t=BGX.TICKETS.find(x=>x.id===id);if(t)t.status='resolved';renderTickets()}
+
+/* ─ REFERRALS ─ */
+function renderReferrals() {
+  document.getElementById('referrals-body').innerHTML = BGX.REFERRALS.map(r=>`
+    <tr>
+      <td><strong>${r.referrer}</strong></td>
+      <td>${r.referred}</td>
+      <td>${r.plan}</td>
+      <td><strong style="color:var(--green)">${r.commission}</strong></td>
+      <td>${r.date}</td>
+      <td><span class="bdg ${r.status==='paid'?'bc':'bp2'}">${r.status==='paid'?'✅ Paid':'⏳ Pending'}</span></td>
+      <td>${r.status==='pending'?`<button class="btn b-g b-sm" onclick="markPaid(this)">Mark Paid</button>`:''}</td>
+    </tr>`).join('');
+}
+function markPaid(btn){const row=btn.closest('tr');const ref=BGX.REFERRALS.find(r=>r.referred===row.cells[1].textContent);if(ref)ref.status='paid';renderReferrals()}
+
+/* ─ MODALS ─ */
+function openModal(name){document.getElementById('modal-'+name)?.classList.add('open')}
+function closeModal(name){document.getElementById('modal-'+name)?.classList.remove('open')}
+
+function addClient() {
+  const name=document.getElementById('nc-name').value.trim();
+  const biz=document.getElementById('nc-biz').value.trim();
+  const email=document.getElementById('nc-email').value.trim();
+  if(!name||!email){alert('Name and email are required.');return}
+  const c = BGX.addClient({
+    name, biz, email,
+    phone: document.getElementById('nc-phone').value.trim(),
+    city:  document.getElementById('nc-city').value.trim(),
+    state: document.getElementById('nc-state').value.trim(),
+    cat:   document.getElementById('nc-cat').value,
+    gstin: document.getElementById('nc-gstin').value.trim(),
+    plan:  document.getElementById('nc-plan').value,
+    billing: document.getElementById('nc-billing').value,
+    renewal: new Date(Date.now()+30*24*60*60*1000).toISOString().split('T')[0],
+    rmId:  document.getElementById('nc-rm').value,
+    products: [],
+    otp: document.getElementById('nc-otp').value.trim()||'123456',
+  });
+  const rm = BGX.getRM(c.rmId);
+  if(rm && !rm.clients.includes(c.id)) rm.clients.push(c.id);
+  const ok = document.getElementById('add-client-ok');
+  ok.textContent = `✅ ${name}'s account created! Login: ${email} / OTP: ${c.otp}`;
+  ok.style.display = 'block';
+  renderClients();
+  renderDash();
+  setTimeout(()=>closeModal('add-client'),3000);
 }
 
-async function submitRM(){
+function addLead() {
+  const co=document.getElementById('nl-co').value.trim();
+  const country=document.getElementById('nl-country').value;
+  if(!co||!country){alert('Company and country are required.');return}
+  BGX.addLead({
+    co, country,
+    name: document.getElementById('nl-name').value.trim(),
+    phone: document.getElementById('nl-phone').value.trim(),
+    email: document.getElementById('nl-email').value.trim(),
+    cat: document.getElementById('nl-cat').value,
+    product: document.getElementById('nl-product').value||document.getElementById('nl-cat').value,
+    qty: document.getElementById('nl-qty').value.trim(),
+    q: document.getElementById('nl-q').value,
+  });
+  document.getElementById('add-lead-ok').style.display='block';
+  renderLeadPool();
+  renderDash();
+  setTimeout(()=>closeModal('add-lead'),2500);
+}
+
+function addRM() {
   const name=document.getElementById('nr-name').value.trim();
   const email=document.getElementById('nr-email').value.trim();
-  const username=document.getElementById('nr-user').value.trim();
-  const password=document.getElementById('nr-pass').value.trim();
-  if(!name||!email||!username||!password){showModalMsg('add-rm-err','All fields required.');return}
-  const r=await DB.addRM({name,email,username,password,role:document.getElementById('nr-role').value.trim(),phone:document.getElementById('nr-phone').value.trim()});
-  if(!r.success){showModalMsg('add-rm-err','⚠ '+r.error);return}
-  showModalMsg('add-rm-ok',`✅ RM ${name} added! Login: ${username} / ${password}`);
-  await refreshRMDropdowns();renderRMs();
-  setTimeout(()=>closeModal('add-rm'),2500);
-}
-
-async function updateRMSubmit(){
-  const id=document.getElementById('edit-rm-id').value;if(!id)return;
-  const r=await DB.updateRM(id,{
-    name:document.getElementById('nr-name').value.trim(),
-    role:document.getElementById('nr-role').value.trim(),
-    phone:document.getElementById('nr-phone').value.trim(),
-    email:document.getElementById('nr-email').value.trim(),
-    username:document.getElementById('nr-user').value.trim(),
-    password:document.getElementById('nr-pass').value.trim(),
+  if(!name||!email){alert('Name and email required.');return}
+  BGX.addRM({
+    name, email,
+    role: document.getElementById('nr-role').value.trim(),
+    phone: document.getElementById('nr-phone').value.trim(),
   });
-  if(!r.success){showModalMsg('add-rm-err','⚠ '+r.error);return}
-  showModalMsg('add-rm-ok','✅ RM updated!');
-  await refreshRMDropdowns();renderRMs();
+  document.getElementById('add-rm-ok').style.display='block';
+  refreshRMDropdown();
+  renderRMs();
   setTimeout(()=>closeModal('add-rm'),2000);
 }
 
-/* ════════════════════════════════
-   ANALYTICS
-════════════════════════════════ */
-async function renderAnalytics(){
-  const data=await DB.getAnalytics();
-  const active=data.clients.filter(c=>c.plan_status==='active').length;
-  const conv=data.leads.filter(l=>l.status==='converted').length;
-  const ctrs=[...new Set(data.leads.map(l=>l.country))].length;
-  document.getElementById('analytics-stats').innerHTML=`
-    <div class="sc c1"><div class="sc-i">📤</div><div class="sc-v">${data.leads.length}</div><div class="sc-l">Total Leads</div></div>
-    <div class="sc c2"><div class="sc-i">🌍</div><div class="sc-v">${ctrs}</div><div class="sc-l">Countries</div></div>
-    <div class="sc c3"><div class="sc-i">✅</div><div class="sc-v">${conv}</div><div class="sc-l">Converted</div></div>
-    <div class="sc c4"><div class="sc-i">👥</div><div class="sc-v">${active}</div><div class="sc-l">Active Clients</div></div>`;
-  const cats={};data.leads.forEach(l=>cats[l.category]=(cats[l.category]||0)+1);
-  const cm=Math.max(1,...Object.values(cats));
-  document.getElementById('a-cats').innerHTML=Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/cm*100)}%"></div></div></div>`).join('');
-  const ctrc={};data.leads.forEach(l=>ctrc[l.country]=(ctrc[l.country]||0)+1);
-  const dm=Math.max(1,...Object.values(ctrc));
-  document.getElementById('a-ctrs').innerHTML=Object.entries(ctrc).sort((a,b)=>b[1]-a[1]).slice(0,10).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dm*100)}%"></div></div></div>`).join('');
-  const rev={};data.clients.filter(c=>c.plan_status==='active').forEach(c=>{const p=PLANS[c.plan]||PLANS.none;const lbl=p.label;rev[lbl]=(rev[lbl]||0)+(c.billing_cycle==='annual'?Math.round((p.pricePa||p.price*12)/12):p.price)||0});
-  const rm2=Math.max(1,...Object.values(rev));
-  document.getElementById('a-rev').innerHTML=Object.entries(rev).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="pb-w"><div class="pb-l"><span>${k}</span><strong>₹${v.toLocaleString('en-IN')}/mo</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/rm2*100)}%"></div></div></div>`).join('');
-  document.getElementById('a-usage').innerHTML=data.clients.map(c=>`<div class="pb-w"><div class="pb-l"><span>${c.name||'—'}</span><strong>${c.leads_used||0}/${c.lead_limit||0}</strong></div><div class="pb-t"><div class="pb-f" style="width:${c.lead_limit>0?Math.round((c.leads_used||0)/c.lead_limit*100):0}%"></div></div></div>`).join('');
-}
-
-/* ════════════════════════════════
-   TICKETS
-════════════════════════════════ */
-async function renderTickets(){
-  const tickets=await DB.getTickets();
-  const pc={urgent:'bh',high:'bp2',normal:'ba'};
-  document.getElementById('tickets-body').innerHTML=tickets.map(t=>`
-    <tr>
-      <td><strong>${t.clients?.name||'—'}</strong></td>
-      <td>${t.type||'—'}</td>
-      <td><span class="bdg ${pc[t.priority]||'ba'}">${t.priority}</span></td>
-      <td style="max-width:200px;font-size:11.5px">${t.description}</td>
-      <td style="font-size:11px;color:var(--tl)">${new Date(t.created_at).toLocaleDateString('en-IN')}</td>
-      <td><span class="bdg ${t.status==='open'?'bp2':t.status==='in_progress'?'bw':'bc'}">${t.status}</span></td>
-      <td class="tbl-actions">
-        <button class="btn b-p b-sm" onclick="openChatWith('${t.client_id}')">Reply</button>
-        ${t.status==='open'?`<button class="btn b-o b-sm" onclick="resolveTicket('${t.id}')">Resolve</button>`:''}
-        <button class="btn b-d b-sm" onclick="delTicket('${t.id}')">🗑</button>
-      </td>
-    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--tl)">No tickets</td></tr>';
-  document.getElementById('sb-tickets').textContent=tickets.filter(t=>t.status==='open').length;
-}
-async function resolveTicket(id){await DB.resolveTicket(id);renderTickets()}
-async function delTicket(id){if(!confirm('Delete this ticket?'))return;await DB.deleteTicket(id);renderTickets()}
-
-/* ════════════════════════════════
-   ENQUIRIES
-════════════════════════════════ */
-async function renderEnquiries(){
-  const enqs=await DB.getEnquiries();
-  document.getElementById('enquiries-body').innerHTML=enqs.map(e=>`
-    <tr>
-      <td><strong>${e.name}</strong></td><td>${e.email}</td><td>${e.phone||'—'}</td>
-      <td>${e.business||'—'}</td><td>${e.interest||'general'}</td>
-      <td style="font-size:11px;color:var(--tl)">${new Date(e.created_at).toLocaleDateString('en-IN')}</td>
-      <td><span class="bdg ${e.status==='new'?'bp2':e.status==='converted'?'bc':'bn'}">${e.status}</span></td>
-      <td class="tbl-actions">
-        <button class="btn b-g b-sm" onclick="convertEnq('${e.id}','${e.name.replace(/'/g,"\\'")}','${e.email}','${e.phone||''}')">Convert →</button>
-        <button class="btn b-o b-sm" onclick="markEnqContacted('${e.id}')">Contacted</button>
-        <button class="btn b-d b-sm" onclick="delEnq('${e.id}')">🗑</button>
-      </td>
-    </tr>`).join('')||'<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--tl)">No enquiries</td></tr>';
-  document.getElementById('sb-enquiries').textContent=enqs.filter(e=>e.status==='new').length;
-}
-async function markEnqContacted(id){await DB.updateEnquiry(id,{status:'contacted'});renderEnquiries()}
-async function delEnq(id){if(!confirm('Delete this enquiry?'))return;await DB.deleteEnquiry(id);renderEnquiries()}
-function convertEnq(id,name,email,phone){
-  openModal('add-client');
-  setTimeout(()=>{
-    document.getElementById('nc-name').value=name;
-    document.getElementById('nc-email').value=email;
-    document.getElementById('nc-phone').value=phone;
-    DB.updateEnquiry(id,{status:'converted'});
-  },100);
-}
-
-/* ════════════════════════════════
-   REFERRALS
-════════════════════════════════ */
-async function renderReferrals(){
-  const refs=await DB.getAllReferrals();
-  const total=refs.reduce((s,r)=>s+(r.commission||0),0);
-  const paid=refs.filter(r=>r.status==='paid').reduce((s,r)=>s+(r.commission||0),0);
-  const pending=refs.filter(r=>r.status==='pending').reduce((s,r)=>s+(r.commission||0),0);
-  document.getElementById('ref-stats').innerHTML=`
-    <div class="sc c1"><div class="sc-i">🔗</div><div class="sc-v">${refs.length}</div><div class="sc-l">Total Referrals</div></div>
-    <div class="sc c2"><div class="sc-i">✅</div><div class="sc-v">₹${paid.toLocaleString('en-IN')}</div><div class="sc-l">Commissions Paid</div></div>
-    <div class="sc c3"><div class="sc-i">⏳</div><div class="sc-v">₹${pending.toLocaleString('en-IN')}</div><div class="sc-l">Pending Payout</div></div>`;
-  document.getElementById('referrals-body').innerHTML=refs.map(r=>`
-    <tr>
-      <td><strong>${r.referrer_id||'—'}</strong></td>
-      <td>${r.referred_name}</td>
-      <td>${r.plan||'—'}</td>
-      <td><strong style="color:var(--green)">₹${(r.commission||0).toLocaleString('en-IN')}</strong></td>
-      <td style="font-size:11px;color:var(--tl)">${new Date(r.created_at).toLocaleDateString('en-IN')}</td>
-      <td><span class="bdg ${r.status==='paid'?'bc':'bp2'}">${r.status==='paid'?'✅ Paid':'⏳ Pending'}</span></td>
-      <td class="tbl-actions">
-        ${r.status==='pending'?`<button class="btn b-g b-sm" onclick="markRefPaid('${r.id}')">Mark Paid</button>`:''}
-        <button class="btn b-d b-sm" onclick="delRef('${r.id}')">🗑</button>
-      </td>
-    </tr>`).join('')||'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--tl)">No referrals</td></tr>';
-}
-async function markRefPaid(id){await DB.updateReferral(id,{status:'paid'});renderReferrals()}
-async function delRef(id){if(!confirm('Delete this referral?'))return;await DB.updateReferral(id,{status:'deleted'});renderReferrals()}
-
-/* ════════════════════════════════
-   MODALS
-════════════════════════════════ */
-function openModal(n){
-  /* Reset form if adding new */
-  if(n==='add-client'){
-    document.getElementById('add-client-title').textContent='Add New Client';
-    document.getElementById('nc-submit-btn').textContent='Create Account';
-    document.getElementById('nc-submit-btn').onclick=()=>submitClient();
-    document.getElementById('edit-client-id').value='';
-    ['nc-name','nc-biz','nc-email','nc-phone','nc-city','nc-state','nc-gstin'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('nc-otp').value='123456';
-    document.getElementById('add-client-ok').style.display='none';
-    document.getElementById('add-client-err').style.display='none';
+function changeRM(clientId) {
+  const newRM = prompt('Enter RM ID to assign ('+BGX.RMS.map(r=>r.id+':'+r.name).join(', ')+')');
+  if(newRM && BGX.getRM(newRM)){
+    const c=BGX.getClient(clientId);
+    if(c){c.rmId=newRM;showClientDetail(clientId);renderClients();}
   }
-  if(n==='add-lead'){
-    document.getElementById('add-lead-title').textContent='Add Lead to Pool';
-    document.getElementById('nl-submit-btn').textContent='Add to Pool';
-    document.getElementById('nl-submit-btn').onclick=()=>submitLead();
-    document.getElementById('edit-lead-id').value='';
-    ['nl-co','nl-name','nl-phone','nl-email','nl-qty'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('add-lead-ok').style.display='none';
-    document.getElementById('add-lead-err').style.display='none';
-  }
-  if(n==='add-rm'){
-    document.getElementById('add-rm-title').textContent='Add Relationship Manager';
-    document.getElementById('nr-submit-btn').textContent='Add RM';
-    document.getElementById('nr-submit-btn').onclick=()=>submitRM();
-    document.getElementById('edit-rm-id').value='';
-    ['nr-name','nr-phone','nr-email','nr-user','nr-pass'].forEach(id=>document.getElementById(id).value='');
-    document.getElementById('nr-role').value='Export Consultant';
-    document.getElementById('add-rm-ok').style.display='none';
-    document.getElementById('add-rm-err').style.display='none';
-  }
-  document.getElementById('modal-'+n)?.classList.add('open');
 }
-function closeModal(n){document.getElementById('modal-'+n)?.classList.remove('open')}
-function showModalMsg(id,msg){const el=document.getElementById(id);if(el){el.textContent=msg;el.style.display='block';}}
+
+/* ─ INIT ALL ─ */
+document.addEventListener('DOMContentLoaded', ()=>{
+  initAdminLoginCanvas();
+  checkAdminSession();
+});
+
+/* ══════════════════════════════════════════
+   ADMIN LOGIN / LOGOUT SYSTEM
+══════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════
+   REAL SUPABASE AUTH — replaces hardcoded admin accounts
+═══════════════════════════════════════════════════ */
+const SUPABASE_URL  = 'https://qzaeshegpdoknsiuvidr.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF6YWVzaGVncGRva25zaXV2aWRyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4NjIzMzcsImV4cCI6MjA5MzQzODMzN30.3TOujIaRbZPkvL_hewvJEONcOwApOIRQA5EjTdihW-s';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+function checkAdminSession() {
+  _supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!session) return;
+    _supabase.from('profiles').select('*').eq('id', session.user.id).single()
+      .then(({ data: profile }) => {
+        if (!profile || !['admin','superadmin','rm'].includes(profile.role)) {
+          _supabase.auth.signOut();
+          showAdminError('Access denied. Admin privileges required.');
+          return;
+        }
+        enterAdminDashboard({
+          name:     profile.name || session.user.email,
+          role:     profile.role_label || profile.role,
+          initials: (profile.name||'A').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
+        });
+      });
+  });
+}
+
+async function adminLogin() {
+  const email = document.getElementById('al-user').value.trim().toLowerCase();
+  const pass  = document.getElementById('al-pass').value;
+  const btn   = document.getElementById('al-btn');
+  const txt   = document.getElementById('al-btn-txt');
+  hideAdminError();
+  if (!email || !pass) { showAdminError('Please enter your email and password.'); return; }
+  btn.disabled = true;
+  txt.innerHTML = '<span class="al-spin"></span> Signing in…';
+
+  const { data, error } = await _supabase.auth.signInWithPassword({ email, password: pass });
+  if (error) {
+    btn.disabled = false;
+    txt.textContent = 'Sign In to Admin CRM →';
+    document.getElementById('al-pass').value = '';
+    showAdminError(error.status === 400 ? 'Incorrect email or password.' : (error.message || 'Login failed.'));
+    return;
+  }
+
+  const { data: profile } = await _supabase.from('profiles').select('*').eq('id', data.user.id).single();
+  if (!profile || !['admin','superadmin','rm'].includes(profile.role)) {
+    await _supabase.auth.signOut();
+    btn.disabled = false;
+    txt.textContent = 'Sign In to Admin CRM →';
+    showAdminError('Access denied. Admin privileges required.');
+    return;
+  }
+
+  setTimeout(() => enterAdminDashboard({
+    name:     profile.name || data.user.email,
+    role:     profile.role_label || profile.role,
+    initials: (profile.name||'A').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()
+  }), 600);
+}
+
+function enterAdminDashboard(admin) {
+  const loginEl = document.getElementById('admin-login');
+  loginEl.style.opacity = '0';
+  loginEl.style.transition = 'opacity .35s';
+  setTimeout(() => loginEl.style.display = 'none', 350);
+  document.getElementById('admin-ava').textContent          = admin.initials;
+  document.getElementById('admin-display-name').textContent = admin.name;
+  document.getElementById('admin-display-role').textContent = admin.role;
+  document.getElementById('page-title').textContent         = 'Dashboard';
+  initDropdowns();
+  renderDash();
+}
+
+async function adminLogout() {
+  if (!confirm('Sign out of Admin CRM?')) return;
+  await _supabase.auth.signOut();
+  document.getElementById('al-user').value = '';
+  document.getElementById('al-pass').value = '';
+  document.getElementById('al-btn').disabled = false;
+  document.getElementById('al-btn-txt').textContent = 'Sign In to Admin CRM →';
+  hideAdminError();
+  const loginEl = document.getElementById('admin-login');
+  loginEl.style.display = 'flex';
+  loginEl.style.opacity = '0';
+  requestAnimationFrame(() => { loginEl.style.transition = 'opacity .35s'; loginEl.style.opacity = '1'; });
+}
+
+function showAdminError(msg) { const e=document.getElementById('al-err'); e.textContent='⚠ '+msg; e.style.display='block'; }
+function hideAdminError()    { document.getElementById('al-err').style.display='none'; }
+
+_supabase.auth.onAuthStateChange((event) => {
+  if (event === 'SIGNED_OUT') {
+    const loginEl = document.getElementById('admin-login');
+    loginEl.style.display = 'flex'; loginEl.style.opacity = '1';
+  }
+});
+
+/* Canvas animation for login screen */
+function initAdminLoginCanvas() {
+  const canvas = document.getElementById('al-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], t = 0;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    nodes = [];
+    const n = Math.floor((W * H) / 14000);
+    for (let i = 0; i < n; i++) {
+      nodes.push({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        r:  Math.random() * 2 + 0.8,
+        o:  Math.random() * 0.25 + 0.05
+      });
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  function draw() {
+    /* Only draw if login screen is visible */
+    const loginEl = document.getElementById('admin-login');
+    if (loginEl.style.display === 'none') { t += 0.008; requestAnimationFrame(draw); return; }
+
+    ctx.clearRect(0, 0, W, H);
+
+    /* Deep navy gradient */
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, 'rgba(11,25,41,1)');
+    bg.addColorStop(1, 'rgba(15,40,64,1)');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Gold orb top-right */
+    const orb = ctx.createRadialGradient(W * 0.85, H * 0.15, 0, W * 0.85, H * 0.15, Math.min(W, H) * 0.35);
+    orb.addColorStop(0, 'rgba(184,134,11,0.12)');
+    orb.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Navy orb bottom-left */
+    const orb2 = ctx.createRadialGradient(W * 0.1, H * 0.85, 0, W * 0.1, H * 0.85, Math.min(W, H) * 0.3);
+    orb2.addColorStop(0, 'rgba(27,58,92,0.5)');
+    orb2.addColorStop(1, 'transparent');
+    ctx.fillStyle = orb2;
+    ctx.fillRect(0, 0, W, H);
+
+    /* Moving nodes */
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+      ctx.globalAlpha = n.o * (0.6 + Math.sin(t + n.x * 0.01) * 0.4);
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    /* Connections */
+    ctx.strokeStyle = 'rgba(184,134,11,0.08)';
+    ctx.lineWidth = 0.7;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < 120) {
+          ctx.globalAlpha = (1 - d / 120) * 0.15;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    ctx.globalAlpha = 1;
+    t += 0.008;
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
 </script>
 </body>
 </html>
