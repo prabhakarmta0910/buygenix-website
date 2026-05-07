@@ -389,6 +389,15 @@ async function doLogin(){
     sessionStorage.setItem('bgx_client_name',user.email);
     sessionStorage.setItem('bgx_client_plan','free');
   }
+  /* Log client login to audit_logs */
+  await _supabase.from('audit_logs').insert({
+    admin_email: 'client',
+    action: 'client_login',
+    target: user.email,
+    details: 'Plan: ' + (profile?.plan||'free') + ' | Name: ' + (profile?.name||user.email),
+    created_at: new Date().toISOString(),
+  }).catch(()=>{});
+
   showOK('Signed in! Redirecting to your dashboard…');
   setTimeout(()=>{window.location.href='client-portal.html'},1000);
 }
@@ -454,25 +463,60 @@ async function finishReg(){
   if(!pass1||pass1.length<8){showErr('Password must be at least 8 characters.');return}
   if(pass1!==pass2){showErr('Passwords do not match.');return}
   setBtn('rg-s2-btn','rg-s2-txt',true);
-  const {error:pwErr}=await _supabase.auth.updateUser({password:pass1});
-  if(pwErr){setBtn('rg-s2-btn','rg-s2-txt',false,'Create My Account →');showErr(pwErr.message||'Could not set password.');return}
+
+  /* Get current user from OTP session */
   const {data:{user}}=await _supabase.auth.getUser();
+  if(!user){showErr('Session expired. Please start registration again.');setBtn('rg-s2-btn','rg-s2-txt',false,'Create My Account →');return}
+
+  /* Set password */
+  const {error:pwErr}=await _supabase.auth.updateUser({password:pass1});
+  if(pwErr){setBtn('rg-s2-btn','rg-s2-txt',false,'Create My Account →');showErr(pwErr.message||'Could not set password. Please try again.');return}
+
+  /* Save profile to clients table */
   const name    =sessionStorage.getItem('bgx_reg_name');
   const biz     =sessionStorage.getItem('bgx_reg_biz');
-  const email   =sessionStorage.getItem('bgx_reg_email');
+  const email   =sessionStorage.getItem('bgx_reg_email')||user.email;
   const phone   =sessionStorage.getItem('bgx_reg_phone');
   const category=sessionStorage.getItem('bgx_reg_category');
+
   await _supabase.from('clients').upsert({
     id:user.id, email, name, business_name:biz, phone, category, plan:'free', status:'active'
   },{onConflict:'email'});
+
+  /* Clean up temp storage */
   ['bgx_reg_name','bgx_reg_biz','bgx_reg_email','bgx_reg_phone','bgx_reg_category']
     .forEach(k=>sessionStorage.removeItem(k));
+
+  showOK('Account created! Signing you in…');
+
+  /* Log registration to audit */
+  await _supabase.from('audit_logs').insert({
+    admin_email: 'client',
+    action: 'client_registered',
+    target: email,
+    details: 'Name: ' + name + ' | Business: ' + (biz||'—') + ' | Category: ' + (category||'—'),
+    created_at: new Date().toISOString(),
+  }).catch(()=>{});
+
+  /* IMPORTANT: Sign out the OTP session, then sign back in with password
+     This ensures the account works with email+password from now on */
+  await _supabase.auth.signOut();
+
+  const {data:loginData, error:loginErr}=await _supabase.auth.signInWithPassword({email, password:pass1});
+  if(loginErr){
+    /* Password login failed — send them to login page to sign in manually */
+    showOK('Account created! Please sign in with your email and password.');
+    setTimeout(()=>{ switchTab('login'); document.getElementById('li-email').value=email; },1500);
+    return;
+  }
+
+  /* Fully logged in — go to dashboard */
   sessionStorage.setItem('bgx_client_email',email);
   sessionStorage.setItem('bgx_client_name',name);
   sessionStorage.setItem('bgx_client_plan','free');
-  sessionStorage.setItem('bgx_client_id',user.id);
-  showOK('Account created! Redirecting to your dashboard…');
-  setTimeout(()=>{window.location.href='client-portal.html'},1200);
+  sessionStorage.setItem('bgx_client_id',loginData.user.id);
+
+  setTimeout(()=>{window.location.href='client-portal.html'},1000);
 }
 
 /* ── password strength ── */

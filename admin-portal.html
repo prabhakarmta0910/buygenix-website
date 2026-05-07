@@ -251,6 +251,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <button class="ni" onclick="go('analytics',this)"><span class="ic">📈</span> Analytics</button>
     <button class="ni" onclick="go('tickets',this)"><span class="ic">🛎</span> Support Tickets <span class="bx bx-r" id="sb-tickets-count">0</span></button>
     <button class="ni" onclick="go('referrals',this)"><span class="ic">🔗</span> Referrals</button>
+    <button class="ni" onclick="go('audit',this)"><span class="ic">🔍</span> Audit Trail</button>
     <span class="ss">Portal Links</span>
     <a class="ni" href="login.html" target="_blank"><span class="ic">🌐</span> Client Portal ↗</a>
     <a class="ni" href="index.html" target="_blank"><span class="ic">🏠</span> Main Website ↗</a>
@@ -445,6 +446,52 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       <div class="card"><div style="padding:0;overflow-x:auto"><table class="tbl"><thead><tr><th>Ticket ID</th><th>Client</th><th>Type</th><th>Priority</th><th>Description</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="tickets-body"></tbody></table></div></div>
     </div>
 
+    <!-- AUDIT TRAIL -->
+    <div class="panel" id="p-audit">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n)">Audit Trail</div>
+          <div style="font-size:11.5px;color:var(--tl)" id="audit-count-label">Loading…</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <select id="audit-filter-action" onchange="renderAudit()" style="padding:6px 10px;border:1px solid var(--bs);border-radius:7px;font-size:12px;font-family:'Plus Jakarta Sans';color:var(--tb);background:#fff">
+            <option value="">All Actions</option>
+            <option value="client_added">Client Added</option>
+            <option value="client_deleted">Client Deleted</option>
+            <option value="plan_changed">Plan Changed</option>
+            <option value="status_changed">Status Changed</option>
+            <option value="lead_added">Lead Added</option>
+            <option value="lead_deleted">Lead Deleted</option>
+            <option value="lead_assigned">Lead Assigned</option>
+            <option value="admin_login">Admin Login</option>
+            <option value="client_login">Client Login</option>
+            <option value="client_registered">Client Registered</option>
+          </select>
+          <button class="btn b-o b-sm" onclick="loadAuditLogs()">🔄 Refresh</button>
+          <button class="btn b-d b-sm" onclick="clearOldAuditLogs()">🗑 Clear Old (30d+)</button>
+        </div>
+      </div>
+      <div class="card">
+        <div style="padding:0;overflow-x:auto">
+          <table class="tbl">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Admin</th>
+                <th>Action</th>
+                <th>Target</th>
+                <th>Details</th>
+                <th>IP</th>
+              </tr>
+            </thead>
+            <tbody id="audit-body">
+              <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--tl)">Loading audit logs…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
     <!-- REFERRALS -->
     <div class="panel" id="p-referrals">
       <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Referral Programme</div>
@@ -563,7 +610,7 @@ function refreshRMDropdown() {
 }
 
 /* ─ NAV ─ */
-const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',chat:'Client Chat',rms:'Relationship Managers',memberships:'Memberships',analytics:'Analytics',tickets:'Support Tickets',referrals:'Referral Programme'};
+const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',chat:'Client Chat',rms:'Relationship Managers',memberships:'Memberships',analytics:'Analytics',tickets:'Support Tickets',referrals:'Referral Programme',audit:'Audit Trail'};
 function go(name, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
@@ -585,6 +632,7 @@ const renders = {
   analytics:   renderAnalytics,
   tickets:     renderTickets,
   referrals:   renderReferrals,
+  audit:       loadAuditLogs,
 };
 
 /* ─ DASHBOARD ─ */
@@ -1032,6 +1080,7 @@ async function addClient() {
   }).select().single();
   btn.textContent='Create Account'; btn.disabled=false;
   if(error){ alert('Error: '+error.message); return; }
+  logAudit('client_added', email, 'Name: ' + name + ' | Plan: ' + document.getElementById('nc-plan').value);
   const ok = document.getElementById('add-client-ok');
   ok.textContent = '✅ ' + name + ' added! They can register at login.html with ' + email;
   ok.style.display = 'block';
@@ -1061,6 +1110,7 @@ async function addLead() {
   });
   btn.textContent='Add to Lead Pool'; btn.disabled=false;
   if(error){ alert('Error: '+error.message); return; }
+  logAudit('lead_added', co, 'Country: ' + country + ' | Category: ' + document.getElementById('nl-cat').value);
   document.getElementById('add-lead-ok').style.display='block';
   await reloadLeadsFromDB();
   renderLeadPool(); renderDash();
@@ -1163,7 +1213,9 @@ async function changePlan(id) {
   if(!c) return;
   const plan = prompt('New plan for ' + c.name + '\nfree / starter / growth / professional / enterprise\nCurrent: ' + c.plan, c.plan);
   if(!plan) return;
-  await updateClientField(id, 'plan', plan.toLowerCase().trim());
+  const newPlan = plan.toLowerCase().trim();
+  logAudit('plan_changed', c.email, 'From: ' + c.plan + ' → To: ' + newPlan);
+  await updateClientField(id, 'plan', newPlan);
 }
 
 /* ─ SUSPEND / ACTIVATE ─ */
@@ -1172,6 +1224,7 @@ async function toggleClientStatus(id) {
   if(!c) return;
   const newStatus = c.status === 'active' ? 'suspended' : 'active';
   if(!confirm((newStatus==='suspended'?'Suspend':'Activate') + ' ' + c.name + '?')) return;
+  logAudit('status_changed', c.email, 'From: ' + c.status + ' → To: ' + newStatus);
   await updateClientField(id, 'status', newStatus);
 }
 
@@ -1182,6 +1235,7 @@ async function deleteClient(id) {
   if(!confirm('DELETE ' + c.name + '? This cannot be undone.')) return;
   const { error } = await _supabase.from('clients').delete().eq('id', id);
   if(error){ alert('Error: ' + error.message); return; }
+  logAudit('client_deleted', c.email, 'Name: ' + c.name);
   BGX.CLIENTS = BGX.CLIENTS.filter(x => x.id !== id);
   renderClients(); renderMemberships(); renderDash();
 }
@@ -1189,8 +1243,10 @@ async function deleteClient(id) {
 /* ─ DELETE LEAD ─ */
 async function deleteLead(id) {
   if(!confirm('Delete this lead?')) return;
+  const lead = BGX.LEADS.find(x => x.id === id);
   const { error } = await _supabase.from('buy_leads').delete().eq('id', id);
   if(error){ alert('Error: ' + error.message); return; }
+  logAudit('lead_deleted', lead?.co || id, 'Country: ' + (lead?.country||'') + ' | Category: ' + (lead?.cat||''));
   BGX.LEADS = BGX.LEADS.filter(x => x.id !== id);
   renderLeadPool(); renderDash();
 }
@@ -1199,6 +1255,106 @@ async function deleteLead(id) {
 async function loadAllFromSupabase() {
   await reloadClientsFromDB();
   await reloadLeadsFromDB();
+}
+
+/* ══════════════════════════════════════════
+   AUDIT TRAIL SYSTEM
+   Logs every admin action to Supabase audit_logs table
+══════════════════════════════════════════ */
+
+let _auditAdminEmail = '';
+
+/* Call this whenever an admin action happens */
+async function logAudit(action, target, details='') {
+  try {
+    await _supabase.from('audit_logs').insert({
+      admin_email: _auditAdminEmail || 'unknown',
+      action,
+      target,
+      details,
+      created_at: new Date().toISOString(),
+    });
+  } catch(e) { /* fail silently — audit should never break main flow */ }
+}
+
+/* Load and render audit logs */
+async function loadAuditLogs() {
+  document.getElementById('audit-body').innerHTML =
+    '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--tl)">Loading…</td></tr>';
+
+  const filter = document.getElementById('audit-filter-action')?.value || '';
+
+  let query = _supabase.from('audit_logs').select('*').order('created_at', {ascending:false}).limit(200);
+  if(filter) query = query.eq('action', filter);
+
+  const { data, error } = await query;
+
+  if(error || !data) {
+    document.getElementById('audit-body').innerHTML =
+      '<tr><td colspan="6" style="text-align:center;padding:30px;color:#EF4444">Error loading logs: ' + (error?.message||'Unknown') + '</td></tr>';
+    return;
+  }
+
+  document.getElementById('audit-count-label').textContent = data.length + ' log entries';
+
+  const actionColors = {
+    client_added:      'ba',
+    client_deleted:    'be',
+    plan_changed:      'bp2',
+    status_changed:    'bn',
+    lead_added:        'ba',
+    lead_deleted:      'be',
+    lead_assigned:     'bc',
+    admin_login:       'bp2',
+    client_login:      'bc',
+    client_registered: 'ba',
+  };
+
+  const actionLabels = {
+    client_added:      '➕ Client Added',
+    client_deleted:    '🗑 Client Deleted',
+    plan_changed:      '✏️ Plan Changed',
+    status_changed:    '⏸ Status Changed',
+    lead_added:        '➕ Lead Added',
+    lead_deleted:      '🗑 Lead Deleted',
+    lead_assigned:     '📤 Lead Assigned',
+    admin_login:       '🔐 Admin Login',
+    client_login:      '👤 Client Login',
+    client_registered: '🆕 Client Registered',
+  };
+
+  if(data.length === 0) {
+    document.getElementById('audit-body').innerHTML =
+      '<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--tl)">No audit logs found.</td></tr>';
+    return;
+  }
+
+  document.getElementById('audit-body').innerHTML = data.map(log => {
+    const d = new Date(log.created_at);
+    const timeStr = d.toLocaleDateString('en-IN') + ' ' + d.toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'});
+    const actionLabel = actionLabels[log.action] || log.action;
+    const colorClass  = actionColors[log.action] || 'bn';
+    return `<tr>
+      <td style="font-size:11.5px;color:var(--tl);white-space:nowrap">${timeStr}</td>
+      <td style="font-size:12px"><strong>${log.admin_email||'—'}</strong></td>
+      <td><span class="bdg ${colorClass}" style="font-size:10.5px">${actionLabel}</span></td>
+      <td style="font-size:12px">${log.target||'—'}</td>
+      <td style="font-size:11.5px;color:var(--tm);max-width:220px">${log.details||'—'}</td>
+      <td style="font-size:11px;color:var(--tl)">${log.ip||'—'}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderAudit() { loadAuditLogs(); }
+
+/* Clear logs older than 30 days */
+async function clearOldAuditLogs() {
+  if(!confirm('Delete all audit logs older than 30 days?')) return;
+  const cutoff = new Date(Date.now() - 30*24*60*60*1000).toISOString();
+  const { error } = await _supabase.from('audit_logs').delete().lt('created_at', cutoff);
+  if(error){ alert('Error: '+error.message); return; }
+  alert('Old logs cleared.');
+  loadAuditLogs();
 }
 
 /* ─ INIT ALL ─ */
@@ -1281,6 +1437,8 @@ function enterAdminDashboard(admin) {
   document.getElementById('admin-display-name').textContent = admin.name;
   document.getElementById('admin-display-role').textContent = admin.role;
   document.getElementById('page-title').textContent         = 'Dashboard';
+  _auditAdminEmail = admin.email || admin.name || 'admin';
+  logAudit('admin_login', admin.email || admin.name, 'Signed in to Admin CRM');
   /* Load real data from Supabase then render */
   loadAllFromSupabase().then(() => {
     initDropdowns();
