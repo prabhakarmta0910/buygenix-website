@@ -471,7 +471,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       <div class="fg"><label>Plan</label><select id="nc-plan"><option value="starter">Starter — ₹4,999/mo (100 leads)</option><option value="growth">Growth — ₹12,999/mo (500 leads)</option><option value="professional">Professional — ₹24,999/mo (2,000 leads)</option><option value="enterprise">Enterprise — Custom</option></select></div>
       <div class="fg"><label>Billing</label><select id="nc-billing"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option></select></div>
       <div class="fg full"><label>Assign RM</label><select id="nc-rm"></select></div>
-      <div class="fg full"><label>Login OTP (set for client)</label><input type="text" id="nc-otp" value="123456" placeholder="6-digit OTP"></div>
+
     </div>
     <div style="display:flex;gap:8px;margin-top:6px">
       <button class="btn b-g" onclick="addClient()" style="flex:1;justify-content:center">Create Account</button>
@@ -687,7 +687,7 @@ function showClientDetail(id) {
           <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Products</div><div style="font-size:12px;color:var(--n)">${c.products.join(', ')}</div></div>
           <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">GSTIN</div><div style="font-size:12px;color:var(--n)">${c.gstin||'—'}</div></div>
           <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">RM Assigned</div><div style="font-size:12.5px;color:var(--n);font-weight:600">${rm?rm.name:'Unassigned'}</div></div>
-          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Login OTP</div><div style="font-size:12.5px;color:var(--n);font-family:'Space Grotesk'">${c.otp}</div></div>
+          <div><div style="font-size:10px;color:var(--tl);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px">Plan</div><div style="font-size:12.5px;color:var(--n);font-family:'Space Grotesk'">${plan.label}</div></div>
         </div>
         <div class="pb-w">
           <div class="pb-l"><span>Lead Usage</span><strong>${c.used} / ${c.limit} (${pct}%)</strong></div>
@@ -697,7 +697,9 @@ function showClientDetail(id) {
         <div style="display:flex;gap:7px;flex-wrap:wrap">
           <button class="btn b-p b-sm" onclick="openAssignFor('${id}')">📤 Assign Leads</button>
           <button class="btn b-o b-sm" onclick="openChatWith('${id}')">💬 Open Chat</button>
-          <button class="btn b-g b-sm" onclick="changeRM('${id}')">👤 Change RM</button>
+          <button class="btn b-g b-sm" onclick="changePlan('${id}')">✏️ Change Plan</button>
+          <button class="btn b-g b-sm" onclick="toggleClientStatus('${id}')">⏸ Suspend/Activate</button>
+          <button class="btn b-d b-sm" onclick="deleteClient('${id}')">🗑 Delete</button>
         </div>
       </div>
     </div>`;
@@ -730,7 +732,10 @@ function renderLeadPool() {
       <td><span class="bdg ${QC[l.q]||'bn'}">${QT[l.q]||l.q}</span></td>
       <td><span class="bdg ${l.status==='unassigned'?'bn':l.status==='converted'?'bc':'ba'}">${l.status}</span></td>
       <td style="font-size:11px;color:var(--tm)">${assigned}</td>
-      <td><button class="btn b-o b-sm" onclick="openAssignFor(null,'${l.id}')">Assign</button></td>
+      <td><div style="display:flex;gap:4px">
+        <button class="btn b-o b-sm" onclick="openAssignFor(null,'${l.id}')">Assign</button>
+        <button class="btn b-d b-sm" onclick="deleteLead('${l.id}')">Del</button>
+      </div></td>
     </tr>`;
   }).join('');
 }
@@ -919,8 +924,9 @@ function renderMemberships() {
       <td>${rev}</td>
       <td><span class="bdg ${c.status==='active'?'ba':'be'}">${c.status}</span></td>
       <td><div style="display:flex;gap:5px">
-        <button class="btn b-o b-sm" onclick="showClientDetail('${c.id}');go('clients',null)">Edit</button>
-        ${c.status==='expired'?`<button class="btn b-g b-sm">Renew</button>`:`<button class="btn b-d b-sm">Suspend</button>`}
+        <button class="btn b-o b-sm" onclick="changePlan('${c.id}')">Plan</button>
+        <button class="btn b-p b-sm" onclick="toggleClientStatus('${c.id}')">${c.status==='active'?'Suspend':'Activate'}</button>
+        <button class="btn b-d b-sm" onclick="deleteClient('${c.id}')">Delete</button>
       </div></td>
     </tr>`;
   }).join('');
@@ -976,7 +982,11 @@ function renderTickets() {
       </div></td>
     </tr>`).join('');
 }
-function resolveTicket(id){const t=BGX.TICKETS.find(x=>x.id===id);if(t)t.status='resolved';renderTickets()}
+async function resolveTicket(id){
+  await _supabase.from('tickets').update({status:'resolved'}).eq('id',id);
+  const t=BGX.TICKETS.find(x=>x.id===id);if(t)t.status='resolved';
+  renderTickets();
+}
 
 /* ─ REFERRALS ─ */
 function renderReferrals() {
@@ -991,70 +1001,85 @@ function renderReferrals() {
       <td>${r.status==='pending'?`<button class="btn b-g b-sm" onclick="markPaid(this)">Mark Paid</button>`:''}</td>
     </tr>`).join('');
 }
-function markPaid(btn){const row=btn.closest('tr');const ref=BGX.REFERRALS.find(r=>r.referred===row.cells[1].textContent);if(ref)ref.status='paid';renderReferrals()}
+async function markPaid(btn){
+  const row=btn.closest('tr');
+  const ref=BGX.REFERRALS.find(r=>r.referred===row.cells[1].textContent);
+  if(ref){
+    ref.status='paid';
+    await _supabase.from('referrals').update({status:'paid'}).eq('id',ref.id);
+    renderReferrals();
+  }
+}
 
 /* ─ MODALS ─ */
 function openModal(name){document.getElementById('modal-'+name)?.classList.add('open')}
 function closeModal(name){document.getElementById('modal-'+name)?.classList.remove('open')}
 
-function addClient() {
-  const name=document.getElementById('nc-name').value.trim();
-  const biz=document.getElementById('nc-biz').value.trim();
-  const email=document.getElementById('nc-email').value.trim();
+async function addClient() {
+  const name  = document.getElementById('nc-name').value.trim();
+  const biz   = document.getElementById('nc-biz').value.trim();
+  const email = document.getElementById('nc-email').value.trim().toLowerCase();
   if(!name||!email){alert('Name and email are required.');return}
-  const c = BGX.addClient({
-    name, biz, email,
-    phone: document.getElementById('nc-phone').value.trim(),
-    city:  document.getElementById('nc-city').value.trim(),
-    state: document.getElementById('nc-state').value.trim(),
-    cat:   document.getElementById('nc-cat').value,
-    gstin: document.getElementById('nc-gstin').value.trim(),
-    plan:  document.getElementById('nc-plan').value,
-    billing: document.getElementById('nc-billing').value,
-    renewal: new Date(Date.now()+30*24*60*60*1000).toISOString().split('T')[0],
-    rmId:  document.getElementById('nc-rm').value,
-    products: [],
-    otp: document.getElementById('nc-otp').value.trim()||'123456',
-  });
-  const rm = BGX.getRM(c.rmId);
-  if(rm && !rm.clients.includes(c.id)) rm.clients.push(c.id);
+  const btn = document.querySelector('#modal-add-client .btn.b-g');
+  btn.textContent='Saving...'; btn.disabled=true;
+  const { data, error } = await _supabase.from('clients').insert({
+    name, business_name:biz, email,
+    phone:    document.getElementById('nc-phone').value.trim(),
+    category: document.getElementById('nc-cat').value,
+    plan:     document.getElementById('nc-plan').value,
+    status:   'active',
+    renewal:  new Date(Date.now()+30*24*60*60*1000).toISOString().split('T')[0],
+  }).select().single();
+  btn.textContent='Create Account'; btn.disabled=false;
+  if(error){ alert('Error: '+error.message); return; }
   const ok = document.getElementById('add-client-ok');
-  ok.textContent = `✅ ${name}'s account created! Login: ${email} / OTP: ${c.otp}`;
+  ok.textContent = '✅ ' + name + ' added! They can register at login.html with ' + email;
   ok.style.display = 'block';
-  renderClients();
-  renderDash();
+  await reloadClientsFromDB();
+  renderClients(); renderDash();
   setTimeout(()=>closeModal('add-client'),3000);
 }
 
-function addLead() {
-  const co=document.getElementById('nl-co').value.trim();
-  const country=document.getElementById('nl-country').value;
+async function addLead() {
+  const co      = document.getElementById('nl-co').value.trim();
+  const country = document.getElementById('nl-country').value;
   if(!co||!country){alert('Company and country are required.');return}
-  BGX.addLead({
-    co, country,
-    name: document.getElementById('nl-name').value.trim(),
-    phone: document.getElementById('nl-phone').value.trim(),
-    email: document.getElementById('nl-email').value.trim(),
-    cat: document.getElementById('nl-cat').value,
-    product: document.getElementById('nl-product').value||document.getElementById('nl-cat').value,
-    qty: document.getElementById('nl-qty').value.trim(),
-    q: document.getElementById('nl-q').value,
+  const btn = document.querySelector('#modal-add-lead .btn.b-g');
+  btn.textContent='Saving...'; btn.disabled=true;
+  const { error } = await _supabase.from('buy_leads').insert({
+    company_name:   co,
+    country,
+    contact_name:   document.getElementById('nl-name').value.trim(),
+    phone:          document.getElementById('nl-phone').value.trim(),
+    email:          document.getElementById('nl-email').value.trim(),
+    category:       document.getElementById('nl-cat').value,
+    product:        document.getElementById('nl-product').value || document.getElementById('nl-cat').value,
+    quantity:       document.getElementById('nl-qty').value.trim(),
+    quality:        document.getElementById('nl-q').value,
+    source:         document.getElementById('nl-src').value,
+    status:         'unassigned',
   });
+  btn.textContent='Add to Lead Pool'; btn.disabled=false;
+  if(error){ alert('Error: '+error.message); return; }
   document.getElementById('add-lead-ok').style.display='block';
-  renderLeadPool();
-  renderDash();
+  await reloadLeadsFromDB();
+  renderLeadPool(); renderDash();
   setTimeout(()=>closeModal('add-lead'),2500);
 }
 
-function addRM() {
-  const name=document.getElementById('nr-name').value.trim();
-  const email=document.getElementById('nr-email').value.trim();
+async function addRM() {
+  const name  = document.getElementById('nr-name').value.trim();
+  const email = document.getElementById('nr-email').value.trim().toLowerCase();
   if(!name||!email){alert('Name and email required.');return}
-  BGX.addRM({
-    name, email,
-    role: document.getElementById('nr-role').value.trim(),
-    phone: document.getElementById('nr-phone').value.trim(),
+  const btn = document.querySelector('#modal-add-rm .btn.b-g');
+  btn.textContent='Saving...'; btn.disabled=true;
+  const { error } = await _supabase.from('profiles').insert({
+    email, name,
+    role:       'rm',
+    role_label: document.getElementById('nr-role').value.trim() || 'Relationship Manager',
   });
+  btn.textContent='Add RM'; btn.disabled=false;
+  if(error){ alert('Error: '+error.message); return; }
   document.getElementById('add-rm-ok').style.display='block';
   refreshRMDropdown();
   renderRMs();
@@ -1067,6 +1092,113 @@ function changeRM(clientId) {
     const c=BGX.getClient(clientId);
     if(c){c.rmId=newRM;showClientDetail(clientId);renderClients();}
   }
+}
+
+/* ══════════════════════════════════════════
+   SUPABASE CRUD — Edit / Delete / Reload
+══════════════════════════════════════════ */
+
+/* Reload clients from Supabase into BGX.CLIENTS so existing render functions still work */
+async function reloadClientsFromDB() {
+  const { data } = await _supabase.from('clients').select('*').order('created_at', {ascending:false});
+  if(data) BGX.CLIENTS = data.map(c=>({
+    id:      c.id,
+    name:    c.name,
+    biz:     c.business_name || '',
+    email:   c.email,
+    phone:   c.phone || '',
+    cat:     c.category || '',
+    plan:    c.plan || 'free',
+    status:  c.status || 'active',
+    renewal: c.renewal || '',
+    used:    c.used || 0,
+    limit:   c.limit_count || 100,
+    billing: c.billing || 'monthly',
+    rmId:    c.rm_id || '',
+    otp:     '——',
+  }));
+}
+
+/* Reload leads from Supabase */
+async function reloadLeadsFromDB() {
+  const { data } = await _supabase.from('buy_leads').select('*').order('created_at', {ascending:false});
+  if(data) BGX.LEADS = data.map(l=>({
+    id:         l.id,
+    co:         l.company_name || '',
+    country:    l.country || '',
+    name:       l.contact_name || '',
+    phone:      l.phone || '',
+    email:      l.email || '',
+    cat:        l.category || '',
+    product:    l.product || '',
+    qty:        l.quantity || '',
+    q:          l.quality || 'new',
+    status:     l.status || 'unassigned',
+    assignedTo: l.assigned_to ? [l.assigned_to] : [],
+  }));
+}
+
+/* ─ EDIT CLIENT ─ */
+function editClient(id) {
+  const c = BGX.getClient(id);
+  if(!c) return;
+  const plan = prompt('Change plan for ' + c.name + '\nOptions: free / starter / growth / professional / enterprise\nCurrent: ' + c.plan, c.plan);
+  if(!plan) return;
+  updateClientField(id, 'plan', plan.toLowerCase().trim());
+}
+
+async function updateClientField(id, field, value) {
+  const update = {};
+  update[field] = value;
+  const { error } = await _supabase.from('clients').update(update).eq('id', id);
+  if(error){ alert('Error updating: ' + error.message); return; }
+  const c = BGX.getClient(id);
+  if(c) c[field === 'business_name' ? 'biz' : field === 'category' ? 'cat' : field] = value;
+  renderClients(); renderMemberships(); renderDash();
+}
+
+/* ─ CHANGE PLAN (from membership table) ─ */
+async function changePlan(id) {
+  const c = BGX.getClient(id);
+  if(!c) return;
+  const plan = prompt('New plan for ' + c.name + '\nfree / starter / growth / professional / enterprise\nCurrent: ' + c.plan, c.plan);
+  if(!plan) return;
+  await updateClientField(id, 'plan', plan.toLowerCase().trim());
+}
+
+/* ─ SUSPEND / ACTIVATE ─ */
+async function toggleClientStatus(id) {
+  const c = BGX.getClient(id);
+  if(!c) return;
+  const newStatus = c.status === 'active' ? 'suspended' : 'active';
+  if(!confirm((newStatus==='suspended'?'Suspend':'Activate') + ' ' + c.name + '?')) return;
+  await updateClientField(id, 'status', newStatus);
+}
+
+/* ─ DELETE CLIENT ─ */
+async function deleteClient(id) {
+  const c = BGX.getClient(id);
+  if(!c) return;
+  if(!confirm('DELETE ' + c.name + '? This cannot be undone.')) return;
+  const { error } = await _supabase.from('clients').delete().eq('id', id);
+  if(error){ alert('Error: ' + error.message); return; }
+  BGX.CLIENTS = BGX.CLIENTS.filter(x => x.id !== id);
+  renderClients(); renderMemberships(); renderDash();
+}
+
+/* ─ DELETE LEAD ─ */
+async function deleteLead(id) {
+  if(!confirm('Delete this lead?')) return;
+  const { error } = await _supabase.from('buy_leads').delete().eq('id', id);
+  if(error){ alert('Error: ' + error.message); return; }
+  BGX.LEADS = BGX.LEADS.filter(x => x.id !== id);
+  renderLeadPool(); renderDash();
+}
+
+/* ─ LOAD REAL DATA ON INIT ─ */
+async function loadAllFromSupabase() {
+  await reloadClientsFromDB();
+  await reloadLeadsFromDB();
 }
 
 /* ─ INIT ALL ─ */
@@ -1149,8 +1281,11 @@ function enterAdminDashboard(admin) {
   document.getElementById('admin-display-name').textContent = admin.name;
   document.getElementById('admin-display-role').textContent = admin.role;
   document.getElementById('page-title').textContent         = 'Dashboard';
-  initDropdowns();
-  renderDash();
+  /* Load real data from Supabase then render */
+  loadAllFromSupabase().then(() => {
+    initDropdowns();
+    renderDash();
+  });
 }
 
 async function adminLogout() {
