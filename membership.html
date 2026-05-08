@@ -1,6 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+/* ── CSS VARIABLE FALLBACKS (in case shared.css loads slowly) ── */
+:root {
+  --navy:        #1B3A5C;
+  --navy-mid:    #0B2140;
+  --gold:        #B8860B;
+  --gold-bright: #D4A017;
+  --gold-pale:   #FDF6E3;
+  --gold-light:  #F5D078;
+  --sky:         #F0F4F8;
+  --sky-mid:     #E8EEF4;
+  --cream:       #FAFAF7;
+  --border-soft: #E8ECF0;
+  --border-gold: #D4B896;
+  --text-body:   #2D3748;
+  --text-mid:    #4A5568;
+  --text-light:  #A0AEC0;
+  --shadow-soft: 0 2px 16px rgba(0,0,0,0.06);
+  --shadow-mid:  0 8px 32px rgba(0,0,0,0.1);
+  --radius-lg:   16px;
+  --page-max:    1380px;
+}
+/* Prevent shared.css from using a non-transparent overlay */
+.page-overlay {
+  display: none !important;
+  opacity: 0 !important;
+  z-index: -999 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+#bg-canvas {
+  z-index: -2 !important;
+  opacity: 0.15 !important;
+  pointer-events: none !important;
+}
+/* shared.js sets opacity:0 on .reveal — we permanently override this */
+.reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Membership Plans – BuyGenix Solutions</title>
@@ -483,7 +525,86 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
   .ref-card         { padding: 32px 22px; }
   .bot-cta-inner    { padding: 40px 24px; }
 }
+
+/* ══════════════════════════════════════════
+   CRITICAL OVERRIDES — fix shared.css conflicts
+   bg-canvas, page-overlay, reveal system
+══════════════════════════════════════════ */
+
+/* 1. Canvas stays behind everything */
+#bg-canvas {
+  position: fixed !important;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2 !important;
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+}
+
+/* 2. Page overlay — very subtle, never covers content */
+.page-overlay {
+  position: fixed !important;
+  inset: 0;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+/* 3. All .reveal elements are VISIBLE immediately on this page
+      shared.js IntersectionObserver will enhance them, but
+      they must never be invisible if observer hasn't fired */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* 4. Ensure all content sits above canvas */
+nav, .mem-hero, .plans-wrap, .compare-section,
+.ref-section, .faq-section, .bot-cta, footer,
+.billing-bar, .plan-cards-grid, .skeleton-grid,
+.ctable-shell, .ref-card, .faq-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* 5. White page background so canvas bleed doesn't wash out text */
+body {
+  background: #f7f8fa !important;
+}
 </style>
+
+<script>
+// CRITICAL: Force all .reveal elements visible immediately on this page
+// shared.js may hide them; we override that behavior for membership.html
+document.addEventListener('DOMContentLoaded', function() {
+  // Immediately force all currently existing .reveal elements visible
+  function forceReveal() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.visibility = 'visible';
+    });
+  }
+  forceReveal();
+  // Also run after short delay to catch any shared.js that runs after DOMContentLoaded
+  setTimeout(forceReveal, 50);
+  setTimeout(forceReveal, 150);
+  setTimeout(forceReveal, 400);
+
+  // Override page-overlay completely
+  var overlay = document.querySelector('.page-overlay');
+  if (overlay) {
+    overlay.style.cssText = 'display:none!important;opacity:0!important;pointer-events:none!important;z-index:-999!important;';
+  }
+  // Keep canvas but ensure it's behind everything
+  var canvas = document.getElementById('bg-canvas');
+  if (canvas) {
+    canvas.style.cssText += ';z-index:-2!important;opacity:0.2!important;pointer-events:none!important;';
+  }
+});
+</script>
 </head>
 <body>
 
@@ -830,6 +951,27 @@ function renderCards() {
 
   if (skel) skel.style.display = 'none';
   grid.style.display = 'grid';
+
+  // Re-run shared.js reveal observer on newly injected elements
+  if (typeof window._bgxObserver !== 'undefined' && window._bgxObserver) {
+    grid.querySelectorAll('.reveal, .pc, .faq-card').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      window._bgxObserver.observe(el);
+    });
+  }
+  // Fallback: force all plan cards fully visible immediately
+  grid.querySelectorAll('.pc').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    });
+  });
 }
 
 /* ─────────────────────────────────────────
@@ -915,5 +1057,52 @@ function renderReferral() {
 </script>
 
 <script src="shared.js"></script>
+
+<script>
+// Final safety net: MutationObserver ensures no element ever stays hidden
+// Runs AFTER shared.js to catch any opacity:0 it applies
+(function() {
+  function makeAllVisible() {
+    document.querySelectorAll('.reveal, .pc, .faq-card, .billing-bar, .plans-footnote, .compare-toprow, .ctable-shell, .ref-card, .bot-cta-inner, .mem-hero').forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.visibility = 'visible';
+    });
+    var overlay = document.querySelector('.page-overlay');
+    if (overlay) overlay.style.cssText = 'position:fixed!important;inset:0;z-index:-999!important;opacity:0!important;pointer-events:none!important;background:transparent!important;';
+  }
+
+  // Run immediately, then after shared.js loads
+  makeAllVisible();
+  window.addEventListener('load', function() {
+    makeAllVisible();
+    setTimeout(makeAllVisible, 100);
+    setTimeout(makeAllVisible, 500);
+  });
+
+  // Watch for shared.js adding opacity:0 via style attribute
+  var obs = new MutationObserver(function(mutations) {
+    var needsFix = false;
+    mutations.forEach(function(m) {
+      if (m.type === 'attributes' && m.attributeName === 'style') {
+        var el = m.target;
+        if (el.style && (el.style.opacity === '0' || parseFloat(el.style.opacity) < 0.5)) {
+          if (el.classList && (el.classList.contains('reveal') || el.classList.contains('pc') || el.classList.contains('faq-card'))) {
+            needsFix = true;
+          }
+        }
+      }
+    });
+    if (needsFix) makeAllVisible();
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    makeAllVisible();
+    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
+    setTimeout(function() { makeAllVisible(); obs.disconnect(); }, 2000);
+  });
+})();
+</script>
+
 </body>
 </html>
