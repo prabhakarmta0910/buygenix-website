@@ -1012,17 +1012,15 @@
   if (!grid) return;
 
   grid.innerHTML = plans.map(p => {
-    const highlights = [
-      `${BGX.fmtLeads(p.indian_leads)} Indian Leads/mo${p.intl_leads?' + '+BGX.fmtLeads(p.intl_leads)+' Intl':''}`,
-      p.catalogue ? `${p.catalogue}-Product Digital Catalogue` : null,
-      p.rm ? 'Dedicated Relationship Manager' : null,
-      p.promotion !== 'None' ? `${p.promotion} Promotion${p.smo?' + SMO':''}` : (p.smo ? 'SMO Included' : null),
-      p.seo ? 'Basic On-Page SEO' : null,
-      `IEC + MSME${p.fassai?' + Fassai':''} ${p.iec?'Included':''}`,
-      `GST Registration ${p.gst_support}`,
-      p.strategy_call ? 'Monthly Strategy Call' : null,
-      p.perf_report ? 'Monthly Performance Report' : null,
-    ].filter(Boolean).slice(0,6);
+    // Exactly 3 lines — identical structure for every card so all align
+    const h1 = p.intl_leads
+      ? `${BGX.fmtLeads(p.indian_leads)} Indian + ${BGX.fmtLeads(p.intl_leads)} Intl Leads/mo`
+      : `${BGX.fmtLeads(p.indian_leads)} Indian Buyer Leads / month`;
+    const h2 = p.catalogue
+      ? `${p.catalogue}-Product Catalogue · Dedicated RM`
+      : `Dedicated Relationship Manager`;
+    const h3 = `IEC + MSME + Fassai · GST ${p.gst_support}`;
+    const highlights = [h1, h2, h3];
 
     return `<div class="plan-card${p.is_popular?' featured':''} tilt-card">
       ${p.is_popular ? '<div class="plan-star">⭐ Most Popular</div>' : ''}
