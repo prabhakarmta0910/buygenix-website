@@ -1003,7 +1003,9 @@
 <script src="bgx-data.js"></script>
 <script>
 (async function() {
-  await BGX.loadPlans();
+  // Load plans with 4s timeout — falls back to defaults if Supabase is slow/unavailable
+  const loadTimeout = new Promise(resolve => setTimeout(resolve, 4000));
+  await Promise.race([BGX.loadPlans(), loadTimeout]);
   const plans  = BGX.getPlansList();
   const grid   = document.getElementById('idx-plans-grid');
   const loader = document.getElementById('idx-plans-loading');
@@ -1057,28 +1059,21 @@
 </script>
 <script src="shared.js"></script>
 
-<script>
-// Force all .reveal elements visible — override shared.js hiding behaviour
-(function() {
-  function forceVisible() {
-    document.querySelectorAll('.reveal').forEach(function(el) {
-      el.style.opacity = '1'; el.style.transform = 'none'; el.style.visibility = 'visible';
-    });
-    var ov = document.querySelector('.page-overlay');
-    if (ov) ov.style.cssText = 'display:none!important;opacity:0!important;z-index:-999!important;pointer-events:none!important;';
-    var cv = document.getElementById('bg-canvas');
-    if (cv) { cv.style.zIndex = '-2'; cv.style.opacity = '0.15'; cv.style.pointerEvents = 'none'; }
-  }
-  forceVisible();
-  document.addEventListener('DOMContentLoaded', function() {
-    forceVisible(); setTimeout(forceVisible, 80); setTimeout(forceVisible, 300);
-    var obs = new MutationObserver(function() { forceVisible(); });
-    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style','class'] });
-    setTimeout(function() { obs.disconnect(); }, 3000);
-  });
-  window.addEventListener('load', function() { forceVisible(); setTimeout(forceVisible, 200); });
-})();
-</script>
 
+
+<script>
+// One-time reveal fix — runs after shared.js, never loops
+window.addEventListener('load', function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.visibility = 'visible';
+  });
+  var ov = document.querySelector('.page-overlay');
+  if (ov) { ov.style.display = 'none'; ov.style.opacity = '0'; }
+  var cv = document.getElementById('bg-canvas');
+  if (cv) { cv.style.zIndex = '-2'; cv.style.opacity = '0.15'; }
+});
+</script>
 </body>
 </html>

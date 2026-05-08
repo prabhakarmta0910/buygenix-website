@@ -127,11 +127,18 @@ BGX.loadPlans = async function() {
   try {
     const db = _getBGXSupabase();
     if (!db) { console.warn('BGX: Supabase SDK not loaded, using default plans'); return false; }
-    const { data, error } = await db
+    // Race the Supabase query against a 3.5s timeout
+    const queryPromise = db
       .from('membership_plans')
       .select('*')
       .eq('is_active', true)
       .order('sort_order', { ascending: true });
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Supabase timeout')), 3500)
+    );
+    const { data, error } = await Promise.race([queryPromise, timeoutPromise]).catch(e => {
+      console.warn('BGX plans timeout/error:', e.message); return { data: null, error: e };
+    });
     if (error) { console.warn('BGX plans load error:', error.message); return false; }
     if (!data || data.length === 0) { console.warn('BGX: No active plans in DB, using defaults'); return false; }
     const newPlans = {};

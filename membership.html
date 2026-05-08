@@ -575,36 +575,7 @@ body {
 }
 </style>
 
-<script>
-// CRITICAL: Force all .reveal elements visible immediately on this page
-// shared.js may hide them; we override that behavior for membership.html
-document.addEventListener('DOMContentLoaded', function() {
-  // Immediately force all currently existing .reveal elements visible
-  function forceReveal() {
-    document.querySelectorAll('.reveal').forEach(function(el) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      el.style.visibility = 'visible';
-    });
-  }
-  forceReveal();
-  // Also run after short delay to catch any shared.js that runs after DOMContentLoaded
-  setTimeout(forceReveal, 50);
-  setTimeout(forceReveal, 150);
-  setTimeout(forceReveal, 400);
 
-  // Override page-overlay completely
-  var overlay = document.querySelector('.page-overlay');
-  if (overlay) {
-    overlay.style.cssText = 'display:none!important;opacity:0!important;pointer-events:none!important;z-index:-999!important;';
-  }
-  // Keep canvas but ensure it's behind everything
-  var canvas = document.getElementById('bg-canvas');
-  if (canvas) {
-    canvas.style.cssText += ';z-index:-2!important;opacity:0.2!important;pointer-events:none!important;';
-  }
-});
-</script>
 </head>
 <body>
 
@@ -870,7 +841,9 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>
 /* Init — load plans then render all dynamic sections */
 (async function() {
-  await BGX.loadPlans();
+  // 4s timeout — falls back to hardcoded defaults if Supabase is unavailable
+  const loadTimeout = new Promise(resolve => setTimeout(resolve, 4000));
+  await Promise.race([BGX.loadPlans(), loadTimeout]);
   renderCards();
   renderCompare();
   renderReferral();
@@ -1058,51 +1031,21 @@ function renderReferral() {
 
 <script src="shared.js"></script>
 
+
+
 <script>
-// Final safety net: MutationObserver ensures no element ever stays hidden
-// Runs AFTER shared.js to catch any opacity:0 it applies
-(function() {
-  function makeAllVisible() {
-    document.querySelectorAll('.reveal, .pc, .faq-card, .billing-bar, .plans-footnote, .compare-toprow, .ctable-shell, .ref-card, .bot-cta-inner, .mem-hero').forEach(function(el) {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-      el.style.visibility = 'visible';
-    });
-    var overlay = document.querySelector('.page-overlay');
-    if (overlay) overlay.style.cssText = 'position:fixed!important;inset:0;z-index:-999!important;opacity:0!important;pointer-events:none!important;background:transparent!important;';
-  }
-
-  // Run immediately, then after shared.js loads
-  makeAllVisible();
-  window.addEventListener('load', function() {
-    makeAllVisible();
-    setTimeout(makeAllVisible, 100);
-    setTimeout(makeAllVisible, 500);
+// One-time reveal fix — runs after shared.js, never loops
+window.addEventListener('load', function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.visibility = 'visible';
   });
-
-  // Watch for shared.js adding opacity:0 via style attribute
-  var obs = new MutationObserver(function(mutations) {
-    var needsFix = false;
-    mutations.forEach(function(m) {
-      if (m.type === 'attributes' && m.attributeName === 'style') {
-        var el = m.target;
-        if (el.style && (el.style.opacity === '0' || parseFloat(el.style.opacity) < 0.5)) {
-          if (el.classList && (el.classList.contains('reveal') || el.classList.contains('pc') || el.classList.contains('faq-card'))) {
-            needsFix = true;
-          }
-        }
-      }
-    });
-    if (needsFix) makeAllVisible();
-  });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    makeAllVisible();
-    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style', 'class'] });
-    setTimeout(function() { makeAllVisible(); obs.disconnect(); }, 2000);
-  });
-})();
+  var ov = document.querySelector('.page-overlay');
+  if (ov) { ov.style.display = 'none'; ov.style.opacity = '0'; }
+  var cv = document.getElementById('bg-canvas');
+  if (cv) { cv.style.zIndex = '-2'; cv.style.opacity = '0.15'; }
+});
 </script>
-
 </body>
 </html>
