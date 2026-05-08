@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+/* ── CRITICAL: Override shared.css reveal + overlay issues ── */
+:root {
+  --navy: #1B3A5C; --navy-mid: #0B2140;
+  --gold: #B8860B; --gold-bright: #D4A017;
+  --gold-pale: #FDF6E3; --sky: #F0F4F8;
+  --border-soft: #E8ECF0; --border-gold: #D4B896;
+  --text-body: #2D3748; --text-mid: #4A5568; --text-light: #A0AEC0;
+  --shadow-soft: 0 2px 16px rgba(0,0,0,0.06);
+  --shadow-mid: 0 8px 32px rgba(0,0,0,0.1);
+}
+.page-overlay { display:none!important; opacity:0!important; z-index:-999!important; pointer-events:none!important; background:transparent!important; }
+#bg-canvas    { z-index:-2!important; opacity:0.15!important; pointer-events:none!important; }
+.reveal        { opacity:1!important; transform:none!important; visibility:visible!important; }
+</style>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuyGenix Solutions — India's Premier B2B Export-Import Platform</title>
@@ -719,7 +734,7 @@
     <div class="section-head">
       <div class="section-label dark reveal">Live Buyer Intelligence</div>
       <h2 class="reveal">Real Buyers. Real Requirements. Real Results.</h2>
-      <p class="reveal" style="color:rgba(255,255,255,0.6);">Our database is updated monthly with fresh, verified buyer profiles. Members download leads in CSV/Excel and reach buyers directly.</p>
+      <p class="reveal" style="color:rgba(255,255,255,0.6);">Our buyer database is updated monthly with fresh, verified profiles. Leads land directly on your WhatsApp and email — real contact details, real intent, every month.</p>
     </div>
     <div class="leads-grid">
       <div class="lead-showcase reveal-left">
@@ -863,7 +878,7 @@
       <div class="process-step reveal">
         <div class="step-num">3</div>
         <h4>Access Buyer Leads</h4>
-        <p>Download your monthly lead batch in CSV/Excel format. Reach out to verified buyers directly using their contact details.</p>
+        <p>Your verified buyer leads arrive directly on WhatsApp &amp; email every month — with contact details, product interest, and country — ready to act on immediately.</p>
       </div>
       <div class="process-step reveal">
         <div class="step-num">4</div>
@@ -1007,7 +1022,7 @@
       p.perf_report ? 'Monthly Performance Report' : null,
     ].filter(Boolean).slice(0,6);
 
-    return `<div class="plan-card${p.is_popular?' featured':''} reveal tilt-card">
+    return `<div class="plan-card${p.is_popular?' featured':''} tilt-card">
       ${p.is_popular ? '<div class="plan-star">⭐ Most Popular</div>' : ''}
       <div class="plan-tier">${p.label.replace(' Plan','')}</div>
       <div class="plan-desc">${p.best_for}</div>
@@ -1027,8 +1042,43 @@
 
   if (loader) loader.style.display = 'none';
   grid.style.display = 'grid';
+
+  // Stagger-animate cards into view
+  grid.querySelectorAll('.plan-card').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = `opacity 0.45s ease ${i * 0.1}s, transform 0.45s ease ${i * 0.1}s`;
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    }));
+  });
 })();
 </script>
 <script src="shared.js"></script>
+
+<script>
+// Force all .reveal elements visible — override shared.js hiding behaviour
+(function() {
+  function forceVisible() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      el.style.opacity = '1'; el.style.transform = 'none'; el.style.visibility = 'visible';
+    });
+    var ov = document.querySelector('.page-overlay');
+    if (ov) ov.style.cssText = 'display:none!important;opacity:0!important;z-index:-999!important;pointer-events:none!important;';
+    var cv = document.getElementById('bg-canvas');
+    if (cv) { cv.style.zIndex = '-2'; cv.style.opacity = '0.15'; cv.style.pointerEvents = 'none'; }
+  }
+  forceVisible();
+  document.addEventListener('DOMContentLoaded', function() {
+    forceVisible(); setTimeout(forceVisible, 80); setTimeout(forceVisible, 300);
+    var obs = new MutationObserver(function() { forceVisible(); });
+    obs.observe(document.body, { subtree: true, attributes: true, attributeFilter: ['style','class'] });
+    setTimeout(function() { obs.disconnect(); }, 3000);
+  });
+  window.addEventListener('load', function() { forceVisible(); setTimeout(forceVisible, 200); });
+})();
+</script>
+
 </body>
 </html>
