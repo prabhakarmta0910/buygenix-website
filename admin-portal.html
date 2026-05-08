@@ -180,6 +180,33 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
 .al-hint-row .val{font-family:'Space Grotesk';font-weight:600;color:var(--n)}
 .al-spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
+
+/* ── PLAN MANAGER ── */
+.pm-tog {
+  display:flex; align-items:center; gap:6px;
+  font-size:11.5px; color:var(--tb); cursor:pointer;
+  background:var(--bg2); border:1px solid var(--bd);
+  border-radius:7px; padding:7px 10px;
+  transition:background 0.15s;
+}
+.pm-tog:hover { background:var(--sky); }
+.pm-tog input[type=checkbox] { accent-color:var(--g); width:14px; height:14px; }
+.pm-plan-card {
+  background:white; border:1px solid var(--bd); border-radius:14px;
+  padding:20px; position:relative; transition:box-shadow 0.2s;
+}
+.pm-plan-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+.pm-plan-card .ppc-key {
+  font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase;
+  color:var(--tl); margin-bottom:4px; font-family:'Space Grotesk',sans-serif;
+}
+.pm-plan-card .ppc-label { font-size:17px; font-weight:700; color:var(--n); margin-bottom:2px; font-family:'Cormorant Garamond',serif; }
+.pm-plan-card .ppc-price { font-size:22px; font-weight:700; color:var(--g); font-family:'Space Grotesk',sans-serif; }
+.pm-plan-card .ppc-orig  { font-size:11px; text-decoration:line-through; color:var(--tl); }
+.pm-plan-card .ppc-badges { display:flex; gap:5px; flex-wrap:wrap; margin:8px 0; }
+.pm-plan-card .ppc-feat { font-size:11px; color:var(--tb); line-height:1.8; }
+.pm-plan-card .ppc-actions { display:flex; gap:6px; margin-top:14px; }
+.pm-dot { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:5px; }
 </style>
 </head>
 <body>
@@ -247,6 +274,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
     <button class="ni" onclick="go('chat',this)"><span class="ic">💬</span> Client Chat <span class="bx bx-r" id="sb-chat-count">0</span></button>
     <button class="ni" onclick="go('rms',this)"><span class="ic">👤</span> Manage RMs</button>
     <button class="ni" onclick="go('memberships',this)"><span class="ic">💎</span> Memberships</button>
+    <button class="ni" onclick="go('planmgr',this)"><span class="ic">⚙️</span> Plan Manager</button>
     <span class="ss">Reports</span>
     <button class="ni" onclick="go('analytics',this)"><span class="ic">📈</span> Analytics</button>
     <button class="ni" onclick="go('tickets',this)"><span class="ic">🛎</span> Support Tickets <span class="bx bx-r" id="sb-tickets-count">0</span></button>
@@ -426,6 +454,146 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       </div>
     </div>
 
+
+    <!-- PLAN MANAGER -->
+    <div class="panel" id="p-planmgr">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:4px">Plan Manager</div>
+      <div style="font-size:12px;color:var(--tl);margin-bottom:18px">Create, edit and delete membership plans. Changes are saved to Supabase and reflected live across the entire website.</div>
+
+      <!-- Supabase SQL helper banner -->
+      <div id="pm-setup-banner" style="display:none;background:#FFF8E1;border:1px solid #FFD54F;border-radius:10px;padding:14px 18px;margin-bottom:18px;font-size:12px;color:#5D4037">
+        <strong>⚠️ First-time setup:</strong> The <code>membership_plans</code> table does not exist yet in your Supabase project.
+        <button onclick="document.getElementById('pm-sql-block').style.display=document.getElementById('pm-sql-block').style.display==='none'?'block':'none'" style="margin-left:8px;font-size:11px;padding:2px 8px;border:1px solid #B8860B;border-radius:4px;background:transparent;color:#B8860B;cursor:pointer">Show SQL →</button><button onclick="seedPlansToSupabase()" style="margin-left:8px;font-size:11px;padding:2px 8px;border:1px solid #27ae60;border-radius:4px;background:#27ae60;color:white;cursor:pointer">🌱 Seed Default Plans</button>
+        <pre id="pm-sql-block" style="display:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:6px;padding:12px;font-size:10.5px;line-height:1.6;overflow-x:auto;white-space:pre-wrap">-- Run this in Supabase SQL Editor → New Query
+CREATE TABLE IF NOT EXISTS membership_plans (
+  id            TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+  plan_key      TEXT NOT NULL UNIQUE,
+  label         TEXT NOT NULL,
+  best_for      TEXT,
+  days          INT DEFAULT 365,
+  price_original NUMERIC DEFAULT 0,
+  price         NUMERIC NOT NULL,
+  discount      NUMERIC DEFAULT 0.10,
+  savings       NUMERIC DEFAULT 0,
+  indian_leads  INT DEFAULT 0,
+  intl_leads    INT DEFAULT 0,
+  lead_delivery TEXT DEFAULT 'WhatsApp & Email',
+  website       BOOLEAN DEFAULT true,
+  catalogue     INT DEFAULT 0,
+  rm            BOOLEAN DEFAULT true,
+  promotion     TEXT DEFAULT 'None',
+  perf_report   BOOLEAN DEFAULT false,
+  seo           BOOLEAN DEFAULT false,
+  smo           BOOLEAN DEFAULT false,
+  gst_support   TEXT DEFAULT 'Assistance',
+  virtual_cards INT DEFAULT 1,
+  email_support BOOLEAN DEFAULT true,
+  iec           BOOLEAN DEFAULT true,
+  msme          BOOLEAN DEFAULT true,
+  fassai        TEXT DEFAULT 'Assistance',
+  strategy_call BOOLEAN DEFAULT false,
+  cta           TEXT DEFAULT 'Get Started',
+  is_popular    BOOLEAN DEFAULT false,
+  is_enterprise BOOLEAN DEFAULT false,
+  color         TEXT DEFAULT '#1B3A5C',
+  sort_order    INT DEFAULT 99,
+  is_active     BOOLEAN DEFAULT true,
+  created_at    TIMESTAMPTZ DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ DEFAULT NOW()
+);
+-- Enable Row Level Security but allow anon read
+ALTER TABLE membership_plans ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "anon_read_plans" ON membership_plans FOR SELECT TO anon USING (true);
+CREATE POLICY "auth_all_plans"  ON membership_plans FOR ALL  TO authenticated USING (true);</pre>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="stats" id="pm-stats"></div>
+
+      <!-- Plans grid -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;color:var(--n)">Active Plans</div>
+        <button class="btn b-g" onclick="openPlanModal()">+ Add New Plan</button>
+      </div>
+      <div id="pm-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px"></div>
+
+      <!-- Comparison table -->
+      <div class="card">
+        <div class="ch"><div class="ct">Full Feature Comparison</div><button class="btn b-o b-sm" onclick="renderPlanMgr()">↻ Refresh</button></div>
+        <div style="overflow-x:auto;padding:0">
+          <table class="tbl" id="pm-compare-table">
+            <thead id="pm-compare-head"></thead>
+            <tbody id="pm-compare-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAN MODAL (Add / Edit) -->
+    <div class="modal-overlay" id="modal-plan-form">
+      <div class="modal" style="max-width:680px;max-height:90vh;overflow-y:auto">
+        <button class="modal-x" onclick="closePlanModal()">✕</button>
+        <h3 id="pf-title">Add New Plan</h3>
+        <div class="modal-sub" id="pf-sub">All prices are exclusive of GST &amp; government fees.</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <!-- Col 1 -->
+          <div>
+            <div class="fg"><label>Plan Key <span style="color:#999;font-size:10px">(unique slug, e.g. "starter")</span></label><input id="pf-key" placeholder="starter" /></div>
+            <div class="fg"><label>Plan Label</label><input id="pf-label" placeholder="Starter Plan" /></div>
+            <div class="fg"><label>Best For</label><input id="pf-best" placeholder="New businesses entering global trade" /></div>
+            <div class="fg"><label>Original Price (₹)</label><input id="pf-orig" type="number" placeholder="15000" /></div>
+            <div class="fg"><label>Offer Price (₹) <span style="color:#999;font-size:10px">excl. GST</span></label><input id="pf-price" type="number" placeholder="13500" /></div>
+            <div class="fg"><label>Days Covered</label><input id="pf-days" type="number" placeholder="365" value="365" /></div>
+            <div class="fg"><label>Sort Order</label><input id="pf-sort" type="number" placeholder="1" /></div>
+            <div class="fg"><label>Card Color</label><input id="pf-color" type="color" value="#1B3A5C" style="height:36px;padding:2px 4px;width:100%" /></div>
+            <div class="fg"><label>CTA Button Text</label><input id="pf-cta" placeholder="Get Started" /></div>
+          </div>
+          <!-- Col 2 -->
+          <div>
+            <div class="fg"><label>Indian Leads / Month <span style="color:#999;font-size:10px">(-1 = Unlimited)</span></label><input id="pf-indian" type="number" placeholder="10" /></div>
+            <div class="fg"><label>International Leads / Month <span style="color:#999;font-size:10px">(0 = none)</span></label><input id="pf-intl" type="number" placeholder="0" /></div>
+            <div class="fg"><label>Digital Catalogue (# products)</label><input id="pf-cat" type="number" placeholder="0" /></div>
+            <div class="fg"><label>Business Promotion</label>
+              <select id="pf-promo"><option>None</option><option>Quarterly</option><option>Monthly</option><option>Weekly</option></select>
+            </div>
+            <div class="fg"><label>GST Support</label>
+              <select id="pf-gst"><option>None</option><option>Assistance</option><option>Included</option></select>
+            </div>
+            <div class="fg"><label>Fassai License</label>
+              <select id="pf-fassai"><option value="false">Not Included</option><option value="Assistance">Assistance</option><option value="true">Included</option></select>
+            </div>
+            <div class="fg"><label>Virtual Business Cards</label><input id="pf-vcards" type="number" placeholder="1" /></div>
+          </div>
+        </div>
+
+        <!-- Toggle features -->
+        <div style="margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <label class="pm-tog"><input type="checkbox" id="pf-rm" checked> Relationship Manager</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-seo"> SEO (On-Page)</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-smo"> Social Media (SMO)</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-perf"> Monthly Perf. Report</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-strategy"> Monthly Strategy Call</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-iec" checked> IEC Registration</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-msme" checked> MSME Certificate</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-website" checked> Website Included</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-email" checked> Email Support</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-popular"> Mark as Popular ⭐</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-enterprise"> Mark as Enterprise 💎</label>
+          <label class="pm-tog"><input type="checkbox" id="pf-active" checked> Is Active</label>
+        </div>
+
+        <div id="pf-error" style="display:none;color:#c0392b;font-size:12px;margin-top:10px;padding:8px 12px;background:#fdf3f2;border-radius:6px"></div>
+        <div id="pf-ok"    style="display:none;color:#27ae60;font-size:12px;margin-top:10px;padding:8px 12px;background:#f0fdf4;border-radius:6px"></div>
+
+        <div style="display:flex;gap:10px;margin-top:18px">
+          <button class="btn b-g" id="pf-save-btn" onclick="savePlan()">💾 Save Plan</button>
+          <button class="btn b-o" onclick="closePlanModal()">Cancel</button>
+          <button class="btn b-d" id="pf-delete-btn" style="display:none" onclick="deletePlanConfirm()">🗑 Delete Plan</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ANALYTICS -->
     <div class="panel" id="p-analytics">
       <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--n);margin-bottom:14px">Analytics & Reports</div>
@@ -515,7 +683,7 @@ a{text-decoration:none;color:inherit}button{cursor:pointer;font-family:inherit}
       <div class="fg"><label>State</label><input type="text" id="nc-state" placeholder="Delhi, Maharashtra…"></div>
       <div class="fg"><label>Product Category</label><select id="nc-cat"><option value="">Select category</option></select></div>
       <div class="fg"><label>GSTIN (optional)</label><input type="text" id="nc-gstin" placeholder="22AAAAA0000A1Z5"></div>
-      <div class="fg"><label>Plan</label><select id="nc-plan"><option value="starter">Starter — ₹4,999/mo (100 leads)</option><option value="growth">Growth — ₹12,999/mo (500 leads)</option><option value="professional">Professional — ₹24,999/mo (2,000 leads)</option><option value="enterprise">Enterprise — Custom</option></select></div>
+      <div class="fg"><label>Plan</label><select id="nc-plan"><option value="starter">Starter — ₹13,500/yr (10 leads/mo)</option><option value="growth">Growth — ₹27,000/yr (15 leads/mo)</option><option value="professional">Professional — ₹40,500/yr (20 leads/mo)</option><option value="enterprise">Enterprise — ₹72,000/yr (Unlimited)</option></select></div>
       <div class="fg"><label>Billing</label><select id="nc-billing"><option value="monthly">Monthly</option><option value="quarterly">Quarterly</option><option value="annual">Annual</option></select></div>
       <div class="fg full"><label>Assign RM</label><select id="nc-rm"></select></div>
 
@@ -610,7 +778,7 @@ function refreshRMDropdown() {
 }
 
 /* ─ NAV ─ */
-const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',chat:'Client Chat',rms:'Relationship Managers',memberships:'Memberships',analytics:'Analytics',tickets:'Support Tickets',referrals:'Referral Programme',audit:'Audit Trail'};
+const TITLES={dash:'Dashboard',clients:'Client Manager',leads:'Lead Pool Manager',assign:'Assign Leads',chat:'Client Chat',rms:'Relationship Managers',memberships:'Memberships',planmgr:'Plan Manager',analytics:'Analytics',tickets:'Support Tickets',referrals:'Referral Programme',audit:'Audit Trail'};
 function go(name, btn) {
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('on'));
@@ -629,6 +797,7 @@ const renders = {
   chat:        renderChat,
   rms:         renderRMs,
   memberships: renderMemberships,
+  planmgr: renderPlanMgr,
   analytics:   renderAnalytics,
   tickets:     renderTickets,
   referrals:   renderReferrals,
@@ -692,7 +861,7 @@ function calcMRR() {
   let total = 0;
   BGX.CLIENTS.filter(c=>c.status==='active').forEach(c=>{
     const p = BGX.getPlan(c.plan);
-    total += c.billing==='annual' ? Math.round(p.pricePa/12) : p.price;
+    total += Math.round(p.price/12);
   });
   return total >= 100000 ? (total/100000).toFixed(1)+'L' : (total/1000).toFixed(0)+'K';
 }
@@ -962,7 +1131,7 @@ function renderMemberships() {
   document.getElementById('memberships-body').innerHTML = BGX.CLIENTS.map(c=>{
     const plan = BGX.getPlan(c.plan);
     const rm = BGX.getRM(c.rmId);
-    const rev = c.billing==='annual'?`₹${plan.pricePa.toLocaleString('en-IN')}/yr`:`₹${plan.price.toLocaleString('en-IN')}/mo`;
+    const rev = `₹${plan.price.toLocaleString('en-IN')}/yr (excl. GST)`;
     return `<tr>
       <td><strong>${c.name}</strong><br><span style="font-size:10px;color:var(--tl)">${c.biz}</span></td>
       <td>${plan.label}</td>
@@ -1002,7 +1171,7 @@ function renderAnalytics() {
     <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>${v}</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/dmax*100)}%"></div></div></div>`).join('');
 
   const rev={};
-  BGX.CLIENTS.filter(c=>c.status==='active').forEach(c=>{const p=BGX.getPlan(c.plan);rev[p.label]=(rev[p.label]||0)+(c.billing==='annual'?Math.round(p.pricePa/12):p.price)});
+  BGX.CLIENTS.filter(c=>c.status==='active').forEach(c=>{const p=BGX.getPlan(c.plan);rev[p.label]=(rev[p.label]||0)+Math.round(p.price/12)});
   const rmax=Math.max(...Object.values(rev));
   document.getElementById('a-revenue').innerHTML=Object.entries(rev).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`
     <div class="pb-w"><div class="pb-l"><span>${k}</span><strong>₹${v.toLocaleString('en-IN')}/mo</strong></div><div class="pb-t"><div class="pb-f" style="width:${Math.round(v/rmax*100)}%"></div></div></div>`).join('');
@@ -1253,8 +1422,10 @@ async function deleteLead(id) {
 
 /* ─ LOAD REAL DATA ON INIT ─ */
 async function loadAllFromSupabase() {
+  await BGX.loadPlans();
   await reloadClientsFromDB();
   await reloadLeadsFromDB();
+  updatePlanDropdowns();
 }
 
 /* ══════════════════════════════════════════
@@ -1562,6 +1733,368 @@ function initAdminLoginCanvas() {
 
   draw();
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PLAN MANAGER — Full Supabase CRUD for membership_plans table
+══════════════════════════════════════════════════════════════ */
+
+let _pmEditKey = null; // null = add mode, string = edit mode (plan_key)
+
+/* ─ RENDER PLAN MANAGER ─ */
+async function renderPlanMgr() {
+  // Try to reload plans from Supabase first
+  const loaded = await BGX.loadPlans();
+
+  // Show setup banner if table missing
+  const banner = document.getElementById('pm-setup-banner');
+  if (!loaded) {
+    if (banner) banner.style.display = 'block';
+  } else {
+    if (banner) banner.style.display = 'none';
+  }
+
+  const plans = BGX.getPlansList();
+
+  // Stats
+  const counts = {};
+  BGX.CLIENTS.forEach(c => { counts[c.plan] = (counts[c.plan] || 0) + 1; });
+  const totalRev = plans.reduce((sum, p) => sum + (p.price * (counts[p.key] || 0)), 0);
+  document.getElementById('pm-stats').innerHTML = `
+    <div class="sc c1"><div class="sc-i">📋</div><div class="sc-v">${plans.length}</div><div class="sc-l">Active Plans</div></div>
+    <div class="sc c2"><div class="sc-i">👥</div><div class="sc-v">${BGX.CLIENTS.filter(c=>c.status==='active').length}</div><div class="sc-l">Active Members</div></div>
+    <div class="sc c3"><div class="sc-i">💰</div><div class="sc-v">₹${(totalRev/100000).toFixed(1)}L</div><div class="sc-l">Annual ARR (excl. GST)</div></div>
+    <div class="sc c4"><div class="sc-i">✨</div><div class="sc-v">${plans.filter(p=>p.is_popular).map(p=>p.label).join(', ')||'—'}</div><div class="sc-l">Popular Plan</div></div>
+  `;
+
+  // Plan cards
+  document.getElementById('pm-cards').innerHTML = plans.map(p => {
+    const members = counts[p.key] || 0;
+    const badges = [
+      p.is_popular   ? '<span class="bdg ba">⭐ Popular</span>' : '',
+      p.is_enterprise? '<span class="bdg bc">💎 Enterprise</span>' : '',
+      !p.is_active   ? '<span class="bdg be">Inactive</span>' : '',
+    ].filter(Boolean).join('');
+
+    const features = [
+      `🇮🇳 ${BGX.fmtLeads(p.indian_leads)} Indian leads/mo`,
+      p.intl_leads ? `🌍 ${BGX.fmtLeads(p.intl_leads)} International/mo` : '',
+      p.catalogue   ? `📚 Catalogue: ${p.catalogue} products` : '',
+      p.promotion !== 'None' ? `📢 Promotion: ${p.promotion}` : '',
+      p.seo ? '🔍 SEO Included' : '',
+      p.smo ? '📱 SMO Included' : '',
+      p.perf_report ? '📊 Monthly Report' : '',
+      p.strategy_call ? '📞 Strategy Call' : '',
+    ].filter(Boolean).slice(0, 5).join('<br>');
+
+    return `
+    <div class="pm-plan-card" style="border-top:3px solid ${p.color}">
+      <div class="ppc-key">${p.key}</div>
+      <div class="ppc-label">${p.label}</div>
+      <div class="ppc-badges">${badges}</div>
+      <div class="ppc-price">${BGX.fmtPrice(p.price)}<span style="font-size:12px;font-weight:400;color:var(--tl)">/yr excl. GST</span></div>
+      <div class="ppc-orig">${BGX.fmtPrice(p.price_original)} original · Save ${BGX.fmtPrice(p.savings)}</div>
+      <div class="ppc-feat" style="margin-top:10px">${features}</div>
+      <div style="margin-top:8px;font-size:11px;color:var(--tl)">${members} member${members!==1?'s':''} on this plan</div>
+      <div class="ppc-actions">
+        <button class="btn b-o b-sm" onclick="openPlanModal('${p.key}')">✏️ Edit</button>
+        <button class="btn b-d b-sm" onclick="deletePlanConfirmDirect('${p.key}')">🗑 Delete</button>
+        ${!p.is_active ? `<button class="btn b-g b-sm" onclick="togglePlanActive('${p.key}',true)">Activate</button>` : `<button class="btn b-sm" style="background:var(--sky);color:var(--tb)" onclick="togglePlanActive('${p.key}',false)">Deactivate</button>`}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Comparison table
+  renderPlanCompareTable(plans);
+}
+
+/* ─ COMPARISON TABLE ─ */
+function renderPlanCompareTable(plans) {
+  const head = document.getElementById('pm-compare-head');
+  const body = document.getElementById('pm-compare-body');
+  if (!head || !body) return;
+
+  head.innerHTML = `<tr><th style="min-width:180px">Feature</th>${plans.map(p=>`<th style="text-align:center;background:${p.color}10;border-top:3px solid ${p.color}">${p.label}</th>`).join('')}</tr>`;
+
+  const rows = [
+    ['Price (Offer)',         p => `<strong>${BGX.fmtPrice(p.price)}</strong>/yr`],
+    ['Original Price',        p => `<span style="text-decoration:line-through;color:var(--tl)">${BGX.fmtPrice(p.price_original)}</span>`],
+    ['You Save',              p => `<span style="color:#27ae60;font-weight:600">${BGX.fmtPrice(p.savings)}</span>`],
+    ['Days Covered',          p => p.days],
+    ['Indian Leads/Month',    p => BGX.fmtLeads(p.indian_leads)],
+    ['International Leads',   p => p.intl_leads ? BGX.fmtLeads(p.intl_leads) : '—'],
+    ['Lead Delivery',         p => p.lead_delivery],
+    ['Website Included',      p => p.website ? '✓' : '✗'],
+    ['Digital Catalogue',     p => p.catalogue || '—'],
+    ['Relationship Manager',  p => p.rm ? '✓' : '✗'],
+    ['Business Promotion',    p => p.promotion],
+    ['SEO Service',           p => p.seo ? '✓ On-Page' : '✗'],
+    ['Social Media (SMO)',    p => p.smo ? '✓' : '✗'],
+    ['Monthly Perf. Report',  p => p.perf_report ? '✓' : '✗'],
+    ['Monthly Strategy Call', p => p.strategy_call ? '✓' : '✗'],
+    ['GST Support',           p => p.gst_support],
+    ['IEC Registration',      p => p.iec ? '✓' : '✗'],
+    ['MSME Certificate',      p => p.msme ? '✓' : '✗'],
+    ['Fassai License',        p => BGX.fmtFassai(p.fassai)],
+    ['Virtual Business Cards',p => p.virtual_cards],
+    ['Email Support',         p => p.email_support ? '✓' : '✗'],
+    ['CTA Text',              p => `<em>${p.cta}</em>`],
+  ];
+
+  body.innerHTML = rows.map(([label, fn], i) => `
+    <tr style="${i%2===0?'background:var(--bg2)':''}">
+      <td style="font-weight:600;font-size:12px;color:var(--tb)">${label}</td>
+      ${plans.map(p=>`<td style="text-align:center;font-size:12px">${fn(p)}</td>`).join('')}
+    </tr>`).join('');
+}
+
+/* ─ OPEN MODAL (add or edit) ─ */
+function openPlanModal(key) {
+  _pmEditKey = key || null;
+  const isEdit = !!key;
+  const p = isEdit ? BGX.getPlan(key) : null;
+
+  document.getElementById('pf-title').textContent  = isEdit ? `Edit Plan — ${p.label}` : 'Add New Plan';
+  document.getElementById('pf-sub').textContent    = isEdit ? `Editing plan key: "${key}". Changes save to Supabase immediately.` : 'New plan will be added to Supabase and appear on all public pages.';
+  document.getElementById('pf-delete-btn').style.display = isEdit ? 'inline-flex' : 'none';
+  document.getElementById('pf-error').style.display = 'none';
+  document.getElementById('pf-ok').style.display    = 'none';
+
+  // Populate fields
+  const v = (id, val) => { const el=document.getElementById(id); if(el) el.value=val||''; };
+  const c = (id, val) => { const el=document.getElementById(id); if(el) el.checked=!!val; };
+  const s = (id, val) => { const el=document.getElementById(id); if(el) el.value=val||el.options[0]?.value; };
+
+  if (isEdit) {
+    const keyEl = document.getElementById('pf-key');
+    if (keyEl) { keyEl.value = p.key; keyEl.readOnly = true; keyEl.style.opacity='0.5'; }
+    v('pf-label', p.label);       v('pf-best', p.best_for);
+    v('pf-orig',  p.price_original); v('pf-price', p.price);
+    v('pf-days',  p.days || 365);  v('pf-sort', p.sort_order);
+    v('pf-color', p.color || '#1B3A5C');
+    v('pf-cta',   p.cta);
+    v('pf-indian',p.indian_leads); v('pf-intl', p.intl_leads);
+    v('pf-cat',   p.catalogue);    v('pf-vcards', p.virtual_cards);
+    s('pf-promo', p.promotion);    s('pf-gst', p.gst_support);
+    s('pf-fassai', p.fassai === true ? 'true' : p.fassai === false ? 'false' : p.fassai);
+    c('pf-rm', p.rm);         c('pf-seo', p.seo);       c('pf-smo', p.smo);
+    c('pf-perf', p.perf_report); c('pf-strategy', p.strategy_call);
+    c('pf-iec', p.iec);       c('pf-msme', p.msme);
+    c('pf-website', p.website); c('pf-email', p.email_support);
+    c('pf-popular', p.is_popular); c('pf-enterprise', p.is_enterprise);
+    c('pf-active', p.is_active !== false);
+  } else {
+    const keyEl = document.getElementById('pf-key');
+    if (keyEl) { keyEl.value=''; keyEl.readOnly=false; keyEl.style.opacity='1'; }
+    ['pf-label','pf-best','pf-cta'].forEach(id=>v(id,''));
+    v('pf-orig',0); v('pf-price',0); v('pf-days',365); v('pf-sort',99);
+    v('pf-color','#1B3A5C'); v('pf-indian',0); v('pf-intl',0);
+    v('pf-cat',0); v('pf-vcards',1);
+    ['pf-rm','pf-iec','pf-msme','pf-website','pf-email','pf-active'].forEach(id=>c(id,true));
+    ['pf-seo','pf-smo','pf-perf','pf-strategy','pf-popular','pf-enterprise'].forEach(id=>c(id,false));
+  }
+
+  document.getElementById('modal-plan-form').classList.add('open');
+}
+
+function closePlanModal() {
+  document.getElementById('modal-plan-form').classList.remove('open');
+  _pmEditKey = null;
+}
+
+/* ─ SAVE PLAN (Insert or Update) ─ */
+async function savePlan() {
+  const errEl = document.getElementById('pf-error');
+  const okEl  = document.getElementById('pf-ok');
+  const btn   = document.getElementById('pf-save-btn');
+  errEl.style.display='none'; okEl.style.display='none';
+
+  const key   = document.getElementById('pf-key').value.trim().toLowerCase().replace(/\s+/g,'_');
+  const label = document.getElementById('pf-label').value.trim();
+  const price = parseFloat(document.getElementById('pf-price').value);
+  const orig  = parseFloat(document.getElementById('pf-orig').value) || price;
+
+  if (!key)   { errEl.textContent='Plan Key is required.';   errEl.style.display='block'; return; }
+  if (!label) { errEl.textContent='Plan Label is required.'; errEl.style.display='block'; return; }
+  if (!price) { errEl.textContent='Offer Price must be > 0.';errEl.style.display='block'; return; }
+
+  const fassaiRaw = document.getElementById('pf-fassai').value;
+  const fassaiVal = fassaiRaw === 'true' ? true : fassaiRaw === 'false' ? false : fassaiRaw;
+
+  const payload = {
+    plan_key:      key,
+    label,
+    best_for:      document.getElementById('pf-best').value.trim(),
+    days:          parseInt(document.getElementById('pf-days').value) || 365,
+    price_original:orig,
+    price,
+    discount:      orig > 0 ? parseFloat(((orig-price)/orig).toFixed(4)) : 0,
+    savings:       orig - price,
+    indian_leads:  parseInt(document.getElementById('pf-indian').value) || 0,
+    intl_leads:    parseInt(document.getElementById('pf-intl').value)   || 0,
+    lead_delivery: 'WhatsApp & Email',
+    website:       document.getElementById('pf-website').checked,
+    catalogue:     parseInt(document.getElementById('pf-cat').value)    || 0,
+    rm:            document.getElementById('pf-rm').checked,
+    promotion:     document.getElementById('pf-promo').value,
+    perf_report:   document.getElementById('pf-perf').checked,
+    seo:           document.getElementById('pf-seo').checked,
+    smo:           document.getElementById('pf-smo').checked,
+    gst_support:   document.getElementById('pf-gst').value,
+    virtual_cards: parseInt(document.getElementById('pf-vcards').value) || 1,
+    email_support: document.getElementById('pf-email').checked,
+    iec:           document.getElementById('pf-iec').checked,
+    msme:          document.getElementById('pf-msme').checked,
+    fassai:        fassaiVal,
+    strategy_call: document.getElementById('pf-strategy').checked,
+    cta:           document.getElementById('pf-cta').value.trim() || 'Get Started',
+    is_popular:    document.getElementById('pf-popular').checked,
+    is_enterprise: document.getElementById('pf-enterprise').checked,
+    color:         document.getElementById('pf-color').value || '#1B3A5C',
+    sort_order:    parseInt(document.getElementById('pf-sort').value)   || 99,
+    is_active:     document.getElementById('pf-active').checked,
+    updated_at:    new Date().toISOString(),
+  };
+
+  btn.textContent='Saving…'; btn.disabled=true;
+
+  try {
+    let error;
+    if (_pmEditKey) {
+      // UPDATE
+      ({ error } = await _supabase.from('membership_plans').update(payload).eq('plan_key', _pmEditKey));
+    } else {
+      // INSERT
+      ({ error } = await _supabase.from('membership_plans').insert({ ...payload, created_at: new Date().toISOString() }));
+    }
+
+    if (error) {
+      // If table doesn't exist — save to BGX.PLANS locally as fallback
+      if (error.code === '42P01' || error.message.includes('does not exist')) {
+        BGX.PLANS[key] = { ...payload, id: key };
+        okEl.textContent = '✅ Saved locally (Supabase table not set up yet — see setup banner above).';
+        okEl.style.display='block';
+        logAudit(_pmEditKey?'plan_updated':'plan_added', key, label);
+        setTimeout(()=>{ closePlanModal(); renderPlanMgr(); }, 1500);
+      } else {
+        errEl.textContent = 'Supabase error: ' + error.message;
+        errEl.style.display='block';
+      }
+    } else {
+      okEl.textContent = `✅ Plan "${label}" ${_pmEditKey?'updated':'created'} successfully!`;
+      okEl.style.display='block';
+      logAudit(_pmEditKey?'plan_updated':'plan_added', key, `Label: ${label} | Price: ₹${price}`);
+      // Refresh local PLANS cache
+      await BGX.loadPlans();
+      // Update plan dropdowns everywhere
+      updatePlanDropdowns();
+      setTimeout(()=>{ closePlanModal(); renderPlanMgr(); }, 1200);
+    }
+  } catch(e) {
+    errEl.textContent = 'Error: ' + e.message;
+    errEl.style.display='block';
+  }
+
+  btn.textContent='💾 Save Plan'; btn.disabled=false;
+}
+
+/* ─ DELETE PLAN ─ */
+function deletePlanConfirm() {
+  if (!_pmEditKey) return;
+  deletePlanConfirmDirect(_pmEditKey);
+}
+
+async function deletePlanConfirmDirect(key) {
+  const p = BGX.getPlan(key);
+  const counts = {};
+  BGX.CLIENTS.forEach(c => { counts[c.plan] = (counts[c.plan]||0)+1; });
+  const members = counts[key] || 0;
+  const msg = members > 0
+    ? `⚠️ "${p.label}" has ${members} active member(s).\n\nDeleting will NOT affect existing members, but new clients won't be able to choose this plan.\n\nDelete anyway?`
+    : `Delete plan "${p.label}"? This cannot be undone.`;
+  if (!confirm(msg)) return;
+
+  try {
+    const { error } = await _supabase.from('membership_plans').delete().eq('plan_key', key);
+    if (error && !error.message.includes('does not exist')) {
+      alert('Error: ' + error.message); return;
+    }
+    // Remove from local cache too
+    delete BGX.PLANS[key];
+    logAudit('plan_deleted', key, p.label);
+    updatePlanDropdowns();
+    closePlanModal();
+    renderPlanMgr();
+    // Re-render memberships in case plan was in use
+    renderMemberships();
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+}
+
+/* ─ TOGGLE ACTIVE ─ */
+async function togglePlanActive(key, active) {
+  const label = active ? 'activate' : 'deactivate';
+  if (!confirm(`${active?'Activate':'Deactivate'} plan "${key}"?`)) return;
+  try {
+    const { error } = await _supabase.from('membership_plans')
+      .update({ is_active: active, updated_at: new Date().toISOString() })
+      .eq('plan_key', key);
+    if (error && !error.message.includes('does not exist')) {
+      // Fallback: update local
+      if (BGX.PLANS[key]) BGX.PLANS[key].is_active = active;
+    } else {
+      await BGX.loadPlans();
+    }
+    logAudit('plan_' + label + 'd', key, '');
+    renderPlanMgr();
+  } catch(e) { alert(e.message); }
+}
+
+/* ─ SYNC PLAN DROPDOWNS (add-client modal & change-plan prompt) ─ */
+function updatePlanDropdowns() {
+  const sel = document.getElementById('nc-plan');
+  if (!sel) return;
+  const plans = BGX.getPlansList();
+  sel.innerHTML = plans.map(p =>
+    `<option value="${p.key}">${p.label} — ${BGX.fmtPrice(p.price)}/yr (${BGX.fmtLeads(p.indian_leads)} leads/mo)</option>`
+  ).join('');
+}
+
+/* ─ OVERRIDE changePlan to use live plan keys ─ */
+async function changePlan(id) {
+  const c = BGX.getClient(id);
+  if (!c) return;
+  const plans = BGX.getPlansList();
+  const opts  = plans.map(p=>`${p.key} — ${p.label} (${BGX.fmtPrice(p.price)}/yr)`).join('\n');
+  const plan  = prompt(`New plan for ${c.name}:\n\n${opts}\n\nCurrent: ${c.plan}\n\nEnter plan key:`, c.plan);
+  if (!plan) return;
+  const newPlan = plan.toLowerCase().trim();
+  if (!BGX.PLANS[newPlan]) { alert('Invalid plan key.'); return; }
+  logAudit('plan_changed', c.email, `From: ${c.plan} → To: ${newPlan}`);
+  await updateClientField(id, 'plan', newPlan);
+}
+
+/* ─ SEED PLANS TO SUPABASE (one-time, called from setup banner if needed) ─ */
+async function seedPlansToSupabase() {
+  const plans = BGX.getPlansList();
+  const rows = plans.map(p => ({
+    plan_key: p.key, label: p.label, best_for: p.best_for, days: p.days,
+    price_original: p.price_original, price: p.price, discount: p.discount, savings: p.savings,
+    indian_leads: p.indian_leads, intl_leads: p.intl_leads, lead_delivery: p.lead_delivery,
+    website: p.website, catalogue: p.catalogue, rm: p.rm, promotion: p.promotion,
+    perf_report: p.perf_report, seo: p.seo, smo: p.smo, gst_support: p.gst_support,
+    virtual_cards: p.virtual_cards, email_support: p.email_support,
+    iec: p.iec, msme: p.msme, fassai: p.fassai, strategy_call: p.strategy_call,
+    cta: p.cta, is_popular: p.is_popular, is_enterprise: p.is_enterprise,
+    color: p.color, sort_order: p.sort_order, is_active: true,
+    created_at: new Date().toISOString(), updated_at: new Date().toISOString()
+  }));
+  const { error } = await _supabase.from('membership_plans').upsert(rows, { onConflict: 'plan_key' });
+  if (error) { alert('Seed error: ' + error.message); return; }
+  alert('✅ All 4 default plans seeded to Supabase successfully!');
+  renderPlanMgr();
+}
+
 </script>
 </body>
 </html>

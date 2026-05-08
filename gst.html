@@ -299,19 +299,9 @@
       <div class="section-label" style="margin-bottom:10px;">Plan Availability</div>
       <h2 style="font-size:28px;color:var(--navy);">GST Registration — Included in These Plans</h2>
     </div>
-    <div class="plan-cta-strip reveal">
-      <div class="pcs-card">
-        <div class="pcs-tier">Professional Plan</div>
-        <h3>₹24,999 <sub style="font-size:14px;color:var(--text-light);">+GST/yr</sub></h3>
-        <p>GST registration assistance is fully included as part of the Professional membership — no additional fees. Also includes 80 Indian leads, 35 international leads, full SEO service, and dedicated RM.</p>
-        <a href="contact.html" class="btn-outline" style="width:100%;justify-content:center;">Get Professional Plan →</a>
-      </div>
-      <div class="pcs-card highlight">
-        <div class="pcs-tier">Enterprise Plan</div>
-        <h3>₹44,999 <sub style="font-size:14px;color:var(--text-mid);">+GST/yr</sub></h3>
-        <p>GST registration is included in Enterprise alongside unlimited Indian leads, 80 international leads, weekly promotions, senior RM with monthly strategy calls, and 5 team business cards.</p>
-        <a href="contact.html" class="btn-gold" style="width:100%;justify-content:center;">Get Enterprise Plan →</a>
-      </div>
+    <!-- Dynamic GST plan strip -->
+    <div class="plan-cta-strip reveal" id="gst-plans-strip">
+      <div style="text-align:center;padding:30px;color:var(--text-mid);font-size:13px">Loading plans…</div>
     </div>
   </div>
 
@@ -393,6 +383,26 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="bgx-data.js"></script>
+<script>
+(async function() {
+  await BGX.loadPlans();
+  const strip = document.getElementById('gst-plans-strip');
+  if (!strip) return;
+  // Show only plans where gst_support is "Assistance" or "Included"
+  const plans = BGX.getPlansList().filter(p => p.gst_support && p.gst_support !== 'None');
+  strip.innerHTML = plans.map((p, i) => {
+    const isHighlight = p.is_enterprise || p.is_popular;
+    return `<div class="pcs-card${isHighlight?' highlight':''}">
+      <div class="pcs-tier">${p.label}</div>
+      <h3>${BGX.fmtPrice(p.price)} <sub style="font-size:14px;color:${isHighlight?'var(--text-mid)':'var(--text-light)'};">/yr excl. GST</sub></h3>
+      <p>GST Registration: <strong>${p.gst_support}</strong>. Also includes ${BGX.fmtLeads(p.indian_leads)} Indian leads/mo${p.intl_leads?' + '+BGX.fmtLeads(p.intl_leads)+' international':''}${p.catalogue?', '+p.catalogue+'-product catalogue':''}${p.seo?', SEO':''}${p.smo?', SMO':''}${p.strategy_call?', monthly strategy call':''}.</p>
+      <a href="contact.html" class="${isHighlight?'btn-gold':'btn-outline'}" style="width:100%;justify-content:center;">${p.cta} →</a>
+    </div>`;
+  }).join('');
+})();
+</script>
 <script src="shared.js"></script>
 </body>
 </html>

@@ -85,6 +85,10 @@
   font-size: 11.5px; color: #1D7A3A; font-weight: 700;
   margin-top: 4px; font-family: 'Space Grotesk', sans-serif;
 }
+.price-note {
+  font-size: 10.5px; color: var(--text-light); margin-top: 3px;
+  font-family: 'Space Grotesk', sans-serif;
+}
 .plan-main.enterprise .price-save { color: var(--gold-light); }
 
 .plan-sep { height: 1px; background: var(--border-soft); margin: 18px 0; }
@@ -265,7 +269,7 @@ table.compare tbody tr:hover td { background: var(--sky); }
 <div class="page-hero">
   <div class="hero-badge reveal">💎 Annual Membership Plans</div>
   <h1 class="reveal">Plans Designed for<br><span class="accent">Every Exporter</span></h1>
-  <p class="reveal">Whether you're exploring global trade for the first time or running a large trading house — we have a membership that precisely fits your scale, budget, and growth ambitions. All buyer leads are delivered in real time via WhatsApp and email. All plans are billed annually.</p>
+  <p class="reveal">Whether you're exploring global trade for the first time or running a large trading house — we have a membership that precisely fits your scale, budget, and growth ambitions. All buyer leads are delivered in real time via WhatsApp and email. All prices are exclusive of GST &amp; government fees.</p>
 </div>
 
 <div class="content-wrap">
@@ -274,240 +278,36 @@ table.compare tbody tr:hover td { background: var(--sky); }
   <div style="text-align:center;" class="reveal">
     <div class="billing-toggle">
       <span>Annual Billing</span>
-      <span class="billing-badge">Save up to 50%</span>
-      <span>vs MRP</span>
+      <span class="billing-badge">Save up to 10%</span>
+      <span>· Prices excl. GST &amp; Govt. Fees</span>
     </div>
   </div>
 
-  <div class="plans-main-grid">
+  <!-- Dynamic Plans Grid — rendered from Supabase via bgx-data.js -->
+  <div id="plans-loading" style="text-align:center;padding:60px 0;color:var(--text-mid)">
+    <div style="font-size:32px;margin-bottom:12px">⏳</div>
+    <div style="font-size:14px">Loading latest plans…</div>
+  </div>
+  <div class="plans-main-grid" id="plans-grid" style="display:none"></div>
 
-    <!-- STARTER -->
-    <div class="plan-main reveal tilt-card">
-      <div class="plan-tier-name">Starter</div>
-      <div class="plan-ideal">For first-time exporters &amp; startups exploring international trade</div>
-      <div class="price-block">
-        <div class="price-original">₹8,999 /year</div>
-        <div class="price-actual"><span class="rupee">₹</span>4,999<sub>+GST/yr</sub></div>
-        <div class="price-save">You save ₹4,000 · Launch Offer 🎉</div>
-      </div>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><span class="fi-yes">✓</span> 15 Indian Buyer Leads / month</li>
-        <li><span class="fi-yes">✓</span> Leads delivered via WhatsApp &amp; Email</li>
-        <li><span class="fi-yes">✓</span> Digital Catalogue — 5 Products</li>
-        <li><span class="fi-yes">✓</span> 1× Virtual Business Card</li>
-        <li><span class="fi-yes">✓</span> Email Support</li>
-        <li><span class="fi-yes">✓</span> Platform Access · 12 months</li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">Authenticated Buyer Contact Details</span></li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">International Buyer Leads</span></li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">Dedicated Relationship Manager</span></li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">Business Promotion</span></li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">SEO / Social Media</span></li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">GST Registration</span></li>
-      </ul>
-      <div class="plan-action">
-        <a href="contact.html" class="btn-outline">Get Started</a>
-      </div>
-    </div>
-
-    <!-- GROWTH (POPULAR) -->
-    <div class="plan-main popular reveal tilt-card">
-      <div class="popular-tag">⭐ Most Popular</div>
-      <div class="plan-tier-name">Growth</div>
-      <div class="plan-ideal">For small &amp; medium exporters ready to scale their buyer network internationally</div>
-      <div class="price-block">
-        <div class="price-original">₹24,999 /year</div>
-        <div class="price-actual"><span class="rupee">₹</span>12,999<sub>+GST/yr</sub></div>
-        <div class="price-save">You save ₹12,000 · Best Value 🔥</div>
-      </div>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><span class="fi-yes">✓</span> 40 Indian Leads / month</li>
-        <li><span class="fi-yes">✓</span> 15 International Leads / month</li>
-        <li><span class="fi-yes">✓</span> Real-time delivery via WhatsApp &amp; Email</li>
-        <li><span class="fi-yes">✓</span> Authenticated Buyer Contact Details</li>
-        <li><span class="fi-yes">✓</span> Digital Catalogue — 20 Products</li>
-        <li><span class="fi-yes">✓</span> Dedicated RM (Email + WhatsApp)</li>
-        <li><span class="fi-yes">✓</span> Business Promotion — Quarterly</li>
-        <li><span class="fi-yes">✓</span> Monthly Performance Report</li>
-        <li><span class="fi-yes">✓</span> Basic On-Page SEO</li>
-        <li><span class="fi-yes">✓</span> 1× Virtual Business Card</li>
-        <li><span class="fi-no">✗</span> <span class="fi-dim">GST Registration</span></li>
-      </ul>
-      <div class="plan-action">
-        <a href="contact.html" class="btn-gold">Choose Growth →</a>
-      </div>
-    </div>
-
-    <!-- PROFESSIONAL -->
-    <div class="plan-main reveal tilt-card">
-      <div class="plan-tier-name">Professional</div>
-      <div class="plan-ideal">For established exporters seeking full digital presence and consistent lead flow</div>
-      <div class="price-block">
-        <div class="price-original">₹49,999 /year</div>
-        <div class="price-actual"><span class="rupee">₹</span>24,999<sub>+GST/yr</sub></div>
-        <div class="price-save">You save ₹25,000</div>
-      </div>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><span class="fi-yes">✓</span> 80 Indian Leads / month</li>
-        <li><span class="fi-yes">✓</span> 35 International Leads / month</li>
-        <li><span class="fi-yes">✓</span> Real-time delivery via WhatsApp &amp; Email</li>
-        <li><span class="fi-yes">✓</span> Authenticated Buyer Contact Details</li>
-        <li><span class="fi-yes">✓</span> Digital Catalogue — 40 Products</li>
-        <li><span class="fi-yes">✓</span> Priority RM (Phone + WhatsApp)</li>
-        <li><span class="fi-yes">✓</span> Business Promotion — Monthly</li>
-        <li><span class="fi-yes">✓</span> Monthly Performance Report</li>
-        <li><span class="fi-yes">✓</span> Full SEO Service Included</li>
-        <li><span class="fi-yes">✓</span> Social Media (SMO) Included</li>
-        <li><span class="fi-yes">✓</span> GST Registration Assistance</li>
-        <li><span class="fi-yes">✓</span> 1× Virtual Business Card</li>
-      </ul>
-      <div class="plan-action">
-        <a href="contact.html" class="btn-primary">Get Started</a>
-      </div>
-    </div>
-
-    <!-- ENTERPRISE -->
-    <div class="plan-main enterprise reveal tilt-card">
-      <div class="plan-tier-name">Enterprise</div>
-      <div class="plan-ideal">For large exporters &amp; trading houses needing maximum buyer coverage and support</div>
-      <div class="price-block">
-        <div class="price-original" style="color:rgba(255,255,255,0.3);">₹89,999 /year</div>
-        <div class="price-actual"><span class="rupee">₹</span>44,999<sub>+GST/yr</sub></div>
-        <div class="price-save">You save ₹45,000</div>
-      </div>
-      <div class="plan-sep"></div>
-      <ul class="plan-feats">
-        <li><span class="fi-yes">✓</span> Unlimited Indian Leads / month</li>
-        <li><span class="fi-yes">✓</span> 80 International Leads / month</li>
-        <li><span class="fi-yes">✓</span> Real-time delivery via WhatsApp &amp; Email</li>
-        <li><span class="fi-yes">✓</span> Authenticated Buyer Contact Details</li>
-        <li><span class="fi-yes">✓</span> Unlimited Product Catalogue</li>
-        <li><span class="fi-yes">✓</span> Senior Priority RM (Phone+WA)</li>
-        <li><span class="fi-yes">✓</span> Business Promotion — Weekly</li>
-        <li><span class="fi-yes">✓</span> Monthly Strategy Call with RM</li>
-        <li><span class="fi-yes">✓</span> Full SEO Strategy Service</li>
-        <li><span class="fi-yes">✓</span> Full Social Media Strategy</li>
-        <li><span class="fi-yes">✓</span> GST Registration Included</li>
-        <li><span class="fi-yes">✓</span> 5× Team Virtual Business Cards</li>
-      </ul>
-      <div class="plan-action">
-        <a href="contact.html" class="btn-gold" style="background:linear-gradient(135deg,var(--gold),var(--gold-bright));">Contact for Enterprise →</a>
-      </div>
-    </div>
+  <div class="value-note reveal" id="plans-footnote">
+    ⚠️ All prices are <strong>exclusive of 18% GST</strong> &amp; applicable government fees &nbsp;·&nbsp; 365-day access &nbsp;·&nbsp; No refund after activation &nbsp;·&nbsp; Monthly lead credits do not carry forward &nbsp;·&nbsp; Leads delivered in real time via WhatsApp &amp; Email
   </div>
 
-  <div class="value-note reveal">
-    All prices are exclusive of 18% GST &nbsp;·&nbsp; Annual billing only &nbsp;·&nbsp; No refund after activation &nbsp;·&nbsp; Plans expire after 12 months &nbsp;·&nbsp; Monthly lead credits do not carry forward &nbsp;·&nbsp; Leads delivered in real time via WhatsApp &amp; Email
+
+    ⚠️ All prices are <strong>exclusive of 18% GST</strong> &amp; applicable government fees &nbsp;·&nbsp; 365-day access &nbsp;·&nbsp; No refund after activation &nbsp;·&nbsp; Monthly lead credits do not carry forward &nbsp;·&nbsp; Leads delivered in real time via WhatsApp &amp; Email
   </div>
 
   <!-- COMPARISON TABLE -->
+  <!-- Dynamic Comparison Table -->
   <div class="card-glass reveal" style="margin-bottom:48px;padding:40px;">
     <div class="section-label" style="margin-bottom:10px;">Full Comparison</div>
     <h2 style="font-size:28px;color:var(--navy);margin-bottom:28px;">Detailed Feature Breakdown</h2>
     <div class="compare-wrap">
-      <table class="compare">
-        <thead>
-          <tr>
-            <th style="text-align:left;min-width:220px;">Feature</th>
-            <th>Starter</th>
-            <th class="popular-col">Growth ⭐</th>
-            <th>Professional</th>
-            <th>Enterprise</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="cat-row"><td colspan="5">Lead Generation</td></tr>
-          <tr><td>Indian Buyer Leads / Month</td><td>15</td><td class="popular-col">40</td><td>80</td><td class="c-gold">Unlimited</td></tr>
-          <tr><td>International Leads / Month</td><td class="c-no">—</td><td class="popular-col">15</td><td>35</td><td>80</td></tr>
-          <tr><td>Real-Time Lead Delivery</td><td class="c-yes">✓</td><td class="popular-col c-yes">✓</td><td class="c-yes">✓</td><td class="c-yes">✓</td></tr>
-          <tr><td>Lead Delivery Method</td><td class="c-yes">WhatsApp &amp; Email</td><td class="popular-col c-yes">WhatsApp &amp; Email</td><td class="c-yes">WhatsApp &amp; Email</td><td class="c-yes">WhatsApp &amp; Email</td></tr>
-          <tr><td>Authenticated Contact Details</td><td class="c-no">✗</td><td class="popular-col c-yes">✓</td><td class="c-yes">✓</td><td class="c-yes">✓</td></tr>
-
-          <tr class="cat-row"><td colspan="5">Catalogue &amp; Digital Identity</td></tr>
-          <tr><td>Product Listings</td><td>5</td><td class="popular-col">20</td><td>40</td><td class="c-gold">Unlimited</td></tr>
-          <tr><td>Shareable Catalogue Link + QR</td><td class="c-yes">✓</td><td class="popular-col c-yes">✓</td><td class="c-yes">✓</td><td class="c-yes">✓</td></tr>
-          <tr><td>Virtual Business Card(s)</td><td>1</td><td class="popular-col">1</td><td>1</td><td class="c-gold">5 Team Cards</td></tr>
-
-          <tr class="cat-row"><td colspan="5">Support &amp; Relationship Manager</td></tr>
-          <tr><td>Support Type</td><td>Email Only</td><td class="popular-col">RM · Email + WA</td><td>Priority RM · Phone + WA</td><td class="c-gold">Senior RM · Priority</td></tr>
-          <tr><td>Monthly Performance Report</td><td class="c-no">✗</td><td class="popular-col c-yes">✓</td><td class="c-yes">✓</td><td class="c-yes">✓</td></tr>
-          <tr><td>Monthly Strategy Call</td><td class="c-no">✗</td><td class="popular-col c-no">✗</td><td class="c-no">✗</td><td class="c-yes">✓</td></tr>
-
-          <tr class="cat-row"><td colspan="5">Business Promotion</td></tr>
-          <tr><td>Promotion to Buyers</td><td class="c-no">✗</td><td class="popular-col">Quarterly</td><td>Monthly</td><td class="c-gold">Weekly</td></tr>
-          <tr><td>Social Media Promotion</td><td class="c-no">✗</td><td class="popular-col">Basic</td><td class="c-yes">✓ Full</td><td class="c-yes">✓ Strategy</td></tr>
-
-          <tr class="cat-row"><td colspan="5">Digital Services</td></tr>
-          <tr><td>SEO Service</td><td class="c-no">✗</td><td class="popular-col">Basic On-Page</td><td class="c-yes">Full SEO</td><td class="c-yes">Full Strategy</td></tr>
-          <tr><td>Social Media (SMO)</td><td class="c-no">✗</td><td class="popular-col c-no">✗</td><td class="c-yes">✓ Included</td><td class="c-yes">✓ Full Strategy</td></tr>
-          <tr><td>GST Registration Assistance</td><td class="c-no">✗</td><td class="popular-col c-no">✗</td><td class="c-yes">✓ Included</td><td class="c-yes">✓ Included</td></tr>
-
-          <tr class="cat-row"><td colspan="5">Pricing Summary</td></tr>
-          <tr>
-            <td>Annual Price (Excl. GST)</td>
-            <td>₹4,999</td>
-            <td class="popular-col c-gold" style="font-weight:700;">₹12,999</td>
-            <td>₹24,999</td>
-            <td>₹44,999</td>
-          </tr>
-          <tr>
-            <td>You Save vs MRP</td>
-            <td style="color:#1D7A3A;font-weight:600;">₹4,000</td>
-            <td class="popular-col" style="color:#1D7A3A;font-weight:600;">₹12,000</td>
-            <td style="color:#1D7A3A;font-weight:600;">₹25,000</td>
-            <td style="color:#1D7A3A;font-weight:600;">₹45,000</td>
-          </tr>
-        </tbody>
+      <table class="compare" id="mem-compare-table">
+        <thead id="mem-compare-head"></thead>
+        <tbody id="mem-compare-body"></tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- REFERRAL PROGRAMME -->
-  <div class="card-glass reveal" style="background:var(--cream);border-color:var(--border-gold);">
-    <div style="text-align:center;margin-bottom:40px;">
-      <div class="section-label">Referral Programme</div>
-      <h2 style="font-size:32px;color:var(--navy);margin-bottom:10px;">Earn While You Grow — 3-Level Referral</h2>
-      <p style="font-size:15px;color:var(--text-mid);max-width:620px;margin:0 auto;line-height:1.8;">Every BuyGenix member can refer other businesses and earn commission up to 3 levels deep. The more your network grows, the more you earn — passively.</p>
-    </div>
-    <div class="referral-grid">
-      <div class="ref-card l1 reveal tilt-card">
-        <div style="font-size:40px;margin-bottom:10px;">🥇</div>
-        <div class="ref-level">Level 1 — Direct Referral</div>
-        <h3 class="ref-title">You Refer Directly</h3>
-        <p class="ref-desc">A business you introduce purchases any BuyGenix membership. Commission is credited on payment confirmation.</p>
-        <div class="ref-earn">
-          <strong>15%</strong>
-          <span>of plan value earned</span>
-        </div>
-        <p class="ref-example">Growth plan ₹12,999 → You earn <strong>₹1,950</strong></p>
-      </div>
-      <div class="ref-card l2 reveal tilt-card">
-        <div style="font-size:40px;margin-bottom:10px;">🥈</div>
-        <div class="ref-level">Level 2 — Their Referral</div>
-        <h3 class="ref-title">Your Referral Refers</h3>
-        <p class="ref-desc">The member you referred further introduces someone who buys. You earn on that sale too — automatically.</p>
-        <div class="ref-earn">
-          <strong>8%</strong>
-          <span>of plan value earned</span>
-        </div>
-        <p class="ref-example">Professional plan ₹24,999 → You earn <strong>₹2,000</strong></p>
-      </div>
-      <div class="ref-card l3 reveal tilt-card">
-        <div style="font-size:40px;margin-bottom:10px;">🥉</div>
-        <div class="ref-level">Level 3 — Extended Network</div>
-        <h3 class="ref-title">Network Grows Passively</h3>
-        <p class="ref-desc">As your network extends to a third degree, you continue earning passively without any direct effort.</p>
-        <div class="ref-earn">
-          <strong>4%</strong>
-          <span>of plan value earned</span>
-        </div>
-        <p class="ref-example">Enterprise plan ₹44,999 → You earn <strong>₹1,800</strong></p>
-      </div>
-    </div>
-    <div class="ref-note">
-      💳 Commission paid monthly via bank transfer or UPI · Minimum payout ₹500 · Active membership required to participate · Full programme rules in <a href="terms.html" style="color:var(--gold);">Terms &amp; Conditions</a>
     </div>
   </div>
 
@@ -593,6 +393,122 @@ table.compare tbody tr:hover td { background: var(--sky); }
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="bgx-data.js"></script>
+<script>
+/* ── DYNAMIC PLAN RENDERING — membership.html ── */
+(async function initMembershipPlans() {
+  await BGX.loadPlans();
+  renderMembershipCards();
+  renderMembershipCompare();
+})();
+
+function renderMembershipCards() {
+  const plans  = BGX.getPlansList();
+  const grid   = document.getElementById('plans-grid');
+  const loader = document.getElementById('plans-loading');
+  if (!grid) return;
+
+  grid.innerHTML = plans.map(p => {
+    const isEnt = p.is_enterprise;
+    const cardClass = ['plan-main','reveal','tilt-card', isEnt?'enterprise':''].filter(Boolean).join(' ');
+    const priceCol  = isEnt ? 'rgba(255,255,255,0.3)' : '';
+    const btnClass  = isEnt ? 'btn-gold" style="background:linear-gradient(135deg,var(--gold),var(--gold-bright))' : (p.is_popular ? 'btn-gold' : 'btn-primary');
+
+    // Feature list
+    const yes = (txt) => `<li><span class="fi-yes">✓</span> ${txt}</li>`;
+    const no  = (txt) => `<li><span class="fi-no">✗</span> <span class="fi-dim">${txt}</span></li>`;
+
+    const feats = [
+      yes(`${BGX.fmtLeads(p.indian_leads)} Indian Buyer Leads / month`),
+      p.intl_leads ? yes(`${BGX.fmtLeads(p.intl_leads)} International Leads / month`) : no('International Leads'),
+      yes(`Leads via WhatsApp &amp; Email`),
+      p.website ? yes('Website Included') : no('Website'),
+      p.catalogue ? yes(`Digital Catalogue — ${p.catalogue} Products`) : no('Digital Catalogue'),
+      p.rm ? yes('Dedicated Relationship Manager') : no('Relationship Manager'),
+      p.promotion !== 'None' ? yes(`Business Promotion — ${p.promotion}`) : no('Business Promotion'),
+      p.perf_report ? yes('Monthly Performance Report') : no('Monthly Performance Report'),
+      p.seo ? yes('SEO (On-Page)') : no('SEO Service'),
+      p.smo ? yes('Social Media (SMO)') : no('Social Media (SMO)'),
+      yes(`GST Registration — ${p.gst_support}`),
+      yes(`Virtual Business Card${p.virtual_cards>1?'s: '+p.virtual_cards+'×':'s'}`),
+      yes(`IEC Registration — ${p.iec ? 'Included' : 'Not Included'}`),
+      yes(`MSME Certificate — ${p.msme ? 'Included' : 'Not Included'}`),
+      yes(`Fassai License — ${p.fassai === true ? 'Included' : p.fassai === 'Assistance' ? 'Assistance' : 'Not Included'}`),
+      p.strategy_call ? yes('Monthly Strategy Call') : no('Monthly Strategy Call'),
+    ].join('');
+
+    return `
+    <div class="${cardClass}">
+      ${p.is_popular ? '<div class="popular-tag">⭐ Most Popular</div>' : ''}
+      <div class="plan-tier-name">${p.label.replace(' Plan','')}</div>
+      <div class="plan-ideal">${p.best_for}</div>
+      <div class="price-block">
+        <div class="price-original" style="color:${priceCol}">${BGX.fmtPrice(p.price_original)} /year</div>
+        <div class="price-actual"><span class="rupee">₹</span>${Number(p.price).toLocaleString('en-IN')}<sub>/yr</sub></div>
+        <div class="price-save">You save ${BGX.fmtPrice(p.savings)}${p.is_popular ? ' · Best Value 🔥' : ''}</div>
+        <div class="price-note">+ GST &amp; Govt. fees as applicable</div>
+      </div>
+      <div class="plan-sep"></div>
+      <ul class="plan-feats">${feats}</ul>
+      <div class="plan-action">
+        <a href="contact.html" class="${btnClass}">${p.cta} →</a>
+      </div>
+    </div>`;
+  }).join('');
+
+  if (loader) loader.style.display = 'none';
+  grid.style.display = 'grid';
+}
+
+function renderMembershipCompare() {
+  const plans = BGX.getPlansList();
+  const head  = document.getElementById('mem-compare-head');
+  const body  = document.getElementById('mem-compare-body');
+  if (!head || !body) return;
+
+  head.innerHTML = `<tr>
+    <th style="text-align:left;min-width:220px;">Feature</th>
+    ${plans.map(p=>`<th ${p.is_popular?'class="popular-col"':''}>${p.label.replace(' Plan','')}${p.is_popular?' ⭐':''}</th>`).join('')}
+  </tr>`;
+
+  const ck = (v) => v ? '<span style="color:#1D7A3A;font-weight:700">✓</span>' : '<span style="color:#c0392b">✗</span>';
+  const rows = [
+    ['Lead Generation',''],
+    ['Indian Leads / Month',       p => BGX.fmtLeads(p.indian_leads)],
+    ['International Leads / Month',p => p.intl_leads ? BGX.fmtLeads(p.intl_leads) : '—'],
+    ['Lead Delivery',              p => p.lead_delivery],
+    ['Platform &amp; Catalogue',''],
+    ['Website Included',           p => ck(p.website)],
+    ['Digital Catalogue (Products)',p => p.catalogue || '—'],
+    ['Virtual Business Cards',     p => p.virtual_cards > 1 ? `${p.virtual_cards}× Team` : '1×'],
+    ['Support &amp; RM',''],
+    ['Relationship Manager',       p => ck(p.rm)],
+    ['Email Support',              p => ck(p.email_support)],
+    ['Monthly Perf. Report',       p => ck(p.perf_report)],
+    ['Monthly Strategy Call',      p => ck(p.strategy_call)],
+    ['Promotion &amp; Digital',''],
+    ['Business Promotion',         p => p.promotion === 'None' ? '✗' : p.promotion],
+    ['SEO (On-Page)',               p => ck(p.seo)],
+    ['Social Media (SMO)',          p => ck(p.smo)],
+    ['Compliance',''],
+    ['IEC Registration',            p => ck(p.iec)],
+    ['MSME Certificate',            p => ck(p.msme)],
+    ['Fassai License',              p => p.fassai === true ? '✓ Incl.' : (p.fassai === 'Assistance' ? 'Assist.' : '✗')],
+    ['GST Registration',            p => p.gst_support],
+    ['Pricing',''],
+    ['Offer Price / Year',          p => `<strong>${BGX.fmtPrice(p.price)}</strong>`],
+    ['Original Price',              p => `<span style="text-decoration:line-through;color:#aaa">${BGX.fmtPrice(p.price_original)}</span>`],
+    ['You Save',                    p => `<span style="color:#1D7A3A;font-weight:700">${BGX.fmtPrice(p.savings)}</span>`],
+    ['CTA',                         p => `<em style="font-size:11px">${p.cta}</em>`],
+  ];
+
+  body.innerHTML = rows.map(([label, fn], i) => {
+    if (!fn) return `<tr class="cat-row"><td colspan="${plans.length+1}">${label}</td></tr>`;
+    return `<tr><td>${label}</td>${plans.map(p=>`<td ${p.is_popular?'class="popular-col"':''}>${fn(p)}</td>`).join('')}</tr>`;
+  }).join('');
+}
+</script>
 <script src="shared.js"></script>
 </body>
 </html>

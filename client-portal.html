@@ -405,10 +405,10 @@ canvas#bg{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
             <div class="ch"><div class="ct">Commission Structure</div></div>
             <div class="cb">
               <table class="htbl"><thead><tr><th>Plan Referred</th><th>Your Commission</th></tr></thead><tbody>
-                <tr><td>Starter Plan (100 leads)</td><td><strong style="color:var(--green)">₹500</strong></td></tr>
-                <tr><td>Growth Plan (500 leads)</td><td><strong style="color:var(--green)">₹2,000</strong></td></tr>
-                <tr><td>Professional (2,000 leads)</td><td><strong style="color:var(--green)">₹5,000</strong></td></tr>
-                <tr><td>Enterprise Plan</td><td><strong style="color:var(--green)">₹10,000+</strong></td></tr>
+                <!-- Dynamic referral commission rows — updated from BGX.PLANS -->
+                <tbody id="ref-commission-rows">
+                  <tr><td colspan="2" style="text-align:center;color:#aaa;font-size:12px">Loading…</td></tr>
+                </tbody>
               </tbody></table>
               <div style="margin-top:14px;background:var(--gp);border:1px solid var(--gb);border-radius:8px;padding:12px 15px">
                 <div style="font-size:9.5px;font-weight:700;color:var(--g);font-family:'Space Grotesk';text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Your Referral Link</div>
@@ -723,7 +723,7 @@ const AUTO_REPLIES={
   'renewal':()=>`Your ${BGX.getPlan(CLIENT.plan).label} renews on <strong>${CLIENT.renewal}</strong>. You'll get an email reminder 7 days before.`,
   'problem':'Sorry to hear that! Share the lead ID and issue. Our quality team will replace faulty leads within 48 hours.',
   'issue':'Please raise a formal Support Ticket using the sidebar, or describe the issue here and I will log it immediately.',
-  'top-up':()=>`Top-up packs of 50 leads are available at ₹1,499 for ${BGX.getPlan(CLIENT.plan).label} members. Want me to process that? WhatsApp +91 98181 87246.`,
+  'top-up':()=>`Top-up packs are available for ${BGX.getPlan(CLIENT.plan).label} members. Contact us on WhatsApp +91 98181 87246 for current top-up pricing (excl. GST).`,
   'hello':()=>`Hello ${CLIENT.name.split(' ')[0]}! How can I help today?`,
   'hi':()=>`Hi ${CLIENT.name.split(' ')[0]}! Ready to help with your leads, plan, or export queries.`,
   'plan':()=>`You're on the <strong>${BGX.getPlan(CLIENT.plan).label}</strong> — ${CLIENT.limit} leads/month, renewal ${CLIENT.renewal}. Want to explore upgrading?`,
@@ -753,13 +753,15 @@ function renderPlan(){
     <div class="pc-f"><span class="ck">✓</span> CSV export included</div>
     <div class="pc-f"><span class="ck">✓</span> Dedicated RM — ${rm?rm.name:'Assigned'}</div>
     <div class="pc-f"><span class="ck">✓</span> ${plan.label==='Starter Plan'?'Email':'Priority'} support</div>
-    <div class="pc-r" style="margin-top:14px">Billing: <strong>${CLIENT.billing}</strong> · Renews: <strong>${CLIENT.renewal}</strong><br>Price: <strong>₹${plan.price.toLocaleString('en-IN')}/mo</strong></div>`;
+    <div class="pc-r" style="margin-top:14px">Billing: <strong>${CLIENT.billing}</strong> · Renews: <strong>${CLIENT.renewal}</strong><br>Price: <strong>₹${plan.price.toLocaleString('en-IN')}/yr</strong> <span style="font-size:10.5px;color:var(--tl)">(excl. GST &amp; Govt. fees)</span></div>`;
 
-  const higher=Object.entries(BGX.PLANS).filter(([k])=>{const order=['starter','growth','professional','enterprise'];return order.indexOf(k)>order.indexOf(CLIENT.plan)});
+  const allPlans=BGX.getPlansList();
+  const curIdx=allPlans.findIndex(p=>p.key===CLIENT.plan);
+  const higher=allPlans.slice(curIdx+1).map(p=>[p.key,p]);
   document.getElementById('upgrade-options').innerHTML=higher.length?higher.map(([k,p])=>`
     <div style="border:1.5px solid var(--bs);border-radius:10px;padding:14px;margin-bottom:10px">
       <div style="font-size:13.5px;font-weight:700;color:var(--n);margin-bottom:6px">${p.label}</div>
-      <div style="font-size:11.5px;color:var(--tm);margin-bottom:10px">${p.limit<99999?p.limit.toLocaleString():' Unlimited'} leads/month · ₹${p.price.toLocaleString('en-IN')}/mo</div>
+      <div style="font-size:11.5px;color:var(--tm);margin-bottom:10px">${p.limit<99999?p.limit.toLocaleString():' Unlimited'} leads/month · ₹${p.price.toLocaleString('en-IN')}/yr <span style="font-size:10px">(excl. GST)</span></div>
       <a href="https://wa.me/919818187246" class="btn bg bsm" target="_blank">Upgrade via WhatsApp →</a>
     </div>`).join('')
     :'<div style="text-align:center;padding:20px;color:var(--tl)"><div style="font-size:28px;margin-bottom:8px">🏆</div><p style="font-size:12.5px">You are on our top plan!</p></div>';
@@ -785,6 +787,8 @@ function copyRef(){const l=document.getElementById('ref-link-txt').textContent;n
 
 /* ─ AUTH GUARD — checks real Supabase session ─ */
 async function initAuth() {
+  await BGX.loadPlans(); // Load live plans from Supabase
+  renderRefCommissionTable(); // Update referral commission table with live prices
   const { data: { session } } = await _supabase.auth.getSession();
   if (!session) {
     window.location.replace('login.html');
@@ -828,6 +832,17 @@ _supabase.auth.onAuthStateChange((event, session) => {
 });
 
 document.addEventListener('DOMContentLoaded', initAuth);
+
+/* ─ DYNAMIC REFERRAL COMMISSION TABLE ─ */
+function renderRefCommissionTable() {
+  const el = document.getElementById('ref-commission-rows');
+  if (!el) return;
+  const plans = BGX.getPlansList();
+  el.innerHTML = plans.map(p => {
+    const comm = Math.round(p.price * 0.15);
+    return `<tr><td>${p.label} (${BGX.fmtLeads(p.indian_leads)} leads/mo)</td><td><strong style="color:var(--green)">₹${comm.toLocaleString('en-IN')}</strong></td></tr>`;
+  }).join('');
+}
 </script>
 </body>
 </html>

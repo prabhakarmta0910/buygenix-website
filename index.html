@@ -828,88 +828,16 @@
       <h2 class="reveal">Built for Every Stage of Your Export Journey</h2>
       <p class="reveal">From first-time exporters to established trading houses — choose the plan that fits your scale, budget, and ambitions.</p>
     </div>
-    <div class="plans-preview-grid">
-      <div class="plan-card reveal tilt-card">
-        <div class="plan-tier">Starter</div>
-        <div class="plan-desc">First-time exporters &amp; startups exploring global trade</div>
-        <div class="plan-price-wrap">
-          <div class="plan-orig">₹8,999/year</div>
-          <div class="plan-price">₹4,999<sub>+GST</sub></div>
-          <div class="plan-save">Save ₹4,000 · Launch Offer</div>
-        </div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="pf-yes">✓</span> 15 Indian Buyer Leads/mo</li>
-          <li><span class="pf-yes">✓</span> 5-Product Catalogue</li>
-          <li><span class="pf-yes">✓</span> Virtual Business Card</li>
-          <li><span class="pf-yes">✓</span> Platform Access (1yr)</li>
-          <li><span class="pf-no">✗</span> <span class="pf-dim">International Leads</span></li>
-          <li><span class="pf-no">✗</span> <span class="pf-dim">Dedicated RM</span></li>
-        </ul>
-        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
-      </div>
-      <div class="plan-card featured reveal tilt-card">
-        <div class="plan-star">⭐ Most Popular</div>
-        <div class="plan-tier">Growth</div>
-        <div class="plan-desc">Small &amp; medium exporters ready to scale their buyer network</div>
-        <div class="plan-price-wrap">
-          <div class="plan-orig">₹24,999/year</div>
-          <div class="plan-price">₹12,999<sub>+GST</sub></div>
-          <div class="plan-save">Save ₹12,000 · Best Value 🔥</div>
-        </div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="pf-yes">✓</span> 40 Indian + 15 Intl Leads/mo</li>
-          <li><span class="pf-yes">✓</span> 20-Product Catalogue</li>
-          <li><span class="pf-yes">✓</span> Dedicated RM (Email+WhatsApp)</li>
-          <li><span class="pf-yes">✓</span> Business Promotion (Quarterly)</li>
-          <li><span class="pf-yes">✓</span> Monthly Performance Report</li>
-          <li><span class="pf-yes">✓</span> Basic SEO</li>
-        </ul>
-        <a href="contact.html" class="btn-gold plan-btn-wrap">Choose Growth →</a>
-      </div>
-      <div class="plan-card reveal tilt-card">
-        <div class="plan-tier">Professional</div>
-        <div class="plan-desc">Established exporters who want full digital presence and lead flow</div>
-        <div class="plan-price-wrap">
-          <div class="plan-orig">₹49,999/year</div>
-          <div class="plan-price">₹24,999<sub>+GST</sub></div>
-          <div class="plan-save">Save ₹25,000</div>
-        </div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="pf-yes">✓</span> 80 Indian + 35 Intl Leads/mo</li>
-          <li><span class="pf-yes">✓</span> 40-Product Catalogue</li>
-          <li><span class="pf-yes">✓</span> Priority RM (Phone+WhatsApp)</li>
-          <li><span class="pf-yes">✓</span> Monthly Promotion</li>
-          <li><span class="pf-yes">✓</span> Full SEO + SMO Included</li>
-          <li><span class="pf-yes">✓</span> GST Registration Included</li>
-        </ul>
-        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
-      </div>
-      <div class="plan-card reveal tilt-card">
-        <div class="plan-tier">Enterprise</div>
-        <div class="plan-desc">Large exporters &amp; trading houses needing maximum coverage</div>
-        <div class="plan-price-wrap">
-          <div class="plan-orig">₹89,999/year</div>
-          <div class="plan-price">₹44,999<sub>+GST</sub></div>
-          <div class="plan-save">Save ₹45,000</div>
-        </div>
-        <div class="plan-divider"></div>
-        <ul class="plan-features">
-          <li><span class="pf-yes">✓</span> Unlimited Indian + 80 Intl Leads</li>
-          <li><span class="pf-yes">✓</span> Unlimited Product Catalogue</li>
-          <li><span class="pf-yes">✓</span> Senior Priority RM</li>
-          <li><span class="pf-yes">✓</span> Weekly Promotion</li>
-          <li><span class="pf-yes">✓</span> Full SEO Strategy + 5 Cards</li>
-          <li><span class="pf-yes">✓</span> Monthly Strategy Call</li>
-        </ul>
-        <a href="contact.html" class="btn-outline plan-btn-wrap">Get Started</a>
-      </div>
+    <!-- Dynamic Plans — rendered from Supabase via BGX.loadPlans() -->
+    <div id="idx-plans-loading" style="text-align:center;padding:40px 0;color:var(--text-mid)">
+      <div style="font-size:28px;margin-bottom:8px">⏳</div><div style="font-size:13px">Loading plans…</div>
     </div>
+    <div class="plans-preview-grid" id="idx-plans-grid" style="display:none"></div>
+
     <div style="text-align:center;margin-top:36px;" class="reveal">
+
       <a href="membership.html" class="btn-primary">Compare All Plans in Detail →</a>
-      <p style="margin-top:12px;font-size:12px;color:var(--text-light);">All prices exclude 18% GST · Annual billing only · 12-month access</p>
+      <p style="margin-top:12px;font-size:12px;color:var(--text-light);">All prices exclude GST &amp; applicable government fees · 365-day access · Annual billing</p>
     </div>
   </div>
 </section>
@@ -1056,6 +984,51 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="bgx-data.js"></script>
+<script>
+(async function() {
+  await BGX.loadPlans();
+  const plans  = BGX.getPlansList();
+  const grid   = document.getElementById('idx-plans-grid');
+  const loader = document.getElementById('idx-plans-loading');
+  if (!grid) return;
+
+  grid.innerHTML = plans.map(p => {
+    const highlights = [
+      `${BGX.fmtLeads(p.indian_leads)} Indian Leads/mo${p.intl_leads?' + '+BGX.fmtLeads(p.intl_leads)+' Intl':''}`,
+      p.catalogue ? `${p.catalogue}-Product Digital Catalogue` : null,
+      p.rm ? 'Dedicated Relationship Manager' : null,
+      p.promotion !== 'None' ? `${p.promotion} Promotion${p.smo?' + SMO':''}` : (p.smo ? 'SMO Included' : null),
+      p.seo ? 'Basic On-Page SEO' : null,
+      `IEC + MSME${p.fassai?' + Fassai':''} ${p.iec?'Included':''}`,
+      `GST Registration ${p.gst_support}`,
+      p.strategy_call ? 'Monthly Strategy Call' : null,
+      p.perf_report ? 'Monthly Performance Report' : null,
+    ].filter(Boolean).slice(0,6);
+
+    return `<div class="plan-card${p.is_popular?' featured':''} reveal tilt-card">
+      ${p.is_popular ? '<div class="plan-star">⭐ Most Popular</div>' : ''}
+      <div class="plan-tier">${p.label.replace(' Plan','')}</div>
+      <div class="plan-desc">${p.best_for}</div>
+      <div class="plan-price-wrap">
+        <div class="plan-orig">${BGX.fmtPrice(p.price_original)}/year</div>
+        <div class="plan-price">${BGX.fmtPrice(p.price).replace('₹','')}<sub>/yr</sub></div>
+        <div class="plan-save">Save ${BGX.fmtPrice(p.savings)}${p.is_popular?' · Best Value 🔥':''}</div>
+        <div style="font-size:10px;color:var(--text-light);margin-top:2px">+ GST &amp; Govt. fees</div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features">
+        ${highlights.map(h=>`<li><span class="pf-yes">✓</span> ${h}</li>`).join('')}
+      </ul>
+      <a href="contact.html" class="${p.is_popular?'btn-gold':'btn-outline'} plan-btn-wrap">${p.cta} →</a>
+    </div>`;
+  }).join('');
+
+  if (loader) loader.style.display = 'none';
+  grid.style.display = 'grid';
+})();
+</script>
 <script src="shared.js"></script>
 </body>
 </html>
