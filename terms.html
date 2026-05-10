@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Terms &amp; Conditions – BuyGenix Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 .legal-layout { display: grid; grid-template-columns: 240px 1fr; gap: 36px; align-items: start; }
@@ -15,7 +15,7 @@
   border-radius: var(--radius-lg); padding: 24px;
   box-shadow: var(--shadow-soft);
 }
-.legal-toc h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-family: 'Manrope'; }
+.legal-toc h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-family: 'Space Grotesk'; }
 .legal-toc a { display: block; font-size: 13px; color: var(--text-mid); padding: 7px 0; border-bottom: 1px solid var(--border-soft); transition: color 0.2s; }
 .legal-toc a:last-child { border: none; }
 .legal-toc a:hover { color: var(--gold); }
@@ -26,7 +26,7 @@
 .legal-section p, .legal-section li { font-size: 13.5px; color: var(--text-body); line-height: 1.85; margin-bottom: 10px; }
 .legal-section ul, .legal-section ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 .legal-section strong { color: var(--navy); }
-.legal-section h3 { font-size: 16px; color: var(--navy); margin: 18px 0 8px; font-family: 'Manrope'; font-weight: 700; }
+.legal-section h3 { font-size: 16px; color: var(--navy); margin: 18px 0 8px; font-family: 'Space Grotesk'; font-weight: 700; }
 
 .legal-meta { background: var(--sky); border-radius: var(--radius-lg); padding: 20px 24px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
 .legal-meta p { font-size: 12.5px; color: var(--text-mid); }
@@ -39,40 +39,31 @@
 
 <canvas id="bg-canvas"></canvas>
 <div class="page-overlay"></div>
-<a href="https://wa.me/919818187246" class="wa-float" title="Chat on WhatsApp">💬</a>
+<a href="https://wa.me/919818187246" class="wa-float">💬</a>
 
 <nav>
-  <a href="index.html" class="logo">
+  <div class="logo">
     <div class="logo-svg-wrap"></div>
-    <div class="logo-text-block">
-      <div class="logo-name">BuyGenix<span> Solutions</span></div>
-      <div class="logo-tagline">B2B Export &amp; Import Platform</div>
-    </div>
-  </a>
+    <span class="logo-tagline">B2B Export &amp; Import<br>Platform</span>
+  </div>
   <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="services.html">Services</a>
-    <a href="membership.html">Buyer Leads</a>
-    <a href="membership.html">Membership</a>
-    <a href="gst.html">Resources</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="login.html" class="nav-cta">Login</a>
-    <a href="contact.html" class="nav-cta gold-btn">Register</a>
+    <a href="index.html">Home</a><a href="services.html">Services</a>
+    <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a><a href="terms.html" class="active">T&amp;C</a>
+    <a href="membership.html" class="nav-cta">Membership Plans →</a><a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
   </div>
   <div class="nav-burger"><span></span><span></span><span></span></div>
 </nav>
 <div class="mobile-nav-overlay">
-  <a href="index.html">Home</a><a href="about.html">About Us</a>
-  <a href="services.html">Services</a><a href="membership.html">Membership</a>
-  <a href="gst.html">GST Registration</a><a href="contact.html">Contact</a>
-  <a href="login.html" class="nav-cta">Login</a>
-  <a href="contact.html" class="nav-cta" style="background:var(--gold);color:var(--navy)">Register</a>
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
+  <a href="membership.html" class="nav-cta">Membership Plans →</a><a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
 </div>
 
 <div class="page-hero">
   <div class="hero-badge">📋 Legal</div>
-  <h1>Terms &amp; <span style="color:var(--gold-bright)">Conditions</span></h1>
+  <h1>Terms &amp; <span class="accent">Conditions</span></h1>
   <p>Please read these Terms and Conditions carefully before purchasing any membership or using any service offered by BuyGenix Solutions. Your use of our platform constitutes acceptance of these terms.</p>
 </div>
 
@@ -258,13 +249,31 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;"><div class="logo-svg-wrap-footer"></div><div class="footer-brand-name">BuyGenix<span> Solutions</span></div></div>
-      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Built in Delhi, serving exporters globally.</p>
-      <div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a><a href="https://wa.me/919818187246">💬</a><a href="mailto:Buygenixsolutions@gmail.com">📧</a></div>
+      <div class="logo-svg-wrap-footer"></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a>
+        <a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a>
+        <a href="https://wa.me/919818187246">💬</a>
+        <a href="mailto:Buygenixsolutions@gmail.com">📧</a>
+      </div>
     </div>
-    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership Plans</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html#leads">Buyer Leads</a></li><li><a href="services.html#catalogue">Product Catalogue</a></li><li><a href="services.html#rm">Relationship Manager</a></li><li><a href="services.html#seo">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
-    <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Disclaimer</a></li><li><a href="contact.html">Support</a></li></ul></div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="services.html#leads">Buyer Leads</a></li>
+      <li><a href="services.html#catalogue">Product Catalogue</a></li>
+      <li><a href="services.html#seo">SEO &amp; SMO</a></li>
+      <li><a href="gst.html">GST Registration</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Disclaimer</a></li>
+    </ul></div>
   </div>
   <div class="footer-bottom">
     <p>© 2025 BuyGenix Solutions. All rights reserved. | Buygenixsolutions@gmail.com</p>
