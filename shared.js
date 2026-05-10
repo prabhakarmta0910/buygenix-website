@@ -1,26 +1,9 @@
 /* ═══════════════════════════════════════
-   BuyGenix Solutions — shared.js v3.0
+   BuyGenix Solutions — shared.js (Original v2.0)
 ═══════════════════════════════════════ */
 
 (function () {
   'use strict';
-
-  /* ── NAV LOGO inject (if logo-svg-wrap present) ── */
-  document.querySelectorAll('.logo').forEach(function (logo) {
-    // Inject name span if not already a link
-    if (!logo.querySelector('.logo-name')) {
-      const nameSpan = document.createElement('span');
-      nameSpan.className = 'logo-name';
-      nameSpan.innerHTML = 'BuyGenix<span> Solutions</span>';
-      const tag = logo.querySelector('.logo-tagline');
-      if (tag) {
-        tag.textContent = '';
-        logo.insertBefore(nameSpan, tag);
-      } else {
-        logo.appendChild(nameSpan);
-      }
-    }
-  });
 
   /* ── BURGER MENU ── */
   var burger  = document.querySelector('.nav-burger');
@@ -38,41 +21,28 @@
     });
   }
 
-  /* ── NAV SCROLL EFFECT ── */
+  /* ── NAV SCROLL ── */
   var nav = document.querySelector('nav');
   if (nav) {
     window.addEventListener('scroll', function () {
-      if (window.scrollY > 20) {
-        nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.35)';
-      } else {
-        nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.25)';
-      }
+      nav.style.boxShadow = window.scrollY > 20
+        ? '0 4px 30px rgba(11,33,64,0.28)'
+        : '0 2px 24px rgba(11,33,64,0.18)';
     }, { passive: true });
   }
 
-  /* ── LOGO footer ── */
-  document.querySelectorAll('.logo-svg-wrap-footer').forEach(function (wrap) {
-    if (!wrap.nextElementSibling || !wrap.nextElementSibling.classList.contains('footer-brand-name')) {
-      var name = document.createElement('div');
-      name.className = 'footer-brand-name';
-      name.innerHTML = 'BuyGenix<span> Solutions</span>';
-      wrap.parentNode.insertBefore(name, wrap.nextSibling);
-    }
-  });
-
   /* ── ANIMATED COUNTERS ── */
   function animateCounter(el) {
-    var target  = parseInt(el.getAttribute('data-count'), 10) || 0;
-    var suffix  = el.getAttribute('data-suffix') || '';
-    var prefix  = el.getAttribute('data-prefix') || '';
+    var target   = parseInt(el.getAttribute('data-count'), 10) || 0;
+    var suffix   = el.getAttribute('data-suffix') || '';
+    var prefix   = el.getAttribute('data-prefix') || '';
     var duration = 1800;
-    var start   = null;
+    var start    = null;
     function step(ts) {
       if (!start) start = ts;
       var progress = Math.min((ts - start) / duration, 1);
       var eased    = 1 - Math.pow(1 - progress, 3);
-      var val      = Math.floor(eased * target);
-      el.textContent = prefix + val.toLocaleString('en-IN') + suffix;
+      el.textContent = prefix + Math.floor(eased * target).toLocaleString('en-IN') + suffix;
       if (progress < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
@@ -88,18 +58,15 @@
   }, { threshold: 0.3 });
 
   document.querySelectorAll('[data-count]').forEach(function (el) {
-    el.textContent = el.getAttribute('data-prefix') || '0';
     counterObserver.observe(el);
   });
 
-  /* ── SUBTLE TILT ON CARDS ── */
+  /* ── TILT CARDS ── */
   document.querySelectorAll('.tilt-card').forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
-      var rect   = card.getBoundingClientRect();
-      var cx     = rect.left + rect.width / 2;
-      var cy     = rect.top  + rect.height / 2;
-      var dx     = (e.clientX - cx) / (rect.width  / 2);
-      var dy     = (e.clientY - cy) / (rect.height / 2);
+      var rect = card.getBoundingClientRect();
+      var dx   = (e.clientX - rect.left - rect.width / 2)  / (rect.width  / 2);
+      var dy   = (e.clientY - rect.top  - rect.height / 2) / (rect.height / 2);
       card.style.transform = 'perspective(800px) rotateY(' + (dx * 4) + 'deg) rotateX(' + (-dy * 4) + 'deg) translateY(-4px)';
     });
     card.addEventListener('mouseleave', function () {
@@ -107,31 +74,26 @@
     });
   });
 
-  /* ── BG CANVAS subtle particle dots ── */
+  /* ── BG CANVAS dots ── */
   var canvas = document.getElementById('bg-canvas');
   if (canvas && canvas.getContext) {
-    var ctx    = canvas.getContext('2d');
+    var ctx = canvas.getContext('2d');
     var W, H, dots = [];
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
     resize();
     window.addEventListener('resize', resize);
-    for (var i = 0; i < 60; i++) {
-      dots.push({ x: Math.random() * 2000, y: Math.random() * 1200, r: Math.random() * 1.5 + 0.5, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3 });
+    for (var i = 0; i < 50; i++) {
+      dots.push({ x: Math.random() * 2000, y: Math.random() * 1200, r: Math.random() * 1.5 + 0.5, vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25 });
     }
     function drawBG() {
       ctx.clearRect(0, 0, W, H);
       dots.forEach(function (d) {
         d.x += d.vx; d.y += d.vy;
-        if (d.x < 0) d.x = W;
-        if (d.x > W) d.x = 0;
-        if (d.y < 0) d.y = H;
-        if (d.y > H) d.y = 0;
+        if (d.x < 0) d.x = W; if (d.x > W) d.x = 0;
+        if (d.y < 0) d.y = H; if (d.y > H) d.y = 0;
         ctx.beginPath();
         ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(212,144,26,0.5)';
+        ctx.fillStyle = 'rgba(184,134,11,0.4)';
         ctx.fill();
       });
       requestAnimationFrame(drawBG);
@@ -145,5 +107,9 @@
     el.style.transform  = 'none';
     el.style.visibility = 'visible';
   });
+
+  /* ── PAGE OVERLAY — always hidden ── */
+  var ov = document.querySelector('.page-overlay');
+  if (ov) { ov.style.display = 'none'; ov.style.opacity = '0'; }
 
 })();
