@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+/* ── CSS VARIABLE FALLBACKS (in case shared.css loads slowly) ── */
+:root {
+  --navy:        #1B3A5C;
+  --navy-mid:    #0B2140;
+  --gold:        #B8860B;
+  --gold-bright: #D4A017;
+  --gold-pale:   #FDF6E3;
+  --gold-light:  #F5D078;
+  --sky:         #F0F4F8;
+  --sky-mid:     #E8EEF4;
+  --cream:       #FAFAF7;
+  --border-soft: #E8ECF0;
+  --border-gold: #D4B896;
+  --text-body:   #2D3748;
+  --text-mid:    #4A5568;
+  --text-light:  #A0AEC0;
+  --shadow-soft: 0 2px 16px rgba(0,0,0,0.06);
+  --shadow-mid:  0 8px 32px rgba(0,0,0,0.1);
+  --radius-lg:   16px;
+  --page-max:    1380px;
+}
+/* Prevent shared.css from using a non-transparent overlay */
+.page-overlay {
+  display: none !important;
+  opacity: 0 !important;
+  z-index: -999 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+#bg-canvas {
+  z-index: -2 !important;
+  opacity: 0.15 !important;
+  pointer-events: none !important;
+}
+/* shared.js sets opacity:0 on .reveal — we permanently override this */
+.reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  visibility: visible !important;
+}
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membership Plans – BuyGenix Solutions</title>
+<meta name="description" content="Choose your BuyGenix membership — Starter, Growth, Professional, or Enterprise. Verified buyer leads, dedicated RM, and full export support.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+
+/* ══════════════════════════════════════════
+   MEMBERSHIP PAGE — Full Premium Redesign
+══════════════════════════════════════════ */
+
+:root {
+  --page-max: 1380px;
+}
+
+/* ── HERO ── */
+.mem-hero {
+  text-align: center;
+  padding: 96px 24px 56px;
+}
+.mem-hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold-pale); border: 1px solid var(--gold);
+  color: var(--gold); font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif; margin-bottom: 22px;
+}
+.mem-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5.5vw, 66px);
+  font-weight: 700; color: var(--navy);
+  line-height: 1.1; margin-bottom: 18px;
+}
+.mem-hero h1 em { font-style: italic; color: var(--gold); }
+.mem-hero .sub {
+  font-size: 16px; color: var(--text-mid);
+  max-width: 540px; margin: 0 auto 28px; line-height: 1.85;
+}
+.trust-pills {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.trust-pill {
+  display: flex; align-items: center; gap: 7px;
+  background: white; border: 1px solid var(--border-soft);
+  border-radius: 100px; padding: 7px 16px;
+  font-size: 12px; color: var(--text-mid);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+/* ── PLANS WRAPPER ── */
+.plans-wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 20px 64px;
+}
+
+/* ── BILLING BAR ── */
+.billing-bar {
+  display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  background: white; border: 1px solid var(--border-soft);
+  border-radius: 14px; padding: 13px 20px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+.billing-bar-left {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--text-mid);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.bb-badge {
+  background: var(--gold-pale); border: 1px solid var(--gold);
+  color: var(--gold); font-size: 11px; font-weight: 700;
+  letter-spacing: 1px; padding: 4px 12px; border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.billing-bar-right {
+  font-size: 12px; color: var(--text-light);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.billing-bar-right a { color: var(--gold); font-weight: 600; }
+
+/* ── SKELETON LOADER ── */
+.skeleton-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+}
+.skel-card {
+  background: white; border-radius: 20px;
+  border: 1px solid var(--border-soft);
+  padding: 28px; min-height: 560px;
+  position: relative; overflow: hidden;
+}
+.skel-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.85) 50%, transparent 100%);
+  animation: skshimmer 1.5s ease-in-out infinite;
+}
+@keyframes skshimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.skl { background: var(--sky); border-radius: 6px; margin-bottom: 11px; }
+
+/* ── PLAN GRID ── */
+.plan-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+/* ── PLAN CARD ── */
+.pc {
+  background: white;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 20px;
+  padding: 26px 22px 22px;
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.pc::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--c, var(--gold));
+  border-radius: 20px 20px 0 0;
+}
+.pc:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.1);
+}
+
+/* Popular variant */
+.pc.pc-pop {
+  background: var(--navy);
+  border-color: var(--gold);
+  box-shadow: 0 10px 40px rgba(27,58,92,0.22);
+}
+.pc.pc-pop::after { background: var(--gold); }
+.pc.pc-pop:hover { box-shadow: 0 22px 56px rgba(27,58,92,0.32); }
+
+/* Popular ribbon */
+.pc-ribbon {
+  position: absolute; top: 18px; right: -1px;
+  background: var(--gold); color: white;
+  font-size: 10px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;
+  padding: 5px 14px 5px 10px;
+  border-radius: 100px 0 0 100px;
+}
+
+/* Plan header */
+.pc-key {
+  font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--text-light);
+  font-family: 'Space Grotesk', sans-serif; margin-bottom: 5px;
+}
+.pc.pc-pop .pc-key { color: rgba(255,255,255,0.35); }
+
+.pc-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 27px; font-weight: 700; color: var(--navy);
+  line-height: 1.1; margin-bottom: 5px;
+}
+.pc.pc-pop .pc-name { color: white; }
+
+.pc-tagline {
+  font-size: 12px; color: var(--text-light); line-height: 1.55;
+  min-height: 37px; margin-bottom: 18px;
+}
+.pc.pc-pop .pc-tagline { color: rgba(255,255,255,0.42); }
+
+/* Pricing */
+.pc-pricing {
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 18px;
+}
+.pc.pc-pop .pc-pricing { border-color: rgba(255,255,255,0.1); }
+
+.pc-orig {
+  font-size: 12px; text-decoration: line-through;
+  color: var(--text-light);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.pc.pc-pop .pc-orig { color: rgba(255,255,255,0.25); }
+
+.pc-price-row {
+  display: flex; align-items: baseline; gap: 2px;
+  margin: 2px 0 8px;
+}
+.pc-sym { font-size: 22px; font-weight: 700; color: var(--navy); font-family: 'Cormorant Garamond', serif; align-self: flex-start; margin-top: 8px; }
+.pc-amt { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 700; color: var(--navy); line-height: 1; letter-spacing: -2px; }
+.pc-per { font-size: 13px; color: var(--text-light); font-family: 'Plus Jakarta Sans', sans-serif; }
+.pc.pc-pop .pc-sym, .pc.pc-pop .pc-amt { color: white; }
+.pc.pc-pop .pc-per { color: rgba(255,255,255,0.4); }
+
+.pc-save {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #dcfce7; color: #15803d;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 100px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.pc.pc-pop .pc-save { background: rgba(134,239,172,0.15); color: #86efac; }
+
+.pc-gst {
+  font-size: 10.5px; color: var(--text-light); margin-top: 6px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.pc.pc-pop .pc-gst { color: rgba(255,255,255,0.28); }
+
+/* Features */
+.pc-feats {
+  list-style: none; padding: 0; margin: 0 0 20px;
+  flex: 1; display: flex; flex-direction: column; gap: 8px;
+}
+.pc-feats li {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12.5px; color: var(--text-body); line-height: 1.4;
+}
+.pc.pc-pop .pc-feats li { color: rgba(255,255,255,0.72); }
+
+.fi-yes {
+  width: 17px; height: 17px; border-radius: 50%;
+  background: #dcfce7; color: #15803d;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800; flex-shrink: 0; margin-top: 1px;
+}
+.fi-no {
+  width: 17px; height: 17px; border-radius: 50%;
+  background: var(--sky); color: var(--text-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; flex-shrink: 0; margin-top: 1px;
+}
+.pc.pc-pop .fi-yes { background: rgba(134,239,172,0.18); color: #86efac; }
+.pc.pc-pop .fi-no  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.25); }
+
+.fi-dim { color: var(--text-light); }
+.pc.pc-pop .fi-dim { color: rgba(255,255,255,0.28); }
+
+/* CTA button */
+.pc-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 13px 18px; border-radius: 12px;
+  font-size: 13px; font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  text-decoration: none; transition: all 0.18s;
+  margin-top: auto;
+}
+.pc-btn.btn-ol {
+  border: 1.5px solid var(--border-gold); color: var(--gold); background: transparent;
+}
+.pc-btn.btn-ol:hover { background: var(--gold); color: white; }
+.pc-btn.btn-au {
+  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  color: white; border: none;
+  box-shadow: 0 4px 16px rgba(184,134,11,0.28);
+}
+.pc-btn.btn-au:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,134,11,0.38); }
+.pc-btn.btn-dk {
+  background: var(--navy); color: white; border: none;
+}
+.pc-btn.btn-dk:hover { opacity: 0.88; }
+
+/* ── FOOTNOTE ── */
+.plans-footnote {
+  text-align: center; margin-top: 18px;
+  font-size: 11.5px; color: var(--text-light);
+  font-family: 'Space Grotesk', sans-serif; line-height: 2;
+  background: white; border: 1px solid var(--border-soft);
+  border-radius: 12px; padding: 14px 20px;
+}
+.plans-footnote strong { color: var(--text-body); }
+
+/* ── COMPARISON TABLE ── */
+.compare-section {
+  max-width: var(--page-max);
+  margin: 0 auto 64px; padding: 0 20px;
+}
+.compare-toprow {
+  display: flex; align-items: flex-end;
+  justify-content: space-between; gap: 16px;
+  margin-bottom: 24px; flex-wrap: wrap;
+}
+.compare-toprow h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 700; color: var(--navy); margin: 0;
+}
+.compare-toprow p { font-size: 13px; color: var(--text-mid); margin: 4px 0 0; }
+
+.ctable-shell {
+  background: white; border: 1px solid var(--border-soft);
+  border-radius: 20px; overflow: hidden;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.05);
+}
+.ctable-scroll { overflow-x: auto; }
+
+table.ctbl {
+  width: 100%; border-collapse: collapse; font-size: 13px;
+}
+table.ctbl thead th {
+  padding: 18px 16px; text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700; font-size: 13px;
+  background: var(--sky);
+  border-bottom: 2px solid var(--border-soft);
+  white-space: nowrap; color: var(--navy);
+}
+table.ctbl thead th:first-child {
+  text-align: left; min-width: 200px;
+  background: white; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-light);
+}
+table.ctbl thead th.cth-pop { background: var(--navy); color: white; }
+
+table.ctbl tbody td {
+  padding: 12px 16px; text-align: center;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-body);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
+}
+table.ctbl tbody td:first-child {
+  text-align: left; font-weight: 500;
+  color: var(--text-body); font-size: 12.5px;
+}
+table.ctbl tbody td.ctd-pop { background: rgba(27,58,92,0.03); }
+table.ctbl tbody tr:hover td { background: #fafafa; }
+table.ctbl tbody tr:hover td.ctd-pop { background: rgba(27,58,92,0.05); }
+
+table.ctbl tr.cat-row td {
+  background: var(--sky) !important;
+  font-weight: 700; font-size: 10px;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-light); padding: 9px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
+
+.c-yes { color: #15803d; font-weight: 800; font-size: 14px; }
+.c-no  { color: #d1d5db; font-size: 14px; }
+.c-pri { font-weight: 700; color: var(--navy); font-size: 15px; }
+.c-str { text-decoration: line-through; color: var(--text-light); }
+.c-sav { color: #15803d; font-weight: 700; }
+
+/* ── REFERRAL SECTION ── */
+.ref-section {
+  max-width: var(--page-max);
+  margin: 0 auto 64px; padding: 0 20px;
+}
+.ref-card {
+  background: linear-gradient(140deg, var(--navy) 0%, #071829 100%);
+  border-radius: 24px; padding: 52px 48px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 52px;
+  align-items: center; position: relative; overflow: hidden;
+}
+.ref-card::before {
+  content: '';
+  position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,134,11,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ref-left .section-label { margin-bottom: 12px; }
+.ref-left h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 46px);
+  font-weight: 700; color: white; line-height: 1.15; margin-bottom: 14px;
+}
+.ref-left h2 em { font-style: italic; color: var(--gold); }
+.ref-left p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 26px; }
+.ref-big {
+  display: flex; align-items: baseline; gap: 8px;
+}
+.ref-big strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 60px; font-weight: 700; color: var(--gold); line-height: 1;
+}
+.ref-big span { color: rgba(255,255,255,0.45); font-size: 14px; }
+.ref-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 4px; font-family: 'Space Grotesk', sans-serif; }
+.ref-right {}
+.ref-tbl-wrap {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px; overflow: hidden;
+}
+.ref-tbl-wrap table { width: 100%; border-collapse: collapse; }
+.ref-tbl-wrap thead th {
+  padding: 11px 16px; text-align: left;
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); font-family: 'Space Grotesk', sans-serif;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.ref-tbl-wrap thead th:last-child { text-align: right; }
+.ref-tbl-wrap tbody td {
+  padding: 12px 16px; font-size: 13px;
+  color: rgba(255,255,255,0.68);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.ref-tbl-wrap tbody tr:last-child td { border: none; }
+.ref-tbl-wrap tbody td:last-child {
+  text-align: right; color: #86efac;
+  font-weight: 700; font-family: 'Space Grotesk', sans-serif;
+}
+.ref-note {
+  font-size: 11.5px; color: rgba(255,255,255,0.3);
+  margin-top: 14px; line-height: 1.75;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.ref-note a { color: var(--gold); }
+
+/* ── FAQ ── */
+.faq-section {
+  max-width: 960px; margin: 0 auto 64px; padding: 0 20px;
+}
+.faq-top {
+  text-align: center; margin-bottom: 36px;
+}
+.faq-top h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700; color: var(--navy);
+}
+.faq-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.faq-card {
+  background: white; border-radius: 16px;
+  padding: 22px 24px; border: 1px solid var(--border-soft);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.faq-card:hover { border-color: var(--border-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.faq-q { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 9px; }
+.faq-a { font-size: 13px; color: var(--text-mid); line-height: 1.78; }
+
+/* ── BOTTOM CTA ── */
+.bot-cta {
+  max-width: var(--page-max); margin: 0 auto; padding: 0 20px 80px;
+}
+.bot-cta-inner {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-radius: 24px; padding: 60px 48px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.bot-cta-inner::before {
+  content: '';
+  position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 500px; height: 200px;
+  background: radial-gradient(ellipse, rgba(184,134,11,0.18) 0%, transparent 70%);
+}
+.bot-cta-inner h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4vw, 52px);
+  color: white; font-weight: 700; margin-bottom: 14px;
+}
+.bot-cta-inner p {
+  font-size: 15px; color: rgba(255,255,255,0.58);
+  max-width: 500px; margin: 0 auto 32px; line-height: 1.85;
+}
+.bot-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .plan-cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .skeleton-grid    { grid-template-columns: repeat(2, 1fr); }
+  .ref-card { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 640px) {
+  .plan-cards-grid { grid-template-columns: 1fr; }
+  .skeleton-grid    { grid-template-columns: 1fr; }
+  .faq-grid         { grid-template-columns: 1fr; }
+  .mem-hero h1      { font-size: 36px; }
+  .ref-card         { padding: 32px 22px; }
+  .bot-cta-inner    { padding: 40px 24px; }
+}
+
+/* ══════════════════════════════════════════
+   CRITICAL OVERRIDES — fix shared.css conflicts
+   bg-canvas, page-overlay, reveal system
+══════════════════════════════════════════ */
+
+/* 1. Canvas stays behind everything */
+#bg-canvas {
+  position: fixed !important;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2 !important;
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+}
+
+/* 2. Page overlay — very subtle, never covers content */
+.page-overlay {
+  position: fixed !important;
+  inset: 0;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  background: transparent !important;
+  opacity: 0 !important;
+}
+
+/* 3. All .reveal elements are VISIBLE immediately on this page
+      shared.js IntersectionObserver will enhance them, but
+      they must never be invisible if observer hasn't fired */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* 4. Ensure all content sits above canvas */
+nav, .mem-hero, .plans-wrap, .compare-section,
+.ref-section, .faq-section, .bot-cta, footer,
+.billing-bar, .plan-cards-grid, .skeleton-grid,
+.ctable-shell, .ref-card, .faq-grid {
+  position: relative;
+  z-index: 1;
+}
+
+/* 5. White page background so canvas bleed doesn't wash out text */
+body {
+  background: #f7f8fa !important;
+}
+</style>
+
+
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="page-overlay"></div>
+<a href="https://wa.me/919818187246" class="wa-float">💬</a>
+
+<nav>
+  <div class="logo">
+    <div class="logo-svg-wrap"></div>
+    <span class="logo-tagline">B2B Export &amp; Import<br>Platform</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">T&amp;C</a>
+    <a href="membership.html" class="nav-cta active">Membership Plans →</a>
+    <a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
+  </div>
+  <div class="nav-burger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-nav-overlay">
+  <a href="index.html">Home</a><a href="services.html">Services</a>
+  <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
+  <a href="membership.html" class="nav-cta">Membership Plans →</a>
+  <a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
+</div>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<div class="mem-hero reveal">
+  <div class="mem-hero-badge">💎 Annual Membership Plans</div>
+  <h1>Choose Your Path to<br><em>Global Export Success</em></h1>
+  <p class="sub">From first-time exporters to large trading houses — every plan delivers real verified buyer leads directly to your WhatsApp &amp; email every month.</p>
+  <div class="trust-pills">
+    <div class="trust-pill">✅ No Hidden Fees</div>
+    <div class="trust-pill">📲 Leads on WhatsApp &amp; Email</div>
+    <div class="trust-pill">👤 Dedicated Relationship Manager</div>
+    <div class="trust-pill">📋 IEC + MSME Included</div>
+    <div class="trust-pill">🗓 365-Day Access</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PLAN CARDS
+════════════════════════════════ -->
+<div class="plans-wrap">
+
+  <div class="billing-bar">
+    <div class="billing-bar-left">
+      <span class="bb-badge">Annual Billing</span>
+      Save up to 10% &nbsp;·&nbsp; All prices <strong style="color:var(--text-body)">exclude GST &amp; govt. fees</strong>
+    </div>
+    <div class="billing-bar-right">
+      Need help choosing? <a href="https://wa.me/919818187246">WhatsApp us →</a>
+    </div>
+  </div>
+
+  <!-- Skeleton loader (shown until JS renders) -->
+  <div class="skeleton-grid" id="plan-skeleton">
+    <div class="skel-card">
+      <div class="skl" style="height:10px;width:50%"></div>
+      <div class="skl" style="height:28px;width:75%"></div>
+      <div class="skl" style="height:11px;width:100%"></div>
+      <div class="skl" style="height:11px;width:85%;margin-bottom:20px"></div>
+      <div class="skl" style="height:50px;width:60%"></div>
+      <div class="skl" style="height:10px;width:70%;margin-bottom:20px"></div>
+      <div class="skl" style="height:12px"></div><div class="skl" style="height:12px;width:88%"></div>
+      <div class="skl" style="height:12px;width:92%"></div><div class="skl" style="height:12px;width:78%"></div>
+      <div class="skl" style="height:12px"></div><div class="skl" style="height:12px;width:85%"></div>
+    </div>
+    <div class="skel-card" style="animation-delay:0.1s">
+      <div class="skl" style="height:10px;width:50%"></div>
+      <div class="skl" style="height:28px;width:75%"></div>
+      <div class="skl" style="height:11px;width:100%"></div>
+      <div class="skl" style="height:50px;width:60%;margin:10px 0 16px"></div>
+      <div class="skl" style="height:12px"></div><div class="skl" style="height:12px;width:88%"></div>
+      <div class="skl" style="height:12px;width:92%"></div><div class="skl" style="height:12px;width:78%"></div>
+      <div class="skl" style="height:12px"></div>
+    </div>
+    <div class="skel-card" style="animation-delay:0.2s">
+      <div class="skl" style="height:10px;width:50%"></div>
+      <div class="skl" style="height:28px;width:75%"></div>
+      <div class="skl" style="height:50px;width:60%;margin:10px 0 16px"></div>
+      <div class="skl" style="height:12px"></div><div class="skl" style="height:12px;width:88%"></div>
+      <div class="skl" style="height:12px;width:92%"></div>
+    </div>
+    <div class="skel-card" style="animation-delay:0.3s">
+      <div class="skl" style="height:10px;width:50%"></div>
+      <div class="skl" style="height:28px;width:75%"></div>
+      <div class="skl" style="height:50px;width:60%;margin:10px 0 16px"></div>
+      <div class="skl" style="height:12px"></div><div class="skl" style="height:12px;width:88%"></div>
+    </div>
+  </div>
+
+  <!-- Real plan cards rendered by JS -->
+  <div class="plan-cards-grid" id="plan-grid" style="display:none"></div>
+
+  <!-- Footnote — single, after grid -->
+  <div class="plans-footnote">
+    ⚠️ All prices are <strong>exclusive of 18% GST</strong> &amp; applicable government fees &nbsp;·&nbsp;
+    365-day access &nbsp;·&nbsp; No refund after activation &nbsp;·&nbsp;
+    Monthly lead credits do not carry forward &nbsp;·&nbsp;
+    Leads delivered in real time via WhatsApp &amp; Email
+  </div>
+
+</div><!-- /plans-wrap -->
+
+<!-- ════════════════════════════════
+     COMPARISON TABLE
+════════════════════════════════ -->
+<div class="compare-section">
+  <div class="compare-toprow reveal">
+    <div>
+      <div class="section-label" style="margin-bottom:6px">Full Comparison</div>
+      <h2>Detailed Feature Breakdown</h2>
+      <p>See exactly what every plan includes before you decide.</p>
+    </div>
+    <a href="contact.html" class="btn-outline" style="white-space:nowrap;align-self:flex-end">Talk to Our Team →</a>
+  </div>
+  <div class="ctable-shell reveal">
+    <div class="ctable-scroll">
+      <table class="ctbl">
+        <thead id="ctbl-head"></thead>
+        <tbody id="ctbl-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     REFERRAL PROGRAMME
+════════════════════════════════ -->
+<div class="ref-section">
+  <div class="ref-card reveal">
+    <div class="ref-left">
+      <div class="section-label dark" style="margin-bottom:12px">Referral Programme</div>
+      <h2>Earn Up to<br><em>15%</em> Per Referral</h2>
+      <p>Refer a fellow exporter to BuyGenix and earn 15% of their plan value — credited as cash or renewal credit within 7 working days.</p>
+      <div class="ref-big">
+        <strong id="ref-max">₹10,800</strong>
+        <span>max per referral</span>
+      </div>
+      <div class="ref-sub">On Enterprise Plan · 15% commission</div>
+    </div>
+    <div class="ref-right">
+      <div class="ref-tbl-wrap">
+        <table>
+          <thead>
+            <tr><th>Plan</th><th>You Earn (15%)</th></tr>
+          </thead>
+          <tbody id="ref-rows">
+            <tr><td colspan="2" style="text-align:center;padding:20px;opacity:0.4;font-size:12px">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ref-note">
+        Commission paid within 7 working days of referred member's payment.
+        WhatsApp <a href="https://wa.me/919818187246">+91 98181 87246</a> to register a referral.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     FAQ
+════════════════════════════════ -->
+<div class="faq-section">
+  <div class="faq-top reveal">
+    <div class="section-label" style="margin-bottom:8px">Common Questions</div>
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-card reveal">
+      <div class="faq-q">Can I see a demo before purchasing?</div>
+      <div class="faq-a">Yes. Contact us and we'll walk you through a live demo and show you a sample of the lead data available for your specific product category — no commitment required.</div>
+    </div>
+    <div class="faq-card reveal">
+      <div class="faq-q">When do leads become available after I pay?</div>
+      <div class="faq-a">Your membership activates within 24 working hours of payment confirmation. Leads start arriving in real time via WhatsApp and email immediately upon activation. Your RM contacts you within 48 hours.</div>
+    </div>
+    <div class="faq-card reveal">
+      <div class="faq-q">Do unused monthly leads carry forward?</div>
+      <div class="faq-a">No. Monthly lead credits are allocated on the 1st of each month and do not carry forward. Leads are delivered in real time — we recommend acting on them promptly for best results.</div>
+    </div>
+    <div class="faq-card reveal">
+      <div class="faq-q">Can I upgrade my plan mid-year?</div>
+      <div class="faq-a">Yes. You can upgrade to a higher plan at any time by paying the pro-rated difference. Downgrading during an active subscription period is not permitted.</div>
+    </div>
+    <div class="faq-card reveal">
+      <div class="faq-q">What payment methods are accepted?</div>
+      <div class="faq-a">We accept UPI (PhonePe, GPay, Paytm), NEFT/RTGS bank transfer, debit/credit cards, and net banking. All payments are processed securely.</div>
+    </div>
+    <div class="faq-card reveal">
+      <div class="faq-q">Is BuyGenix a government-affiliated body?</div>
+      <div class="faq-a">No. BuyGenix Solutions is a private digital services company. We are not affiliated with any government body, trade ministry, or export promotion council.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     BOTTOM CTA
+════════════════════════════════ -->
+<div class="bot-cta">
+  <div class="bot-cta-inner reveal">
+    <div class="section-label dark" style="margin-bottom:14px">Not Sure Yet?</div>
+    <h2>Our Team Will Help<br>You Choose</h2>
+    <p>Tell us your product, target market, and budget — we'll recommend the exact plan that maximises your results. No pressure, no pushy sales.</p>
+    <div class="bot-cta-btns">
+      <a href="contact.html" class="btn-gold">Talk to Our Team →</a>
+      <a href="https://wa.me/919818187246" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white;">💬 WhatsApp Us</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-svg-wrap-footer"></div>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/buygenixsolutions" target="_blank">📷</a>
+        <a href="https://facebook.com/buygenixsolutions" target="_blank">📘</a>
+        <a href="https://wa.me/919818187246">💬</a>
+        <a href="mailto:Buygenixsolutions@gmail.com">📧</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="membership.html">Membership</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Services</h4><ul>
+      <li><a href="services.html#leads">Buyer Leads</a></li>
+      <li><a href="services.html#catalogue">Product Catalogue</a></li>
+      <li><a href="services.html#seo">SEO &amp; SMO</a></li>
+      <li><a href="gst.html">GST Registration</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul>
+      <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="terms.html">Disclaimer</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BuyGenix Solutions. All rights reserved. | Buygenixsolutions@gmail.com</p>
+    <p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS — Supabase + Dynamic Rendering
+══════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="bgx-data.js"></script>
+<script>
+/* Init — load plans then render all dynamic sections */
+(async function() {
+  // 4s timeout — falls back to hardcoded defaults if Supabase is unavailable
+  const loadTimeout = new Promise(resolve => setTimeout(resolve, 4000));
+  await Promise.race([BGX.loadPlans(), loadTimeout]);
+  renderCards();
+  renderCompare();
+  renderReferral();
+})();
+
+/* ─────────────────────────────────────────
+   PLAN CARDS
+───────────────────────────────────────── */
+function renderCards() {
+  const plans  = BGX.getPlansList();
+  const grid   = document.getElementById('plan-grid');
+  const skel   = document.getElementById('plan-skeleton');
+  if (!grid) return;
+
+  grid.innerHTML = plans.map(p => {
+    const isPop = !!p.is_popular;
+    const isEnt = !!p.is_enterprise;
+    const amt   = Number(p.price).toLocaleString('en-IN');
+    const orig  = Number(p.price_original).toLocaleString('en-IN');
+    const save  = Number(p.savings).toLocaleString('en-IN');
+
+    /* Choose button style */
+    const btnCls = isPop ? 'btn-au' : (isEnt ? 'btn-dk' : 'btn-ol');
+
+    /* Build feature list */
+    const y  = txt => `<li><span class="fi-yes">✓</span><span>${txt}</span></li>`;
+    const no = txt => `<li><span class="fi-no">–</span><span class="fi-dim">${txt}</span></li>`;
+
+    const feats = [
+      y(`<strong>${BGX.fmtLeads(p.indian_leads)}</strong> Indian Buyer Leads / month`),
+      p.intl_leads
+        ? y(`<strong>${BGX.fmtLeads(p.intl_leads)}</strong> International Leads / month`)
+        : no('International Leads'),
+      y('Leads via WhatsApp &amp; Email'),
+      p.website ? y('Website — Included') : no('Website'),
+      p.catalogue
+        ? y(`Digital Catalogue — <strong>${p.catalogue}</strong> Products`)
+        : no('Digital Catalogue'),
+      y('Dedicated Relationship Manager'),
+      p.promotion !== 'None'
+        ? y(`Business Promotion — <strong>${p.promotion}</strong>`)
+        : no('Business Promotion'),
+      p.seo ? y('On-Page SEO Included') : no('SEO Service'),
+      p.smo ? y('Social Media Marketing (SMO)') : no('Social Media (SMO)'),
+      p.perf_report ? y('Monthly Performance Report') : no('Monthly Report'),
+      p.strategy_call ? y('Monthly Strategy Call') : no('Monthly Strategy Call'),
+      y(`GST Registration — <strong>${p.gst_support}</strong>`),
+      y(`IEC + MSME${p.fassai === true || p.fassai === 'Assistance' ? ' + Fassai' : ''} — ${p.iec ? 'Included' : 'Assistance'}`),
+      p.virtual_cards > 1
+        ? y(`<strong>${p.virtual_cards}×</strong> Team Virtual Business Cards`)
+        : y('1× Virtual Business Card'),
+    ].join('');
+
+    return `
+    <div class="pc${isPop ? ' pc-pop' : ''}" style="--c:${p.color || '#B8860B'}">
+      ${isPop ? '<div class="pc-ribbon">⭐ Most Popular</div>' : ''}
+
+      <div class="pc-key">${p.key}</div>
+      <div class="pc-name">${p.label.replace(' Plan', '')}</div>
+      <div class="pc-tagline">${p.best_for}</div>
+
+      <div class="pc-pricing">
+        <div class="pc-orig">₹${orig} / year</div>
+        <div class="pc-price-row">
+          <span class="pc-sym">₹</span>
+          <span class="pc-amt">${amt}</span>
+          <span class="pc-per">&nbsp;/yr</span>
+        </div>
+        <div class="pc-save">🎉 Save ₹${save}</div>
+        <div class="pc-gst">+ 18% GST &amp; govt. fees as applicable</div>
+      </div>
+
+      <ul class="pc-feats">${feats}</ul>
+
+      <a href="contact.html" class="pc-btn ${btnCls}">${p.cta} →</a>
+    </div>`;
+  }).join('');
+
+  if (skel) skel.style.display = 'none';
+  grid.style.display = 'grid';
+
+  // Re-run shared.js reveal observer on newly injected elements
+  if (typeof window._bgxObserver !== 'undefined' && window._bgxObserver) {
+    grid.querySelectorAll('.reveal, .pc, .faq-card').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      window._bgxObserver.observe(el);
+    });
+  }
+  // Fallback: force all plan cards fully visible immediately
+  grid.querySelectorAll('.pc').forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.4s ease ${i * 0.08}s, transform 0.4s ease ${i * 0.08}s`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+    });
+  });
+}
+
+/* ─────────────────────────────────────────
+   COMPARISON TABLE
+───────────────────────────────────────── */
+function renderCompare() {
+  const plans = BGX.getPlansList();
+  const head  = document.getElementById('ctbl-head');
+  const body  = document.getElementById('ctbl-body');
+  if (!head || !body) return;
+
+  const pop  = p => p.is_popular ? ' class="cth-pop"' : '';
+  const popc = p => p.is_popular ? ' class="ctd-pop"' : '';
+  const ck   = v => v ? '<span class="c-yes">✓</span>' : '<span class="c-no">–</span>';
+
+  head.innerHTML = `<tr>
+    <th style="text-align:left;min-width:200px">Feature</th>
+    ${plans.map(p => `<th${pop(p)}>${p.label.replace(' Plan','')}${p.is_popular ? ' ⭐' : ''}</th>`).join('')}
+  </tr>`;
+
+  const cat = lbl => `<tr class="cat-row">
+    <td>${lbl}</td>${plans.map(p=>`<td${popc(p)}></td>`).join('')}</tr>`;
+
+  const row = (lbl, fn) => `<tr>
+    <td>${lbl}</td>${plans.map(p=>`<td${popc(p)}>${fn(p)}</td>`).join('')}</tr>`;
+
+  body.innerHTML = [
+    cat('Lead Generation'),
+    row('Indian Buyer Leads / Month',    p => `<strong>${BGX.fmtLeads(p.indian_leads)}</strong>`),
+    row('International Leads / Month',   p => p.intl_leads ? `<strong>${BGX.fmtLeads(p.intl_leads)}</strong>` : '<span class="c-no">–</span>'),
+    row('Lead Delivery',                 p => p.lead_delivery),
+
+    cat('Platform &amp; Catalogue'),
+    row('Website Included',              p => ck(p.website)),
+    row('Digital Catalogue',             p => p.catalogue ? `<strong>${p.catalogue}</strong> products` : '<span class="c-no">–</span>'),
+    row('Virtual Business Cards',        p => p.virtual_cards > 1 ? `<strong>${p.virtual_cards}×</strong> Team` : '1×'),
+
+    cat('Support &amp; Management'),
+    row('Dedicated Relationship Manager',p => ck(p.rm)),
+    row('Email Support',                 p => ck(p.email_support)),
+    row('Monthly Performance Report',    p => ck(p.perf_report)),
+    row('Monthly Strategy Call',         p => ck(p.strategy_call)),
+
+    cat('Promotion &amp; Digital Marketing'),
+    row('Business Promotion',            p => p.promotion === 'None' ? '<span class="c-no">–</span>' : `<strong>${p.promotion}</strong>`),
+    row('SEO — On-Page',                 p => ck(p.seo)),
+    row('Social Media (SMO)',            p => ck(p.smo)),
+
+    cat('Compliance &amp; Registrations'),
+    row('IEC Registration',              p => ck(p.iec)),
+    row('MSME Certificate',              p => ck(p.msme)),
+    row('Fassai License',               p => p.fassai === true ? '<span class="c-yes">✓ Incl.</span>' : p.fassai === 'Assistance' ? 'Assistance' : '<span class="c-no">–</span>'),
+    row('GST Registration',              p => `<strong>${p.gst_support}</strong>`),
+
+    cat('Pricing (Excl. GST &amp; Govt. Fees)'),
+    `<tr><td><strong>Offer Price / Year</strong></td>${plans.map(p=>`<td${popc(p)}><span class="c-pri">₹${Number(p.price).toLocaleString('en-IN')}</span></td>`).join('')}</tr>`,
+    `<tr><td>Original Price</td>${plans.map(p=>`<td${popc(p)}><span class="c-str">₹${Number(p.price_original).toLocaleString('en-IN')}</span></td>`).join('')}</tr>`,
+    `<tr><td>You Save</td>${plans.map(p=>`<td${popc(p)}><span class="c-sav">₹${Number(p.savings).toLocaleString('en-IN')}</span></td>`).join('')}</tr>`,
+  ].join('');
+}
+
+/* ─────────────────────────────────────────
+   REFERRAL COMMISSION TABLE
+───────────────────────────────────────── */
+function renderReferral() {
+  const plans  = BGX.getPlansList();
+  const tbody  = document.getElementById('ref-rows');
+  const maxEl  = document.getElementById('ref-max');
+  if (!tbody) return;
+
+  const commissions = plans.map(p => ({ plan: p, comm: Math.round(p.price * 0.15) }));
+  const maxComm     = Math.max(...commissions.map(x => x.comm));
+
+  if (maxEl) maxEl.textContent = '₹' + maxComm.toLocaleString('en-IN');
+
+  tbody.innerHTML = commissions.map(({ plan: p, comm }) =>
+    `<tr>
+      <td>${p.label} <span style="opacity:0.4;font-size:11px">(${BGX.fmtLeads(p.indian_leads)} leads/mo)</span></td>
+      <td>₹${comm.toLocaleString('en-IN')}</td>
+    </tr>`
+  ).join('');
+}
+</script>
+
+<script src="shared.js"></script>
+
+
+
+<script>
+// One-time reveal fix — runs after shared.js, never loops
+window.addEventListener('load', function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.visibility = 'visible';
+  });
+  var ov = document.querySelector('.page-overlay');
+  if (ov) { ov.style.display = 'none'; ov.style.opacity = '0'; }
+  var cv = document.getElementById('bg-canvas');
+  if (cv) { cv.style.zIndex = '-2'; cv.style.opacity = '0.15'; }
+});
+</script>
+</body>
+</html>
