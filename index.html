@@ -4,6 +4,17 @@
 <style>
 /* ── CRITICAL: Override shared.css reveal + overlay issues ── */
 :root {
+  /* v3 theme — blue/purple matching logo */
+  --navy:#1E3A8A; --navy-mid:#1D4ED8; --gold:#2563EB; --gold-bright:#7C3AED;
+  --gold-pale:#EEF2FF; --gold-light:#C7D2FE; --sky:#F0F4FF; --sky-mid:#DBEAFE;
+  --cream:#F8FAFF; --border-soft:#E0E7FF; --border-gold:#A5B4FC;
+  --text-body:#1E293B; --text-mid:#475569; --text-light:#94A3B8;
+  --shadow-soft:0 1px 8px rgba(37,99,235,.07);
+  --shadow-mid:0 4px 20px rgba(37,99,235,.12);
+  --shadow-lg:0 12px 40px rgba(37,99,235,.16);
+  --shadow-gold:0 6px 24px rgba(124,58,237,.22);
+  --grad:linear-gradient(135deg,#2563EB 0%,#7C3AED 100%);
+  --grad-text:linear-gradient(90deg,#2563EB 0%,#7C3AED 100%);
   --navy: #1B3A5C; --navy-mid: #0B2140;
   --gold: #B8860B; --gold-bright: #D4A017;
   --gold-pale: #FDF6E3; --sky: #F0F4F8;
@@ -11,6 +22,7 @@
   --text-body: #2D3748; --text-mid: #4A5568; --text-light: #A0AEC0;
   --shadow-soft: 0 2px 16px rgba(0,0,0,0.06);
   --shadow-mid: 0 8px 32px rgba(0,0,0,0.1);
+
 }
 .page-overlay { display:none!important; opacity:0!important; z-index:-999!important; pointer-events:none!important; background:transparent!important; }
 #bg-canvas    { z-index:-2!important; opacity:0.15!important; pointer-events:none!important; }
@@ -50,7 +62,7 @@
   animation: fadeUp 0.7s ease both;
 }
 .hero h1 {
-  font-size: clamp(44px, 5.5vw, 78px);
+  font-size: clamp(34px, 4vw, 58px);
   color: var(--navy);
   margin-bottom: 22px;
   line-height: 1.08;
@@ -59,7 +71,7 @@
 .hero h1 .accent { color: var(--gold); font-style: italic; }
 .hero h1 .line2 { display: block; }
 .hero-sub {
-  font-size: 17px;
+  font-size: 14px;
   color: var(--text-mid);
   max-width: 520px;
   line-height: 1.8;
@@ -129,7 +141,7 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 .hero-card-title {
-  font-size: 20px; color: var(--navy); font-weight: 700;
+  font-size: 16px; color: var(--navy); font-weight: 700;
   margin-bottom: 6px;
 }
 .hero-card-sub { font-size: 13px; color: var(--text-mid); margin-bottom: 20px; }
@@ -158,7 +170,7 @@
   border-top: 1px solid var(--border-soft);
 }
 .hero-card-stat { text-align: center; }
-.hero-card-stat strong { display: block; font-size: 22px; color: var(--navy); font-family: 'Cormorant Garamond', serif; }
+.hero-card-stat strong { display: block; font-size: 14px; color: var(--navy); font-family: 'Cormorant Garamond', serif; }
 .hero-card-stat span { font-size: 11px; color: var(--text-light); font-family: 'Space Grotesk', sans-serif; }
 
 .hero-float-pill {
@@ -187,7 +199,7 @@
   background: white;
   border-top: 1px solid var(--border-soft);
   border-bottom: 1px solid var(--border-soft);
-  padding: 36px 4%;
+  padding: 24px 4%;
   box-shadow: 0 4px 24px rgba(11,25,41,0.04);
 }
 .stats-inner {
@@ -201,17 +213,17 @@
   border-right: 1px solid var(--border-soft);
 }
 .stat-item:last-child { border-right: none; }
-.stat-item .counter-val { font-size: 44px; }
+.stat-item .counter-val { font-size: 34px; }
 
 /* ── SERVICES SECTION ── */
 .section {
   position: relative; z-index: 2;
-  padding: 90px 4%;
+  padding: 64px 4%;
 }
 .section-inner { max-width: 1200px; margin: 0 auto; }
-.section-head { text-align: center; margin-bottom: 56px; }
-.section-head h2 { font-size: clamp(32px, 4vw, 50px); color: var(--navy); margin-bottom: 14px; }
-.section-head p { font-size: 16px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
+.section-head { text-align: center; margin-bottom: 36px; }
+.section-head h2 { font-size: clamp(24px, 3vw, 40px); color: var(--navy); margin-bottom: 14px; }
+.section-head p { font-size: 13px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
 
 .services-grid {
   display: grid;
@@ -222,7 +234,7 @@
   background: white;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
-  padding: 34px 28px;
+  padding: 24px 22px;
   transition: all 0.35s;
   position: relative; overflow: hidden;
   cursor: pointer;
@@ -250,7 +262,7 @@
   transition: background 0.3s;
 }
 .svc-card:hover .svc-icon { background: var(--gold-pale); }
-.svc-card h3 { font-size: 20px; color: var(--navy); margin-bottom: 10px; }
+.svc-card h3 { font-size: 16px; color: var(--navy); margin-bottom: 10px; }
 .svc-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.75; }
 .svc-link {
   display: inline-flex; align-items: center; gap: 6px;
@@ -269,7 +281,7 @@
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-lg);
-  padding: 36px;
+  padding: 24px;
   position: relative; overflow: hidden;
 }
 .lead-showcase::before {
@@ -354,7 +366,7 @@
 .plan-desc { font-size: 11.5px; color: var(--text-light); margin-bottom: 16px; line-height: 1.5; }
 .plan-price-wrap { margin-bottom: 18px; }
 .plan-orig { font-size: 12px; color: var(--text-light); text-decoration: line-through; }
-.plan-price { font-size: 38px; color: var(--navy); font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1; }
+.plan-price { font-size: 30px; color: var(--navy); font-family: 'Cormorant Garamond', serif; font-weight: 700; line-height: 1; }
 .plan-price sub { font-size: 14px; color: var(--text-light); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400; }
 .plan-save { font-size: 11.5px; color: #1D7A3A; font-weight: 600; margin-top: 3px; }
 .plan-divider { height: 1px; background: var(--border-soft); margin: 14px 0; }
@@ -390,12 +402,12 @@
   border: 2px solid var(--gold);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 26px; font-weight: 700;
+  font-size: 20px; font-weight: 700;
   color: var(--gold);
   margin: 0 auto 18px;
   box-shadow: 0 4px 16px rgba(212,160,23,0.15);
 }
-.process-step h4 { font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+.process-step h4 { font-size: 14px; color: var(--navy); margin-bottom: 8px; }
 .process-step p { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
 
 /* ── TESTIMONIALS ── */
@@ -408,7 +420,7 @@
   position: relative;
 }
 .testi-quote {
-  font-size: 42px; line-height: 1; color: var(--gold);
+  font-size: 32px; line-height: 1; color: var(--gold);
   font-family: 'Cormorant Garamond', serif;
   margin-bottom: 12px;
 }
@@ -463,7 +475,7 @@
 .cta-banner {
   position: relative; z-index: 2;
   background: linear-gradient(135deg, var(--navy), var(--navy-mid), var(--slate));
-  padding: 80px 4%;
+  padding: 56px 4%;
   overflow: hidden;
 }
 .cta-banner::before {

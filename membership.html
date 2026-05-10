@@ -4,6 +4,17 @@
 <style>
 /* ── CSS VARIABLE FALLBACKS (in case shared.css loads slowly) ── */
 :root {
+  /* v3 theme — blue/purple matching logo */
+  --navy:#1E3A8A; --navy-mid:#1D4ED8; --gold:#2563EB; --gold-bright:#7C3AED;
+  --gold-pale:#EEF2FF; --gold-light:#C7D2FE; --sky:#F0F4FF; --sky-mid:#DBEAFE;
+  --cream:#F8FAFF; --border-soft:#E0E7FF; --border-gold:#A5B4FC;
+  --text-body:#1E293B; --text-mid:#475569; --text-light:#94A3B8;
+  --shadow-soft:0 1px 8px rgba(37,99,235,.07);
+  --shadow-mid:0 4px 20px rgba(37,99,235,.12);
+  --shadow-lg:0 12px 40px rgba(37,99,235,.16);
+  --shadow-gold:0 6px 24px rgba(124,58,237,.22);
+  --grad:linear-gradient(135deg,#2563EB 0%,#7C3AED 100%);
+  --grad-text:linear-gradient(90deg,#2563EB 0%,#7C3AED 100%);
   --navy:        #1B3A5C;
   --navy-mid:    #0B2140;
   --gold:        #B8860B;
@@ -22,6 +33,7 @@
   --shadow-mid:  0 8px 32px rgba(0,0,0,0.1);
   --radius-lg:   16px;
   --page-max:    1380px;
+
 }
 /* Prevent shared.css from using a non-transparent overlay */
 .page-overlay {
@@ -81,7 +93,7 @@
 }
 .mem-hero h1 em { font-style: italic; color: var(--gold); }
 .mem-hero .sub {
-  font-size: 16px; color: var(--text-mid);
+  font-size: 13px; color: var(--text-mid);
   max-width: 540px; margin: 0 auto 28px; line-height: 1.85;
 }
 .trust-pills {
@@ -416,7 +428,7 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
 .ref-left .section-label { margin-bottom: 12px; }
 .ref-left h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(28px, 3.5vw, 46px);
+  font-size: clamp(22px, 2.8vw, 36px);
   font-weight: 700; color: white; line-height: 1.15; margin-bottom: 14px;
 }
 .ref-left h2 em { font-style: italic; color: var(--gold); }
