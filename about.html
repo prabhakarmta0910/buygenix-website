@@ -8,41 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
-
-<style>
-/* ════════════════════════════════════════════
-   SITE-WIDE SPACE & SIZE OVERRIDES
-   — 20% reduction in padding/fonts
-   — Full width usage (1400px, 5% sides)
-════════════════════════════════════════════ */
-:root {
-  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B; --gold-bright:#D4A017;
-  --gold-pale:#FDF6E3; --gold-light:#F5D078; --sky:#F0F4F8; --cream:#FAFAF7;
-  --border-soft:#E8ECF0; --border-gold:#D4B896; --slate:#0F2A45;
-  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
-  --shadow-soft:0 2px 16px rgba(0,0,0,0.06); --shadow-mid:0 8px 32px rgba(0,0,0,0.1);
-  --radius-lg:16px; --radius-xl:20px;
-}
-/* Stop shared.js from hiding / overlaying */
-.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
-#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
-.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
-/* PAGE HERO — tighter, full width */
-.page-hero { padding:52px 5% 40px !important; max-width:100% !important; box-sizing:border-box !important; }
-.page-hero h1 { font-size:clamp(30px,3.6vw,50px) !important; line-height:1.15 !important; margin-bottom:12px !important; }
-.page-hero p  { font-size:14px !important; max-width:700px !important; line-height:1.72 !important; }
-.hero-badge   { font-size:10px !important; margin-bottom:12px !important; }
-/* CONTENT WRAP — full width, 5% sides */
-.content-wrap { max-width:1400px !important; margin:0 auto !important; padding-left:5% !important; padding-right:5% !important; box-sizing:border-box !important; }
-/* SECTION HEADS */
-.section-head h2 { font-size:clamp(24px,2.8vw,38px) !important; margin-bottom:10px !important; }
-.section-head p  { font-size:14px !important; max-width:640px !important; line-height:1.72 !important; }
-/* CARDS */
-.card-glass, .card-main { padding:32px 28px !important; }
-/* LEGAL PAGES */
-.legal-section { padding:28px !important; }
-.legal-meta    { padding:14px 18px !important; }
-</style>
 <style>
 
 /* STAT BAR */
@@ -210,141 +175,6 @@
   .values-grid { grid-template-columns: 1fr; }
   .stat-band { grid-template-columns: 1fr 1fr; }
 }
-:root {
-  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B; --gold-bright:#D4A017;
-  --gold-pale:#FDF6E3; --sky:#F0F4F8; --cream:#FAFAF7;
-  --border-soft:#E8ECF0; --border-gold:#D4B896;
-  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
-}
-.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
-#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
-.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
-
-/* ══════════════════════════════════════════════════════
-   UNIVERSAL SPACE & SIZE OVERRIDES
-   Applied site-wide: ~20% reduction in padding/fonts,
-   max-width widened to use full screen space
-══════════════════════════════════════════════════════ */
-
-/* 1. PAGE HERO — reduce oversized padding & fonts */
-.page-hero {
-  padding: 52px 5% 40px !important;
-  max-width: 100% !important;
-}
-.page-hero h1 {
-  font-size: clamp(28px, 3.6vw, 50px) !important;
-  margin-bottom: 12px !important;
-  line-height: 1.15 !important;
-}
-.page-hero > p,
-.page-hero .hero-sub {
-  font-size: 14px !important;
-  line-height: 1.72 !important;
-  margin-bottom: 0 !important;
-}
-.page-hero .hero-badge {
-  margin-bottom: 12px !important;
-  font-size: 10px !important;
-  padding: 5px 14px !important;
-}
-
-/* 2. CONTENT-WRAP — use full width, remove narrow constraints */
-.content-wrap {
-  max-width: 1400px !important;
-  width: 100% !important;
-  padding-left: 5% !important;
-  padding-right: 5% !important;
-  padding-bottom: 64px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-
-/* 3. SECTION INNER WRAPPERS */
-.section-inner,
-.legal-wrap,
-.contact-wrap {
-  max-width: 1400px !important;
-  padding-left: 5% !important;
-  padding-right: 5% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* 4. SECTION HEADINGS — 20% smaller */
-.section-head h2,
-h2.section-title {
-  font-size: clamp(24px, 3vw, 38px) !important;
-  margin-bottom: 10px !important;
-}
-.section-head p {
-  font-size: 14px !important;
-  line-height: 1.72 !important;
-}
-
-/* 5. SECTION VERTICAL PADDING */
-.section,
-section {
-  padding-top: 60px !important;
-  padding-bottom: 60px !important;
-}
-
-/* 6. CARD-GLASS & CARDS */
-.card-glass {
-  padding: 36px 40px !important;
-}
-
-/* 7. LEGAL PAGES (privacy, terms) */
-.legal-layout {
-  max-width: 1400px !important;
-  gap: 28px !important;
-}
-.legal-section {
-  padding: 28px 32px !important;
-}
-.legal-section h2 {
-  font-size: 18px !important;
-}
-.legal-section p,
-.legal-section li {
-  font-size: 13px !important;
-}
-
-/* 8. GST PAGE */
-.gst-grid {
-  max-width: 1400px !important;
-  padding: 0 5% !important;
-}
-.plan-cta-strip {
-  max-width: 1400px !important;
-  margin: 0 auto !important;
-  padding: 0 5% !important;
-}
-.gst-benefit-grid,
-.gst-doc-grid,
-.gst-faq-grid {
-  max-width: 1400px !important;
-}
-
-/* 9. CONTACT PAGE */
-.contact-layout {
-  max-width: 1400px !important;
-  margin: 0 auto !important;
-}
-
-/* 10. ABOUT PAGE */
-.about-grid,
-.values-grid,
-.team-grid,
-.mission-block {
-  max-width: 1400px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* 11. Overflow safety — never cut content */
-body { overflow-x: hidden; }
-
 </style>
 </head>
 <body>
@@ -639,7 +469,7 @@ body { overflow-x: hidden; }
   <!-- CTA -->
   <div style="background:linear-gradient(135deg,var(--gold-pale),#FFF3CC);border:1.5px solid var(--border-gold);border-radius:var(--radius-xl);padding:56px;text-align:center;" class="reveal">
     <div class="section-label" style="margin-bottom:14px;">Join the Community</div>
-    <h2 style="font-size:clamp(22px,2.8vw,36px);color:var(--navy);margin-bottom:14px;">Ready to Start Growing Globally?</h2>
+    <h2 style="font-size:clamp(28px,3.5vw,44px);color:var(--navy);margin-bottom:14px;">Ready to Start Growing Globally?</h2>
     <p style="font-size:15px;color:var(--text-mid);margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.8;">Join hundreds of Indian exporters already using BuyGenix Solutions to find verified buyers, build their digital presence, and grow internationally — affordably.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
       <a href="membership.html" class="btn-primary">View Membership Plans →</a>
@@ -685,14 +515,5 @@ body { overflow-x: hidden; }
 </footer>
 
 <script src="shared.js"></script>
-<script>
-window.addEventListener('load', function() {
-  document.querySelectorAll('.reveal').forEach(function(el) {
-    el.style.opacity='1'; el.style.transform='none'; el.style.visibility='visible';
-  });
-  var ov = document.querySelector('.page-overlay');
-  if (ov) { ov.style.display='none'; ov.style.opacity='0'; }
-});
-</script>
 </body>
 </html>

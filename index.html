@@ -15,116 +15,8 @@
 .page-overlay { display:none!important; opacity:0!important; z-index:-999!important; pointer-events:none!important; background:transparent!important; }
 #bg-canvas    { z-index:-2!important; opacity:0.15!important; pointer-events:none!important; }
 .reveal        { opacity:1!important; transform:none!important; visibility:visible!important; }
-
-/* ══════════════════════════════════════════
-   GLOBAL SPACE OVERRIDES — use full width,
-   reduce oversized paddings by ~20%
-══════════════════════════════════════════ */
-
-/* Widen every major section wrapper */
-.section-inner,
-.content-wrap,
-.hero-inner {
-  max-width: 1400px !important;
-  padding-left: 5% !important;
-  padding-right: 5% !important;
-}
-
-/* Reduce section vertical padding */
-section, .section {
-  padding-top: 64px !important;
-  padding-bottom: 64px !important;
-}
-
-/* How it works steps */
-.steps-grid { gap: 24px !important; }
-.step-num { font-size: 42px !important; }
-
-/* Plan cards */
-.plan-card { padding: 26px 22px !important; }
-.plan-tier { font-size: 20px !important; }
-.plan-price { font-size: 34px !important; }
-.plan-features li { font-size: 12px !important; }
-
-/* Stats row */
-.stats-row { gap: 24px !important; }
-
-
-/* ══════════════════════════════════════════════════════
-   UNIVERSAL SPACE & SIZE OVERRIDES
-   Applied site-wide: ~20% reduction in padding/fonts,
-   max-width widened to use full screen space
-══════════════════════════════════════════════════════ */
-.page-hero {
-  padding: 52px 5% 40px !important;
-  max-width: 100% !important;
-}
-.page-hero h1 {
-  font-size: clamp(28px, 3.6vw, 50px) !important;
-  margin-bottom: 12px !important;
-  line-height: 1.15 !important;
-}
-.page-hero > p, .page-hero .hero-sub {
-  font-size: 14px !important;
-  line-height: 1.72 !important;
-}
-.page-hero .hero-badge {
-  margin-bottom: 12px !important;
-  font-size: 10px !important;
-  padding: 5px 14px !important;
-}
-.content-wrap {
-  max-width: 1400px !important;
-  width: 100% !important;
-  padding-left: 5% !important;
-  padding-right: 5% !important;
-  padding-bottom: 64px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  box-sizing: border-box !important;
-}
-.section-inner { max-width: 1400px !important; padding-left: 5% !important; padding-right: 5% !important; }
-.section-head h2 { font-size: clamp(24px, 3vw, 38px) !important; margin-bottom: 10px !important; }
-.section-head p  { font-size: 14px !important; line-height: 1.72 !important; }
-.card-glass { padding: 36px 40px !important; }
-.legal-layout { max-width: 1400px !important; gap: 28px !important; }
-.legal-section { padding: 28px 32px !important; }
-.legal-section h2 { font-size: 18px !important; }
-.contact-layout { max-width: 1400px !important; margin: 0 auto !important; }
-body { overflow-x: hidden; }
-
 </style>
 <meta charset="UTF-8">
-
-<style>
-/* ════════════════════════════════════════════
-   SITE-WIDE SPACE & SIZE OVERRIDES
-   — 20% reduction in padding/fonts
-   — Full width usage (1400px, 5% sides)
-   Applied to all pages via inline style block
-════════════════════════════════════════════ */
-:root {
-  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B; --gold-bright:#D4A017;
-  --gold-pale:#FDF6E3; --gold-light:#F5D078; --sky:#F0F4F8; --cream:#FAFAF7;
-  --border-soft:#E8ECF0; --border-gold:#D4B896; --slate:#0F2A45;
-  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
-  --shadow-soft:0 2px 16px rgba(0,0,0,0.06); --shadow-mid:0 8px 32px rgba(0,0,0,0.1);
-  --radius-lg:16px; --radius-xl:20px;
-}
-.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
-#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
-.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
-.page-hero { padding: 52px 5% 40px !important; max-width:100% !important; box-sizing:border-box !important; }
-.page-hero h1 { font-size: clamp(30px, 3.6vw, 50px) !important; line-height:1.15 !important; margin-bottom:12px !important; }
-.page-hero p  { font-size: 14px !important; max-width:700px !important; line-height:1.72 !important; }
-.hero-badge   { font-size: 10px !important; margin-bottom:12px !important; }
-.content-wrap { max-width:1400px !important; margin:0 auto !important; padding-left:5% !important; padding-right:5% !important; box-sizing:border-box !important; }
-.section-head h2 { font-size: clamp(24px, 2.8vw, 38px) !important; margin-bottom:10px !important; }
-.section-head p  { font-size: 14px !important; max-width:640px !important; line-height:1.72 !important; }
-.card-glass, .card-main { padding: 32px 28px !important; }
-.legal-section { padding: 28px !important; }
-.legal-meta    { padding: 14px 18px !important; }
-</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuyGenix Solutions — India's Premier B2B Export-Import Platform</title>
 <meta name="description" content="Connect with verified global buyers. Grow your export business with BuyGenix Solutions — buyer leads, digital catalogues, GST assistance and more.">
@@ -135,11 +27,11 @@ body { overflow-x: hidden; }
 /* ── HERO ── */
 .hero {
   position: relative; z-index: 2;
-  min-height: 88vh;
+  min-height: 100vh;
   display: flex; align-items: center;
-  padding: 80px 5% 60px;
+  padding: 110px 4% 80px;
 }
-.hero-inner { max-width: 1400px; margin: 0 auto; width: 100%; }
+.hero-inner { max-width: 1280px; margin: 0 auto; width: 100%; }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .hero-left {}
 .hero-eyebrow {
@@ -158,7 +50,7 @@ body { overflow-x: hidden; }
   animation: fadeUp 0.7s ease both;
 }
 .hero h1 {
-  font-size: clamp(36px, 4.4vw, 62px);
+  font-size: clamp(44px, 5.5vw, 78px);
   color: var(--navy);
   margin-bottom: 22px;
   line-height: 1.08;
@@ -169,7 +61,7 @@ body { overflow-x: hidden; }
 .hero-sub {
   font-size: 17px;
   color: var(--text-mid);
-  max-width: 560px; font-size: 14.5px;
+  max-width: 520px;
   line-height: 1.8;
   margin-bottom: 36px;
   animation: fadeUp 0.7s 0.2s ease both;
@@ -299,7 +191,7 @@ body { overflow-x: hidden; }
   box-shadow: 0 4px 24px rgba(11,25,41,0.04);
 }
 .stats-inner {
-  max-width: 1400px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: grid; grid-template-columns: repeat(5, 1fr);
   gap: 0;
 }
@@ -316,10 +208,10 @@ body { overflow-x: hidden; }
   position: relative; z-index: 2;
   padding: 90px 4%;
 }
-.section-inner { max-width: 1400px; margin: 0 auto; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
 .section-head { text-align: center; margin-bottom: 56px; }
-.section-head h2 { font-size: clamp(26px, 3.2vw, 40px); color: var(--navy); margin-bottom: 10px; }
-.section-head p { font-size: 14px; color: var(--text-mid); max-width: 640px; margin: 0 auto; line-height: 1.75; }
+.section-head h2 { font-size: clamp(32px, 4vw, 50px); color: var(--navy); margin-bottom: 14px; }
+.section-head p { font-size: 16px; color: var(--text-mid); max-width: 560px; margin: 0 auto; line-height: 1.8; }
 
 .services-grid {
   display: grid;
@@ -571,7 +463,7 @@ body { overflow-x: hidden; }
 .cta-banner {
   position: relative; z-index: 2;
   background: linear-gradient(135deg, var(--navy), var(--navy-mid), var(--slate));
-  padding: 60px 5%;
+  padding: 80px 4%;
   overflow: hidden;
 }
 .cta-banner::before {
@@ -585,7 +477,7 @@ body { overflow-x: hidden; }
   max-width: 700px; margin: 0 auto; text-align: center;
   position: relative; z-index: 1;
 }
-.cta-inner h2 { font-size: clamp(26px, 3.2vw, 42px); color: white; margin-bottom: 12px; }
+.cta-inner h2 { font-size: clamp(32px, 4vw, 52px); color: white; margin-bottom: 16px; }
 .cta-inner p { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 36px; line-height: 1.8; }
 .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 

@@ -8,62 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-/* ════════════════════════════════════════════
-   SITE-WIDE SPACE & SIZE OVERRIDES
-   — 20% reduction in padding/fonts
-   — Full width usage (1400px, 5% sides)
-════════════════════════════════════════════ */
-:root {
-  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B; --gold-bright:#D4A017;
-  --gold-pale:#FDF6E3; --gold-light:#F5D078; --sky:#F0F4F8; --cream:#FAFAF7;
-  --border-soft:#E8ECF0; --border-gold:#D4B896; --slate:#0F2A45;
-  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
-  --shadow-soft:0 2px 16px rgba(0,0,0,0.06); --shadow-mid:0 8px 32px rgba(0,0,0,0.1);
-  --radius-lg:16px; --radius-xl:20px;
-}
-/* Stop shared.js from hiding / overlaying */
-.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
-#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
-.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
-/* PAGE HERO — tighter, full width */
-.page-hero { padding:52px 5% 40px !important; max-width:100% !important; box-sizing:border-box !important; }
-.page-hero h1 { font-size:clamp(30px,3.6vw,50px) !important; line-height:1.15 !important; margin-bottom:12px !important; }
-.page-hero p  { font-size:14px !important; max-width:700px !important; line-height:1.72 !important; }
-.hero-badge   { font-size:10px !important; margin-bottom:12px !important; }
-/* CONTENT WRAP — full width, 5% sides */
-.content-wrap { max-width:1400px !important; margin:0 auto !important; padding-left:5% !important; padding-right:5% !important; box-sizing:border-box !important; }
-/* SECTION HEADS */
-.section-head h2 { font-size:clamp(24px,2.8vw,38px) !important; margin-bottom:10px !important; }
-.section-head p  { font-size:14px !important; max-width:640px !important; line-height:1.72 !important; }
-/* CARDS */
-.card-glass, .card-main { padding:32px 28px !important; }
-/* LEGAL PAGES */
-.legal-section { padding:28px !important; }
-.legal-meta    { padding:14px 18px !important; }
-
-/* ── LOGIN PAGE SIZE OVERRIDES ── */
-:root {
-  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B;
-  --gold-pale:#FDF6E3; --sky:#F0F4F8;
-  --border-soft:#E8ECF0; --border-gold:#D4B896;
-  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
-}
-.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
-#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
-.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
-/* Reduce login left panel padding */
-.login-left { padding: 60px 48px !important; }
-/* Reduce title font */
-.ll-title { font-size: clamp(26px, 2.8vw, 38px) !important; margin-bottom: 14px !important; }
-.ll-sub { font-size: 13.5px !important; margin-bottom: 32px !important; }
-/* Tighten right form panel */
-.login-right { padding: 48px 40px !important; }
-.login-form-wrap { max-width: 400px !important; }
-body { overflow-x: hidden; }
-
-</style>
 <style>
 .login-page{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
 .login-body{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
@@ -627,15 +571,6 @@ async function saveNewPW(){
   showOK('Password updated! Redirecting…');
   setTimeout(()=>window.location.href='client-portal.html',1200);
 }
-</script>
-<script>
-window.addEventListener('load', function() {
-  document.querySelectorAll('.reveal').forEach(function(el) {
-    el.style.opacity='1'; el.style.transform='none'; el.style.visibility='visible';
-  });
-  var ov = document.querySelector('.page-overlay');
-  if (ov) { ov.style.display='none'; ov.style.opacity='0'; }
-});
 </script>
 </body>
 </html>
