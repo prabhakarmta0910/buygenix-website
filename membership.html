@@ -42,8 +42,105 @@
   transform: translateY(0) !important;
   visibility: visible !important;
 }
+
+/* ── SPACE OVERRIDES — wider, tighter ── */
+.mem-hero { padding: 68px 5% 44px !important; }
+.mem-hero h1 { font-size: clamp(32px, 4vw, 54px) !important; margin-bottom: 14px !important; }
+.mem-hero .sub { font-size: 14.5px !important; margin-bottom: 22px !important; }
+.plans-wrap { max-width: 1400px !important; padding: 0 5% 52px !important; }
+.compare-section { max-width: 1400px !important; padding: 0 5% !important; }
+.ref-section { max-width: 1400px !important; padding: 0 5% !important; }
+.faq-section { max-width: 1100px !important; padding: 0 5% !important; }
+.bot-cta { max-width: 1400px !important; padding: 0 5% 64px !important; }
+.pc { padding: 22px 20px 20px !important; }
+.pc-name { font-size: 23px !important; }
+.pc-amt { font-size: 42px !important; }
+.pc-feats li { font-size: 12px !important; gap: 6px !important; }
+.ref-card { padding: 40px 40px !important; }
+.ref-left h2 { font-size: clamp(24px, 3vw, 38px) !important; }
+.ref-big strong { font-size: 48px !important; }
+.bot-cta-inner { padding: 48px 40px !important; }
+.bot-cta-inner h2 { font-size: clamp(26px, 3.2vw, 44px) !important; }
+.faq-top h2 { font-size: clamp(24px, 3vw, 34px) !important; }
+.plans-topbar { padding: 11px 18px !important; }
+.billing-bar { padding: 11px 18px !important; }
+
+
+/* ══════════════════════════════════════════════════════
+   UNIVERSAL SPACE & SIZE OVERRIDES
+   Applied site-wide: ~20% reduction in padding/fonts,
+   max-width widened to use full screen space
+══════════════════════════════════════════════════════ */
+.page-hero {
+  padding: 52px 5% 40px !important;
+  max-width: 100% !important;
+}
+.page-hero h1 {
+  font-size: clamp(28px, 3.6vw, 50px) !important;
+  margin-bottom: 12px !important;
+  line-height: 1.15 !important;
+}
+.page-hero > p, .page-hero .hero-sub {
+  font-size: 14px !important;
+  line-height: 1.72 !important;
+}
+.page-hero .hero-badge {
+  margin-bottom: 12px !important;
+  font-size: 10px !important;
+  padding: 5px 14px !important;
+}
+.content-wrap {
+  max-width: 1400px !important;
+  width: 100% !important;
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+  padding-bottom: 64px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box !important;
+}
+.section-inner { max-width: 1400px !important; padding-left: 5% !important; padding-right: 5% !important; }
+.section-head h2 { font-size: clamp(24px, 3vw, 38px) !important; margin-bottom: 10px !important; }
+.section-head p  { font-size: 14px !important; line-height: 1.72 !important; }
+.card-glass { padding: 36px 40px !important; }
+.legal-layout { max-width: 1400px !important; gap: 28px !important; }
+.legal-section { padding: 28px 32px !important; }
+.legal-section h2 { font-size: 18px !important; }
+.contact-layout { max-width: 1400px !important; margin: 0 auto !important; }
+body { overflow-x: hidden; }
+
 </style>
 <meta charset="UTF-8">
+
+<style>
+/* ════════════════════════════════════════════
+   SITE-WIDE SPACE & SIZE OVERRIDES
+   — 20% reduction in padding/fonts
+   — Full width usage (1400px, 5% sides)
+   Applied to all pages via inline style block
+════════════════════════════════════════════ */
+:root {
+  --navy:#1B3A5C; --navy-mid:#0B2140; --gold:#B8860B; --gold-bright:#D4A017;
+  --gold-pale:#FDF6E3; --gold-light:#F5D078; --sky:#F0F4F8; --cream:#FAFAF7;
+  --border-soft:#E8ECF0; --border-gold:#D4B896; --slate:#0F2A45;
+  --text-body:#2D3748; --text-mid:#4A5568; --text-light:#A0AEC0;
+  --shadow-soft:0 2px 16px rgba(0,0,0,0.06); --shadow-mid:0 8px 32px rgba(0,0,0,0.1);
+  --radius-lg:16px; --radius-xl:20px;
+}
+.page-overlay { display:none !important; opacity:0 !important; z-index:-999 !important; pointer-events:none !important; }
+#bg-canvas     { z-index:-2 !important; opacity:0.1 !important; pointer-events:none !important; }
+.reveal        { opacity:1 !important; transform:none !important; visibility:visible !important; }
+.page-hero { padding: 52px 5% 40px !important; max-width:100% !important; box-sizing:border-box !important; }
+.page-hero h1 { font-size: clamp(30px, 3.6vw, 50px) !important; line-height:1.15 !important; margin-bottom:12px !important; }
+.page-hero p  { font-size: 14px !important; max-width:700px !important; line-height:1.72 !important; }
+.hero-badge   { font-size: 10px !important; margin-bottom:12px !important; }
+.content-wrap { max-width:1400px !important; margin:0 auto !important; padding-left:5% !important; padding-right:5% !important; box-sizing:border-box !important; }
+.section-head h2 { font-size: clamp(24px, 2.8vw, 38px) !important; margin-bottom:10px !important; }
+.section-head p  { font-size: 14px !important; max-width:640px !important; line-height:1.72 !important; }
+.card-glass, .card-main { padding: 32px 28px !important; }
+.legal-section { padding: 28px !important; }
+.legal-meta    { padding: 14px 18px !important; }
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Membership Plans – BuyGenix Solutions</title>
 <meta name="description" content="Choose your BuyGenix membership — Starter, Growth, Professional, or Enterprise. Verified buyer leads, dedicated RM, and full export support.">
