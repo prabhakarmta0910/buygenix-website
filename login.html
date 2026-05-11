@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login / Register — BuyGenix Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
@@ -13,9 +13,9 @@
 .login-body{flex:1;display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px)}
 .login-left{background:linear-gradient(145deg,var(--navy) 0%,#1B3A5C 60%,#0F2840 100%);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
 .login-left::before{content:'';position:absolute;bottom:-60px;right:-60px;width:320px;height:320px;background:radial-gradient(circle,rgba(184,134,11,.12) 0%,transparent 70%);border-radius:50%}
-.ll-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.3);color:var(--gold);padding:6px 16px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Space Grotesk';margin-bottom:28px;width:fit-content;position:relative;z-index:1}
-.ll-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,48px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:18px;position:relative;z-index:1}
-.ll-title .accent{color:var(--gold);font-style:italic}
+.ll-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,11,.15);border:1px solid rgba(184,134,11,.3);color:#2A5BD7;padding:6px 16px;border-radius:100px;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Space Grotesk';margin-bottom:28px;width:fit-content;position:relative;z-index:1}
+.ll-title{font-family:'DM Serif Display',serif;font-size:clamp(32px,3.5vw,48px);font-weight:700;color:#fff;line-height:1.12;margin-bottom:18px;position:relative;z-index:1}
+.ll-title .accent{color:#2A5BD7;font-style:italic}
 .ll-sub{font-size:15px;color:rgba(255,255,255,.62);line-height:1.75;margin-bottom:40px;max-width:420px;position:relative;z-index:1}
 .ll-features{display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;margin-bottom:44px}
 .ll-feat{display:flex;align-items:flex-start;gap:12px}
@@ -31,20 +31,20 @@
 .ll-trust-text strong{color:rgba(255,255,255,.82)}
 .login-right{background:#fff;display:flex;align-items:center;justify-content:center;padding:60px 48px}
 .login-form-wrap{width:100%;max-width:420px}
-.auth-tabs{display:flex;gap:4px;background:var(--sky);border-radius:10px;padding:4px;margin-bottom:28px}
+.auth-tabs{display:flex;gap:4px;background:#F7F8FC;border-radius:10px;padding:4px;margin-bottom:28px}
 .auth-tab{flex:1;padding:9px;text-align:center;font-size:12.5px;font-weight:600;font-family:'Space Grotesk';border-radius:7px;cursor:pointer;border:none;background:transparent;color:var(--text-mid);transition:all .2s}
 .auth-tab.active{background:#fff;color:var(--navy);box-shadow:0 1px 6px rgba(0,0,0,.08)}
-.lf-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.lf-title{font-family:'DM Serif Display',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:6px}
 .lf-sub{font-size:13px;color:var(--text-mid);margin-bottom:22px;line-height:1.6}
 .lf-group{margin-bottom:15px}
 .lf-group label{display:block;font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text-mid);font-family:'Space Grotesk';margin-bottom:6px}
-.lf-group input{width:100%;padding:11px 15px;border:1.5px solid var(--border-soft);border-radius:9px;font-size:13.5px;font-family:'Plus Jakarta Sans';color:var(--navy);background:#FAFBFD;outline:none;transition:border-color .2s,box-shadow .2s}
-.lf-group input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
+.lf-group input{width:100%;padding:11px 15px;border:1.5px solid var(--border-soft);border-radius:9px;font-size:13.5px;font-family:'Inter';color:var(--navy);background:#FAFBFD;outline:none;transition:border-color .2s,box-shadow .2s}
+.lf-group input:focus{border-color:#2A5BD7;box-shadow:0 0 0 3px rgba(184,134,11,.1);background:#fff}
 .lf-group input::placeholder{color:var(--text-light)}
 .lf-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .otp-row{display:flex;gap:8px}
 .otp-row input{flex:1}
-.btn-send-otp{padding:0 16px;background:linear-gradient(135deg,#1E3A8A,#4C1D95);color:#fff;border:none;border-radius:9px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk';cursor:pointer;white-space:nowrap;transition:background .2s,opacity .2s;flex-shrink:0}
+.btn-send-otp{padding:0 16px;background:linear-gradient(135deg,#153698,#4C1D95);color:#fff;border:none;border-radius:9px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk';cursor:pointer;white-space:nowrap;transition:background .2s,opacity .2s;flex-shrink:0}
 .btn-send-otp:hover{background:#1B3A5C}
 .btn-send-otp:disabled{opacity:.5;cursor:not-allowed}
 .lf-error{display:none;align-items:flex-start;gap:8px;background:rgba(239,68,68,.06);border:1.5px solid rgba(239,68,68,.2);border-radius:9px;padding:11px 13px;margin-bottom:14px;font-size:12.5px;color:#DC2626;line-height:1.5}
@@ -60,10 +60,10 @@
 .free-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);color:#059669;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Space Grotesk';margin-bottom:14px}
 .lf-links{text-align:center;margin-top:20px}
 .lf-links p{font-size:12.5px;color:var(--text-mid);margin-bottom:8px}
-.lf-links a{color:var(--gold);font-weight:600}
+.lf-links a{color:#2A5BD7;font-weight:600}
 .lf-links-row{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11.5px;color:var(--text-light)}
 .lf-links-row a{color:var(--text-mid)}
-.lf-links-row a:hover{color:var(--gold)}
+.lf-links-row a:hover{color:#2A5BD7}
 .dot{color:var(--border-soft)}
 .pw-strength{height:3px;border-radius:100px;margin-top:6px;transition:all .3s;background:var(--border-soft)}
 .pw-strength.weak{background:#EF4444;width:33%}
@@ -175,7 +175,7 @@
             <input type="password" id="li-pass" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
           </div>
           <div style="text-align:right;margin-bottom:16px">
-            <a href="#" onclick="showForgot(event)" style="font-size:12px;color:var(--gold);font-weight:600">Forgot password?</a>
+            <a href="#" onclick="showForgot(event)" style="font-size:12px;color:#2A5BD7;font-weight:600">Forgot password?</a>
           </div>
           <button class="btn-main" id="li-btn" onclick="doLogin()">
             <span id="li-btn-txt">Sign In →</span>
@@ -204,7 +204,7 @@
             <span id="fp-btn-txt">Send Reset Link →</span>
           </button>
           <p style="text-align:center;margin-top:14px;font-size:12.5px">
-            <a href="#" onclick="switchTab('login');return false" style="color:var(--gold);font-weight:600">← Back to Sign In</a>
+            <a href="#" onclick="switchTab('login');return false" style="color:#2A5BD7;font-weight:600">← Back to Sign In</a>
           </p>
         </div>
 

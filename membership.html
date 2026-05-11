@@ -4,17 +4,20 @@
 <style>
 /* ── CSS VARIABLE FALLBACKS (in case shared.css loads slowly) ── */
 :root {
-  /* v3 theme — blue/purple matching logo */
-  --navy:#1E3A8A; --navy-mid:#1D4ED8; --gold:#2563EB; --gold-bright:#7C3AED;
-  --gold-pale:#EEF2FF; --gold-light:#C7D2FE; --sky:#F0F4FF; --sky-mid:#DBEAFE;
-  --cream:#F8FAFF; --border-soft:#E0E7FF; --border-gold:#A5B4FC;
-  --text-body:#1E293B; --text-mid:#475569; --text-light:#94A3B8;
-  --shadow-soft:0 1px 8px rgba(37,99,235,.07);
-  --shadow-mid:0 4px 20px rgba(37,99,235,.12);
-  --shadow-lg:0 12px 40px rgba(37,99,235,.16);
-  --shadow-gold:0 6px 24px rgba(124,58,237,.22);
-  --grad:linear-gradient(135deg,#2563EB 0%,#7C3AED 100%);
-  --grad-text:linear-gradient(90deg,#2563EB 0%,#7C3AED 100%);
+  /* ── BuyGenix v4 theme vars ── */
+  --navy:#153698; --navy-mid:#1E48C2; --navy-light:#2A5BD7; --slate:#0D1117;
+  --gold:#2A5BD7; --gold-bright:#7B2FBE; --gold-pale:#EEF2FF; --gold-light:#BAC8FF;
+  --sky:#F7F8FC; --sky-mid:#E8ECF8; --cream:#FFFFFF;
+  --border-soft:#E2E6F0; --border-gold:#A5B4FC;
+  --text-body:#1A1F36; --text-mid:#4A5270; --text-light:#8892A4;
+  --shadow-soft:0 1px 6px rgba(42,91,215,.07);
+  --shadow-mid:0 4px 18px rgba(42,91,215,.11);
+  --shadow-lg:0 12px 36px rgba(42,91,215,.15);
+  --shadow-gold:0 6px 22px rgba(123,47,190,.20);
+  --grad:linear-gradient(90deg,#2A5BD7 0%,#7B2FBE 100%);
+  --grad-diag:linear-gradient(135deg,#2A5BD7 0%,#7B2FBE 100%);
+  --grad-text:linear-gradient(90deg,#2A5BD7 0%,#7B2FBE 100%);
+  --radius:8px; --radius-lg:12px; --radius-xl:16px; --radius-full:100px;
   --navy:        #1B3A5C;
   --navy-mid:    #0B2140;
   --gold:        #B8860B;
@@ -60,7 +63,7 @@
 <title>Membership Plans – BuyGenix Solutions</title>
 <meta name="description" content="Choose your BuyGenix membership — Starter, Growth, Professional, or Enterprise. Verified buyer leads, dedicated RM, and full export support.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 
@@ -79,25 +82,25 @@
 }
 .mem-hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--gold-pale); border: 1px solid var(--gold);
-  color: var(--gold); font-size: 11px; font-weight: 700;
+  background: #EEF2FF; border: 1px solid #2A5BD7;
+  color: var(--blue, #2A5BD7); font-size: 11px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase;
   padding: 6px 18px; border-radius: 100px;
   font-family: 'Space Grotesk', sans-serif; margin-bottom: 22px;
 }
 .mem-hero h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: clamp(38px, 5.5vw, 66px);
   font-weight: 700; color: var(--navy);
   line-height: 1.1; margin-bottom: 18px;
 }
-.mem-hero h1 em { font-style: italic; color: var(--gold); }
+.mem-hero h1 em { font-style: italic; color: var(--blue, #2A5BD7); }
 .mem-hero .sub {
-  font-size: 13px; color: var(--text-mid);
+  font-size: 13.5px; color: var(--text-mid);
   max-width: 540px; margin: 0 auto 28px; line-height: 1.85;
 }
 .trust-pills {
-  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  display: flex; gap: 10px; justify-content: center; flex-wrap: nowrap;
 }
 .trust-pill {
   display: flex; align-items: center; gap: 7px;
@@ -118,7 +121,7 @@
 /* ── BILLING BAR ── */
 .billing-bar {
   display: flex; align-items: center;
-  justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  justify-content: space-between; flex-wrap: nowrap; gap: 10px;
   background: white; border: 1px solid var(--border-soft);
   border-radius: 14px; padding: 13px 20px;
   margin-bottom: 28px;
@@ -130,8 +133,8 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 .bb-badge {
-  background: var(--gold-pale); border: 1px solid var(--gold);
-  color: var(--gold); font-size: 11px; font-weight: 700;
+  background: #EEF2FF; border: 1px solid #2A5BD7;
+  color: var(--blue, #2A5BD7); font-size: 11px; font-weight: 700;
   letter-spacing: 1px; padding: 4px 12px; border-radius: 100px;
   font-family: 'Space Grotesk', sans-serif;
 }
@@ -139,7 +142,7 @@
   font-size: 12px; color: var(--text-light);
   font-family: 'Space Grotesk', sans-serif;
 }
-.billing-bar-right a { color: var(--gold); font-weight: 600; }
+.billing-bar-right a { color: var(--blue, #2A5BD7); font-weight: 600; }
 
 /* ── SKELETON LOADER ── */
 .skeleton-grid {
@@ -160,7 +163,7 @@
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
-.skl { background: var(--sky); border-radius: 6px; margin-bottom: 11px; }
+.skl { background: #F7F8FC; border-radius: 6px; margin-bottom: 11px; }
 
 /* ── PLAN GRID ── */
 .plan-cards-grid {
@@ -194,17 +197,17 @@
 
 /* Popular variant */
 .pc.pc-pop {
-  background: var(--navy);
-  border-color: var(--gold);
+  background: linear-gradient(135deg,#153698,#4C1D95);
+  border-color: var(--blue, #2A5BD7);
   box-shadow: 0 10px 40px rgba(27,58,92,0.22);
 }
-.pc.pc-pop::after { background: var(--gold); }
+.pc.pc-pop::after { background: var(--grad-diag, linear-gradient(135deg,#2A5BD7,#7B2FBE)); }
 .pc.pc-pop:hover { box-shadow: 0 22px 56px rgba(27,58,92,0.32); }
 
 /* Popular ribbon */
 .pc-ribbon {
   position: absolute; top: 18px; right: -1px;
-  background: var(--gold); color: white;
+  background: var(--grad-diag, linear-gradient(135deg,#2A5BD7,#7B2FBE)); color: white;
   font-size: 10px; font-weight: 700; letter-spacing: 1px;
   text-transform: uppercase; font-family: 'Space Grotesk', sans-serif;
   padding: 5px 14px 5px 10px;
@@ -220,7 +223,7 @@
 .pc.pc-pop .pc-key { color: rgba(255,255,255,0.35); }
 
 .pc-name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: 27px; font-weight: 700; color: var(--navy);
   line-height: 1.1; margin-bottom: 5px;
 }
@@ -251,9 +254,9 @@
   display: flex; align-items: baseline; gap: 2px;
   margin: 2px 0 8px;
 }
-.pc-sym { font-size: 22px; font-weight: 700; color: var(--navy); font-family: 'Cormorant Garamond', serif; align-self: flex-start; margin-top: 8px; }
-.pc-amt { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 700; color: var(--navy); line-height: 1; letter-spacing: -2px; }
-.pc-per { font-size: 13px; color: var(--text-light); font-family: 'Plus Jakarta Sans', sans-serif; }
+.pc-sym { font-size: 13px; font-weight: 700; color: var(--navy); font-family: 'DM Serif Display', serif; align-self: flex-start; margin-top: 8px; }
+.pc-amt { font-family: 'DM Serif Display', serif; font-size: 50px; font-weight: 700; color: var(--navy); line-height: 1; letter-spacing: -2px; }
+.pc-per { font-size: 13px; color: var(--text-light); font-family: 'Inter', sans-serif; }
 .pc.pc-pop .pc-sym, .pc.pc-pop .pc-amt { color: white; }
 .pc.pc-pop .pc-per { color: rgba(255,255,255,0.4); }
 
@@ -291,7 +294,7 @@
 }
 .fi-no {
   width: 17px; height: 17px; border-radius: 50%;
-  background: var(--sky); color: var(--text-light);
+  background: #F7F8FC; color: var(--text-light);
   display: flex; align-items: center; justify-content: center;
   font-size: 11px; flex-shrink: 0; margin-top: 1px;
 }
@@ -311,17 +314,17 @@
   margin-top: auto;
 }
 .pc-btn.btn-ol {
-  border: 1.5px solid var(--border-gold); color: var(--gold); background: transparent;
+  border: 1.5px solid var(--border-gold); color: var(--blue, #2A5BD7); background: transparent;
 }
-.pc-btn.btn-ol:hover { background: var(--gold); color: white; }
+.pc-btn.btn-ol:hover { background: var(--grad-diag, linear-gradient(135deg,#2A5BD7,#7B2FBE)); color: white; }
 .pc-btn.btn-au {
-  background: linear-gradient(135deg, var(--gold), var(--gold-bright));
+  background: linear-gradient(135deg, #2A5BD7, #7B2FBE);
   color: white; border: none;
   box-shadow: 0 4px 16px rgba(184,134,11,0.28);
 }
 .pc-btn.btn-au:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,134,11,0.38); }
 .pc-btn.btn-dk {
-  background: var(--navy); color: white; border: none;
+  background: linear-gradient(135deg,#153698,#4C1D95); color: white; border: none;
 }
 .pc-btn.btn-dk:hover { opacity: 0.88; }
 
@@ -343,10 +346,10 @@
 .compare-toprow {
   display: flex; align-items: flex-end;
   justify-content: space-between; gap: 16px;
-  margin-bottom: 24px; flex-wrap: wrap;
+  margin-bottom: 24px; flex-wrap: nowrap;
 }
 .compare-toprow h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: clamp(26px, 3vw, 38px);
   font-weight: 700; color: var(--navy); margin: 0;
 }
@@ -366,7 +369,7 @@ table.ctbl thead th {
   padding: 18px 16px; text-align: center;
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700; font-size: 13px;
-  background: var(--sky);
+  background: #F7F8FC;
   border-bottom: 2px solid var(--border-soft);
   white-space: nowrap; color: var(--navy);
 }
@@ -376,13 +379,13 @@ table.ctbl thead th:first-child {
   letter-spacing: 1.5px; text-transform: uppercase;
   color: var(--text-light);
 }
-table.ctbl thead th.cth-pop { background: var(--navy); color: white; }
+table.ctbl thead th.cth-pop { background: linear-gradient(135deg,#153698,#4C1D95); color: white; }
 
 table.ctbl tbody td {
   padding: 12px 16px; text-align: center;
   border-bottom: 1px solid var(--border-soft);
   color: var(--text-body);
-  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px;
+  font-family: 'Inter', sans-serif; font-size: 13px;
 }
 table.ctbl tbody td:first-child {
   text-align: left; font-weight: 500;
@@ -403,7 +406,7 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
 
 .c-yes { color: #15803d; font-weight: 800; font-size: 14px; }
 .c-no  { color: #d1d5db; font-size: 14px; }
-.c-pri { font-weight: 700; color: var(--navy); font-size: 15px; }
+.c-pri { font-weight: 700; color: var(--navy); font-size: 13px; }
 .c-str { text-decoration: line-through; color: var(--text-light); }
 .c-sav { color: #15803d; font-weight: 700; }
 
@@ -415,7 +418,7 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
 .ref-card {
   background: linear-gradient(140deg, var(--navy) 0%, #071829 100%);
   border-radius: 24px; padding: 52px 48px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 52px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
   align-items: center; position: relative; overflow: hidden;
 }
 .ref-card::before {
@@ -427,18 +430,18 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
 }
 .ref-left .section-label { margin-bottom: 12px; }
 .ref-left h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(22px, 2.8vw, 36px);
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 2.6vw, 34px);
   font-weight: 700; color: white; line-height: 1.15; margin-bottom: 14px;
 }
-.ref-left h2 em { font-style: italic; color: var(--gold); }
+.ref-left h2 em { font-style: italic; color: var(--blue, #2A5BD7); }
 .ref-left p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.85; margin-bottom: 26px; }
 .ref-big {
   display: flex; align-items: baseline; gap: 8px;
 }
 .ref-big strong {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 60px; font-weight: 700; color: var(--gold); line-height: 1;
+  font-family: 'DM Serif Display', serif;
+  font-size: 60px; font-weight: 700; color: var(--blue, #2A5BD7); line-height: 1;
 }
 .ref-big span { color: rgba(255,255,255,0.45); font-size: 14px; }
 .ref-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); margin-top: 4px; font-family: 'Space Grotesk', sans-serif; }
@@ -471,17 +474,17 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
   margin-top: 14px; line-height: 1.75;
   font-family: 'Space Grotesk', sans-serif;
 }
-.ref-note a { color: var(--gold); }
+.ref-note a { color: var(--blue, #2A5BD7); }
 
 /* ── FAQ ── */
 .faq-section {
   max-width: 960px; margin: 0 auto 64px; padding: 0 20px;
 }
 .faq-top {
-  text-align: center; margin-bottom: 36px;
+  text-align: center; margin-bottom: 20px;
 }
 .faq-top h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: clamp(28px, 3.5vw, 42px);
   font-weight: 700; color: var(--navy);
 }
@@ -493,7 +496,7 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
   padding: 22px 24px; border: 1px solid var(--border-soft);
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.faq-card:hover { border-color: var(--border-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.faq-card:hover { border-color: #A5B4FC; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
 .faq-q { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 9px; }
 .faq-a { font-size: 13px; color: var(--text-mid); line-height: 1.78; }
 
@@ -513,15 +516,15 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
   background: radial-gradient(ellipse, rgba(184,134,11,0.18) 0%, transparent 70%);
 }
 .bot-cta-inner h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'DM Serif Display', serif;
   font-size: clamp(30px, 4vw, 52px);
   color: white; font-weight: 700; margin-bottom: 14px;
 }
 .bot-cta-inner p {
-  font-size: 15px; color: rgba(255,255,255,0.58);
+  font-size: 13px; color: rgba(255,255,255,0.58);
   max-width: 500px; margin: 0 auto 32px; line-height: 1.85;
 }
-.bot-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.bot-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: nowrap; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
@@ -533,8 +536,8 @@ table.ctbl tr.cat-row td.ctd-pop { background: rgba(27,58,92,0.06) !important; }
   .plan-cards-grid { grid-template-columns: 1fr; }
   .skeleton-grid    { grid-template-columns: 1fr; }
   .faq-grid         { grid-template-columns: 1fr; }
-  .mem-hero h1      { font-size: 36px; }
-  .ref-card         { padding: 32px 22px; }
+  .mem-hero h1      { font-size: 28px; }
+  .ref-card         { padding: 20px 22px; }
   .bot-cta-inner    { padding: 40px 24px; }
 }
 
@@ -608,7 +611,7 @@ body {
     <a href="contact.html">Contact</a>
     <a href="terms.html">T&amp;C</a>
     <a href="membership.html" class="nav-cta active">Membership Plans →</a>
-    <a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
+    <a href="login.html" class="nav-cta" style="background:linear-gradient(90deg,#2A5BD7,#7B2FBE);color:white;margin-left:6px">Client Login →</a>
   </div>
   <div class="nav-burger"><span></span><span></span><span></span></div>
 </nav>
@@ -617,7 +620,7 @@ body {
   <a href="about.html">About Us</a><a href="gst.html">GST Registration</a>
   <a href="contact.html">Contact</a><a href="terms.html">T&amp;C</a>
   <a href="membership.html" class="nav-cta">Membership Plans →</a>
-  <a href="login.html" class="nav-cta" style="background:var(--gold);color:white;margin-left:6px">Client Login →</a>
+  <a href="login.html" class="nav-cta" style="background:linear-gradient(90deg,#2A5BD7,#7B2FBE);color:white;margin-left:6px">Client Login →</a>
 </div>
 
 <!-- ════════════════════════════════
@@ -903,7 +906,7 @@ function renderCards() {
       p.perf_report ? y('Monthly Performance Report') : no('Monthly Report'),
       p.strategy_call ? y('Monthly Strategy Call') : no('Monthly Strategy Call'),
       y(`GST Registration — <strong>${p.gst_support}</strong>`),
-      y(`IEC + MSME${p.fassai === true || p.fassai === 'Assistance' ? ' + Fassai' : ''} — ${p.iec ? 'Included' : 'Assistance'}`),
+      y(`IEC + MSME${p.fassai === true || p.fassai === 'Assistance' ? ' + FSSAI' : ''} — ${p.iec ? 'Included' : 'Assistance'}`),
       p.virtual_cards > 1
         ? y(`<strong>${p.virtual_cards}×</strong> Team Virtual Business Cards`)
         : y('1× Virtual Business Card'),
@@ -1008,7 +1011,7 @@ function renderCompare() {
     cat('Compliance &amp; Registrations'),
     row('IEC Registration',              p => ck(p.iec)),
     row('MSME Certificate',              p => ck(p.msme)),
-    row('Fassai License',               p => p.fassai === true ? '<span class="c-yes">✓ Incl.</span>' : p.fassai === 'Assistance' ? 'Assistance' : '<span class="c-no">–</span>'),
+    row('FSSAI License',               p => p.fassai === true ? '<span class="c-yes">✓ Incl.</span>' : p.fassai === 'Assistance' ? 'Assistance' : '<span class="c-no">–</span>'),
     row('GST Registration',              p => `<strong>${p.gst_support}</strong>`),
 
     cat('Pricing (Excl. GST &amp; Govt. Fees)'),
