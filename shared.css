@@ -6,6 +6,9 @@
 /* ── VARIABLES ── */
 :root {
   --navy:        #0B1929;
+  --slate:       #0D2137;
+  --cream:       #FAFBF8;
+  --sky-mid:     #D0E4F5;
   --navy-mid:    #1B3A5C;
   --gold:        #B8860B;
   --gold-bright: #D4A017;
@@ -57,6 +60,9 @@ button { cursor: pointer; font-family: inherit; }
   z-index: -999 !important;
   pointer-events: none !important;
   background: transparent !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 /* ── NAV ── */
@@ -263,14 +269,6 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(11,25,41,.12); }
 .accent { color: var(--gold); font-style: italic; }
 
 /* ── SCROLL REVEAL ── */
-.reveal, .reveal-left, .reveal-right {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.reveal-left { transform: translateX(-22px); }
-.reveal-right { transform: translateX(22px); }
-.reveal.visible, .reveal-left.visible, .reveal-right.visible,
 .reveal, .reveal-left, .reveal-right {
   opacity: 1 !important;
   transform: none !important;
