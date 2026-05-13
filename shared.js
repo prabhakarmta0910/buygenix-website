@@ -126,14 +126,23 @@ function initTilt() {
 /* ── SCROLL REVEAL ── */
 function initScrollReveal() {
   const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  /* Immediately mark all as visible - no hide/show animation needed */
+  els.forEach(el => {
+    el.classList.add('visible');
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  /* Also observe for any future dynamic content */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        entry.target.classList.add('visible');
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'none';
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05 });
   els.forEach(el => observer.observe(el));
 }
 
@@ -164,8 +173,31 @@ function initCounters() {
         obs.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
-  counters.forEach(el => obs.observe(el));
+  }, { threshold: 0.1 });
+  counters.forEach(el => {
+    obs.observe(el);
+    /* Check if already in viewport on load */
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const prefix = el.dataset.prefix || '';
+      const isDecimal = target % 1 !== 0;
+      let current = 0;
+      const duration = 1600;
+      const startTime = performance.now();
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        current = target * ease;
+        el.textContent = prefix + (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      obs.unobserve(el);
+    }
+  });
 }
 
 /* ── NAV SCROLL EFFECT ── */

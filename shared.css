@@ -352,42 +352,6 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(11,25,41,.12); }
 /* ── TILT CARD ── */
 .tilt-card { transition: transform .2s ease, box-shadow .2s ease; }
 
-/* ── STATS STRIP ── */
-.stats-strip {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  padding: 48px 4%;
-}
-.stats-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-}
-.stat-item {
-  text-align: center;
-}
-.stat-band {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
-  padding: 40px 4%;
-}
-.stat-band-item { text-align: center; }
-.counter-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 48px;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1;
-}
-.counter-label {
-  font-size: 12px;
-  color: rgba(255,255,255,.55);
-  font-family: 'Space Grotesk', sans-serif;
-  margin-top: 6px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
 /* ── HERO ── */
 .hero {
   position: relative; z-index: 2;
@@ -704,35 +668,6 @@ nav.scrolled { box-shadow: 0 4px 24px rgba(11,25,41,.12); }
   padding: 24px; box-shadow: var(--shadow-soft);
 }
 
-/* ── PROCESS STEPS ── */
-.process-steps, .steps-row { display: flex; flex-direction: column; gap: 20px; }
-.process-step, .step-item { display: flex; align-items: flex-start; gap: 16px; }
-.step-num {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-  color: #fff; font-weight: 700; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; font-family: 'Space Grotesk', sans-serif;
-}
-.pm-num {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: var(--gold-pale); color: var(--gold);
-  font-weight: 700; font-size: 12px; display: flex;
-  align-items: center; justify-content: center; flex-shrink: 0;
-  border: 1px solid var(--border-gold);
-}
-
-/* ── PROCESS MINI ── */
-.process-mini { display: flex; flex-direction: column; gap: 14px; }
-.process-section { background: var(--sky); padding: 80px 4%; }
-
-/* ── TIMELINE ── */
-.timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
-.timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: var(--border-soft); }
-.tl-item { display: flex; gap: 20px; align-items: flex-start; padding-bottom: 32px; position: relative; }
-.tl-dot { width: 38px; height: 38px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; font-size: 12px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; z-index: 1; }
-.tl-year { font-size: 11px; font-weight: 700; color: var(--gold); font-family: 'Space Grotesk', sans-serif; margin-bottom: 4px; letter-spacing: 1px; }
-
 /* ── VALUES ── */
 .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .value-card {
@@ -867,7 +802,7 @@ footer {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1100px) {
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -891,7 +826,7 @@ footer {
 }
 
 @media (max-width: 600px) {
-  .stats-inner { grid-template-columns: 1fr 1fr; }
+  
   .services-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -900,4 +835,93 @@ footer {
   .who-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }
   .cta-btns, .bot-cta-btns { flex-direction: column; align-items: center; }
+}
+
+/* ══════════════════════════════════════════
+   PAGE-SPECIFIC OVERRIDES
+   These prevent shared.css from breaking
+   index.html inline styles
+══════════════════════════════════════════ */
+
+/* Counters — always visible so IntersectionObserver can fire */
+[data-count] { opacity: 1 !important; }
+
+/* Process steps — never hide */
+.process-step, .process-steps, .step-num { opacity: 1 !important; transform: none !important; }
+
+/* Stats strip — never hide */
+.stats-strip, .stats-inner, .stat-item { opacity: 1 !important; transform: none !important; }
+
+/* Services section cards — never hide */
+.svc-card, .services-grid { opacity: 1 !important; }
+
+/* Testimonial cards — never hide */
+.testi-card { opacity: 1 !important; }
+
+/* Hero sections — never hide */
+.hero-left, .hero-right, .hero-grid, .hero-card-main { opacity: 1 !important; transform: none !important; }
+
+/* Why / feature grid */
+.why-card, .why-grid { opacity: 1 !important; }
+
+/* CTA / Bot CTA — ensure dark background shows */
+.bot-cta, .cta-banner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ticker — ensure visible */
+.ticker-wrap { position: relative; z-index: 2; }
+
+/* All reveal elements — always show, JS animation is bonus not required */
+.reveal, .reveal-left, .reveal-right {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+  transition: none !important;
+}
+
+/* ── PROCESS STEPS FIX ── */
+/* Prevent text overflow in 4-column process grid */
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+}
+.process-step {
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+  min-width: 0; /* allow shrinking */
+}
+.process-step h4 {
+  font-size: clamp(13px, 1.5vw, 17px);
+  word-wrap: break-word;
+  hyphens: auto;
+}
+.process-step p {
+  font-size: clamp(11px, 1.2vw, 13px);
+  line-height: 1.65;
+  word-wrap: break-word;
+}
+
+/* At medium screens, show 2 columns */
+@media (max-width: 900px) {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  .process-steps::before { display: none; }
+  .process-step { padding: 0 16px; }
+}
+
+/* At small screens, show 1 column */
+@media (max-width: 500px) {
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .process-step { text-align: left; padding: 0; }
 }
