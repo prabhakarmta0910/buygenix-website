@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us – BuyGenix Solutions</title>
+<meta name="description" content="Get in touch with BuyGenix Solutions. WhatsApp, email or fill in our enquiry form — we respond within 24 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+.ct-wrap{background:#f4f6fc;font-family:"Plus Jakarta Sans","Segoe UI",sans-serif;}
+
+/* ── HERO ── */
+.ct-hero{
+  background:linear-gradient(145deg,#080f1e 0%,#0d1f3c 55%,#0a1628 100%);
+  padding:96px 40px 80px;
+  margin-top:var(--nav-h);
+  position:relative;overflow:hidden;
+  text-align:center;
+}
+.ct-hero::before{content:"";position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.12),transparent 65%);}
+.ct-hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:7px 18px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;position:relative;z-index:1;}
+.ct-hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(34px,5vw,58px);font-weight:700;color:white;line-height:1.15;margin-bottom:16px;position:relative;z-index:1;letter-spacing:-0.5px;}
+.ct-hero h1 em{color:#f59e0b;font-style:italic;}
+.ct-hero p{font-size:16px;color:rgba(255,255,255,0.5);max-width:520px;margin:0 auto 40px;line-height:1.8;position:relative;z-index:1;}
+/* Quick contact pills */
+.ct-hero-pills{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+.ct-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.75);padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s;}
+.ct-pill:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.22);color:white;}
+.ct-pill.wa{background:rgba(37,211,102,0.12);border-color:rgba(37,211,102,0.25);color:#4ade80;}
+.ct-pill.wa:hover{background:rgba(37,211,102,0.2);}
+
+/* ── MAIN GRID ── */
+.ct-main{max-width:1180px;margin:0 auto;padding:64px 40px 80px;}
+
+/* ── LEFT INFO COLUMN ── */
+.ct-info{display:flex;flex-direction:column;gap:16px;}
+
+.ct-info-card{background:white;border-radius:18px;padding:26px;border:1px solid #e4e8f4;box-shadow:0 2px 12px rgba(0,0,0,0.04);transition:all .22s;}
+.ct-info-card:hover{box-shadow:0 8px 28px rgba(99,102,241,0.1);border-color:#c7d2fe;transform:translateY(-2px);}
+.ct-ic-icon{font-size:22px;margin-bottom:10px;display:block;}
+.ct-ic-label{font-size:9.5px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;font-family:"Space Grotesk",sans-serif;}
+.ct-ic-value{font-size:16px;font-weight:800;color:#0d1117;margin-bottom:4px;}
+.ct-ic-sub{font-size:12.5px;color:#64748b;margin-bottom:14px;line-height:1.5;}
+.ct-ic-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;padding:9px 18px;border-radius:9px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;}
+.ct-ic-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(99,102,241,0.35);}
+.ct-ic-btn.wa-btn{background:linear-gradient(135deg,#25d366,#128c7e);}
+.ct-ic-btn.wa-btn:hover{box-shadow:0 4px 14px rgba(37,211,102,0.35);}
+.ct-ic-btn.email-btn{background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1100;}
+.ct-ic-btn.email-btn:hover{box-shadow:0 4px 14px rgba(245,158,11,0.35);}
+
+/* Hours grid */
+.ct-hours{display:flex;flex-direction:column;gap:0;}
+.ct-hour-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f2f8;font-size:12.5px;}
+.ct-hour-row:last-child{border-bottom:none;}
+.ct-hour-day{color:#64748b;font-weight:500;}
+.ct-hour-time{color:#0d1117;font-weight:700;font-size:12px;}
+
+/* Social row */
+.ct-social{display:flex;gap:10px;margin-top:4px;}
+.ct-soc-btn{display:inline-flex;align-items:center;gap:7px;background:#f4f6fc;border:1px solid #e4e8f4;color:#374151;padding:9px 16px;border-radius:10px;font-size:12.5px;font-weight:600;text-decoration:none;flex:1;justify-content:center;transition:all .2s;}
+.ct-soc-btn:hover{border-color:#c7d2fe;background:#eff6ff;color:#4f46e5;}
+
+/* ── RIGHT FORM CARD ── */
+.ct-form-card{background:white;border-radius:20px;border:1px solid #e4e8f4;box-shadow:0 4px 24px rgba(0,0,0,0.06);overflow:hidden;}
+.ct-form-head{background:linear-gradient(135deg,#080f1e,#0d2040);padding:32px 36px;}
+.ct-form-head h2{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:700;color:white;margin-bottom:6px;}
+.ct-form-head p{font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.65;}
+.ct-form-body{padding:32px 36px;}
+
+/* Form fields */
+.ct-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.ct-form-grid .span2{grid-column:1/-1;}
+.ct-fg{display:flex;flex-direction:column;gap:6px;}
+.ct-fg label{font-size:12px;font-weight:700;color:#374151;letter-spacing:0.3px;}
+.ct-fg label span{color:#ef4444;margin-left:2px;}
+.ct-input{
+  width:100%;padding:12px 16px;
+  background:#f8f9fc;border:1.5px solid #e4e8f4;
+  border-radius:10px;font-size:13.5px;
+  font-family:"Plus Jakarta Sans",sans-serif;
+  color:#0d1117;outline:none;
+  transition:all .2s;box-sizing:border-box;
+}
+.ct-input:focus{border-color:#6366f1;background:white;box-shadow:0 0 0 4px rgba(99,102,241,0.08);}
+.ct-input::placeholder{color:#94a3b8;}
+textarea.ct-input{resize:vertical;min-height:120px;line-height:1.65;}
+select.ct-input{cursor:pointer;}
+
+/* Submit row */
+.ct-submit-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:20px;flex-wrap:wrap;}
+.ct-submit-note{font-size:11.5px;color:#94a3b8;line-height:1.6;max-width:300px;}
+.ct-submit-note a{color:#6366f1;text-decoration:none;font-weight:600;}
+.ct-submit-btn{
+  background:linear-gradient(135deg,#6366f1,#8b5cf6);
+  color:white;border:none;border-radius:12px;
+  padding:14px 32px;font-size:14px;font-weight:800;
+  cursor:pointer;font-family:inherit;
+  transition:all .25s;white-space:nowrap;
+  box-shadow:0 6px 20px rgba(99,102,241,0.3);
+  display:flex;align-items:center;gap:8px;
+  letter-spacing:0.2px;
+}
+.ct-submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,0.4);}
+.ct-submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* Success screen */
+.ct-success{display:none;padding:64px 36px;text-align:center;}
+.ct-success-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#dcfce7,#bbf7d0);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 20px;}
+.ct-success h3{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:700;color:#0d1117;margin-bottom:10px;}
+.ct-success p{font-size:14px;color:#64748b;line-height:1.75;max-width:380px;margin:0 auto 24px;}
+.ct-success-wa{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#25d366,#128c7e);color:white;padding:13px 28px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;}
+.ct-success-wa:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(37,211,102,0.35);}
+
+/* ── FAQ STRIP ── */
+.ct-faq{max-width:1180px;margin:0 auto;padding:0 40px 80px;}
+.ct-faq-head{text-align:center;margin-bottom:36px;}
+.ct-faq-head h2{font-size:clamp(22px,3vw,32px);font-weight:800;color:#0d1117;margin-bottom:8px;letter-spacing:-0.5px;}
+.ct-faq-head p{font-size:14.5px;color:#64748b;}
+.ct-faq-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.ct-faq-item{background:white;border-radius:14px;padding:24px;border:1px solid #e4e8f4;box-shadow:0 2px 8px rgba(0,0,0,0.03);transition:all .2s;}
+.ct-faq-item:hover{border-color:#c7d2fe;box-shadow:0 6px 20px rgba(99,102,241,0.08);}
+.ct-faq-q{font-size:14px;font-weight:800;color:#0d1117;margin-bottom:8px;}
+.ct-faq-a{font-size:13px;color:#64748b;line-height:1.75;}
+
+/* SPINNER */
+.ct-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* RESPONSIVE */
+@media(max-width:960px){.ct-main{padding:48px 24px 64px;}.ct-faq-grid{grid-template-columns:1fr;}.ct-faq{padding:0 24px 64px;}}
+@media(max-width:860px){.ct-strip-grid{grid-template-columns:repeat(2,1fr) !important;}}
+@media(max-width:640px){.ct-strip-grid{grid-template-columns:1fr !important;}.ct-form-grid{grid-template-columns:1fr;}.ct-form-grid .span2{grid-column:1;}.ct-submit-row{flex-direction:column;align-items:stretch;}.ct-submit-btn{justify-content:center;}.ct-hero{padding:72px 24px 60px;}.ct-hero-pills{flex-direction:column;align-items:center;}}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
+  </a>
+  <div class="nav-links"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About Us</a><a href="gst.html">GST Registration</a><a href="contact.html" class="active">Contact</a><a href="membership.html" class="nav-cta-outline">Membership Plans</a><a href="login.html" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About Us</a><a href="gst.html">GST Registration</a><a href="contact.html" class="active">Contact</a><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a><a href="membership.html" class="m-cta">Membership Plans →</a><a href="login.html" class="m-cta m-cta-gold">Client Login →</a></div>
+
+<div class="ct-wrap">
+
+<!-- HERO -->
+<div class="ct-hero">
+  <div class="ct-hero-tag">📞 Get in Touch</div>
+  <h1>We're Here to<br><em>Help You Grow</em></h1>
+  <p>Whether you want to learn about membership plans, get export guidance, or ask us anything about your business — our team is ready to help within 24 hours.</p>
+  <div class="ct-hero-pills">
+    <a href="https://wa.me/919818187246?text=Hello%20BuyGenix%2C%20I%20am%20interested%20in%20your%20export%20services." class="ct-pill wa" target="_blank" rel="noopener">💬 WhatsApp — Fastest Response</a>
+    <a href="mailto:Buygenixsolutions@gmail.com" class="ct-pill">📧 Buygenixsolutions@gmail.com</a>
+    <div class="ct-pill">📍 Delhi, India</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="ct-main">
+
+  <!-- TOP — QUICK CONTACT STRIP -->
+  <div class="ct-strip-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;">
+
+    <div class="ct-info-card" style="padding:22px;">
+      <span class="ct-ic-icon">💬</span>
+      <div class="ct-ic-label">WhatsApp</div>
+      <div class="ct-ic-value" style="font-size:15px;">+91 98181 87246</div>
+      <div class="ct-ic-sub">Mon–Sat, 10am–7pm IST</div>
+      <a href="https://wa.me/919818187246?text=Hello%20BuyGenix%2C%20I%20am%20interested%20in%20your%20export%20services." class="ct-ic-btn wa-btn" style="margin-top:12px;" target="_blank" rel="noopener">Chat Now →</a>
+    </div>
+
+    <div class="ct-info-card" style="padding:22px;">
+      <span class="ct-ic-icon">📧</span>
+      <div class="ct-ic-label">Email</div>
+      <div class="ct-ic-value" style="font-size:12.5px;word-break:break-all;">Buygenixsolutions@gmail.com</div>
+      <div class="ct-ic-sub">Reply within 1–2 business days</div>
+      <a href="mailto:Buygenixsolutions@gmail.com" class="ct-ic-btn email-btn" style="margin-top:12px;">Send Email →</a>
+    </div>
+
+    <div class="ct-info-card" style="padding:22px;">
+      <span class="ct-ic-icon">🕐</span>
+      <div class="ct-ic-label">Support Hours</div>
+      <div class="ct-hours" style="margin-top:6px;">
+        <div class="ct-hour-row"><span class="ct-hour-day">Mon – Fri</span><span class="ct-hour-time">10am – 6pm</span></div>
+        <div class="ct-hour-row"><span class="ct-hour-day">Saturday</span><span class="ct-hour-time">10am – 4pm</span></div>
+        <div class="ct-hour-row"><span class="ct-hour-day">Sunday</span><span class="ct-hour-time">WhatsApp only</span></div>
+        <div class="ct-hour-row"><span class="ct-hour-day">Response</span><span class="ct-hour-time">Within 24h</span></div>
+      </div>
+    </div>
+
+    <div class="ct-info-card" style="padding:22px;">
+      <span class="ct-ic-icon">📍</span>
+      <div class="ct-ic-label">Location</div>
+      <div class="ct-ic-value" style="font-size:15px;">Delhi, India 🇮🇳</div>
+      <div class="ct-ic-sub">Serving all Indian exporters. International enquiries welcome.</div>
+      <div class="ct-social" style="margin-top:14px;">
+        <a href="https://instagram.com/buygenixsolutions" class="ct-soc-btn" target="_blank" rel="noopener" style="font-size:11px;">📷 Instagram</a>
+        <a href="https://facebook.com/buygenixsolutions" class="ct-soc-btn" target="_blank" rel="noopener" style="font-size:11px;">📘 Facebook</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FORM — FULL WIDTH -->
+  <div class="ct-form-card">
+    <div class="ct-form-head">
+      <h2>Send Us an Enquiry</h2>
+      <p>Fill in the form and a member of our team will respond within 24 hours. For the fastest response, use WhatsApp above.</p>
+    </div>
+    <div id="ctFormWrap">
+      <div class="ct-form-body">
+        <div id="ctErrMsg" style="display:none;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:12px 16px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:18px;"></div>
+        <div class="ct-form-grid">
+          <div class="ct-fg">
+            <label>Full Name <span>*</span></label>
+            <input id="ctName" class="ct-input" type="text" placeholder="Your full name" maxlength="80" autocomplete="name">
+          </div>
+          <div class="ct-fg">
+            <label>WhatsApp / Phone <span>*</span></label>
+            <input id="ctPhone" class="ct-input" type="tel" placeholder="+91 98765 43210" maxlength="20" autocomplete="tel">
+          </div>
+          <div class="ct-fg">
+            <label>Email Address</label>
+            <input id="ctEmail" class="ct-input" type="email" placeholder="your@email.com" maxlength="120" autocomplete="email">
+          </div>
+          <div class="ct-fg">
+            <label>Business / Company Name <span>*</span></label>
+            <input id="ctBiz" class="ct-input" type="text" placeholder="Your company name" maxlength="120" autocomplete="organization">
+          </div>
+          <div class="ct-fg span2">
+            <label>Product Category <span>*</span></label>
+            <select id="ctProduct" class="ct-input">
+              <option value="">Select your main export product</option>
+              <option>Textiles &amp; Fabrics</option>
+              <option>Spices &amp; Condiments</option>
+              <option>Rice &amp; Grains</option>
+              <option>Organic Food</option>
+              <option>Handicrafts &amp; Artware</option>
+              <option>Garments &amp; Apparel</option>
+              <option>Gems &amp; Jewellery</option>
+              <option>Chemicals &amp; Pharma</option>
+              <option>Engineering Goods</option>
+              <option>Leather Products</option>
+              <option>Fresh Produce</option>
+              <option>Processed Food</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="ct-fg span2">
+            <label>Interested In</label>
+            <select id="ctPlan" class="ct-input">
+              <option value="">Select a plan or service</option>
+              <option>Starter Plan — ₹13,500/year</option>
+              <option>Growth Plan — ₹27,000/year</option>
+              <option>Professional Plan — ₹40,500/year</option>
+              <option>Enterprise Plan — ₹72,000/year</option>
+              <option>GST Registration</option>
+              <option>General Information</option>
+            </select>
+          </div>
+          <div class="ct-fg span2">
+            <label>Your Message <span>*</span></label>
+            <textarea id="ctMsg" class="ct-input" rows="5" placeholder="Tell us about your business, what you export, and what help you are looking for…" maxlength="1000"></textarea>
+            <div style="text-align:right;font-size:11px;color:#94a3b8;margin-top:4px;"><span id="ctCharCount">0</span> / 1000</div>
+          </div>
+        </div>
+        <div class="ct-submit-row">
+          <p class="ct-submit-note">By submitting you agree to our <a href="privacy.html">Privacy Policy</a>. We will never share your information with third parties.</p>
+          <button class="ct-submit-btn" id="ctSubmitBtn" onclick="ctHandleSubmit()">
+            <span id="ctSubmitTxt">Send Enquiry</span>
+            <div class="ct-spinner" id="ctSpinner"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="ct-success" id="ctSuccess">
+      <div class="ct-success-icon">✓</div>
+      <h3>Enquiry Received!</h3>
+      <p>Thank you for reaching out. A member of our team will contact you within 24 hours. For a faster response, message us on WhatsApp.</p>
+      <a href="https://wa.me/919818187246" class="ct-success-wa" target="_blank" rel="noopener">💬 Continue on WhatsApp</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FAQ SECTION -->
+<div class="ct-faq">
+  <div class="ct-faq-head">
+    <h2>Frequently Asked Questions</h2>
+    <p>Quick answers to the most common questions we receive.</p>
+  </div>
+  <div class="ct-faq-grid">
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">How quickly will I receive buyer leads?</div>
+      <div class="ct-faq-a">After your membership is activated, your Relationship Manager will reach out within 24 hours. Your first leads are typically delivered within 3–5 working days of activation.</div>
+    </div>
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">Can I upgrade my plan later?</div>
+      <div class="ct-faq-a">Yes — you can upgrade from Starter to Growth, Professional, or Enterprise at any time. Your remaining membership period is pro-rated against the new plan cost.</div>
+    </div>
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">How are buyer leads verified?</div>
+      <div class="ct-faq-a">Every lead is manually reviewed by our team before delivery. We verify the buyer company, their product requirements, and their contact details before sending them to you.</div>
+    </div>
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">Do I need an IEC code to join?</div>
+      <div class="ct-faq-a">No — you can join without an IEC code. We will help you apply for your IEC and other registrations as part of your membership. You can receive leads while your IEC application is in progress.</div>
+    </div>
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">What categories of products do you cover?</div>
+      <div class="ct-faq-a">We cover 12+ export categories including textiles, spices, agricultural products, handicrafts, engineering goods, garments, leather, chemicals, gems and more.</div>
+    </div>
+    <div class="ct-faq-item">
+      <div class="ct-faq-q">Is there a refund policy?</div>
+      <div class="ct-faq-a">Please refer to our Terms &amp; Conditions for full details of our refund and cancellation policy. For specific queries, contact us on WhatsApp before purchasing.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /ct-wrap -->
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-logo-name">Buy<span>genix</span> Solutions</div><p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries.</p><div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank" rel="noopener">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank" rel="noopener">📘</a><a href="https://wa.me/919818187246" target="_blank" rel="noopener">💬</a><a href="mailto:Buygenixsolutions@gmail.com">📧</a></div></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html#leads">Buyer Leads</a></li><li><a href="services.html#catalogue">Digital Catalogue</a></li><li><a href="services.html#seo">SEO &amp; SMO</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="login.html">Client Login</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 BuyGenix Solutions. All rights reserved. &nbsp;|&nbsp; Buygenixsolutions@gmail.com</p><p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p></div>
+</footer>
+<a href="https://wa.me/919818187246" class="wa-float" target="_blank" rel="noopener">💬</a>
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+// Character count
+document.getElementById("ctMsg").addEventListener("input", function(){
+  document.getElementById("ctCharCount").textContent = this.value.length;
+});
+
+function ctHandleSubmit(){
+  const name = document.getElementById("ctName").value.trim();
+  const phone = document.getElementById("ctPhone").value.trim();
+  const biz = document.getElementById("ctBiz").value.trim();
+  const product = document.getElementById("ctProduct").value;
+  const msg = document.getElementById("ctMsg").value.trim();
+  const errEl = document.getElementById("ctErrMsg");
+
+  if(!name || !phone || !biz || !product || !msg){
+    errEl.textContent = "Please fill in all required fields marked with *.";
+    errEl.style.display = "block";
+    errEl.scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  errEl.style.display = "none";
+
+  const btn = document.getElementById("ctSubmitBtn");
+  document.getElementById("ctSubmitTxt").style.display = "none";
+  document.getElementById("ctSpinner").style.display = "block";
+  btn.disabled = true;
+
+  const plan = document.getElementById("ctPlan").value || "General Information";
+  const email = document.getElementById("ctEmail").value.trim();
+  const subject = encodeURIComponent("New BuyGenix Enquiry — " + name);
+  const body = encodeURIComponent(
+    "Name: " + name + "\n" +
+    "Phone: " + phone + "\n" +
+    (email ? "Email: " + email + "\n" : "") +
+    "Business: " + biz + "\n" +
+    "Product: " + product + "\n" +
+    "Interested In: " + plan + "\n\n" +
+    "Message:\n" + msg
+  );
+
+  setTimeout(() => {
+    window.location.href = "mailto:Buygenixsolutions@gmail.com?subject=" + subject + "&body=" + body;
+    document.getElementById("ctFormWrap").innerHTML = "";
+    const s = document.getElementById("ctSuccess");
+    s.style.display = "block";
+  }, 800);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Login – BuyGenix Solutions</title>
+<meta name="description" content="Login to your BuyGenix client portal to access buyer leads, performance reports, and communicate with your Relationship Manager.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+body{background:linear-gradient(150deg,var(--navy) 0%,#0F2035 55%,#0A1A2E 100%);min-height:100vh;}
+.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:88px var(--pad-x) 40px;}
+.login-grid{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:960px;background:white;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 40px 100px rgba(11,25,41,0.45);}
+
+/* LEFT brand panel */
+.login-brand{background:linear-gradient(150deg,var(--navy),#0F2A45);padding:52px 44px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.login-brand::before{content:'';position:absolute;top:-20%;right:-15%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(30,95,168,0.25),transparent 70%);pointer-events:none;}
+.login-brand::after{content:'';position:absolute;bottom:-10%;left:-10%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.1),transparent 70%);pointer-events:none;}
+.lb-logo-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:white;line-height:1;position:relative;z-index:1;}
+.lb-logo-name span{color:var(--gold-light);font-style:italic;}
+.lb-logo-tag{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-top:4px;position:relative;z-index:1;}
+.lb-tagline{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:white;line-height:1.25;margin-top:36px;position:relative;z-index:1;}
+.lb-tagline em{color:var(--gold-light);font-style:italic;}
+.lb-feats{display:flex;flex-direction:column;gap:12px;margin-top:28px;position:relative;z-index:1;}
+.lb-feat{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,0.62);}
+.lb-feat-icon{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.lb-footer{font-size:12px;color:rgba(255,255,255,0.25);font-family:'Space Grotesk',sans-serif;position:relative;z-index:1;}
+
+/* RIGHT form panel */
+.login-form-panel{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;}
+.lf-back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-light);margin-bottom:28px;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:color 0.2s;}
+.lf-back:hover{color:var(--navy);}
+.lf-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:5px;}
+.lf-sub{font-size:14px;color:var(--text-mid);margin-bottom:26px;line-height:var(--lh);}
+
+/* Auth tabs */
+.auth-tabs{display:flex;gap:3px;background:var(--sky);border-radius:var(--r-md);padding:4px;margin-bottom:24px;}
+.auth-tab{flex:1;padding:9px;text-align:center;font-size:12.5px;font-weight:600;color:var(--text-mid);font-family:'Space Grotesk',sans-serif;border-radius:9px;cursor:pointer;transition:all 0.2s;}
+.auth-tab.active{background:white;color:var(--navy);box-shadow:var(--shadow-xs);}
+.auth-panel{display:none;}
+.auth-panel.active{display:block;}
+
+/* Password wrap */
+.pw-wrap{position:relative;}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-light);padding:4px;line-height:1;}
+
+/* Divider text */
+.divider-or{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text-light);font-size:12px;}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+
+/* WA login btn */
+.wa-login-btn{width:100%;height:44px;border:1.5px solid #25D366;background:rgba(37,211,102,0.06);color:#1A9C4E;border-radius:var(--r-lg);font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.25s;text-decoration:none;}
+.wa-login-btn:hover{background:rgba(37,211,102,0.12);}
+
+/* Submit btn */
+.auth-submit{width:100%;height:46px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));color:white;border:none;border-radius:var(--r-lg);font-size:14px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 4px 18px rgba(30,95,168,0.25);}
+.auth-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,95,168,0.35);}
+.auth-submit:disabled{opacity:0.62;cursor:not-allowed;transform:none;}
+
+/* Forgot & signup */
+.forgot-row{text-align:right;margin-top:4px;}
+.forgot-row a{font-size:12.5px;color:var(--blue);font-family:'Space Grotesk',sans-serif;}
+.signup-note{margin-top:18px;text-align:center;font-size:13px;color:var(--text-mid);}
+.signup-note a{color:var(--blue);font-weight:600;}
+
+/* Auth alert */
+.auth-alert{display:none;align-items:flex-start;gap:8px;border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;font-size:13px;line-height:1.5;}
+.auth-alert.error{background:rgba(220,38,38,0.07);border:1.5px solid rgba(220,38,38,0.2);color:#DC2626;}
+.auth-alert.success{background:rgba(16,185,129,0.07);border:1.5px solid rgba(16,185,129,0.2);color:#059669;}
+.auth-alert.show{display:flex;}
+
+/* Info box */
+.info-box{background:var(--sky);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--text-mid);margin-bottom:18px;line-height:1.6;}
+.info-box a{color:var(--blue);}
+
+@media(max-width:768px){
+  .login-grid{grid-template-columns:1fr;}
+  .login-brand{padding:40px 32px 36px;}
+  .lb-tagline{font-size:26px;}
+  .lb-feats{display:none;}
+  .login-form-panel{padding:36px 28px;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<!-- Minimal nav for login page -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="membership.html" class="nav-cta-outline">View Plans</a>
+    <a href="contact.html" class="nav-cta-solid">Contact Us</a>
+  </div>
+</nav>
+
+<div class="login-page">
+  <div class="login-grid">
+
+    <!-- BRAND PANEL -->
+    <div class="login-brand">
+      <div>
+        <div class="lb-logo-name">Buy<span>genix</span></div>
+        <div class="lb-logo-tag">Client Portal</div>
+        <div class="lb-tagline">Your Export<br><em>Dashboard</em><br>Awaits</div>
+        <div class="lb-feats">
+          <div class="lb-feat"><div class="lb-feat-icon">🎯</div>Access your verified buyer leads</div>
+          <div class="lb-feat"><div class="lb-feat-icon">📊</div>Track your performance reports</div>
+          <div class="lb-feat"><div class="lb-feat-icon">💬</div>Message your Relationship Manager</div>
+          <div class="lb-feat"><div class="lb-feat-icon">📖</div>Manage your digital catalogue</div>
+          <div class="lb-feat"><div class="lb-feat-icon">🔔</div>Receive real-time lead notifications</div>
+        </div>
+      </div>
+      <div class="lb-footer">© 2025 BuyGenix Solutions · Delhi, India 🇮🇳</div>
+    </div>
+
+    <!-- FORM PANEL -->
+    <div class="login-form-panel">
+      <a href="index.html" class="lf-back">← Back to website</a>
+      <div class="lf-title">Welcome Back</div>
+      <p class="lf-sub">Sign in to your BuyGenix client portal to manage your leads and track your export growth.</p>
+
+      <!-- TABS -->
+      <div class="auth-tabs">
+        <div class="auth-tab active" onclick="switchTab('login')">Sign In</div>
+        <div class="auth-tab"        onclick="switchTab('signup')">New Member</div>
+        <div class="auth-tab"        onclick="switchTab('reset')">Reset</div>
+      </div>
+
+      <!-- SIGN IN -->
+      <div class="auth-panel active" id="panel-login">
+        <div class="auth-alert error"   id="loginErr"></div>
+        <div class="auth-alert success" id="loginOk"></div>
+        <div class="form-group">
+          <label for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="loginPw">Password</label>
+          <div class="pw-wrap">
+            <input type="password" id="loginPw" class="form-control" placeholder="Your password" autocomplete="current-password">
+            <button class="pw-toggle" onclick="togglePw('loginPw',this)" type="button">👁</button>
+          </div>
+          <div class="forgot-row"><a href="#" onclick="switchTab('reset');return false;">Forgot password?</a></div>
+        </div>
+        <button class="auth-submit" id="loginBtn" onclick="handleLogin()">
+          <span id="loginBtnTxt">Sign In to Portal</span>
+          <span id="loginSpin" class="spinner" style="display:none;"></span>
+        </button>
+        <div class="divider-or">or</div>
+        <a href="https://wa.me/919818187246?text=Hello%2C%20I%20need%20help%20accessing%20my%20BuyGenix%20portal." class="wa-login-btn" target="_blank" rel="noopener">💬 Get help via WhatsApp</a>
+        <p class="signup-note">Not a member yet? <a href="membership.html">View membership plans →</a></p>
+      </div>
+
+      <!-- SIGN UP -->
+      <div class="auth-panel" id="panel-signup">
+        <div class="auth-alert error"   id="signupErr"></div>
+        <div class="auth-alert success" id="signupOk"></div>
+        <div class="info-box">ℹ️ New member accounts are created after membership payment is confirmed. If you have already joined, use the credentials sent by your RM. For new enquiries, please <a href="contact.html">contact us here</a>.</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="regName">Full Name *</label>
+            <input type="text" id="regName" class="form-control" placeholder="Full name" maxlength="80">
+          </div>
+          <div class="form-group">
+            <label for="regPhone">Phone / WhatsApp *</label>
+            <input type="tel" id="regPhone" class="form-control" placeholder="+91 98765 43210">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email Address *</label>
+          <input type="email" id="regEmail" class="form-control" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label for="regBiz">Business Name *</label>
+          <input type="text" id="regBiz" class="form-control" placeholder="Your company name">
+        </div>
+        <div class="form-group">
+          <label for="regPw">Create Password *</label>
+          <div class="pw-wrap">
+            <input type="password" id="regPw" class="form-control" placeholder="Minimum 8 characters">
+            <button class="pw-toggle" onclick="togglePw('regPw',this)" type="button">👁</button>
+          </div>
+        </div>
+        <button class="auth-submit" id="signupBtn" onclick="handleSignup()">
+          <span id="signupBtnTxt">Create Account</span>
+          <span id="signupSpin" class="spinner" style="display:none;"></span>
+        </button>
+      </div>
+
+      <!-- RESET PASSWORD -->
+      <div class="auth-panel" id="panel-reset">
+        <div class="auth-alert error"   id="resetErr"></div>
+        <div class="auth-alert success" id="resetOk"></div>
+        <p style="font-size:13.5px;color:var(--text-mid);margin-bottom:18px;line-height:var(--lh);">Enter the email address associated with your account and we will send you a password reset link.</p>
+        <div class="form-group">
+          <label for="resetEmail">Email Address</label>
+          <input type="email" id="resetEmail" class="form-control" placeholder="your@email.com">
+        </div>
+        <button class="auth-submit" id="resetBtn" onclick="handleReset()">
+          <span id="resetBtnTxt">Send Reset Link</span>
+          <span id="resetSpin" class="spinner" style="display:none;"></span>
+        </button>
+        <p class="signup-note">Remember your password? <a href="#" onclick="switchTab('login');return false;">Sign in</a></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+let _sb = null;
+function getSB() {
+  if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) {
+    _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
+  }
+  return _sb;
+}
+
+/* Redirect if already logged in */
+(async function() {
+  const sb = getSB(); if (!sb) return;
+  const { data } = await sb.auth.getSession();
+  if (data.session) window.location.href = 'client-portal.html';
+})();
+
+function switchTab(tab) {
+  const tabs = ['login','signup','reset'];
+  document.querySelectorAll('.auth-tab').forEach((t,i) => t.classList.toggle('active', tabs[i] === tab));
+  document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+function togglePw(id, btn) {
+  const inp = document.getElementById(id);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+function showAlert(id, type, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = `auth-alert ${type} show`;
+  el.innerHTML = `<span>${type==='error'?'⚠':'✓'}</span><span>${msg}</span>`;
+}
+function clearAlert(id) { const el = document.getElementById(id); if (el) el.classList.remove('show'); }
+
+function setLoad(btnId, txtId, spinId, loading) {
+  const btn = document.getElementById(btnId);
+  if (btn) btn.disabled = loading;
+  const txt = document.getElementById(txtId); if (txt) txt.style.display = loading ? 'none' : 'inline';
+  const sp  = document.getElementById(spinId); if (sp)  sp.style.display  = loading ? 'inline-block' : 'none';
+}
+
+async function handleLogin() {
+  clearAlert('loginErr'); clearAlert('loginOk');
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw    = document.getElementById('loginPw').value;
+  if (!email || !pw) { showAlert('loginErr','error','Please enter your email and password.'); return; }
+  setLoad('loginBtn','loginBtnTxt','loginSpin',true);
+  const sb = getSB();
+  if (!sb) { showAlert('loginErr','error','Service unavailable. Please try WhatsApp.'); setLoad('loginBtn','loginBtnTxt','loginSpin',false); return; }
+  const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+  setLoad('loginBtn','loginBtnTxt','loginSpin',false);
+  if (error) {
+    showAlert('loginErr','error', error.message.includes('Invalid') ? 'Incorrect email or password. Please try again.' : error.message);
+  } else {
+    showAlert('loginOk','success','Login successful! Redirecting to your dashboard…');
+    setTimeout(() => window.location.href = 'client-portal.html', 1200);
+  }
+}
+
+async function handleSignup() {
+  clearAlert('signupErr'); clearAlert('signupOk');
+  const name  = document.getElementById('regName').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const biz   = document.getElementById('regBiz').value.trim();
+  const pw    = document.getElementById('regPw').value;
+  if (!name||!phone||!email||!biz||!pw) { showAlert('signupErr','error','Please fill in all required fields.'); return; }
+  if (pw.length < 8) { showAlert('signupErr','error','Password must be at least 8 characters.'); return; }
+  setLoad('signupBtn','signupBtnTxt','signupSpin',true);
+  const sb = getSB();
+  if (!sb) { showAlert('signupErr','error','Service unavailable. Please contact us via WhatsApp.'); setLoad('signupBtn','signupBtnTxt','signupSpin',false); return; }
+  const { error } = await sb.auth.signUp({ email, password: pw, options:{ data:{ full_name:name, phone, business_name:biz } } });
+  setLoad('signupBtn','signupBtnTxt','signupSpin',false);
+  if (error) { showAlert('signupErr','error', error.message); }
+  else { showAlert('signupOk','success','Account created! Please check your email to confirm your account, then sign in.'); }
+}
+
+async function handleReset() {
+  clearAlert('resetErr'); clearAlert('resetOk');
+  const email = document.getElementById('resetEmail').value.trim();
+  if (!email) { showAlert('resetErr','error','Please enter your email address.'); return; }
+  setLoad('resetBtn','resetBtnTxt','resetSpin',true);
+  const sb = getSB();
+  if (!sb) { showAlert('resetErr','error','Service unavailable. Please contact us via WhatsApp.'); setLoad('resetBtn','resetBtnTxt','resetSpin',false); return; }
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
+  setLoad('resetBtn','resetBtnTxt','resetSpin',false);
+  if (error) { showAlert('resetErr','error', error.message); }
+  else { showAlert('resetOk','success','Reset link sent! Please check your email inbox (including spam folder).'); }
+}
+
+/* Enter key support */
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const active = document.querySelector('.auth-panel.active');
+  if (!active) return;
+  const id = active.id;
+  if (id === 'panel-login')  handleLogin();
+  if (id === 'panel-signup') handleSignup();
+  if (id === 'panel-reset')  handleReset();
+});
+</script>
+</body>
+</html>
