@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuyGenix Solutions — India's B2B Export &amp; Import Platform</title>
+<meta name="description" content="Connect with verified global buyers. Grow your export business with BuyGenix Solutions — verified buyer leads, digital catalogues, GST assistance and dedicated relationship managers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<style>
+/* ── HERO / FULL-WIDTH BANNER ── */
+.hero{
+  margin-top:var(--nav-h);
+  width:100%;
+  line-height:0;
+  overflow:hidden;
+}
+.hero-banner-img{
+  width:100%;
+  height:450px;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
+.trust-avatars{display:flex;}
+.trust-avatars span{width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,0.18);background:linear-gradient(135deg,var(--blue),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;margin-left:-8px;font-family:'Space Grotesk',sans-serif;}
+.trust-avatars span:first-child{margin-left:0;}
+.trust-txt{font-size:13px;color:rgba(255,255,255,0.48);}
+.trust-txt b{color:rgba(255,255,255,0.82);}
+
+/* Hero right card */
+.hero-right{animation:fadeUp 0.7s 0.25s ease both;position:relative;}
+.hero-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(20px);border-radius:var(--r-2xl);padding:28px;position:relative;}
+.hero-card::before{content:'';position:absolute;inset:0;border-radius:var(--r-2xl);background:linear-gradient(135deg,rgba(30,95,168,0.1),rgba(184,134,11,0.05));pointer-events:none;}
+.hc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.hc-label{font-size:13px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;}
+.hc-live{display:flex;align-items:center;gap:6px;font-size:11px;color:#4ADE80;font-family:'Space Grotesk',sans-serif;font-weight:600;}
+.hc-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#4ADE80;flex-shrink:0;animation:pulse 1.5s ease-in-out infinite;}
+.lead-row{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:var(--r-md);padding:11px 13px;margin-bottom:8px;transition:background 0.2s;}
+.lead-row:last-of-type{margin-bottom:0;}
+.lead-row:hover{background:rgba(255,255,255,0.09);}
+.lr-flag{font-size:22px;flex-shrink:0;}
+.lr-info{flex:1;min-width:0;}
+.lr-country{font-size:13px;font-weight:600;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lr-product{font-size:11.5px;color:rgba(255,255,255,0.42);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lr-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;flex-shrink:0;}
+.s-new{background:rgba(74,222,128,0.15);color:#4ADE80;}
+.s-hot{background:rgba(251,146,60,0.15);color:#FB923C;}
+.s-ver{background:rgba(96,165,250,0.15);color:#60A5FA;}
+.hc-foot{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding-top:16px;margin-top:16px;border-top:1px solid rgba(255,255,255,0.07);}
+.hc-stat{text-align:center;}
+.hc-stat strong{display:block;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:white;line-height:1;}
+.hc-stat span{font-size:10px;color:rgba(255,255,255,0.36);font-family:'Space Grotesk',sans-serif;margin-top:2px;display:block;}
+.hero-pill{position:absolute;background:white;border-radius:12px;padding:10px 14px;box-shadow:0 8px 28px rgba(11,25,41,0.2);font-size:12.5px;font-weight:600;color:var(--navy);display:flex;align-items:center;gap:8px;white-space:nowrap;z-index:2;}
+.pill-top{top:-16px;right:-14px;animation:float 4s ease-in-out infinite;}
+.pill-bot{bottom:20px;left:-18px;animation:float 5s 1s ease-in-out infinite;}
+.pill-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0;}
+
+/* ── STATS BAR ── */
+.stats-bar{background:white;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);padding:0 var(--pad-x);position:relative;z-index:2;}
+.stats-inner{max-width:var(--page-max);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);}
+.stat-item{text-align:center;padding:14px 16px;border-right:1px solid var(--border-soft);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--navy);line-height:1;display:block;}
+.stat-lbl{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:1.5px;font-family:'Space Grotesk',sans-serif;margin-top:3px;display:block;}
+
+/* ── SERVICES GRID ── */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);}
+.svc-card{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:32px;transition:all 0.3s;position:relative;overflow:hidden;cursor:default;}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--blue-bright));transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.svc-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-mid);border-color:rgba(30,95,168,0.18);}
+.svc-card:hover::after{transform:scaleX(1);}
+.svc-icon{width:52px;height:52px;border-radius:14px;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:20px;transition:background 0.3s;}
+.svc-card:hover .svc-icon{background:var(--sky-mid);}
+.svc-card h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.3;}
+.svc-card p{font-size:13.5px;color:var(--text-mid);line-height:1.78;}
+.svc-more{display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:13px;font-weight:600;color:var(--blue);font-family:'Space Grotesk',sans-serif;transition:gap 0.2s;}
+.svc-card:hover .svc-more{gap:10px;}
+
+/* ── WHY SECTION ── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);}
+.why-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:var(--r-xl);padding:32px;transition:all 0.3s;position:relative;overflow:hidden;}
+.why-card:hover{background:rgba(255,255,255,0.07);border-color:rgba(184,134,11,0.28);transform:translateY(-3px);}
+.why-icon{font-size:34px;display:block;margin-bottom:14px;}
+.why-card h3{font-size:19px;font-weight:700;color:white;margin-bottom:10px;}
+.why-card p{font-size:13.5px;color:rgba(255,255,255,0.48);line-height:1.82;}
+.why-num{position:absolute;bottom:14px;right:20px;font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:700;color:rgba(30,95,168,0.22);line-height:1;pointer-events:none;}
+
+/* ── LEADS TABLE ── */
+.leads-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);position:relative;}
+.leads-blur::after{content:'Login to view all leads';position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(to bottom,transparent,rgba(239,245,251,0.95));display:flex;align-items:flex-end;justify-content:center;padding-bottom:28px;font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
+.lt-head{display:grid;grid-template-columns:2fr 2fr 1.5fr 1fr;background:var(--navy);padding:14px 24px;font-size:var(--fs-lbl);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.48);font-family:'Space Grotesk',sans-serif;}
+.lt-row{display:grid;grid-template-columns:2fr 2fr 1.5fr 1fr;padding:14px 24px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;transition:background 0.2s;}
+.lt-row:last-child{border-bottom:none;}
+.lt-row:hover{background:var(--sky);}
+.lt-country{font-weight:600;color:var(--navy);display:flex;align-items:center;gap:8px;}
+.lt-product,.lt-qty{color:var(--text-mid);}
+
+/* ── PROCESS ── */
+.process-wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+.process-wrap::before{content:'';position:absolute;top:35px;left:calc(12.5%);width:75%;height:2px;background:linear-gradient(90deg,var(--blue),var(--blue-mid),var(--gold));z-index:0;}
+.process-step{text-align:center;padding:0 18px;position:relative;z-index:1;}
+.ps-circle{width:70px;height:70px;border-radius:50%;background:white;border:2px solid var(--border-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--navy);box-shadow:var(--shadow-soft);transition:all 0.3s;}
+.process-step:hover .ps-circle{border-color:var(--blue);background:var(--blue);color:white;transform:scale(1.08);}
+.process-step h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.process-step p{font-size:13px;color:var(--text-mid);line-height:1.75;}
+
+/* ── TESTIMONIALS ── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap);}
+.testi-card{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden;transition:all 0.3s;}
+.testi-card:hover{box-shadow:var(--shadow-mid);transform:translateY(-3px);}
+.testi-card::before{content:'"';position:absolute;top:-12px;right:18px;font-family:'Cormorant Garamond',serif;font-size:96px;color:var(--sky-mid);line-height:1;pointer-events:none;}
+.testi-stars{color:#F59E0B;font-size:15px;margin-bottom:12px;letter-spacing:1px;}
+.testi-text{font-size:13.5px;color:var(--text-body);line-height:1.82;margin-bottom:20px;font-style:italic;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy));display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;flex-shrink:0;}
+.testi-name{font-weight:700;font-size:13.5px;color:var(--navy);}
+.testi-biz{font-size:12px;color:var(--text-light);}
+
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,var(--blue),var(--navy));padding:var(--sec-py) var(--pad-x);text-align:center;position:relative;overflow:hidden;}
+.cta-band::before{content:'';position:absolute;top:-30%;right:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.1),transparent 70%);}
+.cta-band h2{font-family:'Cormorant Garamond',serif;font-size:var(--fs-h2);font-weight:700;color:white;margin-bottom:16px;position:relative;z-index:1;}
+.cta-band h2 em{font-style:italic;color:var(--gold-light);}
+.cta-band p{font-size:16px;color:rgba(255,255,255,0.62);max-width:520px;margin:0 auto 36px;line-height:var(--lh);position:relative;z-index:1;}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .svc-grid{grid-template-columns:repeat(2,1fr);}
+  .process-wrap{grid-template-columns:repeat(2,1fr);gap:32px;}
+  .process-wrap::before{display:none;}
+  .testi-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .stats-inner{grid-template-columns:repeat(3,1fr);}
+  .stat-item:nth-child(4),.stat-item:nth-child(5){border-right:none;}
+  .svc-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .lt-head,.lt-row{grid-template-columns:2fr 2fr 1fr;}
+  .lt-head>*:nth-child(3),.lt-row>*:nth-child(3){display:none;}
+  .process-wrap{grid-template-columns:1fr 1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-item:nth-child(5){display:none;}
+  .process-wrap{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="services.html">Services</a>
+    <a href="about.html">About Us</a>
+    <a href="gst.html">GST Registration</a>
+    <a href="contact.html">Contact</a>
+    <a href="membership.html" class="nav-cta-outline">Membership Plans</a>
+    <a href="login.html" class="nav-cta-solid">Client Login →</a>
+  </div>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html" class="active">Home</a>
+  <a href="services.html">Services</a>
+  <a href="about.html">About Us</a>
+  <a href="gst.html">GST Registration</a>
+  <a href="contact.html">Contact</a>
+  <a href="terms.html">Terms &amp; Conditions</a>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="membership.html" class="m-cta">Membership Plans →</a>
+  <a href="login.html" class="m-cta m-cta-gold">Client Login →</a>
+</div>
+
+<!-- ═══ HERO / FULL-WIDTH BANNER ═══ -->
+<section class="hero">
+  <img class="hero-banner-img" src="assets/spices-banner.png" alt="Cooking Spices and Masala">
+</section>
+
+<!-- ═══ B2B CATEGORY GRID ═══ -->
+<section id="bgx-marketplace" style="background:#f5f5f5;padding:0;">
+<style>
+.bgx-wrap{display:flex;background:#f5f5f5;min-height:560px;border-top:1px solid #e5e7eb;}
+.bgx-sidebar{width:255px;flex-shrink:0;background:white;border-right:1px solid #e5e7eb;}
+.bgx-sidebar-head{background:linear-gradient(135deg,#2563eb,#7c3aed);padding:13px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.bgx-sidebar-head .bgx-bars{display:flex;flex-direction:column;gap:3px;}
+.bgx-sidebar-head .bgx-bars span{display:block;width:16px;height:2px;background:white;border-radius:2px;}
+.bgx-sidebar-head .bgx-hl{font-size:12.5px;font-weight:800;color:white;letter-spacing:1px;text-transform:uppercase;}
+.bgx-cat{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-bottom:1px solid #f3f4f6;border-left:3px solid transparent;transition:all .15s;background:white;}
+.bgx-cat:hover{background:#f0f4ff;}
+.bgx-cat.active{background:linear-gradient(90deg,#eff6ff,#f5f3ff);border-left-color:#2563eb;}
+.bgx-cat .bgx-ci{font-size:16px;flex-shrink:0;}
+.bgx-cat .bgx-cn{flex:1;font-size:12.5px;font-weight:500;color:#374151;}
+.bgx-cat.active .bgx-cn{font-weight:700;color:#1d4ed8;}
+.bgx-cat .bgx-arr{font-size:14px;color:#9ca3af;}
+.bgx-cat.active .bgx-arr{color:#2563eb;}
+.bgx-more{padding:11px 16px;font-size:12.5px;color:#2563eb;font-weight:600;cursor:pointer;border-top:1px solid #e5e7eb;display:flex;align-items:center;gap:6px;}
+.bgx-right{flex:1;overflow:hidden;}
+.bgx-default{padding:20px;}
+.bgx-sec-title{font-size:20px;font-weight:700;color:#111827;margin-bottom:4px;}
+.bgx-sec-title em{color:#2563eb;font-style:normal;}
+.bgx-title-line{width:48px;height:3px;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:2px;margin-bottom:16px;}
+.bgx-trend-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:8px;margin-bottom:20px;scrollbar-width:none;}
+.bgx-trend-row::-webkit-scrollbar{display:none;}
+.bgx-tcard{flex-shrink:0;width:138px;background:white;border-radius:10px;overflow:hidden;border:1px solid #e5e7eb;cursor:pointer;transition:all .2s;}
+.bgx-tcard:hover{box-shadow:0 6px 20px rgba(37,99,235,.15);transform:translateY(-2px);border-color:#93c5fd;}
+.bgx-tcard img{width:100%;height:105px;object-fit:cover;display:block;background:#e8eaf6;}
+.bgx-tcard .bgx-tc-name{font-size:11.5px;font-weight:600;color:#374151;padding:8px 8px 10px;text-align:center;line-height:1.35;}
+.bgx-promos{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.bgx-promo{border-radius:12px;overflow:hidden;position:relative;min-height:168px;cursor:pointer;}
+.bgx-promo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.2;}
+.bgx-promo-inner{position:absolute;inset:0;display:flex;align-items:center;padding:0 22px;}
+.bgx-detail{display:none;}
+.bgx-detail.show{display:block;}
+.bgx-default.hide{display:none;}
+.bgx-back{background:none;border:none;color:#2563eb;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;padding:10px 20px 0;display:flex;align-items:center;gap:5px;}
+.bgx-det-head{padding:8px 20px 0;}
+.bgx-det-title{font-size:21px;font-weight:700;color:#111827;}
+.bgx-det-title em{color:#2563eb;font-style:normal;}
+.bgx-det-body{display:flex;margin-top:8px;}
+.bgx-hero{width:210px;flex-shrink:0;position:relative;min-height:400px;overflow:hidden;}
+.bgx-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.bgx-hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.65));}
+.bgx-hero-content{position:absolute;bottom:0;left:0;right:0;padding:18px 14px;}
+.bgx-hero-subs{list-style:none;margin-bottom:12px;}
+.bgx-hero-subs li{font-size:11.5px;font-weight:600;color:white;padding:3px 0;text-transform:uppercase;letter-spacing:.3px;opacity:.9;}
+.bgx-view-all{background:white;color:#2563eb;border:1.5px solid white;border-radius:6px;padding:6px 14px;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.bgx-subgrid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e7eb;overflow-y:auto;max-height:440px;}
+.bgx-subcard{background:white;padding:12px 13px;display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:background .15s;}
+.bgx-subcard:hover{background:#f0f4ff;}
+.bgx-subcard img{width:62px;height:62px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#f3f4f6;}
+.bgx-subcard .bgx-sc-title{font-size:12.5px;font-weight:700;color:#1f2937;margin-bottom:5px;line-height:1.3;}
+.bgx-subcard .bgx-sc-items{list-style:none;}
+.bgx-subcard .bgx-sc-items li{font-size:11px;color:#4b5563;padding:1.5px 0;}
+.bgx-subcard .bgx-sc-items li:hover{color:#2563eb;text-decoration:underline;}
+@media(max-width:768px){.bgx-sidebar{display:none;}.bgx-promos{grid-template-columns:1fr;}.bgx-subgrid{grid-template-columns:repeat(2,1fr);}.bgx-hero{display:none;}}
+</style>
+<div class="bgx-wrap">
+  <div class="bgx-sidebar">
+    <div class="bgx-sidebar-head" onclick="bgxShowDefault()">
+      <div class="bgx-bars"><span></span><span></span><span></span></div>
+      <span class="bgx-hl">All Categories</span>
+    </div>
+    <div id="bgxCatList"></div>
+    <div class="bgx-more">More Categories <span style="font-size:16px;font-weight:800;">+</span></div>
+  </div>
+  <div class="bgx-right">
+    <div class="bgx-default" id="bgxDefault">
+      <div class="bgx-sec-title">Trending <em>Categories</em></div>
+      <div class="bgx-title-line"></div>
+      <div class="bgx-trend-row" id="bgxTrend"></div>
+      <div class="bgx-trend-row" id="bgxTrend2" style="margin-bottom:20px;"></div>
+      <div class="bgx-promos">
+        <div class="bgx-promo" style="background:linear-gradient(135deg,#1e3a8a,#312e81);" onclick="bgxShowCat(8)">
+          <img src="https://images.unsplash.com/photo-1607166452427-7e4477079cb9?w=700&q=80" alt="">
+          <div class="bgx-promo-inner">
+            <div>
+              <div style="font-size:10px;color:#93c5fd;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Industry Focus</div>
+              <div style="font-size:17px;font-weight:800;color:white;line-height:1.2;margin-bottom:4px;">The Best Packaging<br>& Paper</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:14px;">at the Best Prices</div>
+              <button style="background:transparent;border:2px solid white;color:white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;">Explore Now →</button>
+            </div>
+          </div>
+        </div>
+        <div class="bgx-promo" style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);" onclick="bgxShowCat(4)">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="">
+          <div class="bgx-promo-inner" style="justify-content:flex-end;">
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:#c4b5fd;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Premium Collection</div>
+              <div style="font-size:17px;font-weight:800;color:white;line-height:1.2;margin-bottom:4px;">Furniture Hardware<br>& Accessories</div>
+              <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:14px;">Your Personal Stylists</div>
+              <button style="background:#1f2937;border:none;color:white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;">Explore Now →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bgx-detail" id="bgxDetail">
+      <button class="bgx-back" onclick="bgxShowDefault()">← All Categories</button>
+      <div class="bgx-det-head"><div class="bgx-det-title" id="bgxDetTitle"></div><div style="width:48px;height:3px;background:linear-gradient(90deg,#2563eb,#7c3aed);border-radius:2px;margin-top:5px;"></div></div>
+      <div class="bgx-det-body">
+        <div class="bgx-hero"><img id="bgxHeroImg" src="" alt=""><div class="bgx-hero-ov"></div><div class="bgx-hero-content"><ul class="bgx-hero-subs" id="bgxHeroSubs"></ul><button class="bgx-view-all">View All</button></div></div>
+        <div class="bgx-subgrid" id="bgxSubgrid"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var BGX_CATS=[{icon:"🌾",name:"Agriculture",short:"Agriculture, Forestry & Farming",heroImg:"https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=400&q=80",heroSubs:["Fresh, Preserved & Dried Fruits","Food Grains, Cereals & Flour","Dry Fruits & Nuts"],subs:[{title:"Fresh Flowers And Plants",img:"https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=200&q=80",items:["Natural Flowers","Fruit Plants","Flowering Plants","Dry Leaves"]},{title:"Fresh Preserved & Dried Fruits",img:"https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80",items:["Fresh Fruit","Fruit Pulp","Citrus Fruit","Fruit Powder"]},{title:"Fresh Dried & Preserved Vegetables",img:"https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=80",items:["Fresh Vegetables","Frozen Vegetables","Dry Vegetables","Root Vegetables"]},{title:"Food Grains Cereals & Flour",img:"https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&q=80",items:["Food Grains","Rice","Pulses","Flours"]},{title:"Dry Fruits & Nuts",img:"https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=200&q=80",items:["Edible Nuts","Cashew","Raisins","Dates"]},{title:"Agriculture Equipment",img:"https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=200&q=80",items:["Agriculture Equipment","Agriculture Sprayer","Agricultural Machine","Grain Processing Machine"]},{title:"Bird Poultry & Animal Food",img:"https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&q=80",items:["Animal Feed","Animal Feed Supplement","Oil Cake","Poultry Feed"]},{title:"Soil Additives & Fertilizers",img:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80",items:["Micronutrient Fertilizers","Fertilizer","Plant Growth Promoters"]},{title:"Seeds & Plant Saplings",img:"https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=200&q=80",items:["Flower Seeds","Grain Seeds","Seeds","Vegetable Seeds"]}]},{icon:"👗",name:"Apparel & Fashion",short:"Apparel & Garments",heroImg:"https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80",heroSubs:["Kids Dress & Clothing","Leather Clothing","Footwear"],subs:[{title:"Kids Dress & Clothing",img:"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200&q=80",items:["Boys Clothes","Girls Garments","Kids Frock","Kids Socks"]},{title:"Men Clothing",img:"https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=200&q=80",items:["Mens Shirts","Mens T-shirts","Mens Shorts","Mens Jeans"]},{title:"Women Clothing",img:"https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=200&q=80",items:["Ladies Suits","Ladies Tops","Ladies Kurties","Ladies Jeans"]},{title:"Footwear",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80",items:["Ladies Shoes","Mens Shoes","Slipper"]},{title:"Caps Hats & Headwears",img:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80",items:["Apparel Cap","Fashion Caps","Winter Caps","Security Cap"]},{title:"Designer & Fashion Bags",img:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80",items:["Designer Bag","Embroidered Bags","Handmade Bags","Ladies Bags"]},{title:"Sarees & Lehenga",img:"https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80",items:["Designer Sarees","Embroidered Sarees","Ladies Sarees","Lehenga Choli"]},{title:"Leather Clothing",img:"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&q=80",items:["Leather Gloves","Leather Jacket"]},{title:"Undergarment & Inner Wear",img:"https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=200&q=80",items:["Beach Wear","Beach Pareos"]}]},{icon:"⚡",name:"Electricals & Electronics",short:"Electricals & Electronics",heroImg:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80",heroSubs:["CCTV Surveillance System","Computer Hard Disk RAM","CD DVD MP3 & Audio"],subs:[{title:"Adaptors Plugs & Sockets",img:"https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=200&q=80",items:["Power Adapter","Electric Socket","Extension Board","Plugs"]},{title:"Biometrics & Access Control",img:"https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=200&q=80",items:["Fingerprint Scanners","POS Machine","Card Readers","Barcode Scanners"]},{title:"Camera & Photography",img:"https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=200&q=80",items:["Camera","Industrial Cameras","Memory Card","Camera Accessories"]},{title:"CCTV Surveillance System",img:"https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=200&q=80",items:["CCTV Camera","Dome Camera","Night Vision Camera","Surveillance Parts"]},{title:"CD DVD MP3 & Audio",img:"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80",items:["Video Recorder","Media Switches","Digital Video Recorder","AV Accessories"]},{title:"Computer Hard Disk RAM",img:"https://images.unsplash.com/photo-1562408590-e32931084e23?w=200&q=80",items:["Pen Drive","Hard Disk Drive","Compact Disc","Data Storage Device"]},{title:"Computer Hardware",img:"https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=200&q=80",items:["Product Designing","Prototyping Services","Electronics Manufacturing","Motherboard"]},{title:"Computer PCI Cards",img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=200&q=80",items:["Computer Cables","PCI Cards","Computer Graphic Card"]},{title:"Cleaning Machines",img:"https://images.unsplash.com/photo-1563453392212-326f5e854473?w=200&q=80",items:["Vacuum Cleaner","Vehicle Washers","Pressure Washer","Scrubbing Machine"]}]},{icon:"🏠",name:"Home Supplies",short:"Home Supplies & Furnishings",heroImg:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80",heroSubs:["Kitchen Appliances","Home Decor","Bed & Bath"],subs:[{title:"Kitchen Appliances",img:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&q=80",items:["Mixer Grinder","Microwave Oven","Refrigerator","Cooking Range"]},{title:"Home Decor",img:"https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&q=80",items:["Wall Decor","Photo Frames","Artificial Plants","Decorative Items"]},{title:"Bed & Bath",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80",items:["Bed Sheets","Pillows","Towels","Blankets"]},{title:"Lighting & Fixtures",img:"https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=200&q=80",items:["LED Lights","Ceiling Fans","Table Lamps","Night Lamps"]},{title:"Cleaning Products",img:"https://images.unsplash.com/photo-1563453392212-326f5e854473?w=200&q=80",items:["Floor Cleaners","Dishwash","Detergent","Sanitizers"]},{title:"Storage & Organisation",img:"https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=200&q=80",items:["Storage Boxes","Hangers","Racks","Organisers"]}]},{icon:"🪑",name:"Furniture & Carpentry",short:"Furniture & Carpentry Services",heroImg:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80",heroSubs:["Office Furniture","Bedroom Furniture","Furniture Hardware"],subs:[{title:"Office Furniture",img:"https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=200&q=80",items:["Office Chair","Office Desk","Conference Table","Storage Cabinet"]},{title:"Bedroom Furniture",img:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=200&q=80",items:["Bed","Wardrobe","Dressing Table","Bedside Table"]},{title:"Sofa & Seating",img:"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&q=80",items:["Sofa Sets","Recliners","Bean Bags","Sofa Cum Bed"]},{title:"Doors & Windows",img:"https://images.unsplash.com/photo-1531694611353-d4758f86fa6d?w=200&q=80",items:["Wooden Doors","uPVC Windows","Steel Doors","Glass Doors"]},{title:"Furniture Hardware",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80",items:["Door Handles","Hinges","Cabinet Locks","Drawer Slides"]},{title:"Wooden Furniture",img:"https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=200&q=80",items:["Teak Wood","Sheesham Wood","Plywood Furniture","Engineered Wood"]}]},{icon:"💄",name:"Health & Beauty",short:"Health Beauty & Personal Care",heroImg:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=400&q=80",heroSubs:["Skin Care Products","Hair Care","Cosmetics & Makeup"],subs:[{title:"Skin Care Products",img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=200&q=80",items:["Face Wash","Moisturizer","Sunscreen","Face Mask"]},{title:"Hair Care",img:"https://images.unsplash.com/photo-1559599101-f09722fb4948?w=200&q=80",items:["Shampoo","Hair Oil","Conditioner","Hair Mask"]},{title:"Cosmetics & Makeup",img:"https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=200&q=80",items:["Lipstick","Foundation","Eye Shadow","Mascara"]},{title:"Perfumes & Fragrances",img:"https://images.unsplash.com/photo-1541643600914-78b084683702?w=200&q=80",items:["Men Perfume","Women Perfume","Attar","Deodorant"]},{title:"Ayurvedic Products",img:"https://images.unsplash.com/photo-1615485291096-bce93ddc5e22?w=200&q=80",items:["Herbal Powder","Ayurvedic Medicine","Herbal Tea","Chyawanprash"]}]},{icon:"🏗️",name:"Construction Materials",short:"Construction & Building Materials",heroImg:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80",heroSubs:["Construction Aggregates","Doors & Windows","Marble & Granite"],subs:[{title:"Construction Aggregates",img:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&q=80",items:["Sand","Gravel","Crushed Stone","Ready Mix Concrete"]},{title:"Construction Machinery",img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=200&q=80",items:["Concrete Mixer","Crane","Excavator","Bulldozer"]},{title:"Doors & Windows",img:"https://images.unsplash.com/photo-1531694611353-d4758f86fa6d?w=200&q=80",items:["Wooden Doors","Steel Doors","uPVC Windows","Sliding Doors"]},{title:"Faucet Showers & Bathroom",img:"https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=200&q=80",items:["Shower Heads","Faucets","Bathroom Fittings","Taps"]},{title:"Industrial Pipe & Tube Fittings",img:"https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=200&q=80",items:["GI Pipes","PVC Pipes","HDPE Pipes","MS Pipes"]},{title:"Marble Granite & Stone",img:"https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=200&q=80",items:["White Marble","Black Granite","Sandstone","Slate Stone"]}]},{icon:"💎",name:"Jewelry & Crafts",short:"Jewelry & Jewelry Designers",heroImg:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&q=80",heroSubs:["Gold Jewelry","Silver Jewelry","Handicrafts"],subs:[{title:"Gold Jewelry",img:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=200&q=80",items:["Gold Necklace","Gold Bangles","Gold Earrings","Gold Rings"]},{title:"Silver Jewelry",img:"https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200&q=80",items:["Silver Necklace","Silver Bangles","Silver Anklets","Silver Rings"]},{title:"Fashion & Imitation Jewelry",img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=200&q=80",items:["Fashion Necklace","Artificial Jewelry","Kundan Jewelry","Oxidised Jewelry"]},{title:"Handicrafts",img:"https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?w=200&q=80",items:["Wooden Handicrafts","Brass Items","Terracotta Items","Marble Handicrafts"]},{title:"Gemstones",img:"https://images.unsplash.com/photo-1583943953832-a9ea9a2c1dbd?w=200&q=80",items:["Diamond","Emerald","Ruby","Sapphire"]}]},{icon:"📦",name:"Packaging & Paper",short:"Packaging Machines & Goods",heroImg:"https://images.unsplash.com/photo-1607166452427-7e4477079cb9?w=400&q=80",heroSubs:["Packaging Laminated Zip Bags","Packaging Films & Foils","Packaging Boxes"],subs:[{title:"Protective Packing Materials",img:"https://images.unsplash.com/photo-1595246140520-d8e03f83f85d?w=200&q=80",items:["EPE Foam","Thermocol","Packaging Foam","Protective Packaging"]},{title:"Disposable Cutlery & Crockery",img:"https://images.unsplash.com/photo-1576872381149-7847515ce5d8?w=200&q=80",items:["Paper Cups","Disposable Glasses","Disposable Cutlery","Disposable Containers"]},{title:"Packaging Boxes",img:"https://images.unsplash.com/photo-1607166452427-7e4477079cb9?w=200&q=80",items:["Wooden Packaging Box","Paper Box","Cardboard Packaging Box","Corrugated Packaging Boxes"]},{title:"Plastic Containers & Bottles",img:"https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=200&q=80",items:["Plastic Bottles","PET Bottles","Plastic Jars","Plastic Containers"]},{title:"Bulk Bags & Sacks",img:"https://images.unsplash.com/photo-1530062845289-9109b2c9c868?w=200&q=80",items:["Jumbo Bags","Gunny Bags","Woven Bags","Garbage and Waste Bags"]},{title:"Packaging Laminated & Zip Bags",img:"https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=200&q=80",items:["Food Packaging Bag","Packaging Envelopes","Plastic Bags","Printed Plastic Bag"]},{title:"Aluminium Tin Can & Metal",img:"https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=200&q=80",items:["Aluminium Containers","Tin Containers","Metal Containers","Tin Box"]},{title:"Packaging Films & Foils",img:"https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=200&q=80",items:["PVC Film","Protective Film","Laminated Rolls","Packaging Foil"]}]},{icon:"⚙️",name:"Industrial Machinery",short:"Industrial Machinery & Equipment",heroImg:"https://images.unsplash.com/photo-1565043666747-69f6646db940?w=400&q=80",heroSubs:["CNC Machines","Industrial Pumps","Welding Equipment"],subs:[{title:"CNC Machines & Tools",img:"https://images.unsplash.com/photo-1565043666747-69f6646db940?w=200&q=80",items:["CNC Lathe Machine","Milling Machine","Drilling Machine","Grinding Machine"]},{title:"Industrial Pumps",img:"https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=200&q=80",items:["Centrifugal Pumps","Submersible Pumps","Water Pumps","Chemical Pumps"]},{title:"Compressors",img:"https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=200&q=80",items:["Air Compressor","Screw Compressor","Reciprocating Compressor"]},{title:"Generators & Power",img:"https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=200&q=80",items:["Diesel Generator","Solar Generator","UPS","Inverter"]},{title:"Conveyor & Material Handling",img:"https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=200&q=80",items:["Belt Conveyor","Roller Conveyor","Forklift","Pallet Jack"]},{title:"Welding Equipment",img:"https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=200&q=80",items:["Welding Machine","Welding Electrodes","Plasma Cutter","Welding Helmet"]}]}];
+var BGX_TREND2=[{name:"Dry Fruits & Nuts",img:"https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=300&q=80",ci:0},{name:"Men Clothing",img:"https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=300&q=80",ci:1},{name:"CCTV Systems",img:"https://images.unsplash.com/photo-1557597774-9d475d030cc4?w=300&q=80",ci:2},{name:"Kitchen Appliances",img:"https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&q=80",ci:3},{name:"Office Furniture",img:"https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=300&q=80",ci:4},{name:"Skin Care",img:"https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=300&q=80",ci:5},{name:"Gold Jewelry",img:"https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=300&q=80",ci:7},{name:"CNC Machinery",img:"https://images.unsplash.com/photo-1565043666747-69f6646db940?w=300&q=80",ci:9}];
+var BGX_TREND=[{name:"Construction Aggregates",img:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&q=80",ci:6},{name:"Packaging Boxes",img:"https://images.unsplash.com/photo-1607166452427-7e4477079cb9?w=300&q=80",ci:8},{name:"Doors & Windows",img:"https://images.unsplash.com/photo-1531694611353-d4758f86fa6d?w=300&q=80",ci:4},{name:"Faucet & Bathroom",img:"https://images.unsplash.com/photo-1584622781564-1d987f7333c1?w=300&q=80",ci:6},{name:"Industrial Pipes",img:"https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=300&q=80",ci:9},{name:"Marble & Granite",img:"https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=300&q=80",ci:6},{name:"Spices & Masala",img:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=300&q=80",ci:0},{name:"Handicrafts",img:"https://images.unsplash.com/photo-1605117882932-f9e32b03fea9?w=300&q=80",ci:7}];
+(function(){var cl=document.getElementById('bgxCatList');BGX_CATS.forEach(function(c,i){var d=document.createElement('div');d.className='bgx-cat';d.dataset.idx=i;d.innerHTML='<span class="bgx-ci">'+c.icon+'</span><span class="bgx-cn">'+c.name+'</span><span class="bgx-arr">›</span>';d.onclick=function(){bgxShowCat(i);};cl.appendChild(d);});var tr=document.getElementById('bgxTrend');BGX_TREND.forEach(function(t){var d=document.createElement('div');d.className='bgx-tcard';d.innerHTML='<img src="'+t.img+'" alt="'+t.name+'" onerror="this.style.background=\'#e8eaf6\'"><div class="bgx-tc-name">'+t.name+'</div>';d.onclick=function(){bgxShowCat(t.ci);};tr.appendChild(d);});var tr2=document.getElementById('bgxTrend2');BGX_TREND2.forEach(function(t){var d=document.createElement('div');d.className='bgx-tcard';d.innerHTML='<img src="'+t.img+'" alt="'+t.name+'" onerror="this.style.background=\'#e8eaf6\'"><div class="bgx-tc-name">'+t.name+'</div>';d.onclick=function(){bgxShowCat(t.ci);};tr2.appendChild(d);});})();
+function bgxShowDefault(){document.querySelectorAll('.bgx-cat').forEach(function(e){e.classList.remove('active');});document.getElementById('bgxDefault').classList.remove('hide');document.getElementById('bgxDetail').classList.remove('show');}
+function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-cat').forEach(function(e){e.classList.remove('active');});var a=document.querySelector('.bgx-cat[data-idx="'+idx+'"]');if(a)a.classList.add('active');var parts=cat.short.split(' & ');var titleEl=document.getElementById('bgxDetTitle');if(parts.length>1){var last=parts.pop();titleEl.innerHTML=parts.join(' & ')+' <em style="color:#2563eb;font-style:normal;">& '+last+'</em>';}else{titleEl.textContent=cat.short;}document.getElementById('bgxHeroImg').src=cat.heroImg;var sl=document.getElementById('bgxHeroSubs');sl.innerHTML=cat.heroSubs.map(function(s){return'<li>'+s+'</li>';}).join('');var sg=document.getElementById('bgxSubgrid');sg.innerHTML=cat.subs.map(function(s){return'<div class="bgx-subcard"><img src="'+s.img+'" alt="'+s.title+'" onerror="this.style.background=\'#e8eaf6\'"><div><div class="bgx-sc-title">'+s.title+'</div><ul class="bgx-sc-items">'+s.items.map(function(i){return'<li>'+i+'</li>';}).join('')+'</ul></div></div>';}).join('');document.getElementById('bgxDefault').classList.add('hide');document.getElementById('bgxDetail').classList.add('show');}
+</script>
+</section>
+<!-- ═══ END B2B CATEGORY GRID ═══ -->
+
+<!-- ═══ STATS BAR ═══ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><span class="stat-num" data-count="200" data-suffix="+">0+</span><span class="stat-lbl">Active Members</span></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="50"  data-suffix="+">0+</span><span class="stat-lbl">Countries Covered</span></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="500" data-suffix="+">0+</span><span class="stat-lbl">Leads Per Month</span></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="12"  data-suffix="+">0+</span><span class="stat-lbl">Product Categories</span></div>
+    <div class="stat-item reveal"><span class="stat-num" data-count="98"  data-suffix="%">0%</span><span class="stat-lbl">Member Satisfaction</span></div>
+  </div>
+</div>
+
+<!-- ═══ FASHION BANNER ═══ -->
+<div style="width:100%;line-height:0;overflow:hidden;display:block;">
+  <img src="assets/fashion-banner.png" alt="Premium Fashion, Global Trade — BuyGenix Solutions" style="width:100%;height:auto;display:block;">
+</div>
+<!-- ═══ END FASHION BANNER ═══ -->
+
+<!-- ═══ APPAREL CATEGORY GRID ═══ -->
+<section style="background:#f7f7f7;padding:32px 0;">
+<style>
+.agc{transition:background .15s;}
+.agc:hover{background:#f0f4ff !important;}
+.agc:hover .agc-title{color:#2563eb;}
+.agc-title{font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;transition:color .15s;}
+.agc ul li:hover{color:#2563eb;text-decoration:underline;cursor:pointer;}
+</style>
+
+  <!-- Title -->
+  <div style="text-align:center;margin-bottom:20px;padding:0 24px;">
+    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
+      Apparel <span style="color:#2563eb;">&</span> Garments
+    </h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:220px;margin:0 auto;">
+      <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
+      <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- Full-width body -->
+  <div style="display:flex;gap:0;background:white;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;overflow:hidden;width:100%;">
+
+    <!-- LEFT HERO — fixed width, full height -->
+    <div style="width:240px;flex-shrink:0;position:relative;min-height:480px;overflow:hidden;">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80" alt="Apparel"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,150,180,.3),rgba(0,0,0,.65));"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px;">
+        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Kids Dress &amp; Clothing</p>
+        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Leather Clothing</p>
+        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:18px;opacity:.95;">Footwear</p>
+        <button style="background:white;color:#2563eb;border:1.5px solid white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">View All</button>
+      </div>
+    </div>
+
+    <!-- RIGHT GRID — takes remaining full width -->
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e7eb;">
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Kids Dress &amp; Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Boys Clothes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Girls Garments</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Kids Frock</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Kids Socks</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Men Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shirts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens T-shirts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shorts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Jeans</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Women Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Suits</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Tops</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Kurties</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Jeans</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Footwear</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Shoes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shoes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Slipper</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Undergarment and Inner Wear</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Beach Wear</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Beach Pareos</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Leather Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Leather Gloves</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Leather Jacket</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Caps, Hats &amp; Headwears</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Apparel Cap</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fashion Caps</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Winter Caps</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Security Cap</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Designer &amp; Fashion Bags</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Designer Bag</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Embroidered Bags</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Handmade Bags</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Bags</li></ul></div>
+      </div>
+
+      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
+        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+        <div><div class="agc-title">Sarees &amp; Lehenga</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Designer Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Embroidered Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Lehenga Choli</li></ul></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- ═══ END APPAREL CATEGORY GRID ═══ -->
+
+<!-- ═══ AGRICULTURE CATEGORY GRID ═══ -->
+<section style="background:#f7f7f7;padding:32px 0;">
+
+    <div style="text-align:center;margin-bottom:20px;padding:0 24px;">
+      <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
+        Agriculture, Forestry <span style="color:#2563eb;">&</span> Farming
+      </h2>
+      <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;">
+        <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
+        <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0;background:white;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;overflow:hidden;width:100%;">
+
+      <!-- LEFT HERO -->
+      <div style="width:220px;flex-shrink:0;position:relative;min-height:460px;overflow:hidden;">
+        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&q=80" alt="Agriculture"
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.68));"></div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px;">
+          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Fresh, Preserved &amp; Dried Fruits</p>
+          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Food Grains, Cereals &amp; Flour</p>
+          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:18px;opacity:.95;">Dry Fruits &amp; Nuts</p>
+          <button style="background:white;color:#2563eb;border:1.5px solid white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">View All</button>
+        </div>
+      </div>
+
+      <!-- RIGHT GRID -->
+      <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e7eb;">
+
+        <!-- Fresh Flowers And Plants -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=200&q=80" alt="Flowers"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh Flowers And Plants</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Natural Flowers</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Plants</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flowering Plants</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dry Leaves</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Fresh Preserved & Dried Fruits -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80" alt="Fruits"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh, Preserved &amp; Dried Fruits</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fresh Fruit</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Pulp</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Citrus Fruit</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Powder</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Fresh Dried & Preserved Vegetables -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=80" alt="Vegetables"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh, Dried &amp; Preserved Veg...</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fresh Vegetables</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Frozen Vegetables</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dry Vegetables</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Root Vegetables</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Food Grains Cereals & Flour -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&q=80" alt="Grains"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Food Grains, Cereals &amp; Flour</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Food Grains</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Rice</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Pulses</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flours</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Dry Fruits & Nuts -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=200&q=80" alt="Dry Fruits"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Dry Fruits &amp; Nuts</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Edible Nuts</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Cashew</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Raisins</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dates</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Agriculture Equipment -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=200&q=80" alt="Equipment"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Agriculture Equipment And S...</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agriculture Equipment</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agriculture Sprayer</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agricultural Machine</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Grain Processing Machine</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bird Poultry & Animal Food -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&q=80" alt="Animal Food"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:6px;">Bird, Poultry &amp; Animal Food</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Animal Feed</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Animal Feed Supplement</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Oil Cake</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Poultry Feed</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Soil Additives & Fertilizers -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" alt="Fertilizers"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Soil Additives &amp; Fertilizers</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Micronutrient Fertilizers</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fertilizer</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Plant Growth Promoters</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Seeds & Plant Saplings -->
+        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
+          <img src="https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=200&q=80" alt="Seeds"
+            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Seeds &amp; Plant Saplings</div>
+            <ul style="list-style:none;padding:0;margin:0;">
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flower Seeds</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Grain Seeds</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Seeds</li>
+              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Vegetable Seeds</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══ END AGRICULTURE CATEGORY GRID ═══ -->
+
+<!-- ═══ SERVICES ═══ -->
+<section class="section" style="background:var(--sky);">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="eyebrow">What We Offer</div>
+      <h2>Everything Your Export Business <em>Needs to Grow</em></h2>
+      <p>From verified buyer leads to digital catalogues, GST assistance to relationship management — BuyGenix is your complete export growth partner.</p>
+    </div>
+    <div class="svc-grid reveal-stagger">
+      <div class="svc-card"><div class="svc-icon">🎯</div><h3>Verified Buyer Leads</h3><p>Receive verified buyer enquiries from 50+ countries, matched to your exact product categories. Indian and international leads delivered via WhatsApp and email.</p><a href="services.html#leads" class="svc-more">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-icon">🤝</div><h3>Dedicated Relationship Manager</h3><p>Every member gets a dedicated RM who understands your business, coordinates lead delivery, and provides personalised export guidance throughout your membership.</p><a href="services.html#rm" class="svc-more">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-icon">📖</div><h3>Digital Product Catalogue</h3><p>Professionally designed digital catalogue listing your products with images, specifications and contact details — shareable with international buyers globally.</p><a href="services.html#catalogue" class="svc-more">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-icon">🔍</div><h3>SEO &amp; Social Media</h3><p>Search engine optimisation for your product pages and social media management to build your brand and attract organic international buyer enquiries.</p><a href="services.html#seo" class="svc-more">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-icon">🪪</div><h3>Virtual Business Card</h3><p>A professional digital business card with your company profile, product information and QR code — shareable instantly at trade fairs and online.</p><a href="services.html#vcard" class="svc-more">Learn more →</a></div>
+      <div class="svc-card"><div class="svc-icon">📋</div><h3>GST &amp; Registration Help</h3><p>Expert assistance with GST registration, IEC (Import Export Code), MSME registration and FSSAI licensing — essential credentials for every exporter.</p><a href="gst.html" class="svc-more">Learn more →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY BUYGENIX ═══ -->
+<section class="section section-dark" style="background:var(--navy);">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="eyebrow">Why Choose Us</div>
+      <h2>Built <em>Exclusively</em> for Indian Exporters</h2>
+      <p>We understand the challenges Indian businesses face in global trade. BuyGenix was built to solve them all.</p>
+    </div>
+    <div class="why-grid reveal-stagger">
+      <div class="why-card"><span class="why-icon">✅</span><h3>All Leads Are Verified</h3><p>Every buyer enquiry is manually verified by our team before delivery. You receive only genuine, interested buyers — never cold or junk leads.</p><span class="why-num">01</span></div>
+      <div class="why-card"><span class="why-icon">🌍</span><h3>50+ Countries Covered</h3><p>Our buyer network spans over 50 countries across Europe, Middle East, Americas, Africa and Asia Pacific — giving Indian exporters truly global reach.</p><span class="why-num">02</span></div>
+      <div class="why-card"><span class="why-icon">👤</span><h3>Dedicated Human Support</h3><p>Every member has a real, named Relationship Manager available via WhatsApp and email — a person who knows your business and your goals.</p><span class="why-num">03</span></div>
+      <div class="why-card"><span class="why-icon">📈</span><h3>Full Export Ecosystem</h3><p>From your first GST registration to your hundredth export shipment, BuyGenix supports every step — leads, catalogue, registrations, SEO, and strategy.</p><span class="why-num">04</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BUYER LEADS PREVIEW ═══ -->
+<section class="section" style="background:var(--sky);">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="eyebrow">Sample Buyer Leads</div>
+      <h2>Real Buyers. Real <em>Demand</em>.</h2>
+      <p>A glimpse of the verified buyer enquiries our members receive — matched to product category and delivered directly to them.</p>
+    </div>
+    <div class="leads-table-wrap leads-blur reveal">
+      <div class="lt-head"><span>Buyer Country</span><span>Product Required</span><span>Qty Required</span><span>Status</span></div>
+      <div class="lt-row"><span class="lt-country">🇩🇪 Germany</span><span class="lt-product">Organic Turmeric</span><span class="lt-qty">5 MT / month</span><span><span class="badge badge-green">New</span></span></div>
+      <div class="lt-row"><span class="lt-country">🇦🇪 UAE</span><span class="lt-product">Basmati Rice</span><span class="lt-qty">10 MT / month</span><span><span class="badge badge-orange">Hot</span></span></div>
+      <div class="lt-row"><span class="lt-country">🇺🇸 USA</span><span class="lt-product">Cotton Fabric</span><span class="lt-qty">2,000 metres</span><span><span class="badge badge-blue">Verified</span></span></div>
+      <div class="lt-row"><span class="lt-country">🇬🇧 UK</span><span class="lt-product">Brass Handicrafts</span><span class="lt-qty">500 units</span><span><span class="badge badge-green">New</span></span></div>
+      <div class="lt-row"><span class="lt-country">🇸🇬 Singapore</span><span class="lt-product">Black Pepper</span><span class="lt-qty">2 MT / month</span><span><span class="badge badge-orange">Hot</span></span></div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:28px;">
+      <p style="font-size:14px;color:var(--text-mid);margin-bottom:18px;">These are sample leads. Members receive leads matched to their exact product categories.</p>
+      <a href="membership.html" class="btn-primary">Get Access to All Leads →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section" style="background:white;">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="eyebrow">How It Works</div>
+      <h2>Get Started in <em>4 Simple Steps</em></h2>
+      <p>From sign-up to receiving your first verified buyer lead — our onboarding is fast, simple, and fully supported.</p>
+    </div>
+    <div class="process-wrap reveal-stagger">
+      <div class="process-step"><div class="ps-circle">1</div><h4>Choose Your Plan</h4><p>Select the membership plan that fits your business stage and export ambitions.</p></div>
+      <div class="process-step"><div class="ps-circle">2</div><h4>Profile Setup</h4><p>Your dedicated RM contacts you within 24 hours to set up your product profile and catalogue.</p></div>
+      <div class="process-step"><div class="ps-circle">3</div><h4>Receive Leads</h4><p>Verified buyer enquiries arrive via WhatsApp and email, matched to your product categories.</p></div>
+      <div class="process-step"><div class="ps-circle">4</div><h4>Close Deals &amp; Grow</h4><p>Connect with buyers, close orders, and track your performance with RM support at every step.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section" style="background:var(--sky);">
+  <div class="section-inner">
+    <div class="section-head reveal">
+      <div class="eyebrow">Member Stories</div>
+      <h2>Trusted by Indian <em>Exporters</em></h2>
+      <p>Our members are building real export businesses with real results. Here is what they say.</p>
+    </div>
+    <div class="testi-grid reveal-stagger">
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">BuyGenix connected me with a serious buyer in Germany within the first month. The lead was verified and my RM guided me throughout. Absolutely worth the investment.</p><div class="testi-author"><div class="testi-av">RS</div><div><div class="testi-name">Rajesh Sharma</div><div class="testi-biz">RS Textiles Pvt Ltd — Delhi</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">The Growth Plan gave me access to international leads I would never have found on my own. My RM Priya is exceptional — she knows the export business inside out.</p><div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--gold),var(--gold-bright));">PV</div><div><div class="testi-name">Priya Verma</div><div class="testi-biz">Priya Spice Exports — Mumbai</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">GST registration, IEC, MSME — BuyGenix handled everything for my handicrafts business. The digital catalogue has helped me at every trade fair I attend.</p><div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,#5B3A8A,#8B5CF6);">KJ</div><div><div class="testi-name">Kiran Joshi</div><div class="testi-biz">Kiran Handicrafts — Jaipur</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<div class="cta-band">
+  <h2>Ready to Take Your Business <em>Global?</em></h2>
+  <p>Join 200+ Indian exporters already growing their international business with BuyGenix Solutions. Your first buyer lead is waiting.</p>
+  <div class="cta-btns">
+    <a href="membership.html" class="btn-gold btn-lg">View Membership Plans →</a>
+    <a href="contact.html"    class="btn-outline-white btn-lg">Talk to Our Team</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="footer-logo-name">Buy<span>genix</span> Solutions</div><p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p><div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank" rel="noopener">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank" rel="noopener">📘</a><a href="https://wa.me/919818187246" target="_blank" rel="noopener">💬</a><a href="mailto:Buygenixsolutions@gmail.com">📧</a></div></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership Plans</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html#leads">Buyer Leads</a></li><li><a href="services.html#catalogue">Digital Catalogue</a></li><li><a href="services.html#seo">SEO &amp; SMO</a></li><li><a href="services.html#vcard">Virtual Business Card</a></li><li><a href="gst.html">GST Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Legal &amp; Support</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="login.html">Client Login</a></li><li><a href="contact.html">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BuyGenix Solutions. All rights reserved. &nbsp;|&nbsp; Buygenixsolutions@gmail.com &nbsp;|&nbsp; +91 98181 87246</p>
+    <p>🇮🇳 Made in India &nbsp;·&nbsp; Serving Exporters Globally</p>
+  </div>
+</footer>
+<a href="https://wa.me/919818187246" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js"></script>
+</body>
+</html>
