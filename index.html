@@ -326,148 +326,43 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ APPAREL CATEGORY GRID ═══ -->
 <section style="background:#f3f4f6;padding:28px 16px;">
 <style>
-.agc2{background:#fff;border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:box-shadow .18s,transform .18s;box-shadow:0 1px 4px rgba(0,0,0,.07);}
-.agc2:hover{box-shadow:0 6px 20px rgba(37,99,235,.13);transform:translateY(-2px);}
-.agc2:hover .agc2-title{color:#2563eb;}
-.agc2-title{font-size:13.5px;font-weight:700;color:#1f2937;margin-bottom:5px;line-height:1.3;transition:color .15s;}
-.agc2-arrow{display:inline-block;margin-top:8px;font-size:13px;color:#2563eb;font-weight:700;}
+.cat-vcard{background:#fff;border-radius:10px;overflow:hidden;cursor:pointer;transition:box-shadow .18s,transform .18s;box-shadow:0 1px 4px rgba(0,0,0,.07);display:flex;flex-direction:column;}
+.cat-vcard:hover{box-shadow:0 6px 20px rgba(37,99,235,.14);transform:translateY(-3px);}
+.cat-vcard img{width:100%;height:140px;object-fit:cover;display:block;flex-shrink:0;}
+.cat-vcard-title{font-size:12px;font-weight:700;color:#1f2937;padding:9px 8px 10px;text-align:center;line-height:1.3;transition:color .15s;}
+.cat-vcard:hover .cat-vcard-title{color:#2563eb;}
 </style>
 
-  <!-- Section Title -->
   <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
-      Apparel <span style="color:#2563eb;">&amp;</span> Garments
-    </h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:220px;margin:0 auto;">
-      <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
-      <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
-      <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
-    </div>
+    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Apparel <span style="color:#2563eb;">&amp;</span> Garments</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:220px;margin:0 auto;"><div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div></div>
   </div>
 
-  <!-- 4×3 Grid -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:100%;">
-
-    <!-- 1 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Kids Dress &amp; Clothing</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Boys Clothes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Girls Garments</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Kids Frock</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Kids Socks</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 2 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Men Clothing</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shirts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens T-Shirts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shorts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Jeans</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Women Clothing</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Suits</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Tops</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Kurtis</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Jeans</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Footwear</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Shoes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shoes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Slipper</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Undergarment and Inner Wear</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Boxer/Trunks</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Brach/Panties</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 6 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Leather Clothing</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Leather Jackets</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Leather Gloves</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Caps, Hats &amp; Headwears</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Apparel Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fashion Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Winter Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Security Cap</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 8 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Designer &amp; Fashion Bags</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Designer Bag</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Embroidered Bags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Handmade Bags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Bags</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 9 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Sarees &amp; Lehenga</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Designer Saree</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Embroidered Saree</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Lehenga Sarees</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Lehenga Choli</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 10 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Wallets, Purses &amp; Handbags</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Wallets</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Purses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Handbags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Clutches</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 11 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Fashion Accessories</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Sunglasses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Watches</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Belts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Jewelry</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 12 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Fabrics &amp; Textiles</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cotton Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Polyester Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Linen Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Denim Fabric</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&q=80" alt="Kids Dress"><div class="cat-vcard-title">Kids Dress &amp; Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400&q=80" alt="Men Clothing"><div class="cat-vcard-title">Men Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=400&q=80" alt="Women Clothing"><div class="cat-vcard-title">Women Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Footwear"><div class="cat-vcard-title">Footwear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&q=80" alt="Leather Clothing"><div class="cat-vcard-title">Leather Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80" alt="Caps & Hats"><div class="cat-vcard-title">Caps, Hats &amp; Headwears</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80" alt="Sarees"><div class="cat-vcard-title">Sarees &amp; Lehenga</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80" alt="Fashion Bags"><div class="cat-vcard-title">Designer &amp; Fashion Bags</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&q=80" alt="Wallets"><div class="cat-vcard-title">Wallets, Purses &amp; Handbags</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&q=80" alt="Accessories"><div class="cat-vcard-title">Fashion Accessories</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=400&q=80" alt="Fabrics"><div class="cat-vcard-title">Fabrics &amp; Textiles</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&q=80" alt="Undergarment"><div class="cat-vcard-title">Undergarment &amp; Inner Wear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80" alt="Ethnic Wear"><div class="cat-vcard-title">Ethnic &amp; Traditional Wear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=400&q=80" alt="Sportswear"><div class="cat-vcard-title">Sports &amp; Active Wear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?w=400&q=80" alt="Winter Clothing"><div class="cat-vcard-title">Winter &amp; Woollen Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=400&q=80" alt="Bridal Wear"><div class="cat-vcard-title">Bridal &amp; Wedding Wear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1604176354204-9268737828e4?w=400&q=80" alt="Nightwear"><div class="cat-vcard-title">Nightwear &amp; Loungewear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=400&q=80" alt="Baby Clothing"><div class="cat-vcard-title">Baby &amp; Infant Clothing</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&q=80" alt="Sunglasses"><div class="cat-vcard-title">Sunglasses &amp; Eyewear</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&q=80" alt="Printed T-Shirts"><div class="cat-vcard-title">Printed T-Shirts &amp; Hoodies</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=400&q=80" alt="Denim"><div class="cat-vcard-title">Denim &amp; Jeans Collection</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=400&q=80" alt="Uniforms"><div class="cat-vcard-title">Workwear &amp; Uniforms</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80" alt="Luxury Fashion"><div class="cat-vcard-title">Luxury &amp; Designer Fashion</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=400&q=80" alt="Swimwear"><div class="cat-vcard-title">Swimwear &amp; Beachwear</div></div>
   </div>
 </section>
 <!-- ═══ END APPAREL CATEGORY GRID ═══ -->
@@ -481,141 +376,36 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ AGRICULTURE CATEGORY GRID ═══ -->
 <section style="background:#f3f4f6;padding:28px 16px;">
 
-  <!-- Section Title -->
   <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
-      Agriculture, Forestry <span style="color:#2563eb;">&amp;</span> Farming
-    </h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;">
-      <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
-      <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
-      <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
-    </div>
+    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Agriculture, Forestry <span style="color:#2563eb;">&amp;</span> Farming</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div></div>
   </div>
 
-  <!-- 4×3 Grid -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:100%;">
-
-    <!-- 1 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Fresh Flowers &amp; Plants</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Natural Flowers</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Plants</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flowering Plants</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dry Leaves</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 2 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Fresh, Preserved &amp; Dried Fruits</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fresh Fruit</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Pulp</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Citrus Fruit</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Powder</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 3 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Fresh, Dried &amp; Preserved Vegetables</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fresh Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Frozen Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dry Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Root Vegetables</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 4 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Food Grains, Cereals &amp; Flour</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Food Grains</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Rice</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Pulses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flours</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 5 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Dry Fruits &amp; Nuts</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Edible Nuts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cashew</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Raisins</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dates</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 6 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Agriculture Equipment &amp; Supplies</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agriculture Equipment</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agriculture Sprayer</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agricultural Machine</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Grain Processing Machine</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 7 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Bird, Poultry &amp; Animal Food</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Animal Feed</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Animal Feed Supplement</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Oil Cake</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Poultry Feed</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 8 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Soil Additives &amp; Fertilizers</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Micronutrient Fertilizers</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fertilizer</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plant Growth Promoters</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Organic Manure</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 9 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Seeds &amp; Plant Saplings</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flower Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Grain Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Vegetable Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plant Saplings</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 10 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Spices &amp; Herbs</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Turmeric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cumin</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Coriander</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Black Pepper</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 11 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Sugar, Jaggery &amp; Sweeteners</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Sugar</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Jaggery</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Honey</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Molasses</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
-    <!-- 12 -->
-    <div class="agc2">
-      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-      <div style="flex:1;min-width:0;">
-        <div class="agc2-title">Wood &amp; Timber Products</div>
-        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Timber Logs</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Bamboo</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Wood Boards</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plywood</li></ul>
-        <span class="agc2-arrow">→</span>
-      </div>
-    </div>
-
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;">
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=400&q=80" alt="Flowers"><div class="cat-vcard-title">Fresh Flowers &amp; Plants</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=400&q=80" alt="Fruits"><div class="cat-vcard-title">Fresh &amp; Preserved Fruits</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&q=80" alt="Vegetables"><div class="cat-vcard-title">Fresh &amp; Dried Vegetables</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&q=80" alt="Grains"><div class="cat-vcard-title">Food Grains, Cereals &amp; Flour</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=400&q=80" alt="Dry Fruits"><div class="cat-vcard-title">Dry Fruits &amp; Nuts</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&q=80" alt="Spices"><div class="cat-vcard-title">Spices &amp; Herbs</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=400&q=80" alt="Equipment"><div class="cat-vcard-title">Agriculture Equipment</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=400&q=80" alt="Animal Food"><div class="cat-vcard-title">Bird, Poultry &amp; Animal Food</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80" alt="Fertilizers"><div class="cat-vcard-title">Soil Additives &amp; Fertilizers</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=400&q=80" alt="Seeds"><div class="cat-vcard-title">Seeds &amp; Plant Saplings</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=400&q=80" alt="Sugar"><div class="cat-vcard-title">Sugar, Jaggery &amp; Sweeteners</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" alt="Wood"><div class="cat-vcard-title">Wood &amp; Timber Products</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?w=400&q=80" alt="Tea Coffee"><div class="cat-vcard-title">Tea, Coffee &amp; Beverages</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1608686207856-001b95cf60ca?w=400&q=80" alt="Organic"><div class="cat-vcard-title">Organic &amp; Natural Products</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80" alt="Dairy"><div class="cat-vcard-title">Dairy &amp; Milk Products</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400&q=80" alt="Pulses"><div class="cat-vcard-title">Pulses &amp; Legumes</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1531069900557-97e4e48c6c23?w=400&q=80" alt="Cotton"><div class="cat-vcard-title">Cotton &amp; Natural Fibers</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1615485291096-bce93ddc5e22?w=400&q=80" alt="Medicinal"><div class="cat-vcard-title">Medicinal &amp; Aromatic Herbs</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80" alt="Edible Oils"><div class="cat-vcard-title">Edible Oils &amp; Fats</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" alt="Bamboo"><div class="cat-vcard-title">Bamboo &amp; Cane Products</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1606914501449-5a96b6ce24ca?w=400&q=80" alt="Pickles"><div class="cat-vcard-title">Pickles &amp; Preserves</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?w=400&q=80" alt="Frozen Foods"><div class="cat-vcard-title">Frozen &amp; Processed Foods</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80" alt="Mushrooms"><div class="cat-vcard-title">Mushrooms &amp; Exotic Produce</div></div>
+    <div class="cat-vcard"><img src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&q=80" alt="Sauces"><div class="cat-vcard-title">Sauces, Jams &amp; Condiments</div></div>
   </div>
 </section>
 <!-- ═══ END AGRICULTURE CATEGORY GRID ═══ -->
