@@ -22,16 +22,18 @@ function getSB() {
   if (!nb) return;
 
   /* Scroll class + hide/show on scroll direction */
-  let lastScrollY = 0;
+  let lastScrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     nb.classList.toggle('scrolled', y > 20);
-    if (y > lastScrollY && y > 80) {
+    if (y > lastScrollY && y > 100) {
+      /* Scrolling DOWN — hide navbar */
       nb.classList.add('nav-hidden');
-    } else {
+    } else if (y < lastScrollY) {
+      /* Scrolling UP — show navbar */
       nb.classList.remove('nav-hidden');
     }
-    lastScrollY = y;
+    lastScrollY = y <= 0 ? 0 : y;
   }, { passive: true });
 
   /* Active link — match current filename */
