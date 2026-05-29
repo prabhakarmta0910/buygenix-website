@@ -22,16 +22,16 @@ function getSB() {
   if (!nb) return;
 
   /* Scroll class + hide/show on scroll direction */
-  let lastScrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
+  nb.style.transition = 'background 0.3s, box-shadow 0.3s, transform 0.35s ease';
+  let lastScrollY = window.pageYOffset;
+
+  window.addEventListener('scroll', function() {
+    const y = window.pageYOffset;
     nb.classList.toggle('scrolled', y > 20);
     if (y > lastScrollY && y > 100) {
-      /* Scrolling DOWN — hide navbar */
-      nb.classList.add('nav-hidden');
+      nb.style.transform = 'translateY(-100%)';
     } else if (y < lastScrollY) {
-      /* Scrolling UP — show navbar */
-      nb.classList.remove('nav-hidden');
+      nb.style.transform = 'translateY(0)';
     }
     lastScrollY = y <= 0 ? 0 : y;
   }, { passive: true });
