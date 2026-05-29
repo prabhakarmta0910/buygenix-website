@@ -324,19 +324,19 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END FASHION BANNER ═══ -->
 
 <!-- ═══ APPAREL CATEGORY GRID ═══ -->
-<section style="background:#f7f7f7;padding:32px 0;">
+<section style="background:#f3f4f6;padding:28px 16px;">
 <style>
-.agc{transition:background .15s;}
-.agc:hover{background:#f0f4ff !important;}
-.agc:hover .agc-title{color:#2563eb;}
-.agc-title{font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;transition:color .15s;}
-.agc ul li:hover{color:#2563eb;text-decoration:underline;cursor:pointer;}
+.agc2{background:#fff;border-radius:10px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:box-shadow .18s,transform .18s;box-shadow:0 1px 4px rgba(0,0,0,.07);}
+.agc2:hover{box-shadow:0 6px 20px rgba(37,99,235,.13);transform:translateY(-2px);}
+.agc2:hover .agc2-title{color:#2563eb;}
+.agc2-title{font-size:13.5px;font-weight:700;color:#1f2937;margin-bottom:5px;line-height:1.3;transition:color .15s;}
+.agc2-arrow{display:inline-block;margin-top:8px;font-size:13px;color:#2563eb;font-weight:700;}
 </style>
 
-  <!-- Title -->
-  <div style="text-align:center;margin-bottom:20px;padding:0 24px;">
+  <!-- Section Title -->
+  <div style="text-align:center;margin-bottom:20px;">
     <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
-      Apparel <span style="color:#2563eb;">&</span> Garments
+      Apparel <span style="color:#2563eb;">&amp;</span> Garments
     </h2>
     <div style="display:flex;align-items:center;justify-content:center;width:220px;margin:0 auto;">
       <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
@@ -345,71 +345,129 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
     </div>
   </div>
 
-  <!-- Full-width body -->
-  <div style="display:flex;gap:0;background:white;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;overflow:hidden;width:100%;">
+  <!-- 4×3 Grid -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:100%;">
 
-    <!-- LEFT HERO — fixed width, full height -->
-    <div style="width:240px;flex-shrink:0;position:relative;min-height:480px;overflow:hidden;">
-      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=500&q=80" alt="Apparel"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,150,180,.3),rgba(0,0,0,.65));"></div>
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px;">
-        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Kids Dress &amp; Clothing</p>
-        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Leather Clothing</p>
-        <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:18px;opacity:.95;">Footwear</p>
-        <button style="background:white;color:#2563eb;border:1.5px solid white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">View All</button>
+    <!-- 1 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Kids Dress &amp; Clothing</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Boys Clothes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Girls Garments</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Kids Frock</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Kids Socks</li></ul>
+        <span class="agc2-arrow">→</span>
       </div>
     </div>
 
-    <!-- RIGHT GRID — takes remaining full width -->
-    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e7eb;">
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Kids Dress &amp; Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Boys Clothes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Girls Garments</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Kids Frock</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Kids Socks</li></ul></div>
+    <!-- 2 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Men Clothing</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shirts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens T-Shirts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shorts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Jeans</li></ul>
+        <span class="agc2-arrow">→</span>
       </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Men Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shirts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens T-shirts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shorts</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Jeans</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Women Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Suits</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Tops</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Kurties</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Jeans</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Footwear</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Shoes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Mens Shoes</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Slipper</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Undergarment and Inner Wear</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Beach Wear</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Beach Pareos</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Leather Clothing</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Leather Gloves</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Leather Jacket</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Caps, Hats &amp; Headwears</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Apparel Cap</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fashion Caps</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Winter Caps</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Security Cap</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Designer &amp; Fashion Bags</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Designer Bag</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Embroidered Bags</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Handmade Bags</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Bags</li></ul></div>
-      </div>
-
-      <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;">
-        <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80" style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-        <div><div class="agc-title">Sarees &amp; Lehenga</div><ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Designer Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Embroidered Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Ladies Sarees</li><li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Lehenga Choli</li></ul></div>
-      </div>
-
     </div>
+
+    <!-- 3 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4657?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Women Clothing</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Suits</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Tops</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Kurtis</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Jeans</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Footwear</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Shoes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Mens Shoes</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Slipper</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Undergarment and Inner Wear</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Boxer/Trunks</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Brach/Panties</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Leather Clothing</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Leather Jackets</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Leather Gloves</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Caps, Hats &amp; Headwears</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Apparel Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fashion Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Winter Cap</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Security Cap</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Designer &amp; Fashion Bags</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Designer Bag</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Embroidered Bags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Handmade Bags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Ladies Bags</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Sarees &amp; Lehenga</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Designer Saree</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Embroidered Saree</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Lehenga Sarees</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Lehenga Choli</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Wallets, Purses &amp; Handbags</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Wallets</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Purses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Handbags</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Clutches</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Fashion Accessories</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Sunglasses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Watches</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Belts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Jewelry</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Fabrics &amp; Textiles</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cotton Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Polyester Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Linen Fabric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Denim Fabric</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
   </div>
 </section>
 <!-- ═══ END APPAREL CATEGORY GRID ═══ -->
