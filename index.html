@@ -413,6 +413,90 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 <!-- ═══ END AGRICULTURE CATEGORY GRID ═══ -->
 
+<!-- ═══ DEALS BANNER ═══ -->
+<div style="width:100%;background:linear-gradient(135deg,#f0f4ff 0%,#e8f0fe 40%,#f5f9ff 100%);padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;overflow:hidden;position:relative;box-sizing:border-box;">
+
+  <!-- Background world map watermark -->
+  <div style="position:absolute;inset:0;background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png');background-size:55%;background-repeat:no-repeat;background-position:center right 320px;opacity:0.06;pointer-events:none;"></div>
+
+  <!-- LEFT: Heading + Stats -->
+  <div style="flex-shrink:0;max-width:280px;position:relative;z-index:1;">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px;">
+      <span style="font-size:13px;color:#2563eb;font-weight:700;letter-spacing:1px;text-transform:uppercase;">🛡️ Trusted by Exporters Worldwide</span>
+    </div>
+    <h2 style="font-size:28px;font-weight:800;color:#0f172a;line-height:1.2;margin-bottom:10px;">Get <span style="color:#2563eb;">Best Deals</span><br>from Verified Sellers</h2>
+    <p style="font-size:13px;color:#64748b;line-height:1.6;margin-bottom:20px;">Connect, negotiate and grow your business<br>with trusted global suppliers.</p>
+    <!-- Stats row -->
+    <div style="display:flex;gap:18px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;background:#eff6ff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">👥</div>
+        <div><div style="font-size:15px;font-weight:800;color:#0f172a;">10K+</div><div style="font-size:10.5px;color:#94a3b8;">Verified Sellers</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;background:#f5f3ff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🌐</div>
+        <div><div style="font-size:15px;font-weight:800;color:#0f172a;">120+</div><div style="font-size:10.5px;color:#94a3b8;">Countries</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🤝</div>
+        <div><div style="font-size:15px;font-weight:800;color:#0f172a;">50K+</div><div style="font-size:10.5px;color:#94a3b8;">Successful Deals</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="width:36px;height:36px;background:#fff7ed;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🛡️</div>
+        <div><div style="font-size:15px;font-weight:800;color:#0f172a;">100%</div><div style="font-size:10.5px;color:#94a3b8;">Secure & Reliable</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER: Process steps -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;gap:0;position:relative;z-index:1;">
+    <!-- Airplane path SVG -->
+    <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:260px;opacity:0.35;pointer-events:none;">
+      <svg viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 50 Q80 10 130 30 Q180 50 250 5" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>
+        <text x="238" y="8" font-size="14">✈️</text>
+      </svg>
+    </div>
+    <!-- Step 1 -->
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div style="width:54px;height:54px;background:#2563eb;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(37,99,235,.3);">🔍</div>
+      <div style="margin-top:8px;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:1px;">01</div>
+      <div style="font-size:13px;font-weight:800;color:#0f172a;">Search</div>
+      <div style="font-size:11px;color:#64748b;margin-top:2px;">Find Verified<br>Sellers</div>
+    </div>
+    <!-- Arrow -->
+    <div style="margin:0 12px;margin-bottom:20px;font-size:20px;color:#cbd5e1;">→</div>
+    <!-- Step 2 -->
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div style="width:54px;height:54px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(124,58,237,.3);">💬</div>
+      <div style="margin-top:8px;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:1px;">02</div>
+      <div style="font-size:13px;font-weight:800;color:#0f172a;">Negotiate</div>
+      <div style="font-size:11px;color:#64748b;margin-top:2px;">Get Best Price<br>&amp; Terms</div>
+    </div>
+    <!-- Arrow -->
+    <div style="margin:0 12px;margin-bottom:20px;font-size:20px;color:#cbd5e1;">→</div>
+    <!-- Step 3 -->
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <div style="width:54px;height:54px;background:#16a34a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(22,163,74,.3);">✅</div>
+      <div style="margin-top:8px;font-size:10px;font-weight:700;color:#94a3b8;letter-spacing:1px;">03</div>
+      <div style="font-size:13px;font-weight:800;color:#0f172a;">Deal Done</div>
+      <div style="font-size:11px;color:#64748b;margin-top:2px;">Safe &amp; Secure<br>Transactions</div>
+    </div>
+  </div>
+
+  <!-- RIGHT: CTA + Ship image -->
+  <div style="flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:14px;position:relative;z-index:1;">
+    <a href="contact.html" style="display:inline-flex;align-items:center;gap:10px;background:#2563eb;color:white;padding:13px 26px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(37,99,235,.35);transition:background .2s;">
+      📩 Post Your Requirement
+    </a>
+    <div style="font-size:12px;color:#64748b;display:flex;align-items:center;gap:6px;">
+      <span style="color:#2563eb;font-weight:700;">🛡️</span> 100% Secure &nbsp;|&nbsp; Reliable &nbsp;|&nbsp; Fast
+    </div>
+    <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=280&q=80" alt="Cargo Ship" style="width:220px;height:110px;object-fit:cover;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.12);">
+  </div>
+
+</div>
+<!-- ═══ END DEALS BANNER ═══ -->
+
 <!-- ═══ SERVICES ═══ -->
 <section class="section" style="background:var(--sky);">
   <div class="section-inner">
