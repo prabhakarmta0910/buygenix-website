@@ -479,173 +479,143 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END AGRI BANNER ═══ -->
 
 <!-- ═══ AGRICULTURE CATEGORY GRID ═══ -->
-<section style="background:#f7f7f7;padding:32px 0;">
+<section style="background:#f3f4f6;padding:28px 16px;">
 
-    <div style="text-align:center;margin-bottom:20px;padding:0 24px;">
-      <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
-        Agriculture, Forestry <span style="color:#2563eb;">&</span> Farming
-      </h2>
-      <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;">
-        <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
-        <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
-        <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
+  <!-- Section Title -->
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">
+      Agriculture, Forestry <span style="color:#2563eb;">&amp;</span> Farming
+    </h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;">
+      <div style="flex:1;height:2px;background:#2563eb;border-radius:2px;"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#2563eb;flex-shrink:0;margin:0 4px;"></div>
+      <div style="flex:1;height:2px;background:#e5e7eb;border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- 4×3 Grid -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:100%;">
+
+    <!-- 1 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Fresh Flowers &amp; Plants</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Natural Flowers</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Plants</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flowering Plants</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dry Leaves</li></ul>
+        <span class="agc2-arrow">→</span>
       </div>
     </div>
 
-    <div style="display:flex;gap:0;background:white;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;overflow:hidden;width:100%;">
-
-      <!-- LEFT HERO -->
-      <div style="width:220px;flex-shrink:0;position:relative;min-height:460px;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=500&q=80" alt="Agriculture"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.68));"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px;">
-          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Fresh, Preserved &amp; Dried Fruits</p>
-          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:10px;opacity:.95;">Food Grains, Cereals &amp; Flour</p>
-          <p style="font-size:12.5px;font-weight:700;color:white;margin-bottom:18px;opacity:.95;">Dry Fruits &amp; Nuts</p>
-          <button style="background:white;color:#2563eb;border:1.5px solid white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;">View All</button>
-        </div>
-      </div>
-
-      <!-- RIGHT GRID -->
-      <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e7eb;">
-
-        <!-- Fresh Flowers And Plants -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1490750967868-88df5691cc61?w=200&q=80" alt="Flowers"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh Flowers And Plants</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Natural Flowers</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Plants</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flowering Plants</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dry Leaves</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Fresh Preserved & Dried Fruits -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80" alt="Fruits"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh, Preserved &amp; Dried Fruits</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fresh Fruit</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Pulp</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Citrus Fruit</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fruit Powder</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Fresh Dried & Preserved Vegetables -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=80" alt="Vegetables"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Fresh, Dried &amp; Preserved Veg...</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fresh Vegetables</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Frozen Vegetables</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dry Vegetables</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Root Vegetables</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Food Grains Cereals & Flour -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&q=80" alt="Grains"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Food Grains, Cereals &amp; Flour</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Food Grains</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Rice</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Pulses</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flours</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Dry Fruits & Nuts -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=200&q=80" alt="Dry Fruits"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Dry Fruits &amp; Nuts</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Edible Nuts</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Cashew</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Raisins</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Dates</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Agriculture Equipment -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=200&q=80" alt="Equipment"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Agriculture Equipment And S...</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agriculture Equipment</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agriculture Sprayer</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Agricultural Machine</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Grain Processing Machine</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bird Poultry & Animal Food -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&q=80" alt="Animal Food"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#2563eb;margin-bottom:6px;">Bird, Poultry &amp; Animal Food</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Animal Feed</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Animal Feed Supplement</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Oil Cake</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Poultry Feed</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Soil Additives & Fertilizers -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" alt="Fertilizers"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Soil Additives &amp; Fertilizers</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Micronutrient Fertilizers</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Fertilizer</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Plant Growth Promoters</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Seeds & Plant Saplings -->
-        <div class="agc" style="background:white;padding:14px 15px;display:flex;gap:11px;align-items:flex-start;cursor:pointer;">
-          <img src="https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=200&q=80" alt="Seeds"
-            style="width:166px;height:142px;object-fit:cover;border-radius:6px;flex-shrink:0;">
-          <div>
-            <div style="font-size:13px;font-weight:700;color:#1f2937;margin-bottom:6px;">Seeds &amp; Plant Saplings</div>
-            <ul style="list-style:none;padding:0;margin:0;">
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Flower Seeds</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Grain Seeds</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Seeds</li>
-              <li style="font-size:11.5px;color:#4b5563;padding:1.5px 0;">Vegetable Seeds</li>
-            </ul>
-          </div>
-        </div>
-
+    <!-- 2 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Fresh, Preserved &amp; Dried Fruits</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fresh Fruit</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Pulp</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Citrus Fruit</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fruit Powder</li></ul>
+        <span class="agc2-arrow">→</span>
       </div>
     </div>
+
+    <!-- 3 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Fresh, Dried &amp; Preserved Vegetables</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fresh Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Frozen Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dry Vegetables</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Root Vegetables</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Food Grains, Cereals &amp; Flour</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Food Grains</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Rice</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Pulses</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flours</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1543158181-e6f9f6712055?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Dry Fruits &amp; Nuts</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Edible Nuts</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cashew</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Raisins</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Dates</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1592878849122-facb97ed0d72?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Agriculture Equipment &amp; Supplies</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agriculture Equipment</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agriculture Sprayer</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Agricultural Machine</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Grain Processing Machine</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Bird, Poultry &amp; Animal Food</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Animal Feed</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Animal Feed Supplement</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Oil Cake</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Poultry Feed</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Soil Additives &amp; Fertilizers</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Micronutrient Fertilizers</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Fertilizer</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plant Growth Promoters</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Organic Manure</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1592394533824-9440e5d68530?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Seeds &amp; Plant Saplings</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Flower Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Grain Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Vegetable Seeds</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plant Saplings</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Spices &amp; Herbs</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Turmeric</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Cumin</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Coriander</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Black Pepper</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Sugar, Jaggery &amp; Sweeteners</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Sugar</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Jaggery</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Honey</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Molasses</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="agc2">
+      <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&q=80" style="width:88px;height:88px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+      <div style="flex:1;min-width:0;">
+        <div class="agc2-title">Wood &amp; Timber Products</div>
+        <ul style="list-style:none;padding:0;margin:0;"><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Timber Logs</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Bamboo</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Wood Boards</li><li style="font-size:11.5px;color:#6b7280;padding:1px 0;">Plywood</li></ul>
+        <span class="agc2-arrow">→</span>
+      </div>
+    </div>
+
   </div>
 </section>
 <!-- ═══ END AGRICULTURE CATEGORY GRID ═══ -->
