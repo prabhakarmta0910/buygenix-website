@@ -62,6 +62,29 @@ function getSB() {
       });
     });
   }
+
+  /* Search dropdown */
+  const dropBtn  = document.getElementById('navSearchDrop');
+  const dropMenu = document.getElementById('navSearchMenu');
+  const dropLabel= document.getElementById('navSearchLabel');
+  if (dropBtn && dropMenu) {
+    dropBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      dropMenu.classList.toggle('open');
+    });
+    dropMenu.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        dropMenu.querySelectorAll('a').forEach(function(x){ x.classList.remove('active'); });
+        a.classList.add('active');
+        dropLabel.textContent = a.getAttribute('data-val');
+        dropMenu.classList.remove('open');
+      });
+    });
+    document.addEventListener('click', function() {
+      dropMenu.classList.remove('open');
+    });
+  }
 })();
 
 /* ── SCROLL REVEAL ── */
