@@ -10,84 +10,347 @@
 <link rel="stylesheet" href="css/shared.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-body{background:linear-gradient(150deg,var(--navy) 0%,#0F2035 55%,#0A1A2E 100%);min-height:100vh;}
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:88px var(--pad-x) 40px;}
-.login-grid{display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:960px;background:white;border-radius:var(--r-2xl);overflow:hidden;box-shadow:0 40px 100px rgba(11,25,41,0.45);}
+*{box-sizing:border-box;margin:0;padding:0;}
 
-/* LEFT brand panel */
-.login-brand{background:linear-gradient(150deg,var(--navy),#0F2A45);padding:52px 44px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
-.login-brand::before{content:'';position:absolute;top:-20%;right:-15%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(30,95,168,0.25),transparent 70%);pointer-events:none;}
-.login-brand::after{content:'';position:absolute;bottom:-10%;left:-10%;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.1),transparent 70%);pointer-events:none;}
-.lb-logo-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:white;line-height:1;position:relative;z-index:1;}
-.lb-logo-name span{color:var(--gold-light);font-style:italic;}
-.lb-logo-tag{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-top:4px;position:relative;z-index:1;}
-.lb-tagline{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:white;line-height:1.25;margin-top:36px;position:relative;z-index:1;}
-.lb-tagline em{color:var(--gold-light);font-style:italic;}
-.lb-feats{display:flex;flex-direction:column;gap:12px;margin-top:28px;position:relative;z-index:1;}
-.lb-feat{display:flex;align-items:center;gap:12px;font-size:13.5px;color:rgba(255,255,255,0.62);}
-.lb-feat-icon{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
-.lb-footer{font-size:12px;color:rgba(255,255,255,0.25);font-family:'Space Grotesk',sans-serif;position:relative;z-index:1;}
+/* ── PAGE ── */
+body{
+  background:#060d18;
+  min-height:100vh;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  overflow-x:hidden;
+}
 
-/* RIGHT form panel */
-.login-form-panel{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;}
-.lf-back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-light);margin-bottom:28px;font-family:'Space Grotesk',sans-serif;font-weight:600;transition:color 0.2s;}
-.lf-back:hover{color:var(--navy);}
-.lf-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:5px;}
-.lf-sub{font-size:14px;color:var(--text-mid);margin-bottom:26px;line-height:var(--lh);}
+/* animated background */
+.bg-grid{
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(30,95,168,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(30,95,168,0.06) 1px,transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 20s linear infinite;
+}
+@keyframes gridMove{from{background-position:0 0;}to{background-position:60px 60px;}}
 
-/* Auth tabs */
-.auth-tabs{display:flex;gap:3px;background:var(--sky);border-radius:var(--r-md);padding:4px;margin-bottom:24px;}
-.auth-tab{flex:1;padding:9px;text-align:center;font-size:12.5px;font-weight:600;color:var(--text-mid);font-family:'Space Grotesk',sans-serif;border-radius:9px;cursor:pointer;transition:all 0.2s;}
-.auth-tab.active{background:white;color:var(--navy);box-shadow:var(--shadow-xs);}
+.bg-orb1{position:fixed;top:-10%;left:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(30,95,168,0.18) 0%,transparent 65%);pointer-events:none;z-index:0;animation:orbFloat 8s ease-in-out infinite;}
+.bg-orb2{position:fixed;bottom:-15%;right:-8%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 65%);pointer-events:none;z-index:0;animation:orbFloat 10s ease-in-out infinite reverse;}
+.bg-orb3{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(184,134,11,0.06) 0%,transparent 65%);pointer-events:none;z-index:0;}
+@keyframes orbFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-30px);}}
+
+/* ── MAIN LAYOUT ── */
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:100px 20px 40px;
+  position:relative;z-index:1;
+}
+
+.login-shell{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  width:100%;max-width:1000px;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06),
+    0 40px 120px rgba(0,0,0,0.6),
+    0 0 80px rgba(30,95,168,0.08);
+}
+
+/* ═══ LEFT BRAND PANEL ═══ */
+.lb{
+  background:linear-gradient(160deg,#0a1628 0%,#0f2240 45%,#1a1040 100%);
+  padding:52px 44px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+
+/* decorative lines */
+.lb::before{
+  content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+  background:
+    linear-gradient(135deg,rgba(30,95,168,0.08) 0%,transparent 50%),
+    repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,0.015) 40px,rgba(255,255,255,0.015) 41px);
+  pointer-events:none;
+}
+
+/* top accent line */
+.lb-topbar{
+  position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,#1e5fa8,#7c3aed,#b8860b,#1e5fa8);
+  background-size:200% 100%;
+  animation:barShift 4s linear infinite;
+}
+@keyframes barShift{from{background-position:0 0;}to{background-position:200% 0;}}
+
+.lb-logo-wrap{display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
+.lb-logo-img{height:40px;width:auto;object-fit:contain;}
+.lb-logo-text{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:white;line-height:1;}
+.lb-logo-text span{color:#f59e0b;font-style:italic;}
+.lb-logo-badge{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-top:3px;}
+
+.lb-main{position:relative;z-index:1;margin-top:44px;}
+.lb-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(30,95,168,0.2);border:1px solid rgba(30,95,168,0.35);
+  color:#7db4f7;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:5px 12px;border-radius:100px;font-family:'Space Grotesk',sans-serif;
+  margin-bottom:18px;
+}
+.lb-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+.lb-headline{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;font-weight:700;color:white;line-height:1.1;
+  letter-spacing:-0.5px;
+}
+.lb-headline em{color:#f59e0b;font-style:italic;display:block;}
+
+.lb-sub{font-size:13.5px;color:rgba(255,255,255,0.45);margin-top:14px;line-height:1.7;max-width:280px;}
+
+/* features */
+.lb-features{margin-top:36px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;}
+.lb-feat{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;
+  transition:all 0.3s;
+}
+.lb-feat:hover{background:rgba(30,95,168,0.12);border-color:rgba(30,95,168,0.25);transform:translateX(4px);}
+.lb-feat-icon{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;
+  background:linear-gradient(135deg,rgba(30,95,168,0.25),rgba(124,58,237,0.2));
+  border:1px solid rgba(255,255,255,0.08);
+}
+.lb-feat-text{font-size:13px;color:rgba(255,255,255,0.65);font-weight:500;line-height:1.35;}
+.lb-feat-text strong{display:block;color:rgba(255,255,255,0.88);font-size:12.5px;font-weight:700;margin-bottom:2px;}
+
+/* stats row */
+.lb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;position:relative;z-index:1;}
+.lb-stat{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
+  border-radius:12px;padding:14px 12px;text-align:center;
+}
+.lb-stat-num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:white;line-height:1;}
+.lb-stat-num span{font-size:16px;color:#f59e0b;}
+.lb-stat-lbl{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;margin-top:3px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+
+.lb-footer{
+  font-size:11.5px;color:rgba(255,255,255,0.2);
+  font-family:'Space Grotesk',sans-serif;
+  position:relative;z-index:1;padding-top:24px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;justify-content:space-between;align-items:center;
+}
+
+/* ═══ RIGHT FORM PANEL ═══ */
+.rf{
+  background:#ffffff;
+  padding:52px 44px;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;
+}
+
+.rf::before{
+  content:'';position:absolute;top:0;right:0;
+  width:200px;height:200px;
+  background:radial-gradient(circle at top right,rgba(30,95,168,0.05),transparent 70%);
+  pointer-events:none;
+}
+
+.rf-back{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:#94a3b8;font-weight:600;
+  font-family:'Space Grotesk',sans-serif;
+  text-decoration:none;margin-bottom:32px;
+  transition:color 0.2s;letter-spacing:0.3px;
+}
+.rf-back:hover{color:#1e5fa8;}
+.rf-back svg{transition:transform 0.2s;}
+.rf-back:hover svg{transform:translateX(-3px);}
+
+.rf-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:32px;font-weight:700;color:#0b1929;
+  letter-spacing:-0.3px;margin-bottom:6px;
+}
+.rf-sub{font-size:13.5px;color:#94a3b8;margin-bottom:28px;line-height:1.6;}
+
+/* ── TABS ── */
+.auth-tabs{
+  display:flex;gap:0;
+  background:#f1f5f9;border-radius:12px;padding:4px;
+  margin-bottom:26px;
+}
+.auth-tab{
+  flex:1;padding:9px 8px;text-align:center;
+  font-size:12px;font-weight:700;
+  color:#94a3b8;
+  font-family:'Space Grotesk',sans-serif;
+  letter-spacing:0.3px;text-transform:uppercase;
+  border-radius:9px;cursor:pointer;transition:all 0.2s;
+}
+.auth-tab.active{
+  background:white;color:#0b1929;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08),0 0 0 1px rgba(0,0,0,0.04);
+}
 .auth-panel{display:none;}
 .auth-panel.active{display:block;}
 
-/* Password wrap */
+/* ── FORM FIELDS ── */
+.form-group{margin-bottom:16px;}
+.form-group label{
+  display:block;font-size:11.5px;font-weight:700;
+  color:#475569;letter-spacing:0.5px;text-transform:uppercase;
+  font-family:'Space Grotesk',sans-serif;margin-bottom:6px;
+}
+.form-control{
+  width:100%;height:44px;
+  border:1.5px solid #e2e8f0;border-radius:10px;
+  padding:0 14px;font-size:13.5px;color:#0b1929;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:#fafbfc;
+  transition:all 0.2s;outline:none;
+}
+.form-control:focus{
+  border-color:#1e5fa8;background:white;
+  box-shadow:0 0 0 4px rgba(30,95,168,0.08);
+}
+.form-control::placeholder{color:#cbd5e1;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+/* password toggle */
 .pw-wrap{position:relative;}
-.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-light);padding:4px;line-height:1;}
+.pw-toggle{
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  font-size:14px;color:#94a3b8;padding:4px;line-height:1;
+  transition:color 0.2s;
+}
+.pw-toggle:hover{color:#1e5fa8;}
 
-/* Divider text */
-.divider-or{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--text-light);font-size:12px;}
-.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:var(--border-soft);}
+/* forgot */
+.forgot-row{text-align:right;margin-top:6px;}
+.forgot-row a{
+  font-size:11.5px;color:#1e5fa8;font-weight:600;
+  font-family:'Space Grotesk',sans-serif;text-decoration:none;
+}
+.forgot-row a:hover{text-decoration:underline;}
 
-/* WA login btn */
-.wa-login-btn{width:100%;height:44px;border:1.5px solid #25D366;background:rgba(37,211,102,0.06);color:#1A9C4E;border-radius:var(--r-lg);font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.25s;text-decoration:none;}
-.wa-login-btn:hover{background:rgba(37,211,102,0.12);}
+/* ── SUBMIT BTN ── */
+.auth-submit{
+  width:100%;height:48px;
+  background:linear-gradient(135deg,#1e5fa8 0%,#1e3fa8 100%);
+  color:white;border:none;border-radius:12px;
+  font-size:14px;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+  cursor:pointer;transition:all 0.3s;
+  margin-top:18px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 4px 20px rgba(30,95,168,0.3);
+  letter-spacing:0.3px;
+  position:relative;overflow:hidden;
+}
+.auth-submit::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.auth-submit:hover::before{opacity:1;}
+.auth-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(30,95,168,0.4);}
+.auth-submit:active{transform:translateY(0);}
+.auth-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
 
-/* Submit btn */
-.auth-submit{width:100%;height:46px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));color:white;border:none;border-radius:var(--r-lg);font-size:14px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:9px;box-shadow:0 4px 18px rgba(30,95,168,0.25);}
-.auth-submit:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,95,168,0.35);}
-.auth-submit:disabled{opacity:0.62;cursor:not-allowed;transform:none;}
+/* divider */
+.divider-or{
+  display:flex;align-items:center;gap:12px;
+  margin:18px 0;color:#cbd5e1;font-size:11.5px;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;
+}
+.divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:#e2e8f0;}
 
-/* Forgot & signup */
-.forgot-row{text-align:right;margin-top:4px;}
-.forgot-row a{font-size:12.5px;color:var(--blue);font-family:'Space Grotesk',sans-serif;}
-.signup-note{margin-top:18px;text-align:center;font-size:13px;color:var(--text-mid);}
-.signup-note a{color:var(--blue);font-weight:600;}
+/* WhatsApp btn */
+.wa-login-btn{
+  width:100%;height:46px;
+  border:1.5px solid #dcfce7;background:#f0fdf4;
+  color:#16a34a;border-radius:12px;
+  font-size:13px;font-weight:700;
+  font-family:'Space Grotesk',sans-serif;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:all 0.25s;text-decoration:none;letter-spacing:0.3px;
+}
+.wa-login-btn:hover{background:#dcfce7;border-color:#86efac;transform:translateY(-1px);}
 
-/* Auth alert */
-.auth-alert{display:none;align-items:flex-start;gap:8px;border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;font-size:13px;line-height:1.5;}
-.auth-alert.error{background:rgba(220,38,38,0.07);border:1.5px solid rgba(220,38,38,0.2);color:#DC2626;}
-.auth-alert.success{background:rgba(16,185,129,0.07);border:1.5px solid rgba(16,185,129,0.2);color:#059669;}
+/* signup note */
+.signup-note{
+  margin-top:18px;text-align:center;font-size:12.5px;color:#94a3b8;
+  font-family:'Space Grotesk',sans-serif;
+}
+.signup-note a{color:#1e5fa8;font-weight:700;text-decoration:none;}
+.signup-note a:hover{text-decoration:underline;}
+
+/* info box */
+.info-box{
+  background:#eff6ff;border:1.5px solid #bfdbfe;
+  border-radius:10px;padding:12px 14px;
+  font-size:12.5px;color:#1e40af;margin-bottom:16px;line-height:1.6;
+}
+.info-box a{color:#1d4ed8;font-weight:600;}
+
+/* alerts */
+.auth-alert{
+  display:none;align-items:flex-start;gap:10px;
+  border-radius:10px;padding:12px 14px;
+  margin-bottom:14px;font-size:13px;line-height:1.5;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.auth-alert.error{background:#fef2f2;border:1.5px solid #fecaca;color:#dc2626;}
+.auth-alert.success{background:#f0fdf4;border:1.5px solid #bbf7d0;color:#15803d;}
 .auth-alert.show{display:flex;}
 
-/* Info box */
-.info-box{background:var(--sky);border:1px solid var(--border-soft);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--text-mid);margin-bottom:18px;line-height:1.6;}
-.info-box a{color:var(--blue);}
+/* spinner */
+.spinner{
+  display:inline-block;width:16px;height:16px;
+  border:2.5px solid rgba(255,255,255,0.3);
+  border-top-color:white;border-radius:50%;
+  animation:spin 0.7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-@media(max-width:768px){
-  .login-grid{grid-template-columns:1fr;}
-  .login-brand{padding:40px 32px 36px;}
-  .lb-tagline{font-size:26px;}
-  .lb-feats{display:none;}
-  .login-form-panel{padding:36px 28px;}
+/* ── RESPONSIVE ── */
+@media(max-width:820px){
+  .login-shell{grid-template-columns:1fr;}
+  .lb{padding:36px 28px;gap:24px;}
+  .lb-features{display:none;}
+  .lb-stats{grid-template-columns:repeat(3,1fr);}
+  .lb-headline{font-size:32px;}
+  .rf{padding:36px 28px;}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .login-page{padding:80px 12px 24px;}
+  .lb{padding:28px 20px;}
+  .rf{padding:28px 20px;}
+  .rf-title{font-size:26px;}
+  .lb-stats{display:none;}
 }
 </style>
 </head>
 <body>
+<div class="bg-grid"></div>
+<div class="bg-orb1"></div>
+<div class="bg-orb2"></div>
+<div class="bg-orb3"></div>
 <canvas id="bg-canvas"></canvas>
 
-<!-- Minimal nav for login page -->
+<!-- Minimal nav -->
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-logo">
     <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
@@ -114,41 +377,90 @@ body{background:linear-gradient(150deg,var(--navy) 0%,#0F2035 55%,#0A1A2E 100%);
 </nav>
 
 <div class="login-page">
-  <div class="login-grid">
+  <div class="login-shell">
 
-    <!-- BRAND PANEL -->
-    <div class="login-brand">
-      <div>
-        <div class="lb-logo-name">Buy<span>genix</span></div>
-        <div class="lb-logo-tag">Client Portal</div>
-        <div class="lb-tagline">Your Export<br><em>Dashboard</em><br>Awaits</div>
-        <div class="lb-feats">
-          <div class="lb-feat"><div class="lb-feat-icon">🎯</div>Access your verified buyer leads</div>
-          <div class="lb-feat"><div class="lb-feat-icon">📊</div>Track your performance reports</div>
-          <div class="lb-feat"><div class="lb-feat-icon">💬</div>Message your Relationship Manager</div>
-          <div class="lb-feat"><div class="lb-feat-icon">📖</div>Manage your digital catalogue</div>
-          <div class="lb-feat"><div class="lb-feat-icon">🔔</div>Receive real-time lead notifications</div>
+    <!-- ═══ LEFT BRAND PANEL ═══ -->
+    <div class="lb">
+      <div class="lb-topbar"></div>
+
+      <!-- Logo -->
+      <div class="lb-logo-wrap">
+        <img class="lb-logo-img" src="assets/logo-new.png" alt="BuyGenix">
+        <div>
+          <div class="lb-logo-text">Buy<span>genix</span></div>
+          <div class="lb-logo-badge">Client Portal</div>
         </div>
       </div>
-      <div class="lb-footer">© 2025 BuyGenix Solutions · Delhi, India 🇮🇳</div>
+
+      <!-- Main headline -->
+      <div class="lb-main">
+        <div class="lb-eyebrow">🌐 B2B Export Platform</div>
+        <h1 class="lb-headline">Your Export<br><em>Dashboard Awaits</em></h1>
+        <p class="lb-sub">Connect with verified buyers, track your leads, and grow your global business — all in one place.</p>
+
+        <!-- Features -->
+        <div class="lb-features">
+          <div class="lb-feat">
+            <div class="lb-feat-icon">🎯</div>
+            <div class="lb-feat-text"><strong>Verified Buyer Leads</strong>Access real, curated buyer enquiries daily</div>
+          </div>
+          <div class="lb-feat">
+            <div class="lb-feat-icon">📊</div>
+            <div class="lb-feat-text"><strong>Performance Reports</strong>Track your export growth month by month</div>
+          </div>
+          <div class="lb-feat">
+            <div class="lb-feat-icon">💬</div>
+            <div class="lb-feat-text"><strong>Dedicated RM Support</strong>Your Relationship Manager, always available</div>
+          </div>
+          <div class="lb-feat">
+            <div class="lb-feat-icon">📖</div>
+            <div class="lb-feat-text"><strong>Digital Catalogue</strong>Your products, showcased globally</div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="lb-stats">
+          <div class="lb-stat">
+            <div class="lb-stat-num">200<span>+</span></div>
+            <div class="lb-stat-lbl">Members</div>
+          </div>
+          <div class="lb-stat">
+            <div class="lb-stat-num">50<span>+</span></div>
+            <div class="lb-stat-lbl">Countries</div>
+          </div>
+          <div class="lb-stat">
+            <div class="lb-stat-num">98<span>%</span></div>
+            <div class="lb-stat-lbl">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb-footer">
+        <span>© 2025 BuyGenix Solutions</span>
+        <span>🇮🇳 Delhi, India</span>
+      </div>
     </div>
 
-    <!-- FORM PANEL -->
-    <div class="login-form-panel">
-      <a href="index.html" class="lf-back">← Back to website</a>
-      <div class="lf-title">Welcome Back</div>
-      <p class="lf-sub">Sign in to your BuyGenix client portal to manage your leads and track your export growth.</p>
+    <!-- ═══ RIGHT FORM PANEL ═══ -->
+    <div class="rf">
+      <a href="index.html" class="rf-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to website
+      </a>
+
+      <div class="rf-title">Welcome Back</div>
+      <p class="rf-sub">Sign in to your BuyGenix portal to manage your leads and track export growth.</p>
 
       <!-- TABS -->
       <div class="auth-tabs">
         <div class="auth-tab active" onclick="switchTab('login')">Sign In</div>
-        <div class="auth-tab"        onclick="switchTab('signup')">New Member</div>
-        <div class="auth-tab"        onclick="switchTab('reset')">Reset</div>
+        <div class="auth-tab" onclick="switchTab('signup')">New Member</div>
+        <div class="auth-tab" onclick="switchTab('reset')">Reset</div>
       </div>
 
       <!-- SIGN IN -->
       <div class="auth-panel active" id="panel-login">
-        <div class="auth-alert error"   id="loginErr"></div>
+        <div class="auth-alert error" id="loginErr"></div>
         <div class="auth-alert success" id="loginOk"></div>
         <div class="form-group">
           <label for="loginEmail">Email Address</label>
@@ -157,32 +469,34 @@ body{background:linear-gradient(150deg,var(--navy) 0%,#0F2035 55%,#0A1A2E 100%);
         <div class="form-group">
           <label for="loginPw">Password</label>
           <div class="pw-wrap">
-            <input type="password" id="loginPw" class="form-control" placeholder="Your password" autocomplete="current-password">
+            <input type="password" id="loginPw" class="form-control" placeholder="Enter your password" autocomplete="current-password">
             <button class="pw-toggle" onclick="togglePw('loginPw',this)" type="button">👁</button>
           </div>
           <div class="forgot-row"><a href="#" onclick="switchTab('reset');return false;">Forgot password?</a></div>
         </div>
         <button class="auth-submit" id="loginBtn" onclick="handleLogin()">
-          <span id="loginBtnTxt">Sign In to Portal</span>
+          <span id="loginBtnTxt">Sign In to Portal →</span>
           <span id="loginSpin" class="spinner" style="display:none;"></span>
         </button>
         <div class="divider-or">or</div>
-        <a href="https://wa.me/919818187246?text=Hello%2C%20I%20need%20help%20accessing%20my%20BuyGenix%20portal." class="wa-login-btn" target="_blank" rel="noopener">💬 Get help via WhatsApp</a>
+        <a href="https://wa.me/919818187246?text=Hello%2C%20I%20need%20help%20accessing%20my%20BuyGenix%20portal." class="wa-login-btn" target="_blank" rel="noopener">
+          💬 Get Help via WhatsApp
+        </a>
         <p class="signup-note">Not a member yet? <a href="membership.html">View membership plans →</a></p>
       </div>
 
       <!-- SIGN UP -->
       <div class="auth-panel" id="panel-signup">
-        <div class="auth-alert error"   id="signupErr"></div>
+        <div class="auth-alert error" id="signupErr"></div>
         <div class="auth-alert success" id="signupOk"></div>
-        <div class="info-box">ℹ️ New member accounts are created after membership payment is confirmed. If you have already joined, use the credentials sent by your RM. For new enquiries, please <a href="contact.html">contact us here</a>.</div>
+        <div class="info-box">ℹ️ Accounts are created after membership is confirmed. If you've joined, use credentials sent by your RM. For new enquiries, <a href="contact.html">contact us here</a>.</div>
         <div class="form-row">
           <div class="form-group">
             <label for="regName">Full Name *</label>
             <input type="text" id="regName" class="form-control" placeholder="Full name" maxlength="80">
           </div>
           <div class="form-group">
-            <label for="regPhone">Phone / WhatsApp *</label>
+            <label for="regPhone">WhatsApp *</label>
             <input type="tel" id="regPhone" class="form-control" placeholder="+91 98765 43210">
           </div>
         </div>
@@ -202,22 +516,22 @@ body{background:linear-gradient(150deg,var(--navy) 0%,#0F2035 55%,#0A1A2E 100%);
           </div>
         </div>
         <button class="auth-submit" id="signupBtn" onclick="handleSignup()">
-          <span id="signupBtnTxt">Create Account</span>
+          <span id="signupBtnTxt">Create Account →</span>
           <span id="signupSpin" class="spinner" style="display:none;"></span>
         </button>
       </div>
 
       <!-- RESET PASSWORD -->
       <div class="auth-panel" id="panel-reset">
-        <div class="auth-alert error"   id="resetErr"></div>
+        <div class="auth-alert error" id="resetErr"></div>
         <div class="auth-alert success" id="resetOk"></div>
-        <p style="font-size:13.5px;color:var(--text-mid);margin-bottom:18px;line-height:var(--lh);">Enter the email address associated with your account and we will send you a password reset link.</p>
+        <p style="font-size:13.5px;color:#64748b;margin-bottom:20px;line-height:1.7;">Enter your registered email address and we'll send you a secure password reset link.</p>
         <div class="form-group">
           <label for="resetEmail">Email Address</label>
           <input type="email" id="resetEmail" class="form-control" placeholder="your@email.com">
         </div>
         <button class="auth-submit" id="resetBtn" onclick="handleReset()">
-          <span id="resetBtnTxt">Send Reset Link</span>
+          <span id="resetBtnTxt">Send Reset Link →</span>
           <span id="resetSpin" class="spinner" style="display:none;"></span>
         </button>
         <p class="signup-note">Remember your password? <a href="#" onclick="switchTab('login');return false;">Sign in</a></p>
@@ -306,7 +620,7 @@ async function handleSignup() {
   const { error } = await sb.auth.signUp({ email, password: pw, options:{ data:{ full_name:name, phone, business_name:biz } } });
   setLoad('signupBtn','signupBtnTxt','signupSpin',false);
   if (error) { showAlert('signupErr','error', error.message); }
-  else { showAlert('signupOk','success','Account created! Please check your email to confirm your account, then sign in.'); }
+  else { showAlert('signupOk','success','Account created! Please check your email to confirm, then sign in.'); }
 }
 
 async function handleReset() {
@@ -319,7 +633,7 @@ async function handleReset() {
   const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/login.html' });
   setLoad('resetBtn','resetBtnTxt','resetSpin',false);
   if (error) { showAlert('resetErr','error', error.message); }
-  else { showAlert('resetOk','success','Reset link sent! Please check your email inbox (including spam folder).'); }
+  else { showAlert('resetOk','success','Reset link sent! Check your email (including spam folder).'); }
 }
 
 /* Enter key support */
