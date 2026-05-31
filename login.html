@@ -15,9 +15,9 @@
 /* ── PAGE ── */
 body{
   background:#060d18;
-  min-height:100vh;
+  height:100vh;
+  overflow:hidden;
   font-family:'Plus Jakarta Sans',sans-serif;
-  overflow-x:hidden;
 }
 
 /* animated background */
@@ -38,19 +38,21 @@ body{
 
 /* ── MAIN LAYOUT ── */
 .login-page{
-  min-height:100vh;
+  height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:100px 20px 40px;
+  padding:80px 20px 16px;
   position:relative;z-index:1;
+  overflow:hidden;
 }
 
 .login-shell{
   display:grid;
   grid-template-columns:1.1fr 1fr;
-  width:100%;max-width:1000px;
-  border-radius:24px;
+  width:100%;max-width:920px;
+  max-height:calc(100vh - 100px);
+  border-radius:20px;
   overflow:hidden;
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.06),
@@ -61,7 +63,7 @@ body{
 /* ═══ LEFT BRAND PANEL ═══ */
 .lb{
   background:linear-gradient(160deg,#0a1628 0%,#0f2240 45%,#1a1040 100%);
-  padding:52px 44px;
+  padding:32px 36px;
   display:flex;flex-direction:column;justify-content:space-between;
   position:relative;overflow:hidden;
 }
@@ -90,34 +92,33 @@ body{
 .lb-logo-text span{color:#f59e0b;font-style:italic;}
 .lb-logo-badge{font-size:9px;letter-spacing:2.5px;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-top:3px;}
 
-.lb-main{position:relative;z-index:1;margin-top:44px;}
+.lb-main{position:relative;z-index:1;margin-top:20px;}
 .lb-eyebrow{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(30,95,168,0.2);border:1px solid rgba(30,95,168,0.35);
-  color:#7db4f7;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
-  padding:5px 12px;border-radius:100px;font-family:'Space Grotesk',sans-serif;
-  margin-bottom:18px;
+  color:#7db4f7;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 11px;border-radius:100px;font-family:'Space Grotesk',sans-serif;
+  margin-bottom:12px;
 }
 .lb-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#3b82f6;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
 
 .lb-headline{
   font-family:'Cormorant Garamond',serif;
-  font-size:42px;font-weight:700;color:white;line-height:1.1;
+  font-size:34px;font-weight:700;color:white;line-height:1.1;
   letter-spacing:-0.5px;
 }
 .lb-headline em{color:#f59e0b;font-style:italic;display:block;}
-
-.lb-sub{font-size:13.5px;color:rgba(255,255,255,0.45);margin-top:14px;line-height:1.7;max-width:280px;}
+.lb-sub{font-size:12.5px;color:rgba(255,255,255,0.45);margin-top:8px;line-height:1.6;max-width:280px;}
 
 /* features */
-.lb-features{margin-top:36px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1;}
+.lb-features{margin-top:16px;display:flex;flex-direction:column;gap:8px;position:relative;z-index:1;}
 .lb-feat{
-  display:flex;align-items:center;gap:14px;
-  padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+  padding:9px 13px;
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.07);
-  border-radius:12px;
+  border-radius:10px;
   transition:all 0.3s;
 }
 .lb-feat:hover{background:rgba(30,95,168,0.12);border-color:rgba(30,95,168,0.25);transform:translateX(4px);}
@@ -132,14 +133,14 @@ body{
 .lb-feat-text strong{display:block;color:rgba(255,255,255,0.88);font-size:12.5px;font-weight:700;margin-bottom:2px;}
 
 /* stats row */
-.lb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;position:relative;z-index:1;}
+.lb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;position:relative;z-index:1;}
 .lb-stat{
   background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);
-  border-radius:12px;padding:14px 12px;text-align:center;
+  border-radius:10px;padding:10px 8px;text-align:center;
 }
-.lb-stat-num{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:white;line-height:1;}
-.lb-stat-num span{font-size:16px;color:#f59e0b;}
-.lb-stat-lbl{font-size:10px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;margin-top:3px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
+.lb-stat-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:white;line-height:1;}
+.lb-stat-num span{font-size:14px;color:#f59e0b;}
+.lb-stat-lbl{font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.5px;margin-top:2px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;}
 
 .lb-footer{
   font-size:11.5px;color:rgba(255,255,255,0.2);
@@ -152,9 +153,10 @@ body{
 /* ═══ RIGHT FORM PANEL ═══ */
 .rf{
   background:#ffffff;
-  padding:52px 44px;
+  padding:32px 36px;
   display:flex;flex-direction:column;justify-content:center;
   position:relative;
+  overflow-y:auto;
 }
 
 .rf::before{
@@ -168,33 +170,32 @@ body{
   display:inline-flex;align-items:center;gap:6px;
   font-size:12px;color:#94a3b8;font-weight:600;
   font-family:'Space Grotesk',sans-serif;
-  text-decoration:none;margin-bottom:32px;
+  text-decoration:none;margin-bottom:16px;
   transition:color 0.2s;letter-spacing:0.3px;
 }
 .rf-back:hover{color:#1e5fa8;}
 .rf-back svg{transition:transform 0.2s;}
 .rf-back:hover svg{transform:translateX(-3px);}
-
 .rf-title{
   font-family:'Cormorant Garamond',serif;
-  font-size:32px;font-weight:700;color:#0b1929;
-  letter-spacing:-0.3px;margin-bottom:6px;
+  font-size:28px;font-weight:700;color:#0b1929;
+  letter-spacing:-0.3px;margin-bottom:4px;
 }
-.rf-sub{font-size:13.5px;color:#94a3b8;margin-bottom:28px;line-height:1.6;}
+.rf-sub{font-size:12.5px;color:#94a3b8;margin-bottom:16px;line-height:1.6;}
 
 /* ── TABS ── */
 .auth-tabs{
   display:flex;gap:0;
-  background:#f1f5f9;border-radius:12px;padding:4px;
-  margin-bottom:26px;
+  background:#f1f5f9;border-radius:10px;padding:3px;
+  margin-bottom:14px;
 }
 .auth-tab{
-  flex:1;padding:9px 8px;text-align:center;
-  font-size:12px;font-weight:700;
+  flex:1;padding:7px 8px;text-align:center;
+  font-size:11px;font-weight:700;
   color:#94a3b8;
   font-family:'Space Grotesk',sans-serif;
   letter-spacing:0.3px;text-transform:uppercase;
-  border-radius:9px;cursor:pointer;transition:all 0.2s;
+  border-radius:8px;cursor:pointer;transition:all 0.2s;
 }
 .auth-tab.active{
   background:white;color:#0b1929;
@@ -204,16 +205,16 @@ body{
 .auth-panel.active{display:block;}
 
 /* ── FORM FIELDS ── */
-.form-group{margin-bottom:16px;}
+.form-group{margin-bottom:10px;}
 .form-group label{
-  display:block;font-size:11.5px;font-weight:700;
+  display:block;font-size:10.5px;font-weight:700;
   color:#475569;letter-spacing:0.5px;text-transform:uppercase;
-  font-family:'Space Grotesk',sans-serif;margin-bottom:6px;
+  font-family:'Space Grotesk',sans-serif;margin-bottom:4px;
 }
 .form-control{
-  width:100%;height:44px;
-  border:1.5px solid #e2e8f0;border-radius:10px;
-  padding:0 14px;font-size:13.5px;color:#0b1929;
+  width:100%;height:40px;
+  border:1.5px solid #e2e8f0;border-radius:9px;
+  padding:0 13px;font-size:13px;color:#0b1929;
   font-family:'Plus Jakarta Sans',sans-serif;
   background:#fafbfc;
   transition:all 0.2s;outline:none;
@@ -246,13 +247,13 @@ body{
 
 /* ── SUBMIT BTN ── */
 .auth-submit{
-  width:100%;height:48px;
+  width:100%;height:42px;
   background:linear-gradient(135deg,#1e5fa8 0%,#1e3fa8 100%);
-  color:white;border:none;border-radius:12px;
-  font-size:14px;font-weight:700;
+  color:white;border:none;border-radius:10px;
+  font-size:13.5px;font-weight:700;
   font-family:'Space Grotesk',sans-serif;
   cursor:pointer;transition:all 0.3s;
-  margin-top:18px;
+  margin-top:10px;
   display:flex;align-items:center;justify-content:center;gap:9px;
   box-shadow:0 4px 20px rgba(30,95,168,0.3);
   letter-spacing:0.3px;
@@ -271,16 +272,16 @@ body{
 /* divider */
 .divider-or{
   display:flex;align-items:center;gap:12px;
-  margin:18px 0;color:#cbd5e1;font-size:11.5px;
+  margin:10px 0;color:#cbd5e1;font-size:11.5px;
   font-family:'Space Grotesk',sans-serif;font-weight:600;
 }
 .divider-or::before,.divider-or::after{content:'';flex:1;height:1px;background:#e2e8f0;}
 
 /* WhatsApp btn */
 .wa-login-btn{
-  width:100%;height:46px;
+  width:100%;height:40px;
   border:1.5px solid #dcfce7;background:#f0fdf4;
-  color:#16a34a;border-radius:12px;
+  color:#16a34a;border-radius:10px;
   font-size:13px;font-weight:700;
   font-family:'Space Grotesk',sans-serif;
   cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
@@ -290,7 +291,7 @@ body{
 
 /* signup note */
 .signup-note{
-  margin-top:18px;text-align:center;font-size:12.5px;color:#94a3b8;
+  margin-top:10px;text-align:center;font-size:12px;color:#94a3b8;
   font-family:'Space Grotesk',sans-serif;
 }
 .signup-note a{color:#1e5fa8;font-weight:700;text-decoration:none;}
@@ -356,19 +357,6 @@ body{
     <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
   </a>
   <div class="nav-spacer"></div>
-  <div class="nav-search">
-    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
-      <span id="navSearchLabel">Products / Services</span>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="nav-search-menu" id="navSearchMenu">
-      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
-      <a href="#" data-val="Companies">Companies</a>
-      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
-    </div>
-    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
-    <button class="nav-search-btn" type="button">Search</button>
-  </div>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="membership.html" class="nav-cta-outline">View Plans</a>
@@ -489,7 +477,6 @@ body{
       <div class="auth-panel" id="panel-signup">
         <div class="auth-alert error" id="signupErr"></div>
         <div class="auth-alert success" id="signupOk"></div>
-        <div class="info-box">ℹ️ Accounts are created after membership is confirmed. If you've joined, use credentials sent by your RM. For new enquiries, <a href="contact.html">contact us here</a>.</div>
         <div class="form-row">
           <div class="form-group">
             <label for="regName">Full Name *</label>
