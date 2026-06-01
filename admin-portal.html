@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin CRM – BuyGenix Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+body{background:#EEF2F7;}
+
+/* ── ADMIN LOGIN ── */
+.admin-login{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,var(--navy),#0F2035);padding:40px 20px;}
+.admin-card{background:white;border-radius:var(--r-2xl);padding:48px 44px;width:100%;max-width:440px;box-shadow:0 40px 100px rgba(11,25,41,0.4);}
+.admin-card .brand{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.admin-card .brand span{color:var(--gold-light);font-style:italic;}
+.admin-card .sub{font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--text-light);font-family:'Space Grotesk',sans-serif;margin-bottom:24px;}
+.admin-badge{display:inline-block;background:rgba(220,38,38,0.08);border:1px solid rgba(220,38,38,0.2);color:#DC2626;border-radius:100px;padding:5px 14px;font-size:var(--fs-lbl);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:22px;}
+.admin-login-btn{width:100%;height:46px;background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:white;border:none;border-radius:var(--r-lg);font-size:14px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;margin-top:6px;}
+.admin-login-btn:hover{background:linear-gradient(135deg,var(--blue),var(--blue-mid));}
+.pw-wrap{position:relative;}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;color:var(--text-light);}
+
+/* ── ADMIN APP ── */
+#adminApp{display:none;}
+.admin-sidebar{position:fixed;top:0;left:0;bottom:0;width:228px;background:var(--navy);display:flex;flex-direction:column;z-index:200;overflow-y:auto;}
+.asb-brand{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.07);}
+.asb-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:white;}
+.asb-name span{color:var(--gold-light);font-style:italic;}
+.asb-role{font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.28);font-family:'Space Grotesk',sans-serif;margin-top:2px;}
+.asb-nav{flex:1;padding:8px 10px;}
+.asb-sec{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);font-family:'Space Grotesk',sans-serif;padding:12px 10px 5px;}
+.asb-link{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:9px;font-size:13px;color:rgba(255,255,255,0.52);cursor:pointer;transition:all 0.2s;margin-bottom:2px;text-decoration:none;}
+.asb-link:hover{background:rgba(255,255,255,0.07);color:white;}
+.asb-link.active{background:rgba(30,95,168,0.35);color:white;}
+.asb-icon{font-size:15px;flex-shrink:0;}
+.asb-count{margin-left:auto;background:rgba(251,146,60,0.22);color:#FB923C;font-size:10px;font-weight:700;border-radius:100px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;}
+.asb-footer{padding:14px 18px;border-top:1px solid rgba(255,255,255,0.07);}
+.asb-out{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,0.38);cursor:pointer;transition:color 0.2s;}
+.asb-out:hover{color:rgba(255,255,255,0.7);}
+
+.admin-main{margin-left:228px;min-height:100vh;}
+.admin-topbar{background:white;border-bottom:1px solid var(--border-soft);height:62px;padding:0 30px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(11,25,41,0.05);}
+.atb-title{font-size:15px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
+.atb-right{display:flex;align-items:center;gap:12px;}
+.atb-clock{font-size:12.5px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;}
+.atb-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;}
+
+.admin-body{padding:26px 30px;}
+.a-panel{display:none;}
+.a-panel.active{display:block;}
+
+/* Stat cards */
+.admin-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:22px;}
+.asc{background:white;border:1px solid var(--border-soft);border-radius:var(--r-lg);padding:18px;transition:all 0.3s;cursor:default;}
+.asc:hover{box-shadow:var(--shadow-mid);transform:translateY(-2px);}
+.asc-icon{font-size:22px;margin-bottom:8px;}
+.asc-num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:var(--navy);line-height:1;}
+.asc-lbl{font-size:11px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;margin-top:3px;}
+.asc-trend{font-size:11px;font-family:'Space Grotesk',sans-serif;margin-top:4px;font-weight:600;}
+.tr-up{color:#059669;} .tr-neutral{color:var(--text-light);}
+
+/* Quick actions */
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.qcard{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:22px;cursor:pointer;transition:all 0.3s;}
+.qcard:hover{box-shadow:var(--shadow-mid);transform:translateY(-2px);border-color:var(--blue);}
+.qcard-icon{font-size:28px;margin-bottom:10px;}
+.qcard-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.qcard-sub{font-size:12.5px;color:var(--text-mid);}
+
+/* Table */
+.admin-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
+.table-toolbar{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:10px;}
+.toolbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tb-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
+.search-wrap{display:flex;align-items:center;gap:8px;background:var(--sky);border:1.5px solid var(--border-soft);border-radius:var(--r-md);padding:7px 13px;transition:border-color 0.2s;}
+.search-wrap:focus-within{border-color:var(--blue);}
+.search-wrap input{background:none;border:none;outline:none;font-size:13px;color:var(--text-body);width:170px;font-family:'Plus Jakarta Sans',sans-serif;}
+.filter-sel{height:36px;padding:0 12px;border:1.5px solid var(--border-soft);border-radius:var(--r-md);font-size:13px;color:var(--text-body);background:white;outline:none;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;}
+.btn-refresh{height:36px;padding:0 14px;background:var(--sky);border:1.5px solid var(--border-soft);border-radius:var(--r-md);font-size:12.5px;font-weight:600;color:var(--navy);font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:7px;}
+.btn-refresh:hover{border-color:var(--blue);color:var(--blue);}
+.btn-add-row{height:36px;padding:0 14px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));border:none;border-radius:var(--r-md);font-size:12.5px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:7px;box-shadow:0 3px 10px rgba(30,95,168,0.2);}
+.btn-add-row:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(30,95,168,0.3);}
+.at-head{background:linear-gradient(90deg,var(--navy),#0F2A45);padding:12px 20px;font-size:var(--fs-lbl);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;display:grid;}
+.at-row{padding:12px 20px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;display:grid;transition:background 0.15s;}
+.at-row:last-child{border-bottom:none;}
+.at-row:hover{background:var(--sky);}
+.at-row.highlight{background:rgba(184,134,11,0.04);}
+.mem-cols{grid-template-columns:0.4fr 1.8fr 1.6fr 1fr 1fr 0.8fr 0.9fr;}
+.lead-cols{grid-template-columns:0.3fr 1.4fr 1.5fr 1.2fr 1.1fr 1fr 0.9fr;}
+.enq-cols{grid-template-columns:0.3fr 1.6fr 1.4fr 1.5fr 1fr 1fr;}
+.cell-name{font-weight:600;color:var(--navy);}
+.cell-sub{font-size:11.5px;color:var(--text-light);margin-top:1px;}
+.plan-pill{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:100px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.5px;}
+.pp-starter{background:#F0F4FF;color:#3B5BDB;}
+.pp-growth{background:#FFF8E7;color:#B8860B;}
+.pp-professional{background:#E3F2FD;color:#1565C0;}
+.pp-enterprise{background:#F1F5F9;color:#475569;}
+.act-btns{display:flex;gap:5px;}
+.act-btn{height:28px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:1.5px solid;transition:all 0.2s;}
+.ab-view{background:var(--sky);border-color:var(--border-soft);color:var(--navy);}
+.ab-view:hover{border-color:var(--blue);color:var(--blue);}
+.ab-edit{background:rgba(184,134,11,0.07);border-color:rgba(184,134,11,0.22);color:var(--gold);}
+.ab-edit:hover{background:rgba(184,134,11,0.14);}
+.ab-del{background:rgba(220,38,38,0.06);border-color:rgba(220,38,38,0.18);color:#DC2626;}
+.ab-del:hover{background:rgba(220,38,38,0.12);}
+.ab-deliver{background:rgba(16,185,129,0.07);border-color:rgba(16,185,129,0.22);color:#059669;}
+.ab-deliver:hover{background:rgba(16,185,129,0.14);}
+.empty-row{padding:40px;text-align:center;color:var(--text-light);font-size:14px;}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(11,25,41,0.55);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.modal-bg.open{display:flex;}
+.modal{background:white;border-radius:var(--r-2xl);padding:36px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;box-shadow:0 40px 100px rgba(11,25,41,0.3);animation:fadeUp 0.3s ease;position:relative;}
+.modal h3{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--navy);margin-bottom:5px;}
+.modal p{font-size:13.5px;color:var(--text-mid);margin-bottom:22px;line-height:var(--lh);}
+.modal-close{position:absolute;top:16px;right:20px;font-size:20px;cursor:pointer;color:var(--text-light);background:none;border:none;line-height:1;}
+.modal-footer{display:flex;gap:12px;justify-content:flex-end;margin-top:22px;}
+.detail-row{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px;}
+.detail-row:last-child{border-bottom:none;}
+.dr-key{color:var(--text-light);}
+.dr-val{font-weight:700;color:var(--navy);}
+
+@media(max-width:1100px){.admin-stats{grid-template-columns:repeat(3,1fr);}.quick-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.admin-main{margin-left:0;}.admin-sidebar{display:none;}.admin-stats{grid-template-columns:repeat(2,1fr);}.quick-grid{grid-template-columns:1fr 1fr;}.admin-body{padding:20px;}}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLoginWrap" class="admin-login">
+  <div class="admin-card">
+    <div class="brand">Buy<span>genix</span></div>
+    <div class="sub">Admin &amp; CRM Portal</div>
+    <div class="admin-badge">🔐 Admin Access Only</div>
+    <div class="form-feedback error" id="adminErr" style="margin-bottom:14px;"></div>
+    <div class="form-group">
+      <label for="adminEmail">Admin Email</label>
+      <input type="email" id="adminEmail" class="form-control" placeholder="admin@buygenixsolutions.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="adminPw">Password</label>
+      <div class="pw-wrap">
+        <input type="password" id="adminPw" class="form-control" placeholder="Admin password">
+        <button class="pw-toggle" onclick="toggleAPw(this)" type="button">👁</button>
+      </div>
+    </div>
+    <button class="admin-login-btn" onclick="handleAdminLogin()">Sign In to CRM →</button>
+    <p style="font-size:12px;color:var(--text-light);text-align:center;margin-top:16px;">Restricted to BuyGenix administrators only.</p>
+    <p style="text-align:center;margin-top:8px;font-size:12.5px;"><a href="index.html" style="color:var(--blue);">← Back to website</a></p>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="adminApp">
+  <div class="admin-sidebar">
+    <div class="asb-brand">
+      <div class="asb-name">Buy<span>genix</span></div>
+      <div class="asb-role">CRM &amp; Admin Portal</div>
+    </div>
+    <nav class="asb-nav">
+      <div class="asb-sec">Overview</div>
+      <div class="asb-link active" onclick="showAPanel('dashboard',this)"><span class="asb-icon">📊</span>Dashboard</div>
+      <div class="asb-sec">Members &amp; Leads</div>
+      <div class="asb-link" onclick="showAPanel('members',this)"><span class="asb-icon">👥</span>Members<span class="asb-count" id="sbMemCnt">0</span></div>
+      <div class="asb-link" onclick="showAPanel('leads',this)"><span class="asb-icon">🎯</span>Buyer Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
+      <div class="asb-link" onclick="showAPanel('enquiries',this)"><span class="asb-icon">📩</span>Enquiries<span class="asb-count" id="sbEnqCnt">0</span></div>
+      <div class="asb-sec">Management</div>
+      <div class="asb-link" onclick="showAPanel('plans',this)"><span class="asb-icon">💼</span>Manage Plans</div>
+      <div class="asb-link" onclick="showAPanel('categories',this)"><span class="asb-icon">🗂️</span>Category Grid</div>
+      <div class="asb-sec">System</div>
+      <a href="index.html" class="asb-link"><span class="asb-icon">🌐</span>View Website</a>
+    </nav>
+    <div class="asb-footer">
+      <div class="asb-out" onclick="doAdminSignOut()"><span>🚪</span>Sign Out</div>
+    </div>
+  </div>
+
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div class="atb-title" id="adminTopTitle">Dashboard</div>
+      <div class="atb-right">
+        <div class="atb-clock" id="adminClock"></div>
+        <div class="atb-av" id="adminAv">AD</div>
+      </div>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- DASHBOARD -->
+      <div class="a-panel active" id="ap-dashboard">
+        <div style="margin-bottom:20px;">
+          <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);margin-bottom:4px;">CRM Dashboard</h2>
+          <p style="font-size:14px;color:var(--text-mid);">BuyGenix Solutions — live membership and lead data.</p>
+        </div>
+        <div class="admin-stats">
+          <div class="asc"><div class="asc-icon">👥</div><div class="asc-num" id="dMembers">—</div><div class="asc-lbl">Total Members</div><div class="asc-trend tr-up" id="dMTrend">—</div></div>
+          <div class="asc"><div class="asc-icon">🎯</div><div class="asc-num" id="dLeads">—</div><div class="asc-lbl">Leads Delivered</div><div class="asc-trend tr-up">All time</div></div>
+          <div class="asc"><div class="asc-icon">📩</div><div class="asc-num" id="dEnq">—</div><div class="asc-lbl">New Enquiries</div><div class="asc-trend tr-neutral">This week</div></div>
+          <div class="asc"><div class="asc-icon">💰</div><div class="asc-num" id="dRev">—</div><div class="asc-lbl">Annual Revenue</div><div class="asc-trend tr-up">₹ INR</div></div>
+          <div class="asc"><div class="asc-icon">⏰</div><div class="asc-num" id="dExp">—</div><div class="asc-lbl">Expiring (30d)</div><div class="asc-trend tr-neutral">Need renewal</div></div>
+        </div>
+        <div class="quick-grid">
+          <div class="qcard" onclick="showAPanel('members',document.querySelector('[onclick*=members]'))"><div class="qcard-icon">👥</div><div class="qcard-title">Manage Members</div><div class="qcard-sub">View all members, update plans, assign RMs.</div></div>
+          <div class="qcard" onclick="showAPanel('leads',document.querySelector('[onclick*=leads]'))"><div class="qcard-icon">🎯</div><div class="qcard-title">Deliver Leads</div><div class="qcard-sub">Add and assign verified buyer leads to members.</div></div>
+          <div class="qcard" onclick="showAPanel('enquiries',document.querySelector('[onclick*=enquiries]'))"><div class="qcard-icon">📩</div><div class="qcard-title">Handle Enquiries</div><div class="qcard-sub">Review and respond to contact form submissions.</div></div>
+          <div class="qcard" onclick="showAPanel('plans',document.querySelector('[onclick*=plans]'))"><div class="qcard-icon">💼</div><div class="qcard-title">Manage Plans</div><div class="qcard-sub">Update membership plan prices and features.</div></div>
+        </div>
+      </div>
+
+      <!-- MEMBERS -->
+      <div class="a-panel" id="ap-members">
+        <div class="admin-table-wrap">
+          <div class="table-toolbar">
+            <div class="toolbar-left">
+              <span class="tb-title">👥 Members</span>
+              <div class="search-wrap"><span>🔍</span><input type="text" placeholder="Search name, email…" id="memSearch" oninput="filterMem()"></div>
+              <select class="filter-sel" id="memPlanFilter" onchange="filterMem()">
+                <option value="">All Plans</option>
+                <option>Starter</option><option>Growth</option>
+                <option>Professional</option><option>Enterprise</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-refresh" onclick="loadMembers()">↻ Refresh</button>
+              <button class="btn-add-row" onclick="openAddMember()">+ Add Member</button>
+            </div>
+          </div>
+          <div class="at-head mem-cols"><span>#</span><span>Member</span><span>Contact</span><span>Plan</span><span>RM</span><span>Status</span><span>Actions</span></div>
+          <div id="memBody"><div class="empty-row">Loading members…</div></div>
+        </div>
+      </div>
+
+      <!-- LEADS -->
+      <div class="a-panel" id="ap-leads">
+        <div class="admin-table-wrap">
+          <div class="table-toolbar">
+            <div class="toolbar-left">
+              <span class="tb-title">🎯 Buyer Leads</span>
+              <div class="search-wrap"><span>🔍</span><input type="text" placeholder="Country, product…" id="leadSearch" oninput="filterLeads()"></div>
+              <select class="filter-sel" id="leadStatus" onchange="filterLeads()">
+                <option value="">All Status</option>
+                <option>new</option><option>hot</option>
+                <option>delivered</option><option>responded</option><option>closed</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="btn-refresh" onclick="loadLeads()">↻ Refresh</button>
+              <button class="btn-add-row" onclick="openAddLead()">+ Add Lead</button>
+            </div>
+          </div>
+          <div class="at-head lead-cols"><span>#</span><span>Country</span><span>Product</span><span>Quantity</span><span>Member</span><span>Status</span><span>Actions</span></div>
+          <div id="leadBody"><div class="empty-row">Loading leads…</div></div>
+        </div>
+      </div>
+
+      <!-- ENQUIRIES -->
+      <div class="a-panel" id="ap-enquiries">
+        <div class="admin-table-wrap">
+          <div class="table-toolbar">
+            <div class="toolbar-left">
+              <span class="tb-title">📩 Enquiries</span>
+              <div class="search-wrap"><span>🔍</span><input type="text" placeholder="Name, phone…" id="enqSearch" oninput="filterEnq()"></div>
+              <select class="filter-sel" id="enqStatus" onchange="filterEnq()">
+                <option value="">All</option>
+                <option>new</option><option>contacted</option>
+                <option>converted</option><option>closed</option>
+              </select>
+            </div>
+            <button class="btn-refresh" onclick="loadEnquiries()">↻ Refresh</button>
+          </div>
+          <div class="at-head enq-cols"><span>#</span><span>Name &amp; Business</span><span>Contact</span><span>Interested In</span><span>Source</span><span>Actions</span></div>
+          <div id="enqBody"><div class="empty-row">Loading enquiries…</div></div>
+        </div>
+      </div>
+
+      <!-- PLANS -->
+      <div class="a-panel" id="ap-plans">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div><h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);">Membership Plans</h2><p style="font-size:14px;color:var(--text-mid);">Changes reflect immediately on the public website.</p></div>
+        </div>
+        <div id="plansAdminGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;"></div>
+      </div>
+
+      <!-- ═══ CATEGORY GRID MANAGER ═══ -->
+      <div class="a-panel" id="ap-categories">
+        <style>
+        .cat-sec-tab{height:36px;padding:0 18px;border-radius:var(--r-md);border:1.5px solid var(--border-soft);background:white;font-size:12.5px;font-weight:700;color:var(--text-mid);font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
+        .cat-sec-tab.active{background:var(--navy);color:white;border-color:var(--navy);}
+        .cat-item-card{background:white;border:1.5px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);transition:box-shadow .2s;}
+        .cat-item-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.1);}
+        .cat-item-img{width:100%;height:110px;object-fit:cover;display:block;background:#f1f5f9;}
+        .cat-item-body{padding:12px 14px;}
+        .cat-item-title{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px;line-height:1.3;}
+        .cat-item-subs{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+        .cat-item-sub{background:var(--sky);color:var(--navy);font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:100px;font-family:'Space Grotesk',sans-serif;}
+        .cat-item-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-top:8px;border-top:1px solid var(--border-soft);}
+        .cat-toggle{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--text-mid);font-family:'Space Grotesk',sans-serif;cursor:pointer;}
+        .toggle-sw{width:32px;height:18px;border-radius:9px;background:#e2e8f0;position:relative;transition:background .2s;}
+        .toggle-sw.on{background:#16a34a;}
+        .toggle-sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:white;transition:left .2s;}
+        .toggle-sw.on::after{left:16px;}
+        .cat-edit-btn{height:28px;padding:0 10px;background:var(--sky);border:1.5px solid var(--border-soft);border-radius:var(--r-md);font-size:11.5px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
+        .cat-edit-btn:hover{background:var(--navy);color:white;border-color:var(--navy);}
+        .cat-del-btn{height:28px;padding:0 10px;background:#fef2f2;border:1.5px solid #fecaca;border-radius:var(--r-md);font-size:11.5px;font-weight:700;color:#dc2626;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
+        .cat-del-btn:hover{background:#dc2626;color:white;}
+        .cat-order-badge{font-size:10px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;background:var(--sky);padding:2px 7px;border-radius:100px;}
+        </style>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">Category Grid Manager</h2>
+            <p style="font-size:13px;color:var(--text-mid);">Edit homepage grid cards — title, sub-items, image. Changes go live instantly.</p>
+          </div>
+          <button class="btn-add-row" onclick="openAddCategoryItem()">+ Add New Card</button>
+        </div>
+
+        <!-- Section Tabs -->
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <button class="cat-sec-tab active" id="tab-apparel" onclick="switchCatTab('apparel')">👗 Apparel & Garments</button>
+          <button class="cat-sec-tab" id="tab-agriculture" onclick="switchCatTab('agriculture')">🌾 Agriculture & Farming</button>
+        </div>
+
+        <!-- Search + Count -->
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;">
+          <input type="text" id="catSearch" placeholder="🔍 Search cards..." oninput="filterCatCards()" style="height:36px;padding:0 12px;border:1.5px solid var(--border-soft);border-radius:var(--r-md);font-size:13px;font-family:inherit;width:220px;outline:none;color:var(--navy);">
+          <span id="catCount" style="font-size:12.5px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;"></span>
+          <span style="font-size:12px;color:var(--text-light);margin-left:auto;">💡 Toggle ON/OFF to show/hide on homepage</span>
+        </div>
+
+        <!-- Cards Grid -->
+        <div id="catCardsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;">
+          <div style="text-align:center;padding:40px;color:var(--text-light);font-size:13px;">Loading cards…</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js"></script>
+<script>
+const ADMIN_EMAIL = 'admin@buygenixsolutions.com';
+const ADMIN_PASS  = 'BGX@Admin2025';
+let _sb = null, allMem = [], allLeads = [], allEnq = [];
+
+function getSB() {
+  if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
+  return _sb;
+}
+
+/* Clock */
+setInterval(() => { const el = document.getElementById('adminClock'); if (el) el.textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}); }, 1000);
+document.getElementById('adminClock').textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+
+function toggleAPw(btn) { const inp = btn.previousElementSibling; inp.type = inp.type==='password'?'text':'password'; btn.textContent=inp.type==='password'?'👁':'🙈'; }
+
+async function handleAdminLogin() {
+  const email = document.getElementById('adminEmail').value.trim();
+  const pw    = document.getElementById('adminPw').value;
+  const errEl = document.getElementById('adminErr');
+  errEl.classList.remove('show');
+  if (!email||!pw) { errEl.innerHTML='<span>⚠</span><span>Please enter email and password.</span>'; errEl.classList.add('show'); return; }
+  const sb = getSB();
+  if (sb) {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+    if (!error && data.session) { bootAdmin(data.session.user); return; }
+  }
+  if (email===ADMIN_EMAIL && pw===ADMIN_PASS) { bootAdmin({ email, user_metadata:{ full_name:'Admin' } }); return; }
+  errEl.innerHTML='<span>⚠</span><span>Invalid credentials. Access denied.</span>'; errEl.classList.add('show');
+}
+
+function bootAdmin(user) {
+  document.getElementById('adminLoginWrap').style.display = 'none';
+  document.getElementById('adminApp').style.display = 'block';
+  const name = user.user_metadata?.full_name || user.email || 'Admin';
+  const init = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2)||'AD';
+  document.getElementById('adminAv').textContent = init;
+  Promise.all([loadMembers(),loadLeads(),loadEnquiries()]).then(buildDashboard);
+}
+
+async function doAdminSignOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); location.reload(); }
+
+function showAPanel(name, el) {
+  document.querySelectorAll('.a-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
+  const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
+  if(el) el.classList.add('active');
+  const titles = {dashboard:'CRM Dashboard',members:'Members',leads:'Buyer Leads',enquiries:'Enquiries',plans:'Manage Plans',categories:'Category Grid Manager'};
+  document.getElementById('adminTopTitle').textContent = titles[name]||name;
+  if(name==='plans') loadPlansAdmin();
+  if(name==='categories') loadCategoriesAdmin();
+}
+
+async function loadMembers() {
+  const sb=getSB();
+  try { const { data }=await sb.from('members').select('*').order('created_at',{ascending:false}).limit(200); allMem=data&&data.length?data:DEMO_MEM(); } catch(e){ allMem=DEMO_MEM(); }
+  document.getElementById('sbMemCnt').textContent=allMem.length; renderMem(allMem);
+}
+async function loadLeads() {
+  const sb=getSB();
+  try { const { data }=await sb.from('leads').select('*').order('created_at',{ascending:false}).limit(200); allLeads=data&&data.length?data:DEMO_LEADS(); } catch(e){ allLeads=DEMO_LEADS(); }
+  document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads);
+}
+async function loadEnquiries() {
+  const sb=getSB();
+  try { const { data }=await sb.from('enquiries').select('*').order('created_at',{ascending:false}).limit(200); allEnq=data&&data.length?data:DEMO_ENQ(); } catch(e){ allEnq=DEMO_ENQ(); }
+  document.getElementById('sbEnqCnt').textContent=allEnq.filter(e=>!e.status||e.status==='new').length; renderEnq(allEnq);
+}
+
+function buildDashboard() {
+  document.getElementById('dMembers').textContent=allMem.length;
+  document.getElementById('dMTrend').textContent='Active this year';
+  document.getElementById('dLeads').textContent=allLeads.length;
+  document.getElementById('dEnq').textContent=allEnq.filter(e=>!e.status||e.status==='new').length;
+  const priceMap={starter:13500,growth:27000,professional:45000};
+  const rev=allMem.reduce((s,m)=>s+(priceMap[(m.plan||'starter').toLowerCase()]||0),0);
+  document.getElementById('dRev').textContent=`₹${(rev/1000).toFixed(0)}K`;
+  const now=new Date(); const in30=new Date(now.getTime()+30*86400000);
+  document.getElementById('dExp').textContent=allMem.filter(m=>{ if(!m.renewal_date) return false; const d=new Date(m.renewal_date); return d>=now&&d<=in30; }).length;
+}
+
+const ppClass = k => ({ starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise' }[(k||'starter').toLowerCase()]||'pp-starter');
+const sBadge = s => { const m={new:'badge-green',hot:'badge-orange',delivered:'badge-blue',responded:'badge-green',closed:'badge-navy'}; return `<span class="badge ${m[s]||'badge-green'}">${s||'new'}</span>`; };
+
+function renderMem(list) {
+  document.getElementById('memBody').innerHTML = list.length ? list.map((m,i) => `
+    <div class="at-row mem-cols">
+      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div><div class="cell-name">${m.full_name||m.name||'—'}</div><div class="cell-sub">${m.business_name||'—'}</div></div>
+      <div><div style="font-size:13px;">${m.email||'—'}</div><div class="cell-sub">${m.phone||'—'}</div></div>
+      <span><span class="plan-pill ${ppClass(m.plan)}">${m.plan||'Starter'}</span></span>
+      <span style="font-size:13px;color:var(--text-mid);">${m.rm_name||'Unassigned'}</span>
+      <span><span class="badge ${m.status==='inactive'?'badge-red':'badge-green'}">${m.status||'Active'}</span></span>
+      <div class="act-btns">
+        <button class="act-btn ab-view" onclick='viewMem(${JSON.stringify(m).replace(/'/g,"\\'")} )'>View</button>
+        <button class="act-btn ab-edit" onclick="BGX_Toast('Edit via Supabase dashboard.','info')">Edit</button>
+      </div>
+    </div>`).join('') : '<div class="empty-row">No members found.</div>';
+}
+
+function renderLeads(list) {
+  document.getElementById('leadBody').innerHTML = list.length ? list.map((l,i) => `
+    <div class="at-row lead-cols">
+      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <span style="font-weight:600;color:var(--navy);">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
+      <span style="color:var(--text-mid);">${l.product||'—'}</span>
+      <span style="color:var(--text-mid);font-size:13px;">${l.quantity||'—'}</span>
+      <span style="font-size:12.5px;color:var(--text-mid);">${l.member_name||l.member_id||'Unassigned'}</span>
+      <span>${sBadge(l.status)}</span>
+      <div class="act-btns">
+        <button class="act-btn ab-deliver" onclick="markDelivered('${l.id||i}')">Deliver</button>
+        <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">Del</button>
+      </div>
+    </div>`).join('') : '<div class="empty-row">No leads found.</div>';
+}
+
+function renderEnq(list) {
+  document.getElementById('enqBody').innerHTML = list.length ? list.map((e,i) => `
+    <div class="at-row enq-cols ${!e.status||e.status==='new'?'highlight':''}">
+      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div><div class="cell-name">${e.full_name||'—'}</div><div class="cell-sub">${e.business_name||'—'}</div></div>
+      <div><div style="font-size:13px;">${e.phone||'—'}</div><div class="cell-sub">${e.email||'—'}</div></div>
+      <span style="font-size:12.5px;color:var(--text-mid);">${e.interested_in||e.product_category||'—'}</span>
+      <span><span class="badge badge-navy" style="font-size:10px;">${e.source||'website'}</span></span>
+      <div class="act-btns">
+        <button class="act-btn ab-view" onclick='viewEnq(${JSON.stringify(e).replace(/'/g,"\\'")} )'>View</button>
+        ${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="act-btn ab-deliver" target="_blank" rel="noopener">WA</a>`:''}
+      </div>
+    </div>`).join('') : '<div class="empty-row">No enquiries found.</div>';
+}
+
+function filterMem()   { const q=document.getElementById('memSearch').value.toLowerCase(); const pl=document.getElementById('memPlanFilter').value.toLowerCase(); renderMem(allMem.filter(m=>(!q||(m.full_name||m.name||'').toLowerCase().includes(q)||(m.email||'').toLowerCase().includes(q))&&(!pl||(m.plan||'').toLowerCase()===pl))); }
+function filterLeads() { const q=document.getElementById('leadSearch').value.toLowerCase(); const s=document.getElementById('leadStatus').value.toLowerCase(); renderLeads(allLeads.filter(l=>(!q||(l.country||'').toLowerCase().includes(q)||(l.product||'').toLowerCase().includes(q))&&(!s||(l.status||'new').toLowerCase()===s))); }
+function filterEnq()   { const q=document.getElementById('enqSearch').value.toLowerCase(); const s=document.getElementById('enqStatus').value.toLowerCase(); renderEnq(allEnq.filter(e=>(!q||(e.full_name||'').toLowerCase().includes(q)||(e.phone||'').toLowerCase().includes(q))&&(!s||(e.status||'new').toLowerCase()===s))); }
+
+function openModal(html) { document.getElementById('modalBody').innerHTML=html; document.getElementById('modalBg').classList.add('open'); }
+function closeModal()    { document.getElementById('modalBg').classList.remove('open'); }
+document.getElementById('modalBg').addEventListener('click', e=>{ if(e.target===document.getElementById('modalBg')) closeModal(); });
+
+function viewMem(m) {
+  openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
+  ${[['Plan',m.plan],['Email',m.email],['Phone',m.phone],['RM',m.rm_name],['Status',m.status||'Active'],['Start',m.start_date],['Renews',m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
+  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
+}
+
+function viewEnq(e) {
+  openModal(`<h3>📩 ${e.full_name||'Enquiry'}</h3><p>Received via ${e.source||'website'}</p>
+  ${[['Name',e.full_name],['Business',e.business_name],['Phone',e.phone],['Email',e.email],['Product',e.product_category],['Interested In',e.interested_in],['Date',e.created_at?new Date(e.created_at).toLocaleDateString('en-IN'):'']].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
+  ${e.message?`<div style="margin-top:12px;"><div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-light);font-family:'Space Grotesk';margin-bottom:7px;">Message</div><div style="background:var(--sky);border-radius:var(--r-md);padding:14px;font-size:13.5px;color:var(--text-body);line-height:var(--lh);">${e.message}</div></div>`:''}
+  <div class="modal-footer">${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${e.email?`<a href="mailto:${e.email}" class="btn-primary btn-sm">📧 Reply</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
+}
+
+function openAddMember() {
+  const rms = BGX.RMS.map(r=>`<option value="${r.id}">${r.name} — ${r.role}</option>`).join('');
+  openModal(`<h3>+ Add New Member</h3><p>Create a member account and assign their plan.</p>
+  <div class="form-row"><div class="form-group"><label>Full Name *</label><input class="form-control" id="m_name" placeholder="Full name"></div><div class="form-group"><label>Business Name *</label><input class="form-control" id="m_biz" placeholder="Company name"></div></div>
+  <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" class="form-control" id="m_email" placeholder="email@example.com"></div><div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="m_phone" placeholder="+91 98765 43210"></div></div>
+  <div class="form-row"><div class="form-group"><label>Plan</label><select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select></div><div class="form-group"><label>Relationship Manager</label><select class="form-control" id="m_rm">${rms}</select></div></div>
+  <div class="form-row"><div class="form-group"><label>Start Date</label><input type="date" class="form-control" id="m_start" value="${new Date().toISOString().split('T')[0]}"></div><div class="form-group"><label>Renewal Date</label><input type="date" class="form-control" id="m_renew" value="${new Date(Date.now()+365*86400000).toISOString().split('T')[0]}"></div></div>
+  <div class="modal-footer"><button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button><button class="btn-add-row" onclick="saveMember()">Save Member</button></div>`);
+}
+
+async function saveMember() {
+  const name=document.getElementById('m_name')?.value.trim(); const email=document.getElementById('m_email')?.value.trim();
+  if (!name||!email) { BGX_Toast('Name and email required.','error'); return; }
+  const rmSel=document.getElementById('m_rm'); const rm=BGX.RMS.find(r=>r.id===rmSel?.value);
+  const payload={full_name:name,business_name:document.getElementById('m_biz')?.value.trim(),email,phone:document.getElementById('m_phone')?.value.trim(),plan:document.getElementById('m_plan')?.value,rm_name:rm?.name,rm_role:rm?.role,start_date:document.getElementById('m_start')?.value,renewal_date:document.getElementById('m_renew')?.value,status:'active',created_at:new Date().toISOString()};
+  const sb=getSB(); if(sb){ try{ await sb.from('members').insert([payload]); }catch(e){} }
+  allMem.unshift({...payload,id:Date.now()}); document.getElementById('sbMemCnt').textContent=allMem.length; renderMem(allMem); closeModal(); buildDashboard();
+  BGX_Toast(`Member ${name} added!`,'success');
+}
+
+function openAddLead() {
+  const memOpts=allMem.map((m,i)=>`<option value="${m.id||i}">${m.full_name||m.name} — ${m.plan}</option>`).join('');
+  const ctryOpts=Object.entries(BGX.FLAGS).map(([c,f])=>`<option value="${c}">${f} ${c}</option>`).join('');
+  openModal(`<h3>+ Add Buyer Lead</h3><p>Assign a verified buyer lead to a member.</p>
+  <div class="form-row"><div class="form-group"><label>Country *</label><select class="form-control" id="l_country">${ctryOpts}</select></div><div class="form-group"><label>Product *</label><input class="form-control" id="l_product" placeholder="e.g. Organic Turmeric"></div></div>
+  <div class="form-row"><div class="form-group"><label>Quantity</label><input class="form-control" id="l_qty" placeholder="e.g. 5 MT/month"></div><div class="form-group"><label>Status</label><select class="form-control" id="l_status"><option>new</option><option>hot</option><option>verified</option></select></div></div>
+  <div class="form-group"><label>Assign to Member</label><select class="form-control" id="l_member"><option value="">-- Select Member --</option>${memOpts}</select></div>
+  <div class="form-group"><label>Notes</label><textarea class="form-control" id="l_notes" rows="3" placeholder="Buyer contact, specs, etc."></textarea></div>
+  <div class="modal-footer"><button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button><button class="btn-add-row" onclick="saveLead()">Save &amp; Assign Lead</button></div>`);
+}
+
+async function saveLead() {
+  const country=document.getElementById('l_country')?.value; const product=document.getElementById('l_product')?.value.trim();
+  if (!country||!product) { BGX_Toast('Country and product required.','error'); return; }
+  const mSel=document.getElementById('l_member'); const mName=mSel?.options[mSel.selectedIndex]?.text.split(' — ')[0];
+  const payload={country,product,quantity:document.getElementById('l_qty')?.value.trim(),status:document.getElementById('l_status')?.value,member_id:mSel?.value,member_name:mName,notes:document.getElementById('l_notes')?.value.trim(),created_at:new Date().toISOString()};
+  const sb=getSB(); if(sb){ try{ await sb.from('leads').insert([payload]); }catch(e){} }
+  allLeads.unshift({...payload,id:Date.now()}); document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads); closeModal(); buildDashboard();
+  BGX_Toast(`Lead assigned to ${mName||'member'}!`,'success');
+}
+
+async function markDelivered(id) {
+  const sb=getSB(); if(sb){ try{ await sb.from('leads').update({status:'delivered'}).eq('id',id); }catch(e){} }
+  allLeads=allLeads.map(l=>l.id==id?{...l,status:'delivered'}:l); renderLeads(allLeads);
+  BGX_Toast('Lead marked as delivered.','success');
+}
+
+async function deleteLead(id) {
+  if (!confirm('Delete this lead? This cannot be undone.')) return;
+  const sb=getSB(); if(sb){ try{ await sb.from('leads').delete().eq('id',id); }catch(e){} }
+  allLeads=allLeads.filter(l=>l.id!=id); document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads); buildDashboard();
+  BGX_Toast('Lead deleted.','info');
+}
+
+function loadPlansAdmin() {
+  document.getElementById('plansAdminGrid').innerHTML = Object.values(BGX.PLANS).map(p=>`
+    <div style="background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px;box-shadow:var(--shadow-soft);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);">${p.label}</span>
+        ${p.is_popular?'<span class="badge badge-gold">Popular</span>':''}
+      </div>
+      <div style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--navy);margin-bottom:3px;">${p.price?'₹'+p.price.toLocaleString('en-IN'):'Custom'}</div>
+      <div style="font-size:12px;color:var(--text-light);margin-bottom:12px;">${p.best_for||'—'}</div>
+      <div style="font-size:12.5px;color:var(--text-mid);line-height:1.7;margin-bottom:14px;">${(p.features||[]).slice(0,4).map(f=>`✔ ${f}`).join('<br>')}</div>
+      <a href="https://app.supabase.com" class="btn-outline btn-sm" target="_blank" rel="noopener" style="display:inline-flex;">Edit in Supabase →</a>
+    </div>`).join('');
+}
+
+/* Demo data */
+function DEMO_MEM() { return [{id:'m1',full_name:'Rajesh Sharma',business_name:'RS Textiles',email:'rajesh@rs.com',phone:'+91 98111 11111',plan:'Growth',rm_name:'Priya Mehra',status:'active',start_date:'2025-01-01',renewal_date:'2025-12-31'},{id:'m2',full_name:'Priya Verma',business_name:'Priya Spice Exports',email:'priya@spice.com',phone:'+91 98222 22222',plan:'Professional',rm_name:'Arjun Kapoor',status:'active',start_date:'2025-02-01',renewal_date:'2026-01-31'},{id:'m3',full_name:'Kiran Joshi',business_name:'Kiran Handicrafts',email:'kiran@crafts.com',phone:'+91 98333 33333',plan:'Starter',rm_name:'Divya Singh',status:'active',start_date:'2025-03-01',renewal_date:'2026-02-28'}]; }
+function DEMO_LEADS() { return BGX.SAMPLE_LEADS.map((l,i)=>({id:'l'+i,country:l.country,product:l.product,quantity:l.qty,status:l.status,member_name:'Rajesh Sharma',created_at:new Date().toISOString()})); }
+function DEMO_ENQ() { return [{id:'e1',full_name:'Amit Kumar',business_name:'AK Garments',phone:'+91 98000 00001',email:'amit@ak.com',product_category:'Garments',interested_in:'Growth Plan',source:'contact_form',status:'new',created_at:new Date().toISOString(),message:'I am interested in the Growth plan.'},{id:'e2',full_name:'Meena Reddy',business_name:'Meena Foods',phone:'+91 98000 00002',email:'meena@foods.com',product_category:'Organic Food',interested_in:'GST Registration',source:'gst_page',status:'new',created_at:new Date().toISOString()}]; }
+
+/* ═══ CATEGORY GRID MANAGER ═══ */
+let allCatItems = [], curCatSection = 'apparel';
+
+function switchCatTab(section) {
+  curCatSection = section;
+  document.getElementById('tab-apparel').classList.toggle('active', section==='apparel');
+  document.getElementById('tab-agriculture').classList.toggle('active', section==='agriculture');
+  document.getElementById('catSearch').value = '';
+  renderCatCards();
+}
+
+async function loadCategoriesAdmin() {
+  const sb = getSB();
+  try {
+    const { data, error } = await sb.from('category_items').select('*').order('section').order('sort_order');
+    if (!error && data) { allCatItems = data; renderCatCards(); return; }
+  } catch(e) {}
+  BGX_Toast('Could not load from Supabase. Check connection.', 'error');
+  allCatItems = [];
+  renderCatCards();
+}
+
+function filterCatCards() { renderCatCards(); }
+
+function renderCatCards() {
+  const q = (document.getElementById('catSearch')?.value||'').toLowerCase();
+  const items = allCatItems.filter(i => i.section === curCatSection && (!q || i.title.toLowerCase().includes(q)));
+  document.getElementById('catCount').textContent = `${items.length} card${items.length!==1?'s':''}`;
+  if (!items.length) {
+    document.getElementById('catCardsGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);font-size:13px;">${q?'No cards match your search.':'No cards yet. Add one!'}</div>`;
+    return;
+  }
+  document.getElementById('catCardsGrid').innerHTML = items.map(item => {
+    const subs = Array.isArray(item.sub_items) ? item.sub_items : (typeof item.sub_items==='string' ? JSON.parse(item.sub_items||'[]') : []);
+    const isOn = item.is_active !== false;
+    return `<div class="cat-item-card" id="catcard-${item.id}">
+      <div style="position:relative;">
+        <img class="cat-item-img" src="${item.image_url||''}" alt="${item.title}" onerror="this.style.background='#e2e8f0';this.src=''">
+        <span class="cat-order-badge" style="position:absolute;top:8px;left:8px;">#${item.sort_order||'—'}</span>
+        ${!isOn?'<div style="position:absolute;inset:0;background:rgba(0,0,0,0.45);display:flex;align-items:center;justify-content:center;"><span style="color:white;font-size:11px;font-weight:700;font-family:Space Grotesk,sans-serif;background:rgba(0,0,0,0.6);padding:3px 10px;border-radius:100px;">HIDDEN</span></div>':''}
+      </div>
+      <div class="cat-item-body">
+        <div class="cat-item-title">${item.title}</div>
+        <div class="cat-item-subs">${subs.map(s=>`<span class="cat-item-sub">${s}</span>`).join('')}</div>
+        <div class="cat-item-foot">
+          <label class="cat-toggle" onclick="toggleCatActive('${item.id}',${!isOn})">
+            <div class="toggle-sw ${isOn?'on':''}"></div>
+            <span>${isOn?'Visible':'Hidden'}</span>
+          </label>
+          <div style="display:flex;gap:6px;">
+            <button class="cat-edit-btn" onclick='openEditCategoryItem(${JSON.stringify(item).replace(/'/g,"&apos;")})'>✏️ Edit</button>
+            <button class="cat-del-btn" onclick="deleteCatItem('${item.id}')">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function toggleCatActive(id, newVal) {
+  const sb = getSB();
+  try { await sb.from('category_items').update({is_active:newVal}).eq('id',id); } catch(e){}
+  allCatItems = allCatItems.map(i => i.id===id ? {...i,is_active:newVal} : i);
+  renderCatCards();
+  BGX_Toast(newVal?'Card is now visible on homepage.':'Card hidden from homepage.', 'success');
+}
+
+async function deleteCatItem(id) {
+  if (!confirm('Delete this category card? This cannot be undone.')) return;
+  const sb = getSB();
+  try { await sb.from('category_items').delete().eq('id',id); } catch(e){}
+  allCatItems = allCatItems.filter(i => i.id!==id);
+  renderCatCards();
+  BGX_Toast('Card deleted.', 'info');
+}
+
+function openAddCategoryItem() {
+  openModal(`<h3>+ Add Category Card</h3>
+    <p style="margin-bottom:14px;">New card will appear on the homepage grid instantly.</p>
+    <div class="form-row">
+      <div class="form-group"><label>Section</label>
+        <select class="form-control" id="ci_section">
+          <option value="apparel" ${curCatSection==='apparel'?'selected':''}>👗 Apparel & Garments</option>
+          <option value="agriculture" ${curCatSection==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Sort Order</label>
+        <input type="number" class="form-control" id="ci_order" placeholder="e.g. 5" min="1">
+      </div>
+    </div>
+    <div class="form-group"><label>Title *</label>
+      <input class="form-control" id="ci_title" placeholder="e.g. Kids Dress & Clothing">
+    </div>
+    <div class="form-group"><label>Sub-items (comma separated)</label>
+      <input class="form-control" id="ci_subs" placeholder="e.g. Boys Clothes, Girls Garments, Kids Frock">
+    </div>
+    <div class="form-group"><label>Image URL</label>
+      <input class="form-control" id="ci_img" placeholder="https://images.unsplash.com/...">
+      <div style="font-size:11px;color:var(--text-light);margin-top:4px;">Tip: Use Unsplash URL like https://images.unsplash.com/photo-xxx?w=300&q=80</div>
+    </div>
+    <div id="ci_preview" style="display:none;margin-bottom:12px;">
+      <img id="ci_preview_img" style="width:100%;height:100px;object-fit:cover;border-radius:8px;" src="">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveCategoryItem()">Save Card</button>
+    </div>`);
+  /* live preview */
+  document.getElementById('ci_img').addEventListener('input', function() {
+    const p = document.getElementById('ci_preview');
+    const i = document.getElementById('ci_preview_img');
+    if (this.value) { p.style.display='block'; i.src=this.value; }
+    else { p.style.display='none'; }
+  });
+}
+
+function openEditCategoryItem(item) {
+  const subs = Array.isArray(item.sub_items) ? item.sub_items.join(', ') : (typeof item.sub_items==='string'?JSON.parse(item.sub_items||'[]').join(', '):'');
+  openModal(`<h3>✏️ Edit Category Card</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Section</label>
+        <select class="form-control" id="ci_section">
+          <option value="apparel" ${item.section==='apparel'?'selected':''}>👗 Apparel & Garments</option>
+          <option value="agriculture" ${item.section==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Sort Order</label>
+        <input type="number" class="form-control" id="ci_order" value="${item.sort_order||''}" min="1">
+      </div>
+    </div>
+    <div class="form-group"><label>Title *</label>
+      <input class="form-control" id="ci_title" value="${item.title||''}">
+    </div>
+    <div class="form-group"><label>Sub-items (comma separated)</label>
+      <input class="form-control" id="ci_subs" value="${subs}">
+    </div>
+    <div class="form-group"><label>Image URL</label>
+      <input class="form-control" id="ci_img" value="${item.image_url||''}">
+    </div>
+    <div style="margin-bottom:12px;">
+      <img id="ci_preview_img" style="width:100%;height:100px;object-fit:cover;border-radius:8px;" src="${item.image_url||''}">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveCategoryItem('${item.id}')">Update Card</button>
+    </div>`);
+  document.getElementById('ci_img').addEventListener('input', function() {
+    document.getElementById('ci_preview_img').src = this.value;
+  });
+}
+
+async function saveCategoryItem(editId) {
+  const title = document.getElementById('ci_title')?.value.trim();
+  if (!title) { BGX_Toast('Title is required.','error'); return; }
+  const subsRaw = document.getElementById('ci_subs')?.value || '';
+  const subs = subsRaw.split(',').map(s=>s.trim()).filter(Boolean);
+  const payload = {
+    section: document.getElementById('ci_section')?.value || curCatSection,
+    title,
+    sub_items: JSON.stringify(subs),
+    image_url: document.getElementById('ci_img')?.value.trim() || '',
+    sort_order: parseInt(document.getElementById('ci_order')?.value) || 99,
+    is_active: true
+  };
+  const sb = getSB();
+  if (editId) {
+    try { await sb.from('category_items').update(payload).eq('id', editId); } catch(e){}
+    allCatItems = allCatItems.map(i => i.id===editId ? {...i,...payload,sub_items:subs} : i);
+    BGX_Toast('Card updated! Changes are live on homepage.', 'success');
+  } else {
+    let newItem = {...payload, id: 'temp-'+Date.now(), sub_items: subs};
+    try {
+      const {data} = await sb.from('category_items').insert([payload]).select();
+      if (data?.[0]) newItem = {...data[0], sub_items: subs};
+    } catch(e){}
+    allCatItems.push(newItem);
+    BGX_Toast('Card added! Visible on homepage.', 'success');
+  }
+  closeModal();
+  renderCatCards();
+}
+
+/* Enter on login */
+document.addEventListener('keydown', e => { if (e.key==='Enter' && document.getElementById('adminLoginWrap').style.display !== 'none') handleAdminLogin(); });
+</script>
+</body>
+</html>
