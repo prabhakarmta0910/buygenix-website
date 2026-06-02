@@ -427,26 +427,130 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section class="section" style="background:var(--sky);">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <div class="eyebrow">Sample Buyer Leads</div>
-      <h2>Real Buyers. Real <em>Demand</em>.</h2>
-      <p>A glimpse of the verified buyer enquiries our members receive — matched to product category and delivered directly to them.</p>
-    </div>
-    <div class="leads-table-wrap leads-blur reveal">
-      <div class="lt-head"><span>Buyer Country</span><span>Product Required</span><span>Qty Required</span><span>Status</span></div>
-      <div class="lt-row"><span class="lt-country">🇩🇪 Germany</span><span class="lt-product">Organic Turmeric</span><span class="lt-qty">5 MT / month</span><span><span class="badge badge-green">New</span></span></div>
-      <div class="lt-row"><span class="lt-country">🇦🇪 UAE</span><span class="lt-product">Basmati Rice</span><span class="lt-qty">10 MT / month</span><span><span class="badge badge-orange">Hot</span></span></div>
-      <div class="lt-row"><span class="lt-country">🇺🇸 USA</span><span class="lt-product">Cotton Fabric</span><span class="lt-qty">2,000 metres</span><span><span class="badge badge-blue">Verified</span></span></div>
-      <div class="lt-row"><span class="lt-country">🇬🇧 UK</span><span class="lt-product">Brass Handicrafts</span><span class="lt-qty">500 units</span><span><span class="badge badge-green">New</span></span></div>
-      <div class="lt-row"><span class="lt-country">🇸🇬 Singapore</span><span class="lt-product">Black Pepper</span><span class="lt-qty">2 MT / month</span><span><span class="badge badge-orange">Hot</span></span></div>
-    </div>
-    <div class="reveal" style="text-align:center;margin-top:28px;">
-      <p style="font-size:14px;color:var(--text-mid);margin-bottom:18px;">These are sample leads. Members receive leads matched to their exact product categories.</p>
-      <a href="membership.html" class="btn-primary">Get Access to All Leads →</a>
+<section style="background:#f0f4ff;padding:52px 0;">
+<style>
+.hl-wrap{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
+.hl-left{flex:1;}
+.hl-title{text-align:center;font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#06b6d4;margin-bottom:6px;letter-spacing:-0.5px;}
+.hl-sub{text-align:center;font-size:13.5px;color:#64748b;margin-bottom:24px;}
+.hl-divider{width:60px;height:3px;background:linear-gradient(90deg,#06b6d4,#2563eb);border-radius:2px;margin:0 auto 24px;}
+.hl-table{width:100%;border-collapse:separate;border-spacing:0;background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.07);}
+.hl-table thead tr{background:white;border-bottom:2px solid #e2e8f0;}
+.hl-table thead th{padding:14px 16px;font-size:12.5px;font-weight:700;color:#1e293b;text-align:left;font-family:'Space Grotesk',sans-serif;letter-spacing:0.3px;}
+.hl-table tbody tr{border-bottom:1px solid #f1f5f9;transition:background .15s;}
+.hl-table tbody tr:hover{background:#f8faff;}
+.hl-table tbody tr:last-child{border-bottom:none;}
+.hl-table td{padding:13px 16px;font-size:13px;color:#374151;font-family:'Plus Jakarta Sans',sans-serif;}
+.hl-name{font-weight:600;color:#1e293b;}
+.hl-badge-active{display:inline-flex;align-items:center;gap:5px;background:#f0fdf4;color:#16a34a;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:100px;font-family:'Space Grotesk',sans-serif;}
+.hl-badge-active::before{content:'';width:7px;height:7px;border-radius:50%;background:#16a34a;flex-shrink:0;}
+.hl-visit-btn{display:inline-block;background:linear-gradient(135deg,#06b6d4,#2563eb);color:white;font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:none;transition:opacity .2s;white-space:nowrap;}
+.hl-visit-btn:hover{opacity:0.85;}
+.hl-cta-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;flex-wrap:wrap;gap:12px;}
+.hl-cta-note{font-size:12.5px;color:#94a3b8;font-family:'Space Grotesk',sans-serif;}
+/* Right phone mockup */
+.hl-right{width:220px;flex-shrink:0;}
+.hl-phone-wrap{position:relative;border-radius:24px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 8px 32px rgba(6,182,212,0.25),0 2px 8px rgba(0,0,0,0.1);}
+.hl-phone-wrap img{width:100%;display:block;border-radius:21px;}
+/* ticker animation */
+@keyframes hlTicker{0%{transform:translateY(0);}100%{transform:translateY(-50%)}}
+.hl-ticker-wrap{overflow:hidden;max-height:320px;}
+.hl-ticker-inner{animation:hlTicker 14s linear infinite;}
+.hl-ticker-inner:hover{animation-play-state:paused;}
+@media(max-width:768px){.hl-wrap{grid-template-columns:1fr;}.hl-right{display:none;}}
+</style>
+
+<div class="hl-wrap">
+  <!-- LEFT: Table -->
+  <div class="hl-left reveal">
+    <h2 class="hl-title">Hot Leads</h2>
+    <div class="hl-divider"></div>
+    <p class="hl-sub">Live buyer enquiries matched to Indian exporters — verified, active and ready to deal.</p>
+
+    <table class="hl-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Place</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Visit Now</th>
+        </tr>
+      </thead>
+      <tbody id="hotLeadsBody">
+        <!-- Injected by JS ticker -->
+      </tbody>
+    </table>
+
+    <div class="hl-cta-row">
+      <span class="hl-cta-note">🔒 Full buyer contact details visible to members only</span>
+      <a href="membership.html" class="btn-primary" style="font-size:13px;padding:10px 22px;">Get Access to All Leads →</a>
     </div>
   </div>
+
+  <!-- RIGHT: Phone mockup -->
+  <div class="hl-right reveal">
+    <div class="hl-phone-wrap">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=85" alt="Export Products">
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const leads = [
+    {name:'Saikat Sarkar',   place:'West Bengal', product:'Foxtail Millets',  qty:'200',   date:'2025/07/29'},
+    {name:'Akhil R.',        place:'Poonthopu',   product:'Mustard Seed',     qty:'1500',  date:'2025/07/29'},
+    {name:'Steen Andersen',  place:'Denmark',     product:'Men Slippers',     qty:'2000',  date:'2025/07/29'},
+    {name:'Jacob L.',        place:'Denmark',     product:'Garments',         qty:'1',     date:'2025/07/29'},
+    {name:'Daniel Daisuke',  place:'Belgium',     product:'Men T-shirts',     qty:'15000', date:'2025/07/29'},
+    {name:'Ashley C.',       place:'New Zealand', product:'Polo Shirt',       qty:'20000', date:'2025/07/29'},
+    {name:'Mohammed K.',     place:'UAE',         product:'Basmati Rice',     qty:'10 MT', date:'2025/07/28'},
+    {name:'Klaus W.',        place:'Germany',     product:'Organic Turmeric', qty:'5 MT',  date:'2025/07/28'},
+    {name:'Sarah M.',        place:'USA',         product:'Cotton Fabric',    qty:'2000m', date:'2025/07/28'},
+    {name:'Pieter B.',       place:'Netherlands', product:'Spices Mix',       qty:'3 MT',  date:'2025/07/27'},
+    {name:'Kim Ji-Y.',       place:'South Korea', product:'Women Kurtas',     qty:'3000',  date:'2025/07/27'},
+    {name:'Marco R.',        place:'Italy',       product:'Leather Bags',     qty:'500',   date:'2025/07/27'},
+    {name:'Anita P.',        place:'Canada',      product:'Fenugreek',        qty:'1.5 MT',date:'2025/07/26'},
+    {name:'John K.',         place:'Kenya',       product:'Basmati Rice',     qty:'25 MT', date:'2025/07/26'},
+  ];
+
+  const tbody = document.getElementById('hotLeadsBody');
+  if (!tbody) return;
+
+  let idx = 0;
+  const VISIBLE = 6;
+
+  function renderRows() {
+    tbody.innerHTML = '';
+    for (let i = 0; i < VISIBLE; i++) {
+      const lead = leads[(idx + i) % leads.length];
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="hl-name">${lead.name}</td>
+        <td>${lead.place}</td>
+        <td>${lead.product}</td>
+        <td>${lead.qty}</td>
+        <td>${lead.date}</td>
+        <td><span class="hl-badge-active">Active</span></td>
+        <td><a href="membership.html" class="hl-visit-btn">Why Wait?</a></td>`;
+      tr.style.opacity = '0';
+      tr.style.transform = 'translateY(8px)';
+      tr.style.transition = 'all 0.4s ease';
+      tbody.appendChild(tr);
+      setTimeout(() => { tr.style.opacity='1'; tr.style.transform='translateY(0)'; }, i * 60);
+    }
+  }
+
+  renderRows();
+  setInterval(() => {
+    idx = (idx + 1) % leads.length;
+    renderRows();
+  }, 2800);
+})();
+</script>
 </section>
 
 <!-- ═══ HOW IT WORKS ═══ -->
