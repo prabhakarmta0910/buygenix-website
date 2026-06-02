@@ -427,128 +427,129 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:#f0f4ff;padding:52px 0;">
+<section style="background:linear-gradient(160deg,#06082e 0%,#0a1628 40%,#0d1f3c 100%);padding:64px 0;position:relative;overflow:hidden;">
 <style>
-.hl-wrap{max-width:1200px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
-.hl-left{flex:1;}
-.hl-title{text-align:center;font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#06b6d4;margin-bottom:6px;letter-spacing:-0.5px;}
-.hl-sub{text-align:center;font-size:13.5px;color:#64748b;margin-bottom:24px;}
-.hl-divider{width:60px;height:3px;background:linear-gradient(90deg,#06b6d4,#2563eb);border-radius:2px;margin:0 auto 24px;}
-.hl-table{width:100%;border-collapse:separate;border-spacing:0;background:white;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.07);}
-.hl-table thead tr{background:white;border-bottom:2px solid #e2e8f0;}
-.hl-table thead th{padding:14px 16px;font-size:12.5px;font-weight:700;color:#1e293b;text-align:left;font-family:'Space Grotesk',sans-serif;letter-spacing:0.3px;}
-.hl-table tbody tr{border-bottom:1px solid #f1f5f9;transition:background .15s;}
-.hl-table tbody tr:hover{background:#f8faff;}
+.hl-orb1{position:absolute;top:-80px;left:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,0.12),transparent 65%);pointer-events:none;}
+.hl-orb2{position:absolute;bottom:-100px;right:-60px;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.1),transparent 65%);pointer-events:none;}
+.hl-wrap{max-width:1200px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:start;position:relative;z-index:1;}
+.hl-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(6,182,212,0.12);border:1px solid rgba(6,182,212,0.3);color:#22d3ee;font-size:10.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:100px;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;}
+.hl-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#22d3ee;animation:hlPulse 2s infinite;}
+@keyframes hlPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.hl-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:white;line-height:1.1;margin-bottom:10px;letter-spacing:-0.5px;}
+.hl-title span{color:#22d3ee;font-style:italic;}
+.hl-desc{font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.7;max-width:480px;margin-bottom:20px;}
+.hl-live-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+.hl-live-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 rgba(34,197,94,0.4);animation:livePulse2 1.5s infinite;}
+@keyframes livePulse2{0%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}70%{box-shadow:0 0 0 8px rgba(34,197,94,0);}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}}
+.hl-live-txt{font-size:11.5px;font-weight:700;color:#22c55e;font-family:'Space Grotesk',sans-serif;letter-spacing:0.5px;}
+.hl-count-txt{font-size:11px;color:rgba(255,255,255,0.3);font-family:'Space Grotesk',sans-serif;margin-left:auto;}
+.hl-table-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px);}
+.hl-table{width:100%;border-collapse:collapse;}
+.hl-table thead tr{background:rgba(6,182,212,0.08);border-bottom:1px solid rgba(6,182,212,0.15);}
+.hl-table thead th{padding:13px 16px;font-size:11px;font-weight:700;color:rgba(6,182,212,0.9);text-align:left;font-family:'Space Grotesk',sans-serif;letter-spacing:1px;text-transform:uppercase;}
+.hl-table tbody tr{border-bottom:1px solid rgba(255,255,255,0.05);transition:background .2s;}
+.hl-table tbody tr:hover{background:rgba(6,182,212,0.06);}
 .hl-table tbody tr:last-child{border-bottom:none;}
-.hl-table td{padding:13px 16px;font-size:13px;color:#374151;font-family:'Plus Jakarta Sans',sans-serif;}
-.hl-name{font-weight:600;color:#1e293b;}
-.hl-badge-active{display:inline-flex;align-items:center;gap:5px;background:#f0fdf4;color:#16a34a;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:100px;font-family:'Space Grotesk',sans-serif;}
-.hl-badge-active::before{content:'';width:7px;height:7px;border-radius:50%;background:#16a34a;flex-shrink:0;}
-.hl-visit-btn{display:inline-block;background:linear-gradient(135deg,#06b6d4,#2563eb);color:white;font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:none;transition:opacity .2s;white-space:nowrap;}
-.hl-visit-btn:hover{opacity:0.85;}
-.hl-cta-row{display:flex;align-items:center;justify-content:space-between;margin-top:18px;flex-wrap:wrap;gap:12px;}
-.hl-cta-note{font-size:12.5px;color:#94a3b8;font-family:'Space Grotesk',sans-serif;}
-/* Right phone mockup */
-.hl-right{width:220px;flex-shrink:0;}
-.hl-phone-wrap{position:relative;border-radius:24px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 8px 32px rgba(6,182,212,0.25),0 2px 8px rgba(0,0,0,0.1);}
-.hl-phone-wrap img{width:100%;display:block;border-radius:21px;}
-/* ticker animation */
-@keyframes hlTicker{0%{transform:translateY(0);}100%{transform:translateY(-50%)}}
-.hl-ticker-wrap{overflow:hidden;max-height:320px;}
-.hl-ticker-inner{animation:hlTicker 14s linear infinite;}
-.hl-ticker-inner:hover{animation-play-state:paused;}
-@media(max-width:768px){.hl-wrap{grid-template-columns:1fr;}.hl-right{display:none;}}
+.hl-table td{padding:13px 16px;font-size:13px;color:rgba(255,255,255,0.75);font-family:'Plus Jakarta Sans',sans-serif;}
+.hl-td-name{color:white!important;font-weight:600;}
+.hl-td-product{color:rgba(255,255,255,0.9)!important;font-weight:500;}
+.hl-td-qty{color:#22d3ee!important;font-weight:600;font-family:'Space Grotesk',sans-serif!important;}
+.hl-badge-active{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);color:#4ade80;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:100px;font-family:'Space Grotesk',sans-serif;}
+.hl-badge-active::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:livePulse2 1.8s infinite;}
+.hl-visit-btn{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#06b6d4,#2563eb);color:white;font-size:11px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:none;transition:all .2s;white-space:nowrap;box-shadow:0 3px 10px rgba(6,182,212,0.3);}
+.hl-visit-btn:hover{transform:scale(1.05);box-shadow:0 4px 16px rgba(6,182,212,0.45);}
+.hl-bottom{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(6,182,212,0.06);border-top:1px solid rgba(6,182,212,0.1);flex-wrap:wrap;gap:10px;}
+.hl-lock-note{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,0.35);font-family:'Space Grotesk',sans-serif;}
+.hl-access-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#0891b2,#1d4ed8);color:white;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:all .2s;box-shadow:0 4px 12px rgba(6,182,212,0.2);}
+.hl-access-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(6,182,212,0.35);}
+.hl-right-panel{display:flex;flex-direction:column;gap:16px;}
+.hl-phone-card{position:relative;border-radius:20px;overflow:hidden;border:2px solid rgba(6,182,212,0.4);box-shadow:0 0 40px rgba(6,182,212,0.15),0 8px 32px rgba(0,0,0,0.4);}
+.hl-phone-card img{width:100%;display:block;}
+.hl-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.hl-stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px 12px;text-align:center;}
+.hl-stat-num{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:white;line-height:1;}
+.hl-stat-num span{font-size:16px;color:#22d3ee;}
+.hl-stat-lbl{font-size:10px;color:rgba(255,255,255,0.35);font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;}
+.hl-blur-row td{filter:blur(4px);user-select:none;pointer-events:none;}
+@media(max-width:900px){.hl-wrap{grid-template-columns:1fr;}.hl-right-panel{display:none;}}
 </style>
 
+<div class="hl-orb1"></div>
+<div class="hl-orb2"></div>
+
 <div class="hl-wrap">
-  <!-- LEFT: Table -->
-  <div class="hl-left reveal">
-    <h2 class="hl-title">Hot Leads</h2>
-    <div class="hl-divider"></div>
-    <p class="hl-sub">Live buyer enquiries matched to Indian exporters — verified, active and ready to deal.</p>
-
-    <table class="hl-table">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Place</th>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Date</th>
-          <th>Status</th>
-          <th>Visit Now</th>
-        </tr>
-      </thead>
-      <tbody id="hotLeadsBody">
-        <!-- Injected by JS ticker -->
-      </tbody>
-    </table>
-
-    <div class="hl-cta-row">
-      <span class="hl-cta-note">🔒 Full buyer contact details visible to members only</span>
-      <a href="membership.html" class="btn-primary" style="font-size:13px;padding:10px 22px;">Get Access to All Leads →</a>
+  <div class="reveal">
+    <div class="hl-eyebrow">🔥 Live Buyer Activity</div>
+    <h2 class="hl-title">Hot <span>Leads</span> — Updated Daily</h2>
+    <p class="hl-desc">Verified buyer enquiries from 50+ countries, matched to your product category and delivered directly.</p>
+    <div class="hl-live-bar">
+      <div class="hl-live-dot"></div>
+      <span class="hl-live-txt">LIVE FEED</span>
+      <span class="hl-count-txt">Showing 6 of 200+ leads</span>
+    </div>
+    <div class="hl-table-box">
+      <table class="hl-table">
+        <thead><tr>
+          <th>Buyer Name</th><th>Location</th><th>Product</th><th>Quantity</th><th>Date</th><th>Status</th><th>Action</th>
+        </tr></thead>
+        <tbody id="hotLeadsBody"></tbody>
+      </table>
+      <div class="hl-bottom">
+        <span class="hl-lock-note">🔒 Full contact details visible to members only</span>
+        <a href="membership.html" class="hl-access-btn">Unlock All Leads →</a>
+      </div>
     </div>
   </div>
-
-  <!-- RIGHT: Phone mockup -->
-  <div class="hl-right reveal">
-    <div class="hl-phone-wrap">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=85" alt="Export Products">
+  <div class="hl-right-panel reveal">
+    <div class="hl-phone-card">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=85" alt="Export">
+    </div>
+    <div class="hl-stat-grid">
+      <div class="hl-stat-card"><div class="hl-stat-num">200<span>+</span></div><div class="hl-stat-lbl">Members</div></div>
+      <div class="hl-stat-card"><div class="hl-stat-num">50<span>+</span></div><div class="hl-stat-lbl">Countries</div></div>
+      <div class="hl-stat-card"><div class="hl-stat-num">98<span>%</span></div><div class="hl-stat-lbl">Satisfaction</div></div>
+      <div class="hl-stat-card"><div class="hl-stat-num">500<span>+</span></div><div class="hl-stat-lbl">Leads/Month</div></div>
     </div>
   </div>
 </div>
 
 <script>
-(function() {
-  const leads = [
-    {name:'Saikat Sarkar',   place:'West Bengal', product:'Foxtail Millets',  qty:'200',   date:'2025/07/29'},
-    {name:'Akhil R.',        place:'Poonthopu',   product:'Mustard Seed',     qty:'1500',  date:'2025/07/29'},
-    {name:'Steen Andersen',  place:'Denmark',     product:'Men Slippers',     qty:'2000',  date:'2025/07/29'},
-    {name:'Jacob L.',        place:'Denmark',     product:'Garments',         qty:'1',     date:'2025/07/29'},
-    {name:'Daniel Daisuke',  place:'Belgium',     product:'Men T-shirts',     qty:'15000', date:'2025/07/29'},
-    {name:'Ashley C.',       place:'New Zealand', product:'Polo Shirt',       qty:'20000', date:'2025/07/29'},
-    {name:'Mohammed K.',     place:'UAE',         product:'Basmati Rice',     qty:'10 MT', date:'2025/07/28'},
-    {name:'Klaus W.',        place:'Germany',     product:'Organic Turmeric', qty:'5 MT',  date:'2025/07/28'},
-    {name:'Sarah M.',        place:'USA',         product:'Cotton Fabric',    qty:'2000m', date:'2025/07/28'},
-    {name:'Pieter B.',       place:'Netherlands', product:'Spices Mix',       qty:'3 MT',  date:'2025/07/27'},
-    {name:'Kim Ji-Y.',       place:'South Korea', product:'Women Kurtas',     qty:'3000',  date:'2025/07/27'},
-    {name:'Marco R.',        place:'Italy',       product:'Leather Bags',     qty:'500',   date:'2025/07/27'},
-    {name:'Anita P.',        place:'Canada',      product:'Fenugreek',        qty:'1.5 MT',date:'2025/07/26'},
-    {name:'John K.',         place:'Kenya',       product:'Basmati Rice',     qty:'25 MT', date:'2025/07/26'},
+(function(){
+  const leads=[
+    {name:"Saikat Sarkar",place:"West Bengal, IN",product:"Foxtail Millets",qty:"200 MT",date:"2025/07/29"},
+    {name:"Akhil R.",place:"Poonthopu, IN",product:"Mustard Seed",qty:"1,500 kg",date:"2025/07/29"},
+    {name:"Steen Andersen",place:"Denmark",product:"Men Slippers",qty:"2,000 pcs",date:"2025/07/29"},
+    {name:"Jacob L.",place:"Denmark",product:"Garments",qty:"500 pcs",date:"2025/07/29"},
+    {name:"Daniel Daisuke",place:"Belgium",product:"Men T-shirts",qty:"15,000",date:"2025/07/29"},
+    {name:"Ashley C.",place:"New Zealand",product:"Polo Shirt",qty:"20,000",date:"2025/07/29"},
+    {name:"Mohammed K.",place:"UAE",product:"Basmati Rice",qty:"10 MT",date:"2025/07/28"},
+    {name:"Klaus W.",place:"Germany",product:"Organic Turmeric",qty:"5 MT",date:"2025/07/28"},
+    {name:"Sarah M.",place:"USA",product:"Cotton Fabric",qty:"2,000 m",date:"2025/07/28"},
+    {name:"Pieter B.",place:"Netherlands",product:"Spices Mix",qty:"3 MT",date:"2025/07/27"},
+    {name:"Kim Ji-Y.",place:"South Korea",product:"Women Kurtas",qty:"3,000 pcs",date:"2025/07/27"},
+    {name:"Marco R.",place:"Italy",product:"Leather Bags",qty:"500 pcs",date:"2025/07/27"},
+    {name:"Anita P.",place:"Canada",product:"Fenugreek",qty:"1.5 MT",date:"2025/07/26"},
+    {name:"John K.",place:"Kenya",product:"Basmati Rice",qty:"25 MT",date:"2025/07/26"}
   ];
-
-  const tbody = document.getElementById('hotLeadsBody');
-  if (!tbody) return;
-
-  let idx = 0;
-  const VISIBLE = 6;
-
-  function renderRows() {
-    tbody.innerHTML = '';
-    for (let i = 0; i < VISIBLE; i++) {
-      const lead = leads[(idx + i) % leads.length];
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="hl-name">${lead.name}</td>
-        <td>${lead.place}</td>
-        <td>${lead.product}</td>
-        <td>${lead.qty}</td>
-        <td>${lead.date}</td>
-        <td><span class="hl-badge-active">Active</span></td>
-        <td><a href="membership.html" class="hl-visit-btn">Why Wait?</a></td>`;
-      tr.style.opacity = '0';
-      tr.style.transform = 'translateY(8px)';
-      tr.style.transition = 'all 0.4s ease';
+  const tbody=document.getElementById("hotLeadsBody");
+  if(!tbody)return;
+  let idx=0;
+  const VISIBLE=6;
+  function render(){
+    tbody.innerHTML="";
+    for(let i=0;i<VISIBLE;i++){
+      const l=leads[(idx+i)%leads.length];
+      const blur=i===VISIBLE-1;
+      const tr=document.createElement("tr");
+      if(blur)tr.classList.add("hl-blur-row");
+      tr.innerHTML=`<td class="hl-td-name">${l.name}</td><td>${l.place}</td><td class="hl-td-product">${l.product}</td><td class="hl-td-qty">${l.qty}</td><td style="color:rgba(255,255,255,0.4);font-size:12px;">${l.date}</td><td><span class="hl-badge-active">Active</span></td><td>${blur?'<span style="color:rgba(255,255,255,0.2);font-size:11px;">🔒 Members</span>':`<a href="membership.html" class="hl-visit-btn">Why Wait? →</a>`}</td>`;
+      tr.style.cssText="opacity:0;transform:translateY(6px);transition:opacity 0.35s ease "+i*50+"ms,transform 0.35s ease "+i*50+"ms";
       tbody.appendChild(tr);
-      setTimeout(() => { tr.style.opacity='1'; tr.style.transform='translateY(0)'; }, i * 60);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{tr.style.opacity=blur?"0.4":"1";tr.style.transform="translateY(0)";}));
     }
   }
-
-  renderRows();
-  setInterval(() => {
-    idx = (idx + 1) % leads.length;
-    renderRows();
-  }, 2800);
+  render();
+  setInterval(()=>{idx=(idx+1)%leads.length;render();},2800);
 })();
 </script>
 </section>
