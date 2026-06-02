@@ -178,6 +178,7 @@ body{background:#EEF2F7;}
       <div class="asb-sec">Management</div>
       <div class="asb-link" onclick="showAPanel('plans',this)"><span class="asb-icon">💼</span>Manage Plans</div>
       <div class="asb-link" onclick="showAPanel('categories',this)"><span class="asb-icon">🗂️</span>Category Grid</div>
+      <div class="asb-link" onclick="showAPanel('banners',this)"><span class="asb-icon">🖼️</span>Site Banners</div>
       <div class="asb-sec">System</div>
       <a href="index.html" class="asb-link"><span class="asb-icon">🌐</span>View Website</a>
     </nav>
@@ -292,7 +293,35 @@ body{background:#EEF2F7;}
         <div id="plansAdminGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;"></div>
       </div>
 
-      <!-- ═══ CATEGORY GRID MANAGER ═══ -->
+      <!-- ═══ SITE BANNERS MANAGER ═══ -->
+      <div class="a-panel" id="ap-banners">
+        <style>
+        .banner-card{background:white;border:1.5px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
+        .banner-preview{width:100%;height:140px;object-fit:cover;display:block;background:#f1f5f9;}
+        .banner-body{padding:14px 16px;}
+        .banner-label{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+        .banner-location{font-size:11.5px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;margin-bottom:12px;}
+        .banner-foot{display:flex;gap:8px;align-items:center;padding-top:10px;border-top:1px solid var(--border-soft);}
+        .upload-box{border:2px dashed var(--border-soft);border-radius:var(--r-md);padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--sky);}
+        .upload-box:hover{border-color:var(--blue);background:#eff6ff;}
+        .upload-box input{display:none;}
+        .upload-progress{height:4px;background:#e2e8f0;border-radius:2px;margin-top:8px;overflow:hidden;display:none;}
+        .upload-progress-bar{height:100%;background:var(--blue);border-radius:2px;width:0%;transition:width .3s;}
+        .size-hint{font-size:11px;color:var(--text-light);margin-top:6px;}
+        </style>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">Site Banners Manager</h2>
+            <p style="font-size:13px;color:var(--text-mid);">Upload new banners or change existing ones. Changes go live instantly.</p>
+          </div>
+          <button class="btn-add-row" onclick="openAddBanner()">+ Add New Banner</button>
+        </div>
+
+        <div id="bannersGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
+          <div style="text-align:center;padding:40px;color:var(--text-light);font-size:13px;">Loading banners…</div>
+        </div>
+      </div>
       <div class="a-panel" id="ap-categories">
         <style>
         .cat-sec-tab{height:36px;padding:0 18px;border-radius:var(--r-md);border:1.5px solid var(--border-soft);background:white;font-size:12.5px;font-weight:700;color:var(--text-mid);font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
@@ -351,7 +380,7 @@ body{background:#EEF2F7;}
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-const ADMIN_EMAIL = 'admin@buygenixsolutions.com';
+const ADMIN_EMAIL = 'buygenixsolutions@gmail.com';
 const ADMIN_PASS  = 'BGX@Admin2025';
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
@@ -397,10 +426,11 @@ function showAPanel(name, el) {
   document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
   const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'CRM Dashboard',members:'Members',leads:'Buyer Leads',enquiries:'Enquiries',plans:'Manage Plans',categories:'Category Grid Manager'};
+  const titles = {dashboard:'CRM Dashboard',members:'Members',leads:'Buyer Leads',enquiries:'Enquiries',plans:'Manage Plans',categories:'Category Grid Manager',banners:'Site Banners Manager'};
   document.getElementById('adminTopTitle').textContent = titles[name]||name;
   if(name==='plans') loadPlansAdmin();
   if(name==='categories') loadCategoriesAdmin();
+  if(name==='banners') loadBannersAdmin();
 }
 
 async function loadMembers() {
@@ -575,7 +605,347 @@ function DEMO_MEM() { return [{id:'m1',full_name:'Rajesh Sharma',business_name:'
 function DEMO_LEADS() { return BGX.SAMPLE_LEADS.map((l,i)=>({id:'l'+i,country:l.country,product:l.product,quantity:l.qty,status:l.status,member_name:'Rajesh Sharma',created_at:new Date().toISOString()})); }
 function DEMO_ENQ() { return [{id:'e1',full_name:'Amit Kumar',business_name:'AK Garments',phone:'+91 98000 00001',email:'amit@ak.com',product_category:'Garments',interested_in:'Growth Plan',source:'contact_form',status:'new',created_at:new Date().toISOString(),message:'I am interested in the Growth plan.'},{id:'e2',full_name:'Meena Reddy',business_name:'Meena Foods',phone:'+91 98000 00002',email:'meena@foods.com',product_category:'Organic Food',interested_in:'GST Registration',source:'gst_page',status:'new',created_at:new Date().toISOString()}]; }
 
-/* ═══ CATEGORY GRID MANAGER ═══ */
+/* ═══ IMAGE UPLOAD TO SUPABASE STORAGE ═══ */
+async function uploadImageToStorage(file, folder) {
+  const sb = getSB();
+  const ext = file.name.split('.').pop().toLowerCase();
+  const allowed = ['jpg','jpeg','png','webp'];
+  if (!allowed.includes(ext)) { BGX_Toast('Only JPG, PNG, WEBP allowed.','error'); return null; }
+  if (file.size > 5 * 1024 * 1024) { BGX_Toast('Max file size is 5MB.','error'); return null; }
+  const fileName = `${folder}/${Date.now()}_${file.name.replace(/\s+/g,'_')}`;
+  const { data, error } = await sb.storage.from('site-images').upload(fileName, file, { upsert: true });
+  if (error) { BGX_Toast('Upload failed: ' + error.message, 'error'); return null; }
+  const { data: urlData } = sb.storage.from('site-images').getPublicUrl(fileName);
+  return urlData.publicUrl;
+}
+
+/* Show image upload UI inside a form */
+function imageUploadUI(inputId, previewId, folder, onSuccess) {
+  return `<div class="upload-box" onclick="document.getElementById('${inputId}').click()">
+    <div style="font-size:24px;">📁</div>
+    <div style="font-size:13px;font-weight:600;color:var(--navy);margin-top:6px;">Click to upload image</div>
+    <div class="size-hint">JPG, PNG, WEBP • Max 5MB • Recommended: 1500×300px for banners, 300×300px for cards</div>
+    <input type="file" id="${inputId}" accept="image/jpg,image/jpeg,image/png,image/webp" onchange="handleImageUpload('${inputId}','${previewId}','${folder}')">
+    <div class="upload-progress" id="prog_${inputId}"><div class="upload-progress-bar" id="progbar_${inputId}"></div></div>
+  </div>
+  <div id="${previewId}" style="margin-top:10px;display:none;">
+    <img id="img_${previewId}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;border:1.5px solid var(--border-soft);" src="">
+    <div style="font-size:11px;color:var(--text-light);margin-top:4px;" id="url_${previewId}"></div>
+  </div>`;
+}
+
+async function handleImageUpload(inputId, previewId, folder) {
+  const file = document.getElementById(inputId)?.files[0];
+  if (!file) return;
+  const prog = document.getElementById('prog_'+inputId);
+  const bar  = document.getElementById('progbar_'+inputId);
+  if (prog) { prog.style.display='block'; }
+  if (bar)  { bar.style.width='30%'; }
+  BGX_Toast('Uploading image…', 'info');
+  const url = await uploadImageToStorage(file, folder);
+  if (bar)  { bar.style.width='100%'; }
+  setTimeout(() => { if (prog) prog.style.display='none'; }, 600);
+  if (!url) return;
+  const prev = document.getElementById(previewId);
+  const img  = document.getElementById('img_'+previewId);
+  const lbl  = document.getElementById('url_'+previewId);
+  if (prev) prev.style.display='block';
+  if (img)  img.src = url;
+  if (lbl)  lbl.textContent = url;
+  /* Store URL in hidden input */
+  let hidden = document.getElementById('uploaded_url_'+inputId);
+  if (!hidden) {
+    hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = 'uploaded_url_'+inputId;
+    document.body.appendChild(hidden);
+  }
+  hidden.value = url;
+  BGX_Toast('Image uploaded! ✅', 'success');
+}
+
+function getUploadedUrl(inputId) {
+  return document.getElementById('uploaded_url_'+inputId)?.value || '';
+}
+
+/* ═══ BANNERS MANAGER ═══ */
+let allBanners = [];
+
+async function loadBannersAdmin() {
+  const sb = getSB();
+  try {
+    const { data, error } = await sb.from('site_banners').select('*').order('page').order('sort_order');
+    if (!error && data) { allBanners = data; renderBanners(); return; }
+  } catch(e) {}
+  /* Fallback hardcoded banners */
+  allBanners = [
+    {id:'b1',page:'home',location:'above_apparel',label:'Fashion Banner',image_url:'assets/fashion-banner.png',is_active:true,sort_order:1},
+    {id:'b2',page:'home',location:'above_agriculture',label:'Agriculture Banner',image_url:'assets/agri-banner.png',is_active:true,sort_order:2},
+    {id:'b3',page:'home',location:'below_agriculture',label:'Deals Banner',image_url:'assets/deals-banner-v2.png',is_active:true,sort_order:3},
+    {id:'b4',page:'membership',location:'hero',label:'Membership Banner',image_url:'assets/membership-banner.png',is_active:true,sort_order:1},
+    {id:'b5',page:'about',location:'hero',label:'About Us Banner',image_url:'assets/about-banner.png',is_active:true,sort_order:1}
+  ];
+  renderBanners();
+}
+
+function renderBanners() {
+  const grid = document.getElementById('bannersGrid');
+  if (!grid) return;
+  if (!allBanners.length) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">No banners yet.</div>`;
+    return;
+  }
+  const pages = [...new Set(allBanners.map(b => b.page))];
+  grid.innerHTML = pages.map(page => `
+    <div style="grid-column:1/-1;">
+      <div style="font-size:11px;font-weight:700;color:var(--text-light);letter-spacing:1.5px;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:12px;padding-bottom:6px;border-bottom:1.5px solid var(--border-soft);">
+        📄 ${page.toUpperCase()} PAGE
+      </div>
+    </div>
+    ${allBanners.filter(b => b.page===page).map(banner => `
+    <div class="banner-card">
+      <div style="position:relative;">
+        <img class="banner-preview" src="${banner.image_url}" alt="${banner.label}" onerror="this.style.background='#e2e8f0';this.src=''">
+        ${!banner.is_active?'<div style="position:absolute;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;"><span style="color:white;font-size:12px;font-weight:700;background:rgba(0,0,0,0.6);padding:4px 12px;border-radius:100px;">HIDDEN</span></div>':''}
+      </div>
+      <div class="banner-body">
+        <div class="banner-label">${banner.label}</div>
+        <div class="banner-location">📍 ${banner.location.replace(/_/g,' ')}</div>
+        <div class="banner-foot">
+          <label class="cat-toggle" onclick="toggleBannerActive('${banner.id}',${!banner.is_active})">
+            <div class="toggle-sw ${banner.is_active?'on':''}"></div>
+            <span style="font-size:12px;">${banner.is_active?'Visible':'Hidden'}</span>
+          </label>
+          <div style="display:flex;gap:6px;margin-left:auto;">
+            <button class="cat-edit-btn" onclick='openEditBanner(${JSON.stringify(banner).replace(/'/g,"&apos;")})'>✏️ Edit</button>
+            <button class="cat-del-btn" onclick="deleteBanner('${banner.id}')">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('')}
+  `).join('');
+}
+
+async function toggleBannerActive(id, newVal) {
+  const sb = getSB();
+  try { await sb.from('site_banners').update({is_active:newVal}).eq('id',id); } catch(e){}
+  allBanners = allBanners.map(b => b.id===id ? {...b,is_active:newVal} : b);
+  renderBanners();
+  BGX_Toast(newVal?'Banner visible on website.':'Banner hidden.','success');
+}
+
+async function deleteBanner(id) {
+  if (!confirm('Delete this banner?')) return;
+  const sb = getSB();
+  try { await sb.from('site_banners').delete().eq('id',id); } catch(e){}
+  allBanners = allBanners.filter(b => b.id!==id);
+  renderBanners();
+  BGX_Toast('Banner deleted.','info');
+}
+
+function openAddBanner() {
+  openModal(`<h3>🖼️ Add New Banner</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Page</label>
+        <select class="form-control" id="bn_page">
+          <option value="home">Home</option>
+          <option value="membership">Membership</option>
+          <option value="about">About</option>
+          <option value="services">Services</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Location / Slot</label>
+        <input class="form-control" id="bn_location" placeholder="e.g. above_apparel">
+      </div>
+    </div>
+    <div class="form-group"><label>Banner Label *</label>
+      <input class="form-control" id="bn_label" placeholder="e.g. Fashion Banner">
+    </div>
+    <div class="form-group"><label>Upload Image</label>
+      ${imageUploadUI('bn_upload','bn_preview','banners',null)}
+    </div>
+    <div class="form-group"><label>Or paste Image URL</label>
+      <input class="form-control" id="bn_url" placeholder="https://...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveBanner()">Save Banner</button>
+    </div>`);
+}
+
+function openEditBanner(banner) {
+  openModal(`<h3>✏️ Edit Banner — ${banner.label}</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Page</label>
+        <select class="form-control" id="bn_page">
+          <option value="home" ${banner.page==='home'?'selected':''}>Home</option>
+          <option value="membership" ${banner.page==='membership'?'selected':''}>Membership</option>
+          <option value="about" ${banner.page==='about'?'selected':''}>About</option>
+          <option value="services" ${banner.page==='services'?'selected':''}>Services</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Location / Slot</label>
+        <input class="form-control" id="bn_location" value="${banner.location}">
+      </div>
+    </div>
+    <div class="form-group"><label>Banner Label *</label>
+      <input class="form-control" id="bn_label" value="${banner.label}">
+    </div>
+    <div style="margin-bottom:12px;">
+      <label style="font-size:11.5px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.5px;">Current Image</label>
+      <img src="${banner.image_url}" style="width:100%;height:90px;object-fit:cover;border-radius:8px;margin-top:6px;border:1.5px solid var(--border-soft);">
+    </div>
+    <div class="form-group"><label>Upload New Image</label>
+      ${imageUploadUI('bn_upload','bn_preview','banners',null)}
+      <p class="size-hint" style="margin-top:6px;">💡 Recommended size: <strong>1500×300px</strong> for banners</p>
+    </div>
+    <div class="form-group"><label>Or paste Image URL</label>
+      <input class="form-control" id="bn_url" placeholder="Leave empty to keep current" value="">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveBanner('${banner.id}','${banner.image_url}')">Update Banner</button>
+    </div>`);
+}
+
+async function saveBanner(editId, currentUrl) {
+  const label = document.getElementById('bn_label')?.value.trim();
+  if (!label) { BGX_Toast('Label is required.','error'); return; }
+  const uploadedUrl = getUploadedUrl('bn_upload');
+  const manualUrl   = document.getElementById('bn_url')?.value.trim();
+  const finalUrl    = uploadedUrl || manualUrl || currentUrl || '';
+  if (!finalUrl) { BGX_Toast('Please upload or paste an image URL.','error'); return; }
+  const payload = {
+    page:       document.getElementById('bn_page')?.value || 'home',
+    location:   document.getElementById('bn_location')?.value.trim() || 'custom',
+    label,
+    image_url:  finalUrl,
+    is_active:  true
+  };
+  const sb = getSB();
+  if (editId) {
+    try { await sb.from('site_banners').update(payload).eq('id',editId); } catch(e){}
+    allBanners = allBanners.map(b => b.id===editId ? {...b,...payload} : b);
+    BGX_Toast('Banner updated! ✅','success');
+  } else {
+    let nb = {...payload, id:'temp-'+Date.now()};
+    try {
+      const {data} = await sb.from('site_banners').insert([payload]).select();
+      if (data?.[0]) nb = data[0];
+    } catch(e){}
+    allBanners.push(nb);
+    BGX_Toast('Banner added! ✅','success');
+  }
+  closeModal();
+  renderBanners();
+}
+
+/* ═══ UPDATE CATEGORY ITEM - Add image upload support ═══ */
+function openAddCategoryItem() {
+  openModal(`<h3>+ Add Category Card</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Section</label>
+        <select class="form-control" id="ci_section">
+          <option value="apparel" ${curCatSection==='apparel'?'selected':''}>👗 Apparel & Garments</option>
+          <option value="agriculture" ${curCatSection==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Sort Order</label>
+        <input type="number" class="form-control" id="ci_order" placeholder="e.g. 5" min="1">
+      </div>
+    </div>
+    <div class="form-group"><label>Title *</label>
+      <input class="form-control" id="ci_title" placeholder="e.g. Kids Dress & Clothing">
+    </div>
+    <div class="form-group"><label>Sub-items (comma separated)</label>
+      <input class="form-control" id="ci_subs" placeholder="e.g. Boys Clothes, Girls Garments, Kids Frock">
+    </div>
+    <div class="form-group"><label>Upload Image</label>
+      ${imageUploadUI('ci_upload','ci_preview_up','categories',null)}
+      <p class="size-hint" style="margin-top:4px;">💡 Recommended: <strong>300×300px</strong> square image</p>
+    </div>
+    <div class="form-group"><label>Or paste Image URL</label>
+      <input class="form-control" id="ci_img" placeholder="https://images.unsplash.com/...">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveCategoryItem()">Save Card</button>
+    </div>`);
+}
+
+function openEditCategoryItem(item) {
+  const subs = Array.isArray(item.sub_items) ? item.sub_items.join(', ') : (typeof item.sub_items==='string'?JSON.parse(item.sub_items||'[]').join(', '):'');
+  openModal(`<h3>✏️ Edit Category Card</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Section</label>
+        <select class="form-control" id="ci_section">
+          <option value="apparel" ${item.section==='apparel'?'selected':''}>👗 Apparel & Garments</option>
+          <option value="agriculture" ${item.section==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Sort Order</label>
+        <input type="number" class="form-control" id="ci_order" value="${item.sort_order||''}" min="1">
+      </div>
+    </div>
+    <div class="form-group"><label>Title *</label>
+      <input class="form-control" id="ci_title" value="${item.title||''}">
+    </div>
+    <div class="form-group"><label>Sub-items (comma separated)</label>
+      <input class="form-control" id="ci_subs" value="${subs}">
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:11.5px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:0.5px;">Current Image</label>
+      <img src="${item.image_url||''}" style="width:100%;height:80px;object-fit:cover;border-radius:8px;margin-top:6px;border:1.5px solid var(--border-soft);">
+    </div>
+    <div class="form-group"><label>Upload New Image</label>
+      ${imageUploadUI('ci_upload','ci_preview_up','categories',null)}
+      <p class="size-hint" style="margin-top:4px;">💡 Recommended: <strong>300×300px</strong> square image</p>
+    </div>
+    <div class="form-group"><label>Or paste Image URL</label>
+      <input class="form-control" id="ci_img" value="${item.image_url||''}" placeholder="Leave empty to keep current">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveCategoryItem('${item.id}')">Update Card</button>
+    </div>`);
+}
+
+async function saveCategoryItem(editId) {
+  const title = document.getElementById('ci_title')?.value.trim();
+  if (!title) { BGX_Toast('Title is required.','error'); return; }
+  const subsRaw = document.getElementById('ci_subs')?.value || '';
+  const subs = subsRaw.split(',').map(s=>s.trim()).filter(Boolean);
+  const uploadedUrl = getUploadedUrl('ci_upload');
+  const manualUrl   = document.getElementById('ci_img')?.value.trim();
+  const imageUrl    = uploadedUrl || manualUrl || '';
+  const payload = {
+    section:    document.getElementById('ci_section')?.value || curCatSection,
+    title,
+    sub_items:  JSON.stringify(subs),
+    image_url:  imageUrl,
+    sort_order: parseInt(document.getElementById('ci_order')?.value) || 99,
+    is_active:  true
+  };
+  const sb = getSB();
+  if (editId) {
+    try { await sb.from('category_items').update(payload).eq('id', editId); } catch(e){}
+    allCatItems = allCatItems.map(i => i.id===editId ? {...i,...payload,sub_items:subs} : i);
+    BGX_Toast('Card updated! Changes live on homepage. ✅','success');
+  } else {
+    let newItem = {...payload, id:'temp-'+Date.now(), sub_items:subs};
+    try {
+      const {data} = await sb.from('category_items').insert([payload]).select();
+      if (data?.[0]) newItem = {...data[0], sub_items:subs};
+    } catch(e){}
+    allCatItems.push(newItem);
+    BGX_Toast('Card added! Visible on homepage. ✅','success');
+  }
+  closeModal();
+  renderCatCards();
+}
+
+/* Enter on login */
+document.addEventListener('keydown', e => { if (e.key==='Enter' && document.getElementById('adminLoginWrap').style.display !== 'none') handleAdminLogin(); });
 let allCatItems = [], curCatSection = 'apparel';
 
 function switchCatTab(section) {
@@ -651,114 +1021,6 @@ async function deleteCatItem(id) {
   BGX_Toast('Card deleted.', 'info');
 }
 
-function openAddCategoryItem() {
-  openModal(`<h3>+ Add Category Card</h3>
-    <p style="margin-bottom:14px;">New card will appear on the homepage grid instantly.</p>
-    <div class="form-row">
-      <div class="form-group"><label>Section</label>
-        <select class="form-control" id="ci_section">
-          <option value="apparel" ${curCatSection==='apparel'?'selected':''}>👗 Apparel & Garments</option>
-          <option value="agriculture" ${curCatSection==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Sort Order</label>
-        <input type="number" class="form-control" id="ci_order" placeholder="e.g. 5" min="1">
-      </div>
-    </div>
-    <div class="form-group"><label>Title *</label>
-      <input class="form-control" id="ci_title" placeholder="e.g. Kids Dress & Clothing">
-    </div>
-    <div class="form-group"><label>Sub-items (comma separated)</label>
-      <input class="form-control" id="ci_subs" placeholder="e.g. Boys Clothes, Girls Garments, Kids Frock">
-    </div>
-    <div class="form-group"><label>Image URL</label>
-      <input class="form-control" id="ci_img" placeholder="https://images.unsplash.com/...">
-      <div style="font-size:11px;color:var(--text-light);margin-top:4px;">Tip: Use Unsplash URL like https://images.unsplash.com/photo-xxx?w=300&q=80</div>
-    </div>
-    <div id="ci_preview" style="display:none;margin-bottom:12px;">
-      <img id="ci_preview_img" style="width:100%;height:100px;object-fit:cover;border-radius:8px;" src="">
-    </div>
-    <div class="modal-footer">
-      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
-      <button class="btn-add-row" onclick="saveCategoryItem()">Save Card</button>
-    </div>`);
-  /* live preview */
-  document.getElementById('ci_img').addEventListener('input', function() {
-    const p = document.getElementById('ci_preview');
-    const i = document.getElementById('ci_preview_img');
-    if (this.value) { p.style.display='block'; i.src=this.value; }
-    else { p.style.display='none'; }
-  });
-}
-
-function openEditCategoryItem(item) {
-  const subs = Array.isArray(item.sub_items) ? item.sub_items.join(', ') : (typeof item.sub_items==='string'?JSON.parse(item.sub_items||'[]').join(', '):'');
-  openModal(`<h3>✏️ Edit Category Card</h3>
-    <div class="form-row">
-      <div class="form-group"><label>Section</label>
-        <select class="form-control" id="ci_section">
-          <option value="apparel" ${item.section==='apparel'?'selected':''}>👗 Apparel & Garments</option>
-          <option value="agriculture" ${item.section==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Sort Order</label>
-        <input type="number" class="form-control" id="ci_order" value="${item.sort_order||''}" min="1">
-      </div>
-    </div>
-    <div class="form-group"><label>Title *</label>
-      <input class="form-control" id="ci_title" value="${item.title||''}">
-    </div>
-    <div class="form-group"><label>Sub-items (comma separated)</label>
-      <input class="form-control" id="ci_subs" value="${subs}">
-    </div>
-    <div class="form-group"><label>Image URL</label>
-      <input class="form-control" id="ci_img" value="${item.image_url||''}">
-    </div>
-    <div style="margin-bottom:12px;">
-      <img id="ci_preview_img" style="width:100%;height:100px;object-fit:cover;border-radius:8px;" src="${item.image_url||''}">
-    </div>
-    <div class="modal-footer">
-      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
-      <button class="btn-add-row" onclick="saveCategoryItem('${item.id}')">Update Card</button>
-    </div>`);
-  document.getElementById('ci_img').addEventListener('input', function() {
-    document.getElementById('ci_preview_img').src = this.value;
-  });
-}
-
-async function saveCategoryItem(editId) {
-  const title = document.getElementById('ci_title')?.value.trim();
-  if (!title) { BGX_Toast('Title is required.','error'); return; }
-  const subsRaw = document.getElementById('ci_subs')?.value || '';
-  const subs = subsRaw.split(',').map(s=>s.trim()).filter(Boolean);
-  const payload = {
-    section: document.getElementById('ci_section')?.value || curCatSection,
-    title,
-    sub_items: JSON.stringify(subs),
-    image_url: document.getElementById('ci_img')?.value.trim() || '',
-    sort_order: parseInt(document.getElementById('ci_order')?.value) || 99,
-    is_active: true
-  };
-  const sb = getSB();
-  if (editId) {
-    try { await sb.from('category_items').update(payload).eq('id', editId); } catch(e){}
-    allCatItems = allCatItems.map(i => i.id===editId ? {...i,...payload,sub_items:subs} : i);
-    BGX_Toast('Card updated! Changes are live on homepage.', 'success');
-  } else {
-    let newItem = {...payload, id: 'temp-'+Date.now(), sub_items: subs};
-    try {
-      const {data} = await sb.from('category_items').insert([payload]).select();
-      if (data?.[0]) newItem = {...data[0], sub_items: subs};
-    } catch(e){}
-    allCatItems.push(newItem);
-    BGX_Toast('Card added! Visible on homepage.', 'success');
-  }
-  closeModal();
-  renderCatCards();
-}
-
-/* Enter on login */
-document.addEventListener('keydown', e => { if (e.key==='Enter' && document.getElementById('adminLoginWrap').style.display !== 'none') handleAdminLogin(); });
 </script>
 </body>
 </html>
