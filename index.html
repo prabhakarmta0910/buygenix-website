@@ -427,66 +427,105 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:linear-gradient(160deg,#06082e 0%,#0a1628 40%,#0d1f3c 100%);padding:56px 0;position:relative;overflow:hidden;">
-<div class="hl-orb1"></div><div class="hl-orb2"></div>
-<div class="hl-wrap">
-  <div class="reveal">
-    <h2 class="hl-title">Hot <span>Leads</span> — Updated Daily</h2>
-    <p class="hl-desc">Verified buyer enquiries from 50+ countries, matched to your product category and delivered directly.</p>
-    <div class="hl-table-box">
-      <div class="hl-thead">
-        <div class="hl-th">Buyer Name</div>
-        <div class="hl-th">Location</div>
-        <div class="hl-th">Product</div>
-        <div class="hl-th">Quantity</div>
-        <div class="hl-th">Date</div>
-        <div class="hl-th">Status</div>
-        <div class="hl-th">Action</div>
-      </div>
-      <div class="hl-scroll-area">
-        <div class="hl-ticker" id="hlTicker"></div>
-      </div>
-      <div class="hl-bottom">
-        <span class="hl-lock-note">🔒 Full contact details visible to members only</span>
-        <a href="membership.html" class="hl-access-btn">Unlock All Leads →</a>
-      </div>
+<section style="background:#f1f5f9;padding:56px 24px;">
+<style>
+/* Hot Leads — Light Theme */
+.hl2-outer{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:32px;align-items:stretch;}
+.hl2-card{background:white;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,0.08);overflow:hidden;display:flex;flex-direction:column;}
+.hl2-title{font-size:30px;font-weight:800;color:#06b6d4;text-align:center;padding:22px 20px 10px;font-family:"Plus Jakarta Sans",sans-serif;letter-spacing:-0.3px;}
+.hl2-divider{width:100%;height:1px;background:#e2e8f0;margin-bottom:0;}
+/* Header */
+.hl2-thead{display:grid;grid-template-columns:1.4fr 1.2fr 1.4fr 0.9fr 1fr 0.9fr 1fr;background:#f8fafc;border-bottom:1.5px solid #e2e8f0;}
+.hl2-th{padding:12px 14px;font-size:12.5px;font-weight:700;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;}
+/* Scroll area — 5 rows × 54px = 270px */
+.hl2-scroll{height:270px;overflow:hidden;position:relative;}
+.hl2-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.98));pointer-events:none;z-index:2;}
+.hl2-ticker{animation:hl2Up 44s linear infinite;}
+.hl2-ticker:hover{animation-play-state:paused;}
+@keyframes hl2Up{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
+.hl2-row{display:grid;grid-template-columns:1.4fr 1.2fr 1.4fr 0.9fr 1fr 0.9fr 1fr;height:54px;align-items:center;border-bottom:1px solid #f1f5f9;transition:background .15s;}
+.hl2-row:hover{background:#f8faff;}
+.hl2-cell{padding:0 14px;font-size:13px;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hl2-cell-name{font-weight:600;color:#111827;}
+/* Active badge */
+.hl2-badge{display:inline-flex;align-items:center;gap:6px;color:#16a34a;font-size:12.5px;font-weight:600;font-family:"Plus Jakarta Sans",sans-serif;}
+.hl2-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;}
+/* Why Wait button */
+.hl2-btn{display:inline-flex;align-items:center;justify-content:center;background:#06b6d4;color:white;font-size:12px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif;transition:all .2s;white-space:nowrap;}
+.hl2-btn:hover{background:#0891b2;transform:scale(1.05);}
+/* Right image */
+.hl2-img-wrap{border-radius:20px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 8px 32px rgba(6,182,212,0.2),0 2px 8px rgba(0,0,0,0.1);flex:1;height:100%;}
+.hl2-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+@media(max-width:860px){.hl2-outer{grid-template-columns:1fr;}.hl2-img-wrap{display:none;}}
+</style>
+
+<div class="hl2-outer reveal">
+
+  <!-- Left: Table Card -->
+  <div class="hl2-card">
+    <div class="hl2-title">Hot Leads</div>
+    <div class="hl2-divider"></div>
+    <!-- Header -->
+    <div class="hl2-thead">
+      <div class="hl2-th">Name</div>
+      <div class="hl2-th">Place</div>
+      <div class="hl2-th">Product</div>
+      <div class="hl2-th">Quantity</div>
+      <div class="hl2-th">Date</div>
+      <div class="hl2-th">Status</div>
+      <div class="hl2-th">Visit Now</div>
+    </div>
+    <!-- Scroll rows -->
+    <div class="hl2-scroll">
+      <div class="hl2-ticker" id="hl2Ticker"></div>
     </div>
   </div>
-  <div class="hl-right-panel reveal">
-    <div class="hl-phone-card">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=85" alt="Export">
-      <div class="hl-phone-glow"></div>
-    </div>
+
+  <!-- Right: Image -->
+  <div class="hl2-img-wrap">
+    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85" alt="Export Products">
   </div>
+
 </div>
+
 <script>
 (function(){
-  const leads=[
-    {name:"Saikat Sarkar",   place:"West Bengal, IN", product:"Foxtail Millets",  qty:"200 MT",    date:"2025/07/29"},
-    {name:"Akhil R.",        place:"Poonthopu, IN",   product:"Mustard Seed",     qty:"1,500 kg",  date:"2025/07/29"},
-    {name:"Steen Andersen",  place:"Denmark",         product:"Men Slippers",     qty:"2,000 pcs", date:"2025/07/29"},
-    {name:"Jacob L.",        place:"Denmark",         product:"Garments",         qty:"500 pcs",   date:"2025/07/29"},
-    {name:"Daniel Daisuke",  place:"Belgium",         product:"Men T-shirts",     qty:"15,000",    date:"2025/07/29"},
-    {name:"Ashley C.",       place:"New Zealand",     product:"Polo Shirt",       qty:"20,000",    date:"2025/07/29"},
-    {name:"Mohammed K.",     place:"UAE",             product:"Basmati Rice",     qty:"10 MT",     date:"2025/07/28"},
-    {name:"Klaus W.",        place:"Germany",         product:"Organic Turmeric", qty:"5 MT",      date:"2025/07/28"},
-    {name:"Sarah M.",        place:"USA",             product:"Cotton Fabric",    qty:"2,000 m",   date:"2025/07/28"},
-    {name:"Pieter B.",       place:"Netherlands",     product:"Spices Mix",       qty:"3 MT",      date:"2025/07/27"},
-    {name:"Kim Ji-Y.",       place:"South Korea",     product:"Women Kurtas",     qty:"3,000 pcs", date:"2025/07/27"},
-    {name:"Marco R.",        place:"Italy",           product:"Leather Bags",     qty:"500 pcs",   date:"2025/07/27"},
-    {name:"Anita P.",        place:"Canada",          product:"Fenugreek",        qty:"1.5 MT",    date:"2025/07/26"},
-    {name:"John K.",         place:"Kenya",           product:"Basmati Rice",     qty:"25 MT",     date:"2025/07/26"}
+  var leads=[
+    {name:"Jaseeb",            place:"Oman",          product:"Tender Coconut",     qty:"1"},
+    {name:"Donesvaran Ganesan",place:"Malaysia",      product:"Semi Husked Coconut",qty:"1"},
+    {name:"Bogdan Pintilei",   place:"Romania",       product:"Tender Coconuts",    qty:"1"},
+    {name:"Ratilal",           place:"Gujarat",       product:"Spirulina Powder",   qty:"10"},
+    {name:"Ashutosh Upadhya",  place:"Uttar Pradesh", product:"Formal Shirts",      qty:"500"},
+    {name:"Saikat Sarkar",     place:"West Bengal",   product:"Foxtail Millets",    qty:"200"},
+    {name:"Akhil R.",          place:"Poonthopu",     product:"Mustard Seed",       qty:"1500"},
+    {name:"Steen Andersen",    place:"Denmark",       product:"Men Slippers",       qty:"2000"},
+    {name:"Jacob L.",          place:"Denmark",       product:"Garments",           qty:"500"},
+    {name:"Daniel Daisuke",    place:"Belgium",       product:"Men T-shirts",       qty:"15000"},
+    {name:"Mohammed K.",       place:"UAE",           product:"Basmati Rice",       qty:"10 MT"},
+    {name:"Klaus W.",          place:"Germany",       product:"Organic Turmeric",   qty:"5 MT"},
+    {name:"Sarah M.",          place:"USA",           product:"Cotton Fabric",      qty:"2000 m"},
+    {name:"Kim Ji-Y.",         place:"South Korea",   product:"Women Kurtas",       qty:"3000"},
+    {name:"Marco R.",          place:"Italy",         product:"Leather Bags",       qty:"500"}
   ];
-  function makeRow(l){
-    return '<div class="hl-row"><div class="hl-cell hl-cell-name">'+l.name+'</div><div class="hl-cell">'+l.place+'</div><div class="hl-cell">'+l.product+'</div><div class="hl-cell hl-cell-qty">'+l.qty+'</div><div class="hl-cell" style="color:rgba(255,255,255,0.35);font-size:11.5px;">'+l.date+'</div><div class="hl-cell"><span class="hl-badge-active">Active</span></div><div class="hl-cell"><a href="membership.html" class="hl-visit-btn">Why Wait?</a></div></div>';
+  function row(l){
+    return "<div class=\"hl2-row\">"
+      +"<div class=\"hl2-cell hl2-cell-name\">"+l.name+"</div>"
+      +"<div class=\"hl2-cell\">"+l.place+"</div>"
+      +"<div class=\"hl2-cell\">"+l.product+"</div>"
+      +"<div class=\"hl2-cell\">"+l.qty+"</div>"
+      +"<div class=\"hl2-cell\">2025/07/29</div>"
+      +"<div class=\"hl2-cell\"><span class=\"hl2-badge\">Active</span></div>"
+      +"<div class=\"hl2-cell\"><a href=\"membership.html\" class=\"hl2-btn\">Why Wait?</a></div>"
+      +"</div>";
   }
-  const t=document.getElementById("hlTicker");
+  var t=document.getElementById("hl2Ticker");
   if(!t)return;
-  t.innerHTML=[...leads,...leads].map(makeRow).join("");
-  t.style.animation="hlUp "+(leads.length*3.2)+"s linear infinite";
+  t.innerHTML=[...leads,...leads].map(row).join("");
+  t.style.animation="hl2Up "+(leads.length*2.8)+"s linear infinite";
 })();
 </script>
 </section>
+
 <!-- ═══ HOW IT WORKS ═══ -->
 <section class="section" style="background:white;">
   <div class="section-inner">
