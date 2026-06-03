@@ -427,64 +427,24 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:linear-gradient(160deg,#06082e 0%,#0a1628 40%,#0d1f3c 100%);padding:64px 0;position:relative;overflow:hidden;">
-<style>
-.hl-wrap{max-width:1200px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr 260px;gap:48px;align-items:stretch;position:relative;z-index:1;}
-.hl-eyebrow{display:none;}
-.hl-live-bar{display:none;}
-.hl-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:white;line-height:1.1;margin-bottom:10px;letter-spacing:-0.5px;}
-.hl-title span{color:#22d3ee;font-style:italic;}
-.hl-desc{font-size:13.5px;color:rgba(255,255,255,0.45);line-height:1.7;max-width:480px;margin-bottom:20px;}
-.hl-table-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;backdrop-filter:blur(10px);display:flex;flex-direction:column;}
-.hl-table-scroll{overflow:hidden;flex:1;position:relative;}
-.hl-table-scroll::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom,transparent,rgba(10,22,40,0.95));pointer-events:none;z-index:2;}
-.hl-table{width:100%;border-collapse:collapse;}
-.hl-table thead tr{background:rgba(6,182,212,0.08);border-bottom:1px solid rgba(6,182,212,0.15);}
-.hl-table thead th{padding:13px 16px;font-size:11px;font-weight:700;color:rgba(6,182,212,0.9);text-align:left;font-family:'Space Grotesk',sans-serif;letter-spacing:1px;text-transform:uppercase;}
-.hl-table-body-wrap{display:block;}
-.hl-ticker-inner{animation:hlScrollUp 36s linear infinite;}
-.hl-ticker-inner:hover{animation-play-state:paused;}
-@keyframes hlScrollUp{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
-.hl-table tbody tr{border-bottom:1px solid rgba(255,255,255,0.05);display:table-row;}
-.hl-table tbody tr:hover{background:rgba(6,182,212,0.06);}
-.hl-table td{padding:12px 16px;font-size:13px;color:rgba(255,255,255,0.75);font-family:'Plus Jakarta Sans',sans-serif;}
-.hl-td-name{color:white!important;font-weight:600;}
-.hl-td-product{color:rgba(255,255,255,0.9)!important;font-weight:500;}
-.hl-td-qty{color:#22d3ee!important;font-weight:600;font-family:'Space Grotesk',sans-serif!important;}
-.hl-badge-active{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.25);color:#4ade80;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:100px;font-family:'Space Grotesk',sans-serif;}
-.hl-badge-active::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:livePulse2 1.8s infinite;}
-@keyframes livePulse2{0%{box-shadow:0 0 0 0 rgba(34,197,94,0.5);}70%{box-shadow:0 0 0 8px rgba(34,197,94,0);}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}}
-.hl-visit-btn{display:inline-flex;align-items:center;gap:5px;background:linear-gradient(135deg,#06b6d4,#2563eb);color:white;font-size:11px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:none;transition:all .2s;white-space:nowrap;box-shadow:0 3px 10px rgba(6,182,212,0.3);}
-.hl-visit-btn:hover{transform:scale(1.05);}
-.hl-bottom{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(6,182,212,0.06);border-top:1px solid rgba(6,182,212,0.1);flex-wrap:wrap;gap:10px;flex-shrink:0;}
-.hl-lock-note{display:flex;align-items:center;gap:7px;font-size:12px;color:rgba(255,255,255,0.35);font-family:'Space Grotesk',sans-serif;}
-.hl-access-btn{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,#0891b2,#1d4ed8);color:white;font-size:12px;font-weight:700;padding:8px 18px;border-radius:8px;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:all .2s;box-shadow:0 4px 12px rgba(6,182,212,0.2);}
-.hl-access-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(6,182,212,0.35);}
-/* Right panel — same height as left */
-.hl-right-panel{display:flex;flex-direction:column;gap:0;height:100%;}
-.hl-phone-card{position:relative;border-radius:20px;overflow:hidden;border:2px solid rgba(6,182,212,0.4);box-shadow:0 0 40px rgba(6,182,212,0.15),0 8px 32px rgba(0,0,0,0.4);flex:1;}
-.hl-phone-card img{width:100%;height:100%;object-fit:cover;display:block;}
-.hl-phone-glow{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(6,182,212,0.15));pointer-events:none;}
-@media(max-width:900px){.hl-wrap{grid-template-columns:1fr;}.hl-right-panel{display:none;}}
-</style>
-
-<div class="hl-orb1"></div>
-<div class="hl-orb2"></div>
-
+<section style="background:linear-gradient(160deg,#06082e 0%,#0a1628 40%,#0d1f3c 100%);padding:56px 0;position:relative;overflow:hidden;">
+<div class="hl-orb1"></div><div class="hl-orb2"></div>
 <div class="hl-wrap">
   <div class="reveal">
     <h2 class="hl-title">Hot <span>Leads</span> — Updated Daily</h2>
     <p class="hl-desc">Verified buyer enquiries from 50+ countries, matched to your product category and delivered directly.</p>
     <div class="hl-table-box">
-      <table class="hl-table">
-        <thead><tr>
-          <th>Buyer Name</th><th>Location</th><th>Product</th><th>Quantity</th><th>Date</th><th>Status</th><th>Action</th>
-        </tr></thead>
-      </table>
-      <div class="hl-table-scroll" style="height:300px;">
-        <table class="hl-table" style="border-radius:0;">
-          <tbody id="hotLeadsBody"></tbody>
-        </table>
+      <div class="hl-thead">
+        <div class="hl-th">Buyer Name</div>
+        <div class="hl-th">Location</div>
+        <div class="hl-th">Product</div>
+        <div class="hl-th">Quantity</div>
+        <div class="hl-th">Date</div>
+        <div class="hl-th">Status</div>
+        <div class="hl-th">Action</div>
+      </div>
+      <div class="hl-scroll-area">
+        <div class="hl-ticker" id="hlTicker"></div>
       </div>
       <div class="hl-bottom">
         <span class="hl-lock-note">🔒 Full contact details visible to members only</span>
@@ -499,7 +459,6 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
     </div>
   </div>
 </div>
-
 <script>
 (function(){
   const leads=[
@@ -518,33 +477,16 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
     {name:"Anita P.",        place:"Canada",          product:"Fenugreek",        qty:"1.5 MT",    date:"2025/07/26"},
     {name:"John K.",         place:"Kenya",           product:"Basmati Rice",     qty:"25 MT",     date:"2025/07/26"}
   ];
-
-  const tbody = document.getElementById("hotLeadsBody");
-  if(!tbody) return;
-
-  function makeRow(l) {
-    return `<tr>
-      <td class="hl-td-name">${l.name}</td>
-      <td>${l.place}</td>
-      <td class="hl-td-product">${l.product}</td>
-      <td class="hl-td-qty">${l.qty}</td>
-      <td style="color:rgba(255,255,255,0.4);font-size:12px;">${l.date}</td>
-      <td><span class="hl-badge-active">Active</span></td>
-      <td><a href="membership.html" class="hl-visit-btn">Why Wait? →</a></td>
-    </tr>`;
+  function makeRow(l){
+    return '<div class="hl-row"><div class="hl-cell hl-cell-name">'+l.name+'</div><div class="hl-cell">'+l.place+'</div><div class="hl-cell">'+l.product+'</div><div class="hl-cell hl-cell-qty">'+l.qty+'</div><div class="hl-cell" style="color:rgba(255,255,255,0.35);font-size:11.5px;">'+l.date+'</div><div class="hl-cell"><span class="hl-badge-active">Active</span></div><div class="hl-cell"><a href="membership.html" class="hl-visit-btn">Why Wait?</a></div></div>';
   }
-
-  /* Duplicate rows for seamless infinite loop */
-  const allRows = [...leads, ...leads].map(makeRow).join('');
-  const wrap = document.createElement('tbody');
-  wrap.classList.add('hl-ticker-inner');
-  wrap.innerHTML = allRows;
-  tbody.parentElement.appendChild(wrap);
-  tbody.remove();
+  const t=document.getElementById("hlTicker");
+  if(!t)return;
+  t.innerHTML=[...leads,...leads].map(makeRow).join("");
+  t.style.animation="hlUp "+(leads.length*3.2)+"s linear infinite";
 })();
 </script>
 </section>
-
 <!-- ═══ HOW IT WORKS ═══ -->
 <section class="section" style="background:white;">
   <div class="section-inner">
