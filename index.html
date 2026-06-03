@@ -427,62 +427,100 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:#f1f5f9;padding:56px 24px;">
+<section style="background:#f0f4f8;padding:48px 24px;">
 <style>
-/* Hot Leads — Light Theme */
-.hl2-outer{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 280px;gap:32px;align-items:stretch;}
-.hl2-card{background:white;border-radius:16px;box-shadow:0 2px 24px rgba(0,0,0,0.08);overflow:hidden;display:flex;flex-direction:column;}
-.hl2-title{font-size:30px;font-weight:800;color:#06b6d4;text-align:center;padding:22px 20px 10px;font-family:"Plus Jakarta Sans",sans-serif;letter-spacing:-0.3px;}
-.hl2-divider{width:100%;height:1px;background:#e2e8f0;margin-bottom:0;}
-/* Header */
-.hl2-thead{display:grid;grid-template-columns:1.4fr 1.2fr 1.4fr 0.9fr 1fr 0.9fr 1fr;background:#f8fafc;border-bottom:1.5px solid #e2e8f0;}
-.hl2-th{padding:12px 14px;font-size:12.5px;font-weight:700;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;}
-/* Scroll area — 5 rows × 54px = 270px */
-.hl2-scroll{height:270px;overflow:hidden;position:relative;}
-.hl2-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.98));pointer-events:none;z-index:2;}
-.hl2-ticker{animation:hl2Up 44s linear infinite;}
-.hl2-ticker:hover{animation-play-state:paused;}
-@keyframes hl2Up{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
-.hl2-row{display:grid;grid-template-columns:1.4fr 1.2fr 1.4fr 0.9fr 1fr 0.9fr 1fr;height:54px;align-items:center;border-bottom:1px solid #f1f5f9;transition:background .15s;}
-.hl2-row:hover{background:#f8faff;}
-.hl2-cell{padding:0 14px;font-size:13px;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.hl2-cell-name{font-weight:600;color:#111827;}
+.hl3-outer{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:stretch;}
+.hl3-card{background:white;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(0,0,0,0.06);overflow:hidden;display:flex;flex-direction:column;}
+
+/* Compact title bar */
+.hl3-titlebar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1.5px solid #e5e9f0;background:white;}
+.hl3-title{font-size:17px;font-weight:800;color:#0ea5e9;font-family:"Space Grotesk",sans-serif;letter-spacing:-0.2px;}
+.hl3-title-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;margin-right:6px;display:inline-block;animation:hl3pulse 1.6s infinite;}
+@keyframes hl3pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.hl3-badge-live{font-size:10px;font-weight:700;color:#22c55e;background:#f0fdf4;border:1px solid #bbf7d0;padding:3px 10px;border-radius:100px;font-family:"Space Grotesk",sans-serif;letter-spacing:0.5px;}
+
+/* Table header */
+.hl3-thead{display:grid;grid-template-columns:1.3fr 1.1fr 1.4fr 0.8fr 0.95fr 0.9fr 1fr;background:#f8fafc;border-bottom:1.5px solid #e5e9f0;}
+.hl3-th{padding:9px 14px;font-size:11px;font-weight:700;color:#64748b;font-family:"Space Grotesk",sans-serif;letter-spacing:0.6px;text-transform:uppercase;}
+
+/* Scroll area — 6 rows × 46px = 276px */
+.hl3-scroll{height:276px;overflow:hidden;position:relative;flex:1;}
+.hl3-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:56px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.97));pointer-events:none;z-index:2;}
+.hl3-ticker{animation:hl3up 42s linear infinite;}
+.hl3-ticker:hover{animation-play-state:paused;}
+@keyframes hl3up{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
+
+/* Rows */
+.hl3-row{display:grid;grid-template-columns:1.3fr 1.1fr 1.4fr 0.8fr 0.95fr 0.9fr 1fr;height:46px;align-items:center;border-bottom:1px solid #f1f5f9;transition:background .15s;}
+.hl3-row:hover{background:#f8fbff;}
+.hl3-cell{padding:0 14px;font-size:12.5px;color:#475569;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hl3-name{font-weight:700;color:#1e293b;}
+.hl3-place{color:#64748b;}
+.hl3-product{color:#334155;font-weight:500;}
+.hl3-qty{color:#0ea5e9;font-weight:700;font-family:"Space Grotesk",sans-serif;}
+.hl3-date{color:#94a3b8;font-size:11.5px;}
+
 /* Active badge */
-.hl2-badge{display:inline-flex;align-items:center;gap:6px;color:#16a34a;font-size:12.5px;font-weight:600;font-family:"Plus Jakarta Sans",sans-serif;}
-.hl2-badge::before{content:"";width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;}
-/* Why Wait button */
-.hl2-btn{display:inline-flex;align-items:center;justify-content:center;background:#06b6d4;color:white;font-size:12px;font-weight:700;padding:6px 14px;border-radius:100px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif;transition:all .2s;white-space:nowrap;}
-.hl2-btn:hover{background:#0891b2;transform:scale(1.05);}
+.hl3-active{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#16a34a;font-family:"Plus Jakarta Sans",sans-serif;}
+.hl3-active::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;}
+
+/* Button */
+.hl3-btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0ea5e9,#0284c7);color:white;font-size:11px;font-weight:700;padding:5px 13px;border-radius:100px;text-decoration:none;font-family:"Space Grotesk",sans-serif;transition:all .2s;white-space:nowrap;box-shadow:0 2px 6px rgba(14,165,233,0.25);}
+.hl3-btn:hover{transform:scale(1.06);box-shadow:0 4px 12px rgba(14,165,233,0.35);}
+
+/* Footer bar */
+.hl3-footer{padding:10px 16px;background:#f8fafc;border-top:1.5px solid #e5e9f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.hl3-footer-note{font-size:11.5px;color:#94a3b8;font-family:"Space Grotesk",sans-serif;display:flex;align-items:center;gap:5px;}
+.hl3-unlock{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:#0ea5e9;text-decoration:none;font-family:"Space Grotesk",sans-serif;transition:color .2s;}
+.hl3-unlock:hover{color:#0284c7;text-decoration:underline;}
+
 /* Right image */
-.hl2-img-wrap{border-radius:20px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 8px 32px rgba(6,182,212,0.2),0 2px 8px rgba(0,0,0,0.1);flex:1;height:100%;}
-.hl2-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
-@media(max-width:860px){.hl2-outer{grid-template-columns:1fr;}.hl2-img-wrap{display:none;}}
+.hl3-img{border-radius:12px;overflow:hidden;border:2.5px solid #0ea5e9;box-shadow:0 4px 20px rgba(14,165,233,0.18),0 2px 8px rgba(0,0,0,0.08);height:100%;}
+.hl3-img img{width:100%;height:100%;object-fit:cover;display:block;}
+
+@media(max-width:860px){.hl3-outer{grid-template-columns:1fr;}.hl3-img{display:none;}}
 </style>
 
-<div class="hl2-outer reveal">
+<div class="hl3-outer reveal">
 
-  <!-- Left: Table Card -->
-  <div class="hl2-card">
-    <div class="hl2-title">Hot Leads</div>
-    <div class="hl2-divider"></div>
-    <!-- Header -->
-    <div class="hl2-thead">
-      <div class="hl2-th">Name</div>
-      <div class="hl2-th">Place</div>
-      <div class="hl2-th">Product</div>
-      <div class="hl2-th">Quantity</div>
-      <div class="hl2-th">Date</div>
-      <div class="hl2-th">Status</div>
-      <div class="hl2-th">Visit Now</div>
+  <!-- Table Card -->
+  <div class="hl3-card">
+
+    <!-- Compact Title Bar -->
+    <div class="hl3-titlebar">
+      <div style="display:flex;align-items:center;">
+        <span class="hl3-title-dot"></span>
+        <span class="hl3-title">Hot Leads</span>
+      </div>
+      <span class="hl3-badge-live">● LIVE</span>
     </div>
-    <!-- Scroll rows -->
-    <div class="hl2-scroll">
-      <div class="hl2-ticker" id="hl2Ticker"></div>
+
+    <!-- Column Headers -->
+    <div class="hl3-thead">
+      <div class="hl3-th">Name</div>
+      <div class="hl3-th">Place</div>
+      <div class="hl3-th">Product</div>
+      <div class="hl3-th">Qty</div>
+      <div class="hl3-th">Date</div>
+      <div class="hl3-th">Status</div>
+      <div class="hl3-th">Action</div>
     </div>
+
+    <!-- Scrolling Rows -->
+    <div class="hl3-scroll">
+      <div class="hl3-ticker" id="hl3Ticker"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="hl3-footer">
+      <span class="hl3-footer-note">🔒 Full details for members only</span>
+      <a href="membership.html" class="hl3-unlock">Unlock All Leads →</a>
+    </div>
+
   </div>
 
-  <!-- Right: Image -->
-  <div class="hl2-img-wrap">
+  <!-- Right Image -->
+  <div class="hl3-img">
     <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85" alt="Export Products">
   </div>
 
@@ -491,37 +529,37 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <script>
 (function(){
   var leads=[
-    {name:"Jaseeb",            place:"Oman",          product:"Tender Coconut",     qty:"1"},
-    {name:"Donesvaran Ganesan",place:"Malaysia",      product:"Semi Husked Coconut",qty:"1"},
-    {name:"Bogdan Pintilei",   place:"Romania",       product:"Tender Coconuts",    qty:"1"},
-    {name:"Ratilal",           place:"Gujarat",       product:"Spirulina Powder",   qty:"10"},
-    {name:"Ashutosh Upadhya",  place:"Uttar Pradesh", product:"Formal Shirts",      qty:"500"},
-    {name:"Saikat Sarkar",     place:"West Bengal",   product:"Foxtail Millets",    qty:"200"},
-    {name:"Akhil R.",          place:"Poonthopu",     product:"Mustard Seed",       qty:"1500"},
-    {name:"Steen Andersen",    place:"Denmark",       product:"Men Slippers",       qty:"2000"},
-    {name:"Jacob L.",          place:"Denmark",       product:"Garments",           qty:"500"},
-    {name:"Daniel Daisuke",    place:"Belgium",       product:"Men T-shirts",       qty:"15000"},
-    {name:"Mohammed K.",       place:"UAE",           product:"Basmati Rice",       qty:"10 MT"},
-    {name:"Klaus W.",          place:"Germany",       product:"Organic Turmeric",   qty:"5 MT"},
-    {name:"Sarah M.",          place:"USA",           product:"Cotton Fabric",      qty:"2000 m"},
-    {name:"Kim Ji-Y.",         place:"South Korea",   product:"Women Kurtas",       qty:"3000"},
-    {name:"Marco R.",          place:"Italy",         product:"Leather Bags",       qty:"500"}
+    {name:"Jaseeb",             place:"Oman",          product:"Tender Coconut",      qty:"1"},
+    {name:"Donesvaran Ganesan", place:"Malaysia",      product:"Semi Husked Coconut", qty:"1"},
+    {name:"Bogdan Pintilei",    place:"Romania",       product:"Tender Coconuts",     qty:"1"},
+    {name:"Ratilal",            place:"Gujarat",       product:"Spirulina Powder",    qty:"10"},
+    {name:"Ashutosh Upadhya",   place:"Uttar Pradesh", product:"Formal Shirts",       qty:"500"},
+    {name:"Saikat Sarkar",      place:"West Bengal",   product:"Foxtail Millets",     qty:"200"},
+    {name:"Akhil R.",           place:"Poonthopu",     product:"Mustard Seed",        qty:"1,500"},
+    {name:"Steen Andersen",     place:"Denmark",       product:"Men Slippers",        qty:"2,000"},
+    {name:"Jacob L.",           place:"Denmark",       product:"Garments",            qty:"500"},
+    {name:"Daniel Daisuke",     place:"Belgium",       product:"Men T-shirts",        qty:"15,000"},
+    {name:"Mohammed K.",        place:"UAE",           product:"Basmati Rice",        qty:"10 MT"},
+    {name:"Klaus W.",           place:"Germany",       product:"Organic Turmeric",    qty:"5 MT"},
+    {name:"Sarah M.",           place:"USA",           product:"Cotton Fabric",       qty:"2,000 m"},
+    {name:"Kim Ji-Y.",          place:"South Korea",   product:"Women Kurtas",        qty:"3,000"},
+    {name:"Marco R.",           place:"Italy",         product:"Leather Bags",        qty:"500 pcs"}
   ];
   function row(l){
-    return "<div class=\"hl2-row\">"
-      +"<div class=\"hl2-cell hl2-cell-name\">"+l.name+"</div>"
-      +"<div class=\"hl2-cell\">"+l.place+"</div>"
-      +"<div class=\"hl2-cell\">"+l.product+"</div>"
-      +"<div class=\"hl2-cell\">"+l.qty+"</div>"
-      +"<div class=\"hl2-cell\">2025/07/29</div>"
-      +"<div class=\"hl2-cell\"><span class=\"hl2-badge\">Active</span></div>"
-      +"<div class=\"hl2-cell\"><a href=\"membership.html\" class=\"hl2-btn\">Why Wait?</a></div>"
+    return "<div class=\"hl3-row\">"
+      +"<div class=\"hl3-cell hl3-name\">"+l.name+"</div>"
+      +"<div class=\"hl3-cell hl3-place\">"+l.place+"</div>"
+      +"<div class=\"hl3-cell hl3-product\">"+l.product+"</div>"
+      +"<div class=\"hl3-cell hl3-qty\">"+l.qty+"</div>"
+      +"<div class=\"hl3-cell hl3-date\">2025/07/29</div>"
+      +"<div class=\"hl3-cell\"><span class=\"hl3-active\">Active</span></div>"
+      +"<div class=\"hl3-cell\"><a href=\"membership.html\" class=\"hl3-btn\">Why Wait?</a></div>"
       +"</div>";
   }
-  var t=document.getElementById("hl2Ticker");
+  var t=document.getElementById("hl3Ticker");
   if(!t)return;
   t.innerHTML=[...leads,...leads].map(row).join("");
-  t.style.animation="hl2Up "+(leads.length*2.8)+"s linear infinite";
+  t.style.animation="hl3up "+(leads.length*2.8)+"s linear infinite";
 })();
 </script>
 </section>
