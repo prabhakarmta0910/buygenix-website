@@ -427,73 +427,68 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:#f0f2f5;padding:40px 32px;">
+<section style="background:#f0f2f5;padding:36px 32px;">
 <style>
-.hl5-outer{max-width:1100px;margin:0 auto;display:flex;gap:24px;align-items:stretch;}
-.hl5-card{flex:1;background:white;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 4px 18px rgba(0,0,0,0.06);overflow:hidden;display:flex;flex-direction:column;}
+.hl6-outer{display:flex;gap:20px;align-items:stretch;}
+.hl6-card{flex:1;background:white;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 4px 18px rgba(0,0,0,0.06);overflow:hidden;display:flex;flex-direction:column;}
 
 /* Title */
-.hl5-title{text-align:center;font-size:16px;font-weight:800;color:#06b6d4;padding:9px 20px 6px;font-family:"Plus Jakarta Sans",sans-serif;letter-spacing:-0.3px;}
-.hl5-hr{height:1px;background:#e5e9f0;margin:0;}
+.hl6-title{text-align:center;font-size:26px;font-weight:800;color:#06b6d4;padding:16px 20px 10px;font-family:"Plus Jakarta Sans",sans-serif;letter-spacing:-0.3px;}
+.hl6-hr{height:1px;background:#e5e9f0;}
 
 /* Table header */
-.hl5-thead{display:grid;grid-template-columns:1.3fr 1.1fr 1.5fr 0.8fr 1fr 0.9fr 1.1fr;background:#f5f7fa;border-bottom:1.5px solid #e5e9f0;border-top:1.5px solid #e5e9f0;}
-.hl5-th{padding:6px 16px;font-size:11px;font-weight:700;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;}
+.hl6-thead{display:grid;grid-template-columns:1.3fr 1.1fr 1.5fr 0.8fr 1.1fr 0.9fr 1.1fr;background:#f5f7fa;border-bottom:1.5px solid #e5e9f0;border-top:1.5px solid #e5e9f0;}
+.hl6-th{padding:12px 16px;font-size:13px;font-weight:700;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;}
 
-/* Scroll — 5 rows x 27px = 135px */
-.hl5-scroll{height:135px;overflow:hidden;position:relative;flex:1;}
-.hl5-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.98));pointer-events:none;z-index:2;}
-.hl5-ticker{animation:hl5up 42s linear infinite;}
-.hl5-ticker:hover{animation-play-state:paused;}
-@keyframes hl5up{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
+/* Scroll — 4 rows x 56px = 224px */
+.hl6-scroll{height:224px;overflow:hidden;position:relative;}
+.hl6-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.97));pointer-events:none;z-index:2;}
+.hl6-ticker{animation:hl6up 45s linear infinite;}
+.hl6-ticker:hover{animation-play-state:paused;}
+@keyframes hl6up{0%{transform:translateY(0);}100%{transform:translateY(-50%);}}
 
 /* Rows */
-.hl5-row{display:grid;grid-template-columns:1.3fr 1.1fr 1.5fr 0.8fr 1fr 0.9fr 1.1fr;height:27px;align-items:center;border-bottom:1px solid #f0f2f5;transition:background .15s;}
-.hl5-row:hover{background:#f7fbff;}
-.hl5-cell{padding:0 16px;font-size:11.5px;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.hl5-cname{color:#1e293b;}
-.hl5-cplace{color:#374151;}
-.hl5-cprod{color:#374151;}
-.hl5-cqty{color:#374151;}
-.hl5-cdate{color:#374151;}
+.hl6-row{display:grid;grid-template-columns:1.3fr 1.1fr 1.5fr 0.8fr 1.1fr 0.9fr 1.1fr;height:56px;align-items:center;border-bottom:1px solid #f0f2f5;transition:background .15s;}
+.hl6-row:hover{background:#f7fbff;}
+.hl6-cell{padding:0 16px;font-size:13.5px;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* Active badge */
-.hl5-active{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#16a34a;font-family:"Plus Jakarta Sans",sans-serif;}
-.hl5-active::before{content:"";width:7px;height:7px;border-radius:50%;background:#22c55e;flex-shrink:0;}
+.hl6-active{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:#16a34a;font-weight:500;}
+.hl6-active::before{content:"";width:8px;height:8px;border-radius:50%;background:#22c55e;flex-shrink:0;}
 
 /* Why Wait button */
-.hl5-btn{display:inline-flex;align-items:center;justify-content:center;background:#06b6d4;color:white;font-size:10.5px;font-weight:600;padding:4px 12px;border-radius:100px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif;transition:all .2s;white-space:nowrap;}
-.hl5-btn:hover{background:#0891b2;transform:scale(1.04);}
+.hl6-btn{display:inline-flex;align-items:center;justify-content:center;background:#06b6d4;color:white;font-size:12.5px;font-weight:600;padding:7px 16px;border-radius:100px;text-decoration:none;font-family:"Plus Jakarta Sans",sans-serif;transition:all .2s;white-space:nowrap;}
+.hl6-btn:hover{background:#0891b2;transform:scale(1.04);}
 
-/* Right image */
-.hl5-img{width:240px;flex-shrink:0;border-radius:18px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 6px 24px rgba(6,182,212,0.2),0 2px 8px rgba(0,0,0,0.1);}
-.hl5-img img{width:100%;height:100%;object-fit:cover;display:block;}
+/* Right image — same height as card */
+.hl6-img{width:280px;flex-shrink:0;border-radius:18px;overflow:hidden;border:3px solid #06b6d4;box-shadow:0 6px 24px rgba(6,182,212,0.2),0 2px 8px rgba(0,0,0,0.1);}
+.hl6-img img{width:100%;height:100%;object-fit:cover;display:block;}
 
-@media(max-width:860px){.hl5-img{display:none;}}
+@media(max-width:860px){.hl6-img{display:none;}}
 </style>
 
-<div class="hl5-outer reveal">
+<div class="hl6-outer reveal">
 
   <!-- Card -->
-  <div class="hl5-card">
-    <div class="hl5-title">Hot Leads</div>
-    <div class="hl5-hr"></div>
-    <div class="hl5-thead">
-      <div class="hl5-th">Name</div>
-      <div class="hl5-th">Place</div>
-      <div class="hl5-th">Product</div>
-      <div class="hl5-th">Quantity</div>
-      <div class="hl5-th">Date</div>
-      <div class="hl5-th">Status</div>
-      <div class="hl5-th">Visit Now</div>
+  <div class="hl6-card">
+    <div class="hl6-title">Hot Leads</div>
+    <div class="hl6-hr"></div>
+    <div class="hl6-thead">
+      <div class="hl6-th">Name</div>
+      <div class="hl6-th">Place</div>
+      <div class="hl6-th">Product</div>
+      <div class="hl6-th">Quantity</div>
+      <div class="hl6-th">Date</div>
+      <div class="hl6-th">Status</div>
+      <div class="hl6-th">Visit Now</div>
     </div>
-    <div class="hl5-scroll">
-      <div class="hl5-ticker" id="hl5Ticker"></div>
+    <div class="hl6-scroll">
+      <div class="hl6-ticker" id="hl6Ticker"></div>
     </div>
   </div>
 
   <!-- Image -->
-  <div class="hl5-img">
+  <div class="hl6-img">
     <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85" alt="Export">
   </div>
 
@@ -502,37 +497,37 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <script>
 (function(){
   var leads=[
-    {name:"Jaseeb",             place:"Oman",          product:"Tender Coconut",      qty:"1",    date:"2025/07/29"},
-    {name:"Donesvaran Ganesan", place:"Malaysia",      product:"Semi Husked Coconut", qty:"1",    date:"2025/07/29"},
-    {name:"Bogdan Pintilei",    place:"Romania",       product:"Tender Coconuts",     qty:"1",    date:"2025/07/29"},
-    {name:"Ratilal",            place:"Gujarat",       product:"Spirulina Powder",    qty:"10",   date:"2025/07/29"},
-    {name:"Ashutosh Upadhya",   place:"Uttar Pradesh", product:"Formal Shirts",       qty:"500",  date:"2025/07/29"},
-    {name:"Saikat Sarkar",      place:"West Bengal",   product:"Foxtail Millets",     qty:"200",  date:"2025/07/29"},
-    {name:"Akhil R.",           place:"Poonthopu",     product:"Mustard Seed",        qty:"1500", date:"2025/07/29"},
-    {name:"Steen Andersen",     place:"Denmark",       product:"Men Slippers",        qty:"2000", date:"2025/07/29"},
-    {name:"Jacob L.",           place:"Denmark",       product:"Garments",            qty:"500",  date:"2025/07/29"},
-    {name:"Daniel Daisuke",     place:"Belgium",       product:"Men T-shirts",        qty:"15000",date:"2025/07/29"},
-    {name:"Mohammed K.",        place:"UAE",           product:"Basmati Rice",        qty:"10 MT",date:"2025/07/28"},
-    {name:"Klaus W.",           place:"Germany",       product:"Organic Turmeric",    qty:"5 MT", date:"2025/07/28"},
-    {name:"Sarah M.",           place:"USA",           product:"Cotton Fabric",       qty:"2000m",date:"2025/07/28"},
-    {name:"Kim Ji-Y.",          place:"South Korea",   product:"Women Kurtas",        qty:"3000", date:"2025/07/27"},
-    {name:"Marco R.",           place:"Italy",         product:"Leather Bags",        qty:"500",  date:"2025/07/27"}
+    {name:"Jaseeb",             place:"Oman",          product:"Tender Coconut",      qty:"1",     date:"2025/07/29"},
+    {name:"Donesvaran Ganesan", place:"Malaysia",      product:"Semi Husked Coconut", qty:"1",     date:"2025/07/29"},
+    {name:"Bogdan Pintilei",    place:"Romania",       product:"Tender Coconuts",     qty:"1",     date:"2025/07/29"},
+    {name:"Ratilal",            place:"Gujarat",       product:"Spirulina Powder",    qty:"10",    date:"2025/07/29"},
+    {name:"Ashutosh Upadhya",   place:"Uttar Pradesh", product:"Formal Shirts",       qty:"500",   date:"2025/07/29"},
+    {name:"Saikat Sarkar",      place:"West Bengal",   product:"Foxtail Millets",     qty:"200",   date:"2025/07/29"},
+    {name:"Akhil R.",           place:"Poonthopu",     product:"Mustard Seed",        qty:"1500",  date:"2025/07/29"},
+    {name:"Steen Andersen",     place:"Denmark",       product:"Men Slippers",        qty:"2000",  date:"2025/07/29"},
+    {name:"Jacob L.",           place:"Denmark",       product:"Garments",            qty:"500",   date:"2025/07/29"},
+    {name:"Daniel Daisuke",     place:"Belgium",       product:"Men T-shirts",        qty:"15000", date:"2025/07/29"},
+    {name:"Mohammed K.",        place:"UAE",           product:"Basmati Rice",        qty:"10 MT", date:"2025/07/28"},
+    {name:"Klaus W.",           place:"Germany",       product:"Organic Turmeric",    qty:"5 MT",  date:"2025/07/28"},
+    {name:"Sarah M.",           place:"USA",           product:"Cotton Fabric",       qty:"2000m", date:"2025/07/28"},
+    {name:"Kim Ji-Y.",          place:"South Korea",   product:"Women Kurtas",        qty:"3000",  date:"2025/07/27"},
+    {name:"Marco R.",           place:"Italy",         product:"Leather Bags",        qty:"500",   date:"2025/07/27"}
   ];
   function row(l){
-    return "<div class=\"hl5-row\">"
-      +"<div class=\"hl5-cell hl5-cname\">"+l.name+"</div>"
-      +"<div class=\"hl5-cell hl5-cplace\">"+l.place+"</div>"
-      +"<div class=\"hl5-cell hl5-cprod\">"+l.product+"</div>"
-      +"<div class=\"hl5-cell hl5-cqty\">"+l.qty+"</div>"
-      +"<div class=\"hl5-cell hl5-cdate\">"+l.date+"</div>"
-      +"<div class=\"hl5-cell\"><span class=\"hl5-active\">Active</span></div>"
-      +"<div class=\"hl5-cell\"><a href=\"membership.html\" class=\"hl5-btn\">Why Wait?</a></div>"
+    return "<div class=\"hl6-row\">"
+      +"<div class=\"hl6-cell\">"+l.name+"</div>"
+      +"<div class=\"hl6-cell\">"+l.place+"</div>"
+      +"<div class=\"hl6-cell\">"+l.product+"</div>"
+      +"<div class=\"hl6-cell\">"+l.qty+"</div>"
+      +"<div class=\"hl6-cell\">"+l.date+"</div>"
+      +"<div class=\"hl6-cell\"><span class=\"hl6-active\">Active</span></div>"
+      +"<div class=\"hl6-cell\"><a href=\"membership.html\" class=\"hl6-btn\">Why Wait?</a></div>"
       +"</div>";
   }
-  var t=document.getElementById("hl5Ticker");
+  var t=document.getElementById("hl6Ticker");
   if(!t)return;
   t.innerHTML=[...leads,...leads].map(row).join("");
-  t.style.animation="hl5up "+(leads.length*3)+"s linear infinite";
+  t.style.animation="hl6up "+(leads.length*3)+"s linear infinite";
 })();
 </script>
 </section>
