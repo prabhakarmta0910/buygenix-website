@@ -73,7 +73,7 @@ input,textarea,select{font-family:inherit;}
 .navbar.nav-hidden{transform:translateY(-100%) !important;}
 
 /* ── NAVBAR SEARCH — centered ── */
-.nav-search{display:flex;align-items:center;width:440px;flex-shrink:0;margin:0;height:38px;border-radius:6px;overflow:visible;position:relative;}
+.nav-search{display:flex;align-items:center;width:480px;flex-shrink:0;margin:0;height:38px;border-radius:6px;overflow:visible;position:relative;}
 .nav-search-dropdown{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.97);border:none;border-right:1px solid #d1d5db;padding:0 12px;height:100%;cursor:pointer;font-size:12.5px;font-weight:600;color:#374151;white-space:nowrap;border-radius:6px 0 0 6px;min-width:140px;justify-content:space-between;}
 .nav-search-dropdown svg{flex-shrink:0;color:#6b7280;}
 .nav-search-input{flex:1;height:100%;border:none;outline:none;font-size:13px;color:#374151;padding:0 14px;background:white;font-family:inherit;}
@@ -84,13 +84,15 @@ input,textarea,select{font-family:inherit;}
 .nav-search-menu.open{display:block;}
 .nav-search-menu a{display:block;padding:11px 16px;font-size:13px;color:#374151;font-weight:500;text-decoration:none;transition:background .15s;}
 .nav-search-menu a:hover,.nav-search-menu a.active{background:#eff6ff;color:#2563eb;font-weight:700;}
-.nav-logo{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.nav-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;text-decoration:none;}
+.nav-logo-text{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:white;line-height:1;white-space:nowrap;}
+.nav-logo-text span{color:#F0C84A;font-style:italic;}
 .nav-logo img{height:52px;width:auto;object-fit:contain;}
 .nav-logo-text{display:flex;flex-direction:column;}
 .nav-logo-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:white;line-height:1;}
 .nav-logo-name span{color:var(--gold-light);font-style:italic;}
 .nav-logo-tag{font-size:8.5px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-top:3px;}
-.nav-links{display:flex;align-items:center;gap:2px;margin-left:16px;}
+.nav-links{display:flex;align-items:center;gap:2px;margin-left:28px;}
 .nav-links a{font-size:12px;font-weight:500;color:rgba(255,255,255,0.62);padding:7px 10px;border-radius:8px;transition:all 0.2s;font-family:'Space Grotesk',sans-serif;white-space:nowrap;}
 .nav-links a:hover{color:white;background:rgba(255,255,255,0.07);}
 .nav-links a.active{color:var(--gold-light);}
