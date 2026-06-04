@@ -156,8 +156,8 @@
 <canvas id="bg-canvas"></canvas>
 
 <nav class="navbar" id="navbar">
-  <a href="index.html" class="nav-logo">
-    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
+  <a href="index.html" class="nav-logo" style="display:flex;align-items:center;">
+    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:62px;width:auto;object-fit:contain;"><span style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:1.5px;text-transform:uppercase;margin-left:4px;margin-top:2px;align-self:flex-end;padding-bottom:8px;">Solutions</span>
   </a>
   <div class="nav-spacer"></div>
   <div class="nav-search">
@@ -441,7 +441,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 .hl6-th{padding:12px 16px;font-size:13px;font-weight:700;color:#374151;font-family:"Plus Jakarta Sans",sans-serif;}
 
 /* Scroll — 4 rows x 56px = 224px */
-.hl6-scroll{height:224px;overflow:hidden;position:relative;}
+.hl6-scroll{height:336px;overflow:hidden;position:relative;}
 .hl6-scroll::after{content:"";position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.97));pointer-events:none;z-index:2;}
 .hl6-ticker{animation:hl6up 45s linear infinite;}
 .hl6-ticker:hover{animation-play-state:paused;}
