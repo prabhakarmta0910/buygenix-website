@@ -391,20 +391,94 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END DEALS BANNER ═══ -->
 
 <!-- ═══ SERVICES ═══ -->
-<section class="section" style="background:var(--sky);">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <div class="eyebrow">What We Offer</div>
-      <h2>Everything Your Export Business <em>Needs to Grow</em></h2>
-      <p>From verified buyer leads to digital catalogues, GST assistance to relationship management — BuyGenix is your complete export growth partner.</p>
+<section style="background:#0d1f3c;padding:72px 0;position:relative;overflow:hidden;">
+
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,0.35),transparent);"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,0.15),transparent);"></div>
+
+  <style>
+  .wwo-wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+  .wwo-head{text-align:center;margin-bottom:52px;}
+  .wwo-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#B8860B;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,134,11,0.25);}
+  .wwo-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,46px);font-weight:700;color:white;line-height:1.15;margin-bottom:14px;letter-spacing:-0.5px;}
+  .wwo-title em{color:#F0C84A;font-style:italic;}
+  .wwo-sub{font-size:15px;color:rgba(255,255,255,0.4);max-width:560px;margin:0 auto;line-height:1.75;}
+
+  /* 3x2 grid */
+  .wwo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);}
+  .wwo-card{background:rgba(255,255,255,0.03);padding:34px 28px;position:relative;transition:background .3s;display:flex;flex-direction:column;}
+  .wwo-card:hover{background:rgba(184,134,11,0.06);}
+
+  /* Right separator */
+  .wwo-card:not(:nth-child(3n))::after{content:'';position:absolute;top:15%;right:0;width:1px;height:70%;background:rgba(255,255,255,0.06);}
+
+  /* Top gold line animation */
+  .wwo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#B8860B,#F0C84A);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+  .wwo-card:hover::before{transform:scaleX(1);}
+
+  .wwo-line{width:28px;height:2px;background:#B8860B;margin-bottom:18px;border-radius:1px;transition:width .3s;}
+  .wwo-card:hover .wwo-line{width:44px;}
+
+  .wwo-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:white;margin-bottom:10px;line-height:1.25;letter-spacing:-0.2px;}
+  .wwo-card p{font-size:13.5px;color:rgba(255,255,255,0.44);line-height:1.8;flex:1;}
+  .wwo-more{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-size:12.5px;font-weight:700;color:#B8860B;text-decoration:none;font-family:'Space Grotesk',sans-serif;letter-spacing:0.3px;transition:gap .2s,color .2s;}
+  .wwo-more:hover{gap:10px;color:#F0C84A;}
+
+  @media(max-width:900px){.wwo-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.wwo-grid{grid-template-columns:1fr;}}
+  </style>
+
+  <div class="wwo-wrap">
+    <div class="wwo-head reveal">
+      <div class="wwo-tag">What We Offer</div>
+      <h2 class="wwo-title">Everything Your Export Business <em>Needs to Grow</em></h2>
+      <p class="wwo-sub">From verified buyer leads to digital catalogues, GST assistance to relationship management — BuyGenix is your complete export growth partner.</p>
     </div>
-    <div class="svc-grid reveal-stagger">
-      <div class="svc-card"><div class="svc-icon">🎯</div><h3>Verified Buyer Leads</h3><p>Receive verified buyer enquiries from 50+ countries, matched to your exact product categories. Indian and international leads delivered via WhatsApp and email.</p><a href="services.html#leads" class="svc-more">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-icon">🤝</div><h3>Dedicated Relationship Manager</h3><p>Every member gets a dedicated RM who understands your business, coordinates lead delivery, and provides personalised export guidance throughout your membership.</p><a href="services.html#rm" class="svc-more">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-icon">📖</div><h3>Digital Product Catalogue</h3><p>Professionally designed digital catalogue listing your products with images, specifications and contact details — shareable with international buyers globally.</p><a href="services.html#catalogue" class="svc-more">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-icon">🔍</div><h3>SEO &amp; Social Media</h3><p>Search engine optimisation for your product pages and social media management to build your brand and attract organic international buyer enquiries.</p><a href="services.html#seo" class="svc-more">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-icon">🪪</div><h3>Virtual Business Card</h3><p>A professional digital business card with your company profile, product information and QR code — shareable instantly at trade fairs and online.</p><a href="services.html#vcard" class="svc-more">Learn more →</a></div>
-      <div class="svc-card"><div class="svc-icon">📋</div><h3>GST &amp; Registration Help</h3><p>Expert assistance with GST registration, IEC (Import Export Code), MSME registration and FSSAI licensing — essential credentials for every exporter.</p><a href="gst.html" class="svc-more">Learn more →</a></div>
+
+    <div class="wwo-grid reveal-stagger">
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>Verified Buyer Leads</h3>
+        <p>Receive verified buyer enquiries from 50+ countries, matched to your exact product categories. Indian and international leads delivered via WhatsApp and email.</p>
+        <a href="services.html#leads" class="wwo-more">Learn more →</a>
+      </div>
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>Dedicated Relationship Manager</h3>
+        <p>Every member gets a dedicated RM who understands your business, coordinates lead delivery, and provides personalised export guidance throughout your membership.</p>
+        <a href="services.html#rm" class="wwo-more">Learn more →</a>
+      </div>
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>Digital Product Catalogue</h3>
+        <p>Professionally designed digital catalogue listing your products with images, specifications and contact details — shareable with international buyers globally.</p>
+        <a href="services.html#catalogue" class="wwo-more">Learn more →</a>
+      </div>
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>SEO &amp; Social Media</h3>
+        <p>Search engine optimisation for your product pages and social media management to build your brand and attract organic international buyer enquiries.</p>
+        <a href="services.html#seo" class="wwo-more">Learn more →</a>
+      </div>
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>Virtual Business Card</h3>
+        <p>A professional digital business card with your company profile, product information and QR code — shareable instantly at trade fairs and online.</p>
+        <a href="services.html#vcard" class="wwo-more">Learn more →</a>
+      </div>
+
+      <div class="wwo-card">
+        <div class="wwo-line"></div>
+        <h3>GST &amp; Registration Help</h3>
+        <p>Expert assistance with GST registration, IEC (Import Export Code), MSME registration and FSSAI licensing — essential credentials for every exporter.</p>
+        <a href="gst.html" class="wwo-more">Learn more →</a>
+      </div>
+
     </div>
   </div>
 </section>
