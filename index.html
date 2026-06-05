@@ -410,18 +410,73 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ WHY BUYGENIX ═══ -->
-<section class="section section-dark" style="background:var(--navy);">
-  <div class="section-inner">
-    <div class="section-head reveal">
-      <div class="eyebrow">Why Choose Us</div>
-      <h2>Built <em>Exclusively</em> for Indian Exporters</h2>
-      <p>We understand the challenges Indian businesses face in global trade. BuyGenix was built to solve them all.</p>
+<section style="background:#0a1628;padding:72px 0;position:relative;overflow:hidden;">
+
+  <!-- Subtle background accent -->
+  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,0.4),transparent);"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,134,11,0.2),transparent);"></div>
+
+  <style>
+  .wcu-wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
+  .wcu-head{text-align:center;margin-bottom:52px;}
+  .wcu-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#B8860B;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(184,134,11,0.25);}
+  .wcu-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);font-weight:700;color:white;line-height:1.15;margin-bottom:14px;letter-spacing:-0.5px;}
+  .wcu-title em{color:#F0C84A;font-style:italic;}
+  .wcu-sub{font-size:15px;color:rgba(255,255,255,0.42);max-width:520px;margin:0 auto;line-height:1.75;}
+
+  /* Cards grid */
+  .wcu-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);}
+  .wcu-card{background:rgba(255,255,255,0.03);padding:36px 28px;position:relative;transition:background .3s;}
+  .wcu-card:hover{background:rgba(184,134,11,0.07);}
+  .wcu-card:not(:last-child)::after{content:'';position:absolute;top:20%;right:0;width:1px;height:60%;background:rgba(255,255,255,0.07);}
+
+  /* Accent line on hover */
+  .wcu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#B8860B,#F0C84A);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+  .wcu-card:hover::before{transform:scaleX(1);}
+
+  .wcu-line{width:28px;height:2px;background:#B8860B;margin-bottom:20px;border-radius:1px;transition:width .3s;}
+  .wcu-card:hover .wcu-line{width:44px;}
+
+  .wcu-card h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:white;margin-bottom:12px;line-height:1.25;letter-spacing:-0.2px;}
+  .wcu-card p{font-size:13.5px;color:rgba(255,255,255,0.46);line-height:1.82;}
+
+  @media(max-width:900px){.wcu-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.wcu-grid{grid-template-columns:1fr;}}
+  </style>
+
+  <div class="wcu-wrap">
+    <div class="wcu-head reveal">
+      <div class="wcu-tag">Why Choose BuyGenix</div>
+      <h2 class="wcu-title">Built <em>Exclusively</em> for Indian Exporters</h2>
+      <p class="wcu-sub">We understand the challenges Indian businesses face in global trade. BuyGenix was built to solve them all.</p>
     </div>
-    <div class="why-grid reveal-stagger">
-      <div class="why-card"><span class="why-icon">✅</span><h3>All Leads Are Verified</h3><p>Every buyer enquiry is manually verified by our team before delivery. You receive only genuine, interested buyers — never cold or junk leads.</p><span class="why-num">01</span></div>
-      <div class="why-card"><span class="why-icon">🌍</span><h3>50+ Countries Covered</h3><p>Our buyer network spans over 50 countries across Europe, Middle East, Americas, Africa and Asia Pacific — giving Indian exporters truly global reach.</p><span class="why-num">02</span></div>
-      <div class="why-card"><span class="why-icon">👤</span><h3>Dedicated Human Support</h3><p>Every member has a real, named Relationship Manager available via WhatsApp and email — a person who knows your business and your goals.</p><span class="why-num">03</span></div>
-      <div class="why-card"><span class="why-icon">📈</span><h3>Full Export Ecosystem</h3><p>From your first GST registration to your hundredth export shipment, BuyGenix supports every step — leads, catalogue, registrations, SEO, and strategy.</p><span class="why-num">04</span></div>
+
+    <div class="wcu-grid reveal-stagger">
+
+      <div class="wcu-card">
+        <div class="wcu-line"></div>
+        <h3>All Leads Are Verified</h3>
+        <p>Every buyer enquiry is manually verified by our team before delivery. You receive only genuine, interested buyers — never cold or junk leads.</p>
+      </div>
+
+      <div class="wcu-card">
+        <div class="wcu-line"></div>
+        <h3>50+ Countries Covered</h3>
+        <p>Our buyer network spans over 50 countries across Europe, Middle East, Americas, Africa and Asia Pacific — giving Indian exporters truly global reach.</p>
+      </div>
+
+      <div class="wcu-card">
+        <div class="wcu-line"></div>
+        <h3>Dedicated Human Support</h3>
+        <p>Every member has a real, named Relationship Manager available via WhatsApp and email — a person who knows your business and your goals.</p>
+      </div>
+
+      <div class="wcu-card">
+        <div class="wcu-line"></div>
+        <h3>Full Export Ecosystem</h3>
+        <p>From your first GST registration to your hundredth export shipment, BuyGenix supports every step — leads, catalogue, registrations, SEO, and strategy.</p>
+      </div>
+
     </div>
   </div>
 </section>
