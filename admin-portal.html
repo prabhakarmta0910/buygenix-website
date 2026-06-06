@@ -288,26 +288,41 @@ body{background:#EEF2F7;}
       <!-- PLANS -->
       <div class="a-panel" id="ap-plans">
         <style>
-        .mp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
-        .mp-card{background:white;border:1.5px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
-        .mp-card-head{padding:16px 18px;border-bottom:1.5px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--sky),white);}
-        .mp-plan-name{font-size:17px;font-weight:800;color:var(--navy);font-family:'Cormorant Garamond',serif;}
-        .mp-plan-badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:100px;background:#fef3c7;color:#b45309;font-family:'Space Grotesk',sans-serif;}
-        .mp-plan-badge.popular{background:#dbeafe;color:#1d4ed8;}
-        .mp-card-body{padding:16px 18px;}
-        .mp-price{font-size:22px;font-weight:800;color:var(--navy);font-family:'Space Grotesk',sans-serif;margin-bottom:4px;}
-        .mp-price span{font-size:12px;font-weight:500;color:var(--text-mid);}
-        .mp-leads{font-size:12px;color:var(--text-light);margin-bottom:12px;font-family:'Space Grotesk',sans-serif;}
-        .mp-features{list-style:none;padding:0;margin:0 0 14px;}
-        .mp-features li{font-size:12.5px;color:var(--text-mid);padding:4px 0;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;gap:8px;}
-        .mp-features li::before{content:'✓';color:#16a34a;font-weight:700;flex-shrink:0;}
-        .mp-card-foot{display:flex;gap:8px;padding:12px 18px;border-top:1.5px solid var(--border-soft);background:var(--sky);}
+        .mp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+        .mp-card{background:white;border-radius:20px;border:1.5px solid #e4e8f4;padding:28px 24px;display:flex;flex-direction:column;position:relative;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.05);transition:all .25s;}
+        .mp-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(37,99,235,0.1);border-color:#c7d2fe;}
+        .mp-card.mp-popular{border-color:#6366f1;box-shadow:0 6px 24px rgba(99,102,241,0.15);}
+        .mp-card.mp-enterprise{background:linear-gradient(145deg,#080f1e,#0d1f3c);border-color:rgba(245,158,11,0.3);}
+        .mp-pop-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:9px;font-weight:800;padding:5px 14px;letter-spacing:1.5px;text-transform:uppercase;border-radius:0 18px 0 12px;}
+        .mp-ent-badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1100;font-size:9px;font-weight:800;padding:5px 14px;letter-spacing:1.5px;text-transform:uppercase;border-radius:0 18px 0 12px;}
+        .mp-plan-tag{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;font-family:'Space Grotesk',sans-serif;}
+        .mp-card.mp-enterprise .mp-plan-tag{color:rgba(255,255,255,0.3);}
+        .mp-plan-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:#0d1117;margin-bottom:4px;}
+        .mp-card.mp-enterprise .mp-plan-name{color:white;}
+        .mp-plan-desc{font-size:12px;color:#64748b;margin-bottom:16px;line-height:1.5;}
+        .mp-card.mp-enterprise .mp-plan-desc{color:rgba(255,255,255,0.4);}
+        .mp-price-row{display:flex;align-items:baseline;gap:2px;margin-bottom:4px;}
+        .mp-price-curr{font-size:16px;font-weight:700;color:#374151;margin-top:2px;}
+        .mp-price-amt{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;color:#0d1117;line-height:1;}
+        .mp-card.mp-enterprise .mp-price-curr,.mp-card.mp-enterprise .mp-price-amt{color:white;}
+        .mp-price-period{font-size:11px;color:#94a3b8;margin-left:3px;}
+        .mp-leads-tag{display:inline-block;background:#dbeafe;color:#1d4ed8;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;}
+        .mp-card.mp-enterprise .mp-leads-tag{background:rgba(245,158,11,0.15);color:#fbbf24;}
+        .mp-divider{height:1px;background:#f0f2f8;margin:10px 0 14px;}
+        .mp-card.mp-enterprise .mp-divider{background:rgba(255,255,255,0.08);}
+        .mp-feats{flex:1;display:flex;flex-direction:column;gap:7px;margin-bottom:18px;}
+        .mp-feat{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:#374151;line-height:1.5;}
+        .mp-card.mp-enterprise .mp-feat{color:rgba(255,255,255,0.65);}
+        .mp-feat::before{content:"✓";color:#16a34a;font-weight:800;flex-shrink:0;font-size:11px;margin-top:1px;}
+        .mp-card.mp-enterprise .mp-feat::before{color:#fbbf24;}
+        .mp-card-actions{display:flex;gap:8px;padding-top:12px;border-top:1px solid #f0f2f8;}
+        .mp-card.mp-enterprise .mp-card-actions{border-top-color:rgba(255,255,255,0.08);}
         </style>
 
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
           <div>
             <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">Membership Plans Manager</h2>
-            <p style="font-size:13px;color:var(--text-mid);">Add, edit or remove membership plan columns and features. Changes reflect live on the website.</p>
+            <p style="font-size:13px;color:var(--text-mid);">Add, edit or remove plans and features. Changes reflect live on the membership page.</p>
           </div>
           <button class="btn-add-row" onclick="openAddPlan()">+ Add New Plan</button>
         </div>
@@ -632,23 +647,26 @@ function renderPlans() {
   const grid = document.getElementById('mpGrid');
   if (!grid) return;
   if (!allPlans.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">No plans yet.</div>'; return; }
-  grid.innerHTML = allPlans.map(plan => {
+  grid.innerHTML = allPlans.map((plan,i) => {
     const features = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features || '[]');
-    return `<div class="mp-card">
-      <div class="mp-card-head">
-        <div>
-          <div class="mp-plan-name">${plan.name}</div>
-          <div style="font-size:11.5px;color:var(--text-mid);margin-top:2px;">${plan.subtitle||''}</div>
-        </div>
-        ${plan.badge ? `<span class="mp-plan-badge ${plan.is_popular?'popular':''}">${plan.badge}</span>` : ''}
+    const isEnt   = plan.name?.toLowerCase().includes('enterprise') || i === allPlans.length-1 && allPlans.length > 2;
+    const isPop   = plan.is_popular;
+    return `<div class="mp-card ${isPop?'mp-popular':''} ${isEnt?'mp-enterprise':''}">
+      ${isPop ? '<div class="mp-pop-badge">'+( plan.badge||'Popular')+'</div>' : ''}
+      ${isEnt && !isPop ? '<div class="mp-ent-badge">'+(plan.badge||'Enterprise')+'</div>' : ''}
+      <div class="mp-plan-tag">Plan ${plan.sort_order||''}</div>
+      <div class="mp-plan-name">${plan.name}</div>
+      <div class="mp-plan-desc">${plan.subtitle||''}</div>
+      <div class="mp-price-row">
+        <span class="mp-price-curr">₹</span>
+        <span class="mp-price-amt">${Number(plan.price_monthly).toLocaleString('en-IN')}</span>
+        <span class="mp-price-period">/month</span>
       </div>
-      <div class="mp-card-body">
-        <div class="mp-price">₹${Number(plan.price_monthly).toLocaleString('en-IN')}<span>/month</span></div>
-        <div class="mp-leads">${plan.lead_limit >= 9999 ? 'Unlimited' : plan.lead_limit.toLocaleString('en-IN')} leads/month</div>
-        <ul class="mp-features">${features.map(f=>`<li>${f}</li>`).join('')}</ul>
-      </div>
-      <div class="mp-card-foot">
-        <button class="cat-edit-btn" style="flex:1;" onclick='openEditPlan(${JSON.stringify(plan).replace(/'/g,"&apos;")})'>✏️ Edit</button>
+      <span class="mp-leads-tag">${plan.lead_limit >= 9999 ? 'Unlimited' : Number(plan.lead_limit).toLocaleString('en-IN')} leads/month</span>
+      <div class="mp-divider"></div>
+      <div class="mp-feats">${features.map(f=>`<div class="mp-feat">${f}</div>`).join('')}</div>
+      <div class="mp-card-actions">
+        <button class="cat-edit-btn" style="flex:1;" onclick='openEditPlan(${JSON.stringify(plan).replace(/'/g,"&apos;")})'>✏️ Edit Plan</button>
         <button class="cat-del-btn" onclick="deletePlan('${plan.id}')">🗑</button>
       </div>
     </div>`;
