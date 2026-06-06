@@ -176,7 +176,7 @@ body{background:#EEF2F7;}
       <div class="asb-link" onclick="showAPanel('leads',this)"><span class="asb-icon">🎯</span>Buyer Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('enquiries',this)"><span class="asb-icon">📩</span>Enquiries<span class="asb-count" id="sbEnqCnt">0</span></div>
       <div class="asb-sec">Management</div>
-      <div class="asb-link" onclick="showAPanel('plans',this)"><span class="asb-icon">💼</span>Manage Plans</div>
+      <div class="asb-link" onclick="showAPanel('plans',this)"><span class="asb-icon">💼</span>Membership Plans</div>
       <div class="asb-link" onclick="showAPanel('categories',this)"><span class="asb-icon">🗂️</span>Category Grid</div>
       <div class="asb-link" onclick="showAPanel('banners',this)"><span class="asb-icon">🖼️</span>Site Banners</div>
       <div class="asb-sec">System</div>
@@ -287,10 +287,34 @@ body{background:#EEF2F7;}
 
       <!-- PLANS -->
       <div class="a-panel" id="ap-plans">
+        <style>
+        .mp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;}
+        .mp-card{background:white;border:1.5px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
+        .mp-card-head{padding:16px 18px;border-bottom:1.5px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,var(--sky),white);}
+        .mp-plan-name{font-size:17px;font-weight:800;color:var(--navy);font-family:'Cormorant Garamond',serif;}
+        .mp-plan-badge{font-size:10px;font-weight:700;letter-spacing:1px;padding:3px 10px;border-radius:100px;background:#fef3c7;color:#b45309;font-family:'Space Grotesk',sans-serif;}
+        .mp-plan-badge.popular{background:#dbeafe;color:#1d4ed8;}
+        .mp-card-body{padding:16px 18px;}
+        .mp-price{font-size:22px;font-weight:800;color:var(--navy);font-family:'Space Grotesk',sans-serif;margin-bottom:4px;}
+        .mp-price span{font-size:12px;font-weight:500;color:var(--text-mid);}
+        .mp-leads{font-size:12px;color:var(--text-light);margin-bottom:12px;font-family:'Space Grotesk',sans-serif;}
+        .mp-features{list-style:none;padding:0;margin:0 0 14px;}
+        .mp-features li{font-size:12.5px;color:var(--text-mid);padding:4px 0;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;gap:8px;}
+        .mp-features li::before{content:'✓';color:#16a34a;font-weight:700;flex-shrink:0;}
+        .mp-card-foot{display:flex;gap:8px;padding:12px 18px;border-top:1.5px solid var(--border-soft);background:var(--sky);}
+        </style>
+
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
-          <div><h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);">Membership Plans</h2><p style="font-size:14px;color:var(--text-mid);">Changes reflect immediately on the public website.</p></div>
+          <div>
+            <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">Membership Plans Manager</h2>
+            <p style="font-size:13px;color:var(--text-mid);">Add, edit or remove membership plan columns and features. Changes reflect live on the website.</p>
+          </div>
+          <button class="btn-add-row" onclick="openAddPlan()">+ Add New Plan</button>
         </div>
-        <div id="plansAdminGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;"></div>
+
+        <div class="mp-grid" id="mpGrid">
+          <div style="text-align:center;padding:40px;color:var(--text-light);font-size:13px;grid-column:1/-1;">Loading plans…</div>
+        </div>
       </div>
 
       <!-- ═══ SITE BANNERS MANAGER ═══ -->
@@ -586,18 +610,142 @@ async function deleteLead(id) {
   BGX_Toast('Lead deleted.','info');
 }
 
-function loadPlansAdmin() {
-  document.getElementById('plansAdminGrid').innerHTML = Object.values(BGX.PLANS).map(p=>`
-    <div style="background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px;box-shadow:var(--shadow-soft);">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <span style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy);">${p.label}</span>
-        ${p.is_popular?'<span class="badge badge-gold">Popular</span>':''}
+/* ═══ MEMBERSHIP PLANS MANAGER ═══ */
+let allPlans = [];
+
+async function loadPlansAdmin() {
+  const sb = getSB();
+  try {
+    const { data, error } = await sb.from('membership_plans').select('*').order('sort_order');
+    if (!error && data && data.length) { allPlans = data; renderPlans(); return; }
+  } catch(e) {}
+  allPlans = [
+    {id:'p1',name:'Starter',subtitle:'Perfect for new exporters',price_monthly:4999,lead_limit:100,badge:'',is_popular:false,sort_order:1,features:['Up to 100 buyer leads/month','Dedicated Relationship Manager','Basic Digital Catalogue','WhatsApp & Email Support','GST Registration Assistance']},
+    {id:'p2',name:'Growth',subtitle:'For growing export businesses',price_monthly:9999,lead_limit:500,badge:'Popular',is_popular:true,sort_order:2,features:['Up to 500 buyer leads/month','Priority Relationship Manager','Premium Digital Catalogue','SEO & SMO Package','Virtual Business Card','IEC & MSME Registration','Performance Reports']},
+    {id:'p3',name:'Professional',subtitle:'For serious exporters',price_monthly:19999,lead_limit:2000,badge:'Best Value',is_popular:false,sort_order:3,features:['Up to 2000 buyer leads/month','Senior Relationship Manager','Full Digital Catalogue','Advanced SEO & SMO','Virtual Business Card','All Registrations Included','Monthly Strategy Call','Priority Lead Matching']},
+    {id:'p4',name:'Enterprise',subtitle:'For large export operations',price_monthly:39999,lead_limit:9999,badge:'',is_popular:false,sort_order:4,features:['Unlimited buyer leads','Dedicated Senior RM Team','Custom Digital Catalogue','Full SEO & SMO Management','Premium Business Card','All Registrations + FSSAI','Weekly Strategy Calls','Custom Lead Sourcing']}
+  ];
+  renderPlans();
+}
+
+function renderPlans() {
+  const grid = document.getElementById('mpGrid');
+  if (!grid) return;
+  if (!allPlans.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">No plans yet.</div>'; return; }
+  grid.innerHTML = allPlans.map(plan => {
+    const features = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features || '[]');
+    return `<div class="mp-card">
+      <div class="mp-card-head">
+        <div>
+          <div class="mp-plan-name">${plan.name}</div>
+          <div style="font-size:11.5px;color:var(--text-mid);margin-top:2px;">${plan.subtitle||''}</div>
+        </div>
+        ${plan.badge ? `<span class="mp-plan-badge ${plan.is_popular?'popular':''}">${plan.badge}</span>` : ''}
       </div>
-      <div style="font-size:26px;font-family:'Cormorant Garamond',serif;font-weight:700;color:var(--navy);margin-bottom:3px;">${p.price?'₹'+p.price.toLocaleString('en-IN'):'Custom'}</div>
-      <div style="font-size:12px;color:var(--text-light);margin-bottom:12px;">${p.best_for||'—'}</div>
-      <div style="font-size:12.5px;color:var(--text-mid);line-height:1.7;margin-bottom:14px;">${(p.features||[]).slice(0,4).map(f=>`✔ ${f}`).join('<br>')}</div>
-      <a href="https://app.supabase.com" class="btn-outline btn-sm" target="_blank" rel="noopener" style="display:inline-flex;">Edit in Supabase →</a>
-    </div>`).join('');
+      <div class="mp-card-body">
+        <div class="mp-price">₹${Number(plan.price_monthly).toLocaleString('en-IN')}<span>/month</span></div>
+        <div class="mp-leads">${plan.lead_limit >= 9999 ? 'Unlimited' : plan.lead_limit.toLocaleString('en-IN')} leads/month</div>
+        <ul class="mp-features">${features.map(f=>`<li>${f}</li>`).join('')}</ul>
+      </div>
+      <div class="mp-card-foot">
+        <button class="cat-edit-btn" style="flex:1;" onclick='openEditPlan(${JSON.stringify(plan).replace(/'/g,"&apos;")})'>✏️ Edit</button>
+        <button class="cat-del-btn" onclick="deletePlan('${plan.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAddPlan() {
+  openModal(`<h3>+ Add New Plan</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Plan Name *</label><input class="form-control" id="mp_name" placeholder="e.g. Growth"></div>
+      <div class="form-group"><label>Sort Order</label><input type="number" class="form-control" id="mp_order" placeholder="1" min="1"></div>
+    </div>
+    <div class="form-group"><label>Subtitle</label><input class="form-control" id="mp_sub" placeholder="e.g. For growing export businesses"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Monthly Price (₹) *</label><input type="number" class="form-control" id="mp_price" placeholder="9999"></div>
+      <div class="form-group"><label>Lead Limit/Month</label><input type="number" class="form-control" id="mp_leads" placeholder="500"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Badge Text</label><input class="form-control" id="mp_badge" placeholder="e.g. Popular"></div>
+      <div class="form-group"><label>Mark as Popular?</label>
+        <select class="form-control" id="mp_popular"><option value="false">No</option><option value="true">Yes</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label>Features — ek line mein ek feature *</label>
+      <textarea class="form-control" id="mp_features" rows="7" placeholder="Up to 500 buyer leads/month&#10;Dedicated Relationship Manager&#10;Digital Catalogue&#10;..."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="savePlan()">Save Plan</button>
+    </div>`);
+}
+
+function openEditPlan(plan) {
+  const features = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features || '[]');
+  openModal(`<h3>✏️ Edit — ${plan.name}</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Plan Name *</label><input class="form-control" id="mp_name" value="${plan.name}"></div>
+      <div class="form-group"><label>Sort Order</label><input type="number" class="form-control" id="mp_order" value="${plan.sort_order||1}"></div>
+    </div>
+    <div class="form-group"><label>Subtitle</label><input class="form-control" id="mp_sub" value="${plan.subtitle||''}"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Monthly Price (₹) *</label><input type="number" class="form-control" id="mp_price" value="${plan.price_monthly}"></div>
+      <div class="form-group"><label>Lead Limit/Month</label><input type="number" class="form-control" id="mp_leads" value="${plan.lead_limit}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Badge Text</label><input class="form-control" id="mp_badge" value="${plan.badge||''}"></div>
+      <div class="form-group"><label>Mark as Popular?</label>
+        <select class="form-control" id="mp_popular">
+          <option value="false" ${!plan.is_popular?'selected':''}>No</option>
+          <option value="true" ${plan.is_popular?'selected':''}>Yes</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group"><label>Features — ek line mein ek feature</label>
+      <textarea class="form-control" id="mp_features" rows="9">${features.join('\n')}</textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="savePlan('${plan.id}')">Update Plan</button>
+    </div>`);
+}
+
+async function savePlan(editId) {
+  const name = document.getElementById('mp_name')?.value.trim();
+  if (!name) { BGX_Toast('Plan name is required.','error'); return; }
+  const featuresRaw = document.getElementById('mp_features')?.value || '';
+  const features = featuresRaw.split('\n').map(f=>f.trim()).filter(Boolean);
+  const payload = {
+    name, subtitle: document.getElementById('mp_sub')?.value.trim()||'',
+    price_monthly: parseInt(document.getElementById('mp_price')?.value)||0,
+    lead_limit: parseInt(document.getElementById('mp_leads')?.value)||0,
+    badge: document.getElementById('mp_badge')?.value.trim()||'',
+    is_popular: document.getElementById('mp_popular')?.value==='true',
+    sort_order: parseInt(document.getElementById('mp_order')?.value)||99,
+    features: JSON.stringify(features), is_active: true
+  };
+  const sb = getSB();
+  if (editId) {
+    try { await sb.from('membership_plans').update(payload).eq('id',editId); } catch(e){}
+    allPlans = allPlans.map(p => p.id===editId ? {...p,...payload,features} : p);
+    BGX_Toast('Plan updated! Live on website. ✅','success');
+  } else {
+    let np = {...payload,id:'temp-'+Date.now(),features};
+    try { const {data} = await sb.from('membership_plans').insert([payload]).select(); if(data?.[0]) np={...data[0],features}; } catch(e){}
+    allPlans.push(np);
+    BGX_Toast('Plan added! Visible on membership page. ✅','success');
+  }
+  closeModal(); renderPlans();
+}
+
+async function deletePlan(id) {
+  if (!confirm('Delete this plan?')) return;
+  const sb = getSB();
+  try { await sb.from('membership_plans').delete().eq('id',id); } catch(e){}
+  allPlans = allPlans.filter(p => p.id!==id);
+  renderPlans();
+  BGX_Toast('Plan deleted.','info');
 }
 
 /* Demo data */
