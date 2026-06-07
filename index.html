@@ -468,6 +468,125 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 </section>
 
 <!-- ═══ WHY BUYGENIX ═══ -->
+<!-- ═══ POST REQUIREMENTS ═══ -->
+<section style="background:#f0f2f5;padding:52px 24px;">
+<style>
+.pyr-outer{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:280px 1fr 260px;gap:24px;align-items:start;}
+/* Left map card */
+.pyr-map{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:20px;height:100%;}
+.pyr-map-title{text-align:center;font-size:16px;font-weight:700;color:#06b6d4;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #06b6d4;}
+.pyr-map-img{width:100%;border-radius:8px;display:block;}
+/* Center form */
+.pyr-form{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:28px 24px;}
+.pyr-title{text-align:center;font-size:24px;font-weight:800;color:#1e293b;margin-bottom:6px;font-family:'Plus Jakarta Sans',sans-serif;}
+.pyr-chevron{text-align:center;color:#06b6d4;font-size:20px;margin-bottom:20px;line-height:1;}
+.pyr-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.pyr-row-3{display:grid;grid-template-columns:1fr 160px;gap:12px;margin-bottom:12px;}
+.pyr-input{width:100%;height:44px;border:1.5px solid #e2e8f0;border-radius:8px;padding:0 14px;font-size:13.5px;color:#374151;font-family:'Plus Jakarta Sans',sans-serif;outline:none;background:white;transition:border .2s;box-sizing:border-box;}
+.pyr-input:focus{border-color:#06b6d4;box-shadow:0 0 0 3px rgba(6,182,212,0.08);}
+.pyr-input::placeholder{color:#94a3b8;}
+.pyr-select{width:100%;height:44px;border:1.5px solid #e2e8f0;border-radius:8px;padding:0 12px;font-size:13.5px;color:#374151;font-family:'Plus Jakarta Sans',sans-serif;outline:none;background:white;cursor:pointer;transition:border .2s;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+.pyr-select:focus{border-color:#06b6d4;}
+.pyr-textarea{width:100%;height:110px;border:1.5px solid #e2e8f0;border-radius:8px;padding:12px 14px;font-size:13.5px;color:#374151;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:vertical;margin-bottom:12px;box-sizing:border-box;transition:border .2s;}
+.pyr-textarea:focus{border-color:#06b6d4;box-shadow:0 0 0 3px rgba(6,182,212,0.08);}
+.pyr-textarea::placeholder{color:#94a3b8;}
+.pyr-btn{width:100%;height:48px;background:#2563eb;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .2s;margin-top:4px;}
+.pyr-btn:hover{background:#1d4ed8;}
+.pyr-msg{display:none;padding:10px 14px;border-radius:8px;font-size:13px;margin-top:10px;font-family:'Plus Jakarta Sans',sans-serif;}
+.pyr-msg.ok{background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;display:block;}
+.pyr-msg.err{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;display:block;}
+/* Right image */
+.pyr-img{border-radius:12px;overflow:hidden;height:100%;min-height:480px;}
+.pyr-img img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;}
+@media(max-width:900px){.pyr-outer{grid-template-columns:1fr;}.pyr-map,.pyr-img{display:none;}}
+</style>
+
+<div class="pyr-outer reveal">
+
+  <!-- LEFT: Map -->
+  <div class="pyr-map">
+    <div class="pyr-map-title">Buyers Located</div>
+    <img class="pyr-map-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1200px-World_map_-_low_resolution.svg.png" alt="Buyers World Map" style="filter:hue-rotate(180deg) saturate(1.5) brightness(0.9);">
+  </div>
+
+  <!-- CENTER: Form -->
+  <div class="pyr-form">
+    <div class="pyr-title">Post Your Requirements</div>
+    <div class="pyr-chevron">&#10003;</div>
+    <div class="pyr-row">
+      <input class="pyr-input" type="text" id="pyr_name" placeholder="Name">
+      <input class="pyr-input" type="email" id="pyr_email" placeholder="Email">
+    </div>
+    <div class="pyr-row">
+      <input class="pyr-input" type="tel" id="pyr_phone" placeholder="Phone">
+      <input class="pyr-input" type="text" id="pyr_product" placeholder="Product Name">
+    </div>
+    <div class="pyr-row-3" style="margin-bottom:12px;">
+      <input class="pyr-input" type="text" id="pyr_qty" placeholder="Quantity">
+      <select class="pyr-select" id="pyr_unit">
+        <option value="">Select Unit</option>
+        <option>Bag</option><option>Carton</option><option>Container</option>
+        <option>Dozen</option><option>Feet</option><option>Kilogram/Kg</option>
+        <option>Liter</option><option>Meter</option><option>Metric Ton</option>
+        <option>Piece/Pcs</option><option>Set</option><option>Ton</option>
+      </select>
+    </div>
+    <div class="pyr-row" style="margin-bottom:12px;">
+      <select class="pyr-select" id="pyr_urgency">
+        <option value="">Select Urgency Level</option>
+        <option>Urgent</option>
+        <option>Next Month</option>
+        <option>Within 3 Months</option>
+      </select>
+      <select class="pyr-select" id="pyr_purpose">
+        <option value="">Select Purpose</option>
+        <option>End Use</option>
+        <option>Reselling</option>
+        <option>Manufacturing</option>
+      </select>
+    </div>
+    <textarea class="pyr-textarea" id="pyr_msg" placeholder="Message"></textarea>
+    <input class="pyr-input" type="text" id="pyr_location" placeholder="Location" style="margin-bottom:12px;">
+    <button class="pyr-btn" onclick="submitRequirement()">Get Quote Now</button>
+    <div class="pyr-msg" id="pyrMsg"></div>
+  </div>
+
+  <!-- RIGHT: Image -->
+  <div class="pyr-img">
+    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=85" alt="Export">
+  </div>
+
+</div>
+
+<script>
+async function submitRequirement() {
+  const name    = document.getElementById('pyr_name')?.value.trim();
+  const email   = document.getElementById('pyr_email')?.value.trim();
+  const phone   = document.getElementById('pyr_phone')?.value.trim();
+  const product = document.getElementById('pyr_product')?.value.trim();
+  const qty     = document.getElementById('pyr_qty')?.value.trim();
+  const unit    = document.getElementById('pyr_unit')?.value;
+  const urgency = document.getElementById('pyr_urgency')?.value;
+  const purpose = document.getElementById('pyr_purpose')?.value;
+  const msg     = document.getElementById('pyr_msg')?.value.trim();
+  const location= document.getElementById('pyr_location')?.value.trim();
+  const msgEl   = document.getElementById('pyrMsg');
+  if (!name||!email||!phone||!product) {
+    msgEl.className='pyr-msg err'; msgEl.textContent='Please fill Name, Email, Phone and Product Name.'; return;
+  }
+  try {
+    if(typeof BGX_SUPABASE_URL!=='undefined'&&BGX_SUPABASE_URL&&!BGX_SUPABASE_URL.includes('YOUR')){
+      const sb=window.supabase?.createClient?.(BGX_SUPABASE_URL,BGX_SUPABASE_ANON);
+      if(sb) await sb.from('enquiries').insert([{name,email,phone,business:product,message:`Qty:${qty} ${unit} | Urgency:${urgency} | Purpose:${purpose} | Location:${location} | ${msg}`,interest:'leads',status:'new'}]);
+    }
+  } catch(e){}
+  msgEl.className='pyr-msg ok'; msgEl.textContent='✅ Your requirement has been submitted! We will contact you shortly.';
+  ['pyr_name','pyr_email','pyr_phone','pyr_product','pyr_qty','pyr_msg','pyr_location'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  ['pyr_unit','pyr_urgency','pyr_purpose'].forEach(id=>{const el=document.getElementById(id);if(el)el.selectedIndex=0;});
+}
+</script>
+</section>
+<!-- ═══ END POST REQUIREMENTS ═══ -->
 <section style="background:#0a1628;padding:72px 0;position:relative;overflow:hidden;">
 
   <!-- Subtle background accent -->
