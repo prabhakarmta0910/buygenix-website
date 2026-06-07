@@ -691,17 +691,22 @@ function openAddPlan() {
         <select class="form-control" id="mp_popular"><option value="false">No</option><option value="true">Yes</option></select>
       </div>
     </div>
-    <div class="form-group"><label>Features — ek line mein ek feature *</label>
-      <textarea class="form-control" id="mp_features" rows="7" placeholder="Up to 500 buyer leads/month&#10;Dedicated Relationship Manager&#10;Digital Catalogue&#10;..."></textarea>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;justify-content:space-between;">
+        <span>Features</span>
+        <button type="button" onclick="addFeatRow()" style="font-size:11.5px;font-weight:700;color:var(--blue);background:var(--sky);border:1.5px solid var(--blue);border-radius:6px;padding:3px 10px;cursor:pointer;">+ Add Feature</button>
+      </label>
+      <div id="mp_feat_rows" style="display:flex;flex-direction:column;gap:6px;margin-top:8px;"></div>
     </div>
     <div class="modal-footer">
       <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
       <button class="btn-add-row" onclick="savePlan()">Save Plan</button>
     </div>`);
+  addFeatRow('✅','');
 }
 
 function openEditPlan(plan) {
-  const features = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features || '[]');
+  const features = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features||'[]');
   openModal(`<h3>✏️ Edit — ${plan.name}</h3>
     <div class="form-row">
       <div class="form-group"><label>Plan Name *</label><input class="form-control" id="mp_name" value="${plan.name}"></div>
@@ -721,20 +726,60 @@ function openEditPlan(plan) {
         </select>
       </div>
     </div>
-    <div class="form-group"><label>Features — ek line mein ek feature</label>
-      <textarea class="form-control" id="mp_features" rows="9">${features.join('\n')}</textarea>
+    <div class="form-group">
+      <label style="display:flex;align-items:center;justify-content:space-between;">
+        <span>Features</span>
+        <button type="button" onclick="addFeatRow()" style="font-size:11.5px;font-weight:700;color:var(--blue);background:var(--sky);border:1.5px solid var(--blue);border-radius:6px;padding:3px 10px;cursor:pointer;">+ Add Feature</button>
+      </label>
+      <div id="mp_feat_rows" style="display:flex;flex-direction:column;gap:6px;margin-top:8px;"></div>
     </div>
     <div class="modal-footer">
       <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
       <button class="btn-add-row" onclick="savePlan('${plan.id}')">Update Plan</button>
     </div>`);
+  /* Populate feature rows */
+  features.forEach(f => {
+    const emojiMatch = f.match(/^(\p{Emoji}|\p{Emoji_Presentation}|[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27BF}])/u);
+    const emoji = emojiMatch ? emojiMatch[0] : '';
+    const text  = emoji ? f.slice(emoji.length).trim() : f;
+    addFeatRow(emoji, text);
+  });
+}
+
+function addFeatRow(emoji, text) {
+  emoji = emoji !== undefined ? emoji : '';
+  text  = text  !== undefined ? text  : '';
+  const container = document.getElementById('mp_feat_rows');
+  if (!container) return;
+  const row = document.createElement('div');
+  row.className = 'mp-feat-row';
+  row.style.cssText = 'display:flex;gap:6px;align-items:center;';
+  row.innerHTML = `
+    <input type="text" class="mp-feat-emoji" value="${emoji}"
+      placeholder="😊" maxlength="4"
+      style="width:48px;height:36px;border:1.5px solid var(--border-soft);border-radius:8px;text-align:center;font-size:18px;padding:0 6px;outline:none;flex-shrink:0;cursor:pointer;"
+      title="Click and type or paste any emoji">
+    <input type="text" class="mp-feat-text" value="${text}"
+      placeholder="Feature description..."
+      style="flex:1;height:36px;border:1.5px solid var(--border-soft);border-radius:8px;padding:0 12px;font-size:13px;outline:none;font-family:inherit;color:var(--navy);">
+    <button type="button" onclick="this.parentElement.remove()"
+      style="width:30px;height:30px;border:none;background:#fef2f2;color:#dc2626;border-radius:6px;cursor:pointer;font-size:14px;flex-shrink:0;">✕</button>`;
+  container.appendChild(row);
+  /* Focus text if empty */
+  if (!text) row.querySelector('.mp-feat-text').focus();
 }
 
 async function savePlan(editId) {
   const name = document.getElementById('mp_name')?.value.trim();
   if (!name) { BGX_Toast('Plan name is required.','error'); return; }
-  const featuresRaw = document.getElementById('mp_features')?.value || '';
-  const features = featuresRaw.split('\n').map(f=>f.trim()).filter(Boolean);
+  /* Collect emoji+text rows */
+  const rows = document.querySelectorAll('.mp-feat-row');
+  const features = [];
+  rows.forEach(row => {
+    const emoji = row.querySelector('.mp-feat-emoji')?.value.trim() || '';
+    const text  = row.querySelector('.mp-feat-text')?.value.trim() || '';
+    if (text) features.push(emoji ? `${emoji} ${text}` : text);
+  });
   const payload = {
     name, subtitle: document.getElementById('mp_sub')?.value.trim()||'',
     price_monthly: parseInt(document.getElementById('mp_price')?.value)||0,
@@ -753,7 +798,7 @@ async function savePlan(editId) {
     let np = {...payload,id:'temp-'+Date.now(),features};
     try { const {data} = await sb.from('membership_plans').insert([payload]).select(); if(data?.[0]) np={...data[0],features}; } catch(e){}
     allPlans.push(np);
-    BGX_Toast('Plan added! Visible on membership page. ✅','success');
+    BGX_Toast('Plan added! ✅','success');
   }
   closeModal(); renderPlans();
 }
