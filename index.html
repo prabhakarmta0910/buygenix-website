@@ -473,7 +473,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <style>
 .pyr-outer{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:280px 1fr 260px;gap:24px;align-items:start;}
 /* Left map card */
-.pyr-map{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:20px;height:100%;}
+.pyr-map{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:16px 12px;display:flex;flex-direction:column;}
 .pyr-map-title{text-align:center;font-size:16px;font-weight:700;color:#06b6d4;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #06b6d4;}
 .pyr-map-img{width:100%;border-radius:8px;display:block;}
 /* Center form */
@@ -506,80 +506,81 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   <!-- LEFT: Map -->
   <div class="pyr-map">
     <div class="pyr-map-title">Buyers Located</div>
-    <div style="position:relative;width:100%;background:#e8f4fd;border-radius:10px;overflow:hidden;">
+    <div id="buyersMapWrap" style="flex:1;min-height:420px;position:relative;background:#dbeafe;border-radius:10px;overflow:hidden;">
+      <svg id="worldMapSvg" style="width:100%;height:100%;position:absolute;top:0;left:0;display:block;"></svg>
+      <div id="buyerDots" style="position:absolute;inset:0;pointer-events:none;"></div>
+      <div style="position:absolute;top:7px;right:7px;background:#ef4444;color:white;font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:100px;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:3px;z-index:4;">
+        <div style="width:5px;height:5px;border-radius:50%;background:white;animation:ping 1.5s infinite;"></div>LIVE
+      </div>
+    </div>
     <style>
-    @keyframes ping{0%{transform:scale(1);opacity:1;}70%{transform:scale(2.8);opacity:0;}100%{transform:scale(2.8);opacity:0;}}
-    @keyframes scanLine{0%{top:-2px;}100%{top:100%;}}
-    .map-dot{position:absolute;}
-    .map-dot-core{width:7px;height:7px;background:#ef4444;border-radius:50%;border:1.5px solid white;position:relative;z-index:2;box-shadow:0 1px 3px rgba(0,0,0,0.3);}
-    .map-dot-ring{position:absolute;top:-4px;left:-4px;width:15px;height:15px;border:2px solid rgba(239,68,68,0.6);border-radius:50%;animation:ping 2.2s ease-out infinite;}
-    .map-dot:nth-child(1) .map-dot-ring{animation-delay:0s;}
-    .map-dot:nth-child(2) .map-dot-ring{animation-delay:0.25s;}
-    .map-dot:nth-child(3) .map-dot-ring{animation-delay:0.5s;}
-    .map-dot:nth-child(4) .map-dot-ring{animation-delay:0.75s;}
-    .map-dot:nth-child(5) .map-dot-ring{animation-delay:1.0s;}
-    .map-dot:nth-child(6) .map-dot-ring{animation-delay:1.25s;}
-    .map-dot:nth-child(7) .map-dot-ring{animation-delay:1.5s;}
-    .map-dot:nth-child(8) .map-dot-ring{animation-delay:1.75s;}
-    .map-dot:nth-child(9) .map-dot-ring{animation-delay:0.4s;}
-    .map-dot:nth-child(10) .map-dot-ring{animation-delay:0.9s;}
-    .map-dot:nth-child(11) .map-dot-ring{animation-delay:1.4s;}
-    .map-dot:nth-child(12) .map-dot-ring{animation-delay:0.6s;}
-    .map-dot-label{position:absolute;left:12px;top:-3px;font-size:8px;font-weight:700;color:#1e293b;white-space:nowrap;font-family:"Space Grotesk",sans-serif;background:rgba(255,255,255,0.9);padding:1px 4px;border-radius:3px;z-index:3;}
-    .map-scan{position:absolute;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(6,182,212,0.6),transparent);animation:scanLine 3.5s linear infinite;z-index:1;pointer-events:none;}
-    .map-live-badge{position:absolute;top:7px;right:7px;background:#ef4444;color:white;font-size:7.5px;font-weight:800;padding:2px 6px;border-radius:100px;font-family:"Space Grotesk",sans-serif;letter-spacing:0.5px;display:flex;align-items:center;gap:3px;z-index:4;}
-    .map-pulse{width:5px;height:5px;border-radius:50%;background:white;animation:ping 1.5s infinite;}
+    @keyframes ping{0%{transform:scale(1);opacity:1;}70%{transform:scale(2.6);opacity:0;}100%{transform:scale(2.6);opacity:0;}}
+    @keyframes mapScan{0%{top:0;}100%{top:100%;}}
+    .bpin{position:absolute;transform:translate(-50%,-50%);}
+    .bpin-core{width:7px;height:7px;background:#ef4444;border-radius:50%;border:1.5px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.35);position:relative;z-index:2;}
+    .bpin-ring{position:absolute;top:-4px;left:-4px;width:15px;height:15px;border:2px solid rgba(239,68,68,0.55);border-radius:50%;animation:ping 2.4s ease-out infinite;}
+    .bpin-lbl{position:absolute;left:11px;top:-5px;font-size:7.5px;font-weight:700;white-space:nowrap;font-family:'Space Grotesk',sans-serif;background:rgba(255,255,255,0.92);color:#1e293b;padding:1px 4px;border-radius:3px;z-index:3;}
+    .map-scan-line{position:absolute;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(6,182,212,0.5),transparent);animation:mapScan 4s linear infinite;pointer-events:none;z-index:1;}
     </style>
-    <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
-      <rect width="260" height="380" fill="#dbeafe"/>
-      <!-- Grid lines -->
-      <line x1="0" y1="190" x2="260" y2="190" stroke="rgba(255,255,255,0.35)" stroke-width="0.5" stroke-dasharray="4,3"/>
-      <line x1="130" y1="0" x2="130" y2="380" stroke="rgba(255,255,255,0.25)" stroke-width="0.5" stroke-dasharray="4,3"/>
-      <line x1="0" y1="95" x2="260" y2="95" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" stroke-dasharray="3,4"/>
-      <line x1="0" y1="285" x2="260" y2="285" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" stroke-dasharray="3,4"/>
-      <!-- North America -->
-      <path d="M15,58 L78,44 L96,58 L94,80 L82,102 L66,118 L44,122 L26,110 L14,88 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- South America -->
-      <path d="M50,132 L86,126 L100,148 L98,178 L88,205 L72,218 L54,214 L43,192 L40,165 L45,145 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- Greenland -->
-      <path d="M78,18 L108,10 L116,26 L108,40 L86,44 L70,34 Z" fill="#93c5fd" opacity="0.55"/>
-      <!-- Europe -->
-      <path d="M118,46 L156,36 L166,50 L162,66 L148,74 L130,74 L118,64 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- UK -->
-      <path d="M112,46 L122,42 L124,54 L116,58 L110,52 Z" fill="#3b82f6" opacity="0.75"/>
-      <!-- Africa -->
-      <path d="M120,82 L162,74 L176,96 L178,130 L172,162 L156,178 L136,178 L120,166 L112,140 L112,108 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- Asia (main) -->
-      <path d="M164,32 L240,22 L252,46 L248,86 L234,108 L208,112 L188,102 L170,90 L166,66 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- India -->
-      <path d="M188,108 L210,104 L218,126 L210,146 L193,148 L182,132 L184,115 Z" fill="#3b82f6" opacity="0.72"/>
-      <!-- SE Asia -->
-      <path d="M214,108 L244,104 L250,120 L242,132 L220,134 L210,122 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- Australia -->
-      <path d="M206,198 L248,192 L256,216 L250,244 L228,252 L206,246 L196,228 L198,210 Z" fill="#3b82f6" opacity="0.65"/>
-      <!-- Japan -->
-      <path d="M234,62 L244,58 L248,70 L240,78 L232,73 Z" fill="#3b82f6" opacity="0.7"/>
-      <!-- New Zealand -->
-      <path d="M240,258 L248,254 L252,265 L244,272 L237,265 Z" fill="#93c5fd" opacity="0.6"/>
-    </svg>
 
-    <div class="map-live-badge"><div class="map-pulse"></div>LIVE</div>
-    <div class="map-scan"></div>
+    <script>
+    (function(){
+      function go(){
+        const wrap = document.getElementById('buyersMapWrap');
+        if(!wrap){setTimeout(go,300);return;}
+        // Add scan line
+        const sl=document.createElement('div');sl.className='map-scan-line';wrap.appendChild(sl);
 
-    <!-- Buyer pins -->
-    <div class="map-dot" style="left:63%;top:25%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">U.A.E</div></div>
-    <div class="map-dot" style="left:60%;top:22%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Qatar</div></div>
-    <div class="map-dot" style="left:60%;top:23%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Bahrain</div></div>
-    <div class="map-dot" style="left:53%;top:17%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Romania</div></div>
-    <div class="map-dot" style="left:44%;top:15%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">U.K</div></div>
-    <div class="map-dot" style="left:83%;top:28%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Philippines</div></div>
-    <div class="map-dot" style="left:82%;top:20%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">China</div></div>
-    <div class="map-dot" style="left:73%;top:33%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">India</div></div>
-    <div class="map-dot" style="left:84%;top:34%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Malaysia</div></div>
-    <div class="map-dot" style="left:85%;top:35%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Singapore</div></div>
-    <div class="map-dot" style="left:83%;top:57%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">Australia</div></div>
-    <div class="map-dot" style="left:22%;top:66%"><div class="map-dot-ring"></div><div class="map-dot-core"></div><div class="map-dot-label">U.S</div></div>
-  </div>
+        const W=wrap.clientWidth||240, H=wrap.clientHeight||420;
+        const svg=document.getElementById('worldMapSvg');
+        svg.setAttribute('viewBox','0 0 '+W+' '+H);
+
+        // Load D3 + TopoJSON + world data
+        function loadScript(src,cb){var s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s);}
+        loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js',function(){
+          loadScript('https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js',function(){
+            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+              .then(r=>r.json())
+              .then(function(world){
+                const proj=d3.geoMercator().scale(W/2/Math.PI*0.9).translate([W/2,H/2+H*0.08]).center([15,10]);
+                const path=d3.geoPath().projection(proj);
+                const feats=topojson.feature(world,world.objects.countries).features;
+                d3.select(svg).selectAll('path').data(feats).join('path')
+                  .attr('d',path).attr('fill','#3b82f6').attr('fill-opacity','0.62')
+                  .attr('stroke','#ffffff').attr('stroke-width','0.4');
+
+                // Place buyer pins
+                const buyers=[
+                  {name:'U.A.E',lon:55.3,lat:25.2,delay:0},
+                  {name:'Qatar',lon:51.5,lat:25.3,delay:0.3},
+                  {name:'Bahrain',lon:50.6,lat:26.0,delay:0.6},
+                  {name:'Romania',lon:24.9,lat:45.9,delay:0.9},
+                  {name:'U.K',lon:-1.2,lat:52.4,delay:1.2},
+                  {name:'China',lon:104.2,lat:35.9,delay:0.4},
+                  {name:'Philippines',lon:122.0,lat:12.9,delay:1.5},
+                  {name:'India',lon:78.9,lat:22.6,delay:0.2},
+                  {name:'Malaysia',lon:109.7,lat:4.2,delay:0.8},
+                  {name:'Singapore',lon:103.8,lat:1.35,delay:1.1},
+                  {name:'Australia',lon:133.8,lat:-25.3,delay:0.5},
+                  {name:'U.S',lon:-98.5,lat:39.5,delay:1.4}
+                ];
+                const dotsEl=document.getElementById('buyerDots');
+                buyers.forEach(function(b){
+                  const [x,y]=proj([b.lon,b.lat]);
+                  const pin=document.createElement('div');
+                  pin.className='bpin';
+                  pin.style.left=x+'px';pin.style.top=y+'px';
+                  pin.innerHTML='<div class="bpin-ring" style="animation-delay:'+b.delay+'s"></div><div class="bpin-core"></div><div class="bpin-lbl">'+b.name+'</div>';
+                  dotsEl.appendChild(pin);
+                });
+              });
+          });
+        });
+      }
+      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',go);}else{setTimeout(go,100);}
+    })();
+    </script>
+
   </div>
 
   <!-- CENTER: Form -->
