@@ -335,7 +335,12 @@ async function submitGSTForm() {
     await fetch(`${BGX_SUPABASE_URL}/rest/v1/enquiries`, {
       method:'POST',
       headers:{'Content-Type':'application/json','apikey':BGX_SUPABASE_ANON,'Authorization':`Bearer ${BGX_SUPABASE_ANON}`,'Prefer':'return=minimal'},
-      body:JSON.stringify({full_name:name,phone,interested_in:reg||'GST Registration',source:'gst_page',created_at:new Date().toISOString()})
+      body:JSON.stringify({
+        name, phone,
+        message: `Registration Help: ${reg||'GST Registration'}`,
+        interest: 'gst',
+        status: 'new'
+      })
     });
   } catch(e) {}
   document.getElementById('gstOk').classList.add('show');

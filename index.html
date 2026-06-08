@@ -471,7 +471,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ POST REQUIREMENTS ═══ -->
 <section style="background:#f0f2f5;padding:52px 24px;">
 <style>
-.pyr-outer{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 560px 1fr;gap:20px;align-items:stretch;}
+.pyr-outer{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 600px 1fr;gap:20px;align-items:stretch;}
 /* Left map card */
 .pyr-map{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:14px 10px;display:flex;flex-direction:column;height:100%;box-sizing:border-box;}
 .pyr-map-title{text-align:center;font-size:16px;font-weight:700;color:#06b6d4;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #06b6d4;}
@@ -542,7 +542,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
             fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
               .then(r=>r.json())
               .then(function(world){
-                const proj=d3.geoMercator().scale(Math.min(W,H)/2/Math.PI*1.4).translate([W/2,H/2+H*0.06]).center([15,8]);
+                const proj=d3.geoMercator().scale(W*0.17).center([20,10]).translate([W/2,H*0.44]);
                 const path=d3.geoPath().projection(proj);
                 const feats=topojson.feature(world,world.objects.countries).features;
                 d3.select(svg).selectAll('path').data(feats).join('path')
@@ -627,7 +627,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 
   <!-- RIGHT: Image -->
   <div class="pyr-img">
-    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=85" alt="Export">
+    <img src="https://images.unsplash.com/photo-1560250097-0dc05ae8b6a8?w=600&q=85" alt="Business Professional">
   </div>
 
 </div>

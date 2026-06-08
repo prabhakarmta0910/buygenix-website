@@ -536,23 +536,31 @@ function renderLeads(list) {
 }
 
 function renderEnq(list) {
-  document.getElementById('enqBody').innerHTML = list.length ? list.map((e,i) => `
-    <div class="at-row enq-cols ${!e.status||e.status==='new'?'highlight':''}">
+  document.getElementById('enqBody').innerHTML = list.length ? list.map((e,i) => {
+    const name    = e.name || e.full_name || '—';
+    const biz     = e.business || e.business_name || '';
+    const phone   = e.phone || '—';
+    const email   = e.email || '—';
+    const interest= e.interest || e.interested_in || e.product_category || '—';
+    const source  = e.interest==='gst' ? 'GST Help' : e.interest==='leads' ? 'Post Requirement' : e.interest==='membership' ? 'Membership' : e.source || 'Contact Form';
+    const msg     = e.message || '';
+    return `<div class="at-row enq-cols ${!e.status||e.status==='new'?'highlight':''}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div><div class="cell-name">${e.full_name||'—'}</div><div class="cell-sub">${e.business_name||'—'}</div></div>
-      <div><div style="font-size:13px;">${e.phone||'—'}</div><div class="cell-sub">${e.email||'—'}</div></div>
-      <span style="font-size:12.5px;color:var(--text-mid);">${e.interested_in||e.product_category||'—'}</span>
-      <span><span class="badge badge-navy" style="font-size:10px;">${e.source||'website'}</span></span>
+      <div><div class="cell-name">${name}</div><div class="cell-sub">${biz}</div></div>
+      <div><div style="font-size:13px;">${phone}</div><div class="cell-sub">${email}</div></div>
+      <span style="font-size:12px;color:var(--text-mid);">${interest}</span>
+      <span><span class="badge badge-navy" style="font-size:10px;">${source}</span></span>
       <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewEnq(${JSON.stringify(e).replace(/'/g,"\\'")} )'>View</button>
-        ${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="act-btn ab-deliver" target="_blank" rel="noopener">WA</a>`:''}
+        <button class="act-btn ab-view" onclick='viewEnq(${JSON.stringify(e).replace(/'/g,"\\'")})'>View</button>
+        ${phone!=='—'?`<a href="https://wa.me/${phone.replace(/\D/g,'')}" class="act-btn ab-deliver" target="_blank" rel="noopener">WA</a>`:''}
       </div>
-    </div>`).join('') : '<div class="empty-row">No enquiries found.</div>';
+    </div>`;
+  }).join('') : '<div class="empty-row">No enquiries found.</div>';
 }
 
 function filterMem()   { const q=document.getElementById('memSearch').value.toLowerCase(); const pl=document.getElementById('memPlanFilter').value.toLowerCase(); renderMem(allMem.filter(m=>(!q||(m.full_name||m.name||'').toLowerCase().includes(q)||(m.email||'').toLowerCase().includes(q))&&(!pl||(m.plan||'').toLowerCase()===pl))); }
 function filterLeads() { const q=document.getElementById('leadSearch').value.toLowerCase(); const s=document.getElementById('leadStatus').value.toLowerCase(); renderLeads(allLeads.filter(l=>(!q||(l.country||'').toLowerCase().includes(q)||(l.product||'').toLowerCase().includes(q))&&(!s||(l.status||'new').toLowerCase()===s))); }
-function filterEnq()   { const q=document.getElementById('enqSearch').value.toLowerCase(); const s=document.getElementById('enqStatus').value.toLowerCase(); renderEnq(allEnq.filter(e=>(!q||(e.full_name||'').toLowerCase().includes(q)||(e.phone||'').toLowerCase().includes(q))&&(!s||(e.status||'new').toLowerCase()===s))); }
+function filterEnq()   { const q=document.getElementById('enqSearch').value.toLowerCase(); const s=document.getElementById('enqStatus').value.toLowerCase(); renderEnq(allEnq.filter(e=>(!q||(e.name||e.full_name||'').toLowerCase().includes(q)||(e.phone||'').toLowerCase().includes(q)||(e.email||'').toLowerCase().includes(q))&&(!s||(e.status||'new').toLowerCase()===s))); }
 
 function openModal(html) { document.getElementById('modalBody').innerHTML=html; document.getElementById('modalBg').classList.add('open'); }
 function closeModal()    { document.getElementById('modalBg').classList.remove('open'); }

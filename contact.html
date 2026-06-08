@@ -629,6 +629,17 @@ function sendEnquiry() {
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('errorBox').style.display = 'none';
 
+  /* Save to Supabase enquiries */
+  try {
+    if(typeof BGX_SUPABASE_URL!=='undefined' && BGX_SUPABASE_URL && !BGX_SUPABASE_URL.includes('YOUR')) {
+      fetch(BGX_SUPABASE_URL+'/rest/v1/enquiries', {
+        method:'POST',
+        headers:{'apikey':BGX_SUPABASE_ANON,'Authorization':'Bearer '+BGX_SUPABASE_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({name,email,phone,business:biz,message,interest:service,status:'new',notes:'Country:'+country+' | Turnover:'+turnover+' | Product:'+product})
+      });
+    }
+  } catch(e){}
+
   const templateParams = {
     from_name: name, business_name: biz, phone: phone,
     from_email: email, service_interest: service,
