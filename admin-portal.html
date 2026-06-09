@@ -412,6 +412,7 @@ body{background:#EEF2F7;}
         <div style="display:flex;gap:8px;margin-bottom:16px;">
           <button class="cat-sec-tab active" id="tab-apparel" onclick="switchCatTab('apparel')">👗 Apparel & Garments</button>
           <button class="cat-sec-tab" id="tab-agriculture" onclick="switchCatTab('agriculture')">🌾 Agriculture & Farming</button>
+          <button class="cat-sec-tab" id="tab-electricals" onclick="switchCatTab('electricals')">⚡ Electricals & Electronics</button>
         </div>
 
         <!-- Search + Count -->
@@ -1231,6 +1232,7 @@ function openAddCategoryItem() {
         <select class="form-control" id="ci_section">
           <option value="apparel" ${curCatSection==='apparel'?'selected':''}>👗 Apparel & Garments</option>
           <option value="agriculture" ${curCatSection==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+          <option value="electricals" ${curCatSection==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -1264,6 +1266,7 @@ function openEditCategoryItem(item) {
         <select class="form-control" id="ci_section">
           <option value="apparel" ${item.section==='apparel'?'selected':''}>👗 Apparel & Garments</option>
           <option value="agriculture" ${item.section==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
+          <option value="electricals" ${item.section==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -1335,6 +1338,7 @@ function switchCatTab(section) {
   curCatSection = section;
   document.getElementById('tab-apparel').classList.toggle('active', section==='apparel');
   document.getElementById('tab-agriculture').classList.toggle('active', section==='agriculture');
+  document.getElementById('tab-electricals').classList.toggle('active', section==='electricals');
   document.getElementById('catSearch').value = '';
   renderCatCards();
 }
