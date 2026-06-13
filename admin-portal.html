@@ -281,9 +281,10 @@ body{background:#EEF2F7;}
               </select>
               <select class="filter-sel" id="enqSource" onchange="filterEnqSource()">
                 <option value="">All Sources</option>
-                <option value="leads">Post Requirements</option>
-                <option value="gst">GST Help</option>
-                <option value="membership">Membership</option>
+                <option value="leads">📋 Post Requirements</option>
+                <option value="gst">🏛️ GST Help</option>
+                <option value="membership">💼 Membership</option>
+                <option value="general">📧 Contact Form</option>
               </select>
             </div>
             <div style="display:flex;align-items:center;gap:10px;">
@@ -435,7 +436,7 @@ body{background:#EEF2F7;}
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-const ADMIN_EMAIL = 'customerservice@buygenixsolutions.com';
+const ADMIN_EMAIL = 'Info@buygenixsolutions.com';
 const ADMIN_PASS  = 'BGX@Admin2025';
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
@@ -564,7 +565,7 @@ function renderEnq(list) {
     const status  = e.status || 'new';
     const sColor  = statusColors[status] || '#16a34a';
     const sBg     = statusBg[status] || '#f0fdf4';
-    const src     = e.interest==='gst' ? '🏛️ GST Help' : e.interest==='leads' ? '📋 Post Req.' : e.interest==='membership' ? '💼 Membership' : '📧 Contact';
+    const src = e.interest==='gst' ? '🏛️ GST Help' : e.interest==='leads' ? '📋 Post Req.' : e.interest==='membership' ? '💼 Membership' : e.interest==='general' ? '📧 Contact' : e.source ? e.source : '📧 Contact';
     const time    = e.created_at ? new Date(e.created_at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : 'Just now';
     return `<div class="at-row enq-cols" style="${status==='new'?'background:#f0fdf4;':''}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
