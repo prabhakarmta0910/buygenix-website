@@ -333,17 +333,26 @@ async function submitGSTForm() {
     errEl.classList.add('show'); return;
   }
   try {
-    await fetch(`${BGX_SUPABASE_URL}/rest/v1/enquiries`, {
+    const res = await fetch(`${BGX_SUPABASE_URL}/rest/v1/enquiries`, {
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':BGX_SUPABASE_ANON,'Authorization':`Bearer ${BGX_SUPABASE_ANON}`,'Prefer':'return=minimal'},
-      body:JSON.stringify({
-        name, phone,
-        message: `Registration Help: ${reg||'GST Registration'}`,
+      headers:{
+        'Content-Type':'application/json',
+        'apikey': BGX_SUPABASE_ANON,
+        'Authorization': `Bearer ${BGX_SUPABASE_ANON}`,
+        'Prefer':'return=minimal'
+      },
+      body: JSON.stringify({
+        name:    name,
+        phone:   phone,
+        email:   '',
+        business: reg || 'GST Registration',
+        message: `Get Registration Help — ${reg || 'GST Registration'}`,
         interest: 'gst',
-        status: 'new'
+        status:  'new'
       })
     });
-  } catch(e) {}
+    if (!res.ok) console.error('GST enquiry save error:', await res.text());
+  } catch(e) { console.error('GST enquiry error:', e); }
   document.getElementById('gstOk').classList.add('show');
   document.getElementById('gfName').value = '';
   document.getElementById('gfPhone').value = '';

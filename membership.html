@@ -267,8 +267,8 @@ function renderPlans(plans) {
       <div class="mp-card-name"${ent?' style="color:white;"':''}>${plan.name}</div>
       <div class="mp-card-desc">${plan.subtitle||''}</div>
       <div class="mp-price-wrap">
-        <div class="mp-original"${ent?' style="color:rgba(255,255,255,0.25);"':''}>₹${Number(orig(plan)).toLocaleString('en-IN')} / month</div>
-        <div class="mp-price"><span class="mp-curr"${ent?' style="color:white;"':''}>₹</span><span class="mp-amt"${ent?' style="color:white;"':''}>${Number(plan.price_monthly).toLocaleString('en-IN')}</span><span class="mp-period"${ent?' style="color:rgba(255,255,255,0.4);"':''}>/ month</span></div>
+        <div class="mp-original"${ent?' style="color:rgba(255,255,255,0.25);"':''}>₹${Number(orig(plan)).toLocaleString('en-IN')} / year</div>
+        <div class="mp-price"><span class="mp-curr"${ent?' style="color:white;"':''}>₹</span><span class="mp-amt"${ent?' style="color:white;"':''}>${Number(plan.price_monthly).toLocaleString('en-IN')}</span><span class="mp-period"${ent?' style="color:rgba(255,255,255,0.4);"':''}>/ year</span></div>
         <span class="mp-saving">You save ₹${Number(save(plan)).toLocaleString('en-IN')}</span>
       </div>
       <div class="mp-div"></div>
