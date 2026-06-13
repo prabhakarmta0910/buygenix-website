@@ -808,10 +808,10 @@ async function loadPlansAdmin() {
   } catch(e) {}
   // Fallback — exact match with membership.html
   allPlans = [
-    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:13500,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','1× Virtual Business Card','GST + IEC + MSME assistance','FSSAI assistance included','Email support']},
-    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:27000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 10 products','1× Virtual Business Card','Quarterly business promotion','Basic On-Page SEO','GST + IEC + MSME assistance','FSSAI assistance included']},
-    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:40500,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 15 products','1× Virtual Business Card','Monthly business promotion','Basic On-Page SEO','Social Media (SMO) included','GST + IEC + MSME included','FSSAI licence included']},
-    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:72000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 20 products','1× Virtual Business Card','Weekly business promotion','Advanced SEO + SMO','All Registrations + FSSAI','Priority Lead Matching','Export Documentation Help']}
+    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:13500,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','1× Virtual Business Card','GST + IEC + MSME assistance','FSSAI assistance included','Email support']},
+    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:27000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 10 products','1× Virtual Business Card','Quarterly business promotion','Basic On-Page SEO','GST + IEC + MSME assistance','FSSAI assistance included']},
+    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:40500,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 15 products','1× Virtual Business Card','Monthly business promotion','Basic On-Page SEO','Social Media (SMO) included','GST + IEC + MSME included','FSSAI licence included']},
+    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:72000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 20 products','1× Virtual Business Card','Weekly business promotion','Advanced SEO + SMO','All Registrations + FSSAI','Priority Lead Matching','Export Documentation Help']}
   ];
   renderPlans();
 }
@@ -833,9 +833,9 @@ function renderPlans() {
       <div class="mp-price-row">
         <span class="mp-price-curr">₹</span>
         <span class="mp-price-amt">${Number(plan.price_monthly).toLocaleString('en-IN')}</span>
-        <span class="mp-price-period">/ year</span>
+        <span class="mp-price-period">/ month</span>
       </div>
-      <span class="mp-leads-tag">${plan.lead_limit >= 9999 ? 'Unlimited' : Number(plan.lead_limit).toLocaleString('en-IN')} leads / year</span>
+      <span class="mp-leads-tag">${plan.lead_limit >= 9999 ? 'Unlimited' : Number(plan.lead_limit).toLocaleString('en-IN')} leads / month</span>
       <div class="mp-divider"></div>
       <div class="mp-feats">${features.map(f=>`<div class="mp-feat">${f}</div>`).join('')}</div>
       <div class="mp-card-actions">
@@ -855,7 +855,7 @@ function openAddPlan() {
     <div class="form-group"><label>Subtitle</label><input class="form-control" id="mp_sub" placeholder="e.g. For growing export businesses"></div>
     <div class="form-row">
       <div class="form-group"><label>Yearly Price (₹) *</label><input type="number" class="form-control" id="mp_price" placeholder="13500"></div>
-      <div class="form-group"><label>Leads / Year</label><input type="number" class="form-control" id="mp_leads" placeholder="5"></div>
+      <div class="form-group"><label>Leads / Month</label><input type="number" class="form-control" id="mp_leads" placeholder="5"></div>
     </div>
     <div class="form-row">
       <div class="form-group"><label>Badge Text</label><input class="form-control" id="mp_badge" placeholder="e.g. Popular"></div>
@@ -887,7 +887,7 @@ function openEditPlan(plan) {
     <div class="form-group"><label>Subtitle</label><input class="form-control" id="mp_sub" value="${plan.subtitle||''}"></div>
     <div class="form-row">
       <div class="form-group"><label>Yearly Price (₹) *</label><input type="number" class="form-control" id="mp_price" value="${plan.price_monthly}"></div>
-      <div class="form-group"><label>Leads / Year</label><input type="number" class="form-control" id="mp_leads" value="${plan.lead_limit}"></div>
+      <div class="form-group"><label>Leads / Month</label><input type="number" class="form-control" id="mp_leads" value="${plan.lead_limit}"></div>
     </div>
     <div class="form-row">
       <div class="form-group"><label>Badge Text</label><input class="form-control" id="mp_badge" value="${plan.badge||''}"></div>
