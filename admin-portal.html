@@ -174,7 +174,8 @@ body{background:#EEF2F7;}
       <div class="asb-sec">Members &amp; Leads</div>
       <div class="asb-link" onclick="showAPanel('members',this)"><span class="asb-icon">👥</span>Members<span class="asb-count" id="sbMemCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('leads',this)"><span class="asb-icon">🎯</span>Buyer Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
-      <div class="asb-link" onclick="showAPanel('enquiries',this)"><span class="asb-icon">📩</span>Enquiries<span class="asb-count" id="sbEnqCnt">0</span></div>
+      <div class="asb-link" onclick="showAPanel('postreq',this)"><span class="asb-icon">📋</span>Post Requirements<span class="asb-count" id="sbPostCnt">0</span></div>
+      <div class="asb-link" onclick="showAPanel('enquiries',this)"><span class="asb-icon">📩</span>Site Enquiries<span class="asb-count" id="sbEnqCnt">0</span></div>
       <div class="asb-sec">Management</div>
       <div class="asb-link" onclick="showAPanel('plans',this)"><span class="asb-icon">💼</span>Membership Plans</div>
       <div class="asb-link" onclick="showAPanel('categories',this)"><span class="asb-icon">🗂️</span>Category Grid</div>
@@ -260,12 +261,40 @@ body{background:#EEF2F7;}
               <button class="btn-add-row" onclick="openAddLead()">+ Add Lead</button>
             </div>
           </div>
-          <div class="at-head lead-cols"><span>#</span><span>Country</span><span>Product</span><span>Quantity</span><span>Member</span><span>Status</span><span>Actions</span></div>
+          <div class="at-head" style="grid-template-columns:40px 1.3fr 1.4fr 0.8fr 0.9fr 1fr 1fr 100px;"><span>#</span><span>Company / Country</span><span>Product</span><span>Quantity</span><span>Source</span><span>Contact</span><span>Notes</span><span>Actions</span></div>
           <div id="leadBody"><div class="empty-row">Loading leads…</div></div>
         </div>
       </div>
 
-      <!-- ENQUIRIES -->
+      <!-- POST REQUIREMENTS -->
+      <div class="a-panel" id="ap-postreq">
+        <div class="admin-table-wrap">
+          <div class="table-toolbar">
+            <div class="toolbar-left">
+              <span class="tb-title">📋 Post Requirements</span>
+              <div class="search-wrap"><span>🔍</span><input type="text" placeholder="Name, product…" id="prSearch" oninput="filterPostReq()"></div>
+              <select class="filter-sel" id="prStatus" onchange="filterPostReq()">
+                <option value="">All Status</option>
+                <option value="new">🟢 New</option>
+                <option value="pending">🟡 Pending</option>
+                <option value="approved">🔵 Approved → Buy Lead</option>
+                <option value="rejected">🔴 Rejected</option>
+              </select>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span id="prLastUpdated" style="font-size:11px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;"></span>
+              <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:#16a34a;font-weight:700;font-family:'Space Grotesk',sans-serif;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#16a34a;animation:ping 2s infinite;"></div>LIVE
+              </div>
+              <button class="btn-refresh" onclick="loadPostReq();BGX_Toast('Refreshed!','success');">↻ Refresh</button>
+            </div>
+          </div>
+          <div class="at-head" style="grid-template-columns:40px 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr 140px;">#<span>Name</span><span>Product</span><span>Location</span><span>Qty</span><span>Unit</span><span>Urgency</span><span>Status</span><span>Actions</span></div>
+          <div id="prBody"><div class="empty-row">Loading…</div></div>
+        </div>
+      </div>
+
+      <!-- ENQUIRIES (site enquiries only - NOT post requirements) -->
       <div class="a-panel" id="ap-enquiries">
         <div class="admin-table-wrap">
           <div class="table-toolbar">
@@ -482,12 +511,15 @@ function showAPanel(name, el) {
   document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
   const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'CRM Dashboard',members:'Members',leads:'Buyer Leads',enquiries:'Enquiries',plans:'Manage Plans',categories:'Category Grid Manager',banners:'Site Banners Manager'};
+  const titles = {dashboard:'CRM Dashboard',members:'Members',leads:'Buyer Leads',postreq:'📋 Post Requirements',enquiries:'📩 Site Enquiries',plans:'Membership Plans',categories:'Category Grid Manager',banners:'Site Banners Manager'};
   document.getElementById('adminTopTitle').textContent = titles[name]||name;
   if(name==='plans') loadPlansAdmin();
   if(name==='categories') loadCategoriesAdmin();
   if(name==='banners') loadBannersAdmin();
   if(name==='enquiries') { loadEnquiries(); startEnqPolling(); }
+  if(name==='postreq') { loadPostReq(); startPostReqPolling(); }
+  if(name==='leads') loadLeads();
+  if(name==='members') loadMembers();
 }
 
 async function loadMembers() {
@@ -502,8 +534,12 @@ async function loadLeads() {
 }
 async function loadEnquiries() {
   const sb=getSB();
-  try { const { data }=await sb.from('enquiries').select('*').order('created_at',{ascending:false}).limit(200); allEnq=data&&data.length?data:DEMO_ENQ(); } catch(e){ allEnq=DEMO_ENQ(); }
-  document.getElementById('sbEnqCnt').textContent=allEnq.filter(e=>!e.status||e.status==='new').length; renderEnq(allEnq);
+  try {
+    const { data } = await sb.from('enquiries').select('*').neq('interest','leads').order('created_at',{ascending:false}).limit(200);
+    allEnq = data && data.length ? data : DEMO_ENQ();
+  } catch(e){ allEnq=DEMO_ENQ(); }
+  document.getElementById('sbEnqCnt').textContent=allEnq.filter(e=>!e.status||e.status==='new').length;
+  renderEnq(allEnq);
 }
 
 function buildDashboard() {
@@ -539,18 +575,18 @@ function renderMem(list) {
 
 function renderLeads(list) {
   document.getElementById('leadBody').innerHTML = list.length ? list.map((l,i) => `
-    <div class="at-row lead-cols">
+    <div class="at-row" style="grid-template-columns:40px 1.3fr 1.4fr 0.8fr 0.9fr 1fr 1fr 100px;">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <span style="font-weight:600;color:var(--navy);">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
-      <span style="color:var(--text-mid);">${l.product||'—'}</span>
+      <div><div class="cell-name">${l.company||l.name||'—'}</div><div class="cell-sub">${l.country||'—'} ${BGX.FLAGS[l.country]||''}</div></div>
+      <span style="color:var(--text-mid);font-size:13px;">${l.product||'—'}</span>
       <span style="color:var(--text-mid);font-size:13px;">${l.quantity||'—'}</span>
-      <span style="font-size:12.5px;color:var(--text-mid);">${l.member_name||l.member_id||'Unassigned'}</span>
-      <span>${sBadge(l.status)}</span>
+      <span style="font-size:12px;color:var(--text-light);">${l.quality||l.source||'—'}</span>
+      <div><div style="font-size:12.5px;">${l.email||'—'}</div><div class="cell-sub">${l.phone||'—'}</div></div>
+      <span style="font-size:12px;color:var(--text-light);">${l.notes||'—'}</span>
       <div class="act-btns">
-        <button class="act-btn ab-deliver" onclick="markDelivered('${l.id||i}')">Deliver</button>
-        <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">Del</button>
+        <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">🗑 Delete</button>
       </div>
-    </div>`).join('') : '<div class="empty-row">No leads found.</div>';
+    </div>`).join('') : '<div class="empty-row">No buyer leads found.</div>';
 }
 
 function renderEnq(list) {
@@ -671,10 +707,6 @@ function viewEnq(e) {
       </div>
     </div>
 
-    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12.5px;color:#1e40af;">
-      💡 Click <strong>Approved</strong> to move this enquiry to <strong>Buyer Leads</strong> automatically.
-    </div>
-
     <div class="modal-footer">
       ${phone !== '—' ? `<a href="https://wa.me/${phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WhatsApp</a>` : ''}
       ${email !== '—' ? `<a href="mailto:${email}" class="btn-primary btn-sm">📧 Email</a>` : ''}
@@ -686,41 +718,185 @@ function viewEnq(e) {
 async function updateEnqStatus(id, newStatus, btn) {
   if (!id) { BGX_Toast('Cannot update — no ID.','error'); return; }
   const sb = getSB();
-  /* Update status in Supabase */
   try { await sb.from('enquiries').update({status: newStatus}).eq('id', id); } catch(e) {}
-  /* Update locally */
   allEnq = allEnq.map(e => e.id===id ? {...e, status:newStatus} : e);
   renderEnq(allEnq);
   BGX_Toast(`Status updated to ${newStatus}!`, 'success');
+  closeModal();
+}
 
-  /* If approved → move to buy_leads */
-  if (newStatus === 'approved') {
-    const enq = allEnq.find(e => e.id === id);
-    if (enq) {
-      const leadPayload = {
-        company:   enq.name || enq.full_name || 'Unknown',
-        country:   enq.city || enq.notes?.match(/Location:(.*?)(\s|$)/)?.[1]?.trim() || 'India',
-        contact_name: enq.name || enq.full_name,
-        email:     enq.email || '',
-        phone:     enq.phone || '',
-        product:   enq.business || enq.product_category || enq.interested_in || 'General',
-        quantity:  enq.message?.match(/Qty:(.*?)(\s*\|)/)?.[1]?.trim() || '',
-        quality:   'new',
-        status:    'unassigned',
-        notes:     `Auto-converted from enquiry. ${enq.message||''}`,
-        source:    'enquiry_form'
+/* ═══ POST REQUIREMENTS MANAGER ═══ */
+let allPostReq = [];
+let _prPollTimer = null;
+
+async function loadPostReq() {
+  const sb = getSB();
+  try {
+    const { data } = await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(300);
+    allPostReq = data && data.length ? data : [];
+  } catch(e){ allPostReq = []; }
+  const newCount = allPostReq.filter(r => !r.status || r.status==='new').length;
+  document.getElementById('sbPostCnt').textContent = newCount || '';
+  renderPostReq(allPostReq);
+}
+
+function renderPostReq(list) {
+  const statusColors = {new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
+  const statusBg     = {new:'#f0fdf4',pending:'#fffbeb',approved:'#eff6ff',rejected:'#fef2f2'};
+  const el = document.getElementById('prBody');
+  if(!el) return;
+  const upd = document.getElementById('prLastUpdated');
+  if(upd) upd.textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  if(!list.length){ el.innerHTML='<div class="empty-row">No requirements yet.</div>'; return; }
+  el.innerHTML = list.map((r,i) => {
+    const status = r.status || 'new';
+    const sc = statusColors[status]||'#16a34a';
+    const sb2 = statusBg[status]||'#f0fdf4';
+    // Parse message for fields: Qty:X | Unit:Y | Urgency:Z | Purpose:W | Location:L | msg
+    const msg = r.message || '';
+    const qty      = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim() || '—';
+    const unit     = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim() || '—';
+    const urgency  = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim() || '—';
+    const location = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim() || '—';
+    const time = r.created_at ? new Date(r.created_at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : 'Just now';
+    return `<div class="at-row" style="grid-template-columns:40px 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr 160px;${status==='new'?'background:#f0fdf4;':''}">
+      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div>
+        <div class="cell-name">${r.name||'—'}</div>
+        <div class="cell-sub">${r.email||r.phone||'—'}</div>
+        <div style="font-size:10px;color:var(--text-light);">🕐 ${time}</div>
+      </div>
+      <span style="font-size:13px;color:var(--text-mid);">${r.business||r.product||'—'}</span>
+      <span style="font-size:12.5px;color:var(--text-mid);">${location}</span>
+      <span style="font-size:12.5px;">${qty}</span>
+      <span style="font-size:12px;color:var(--text-light);">${unit}</span>
+      <span style="font-size:12px;color:var(--text-light);">${urgency}</span>
+      <div>
+        <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${sb2};color:${sc};text-transform:capitalize;display:inline-block;">${status}</span>
+      </div>
+      <div class="act-btns" style="flex-wrap:wrap;gap:4px;">
+        <button class="act-btn ab-view" onclick='openPostReqDetail(${JSON.stringify(r).replace(/'/g,"&apos;")})' title="View & Update">👁 View</button>
+        <button class="act-btn ab-del" onclick="deletePostReq('${r.id}')" title="Delete">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterPostReq() {
+  const q = (document.getElementById('prSearch')?.value||'').toLowerCase();
+  const s = (document.getElementById('prStatus')?.value||'').toLowerCase();
+  renderPostReq(allPostReq.filter(r=>
+    (!q||(r.name||'').toLowerCase().includes(q)||(r.business||'').toLowerCase().includes(q)||(r.message||'').toLowerCase().includes(q)) &&
+    (!s||(r.status||'new').toLowerCase()===s)
+  ));
+}
+
+function openPostReqDetail(r) {
+  const msg     = r.message || '';
+  const qty     = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim() || '—';
+  const unit    = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim() || '—';
+  const urgency = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim() || '—';
+  const purpose = msg.match(/Purpose:(.*?)\s*\|/)?.[1]?.trim() || '—';
+  const loc     = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim() || '—';
+  const note    = msg.split('|').slice(-1)[0]?.trim() || '—';
+  const status  = r.status || 'new';
+  const sColors = {new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
+
+  openModal(`<h3>📋 Post Requirement Details</h3>
+    <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Received: ${r.created_at?new Date(r.created_at).toLocaleString('en-IN'):'Just now'}</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      ${[['Name',r.name||'—'],['Email',r.email||'—'],['Phone',r.phone||'—'],['Product',r.business||r.product||'—'],['Quantity',qty],['Unit',unit],['Urgency',urgency],['Purpose',purpose],['Location',loc]].map(([k,v])=>`
+        <div style="background:var(--sky);border-radius:8px;padding:10px 12px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:3px;">${k}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
+        </div>`).join('')}
+    </div>
+    ${note!=='—'?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;">${note}</div></div>`:''}
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Update Status</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="updatePostReqStatus('${r.id}','pending')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #d97706;background:${status==='pending'?'#d97706':'white'};color:${status==='pending'?'white':'#d97706'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">⏳ Pending</button>
+        <button onclick="updatePostReqStatus('${r.id}','approved')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #2563eb;background:${status==='approved'?'#2563eb':'white'};color:${status==='approved'?'white':'#2563eb'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">✅ Approve → Buy Lead</button>
+        <button onclick="updatePostReqStatus('${r.id}','rejected')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #dc2626;background:${status==='rejected'?'#dc2626':'white'};color:${status==='rejected'?'white':'#dc2626'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">❌ Reject</button>
+      </div>
+    </div>
+    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:10px 14px;font-size:12px;color:#1e40af;margin-bottom:14px;">
+      💡 <strong>Approve</strong> will move this to Buyer Leads automatically.
+    </div>
+    <div class="modal-footer">
+      ${r.phone?`<a href="https://wa.me/${(r.phone||'').replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
+      ${r.email?`<a href="mailto:${r.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
+      <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
+    </div>`);
+}
+
+async function updatePostReqStatus(id, newStatus) {
+  const sb = getSB();
+  try { await sb.from('enquiries').update({status:newStatus}).eq('id',id); } catch(e){}
+  allPostReq = allPostReq.map(r => r.id===id ? {...r,status:newStatus} : r);
+  renderPostReq(allPostReq);
+  BGX_Toast(`Status → ${newStatus}!`, 'success');
+
+  if(newStatus === 'approved') {
+    const r = allPostReq.find(x=>x.id===id);
+    if(r) {
+      const msg     = r.message||'';
+      const qty     = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim()||'';
+      const unit    = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim()||'';
+      const urgency = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim()||'';
+      const purpose = msg.match(/Purpose:(.*?)\s*\|/)?.[1]?.trim()||'';
+      const loc     = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim()||'India';
+      const note    = msg.split('|').slice(-1)[0]?.trim()||'';
+      const lead = {
+        company:      r.name||'Unknown',
+        contact_name: r.name||'',
+        email:        r.email||'',
+        phone:        r.phone||'',
+        country:      loc||'India',
+        product:      r.business||r.product||'General',
+        quantity:     `${qty} ${unit}`.trim(),
+        quality:      urgency||'new',
+        status:       'unassigned',
+        source:       'post_requirement',
+        notes:        `Purpose:${purpose} | ${note} | Auto from Post Requirements`
       };
-      try { await sb.from('buy_leads').insert([leadPayload]); } catch(e) {}
-      allLeads.unshift({...leadPayload, id: Date.now()});
-      document.getElementById('sbLeadCnt').textContent = allLeads.length;
-      renderLeads(allLeads);
-      BGX_Toast(`✅ Moved to Buyer Leads!`, 'success');
+      try { await sb.from('buy_leads').insert([lead]); } catch(e){}
+      allLeads.unshift({...lead,id:Date.now()});
+      document.getElementById('sbLeadCnt').textContent=allLeads.length;
+      BGX_Toast('✅ Moved to Buyer Leads!','success');
     }
   }
   closeModal();
 }
 
-/* ─── Real-time polling every 30s ─── */
+async function deletePostReq(id) {
+  if(!confirm('Delete this requirement?')) return;
+  const sb=getSB();
+  try { await sb.from('enquiries').delete().eq('id',id); } catch(e){}
+  allPostReq = allPostReq.filter(r=>r.id!==id);
+  renderPostReq(allPostReq);
+  BGX_Toast('Requirement deleted.','info');
+}
+
+function startPostReqPolling() {
+  if(_prPollTimer) return;
+  _prPollTimer = setInterval(async()=>{
+    const panel=document.getElementById('ap-postreq');
+    if(!panel||!panel.classList.contains('active')) return;
+    const sb=getSB(); if(!sb) return;
+    try {
+      const {data}=await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(300);
+      if(data && data.length!==allPostReq.length) {
+        const newOnes=data.length-allPostReq.length;
+        allPostReq=data; renderPostReq(allPostReq);
+        document.getElementById('sbPostCnt').textContent=allPostReq.filter(r=>!r.status||r.status==='new').length||'';
+        if(newOnes>0) BGX_Toast(`🔔 ${newOnes} new requirement(s)!`,'success');
+      }
+    } catch(e){}
+  },30000);
+}
+
+/* ═══ EXISTING ENQUIRIES — remove viewEnq approve→buy_lead logic ═══ */
 let _enqPollTimer = null;
 function startEnqPolling() {
   if (_enqPollTimer) return;
@@ -745,23 +921,71 @@ function startEnqPolling() {
 }
 
 function openAddMember() {
-  const rms = BGX.RMS.map(r=>`<option value="${r.id}">${r.name} — ${r.role}</option>`).join('');
-  openModal(`<h3>+ Add New Member</h3><p>Create a member account and assign their plan.</p>
-  <div class="form-row"><div class="form-group"><label>Full Name *</label><input class="form-control" id="m_name" placeholder="Full name"></div><div class="form-group"><label>Business Name *</label><input class="form-control" id="m_biz" placeholder="Company name"></div></div>
-  <div class="form-row"><div class="form-group"><label>Email *</label><input type="email" class="form-control" id="m_email" placeholder="email@example.com"></div><div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="m_phone" placeholder="+91 98765 43210"></div></div>
-  <div class="form-row"><div class="form-group"><label>Plan</label><select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select></div><div class="form-group"><label>Relationship Manager</label><select class="form-control" id="m_rm">${rms}</select></div></div>
-  <div class="form-row"><div class="form-group"><label>Start Date</label><input type="date" class="form-control" id="m_start" value="${new Date().toISOString().split('T')[0]}"></div><div class="form-group"><label>Renewal Date</label><input type="date" class="form-control" id="m_renew" value="${new Date(Date.now()+365*86400000).toISOString().split('T')[0]}"></div></div>
-  <div class="modal-footer"><button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button><button class="btn-add-row" onclick="saveMember()">Save Member</button></div>`);
+  openModal(`<h3>+ Add New Member</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Full Name *</label><input class="form-control" id="m_name" placeholder="Full name"></div>
+      <div class="form-group"><label>Business Name *</label><input class="form-control" id="m_biz" placeholder="Company name"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Email *</label><input type="email" class="form-control" id="m_email" placeholder="email@example.com"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="m_phone" placeholder="+91 XXXXX XXXXX"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>City</label><input class="form-control" id="m_city" placeholder="e.g. Delhi"></div>
+      <div class="form-group"><label>Plan</label>
+        <select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select>
+      </div>
+    </div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Relationship Manager Details</div>
+      <div class="form-row">
+        <div class="form-group"><label>RM Name *</label><input class="form-control" id="m_rm_name" placeholder="e.g. Priya Mehra"></div>
+        <div class="form-group"><label>RM Mobile</label><input type="tel" class="form-control" id="m_rm_phone" placeholder="+91 XXXXX XXXXX"></div>
+      </div>
+      <div class="form-group"><label>RM Email</label><input type="email" class="form-control" id="m_rm_email" placeholder="rm@buygenixsolutions.com"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Start Date</label><input type="date" class="form-control" id="m_start" value="${new Date().toISOString().split('T')[0]}"></div>
+      <div class="form-group"><label>Renewal Date</label><input type="date" class="form-control" id="m_renew" value="${new Date(Date.now()+365*86400000).toISOString().split('T')[0]}"></div>
+    </div>
+    <div class="form-group"><label>Notes</label><textarea class="form-control" id="m_notes" rows="2" placeholder="Any additional notes..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="saveMember()">Save Member</button>
+    </div>`);
 }
 
 async function saveMember() {
-  const name=document.getElementById('m_name')?.value.trim(); const email=document.getElementById('m_email')?.value.trim();
-  if (!name||!email) { BGX_Toast('Name and email required.','error'); return; }
-  const rmSel=document.getElementById('m_rm'); const rm=BGX.RMS.find(r=>r.id===rmSel?.value);
-  const payload={full_name:name,business_name:document.getElementById('m_biz')?.value.trim(),email,phone:document.getElementById('m_phone')?.value.trim(),plan:document.getElementById('m_plan')?.value,rm_name:rm?.name,rm_role:rm?.role,start_date:document.getElementById('m_start')?.value,renewal_date:document.getElementById('m_renew')?.value,status:'active',created_at:new Date().toISOString()};
-  const sb=getSB(); if(sb){ try{ await sb.from('members').insert([payload]); }catch(e){} }
-  allMem.unshift({...payload,id:Date.now()}); document.getElementById('sbMemCnt').textContent=allMem.length; renderMem(allMem); closeModal(); buildDashboard();
-  BGX_Toast(`Member ${name} added!`,'success');
+  const name  = document.getElementById('m_name')?.value.trim();
+  const email = document.getElementById('m_email')?.value.trim();
+  const rmName= document.getElementById('m_rm_name')?.value.trim();
+  if (!name||!email) { BGX_Toast('Name and email are required.','error'); return; }
+  const rmPhone = document.getElementById('m_rm_phone')?.value.trim()||'';
+  const rmEmail = document.getElementById('m_rm_email')?.value.trim()||'';
+  const notes   = document.getElementById('m_notes')?.value.trim()||'';
+  const payload = {
+    name,
+    business_name: document.getElementById('m_biz')?.value.trim()||'',
+    email,
+    phone: document.getElementById('m_phone')?.value.trim()||'',
+    city:  document.getElementById('m_city')?.value.trim()||'',
+    plan:  document.getElementById('m_plan')?.value||'Starter',
+    plan_status: 'active',
+    join_date: document.getElementById('m_start')?.value||new Date().toISOString().split('T')[0],
+    renewal_date: document.getElementById('m_renew')?.value||'',
+    notes: `${notes}${notes?' | ':''}RM:${rmName||'—'} | RM Phone:${rmPhone} | RM Email:${rmEmail}`
+  };
+  const sb=getSB();
+  let saved = false;
+  try {
+    const {error} = await sb.from('clients').insert([payload]);
+    if(!error) saved=true;
+    else { console.error('Save member error:',error); BGX_Toast('DB Error: '+error.message,'error'); return; }
+  } catch(e){ BGX_Toast('Connection error. Member saved locally.','info'); }
+  allMem.unshift({...payload,id:Date.now(),rm_name:rmName,rm_phone:rmPhone,rm_email:rmEmail});
+  document.getElementById('sbMemCnt').textContent=allMem.length;
+  renderMem(allMem); closeModal(); buildDashboard();
+  BGX_Toast(`✅ Member ${name} added! RM: ${rmName||'Not assigned'}`, 'success');
 }
 
 function openAddLead() {
@@ -793,8 +1017,11 @@ async function markDelivered(id) {
 
 async function deleteLead(id) {
   if (!confirm('Delete this lead? This cannot be undone.')) return;
-  const sb=getSB(); if(sb){ try{ await sb.from('leads').delete().eq('id',id); }catch(e){} }
-  allLeads=allLeads.filter(l=>l.id!=id); document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads); buildDashboard();
+  const sb=getSB();
+  try { await sb.from('buy_leads').delete().eq('id',id); } catch(e){}
+  allLeads=allLeads.filter(l=>String(l.id)!==String(id));
+  document.getElementById('sbLeadCnt').textContent=allLeads.length;
+  renderLeads(allLeads);
   BGX_Toast('Lead deleted.','info');
 }
 
@@ -1329,6 +1556,171 @@ async function saveCategoryItem(editId) {
   }
   closeModal();
   renderCatCards();
+}
+
+/* ═══ POST REQUIREMENTS MANAGER ═══ */
+let allPostReq = [];
+let _prPollTimer = null;
+
+async function loadPostReq() {
+  const sb = getSB();
+  try {
+    const { data } = await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(200);
+    allPostReq = data && data.length ? data : [];
+  } catch(e){ allPostReq = []; }
+  const newCount = allPostReq.filter(e=>!e.status||e.status==='new').length;
+  document.getElementById('sbPostCnt').textContent = newCount || allPostReq.length;
+  renderPostReq(allPostReq);
+}
+
+function filterPostReq() {
+  const q = document.getElementById('prSearch')?.value.toLowerCase()||'';
+  const s = document.getElementById('prStatus')?.value.toLowerCase()||'';
+  renderPostReq(allPostReq.filter(e=>
+    (!q||(e.name||'').toLowerCase().includes(q)||(e.business||'').toLowerCase().includes(q)) &&
+    (!s||(e.status||'new').toLowerCase()===s)
+  ));
+}
+
+function renderPostReq(list) {
+  const statusColors={new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
+  const statusBg={new:'#f0fdf4',pending:'#fffbeb',approved:'#eff6ff',rejected:'#fef2f2'};
+  const el = document.getElementById('prBody');
+  if(!el) return;
+  if(!list.length){el.innerHTML='<div class="empty-row">No post requirements found.</div>';return;}
+  el.innerHTML = list.map((e,i)=>{
+    const status = e.status||'new';
+    const msg = e.message||'';
+    /* Parse fields from message: Qty:X | Urgency:X | Purpose:X | Location:X | ... */
+    const qty     = msg.match(/Qty:(.*?)(\s*\|)/)?.[1]?.trim() || e.quantity || '—';
+    const unit    = msg.match(/Unit:(.*?)(\s*\|)/)?.[1]?.trim() || '—';
+    const urgency = msg.match(/Urgency:(.*?)(\s*\|)/)?.[1]?.trim() || '—';
+    const loc     = msg.match(/Location:(.*?)(\s*\|)/)?.[1]?.trim() || e.city || '—';
+    const product = e.business || e.product_category || '—';
+    const time    = e.created_at ? new Date(e.created_at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : 'Just now';
+    return `<div class="at-row" style="grid-template-columns:40px 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr 140px;${status==='new'?'background:#f0fdf4;':''}">
+      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div>
+        <div class="cell-name">${e.name||'—'}</div>
+        <div class="cell-sub">${e.phone||''} ${e.email||''}</div>
+        <div style="font-size:10px;color:var(--text-light);">🕐 ${time}</div>
+      </div>
+      <div><div style="font-size:13px;font-weight:500;">${product}</div><div class="cell-sub">${loc}</div></div>
+      <div><div style="font-size:12.5px;">${e.phone||'—'}</div><div class="cell-sub">${e.email||'—'}</div></div>
+      <span style="font-size:12px;">${qty}</span>
+      <span style="font-size:12px;">${unit}</span>
+      <span style="font-size:12px;">${urgency}</span>
+      <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${statusBg[status]};color:${statusColors[status]};text-transform:capitalize;display:inline-block;">${status}</span>
+      <div class="act-btns" style="flex-wrap:wrap;gap:4px;">
+        <button class="act-btn ab-view" style="font-size:10px;padding:3px 7px;" onclick='viewPostReq(${JSON.stringify(e).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn ab-deliver" style="font-size:10px;padding:3px 7px;background:#2563eb;color:white;" onclick="updatePRStatus('${e.id}','approved')">✅ Accept</button>
+        <button class="act-btn" style="font-size:10px;padding:3px 7px;background:#fffbeb;color:#d97706;border:1px solid #d97706;" onclick="updatePRStatus('${e.id}','pending')">⏳</button>
+        <button class="act-btn ab-del" style="font-size:10px;padding:3px 7px;" onclick="deletePR('${e.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+  const lu=document.getElementById('prLastUpdated');
+  if(lu) lu.textContent='Updated '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+}
+
+function viewPostReq(e) {
+  const msg = e.message||'';
+  const qty     = msg.match(/Qty:(.*?)(\s*\|)/)?.[1]?.trim()||'—';
+  const unit    = msg.match(/Unit:(.*?)(\s*\|)/)?.[1]?.trim()||'—';
+  const urgency = msg.match(/Urgency:(.*?)(\s*\|)/)?.[1]?.trim()||'—';
+  const purpose = msg.match(/Purpose:(.*?)(\s*\|)/)?.[1]?.trim()||'—';
+  const loc     = msg.match(/Location:(.*?)(\s*(\||$))/)?.[1]?.trim()||'—';
+  const product = e.business||'—';
+  const status  = e.status||'new';
+  const statusColors={new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
+
+  openModal(`<h3>📋 Post Requirement Details</h3>
+    <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Received: ${e.created_at?new Date(e.created_at).toLocaleString('en-IN'):'Just now'}</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      ${[['Name',e.name||'—'],['Phone',e.phone||'—'],['Email',e.email||'—'],['Product',product],['Quantity',qty],['Unit',unit],['Urgency Level',urgency],['Purpose',purpose],['Location',loc],['Current Status',`<span style="color:${statusColors[status]};font-weight:700;text-transform:capitalize;">${status}</span>`]].map(([k,v])=>`
+      <div style="background:var(--sky);border-radius:8px;padding:9px 12px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
+      </div>`).join('')}
+    </div>
+    ${e.message?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${e.message}</div></div>`:''}
+    <div style="margin-bottom:14px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Update Status</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="updatePRStatus('${e.id}','pending');closeModal();" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #d97706;background:${status==='pending'?'#d97706':'white'};color:${status==='pending'?'white':'#d97706'};font-size:12px;font-weight:700;cursor:pointer;">⏳ Pending</button>
+        <button onclick="updatePRStatus('${e.id}','approved');closeModal();" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #2563eb;background:${status==='approved'?'#2563eb':'white'};color:${status==='approved'?'white':'#2563eb'};font-size:12px;font-weight:700;cursor:pointer;">✅ Accept → Buy Lead</button>
+        <button onclick="updatePRStatus('${e.id}','rejected');closeModal();" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #dc2626;background:${status==='rejected'?'#dc2626':'white'};color:${status==='rejected'?'white':'#dc2626'};font-size:12px;font-weight:700;cursor:pointer;">❌ Reject</button>
+      </div>
+    </div>
+    <div class="modal-footer">
+      ${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
+      ${e.email?`<a href="mailto:${e.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
+      <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
+    </div>`);
+}
+
+async function updatePRStatus(id, newStatus) {
+  const sb = getSB();
+  try { await sb.from('enquiries').update({status:newStatus}).eq('id',id); } catch(e){}
+  allPostReq = allPostReq.map(e => e.id===id ? {...e,status:newStatus} : e);
+  renderPostReq(allPostReq);
+  BGX_Toast(`Status → ${newStatus}!`,'success');
+
+  if(newStatus === 'approved') {
+    const enq = allPostReq.find(e=>e.id===id);
+    if(enq) {
+      const msg = enq.message||'';
+      const qty  = msg.match(/Qty:(.*?)(\s*\|)/)?.[1]?.trim()||'';
+      const unit = msg.match(/Unit:(.*?)(\s*\|)/)?.[1]?.trim()||'';
+      const loc  = msg.match(/Location:(.*?)(\s*(\||$))/)?.[1]?.trim()||'';
+      const leadPayload = {
+        company:      enq.name||'Unknown',
+        country:      loc||'India',
+        contact_name: enq.name||'',
+        email:        enq.email||'',
+        phone:        enq.phone||'',
+        product:      enq.business||enq.product_category||'General',
+        quantity:     qty ? `${qty} ${unit}`.trim() : '',
+        quality:      'new',
+        status:       'unassigned',
+        notes:        `From Post Requirements form. ${enq.message||''}`,
+        source:       'post_requirements'
+      };
+      try { await sb.from('buy_leads').insert([leadPayload]); } catch(e){}
+      allLeads.unshift({...leadPayload,id:Date.now()});
+      document.getElementById('sbLeadCnt').textContent = allLeads.length;
+      renderLeads(allLeads);
+      BGX_Toast('✅ Moved to Buyer Leads!','success');
+    }
+  }
+}
+
+async function deletePR(id) {
+  if(!confirm('Delete this post requirement?')) return;
+  const sb = getSB();
+  try { await sb.from('enquiries').delete().eq('id',id); } catch(e){}
+  allPostReq = allPostReq.filter(e=>String(e.id)!==String(id));
+  renderPostReq(allPostReq);
+  BGX_Toast('Deleted.','info');
+}
+
+function startPostReqPolling() {
+  if(_prPollTimer) return;
+  _prPollTimer = setInterval(async()=>{
+    const panel=document.getElementById('ap-postreq');
+    if(!panel||!panel.classList.contains('active')) return;
+    const sb=getSB(); if(!sb) return;
+    try {
+      const {data}=await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(200);
+      if(data && data.length !== allPostReq.length){
+        const newCount=data.filter(e=>!e.status||e.status==='new').length;
+        if(data.length>allPostReq.length) BGX_Toast('🔔 New post requirement!','success');
+        allPostReq=data;
+        renderPostReq(allPostReq);
+        document.getElementById('sbPostCnt').textContent=newCount||data.length;
+      }
+    } catch(e){}
+  },30000);
 }
 
 /* Enter on login */
