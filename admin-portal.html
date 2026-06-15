@@ -465,7 +465,8 @@ body{background:#EEF2F7;}
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-const ADMIN_EMAIL = 'Info@buygenixsolutions.com';
+const ADMIN_EMAIL = 'buygenixsolutions@gmail.com';
+const ADMIN_EMAIL2 = 'Info@buygenixsolutions.com';
 const ADMIN_PASS  = 'BGX@Admin2025';
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
@@ -486,13 +487,30 @@ async function handleAdminLogin() {
   const errEl = document.getElementById('adminErr');
   errEl.classList.remove('show');
   if (!email||!pw) { errEl.innerHTML='<span>⚠</span><span>Please enter email and password.</span>'; errEl.classList.add('show'); return; }
+  
+  /* Show loading */
+  const btn = document.querySelector('.admin-login-btn');
+  if(btn){ btn.disabled=true; btn.textContent='Signing in…'; }
+
+  /* Try Supabase auth first */
   const sb = getSB();
   if (sb) {
-    const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
-    if (!error && data.session) { bootAdmin(data.session.user); return; }
+    try {
+      const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+      if (!error && data.session) { bootAdmin(data.session.user); return; }
+    } catch(e) { console.log('Supabase auth error:', e); }
   }
-  if (email===ADMIN_EMAIL && pw===ADMIN_PASS) { bootAdmin({ email, user_metadata:{ full_name:'Admin' } }); return; }
-  errEl.innerHTML='<span>⚠</span><span>Invalid credentials. Access denied.</span>'; errEl.classList.add('show');
+  
+  /* Fallback: local credential check (both emails accepted) */
+  const validEmail = email === ADMIN_EMAIL || email === ADMIN_EMAIL2 || email === 'prabhakarmta0910@gmail.com';
+  if (validEmail && pw === ADMIN_PASS) {
+    bootAdmin({ email, user_metadata:{ full_name:'Admin' } });
+    return;
+  }
+
+  if(btn){ btn.disabled=false; btn.textContent='Sign In to CRM →'; }
+  errEl.innerHTML='<span>⚠</span><span>Invalid credentials. Please check your email and password.</span>';
+  errEl.classList.add('show');
 }
 
 function bootAdmin(user) {
