@@ -487,50 +487,29 @@ async function handleAdminLogin() {
   const errEl = document.getElementById('adminErr');
   errEl.classList.remove('show');
   if (!email||!pw) { errEl.innerHTML='<span>⚠</span><span>Please enter email and password.</span>'; errEl.classList.add('show'); return; }
-
+  
+  /* Show loading */
   const btn = document.querySelector('.admin-login-btn');
   if(btn){ btn.disabled=true; btn.textContent='Signing in…'; }
 
-  /* Method 1: Supabase JS client */
-  try {
-    const sb = getSB();
-    if(sb) {
+  /* Try Supabase auth first */
+  const sb = getSB();
+  if (sb) {
+    try {
       const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
-      if (!error && data?.session) { bootAdmin(data.session.user); return; }
-    }
-  } catch(e) {}
-
-  /* Method 2: Direct Supabase REST auth (bypass JS client issues) */
-  try {
-    if(typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_URL) {
-      const res = await fetch(`${BGX_SUPABASE_URL}/auth/v1/token?grant_type=password`, {
-        method:'POST',
-        headers:{'Content-Type':'application/json','apikey':BGX_SUPABASE_ANON},
-        body: JSON.stringify({ email, password: pw })
-      });
-      const json = await res.json();
-      if(json.access_token) { bootAdmin({ email, user_metadata:{full_name: json.user?.user_metadata?.full_name||'Admin'} }); return; }
-    }
-  } catch(e) {}
-
-  /* Method 3: Local fallback — accept any registered email + password */
-  const knownEmails = [
-    'buygenixsolutions@gmail.com',
-    'prabhakarmta0910@gmail.com',
-    'Info@buygenixsolutions.com',
-    'info@buygenixsolutions.com',
-    ADMIN_EMAIL, ADMIN_EMAIL2
-  ];
-  const emailOk = knownEmails.includes(email.toLowerCase()) || knownEmails.includes(email);
-  const passOk  = pw === ADMIN_PASS || pw.length >= 6; /* any 6+ char password allowed in fallback */
-
-  if(emailOk && passOk) {
+      if (!error && data.session) { bootAdmin(data.session.user); return; }
+    } catch(e) { console.log('Supabase auth error:', e); }
+  }
+  
+  /* Fallback: local credential check (both emails accepted) */
+  const validEmail = email === ADMIN_EMAIL || email === ADMIN_EMAIL2 || email === 'prabhakarmta0910@gmail.com';
+  if (validEmail && pw === ADMIN_PASS) {
     bootAdmin({ email, user_metadata:{ full_name:'Admin' } });
     return;
   }
 
   if(btn){ btn.disabled=false; btn.textContent='Sign In to CRM →'; }
-  errEl.innerHTML='<span>⚠</span><span>Login failed. Try: buygenixsolutions@gmail.com with your Supabase password.</span>';
+  errEl.innerHTML='<span>⚠</span><span>Invalid credentials. Please check your email and password.</span>';
   errEl.classList.add('show');
 }
 
@@ -762,177 +741,6 @@ async function updateEnqStatus(id, newStatus, btn) {
   renderEnq(allEnq);
   BGX_Toast(`Status updated to ${newStatus}!`, 'success');
   closeModal();
-}
-
-/* ═══ POST REQUIREMENTS MANAGER ═══ */
-let allPostReq = [];
-let _prPollTimer = null;
-
-async function loadPostReq() {
-  const sb = getSB();
-  try {
-    const { data } = await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(300);
-    allPostReq = data && data.length ? data : [];
-  } catch(e){ allPostReq = []; }
-  const newCount = allPostReq.filter(r => !r.status || r.status==='new').length;
-  document.getElementById('sbPostCnt').textContent = newCount || '';
-  renderPostReq(allPostReq);
-}
-
-function renderPostReq(list) {
-  const statusColors = {new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
-  const statusBg     = {new:'#f0fdf4',pending:'#fffbeb',approved:'#eff6ff',rejected:'#fef2f2'};
-  const el = document.getElementById('prBody');
-  if(!el) return;
-  const upd = document.getElementById('prLastUpdated');
-  if(upd) upd.textContent = 'Updated ' + new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
-  if(!list.length){ el.innerHTML='<div class="empty-row">No requirements yet.</div>'; return; }
-  el.innerHTML = list.map((r,i) => {
-    const status = r.status || 'new';
-    const sc = statusColors[status]||'#16a34a';
-    const sb2 = statusBg[status]||'#f0fdf4';
-    // Parse message for fields: Qty:X | Unit:Y | Urgency:Z | Purpose:W | Location:L | msg
-    const msg = r.message || '';
-    const qty      = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim() || '—';
-    const unit     = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim() || '—';
-    const urgency  = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim() || '—';
-    const location = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim() || '—';
-    const time = r.created_at ? new Date(r.created_at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : 'Just now';
-    return `<div class="at-row" style="grid-template-columns:40px 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr 160px;${status==='new'?'background:#f0fdf4;':''}">
-      <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div>
-        <div class="cell-name">${r.name||'—'}</div>
-        <div class="cell-sub">${r.email||r.phone||'—'}</div>
-        <div style="font-size:10px;color:var(--text-light);">🕐 ${time}</div>
-      </div>
-      <span style="font-size:13px;color:var(--text-mid);">${r.business||r.product||'—'}</span>
-      <span style="font-size:12.5px;color:var(--text-mid);">${location}</span>
-      <span style="font-size:12.5px;">${qty}</span>
-      <span style="font-size:12px;color:var(--text-light);">${unit}</span>
-      <span style="font-size:12px;color:var(--text-light);">${urgency}</span>
-      <div>
-        <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${sb2};color:${sc};text-transform:capitalize;display:inline-block;">${status}</span>
-      </div>
-      <div class="act-btns" style="flex-wrap:wrap;gap:4px;">
-        <button class="act-btn ab-view" onclick='openPostReqDetail(${JSON.stringify(r).replace(/'/g,"&apos;")})' title="View & Update">👁 View</button>
-        <button class="act-btn ab-del" onclick="deletePostReq('${r.id}')" title="Delete">🗑</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function filterPostReq() {
-  const q = (document.getElementById('prSearch')?.value||'').toLowerCase();
-  const s = (document.getElementById('prStatus')?.value||'').toLowerCase();
-  renderPostReq(allPostReq.filter(r=>
-    (!q||(r.name||'').toLowerCase().includes(q)||(r.business||'').toLowerCase().includes(q)||(r.message||'').toLowerCase().includes(q)) &&
-    (!s||(r.status||'new').toLowerCase()===s)
-  ));
-}
-
-function openPostReqDetail(r) {
-  const msg     = r.message || '';
-  const qty     = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim() || '—';
-  const unit    = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim() || '—';
-  const urgency = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim() || '—';
-  const purpose = msg.match(/Purpose:(.*?)\s*\|/)?.[1]?.trim() || '—';
-  const loc     = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim() || '—';
-  const note    = msg.split('|').slice(-1)[0]?.trim() || '—';
-  const status  = r.status || 'new';
-  const sColors = {new:'#16a34a',pending:'#d97706',approved:'#2563eb',rejected:'#dc2626'};
-
-  openModal(`<h3>📋 Post Requirement Details</h3>
-    <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Received: ${r.created_at?new Date(r.created_at).toLocaleString('en-IN'):'Just now'}</p>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-      ${[['Name',r.name||'—'],['Email',r.email||'—'],['Phone',r.phone||'—'],['Product',r.business||r.product||'—'],['Quantity',qty],['Unit',unit],['Urgency',urgency],['Purpose',purpose],['Location',loc]].map(([k,v])=>`
-        <div style="background:var(--sky);border-radius:8px;padding:10px 12px;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:3px;">${k}</div>
-          <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
-        </div>`).join('')}
-    </div>
-    ${note!=='—'?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.7;">${note}</div></div>`:''}
-    <div style="margin-bottom:14px;">
-      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Update Status</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;">
-        <button onclick="updatePostReqStatus('${r.id}','pending')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #d97706;background:${status==='pending'?'#d97706':'white'};color:${status==='pending'?'white':'#d97706'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">⏳ Pending</button>
-        <button onclick="updatePostReqStatus('${r.id}','approved')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #2563eb;background:${status==='approved'?'#2563eb':'white'};color:${status==='approved'?'white':'#2563eb'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">✅ Approve → Buy Lead</button>
-        <button onclick="updatePostReqStatus('${r.id}','rejected')" style="flex:1;height:34px;border-radius:8px;border:1.5px solid #dc2626;background:${status==='rejected'?'#dc2626':'white'};color:${status==='rejected'?'white':'#dc2626'};font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;">❌ Reject</button>
-      </div>
-    </div>
-    <div style="background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:10px;padding:10px 14px;font-size:12px;color:#1e40af;margin-bottom:14px;">
-      💡 <strong>Approve</strong> will move this to Buyer Leads automatically.
-    </div>
-    <div class="modal-footer">
-      ${r.phone?`<a href="https://wa.me/${(r.phone||'').replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
-      ${r.email?`<a href="mailto:${r.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
-      <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
-    </div>`);
-}
-
-async function updatePostReqStatus(id, newStatus) {
-  const sb = getSB();
-  try { await sb.from('enquiries').update({status:newStatus}).eq('id',id); } catch(e){}
-  allPostReq = allPostReq.map(r => r.id===id ? {...r,status:newStatus} : r);
-  renderPostReq(allPostReq);
-  BGX_Toast(`Status → ${newStatus}!`, 'success');
-
-  if(newStatus === 'approved') {
-    const r = allPostReq.find(x=>x.id===id);
-    if(r) {
-      const msg     = r.message||'';
-      const qty     = msg.match(/Qty:(.*?)\s*\|/)?.[1]?.trim()||'';
-      const unit    = msg.match(/Unit:(.*?)\s*\|/)?.[1]?.trim()||'';
-      const urgency = msg.match(/Urgency:(.*?)\s*\|/)?.[1]?.trim()||'';
-      const purpose = msg.match(/Purpose:(.*?)\s*\|/)?.[1]?.trim()||'';
-      const loc     = msg.match(/Location:(.*?)(\s*\||\s*$)/)?.[1]?.trim()||'India';
-      const note    = msg.split('|').slice(-1)[0]?.trim()||'';
-      const lead = {
-        company:      r.name||'Unknown',
-        contact_name: r.name||'',
-        email:        r.email||'',
-        phone:        r.phone||'',
-        country:      loc||'India',
-        product:      r.business||r.product||'General',
-        quantity:     `${qty} ${unit}`.trim(),
-        quality:      urgency||'new',
-        status:       'unassigned',
-        source:       'post_requirement',
-        notes:        `Purpose:${purpose} | ${note} | Auto from Post Requirements`
-      };
-      try { await sb.from('buy_leads').insert([lead]); } catch(e){}
-      allLeads.unshift({...lead,id:Date.now()});
-      document.getElementById('sbLeadCnt').textContent=allLeads.length;
-      BGX_Toast('✅ Moved to Buyer Leads!','success');
-    }
-  }
-  closeModal();
-}
-
-async function deletePostReq(id) {
-  if(!confirm('Delete this requirement?')) return;
-  const sb=getSB();
-  try { await sb.from('enquiries').delete().eq('id',id); } catch(e){}
-  allPostReq = allPostReq.filter(r=>r.id!==id);
-  renderPostReq(allPostReq);
-  BGX_Toast('Requirement deleted.','info');
-}
-
-function startPostReqPolling() {
-  if(_prPollTimer) return;
-  _prPollTimer = setInterval(async()=>{
-    const panel=document.getElementById('ap-postreq');
-    if(!panel||!panel.classList.contains('active')) return;
-    const sb=getSB(); if(!sb) return;
-    try {
-      const {data}=await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(300);
-      if(data && data.length!==allPostReq.length) {
-        const newOnes=data.length-allPostReq.length;
-        allPostReq=data; renderPostReq(allPostReq);
-        document.getElementById('sbPostCnt').textContent=allPostReq.filter(r=>!r.status||r.status==='new').length||'';
-        if(newOnes>0) BGX_Toast(`🔔 ${newOnes} new requirement(s)!`,'success');
-      }
-    } catch(e){}
-  },30000);
 }
 
 /* ═══ EXISTING ENQUIRIES — remove viewEnq approve→buy_lead logic ═══ */
