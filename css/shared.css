@@ -235,11 +235,15 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
   :root{--sec-py:64px;}
   .footer-grid{grid-template-columns:1fr 1fr;gap:36px;}
   .legal-wrap{grid-template-columns:210px 1fr;gap:24px;}
+  /* Tablet: full desktop nav (logo + 480px search + links) does not fit
+     comfortably in 768–1024px, so switch to the same compact/burger nav
+     used on mobile. Desktop (>1024px) is completely unaffected. */
+  .nav-search{display:none;}
+  .nav-links{display:none;}
+  .nav-burger{display:flex;}
 }
 @media(max-width:768px){
   :root{--sec-py:52px;--sec-py-sm:40px;--hero-pt:calc(var(--nav-h) + 48px);--hero-pb:56px;--pad-x:20px;}
-  .nav-links{display:none;}
-  .nav-burger{display:flex;}
   .footer-grid{grid-template-columns:1fr;gap:28px;}
   .footer-bottom{flex-direction:column;text-align:center;}
   .legal-wrap{grid-template-columns:1fr;}
