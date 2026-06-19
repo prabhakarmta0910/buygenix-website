@@ -128,12 +128,14 @@
 
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
+  .hero-banner-img{height:320px;}
   .svc-grid{grid-template-columns:repeat(2,1fr);}
   .process-wrap{grid-template-columns:repeat(2,1fr);gap:32px;}
   .process-wrap::before{display:none;}
   .testi-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:768px){
+  .hero-banner-img{height:220px;}
   .hero-grid{grid-template-columns:1fr;}
   .hero-right{display:none;}
   .stats-inner{grid-template-columns:repeat(3,1fr);}
@@ -258,7 +260,19 @@
 .bgx-subcard .bgx-sc-items{list-style:none;}
 .bgx-subcard .bgx-sc-items li{font-size:11px;color:#4b5563;padding:1.5px 0;}
 .bgx-subcard .bgx-sc-items li:hover{color:#2563eb;text-decoration:underline;}
-@media(max-width:768px){.bgx-sidebar{display:none;}.bgx-promos{grid-template-columns:1fr;}.bgx-subgrid{grid-template-columns:repeat(2,1fr);}.bgx-hero{display:none;}}
+@media(max-width:1024px){
+  .bgx-sidebar{display:none;}
+  .bgx-hero{display:none;}
+  .bgx-promos{grid-template-columns:1fr;}
+  .bgx-subgrid{grid-template-columns:repeat(2,1fr);}
+  /* 8 equal columns is too cramped below desktop width — turn the
+     trending-products row into a swipeable horizontal strip instead. */
+  .bgx-trend-row{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:128px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scroll-snap-type:x proximity;}
+  .bgx-trend-row .bgx-tcard{scroll-snap-align:start;}
+}
+@media(max-width:640px){
+  .bgx-trend-row{grid-auto-columns:104px;}
+}
 </style>
 <div class="bgx-wrap">
   <div class="bgx-sidebar">
@@ -352,6 +366,17 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 .cat-grid-skeleton{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
 .cat-skel-card{height:96px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:skelShimmer 1.4s infinite;border-radius:10px;}
 @keyframes skelShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
+/* 6 fixed columns is unreadable on tablet/mobile — step down the column
+   count. !important needed because the live grids set columns inline. */
+@media(max-width:1024px){
+  .cat-grid-skeleton,
+  #apparel-grid,#agriculture-grid,#electricals-grid{grid-template-columns:repeat(3,1fr) !important;}
+}
+@media(max-width:600px){
+  .cat-grid-skeleton,
+  #apparel-grid,#agriculture-grid,#electricals-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .cat-vcard{height:auto;min-height:96px;}
+}
 </style>
   <div style="text-align:center;margin-bottom:20px;">
     <h2 style="font-size:26px;font-weight:700;color:#1f2937;font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Apparel <span style="color:#2563eb;">&amp;</span> Garments</h2>
@@ -794,6 +819,16 @@ async function submitRequirement() {
 .hl6-img img{width:100%;height:100%;object-fit:cover;display:block;}
 
 @media(max-width:860px){.hl6-img{display:none;}}
+@media(max-width:1024px){
+  .hl6-thead,.hl6-row{grid-template-columns:1.3fr 1.1fr 1.5fr 0.9fr 1.1fr;}
+  .hl6-thead>*:nth-child(4),.hl6-row>*:nth-child(4),
+  .hl6-thead>*:nth-child(5),.hl6-row>*:nth-child(5){display:none;}
+}
+@media(max-width:560px){
+  .hl6-thead,.hl6-row{grid-template-columns:1.5fr 1fr 1.1fr;}
+  .hl6-thead>*:nth-child(2),.hl6-row>*:nth-child(2),
+  .hl6-thead>*:nth-child(3),.hl6-row>*:nth-child(3){display:none;}
+}
 </style>
 
 <div class="hl6-outer reveal">
