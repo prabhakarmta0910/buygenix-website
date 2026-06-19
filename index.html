@@ -127,12 +127,19 @@
 .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1;}
 
 /* ── RESPONSIVE ── */
+.nav-search-bar2{display:none;position:fixed;top:var(--nav-h);left:0;right:0;height:var(--nav-h);z-index:900;background:rgba(11,25,41,0.99);align-items:center;padding:0 var(--pad-x);border-bottom:1px solid rgba(255,255,255,0.07);}
+.nav-search-bar2 .nav-search.nav-search--full{width:100%;max-width:680px;margin:0 auto;}
 @media(max-width:1024px){
   .hero-banner-img{height:320px;}
   .svc-grid{grid-template-columns:repeat(2,1fr);}
   .process-wrap{grid-template-columns:repeat(2,1fr);gap:32px;}
   .process-wrap::before{display:none;}
   .testi-grid{grid-template-columns:repeat(2,1fr);}
+  /* Search bar removed from main header at this width — show the
+     dedicated full-width search bar below it instead, and push the
+     hero down so it clears both stacked bars. */
+  .nav-search-bar2{display:flex;}
+  .hero{margin-top:calc(var(--nav-h) * 2);}
 }
 @media(max-width:768px){
   .hero-banner-img{height:220px;}
@@ -198,6 +205,43 @@
   <a href="membership.html" class="m-cta">Membership Plans →</a>
   <a href="login.html" class="m-cta m-cta-gold">Client Login →</a>
 </div>
+
+<!-- Secondary search bar — tablet/mobile only, index page only -->
+<div class="nav-search-bar2" id="navSearchBar2">
+  <div class="nav-search nav-search--full">
+    <button class="nav-search-dropdown" id="navSearchDrop2" type="button">
+      <span id="navSearchLabel2">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu2">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput2" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+</div>
+<script>
+(function(){
+  var dropBtn2=document.getElementById('navSearchDrop2'),
+      dropMenu2=document.getElementById('navSearchMenu2'),
+      dropLabel2=document.getElementById('navSearchLabel2');
+  if(dropBtn2&&dropMenu2){
+    dropBtn2.addEventListener('click',function(e){e.stopPropagation();dropMenu2.classList.toggle('open');});
+    dropMenu2.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(e){
+        e.preventDefault();
+        dropMenu2.querySelectorAll('a').forEach(function(x){x.classList.remove('active');});
+        a.classList.add('active');
+        dropLabel2.textContent=a.getAttribute('data-val');
+        dropMenu2.classList.remove('open');
+      });
+    });
+    document.addEventListener('click',function(){dropMenu2.classList.remove('open');});
+  }
+})();
+</script>
 
 <!-- ═══ HERO / FULL-WIDTH BANNER ═══ -->
 <section class="hero">
@@ -820,14 +864,18 @@ async function submitRequirement() {
 
 @media(max-width:860px){.hl6-img{display:none;}}
 @media(max-width:1024px){
-  .hl6-thead,.hl6-row{grid-template-columns:1.3fr 1.1fr 1.5fr 0.9fr 1.1fr;}
-  .hl6-thead>*:nth-child(4),.hl6-row>*:nth-child(4),
-  .hl6-thead>*:nth-child(5),.hl6-row>*:nth-child(5){display:none;}
+  .hl6-th{padding:8px 6px;font-size:11px;}
+  .hl6-cell{padding:0 6px;font-size:11px;}
+  .hl6-row{height:46px;}
+  .hl6-btn{padding:5px 8px;font-size:10.5px;}
+  .hl6-active{font-size:11px;gap:4px;}
 }
 @media(max-width:560px){
-  .hl6-thead,.hl6-row{grid-template-columns:1.5fr 1fr 1.1fr;}
-  .hl6-thead>*:nth-child(2),.hl6-row>*:nth-child(2),
-  .hl6-thead>*:nth-child(3),.hl6-row>*:nth-child(3){display:none;}
+  .hl6-th{padding:6px 3px;font-size:9px;}
+  .hl6-cell{padding:0 3px;font-size:9px;}
+  .hl6-row{height:42px;}
+  .hl6-btn{padding:4px 6px;font-size:9px;}
+  .hl6-active{font-size:9px;gap:3px;}
 }
 </style>
 
