@@ -73,6 +73,20 @@
 .btn-gst-submit{width:100%;height:44px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));color:white;border:none;border-radius:var(--r-lg);font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(30,95,168,0.22);}
 .btn-gst-submit:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(30,95,168,0.32);}
 
+/* ── FAQ accordion ── */
+.faq-list{margin-top:6px;}
+.faq-item{border-bottom:1px solid var(--border-soft);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;background:none;border:none;padding:19px 2px;cursor:pointer;text-align:left;font-family:'Space Grotesk',sans-serif;}
+.faq-q-text{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.4;transition:color .2s;}
+.faq-q:hover .faq-q-text{color:var(--blue-mid);}
+.faq-chevron{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--sky);color:var(--blue-mid);display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s;}
+.faq-chevron svg{transition:transform .3s ease;}
+.faq-item.open .faq-chevron{background:var(--gold);color:white;}
+.faq-item.open .faq-chevron svg{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.faq-a p{margin:0;padding:0 32px 19px 2px;font-size:13.5px;color:var(--text-body);line-height:1.7;}
+
 @media(max-width:900px){
   .gst-grid{grid-template-columns:1fr;}
   .gst-sidebar{position:static;}
@@ -300,23 +314,67 @@
   <div class="gst-block reveal">
     <h2>Frequently Asked Questions</h2>
 
-    <h3>How long does GST Registration take?</h3>
-    <p>GST Registration generally takes 3 to 7 working days, depending on document verification and government approval.</p>
+    <div class="faq-list" id="faqList">
+      <div class="faq-item open">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">How long does GST Registration take?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a" style="max-height:200px;">
+          <p>GST Registration generally takes 3 to 7 working days, depending on document verification and government approval.</p>
+        </div>
+      </div>
 
-    <h3>Is GST Registration mandatory for exporters?</h3>
-    <p>Yes, GST Registration is highly recommended for exporters to claim Input Tax Credit (ITC) refunds and other export benefits.</p>
+      <div class="faq-item">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Is GST Registration mandatory for exporters?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <p>Yes, GST Registration is highly recommended for exporters to claim Input Tax Credit (ITC) refunds and other export benefits.</p>
+        </div>
+      </div>
 
-    <h3>How many days does IEC Registration take?</h3>
-    <p>IEC Registration is normally issued within 1 to 3 working days after successful application submission.</p>
+      <div class="faq-item">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">How many days does IEC Registration take?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <p>IEC Registration is normally issued within 1 to 3 working days after successful application submission.</p>
+        </div>
+      </div>
 
-    <h3>What is MSME/Udyam Registration?</h3>
-    <p>MSME/Udyam Registration helps businesses access government schemes, subsidies, loans and export promotion benefits.</p>
+      <div class="faq-item">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What is MSME/Udyam Registration?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <p>MSME/Udyam Registration helps businesses access government schemes, subsidies, loans and export promotion benefits.</p>
+        </div>
+      </div>
 
-    <h3>Who needs FSSAI Registration?</h3>
-    <p>Any business involved in food manufacturing, processing, storage, distribution or export requires FSSAI Registration.</p>
+      <div class="faq-item">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">Who needs FSSAI Registration?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <p>Any business involved in food manufacturing, processing, storage, distribution or export requires FSSAI Registration.</p>
+        </div>
+      </div>
 
-    <h3>What is APEDA Registration?</h3>
-    <p>APEDA Registration is required for exporters dealing in agricultural and processed food products from India.</p>
+      <div class="faq-item">
+        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
+          <span class="faq-q-text">What is APEDA Registration?</span>
+          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a">
+          <p>APEDA Registration is required for exporters dealing in agricultural and processed food products from India.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
@@ -343,6 +401,20 @@ function switchReg(id, btn) {
   document.querySelectorAll('.reg-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('reg-'+id).classList.add('active');
   btn.classList.add('active');
+}
+
+function toggleFAQ(btn) {
+  const item = btn.closest('.faq-item');
+  const answer = item.querySelector('.faq-a');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('#faqList .faq-item.open').forEach(el => {
+    el.classList.remove('open');
+    el.querySelector('.faq-a').style.maxHeight = null;
+  });
+  if (!wasOpen) {
+    item.classList.add('open');
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+  }
 }
 
 async function submitGSTForm() {
