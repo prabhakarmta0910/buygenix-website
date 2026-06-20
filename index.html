@@ -428,26 +428,30 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 .cat-grid-skeleton{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;}
 .cat-skel-card{height:96px;background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);background-size:200% 100%;animation:skelShimmer 1.4s infinite;border-radius:10px;}
 @keyframes skelShimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-/* Halved per-screen count + side-scroll instead of wrapping rows
-   (was 3/2 wrapping columns — now ~2 / ~1.4 visible, swipe for rest).
+/* 2 rows × 3 visible columns per "page" — swipe left/right to reveal
+   the rest of the items. Smaller cards than before.
    !important needed because the live grids set columns inline. */
 @media(max-width:1024px){
   .cat-grid-skeleton,
   #apparel-grid,#agriculture-grid,#electricals-grid{
     grid-template-columns:none !important;
+    grid-template-rows:repeat(2,1fr) !important;
     grid-auto-flow:column !important;
-    grid-auto-columns:minmax(260px,46%) !important;
+    grid-auto-columns:30% !important;
+    gap:8px !important;
     overflow-x:auto !important;
     -webkit-overflow-scrolling:touch;
     scroll-snap-type:x proximity;
     padding-bottom:6px;
   }
-  .cat-vcard{scroll-snap-align:start;}
+  .cat-vcard{height:84px;scroll-snap-align:start;}
+  .cat-vcard-subs{max-height:41px;overflow:hidden;}
 }
 @media(max-width:600px){
   .cat-grid-skeleton,
-  #apparel-grid,#agriculture-grid,#electricals-grid{grid-auto-columns:minmax(220px,72%) !important;}
-  .cat-vcard{height:auto;min-height:96px;}
+  #apparel-grid,#agriculture-grid,#electricals-grid{grid-auto-columns:31% !important;}
+  .cat-vcard{height:78px;}
+  .cat-vcard-subs{max-height:36px;}
 }
 </style>
   <div style="text-align:center;margin-bottom:20px;">
