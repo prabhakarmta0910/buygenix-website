@@ -238,7 +238,7 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
   /* Tablet: full desktop nav (logo + 480px search + links) does not fit
      comfortably in 768–1024px, so switch to the same compact/burger nav
      used on mobile. Desktop (>1024px) is completely unaffected. */
-  .nav-search{display:none;}
+  .navbar .nav-search{display:none;}
   .nav-links{display:none;}
   .nav-burger{display:flex;}
 }
