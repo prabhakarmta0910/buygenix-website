@@ -465,9 +465,21 @@ body{background:#EEF2F7;}
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-const ADMIN_EMAIL = 'buygenixsolutions@gmail.com';
-const ADMIN_EMAIL2 = 'Info@buygenixsolutions.com';
-const ADMIN_PASS  = 'BGX@Admin2025';
+/* ───────────────────────────────────────────────────────────────
+   ADMIN AUTH — SECURITY FIX (21 Jun 2026)
+   The hardcoded ADMIN_EMAIL / ADMIN_PASS fallback that used to
+   live here in plain text has been REMOVED. It let anyone who
+   viewed this page's source log in to the CRM, bypassing Supabase
+   entirely. Admin sign-in now goes ONLY through real Supabase Auth.
+
+   ADMIN_EMAILS below is NOT a password and is NOT the real access
+   control — it only decides what message this page shows. The
+   actual boundary is enforced server-side by the RLS policies on
+   your Supabase tables, which must check for these same emails
+   (see the accompanying security-fix.sql). If you change who is
+   admin, update BOTH this list and the SQL policies.
+   ─────────────────────────────────────────────────────────────── */
+const ADMIN_EMAILS = ['buygenixsolutions@gmail.com', 'prabhakarmta0910@gmail.com'];
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
 function getSB() {
@@ -487,26 +499,32 @@ async function handleAdminLogin() {
   const errEl = document.getElementById('adminErr');
   errEl.classList.remove('show');
   if (!email||!pw) { errEl.innerHTML='<span>⚠</span><span>Please enter email and password.</span>'; errEl.classList.add('show'); return; }
-  
-  /* Show loading */
+
   const btn = document.querySelector('.admin-login-btn');
   if(btn){ btn.disabled=true; btn.textContent='Signing in…'; }
 
-  /* Try Supabase auth first */
   const sb = getSB();
-  if (sb) {
-    try {
-      const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
-      if (!error && data.session) { bootAdmin(data.session.user); return; }
-    } catch(e) { console.log('Supabase auth error:', e); }
-  }
-  
-  /* Fallback: local credential check (both emails accepted) */
-  const validEmail = email === ADMIN_EMAIL || email === ADMIN_EMAIL2 || email === 'prabhakarmta0910@gmail.com';
-  if (validEmail && pw === ADMIN_PASS) {
-    bootAdmin({ email, user_metadata:{ full_name:'Admin' } });
+  if (!sb) {
+    if(btn){ btn.disabled=false; btn.textContent='Sign In to CRM →'; }
+    errEl.innerHTML='<span>⚠</span><span>Could not connect to Supabase. Check your connection and try again.</span>';
+    errEl.classList.add('show');
     return;
   }
+
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pw });
+    if (!error && data.session) {
+      if (!ADMIN_EMAILS.includes(data.session.user.email)) {
+        await sb.auth.signOut();
+        if(btn){ btn.disabled=false; btn.textContent='Sign In to CRM →'; }
+        errEl.innerHTML='<span>⚠</span><span>This account does not have admin access.</span>';
+        errEl.classList.add('show');
+        return;
+      }
+      bootAdmin(data.session.user);
+      return;
+    }
+  } catch(e) { console.log('Supabase auth error:', e); }
 
   if(btn){ btn.disabled=false; btn.textContent='Sign In to CRM →'; }
   errEl.innerHTML='<span>⚠</span><span>Invalid credentials. Please check your email and password.</span>';
@@ -523,6 +541,18 @@ function bootAdmin(user) {
 }
 
 async function doAdminSignOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); location.reload(); }
+
+/* Keep an admin signed in across page refreshes — but only if the
+   existing session belongs to an allowed admin email. */
+(async function restoreAdminSession() {
+  const sb = getSB();
+  if (!sb) return;
+  try {
+    const { data } = await sb.auth.getSession();
+    const user = data?.session?.user;
+    if (user && ADMIN_EMAILS.includes(user.email)) bootAdmin(user);
+  } catch(e) { /* no active session — login form stays visible */ }
+})();
 
 function showAPanel(name, el) {
   document.querySelectorAll('.a-panel').forEach(p=>p.classList.remove('active'));
