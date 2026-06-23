@@ -969,10 +969,35 @@ async function submitRequirement() {
       +"<div class=\"hl6-cell\"><a href=\"membership.html\" class=\"hl6-btn\">Why Wait?</a></div>"
       +"</div>";
   }
-  var t=document.getElementById("hl6Ticker");
-  if(!t)return;
-  t.innerHTML=[...leads,...leads].map(row).join("");
-  t.style.animation="hl6up "+(leads.length*3)+"s linear infinite";
+  function paint(list){
+    var t=document.getElementById("hl6Ticker");
+    if(!t)return;
+    t.innerHTML=[...list,...list].map(row).join("");
+    t.style.animation="hl6up "+(list.length*3)+"s linear infinite";
+  }
+  paint(leads);
+
+  /* Try to replace the demo rows above with real accepted Buy Leads
+     (admin panel → Buy Leads → quality:'hot'). Reads ONLY from the
+     public_hot_leads view, which never exposes company/contact
+     name, email, phone, or notes — buyer identity stays masked
+     here, same as before. Deferred so BGX_SUPABASE_URL is ready. */
+  document.addEventListener('DOMContentLoaded', async function(){
+    try {
+      if (typeof BGX_SUPABASE_URL === 'undefined' || !BGX_SUPABASE_URL || BGX_SUPABASE_URL.includes('YOUR-PROJECT')) return;
+      var headers = { 'apikey': BGX_SUPABASE_ANON, 'Authorization': 'Bearer ' + BGX_SUPABASE_ANON };
+      var res = await fetch(BGX_SUPABASE_URL + '/rest/v1/public_hot_leads?select=*&order=created_at.desc&limit=15', { headers: headers });
+      if (!res.ok) return;
+      var data = await res.json();
+      if (!Array.isArray(data) || !data.length) return;
+      var live = data.map(function(l){
+        var d = l.created_at ? new Date(l.created_at) : new Date();
+        var dateStr = d.getFullYear()+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+String(d.getDate()).padStart(2,"0");
+        return {name:"Verified Buyer", place:l.country||"—", product:l.product||"—", qty:l.quantity||"On request", date:dateStr};
+      });
+      paint(live);
+    } catch(e) { /* keep demo rows already painted above */ }
+  });
 })();
 </script>
 </section>
