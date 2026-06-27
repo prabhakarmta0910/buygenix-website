@@ -774,11 +774,20 @@ async function submitRequirement() {
     msgEl.className='pyr-msg err'; msgEl.textContent='Please fill Name, Email, Phone and Product Name.'; return;
   }
   try {
-    if(typeof BGX_SUPABASE_URL!=='undefined'&&BGX_SUPABASE_URL&&!BGX_SUPABASE_URL.includes('YOUR')){
-      const sb=window.supabase?.createClient?.(BGX_SUPABASE_URL,BGX_SUPABASE_ANON);
-      if(sb) await sb.from('enquiries').insert([{name,email,phone,business:product,message:`Qty:${qty} ${unit} | Urgency:${urgency} | Purpose:${purpose} | Location:${location} | ${msg}`,interest:'leads',status:'new'}]);
+    if(typeof BGX_SUPABASE_URL==='undefined'||!BGX_SUPABASE_URL||BGX_SUPABASE_URL.includes('YOUR')){
+      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Configuration error — could not connect. Please call/WhatsApp us instead.'; return;
     }
-  } catch(e){}
+    const sb=window.supabase?.createClient?.(BGX_SUPABASE_URL,BGX_SUPABASE_ANON);
+    if(!sb){
+      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Could not load submission service. Please refresh and try again.'; return;
+    }
+    const {error} = await sb.from('enquiries').insert([{name,email,phone,business:product,message:`Qty:${qty} ${unit} | Urgency:${urgency} | Purpose:${purpose} | Location:${location} | ${msg}`,interest:'leads',status:'new'}]);
+    if(error){
+      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Submission failed: '+error.message; return;
+    }
+  } catch(e){
+    msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Network error — please check your connection and try again.'; return;
+  }
   msgEl.className='pyr-msg ok'; msgEl.textContent='✅ Your requirement has been submitted! We will contact you shortly.';
   ['pyr_name','pyr_email','pyr_phone','pyr_product','pyr_qty','pyr_msg','pyr_location'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   ['pyr_unit','pyr_urgency','pyr_purpose'].forEach(id=>{const el=document.getElementById(id);if(el)el.selectedIndex=0;});
