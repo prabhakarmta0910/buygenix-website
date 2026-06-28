@@ -261,7 +261,7 @@ body{background:#EEF2F7;}
               <button class="btn-add-row" onclick="openAddLead()">+ Add Lead</button>
             </div>
           </div>
-          <div class="at-head" style="grid-template-columns:40px 1.3fr 1.4fr 0.8fr 0.9fr 1fr 1fr 100px;"><span>#</span><span>Company / Country</span><span>Product</span><span>Quantity</span><span>Quality</span><span>Contact</span><span>Notes</span><span>Actions</span></div>
+          <div class="at-head" style="grid-template-columns:40px 1.4fr 1.5fr 0.9fr 1fr 1.1fr 100px;"><span>#</span><span>Company / Country</span><span>Product</span><span>Quantity</span><span>Quality</span><span>Contact</span><span>Actions</span></div>
           <div id="leadBody"><div class="empty-row">Loading leads…</div></div>
         </div>
       </div>
@@ -606,36 +606,59 @@ const ppClass = k => ({ starter:'pp-starter', growth:'pp-growth', professional:'
 const sBadge = s => { const m={new:'badge-green',hot:'badge-orange',delivered:'badge-blue',responded:'badge-green',closed:'badge-navy'}; return `<span class="badge ${m[s]||'badge-green'}">${s||'new'}</span>`; };
 
 function renderMem(list) {
-  document.getElementById('memBody').innerHTML = list.length ? list.map((m,i) => `
+  document.getElementById('memBody').innerHTML = list.length ? list.map((m,i) => {
+    const rmName = m.rm_name || parseRM(m.notes).rmName;
+    const amt = m.amount_charged ? '₹'+Number(m.amount_charged).toLocaleString('en-IN') : '—';
+    return `
     <div class="at-row mem-cols">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
       <div><div class="cell-name">${m.full_name||m.name||'—'}</div><div class="cell-sub">${m.business_name||'—'}</div></div>
       <div><div style="font-size:13px;">${m.email||'—'}</div><div class="cell-sub">${m.phone||'—'}</div></div>
-      <span><span class="plan-pill ${ppClass(m.plan)}">${m.plan||'Starter'}</span></span>
-      <span style="font-size:13px;color:var(--text-mid);">${m.rm_name||'Unassigned'}</span>
+      <span><span class="plan-pill ${ppClass(m.plan)}">${m.plan||'Starter'}</span><div class="cell-sub" style="margin-top:3px;">${amt}</div></span>
+      <span style="font-size:13px;color:var(--text-mid);">${rmName||'Unassigned'}</span>
       <span><span class="badge ${m.status==='inactive'?'badge-red':'badge-green'}">${m.status||'Active'}</span></span>
       <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewMem(${JSON.stringify(m).replace(/'/g,"\\'")} )'>View</button>
-        <button class="act-btn ab-edit" onclick="BGX_Toast('Edit via Supabase dashboard.','info')">Edit</button>
+        <button class="act-btn ab-view" onclick='viewMem(${JSON.stringify(m).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn ab-edit" onclick="openEditMember('${m.id||i}')">Edit</button>
       </div>
-    </div>`).join('') : '<div class="empty-row">No members found.</div>';
+    </div>`;
+  }).join('') : '<div class="empty-row">No members found.</div>';
 }
 
 function renderLeads(list) {
   document.getElementById('leadBody').innerHTML = list.length ? list.map((l,i) => `
-    <div class="at-row" style="grid-template-columns:40px 1.3fr 1.4fr 0.8fr 0.9fr 1fr 1fr 100px;">
+    <div class="at-row" style="grid-template-columns:40px 1.4fr 1.5fr 0.9fr 1fr 1.1fr 100px;">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
       <div><div class="cell-name">${l.company||l.name||'—'}</div><div class="cell-sub">${l.country||'—'} ${BGX.FLAGS[l.country]||''}</div></div>
       <span style="color:var(--text-mid);font-size:13px;">${l.product||'—'}</span>
       <span style="color:var(--text-mid);font-size:13px;">${l.quantity||'—'}</span>
       <span style="font-size:12px;color:var(--text-light);">${l.quality||l.source||'—'}</span>
       <div><div style="font-size:12.5px;">${l.email||'—'}</div><div class="cell-sub">${l.phone||'—'}</div></div>
-      <span style="font-size:12px;color:var(--text-light);">${l.notes||'—'}</span>
       <div class="act-btns">
+        <button class="act-btn ab-view" onclick='viewLead(${JSON.stringify(l).replace(/'/g,"&apos;")})'>👁 View</button>
         <button class="act-btn" onclick="openEditLead('${l.id||i}')">✏️ Edit</button>
         <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">🗑 Delete</button>
       </div>
     </div>`).join('') : '<div class="empty-row">No buyer leads found.</div>';
+}
+
+function viewLead(l) {
+  openModal(`<h3>🛒 Buy Lead Details</h3>
+    <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Added: ${l.created_at?new Date(l.created_at).toLocaleString('en-IN'):'—'}</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+      ${[['Company',l.company||'—'],['Country',`${BGX.FLAGS[l.country]||''} ${l.country||'—'}`],['Product',l.product||'—'],['Quantity',l.quantity||'—'],['Quality',l.quality||'—'],['Status',l.status||'—'],['Email',l.email||'—'],['Phone',l.phone||'—']].map(([k,v])=>`
+      <div style="background:var(--sky);border-radius:8px;padding:9px 12px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
+      </div>`).join('')}
+    </div>
+    ${l.notes?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Notes</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${l.notes}</div></div>`:''}
+    <div class="modal-footer">
+      ${l.phone?`<a href="https://wa.me/${l.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
+      ${l.email?`<a href="mailto:${l.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
+      <button class="btn-outline btn-sm" onclick="closeModal();openEditLead('${l.id}')">✏️ Edit</button>
+      <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
+    </div>`);
 }
 
 function renderEnq(list) {
@@ -708,9 +731,11 @@ function closeModal()    { document.getElementById('modalBg').classList.remove('
 document.getElementById('modalBg').addEventListener('click', e=>{ if(e.target===document.getElementById('modalBg')) closeModal(); });
 
 function viewMem(m) {
+  const rmName = m.rm_name || parseRM(m.notes).rmName || 'Unassigned';
+  const amt = m.amount_charged ? '₹'+Number(m.amount_charged).toLocaleString('en-IN') : '—';
   openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
-  ${[['Plan',m.plan],['Email',m.email],['Phone',m.phone],['RM',m.rm_name],['Status',m.status||'Active'],['Start',m.start_date],['Renews',m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
-  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
+  ${[['Plan',m.plan],['Amount Charged',amt],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
+  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
 }
 
 function viewEnq(e) {
@@ -814,6 +839,7 @@ function openAddMember() {
         <select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select>
       </div>
     </div>
+    <div class="form-group"><label>Amount Charged (₹) *</label><input type="number" class="form-control" id="m_amount" placeholder="e.g. 27000" min="0" step="0.01"></div>
     <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Relationship Manager Details</div>
       <div class="form-row">
@@ -848,6 +874,7 @@ async function saveMember() {
     phone: document.getElementById('m_phone')?.value.trim()||'',
     city:  document.getElementById('m_city')?.value.trim()||'',
     plan:  document.getElementById('m_plan')?.value||'Starter',
+    amount_charged: parseFloat(document.getElementById('m_amount')?.value)||0,
     plan_status: 'active',
     join_date: document.getElementById('m_start')?.value||new Date().toISOString().split('T')[0],
     renewal_date: document.getElementById('m_renew')?.value||'',
@@ -864,6 +891,100 @@ async function saveMember() {
   document.getElementById('sbMemCnt').textContent=allMem.length;
   renderMem(allMem); closeModal(); buildDashboard();
   BGX_Toast(`✅ Member ${name} added! RM: ${rmName||'Not assigned'}`, 'success');
+}
+
+/* RM name/phone/email are stored packed into the notes text (the
+   clients table has no dedicated RM columns) — this unpacks them
+   for display/editing, and returns the notes with that part removed. */
+function parseRM(notes) {
+  notes = notes || '';
+  const rmName  = notes.match(/RM:(.*?)(\s*\|)/)?.[1]?.trim() || '';
+  const rmPhone = notes.match(/RM Phone:(.*?)(\s*\|)/)?.[1]?.trim() || '';
+  const rmEmail = notes.match(/RM Email:(.*?)($|\s*\|)/)?.[1]?.trim() || '';
+  const cleanNotes = notes
+    .replace(/\s*\|?\s*RM:.*?(\||$)/,'')
+    .replace(/\s*\|?\s*RM Phone:.*?(\||$)/,'')
+    .replace(/\s*\|?\s*RM Email:.*?($|\|)/,'')
+    .trim();
+  return {rmName, rmPhone, rmEmail, cleanNotes};
+}
+
+function openEditMember(id) {
+  const m = allMem.find(x => String(x.id)===String(id));
+  if (!m) { BGX_Toast('Member not found.','error'); return; }
+  const rm = parseRM(m.notes);
+  const rmName  = m.rm_name  || rm.rmName;
+  const rmPhone = m.rm_phone || rm.rmPhone;
+  const rmEmail = m.rm_email || rm.rmEmail;
+  openModal(`<h3>✏️ Edit Member</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Full Name *</label><input class="form-control" id="m_name" value="${(m.full_name||m.name||'').replace(/"/g,'&quot;')}"></div>
+      <div class="form-group"><label>Business Name</label><input class="form-control" id="m_biz" value="${(m.business_name||'').replace(/"/g,'&quot;')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Email *</label><input type="email" class="form-control" id="m_email" value="${(m.email||'').replace(/"/g,'&quot;')}"></div>
+      <div class="form-group"><label>Phone</label><input type="tel" class="form-control" id="m_phone" value="${(m.phone||'').replace(/"/g,'&quot;')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>City</label><input class="form-control" id="m_city" value="${(m.city||'').replace(/"/g,'&quot;')}"></div>
+      <div class="form-group"><label>Plan</label>
+        <select class="form-control" id="m_plan">${['Starter','Growth','Professional','Enterprise'].map(p=>`<option ${m.plan===p?'selected':''}>${p}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Amount Charged (₹) *</label><input type="number" class="form-control" id="m_amount" value="${m.amount_charged||0}" min="0" step="0.01"></div>
+      <div class="form-group"><label>Plan Status</label>
+        <select class="form-control" id="m_status">${['active','pending','expired','suspended'].map(s=>`<option ${(m.plan_status||m.status||'').toLowerCase()===s?'selected':''}>${s}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Relationship Manager Details</div>
+      <div class="form-row">
+        <div class="form-group"><label>RM Name</label><input class="form-control" id="m_rm_name" value="${rmName.replace(/"/g,'&quot;')}"></div>
+        <div class="form-group"><label>RM Mobile</label><input type="tel" class="form-control" id="m_rm_phone" value="${rmPhone.replace(/"/g,'&quot;')}"></div>
+      </div>
+      <div class="form-group"><label>RM Email</label><input type="email" class="form-control" id="m_rm_email" value="${rmEmail.replace(/"/g,'&quot;')}"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Start Date</label><input type="date" class="form-control" id="m_start" value="${m.join_date?String(m.join_date).split('T')[0]:''}"></div>
+      <div class="form-group"><label>Renewal Date</label><input type="date" class="form-control" id="m_renew" value="${m.renewal_date?String(m.renewal_date).split('T')[0]:''}"></div>
+    </div>
+    <div class="form-group"><label>Notes</label><textarea class="form-control" id="m_notes" rows="2">${rm.cleanNotes.replace(/</g,'&lt;')}</textarea></div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="updateMember('${id}')">Save Changes</button>
+    </div>`);
+}
+
+async function updateMember(id) {
+  const name  = document.getElementById('m_name')?.value.trim();
+  const email = document.getElementById('m_email')?.value.trim();
+  if (!name||!email) { BGX_Toast('Name and email are required.','error'); return; }
+  const rmName  = document.getElementById('m_rm_name')?.value.trim()||'';
+  const rmPhone = document.getElementById('m_rm_phone')?.value.trim()||'';
+  const rmEmail = document.getElementById('m_rm_email')?.value.trim()||'';
+  const notes   = document.getElementById('m_notes')?.value.trim()||'';
+  const payload = {
+    name,
+    business_name: document.getElementById('m_biz')?.value.trim()||'',
+    email,
+    phone: document.getElementById('m_phone')?.value.trim()||'',
+    city:  document.getElementById('m_city')?.value.trim()||'',
+    plan:  document.getElementById('m_plan')?.value||'Starter',
+    amount_charged: parseFloat(document.getElementById('m_amount')?.value)||0,
+    plan_status: document.getElementById('m_status')?.value||'active',
+    join_date: document.getElementById('m_start')?.value||null,
+    renewal_date: document.getElementById('m_renew')?.value||null,
+    notes: `${notes}${notes?' | ':''}RM:${rmName||'—'} | RM Phone:${rmPhone} | RM Email:${rmEmail}`
+  };
+  const sb=getSB();
+  try {
+    const {error} = await sb.from('clients').update(payload).eq('id',id);
+    if(error){ BGX_Toast('DB Error: '+error.message,'error'); return; }
+  } catch(e){ BGX_Toast('Connection error — changes not saved.','error'); return; }
+  allMem = allMem.map(m => String(m.id)===String(id) ? {...m, ...payload, full_name:name, rm_name:rmName, rm_phone:rmPhone, rm_email:rmEmail} : m);
+  renderMem(allMem); closeModal(); buildDashboard();
+  BGX_Toast(`✅ ${name} updated!`,'success');
 }
 
 function openAddLead() {
