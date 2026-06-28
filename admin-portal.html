@@ -88,7 +88,7 @@ body{background:#EEF2F7;}
 .at-row:last-child{border-bottom:none;}
 .at-row:hover{background:var(--sky);}
 .at-row.highlight{background:rgba(184,134,11,0.04);}
-.mem-cols{grid-template-columns:0.4fr 1.8fr 1.6fr 1fr 1fr 0.8fr 0.9fr;}
+.mem-cols{grid-template-columns:0.4fr 1.7fr 1.5fr 1fr 0.8fr 0.8fr 1.3fr;}
 .lead-cols{grid-template-columns:0.3fr 1.4fr 1.5fr 1.2fr 1.1fr 1fr 0.9fr;}
 .enq-cols{grid-template-columns:0.3fr 1.6fr 1.4fr 1.5fr 1fr 1fr;}
 .cell-name{font-weight:600;color:var(--navy);}
@@ -98,7 +98,7 @@ body{background:#EEF2F7;}
 .pp-growth{background:#FFF8E7;color:#B8860B;}
 .pp-professional{background:#E3F2FD;color:#1565C0;}
 .pp-enterprise{background:#F1F5F9;color:#475569;}
-.act-btns{display:flex;gap:5px;}
+.act-btns{display:flex;gap:5px;flex-wrap:wrap;}
 .act-btn{height:28px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:1.5px solid;transition:all 0.2s;}
 .ab-view{background:var(--sky);border-color:var(--border-soft);color:var(--navy);}
 .ab-view:hover{border-color:var(--blue);color:var(--blue);}
@@ -620,6 +620,7 @@ function renderMem(list) {
       <div class="act-btns">
         <button class="act-btn ab-view" onclick='viewMem(${JSON.stringify(m).replace(/'/g,"&apos;")})'>View</button>
         <button class="act-btn ab-edit" onclick="openEditMember('${m.id||i}')">Edit</button>
+        <button class="act-btn ab-del" onclick="deleteMember('${m.id||i}')">🗑 Delete</button>
       </div>
     </div>`;
   }).join('') : '<div class="empty-row">No members found.</div>';
@@ -735,7 +736,7 @@ function viewMem(m) {
   const amt = m.amount_charged ? '₹'+Number(m.amount_charged).toLocaleString('en-IN') : '—';
   openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
   ${[['Plan',m.plan],['Amount Charged',amt],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
-  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
+  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${m.id}')">🗑 Delete</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
 }
 
 function viewEnq(e) {
@@ -909,6 +910,19 @@ function parseRM(notes) {
   return {rmName, rmPhone, rmEmail, cleanNotes};
 }
 
+async function deleteMember(id) {
+  if (!confirm('Delete this member? This cannot be undone.')) return;
+  const sb=getSB();
+  try {
+    const {error} = await sb.from('clients').delete().eq('id',id);
+    if(error){ BGX_Toast('DB Error: '+error.message,'error'); return; }
+  } catch(e){ BGX_Toast('Connection error — member not deleted.','error'); return; }
+  allMem = allMem.filter(m=>String(m.id)!==String(id));
+  document.getElementById('sbMemCnt').textContent = allMem.length;
+  renderMem(allMem); closeModal(); buildDashboard();
+  BGX_Toast('Member deleted.','info');
+}
+
 function openEditMember(id) {
   const m = allMem.find(x => String(x.id)===String(id));
   if (!m) { BGX_Toast('Member not found.','error'); return; }
@@ -951,6 +965,7 @@ function openEditMember(id) {
     </div>
     <div class="form-group"><label>Notes</label><textarea class="form-control" id="m_notes" rows="2">${rm.cleanNotes.replace(/</g,'&lt;')}</textarea></div>
     <div class="modal-footer">
+      <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${id}')">🗑 Delete Member</button>
       <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
       <button class="btn-add-row" onclick="updateMember('${id}')">Save Changes</button>
     </div>`);
