@@ -480,6 +480,58 @@ body{background:#EEF2F7;}
    admin, update BOTH this list and the SQL policies.
    ─────────────────────────────────────────────────────────────── */
 const ADMIN_EMAILS = ['buygenixsolutions@gmail.com', 'prabhakarmta0910@gmail.com'];
+
+/* Same 25 services listed on registration.html, grouped for the
+   "Registrations Included" checkbox grid on a member's plan. */
+const REG_SERVICES = {
+  'Business & Tax': ['PAN','TAN','GST Registration','GST LUT','GST Amendment','Udyam (MSME)','Professional Tax','Shop & Establishment','Trade License','DSC','FSSAI Licence'],
+  'Import & Export': ['IEC','RCMC','APEDA','Spices Board','MPEDA','Tea Board','Coffee Board','Tobacco Board','Export Inspection Certificate','Certificate of Origin','Phytosanitary Certificate','Fumigation Certificate','Marine Export Registration','ICEGATE']
+};
+function regCheckboxGrid(selected) {
+  selected = (selected||'').split(',').map(s=>s.trim()).filter(Boolean);
+  return Object.entries(REG_SERVICES).map(([cat,items])=>`
+    <div style="margin-bottom:8px;">
+      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-light);margin-bottom:6px;">${cat}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        ${items.map(s=>`<label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-body);cursor:pointer;"><input type="checkbox" class="reg-chk" value="${s}" ${selected.includes(s)?'checked':''}> ${s}</label>`).join('')}
+      </div>
+    </div>`).join('');
+}
+function getCheckedRegs() {
+  return [...document.querySelectorAll('.reg-chk:checked')].map(c=>c.value).join(', ');
+}
+
+function toggleGstFields() {
+  const mode = document.getElementById('m_gst_mode')?.value || 'without';
+  const wrap = document.getElementById('gstFieldsWrap');
+  if (wrap) wrap.style.display = mode === 'with' ? 'block' : 'none';
+  calcGst();
+}
+
+function calcGst() {
+  const base = parseFloat(document.getElementById('m_base_amount')?.value) || 0;
+  const mode = document.getElementById('m_gst_mode')?.value || 'without';
+  const breakdownEl = document.getElementById('gstBreakdown');
+  let total = base, cgst = 0, sgst = 0, igst = 0, rate = 0, supply = 'intra';
+  if (mode === 'with') {
+    rate = parseFloat(document.getElementById('m_gst_rate')?.value) || 0;
+    supply = document.getElementById('m_supply_type')?.value || 'intra';
+    const gstAmt = base * rate / 100;
+    total = base + gstAmt;
+    if (supply === 'intra') {
+      cgst = gstAmt / 2; sgst = gstAmt / 2;
+      if (breakdownEl) breakdownEl.innerHTML = `<span class="svc-meta-pill">CGST (${(rate/2).toFixed(1)}%): ₹${cgst.toFixed(2)}</span><span class="svc-meta-pill">SGST (${(rate/2).toFixed(1)}%): ₹${sgst.toFixed(2)}</span>`;
+    } else {
+      igst = gstAmt;
+      if (breakdownEl) breakdownEl.innerHTML = `<span class="svc-meta-pill">IGST (${rate}%): ₹${igst.toFixed(2)}</span>`;
+    }
+  } else if (breakdownEl) breakdownEl.innerHTML = '';
+  const disp = document.getElementById('m_total_display');
+  if (disp) disp.textContent = '₹' + total.toLocaleString('en-IN',{maximumFractionDigits:2});
+  const hidden = document.getElementById('m_amount');
+  if (hidden) hidden.value = total.toFixed(2);
+  return { base, mode, rate, supply, total, cgst, sgst, igst };
+}
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
 function getSB() {
@@ -537,7 +589,16 @@ function bootAdmin(user) {
   const name = user.user_metadata?.full_name || user.email || 'Admin';
   const init = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2)||'AD';
   document.getElementById('adminAv').textContent = init;
-  Promise.all([loadMembers(),loadLeads(),loadEnquiries()]).then(buildDashboard);
+  Promise.all([loadMembers(),loadLeads(),loadEnquiries()]).then(()=>{
+    buildDashboard();
+    if (!_dashPollTimer) {
+      _dashPollTimer = setInterval(() => {
+        const panel = document.getElementById('ap-dashboard');
+        if (!panel || !panel.classList.contains('active')) return;
+        refreshDashboardData();
+      }, 15000);
+    }
+  });
 }
 
 async function doAdminSignOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); location.reload(); }
@@ -568,6 +629,30 @@ function showAPanel(name, el) {
   if(name==='postreq') { loadPostReq(); startPostReqPolling(); }
   if(name==='leads') loadLeads();
   if(name==='members') loadMembers();
+  if(name==='dashboard') refreshDashboardData();
+}
+
+let _dashPollTimer = null;
+async function refreshDashboardData() {
+  const sb = getSB(); if (!sb) { buildDashboard(); return; }
+  try {
+    const [memRes, leadRes, enqRes] = await Promise.all([
+      sb.from('clients').select('*').order('created_at',{ascending:false}).limit(200),
+      sb.from('buy_leads').select('*').order('created_at',{ascending:false}).limit(200),
+      sb.from('enquiries').select('*').neq('interest','leads').order('created_at',{ascending:false}).limit(200)
+    ]);
+    if (memRes.data && memRes.data.length) allMem = memRes.data;
+    if (leadRes.data) allLeads = leadRes.data.length ? leadRes.data : allLeads;
+    if (enqRes.data) allEnq = enqRes.data;
+  } catch(e) { /* keep whatever is already in memory */ }
+  buildDashboard();
+  if (!_dashPollTimer) {
+    _dashPollTimer = setInterval(() => {
+      const panel = document.getElementById('ap-dashboard');
+      if (!panel || !panel.classList.contains('active')) return;
+      refreshDashboardData();
+    }, 15000);
+  }
 }
 
 async function loadMembers() {
@@ -595,8 +680,11 @@ function buildDashboard() {
   document.getElementById('dMTrend').textContent='Active this year';
   document.getElementById('dLeads').textContent=allLeads.length;
   document.getElementById('dEnq').textContent=allEnq.filter(e=>!e.status||e.status==='new').length;
-  const priceMap={starter:13500,growth:27000,professional:45000};
-  const rev=allMem.reduce((s,m)=>s+(priceMap[(m.plan||'starter').toLowerCase()]||0),0);
+  const fallbackPriceMap={starter:13500,growth:27000,professional:45000,enterprise:72000};
+  const rev=allMem.reduce((s,m)=>{
+    const charged = Number(m.amount_charged)||0;
+    return s + (charged>0 ? charged : (fallbackPriceMap[(m.plan||'starter').toLowerCase()]||0));
+  },0);
   document.getElementById('dRev').textContent=`₹${(rev/1000).toFixed(0)}K`;
   const now=new Date(); const in30=new Date(now.getTime()+30*86400000);
   document.getElementById('dExp').textContent=allMem.filter(m=>{ if(!m.renewal_date) return false; const d=new Date(m.renewal_date); return d>=now&&d<=in30; }).length;
@@ -734,8 +822,12 @@ document.getElementById('modalBg').addEventListener('click', e=>{ if(e.target===
 function viewMem(m) {
   const rmName = m.rm_name || parseRM(m.notes).rmName || 'Unassigned';
   const amt = m.amount_charged ? '₹'+Number(m.amount_charged).toLocaleString('en-IN') : '—';
+  const gstLine = m.gst_applicable
+    ? `With GST (${m.gst_rate||18}% ${m.supply_type==='inter'?'IGST':'CGST+SGST'}) — base ₹${Number(m.base_amount||0).toLocaleString('en-IN')}`
+    : 'Without GST';
   openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
-  ${[['Plan',m.plan],['Amount Charged',amt],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
+  ${[['Plan',m.plan],['Amount Charged',amt],['GST',gstLine],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
+  ${m.registrations_included?`<div style="margin-top:10px;"><div class="dr-key" style="margin-bottom:6px;">Registrations Included</div><div style="display:flex;gap:6px;flex-wrap:wrap;">${m.registrations_included.split(',').map(s=>`<span class="svc-meta-pill">${s.trim()}</span>`).join('')}</div></div>`:''}
   <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${m.id}')">🗑 Delete</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
 }
 
@@ -840,7 +932,33 @@ function openAddMember() {
         <select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select>
       </div>
     </div>
-    <div class="form-group"><label>Amount Charged (₹) *</label><input type="number" class="form-control" id="m_amount" placeholder="e.g. 27000" min="0" step="0.01"></div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Registrations Included in This Plan</div>
+      ${regCheckboxGrid('')}
+    </div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Billing &amp; GST</div>
+      <div class="form-row">
+        <div class="form-group"><label>Billing Type</label>
+          <select class="form-control" id="m_gst_mode" onchange="toggleGstFields()"><option value="without">Without GST</option><option value="with">With GST</option></select>
+        </div>
+        <div class="form-group"><label>Base Amount (₹) *</label><input type="number" class="form-control" id="m_base_amount" placeholder="e.g. 27000" min="0" step="0.01" oninput="calcGst()"></div>
+      </div>
+      <div id="gstFieldsWrap" style="display:none;">
+        <div class="form-row">
+          <div class="form-group"><label>GST Rate (%)</label><input type="number" class="form-control" id="m_gst_rate" value="18" min="0" step="0.01" oninput="calcGst()"></div>
+          <div class="form-group"><label>Supply Type</label>
+            <select class="form-control" id="m_supply_type" onchange="calcGst()"><option value="intra">Intra-State (CGST + SGST)</option><option value="inter">Inter-State (IGST)</option></select>
+          </div>
+        </div>
+        <div id="gstBreakdown" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:8px;"></div>
+      </div>
+      <div style="margin-top:6px;padding-top:10px;border-top:1px dashed var(--border-soft);display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:var(--text-light);font-weight:600;">Total Amount Charged</span>
+        <strong id="m_total_display" style="font-size:17px;color:var(--navy);">₹0</strong>
+      </div>
+      <input type="hidden" id="m_amount" value="0">
+    </div>
     <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Relationship Manager Details</div>
       <div class="form-row">
@@ -868,6 +986,7 @@ async function saveMember() {
   const rmPhone = document.getElementById('m_rm_phone')?.value.trim()||'';
   const rmEmail = document.getElementById('m_rm_email')?.value.trim()||'';
   const notes   = document.getElementById('m_notes')?.value.trim()||'';
+  const gst = calcGst();
   const payload = {
     name,
     business_name: document.getElementById('m_biz')?.value.trim()||'',
@@ -875,7 +994,15 @@ async function saveMember() {
     phone: document.getElementById('m_phone')?.value.trim()||'',
     city:  document.getElementById('m_city')?.value.trim()||'',
     plan:  document.getElementById('m_plan')?.value||'Starter',
-    amount_charged: parseFloat(document.getElementById('m_amount')?.value)||0,
+    registrations_included: getCheckedRegs(),
+    gst_applicable: gst.mode==='with',
+    base_amount: gst.base,
+    gst_rate: gst.mode==='with' ? gst.rate : 0,
+    supply_type: gst.mode==='with' ? gst.supply : null,
+    cgst_amount: gst.cgst,
+    sgst_amount: gst.sgst,
+    igst_amount: gst.igst,
+    amount_charged: gst.total,
     plan_status: 'active',
     join_date: document.getElementById('m_start')?.value||new Date().toISOString().split('T')[0],
     renewal_date: document.getElementById('m_renew')?.value||'',
@@ -945,11 +1072,35 @@ function openEditMember(id) {
         <select class="form-control" id="m_plan">${['Starter','Growth','Professional','Enterprise'].map(p=>`<option ${m.plan===p?'selected':''}>${p}</option>`).join('')}</select>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group"><label>Amount Charged (₹) *</label><input type="number" class="form-control" id="m_amount" value="${m.amount_charged||0}" min="0" step="0.01"></div>
-      <div class="form-group"><label>Plan Status</label>
-        <select class="form-control" id="m_status">${['active','pending','expired','suspended'].map(s=>`<option ${(m.plan_status||m.status||'').toLowerCase()===s?'selected':''}>${s}</option>`).join('')}</select>
+    <div class="form-group"><label>Plan Status</label>
+      <select class="form-control" id="m_status">${['active','pending','expired','suspended'].map(s=>`<option ${(m.plan_status||m.status||'').toLowerCase()===s?'selected':''}>${s}</option>`).join('')}</select>
+    </div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Registrations Included in This Plan</div>
+      ${regCheckboxGrid(m.registrations_included||'')}
+    </div>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Billing &amp; GST</div>
+      <div class="form-row">
+        <div class="form-group"><label>Billing Type</label>
+          <select class="form-control" id="m_gst_mode" onchange="toggleGstFields()"><option value="without" ${!m.gst_applicable?'selected':''}>Without GST</option><option value="with" ${m.gst_applicable?'selected':''}>With GST</option></select>
+        </div>
+        <div class="form-group"><label>Base Amount (₹) *</label><input type="number" class="form-control" id="m_base_amount" value="${m.base_amount||m.amount_charged||0}" min="0" step="0.01" oninput="calcGst()"></div>
       </div>
+      <div id="gstFieldsWrap" style="display:${m.gst_applicable?'block':'none'};">
+        <div class="form-row">
+          <div class="form-group"><label>GST Rate (%)</label><input type="number" class="form-control" id="m_gst_rate" value="${m.gst_rate||18}" min="0" step="0.01" oninput="calcGst()"></div>
+          <div class="form-group"><label>Supply Type</label>
+            <select class="form-control" id="m_supply_type" onchange="calcGst()"><option value="intra" ${(m.supply_type||'intra')==='intra'?'selected':''}>Intra-State (CGST + SGST)</option><option value="inter" ${m.supply_type==='inter'?'selected':''}>Inter-State (IGST)</option></select>
+          </div>
+        </div>
+        <div id="gstBreakdown" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:2px;margin-bottom:8px;"></div>
+      </div>
+      <div style="margin-top:6px;padding-top:10px;border-top:1px dashed var(--border-soft);display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;color:var(--text-light);font-weight:600;">Total Amount Charged</span>
+        <strong id="m_total_display" style="font-size:17px;color:var(--navy);">₹${Number(m.amount_charged||0).toLocaleString('en-IN')}</strong>
+      </div>
+      <input type="hidden" id="m_amount" value="${m.amount_charged||0}">
     </div>
     <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Relationship Manager Details</div>
@@ -969,6 +1120,7 @@ function openEditMember(id) {
       <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
       <button class="btn-add-row" onclick="updateMember('${id}')">Save Changes</button>
     </div>`);
+  calcGst();
 }
 
 async function updateMember(id) {
@@ -979,6 +1131,7 @@ async function updateMember(id) {
   const rmPhone = document.getElementById('m_rm_phone')?.value.trim()||'';
   const rmEmail = document.getElementById('m_rm_email')?.value.trim()||'';
   const notes   = document.getElementById('m_notes')?.value.trim()||'';
+  const gst = calcGst();
   const payload = {
     name,
     business_name: document.getElementById('m_biz')?.value.trim()||'',
@@ -986,7 +1139,15 @@ async function updateMember(id) {
     phone: document.getElementById('m_phone')?.value.trim()||'',
     city:  document.getElementById('m_city')?.value.trim()||'',
     plan:  document.getElementById('m_plan')?.value||'Starter',
-    amount_charged: parseFloat(document.getElementById('m_amount')?.value)||0,
+    registrations_included: getCheckedRegs(),
+    gst_applicable: gst.mode==='with',
+    base_amount: gst.base,
+    gst_rate: gst.mode==='with' ? gst.rate : 0,
+    supply_type: gst.mode==='with' ? gst.supply : null,
+    cgst_amount: gst.cgst,
+    sgst_amount: gst.sgst,
+    igst_amount: gst.igst,
+    amount_charged: gst.total,
     plan_status: document.getElementById('m_status')?.value||'active',
     join_date: document.getElementById('m_start')?.value||null,
     renewal_date: document.getElementById('m_renew')?.value||null,
@@ -1077,7 +1238,7 @@ async function updateLead(id) {
     if(error){ BGX_Toast('DB Error: '+error.message,'error'); return; }
   } catch(e){ BGX_Toast('Connection error — changes not saved.','error'); return; }
   allLeads = allLeads.map(l => String(l.id)===String(id) ? {...l,...payload} : l);
-  renderLeads(allLeads); closeModal();
+  renderLeads(allLeads); closeModal(); buildDashboard();
   BGX_Toast('✅ Buy lead updated!','success');
 }
 
@@ -1093,7 +1254,7 @@ async function deleteLead(id) {
   try { await sb.from('buy_leads').delete().eq('id',id); } catch(e){}
   allLeads=allLeads.filter(l=>String(l.id)!==String(id));
   document.getElementById('sbLeadCnt').textContent=allLeads.length;
-  renderLeads(allLeads);
+  renderLeads(allLeads); buildDashboard();
   BGX_Toast('Lead deleted.','info');
 }
 
@@ -1765,7 +1926,7 @@ async function updatePRStatus(id, newStatus) {
       } catch(e){ BGX_Toast('⚠ Saved status, but Hot Lead insert failed (connection error).','error'); return; }
       allLeads.unshift({...leadPayload,id:Date.now()});
       document.getElementById('sbLeadCnt').textContent = allLeads.length;
-      renderLeads(allLeads);
+      renderLeads(allLeads); buildDashboard();
       BGX_Toast('✅ Moved to Buy Leads!','success');
     }
   }
