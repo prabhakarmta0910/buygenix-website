@@ -98,6 +98,7 @@ body{background:#EEF2F7;}
 .pp-growth{background:#FFF8E7;color:#B8860B;}
 .pp-professional{background:#E3F2FD;color:#1565C0;}
 .pp-enterprise{background:#F1F5F9;color:#475569;}
+.pp-registration{background:#ECFDF5;color:#0F766E;}
 .act-btns{display:flex;gap:5px;flex-wrap:wrap;}
 .act-btn{height:28px;padding:0 10px;border-radius:6px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;border:1.5px solid;transition:all 0.2s;}
 .ab-view{background:var(--sky);border-color:var(--border-soft);color:var(--navy);}
@@ -481,26 +482,6 @@ body{background:#EEF2F7;}
    ─────────────────────────────────────────────────────────────── */
 const ADMIN_EMAILS = ['buygenixsolutions@gmail.com', 'prabhakarmta0910@gmail.com'];
 
-/* Same 25 services listed on registration.html, grouped for the
-   "Registrations Included" checkbox grid on a member's plan. */
-const REG_SERVICES = {
-  'Business & Tax': ['PAN','TAN','GST Registration','GST LUT','GST Amendment','Udyam (MSME)','Professional Tax','Shop & Establishment','Trade License','DSC','FSSAI Licence'],
-  'Import & Export': ['IEC','RCMC','APEDA','Spices Board','MPEDA','Tea Board','Coffee Board','Tobacco Board','Export Inspection Certificate','Certificate of Origin','Phytosanitary Certificate','Fumigation Certificate','Marine Export Registration','ICEGATE']
-};
-function regCheckboxGrid(selected) {
-  selected = (selected||'').split(',').map(s=>s.trim()).filter(Boolean);
-  return Object.entries(REG_SERVICES).map(([cat,items])=>`
-    <div style="margin-bottom:8px;">
-      <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-light);margin-bottom:6px;">${cat}</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-        ${items.map(s=>`<label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-body);cursor:pointer;"><input type="checkbox" class="reg-chk" value="${s}" ${selected.includes(s)?'checked':''}> ${s}</label>`).join('')}
-      </div>
-    </div>`).join('');
-}
-function getCheckedRegs() {
-  return [...document.querySelectorAll('.reg-chk:checked')].map(c=>c.value).join(', ');
-}
-
 function toggleGstFields() {
   const mode = document.getElementById('m_gst_mode')?.value || 'without';
   const wrap = document.getElementById('gstFieldsWrap');
@@ -690,7 +671,7 @@ function buildDashboard() {
   document.getElementById('dExp').textContent=allMem.filter(m=>{ if(!m.renewal_date) return false; const d=new Date(m.renewal_date); return d>=now&&d<=in30; }).length;
 }
 
-const ppClass = k => ({ starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise' }[(k||'starter').toLowerCase()]||'pp-starter');
+const ppClass = k => ({ starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise', registration:'pp-registration' }[(k||'starter').toLowerCase()]||'pp-starter');
 const sBadge = s => { const m={new:'badge-green',hot:'badge-orange',delivered:'badge-blue',responded:'badge-green',closed:'badge-navy'}; return `<span class="badge ${m[s]||'badge-green'}">${s||'new'}</span>`; };
 
 function renderMem(list) {
@@ -827,7 +808,6 @@ function viewMem(m) {
     : 'Without GST';
   openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
   ${[['Plan',m.plan],['Amount Charged',amt],['GST',gstLine],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
-  ${m.registrations_included?`<div style="margin-top:10px;"><div class="dr-key" style="margin-bottom:6px;">Registrations Included</div><div style="display:flex;gap:6px;flex-wrap:wrap;">${m.registrations_included.split(',').map(s=>`<span class="svc-meta-pill">${s.trim()}</span>`).join('')}</div></div>`:''}
   <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${m.id}')">🗑 Delete</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
 }
 
@@ -929,12 +909,8 @@ function openAddMember() {
     <div class="form-row">
       <div class="form-group"><label>City</label><input class="form-control" id="m_city" placeholder="e.g. Delhi"></div>
       <div class="form-group"><label>Plan</label>
-        <select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option></select>
+        <select class="form-control" id="m_plan"><option>Starter</option><option>Growth</option><option>Professional</option><option>Enterprise</option><option>Registration</option></select>
       </div>
-    </div>
-    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Registrations Included in This Plan</div>
-      ${regCheckboxGrid('')}
     </div>
     <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Billing &amp; GST</div>
@@ -994,7 +970,6 @@ async function saveMember() {
     phone: document.getElementById('m_phone')?.value.trim()||'',
     city:  document.getElementById('m_city')?.value.trim()||'',
     plan:  document.getElementById('m_plan')?.value||'Starter',
-    registrations_included: getCheckedRegs(),
     gst_applicable: gst.mode==='with',
     base_amount: gst.base,
     gst_rate: gst.mode==='with' ? gst.rate : 0,
@@ -1069,15 +1044,11 @@ function openEditMember(id) {
     <div class="form-row">
       <div class="form-group"><label>City</label><input class="form-control" id="m_city" value="${(m.city||'').replace(/"/g,'&quot;')}"></div>
       <div class="form-group"><label>Plan</label>
-        <select class="form-control" id="m_plan">${['Starter','Growth','Professional','Enterprise'].map(p=>`<option ${m.plan===p?'selected':''}>${p}</option>`).join('')}</select>
+        <select class="form-control" id="m_plan">${['Starter','Growth','Professional','Enterprise','Registration'].map(p=>`<option ${m.plan===p?'selected':''}>${p}</option>`).join('')}</select>
       </div>
     </div>
     <div class="form-group"><label>Plan Status</label>
       <select class="form-control" id="m_status">${['active','pending','expired','suspended'].map(s=>`<option ${(m.plan_status||m.status||'').toLowerCase()===s?'selected':''}>${s}</option>`).join('')}</select>
-    </div>
-    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Registrations Included in This Plan</div>
-      ${regCheckboxGrid(m.registrations_included||'')}
     </div>
     <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;">
       <div style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Billing &amp; GST</div>
@@ -1139,7 +1110,6 @@ async function updateMember(id) {
     phone: document.getElementById('m_phone')?.value.trim()||'',
     city:  document.getElementById('m_city')?.value.trim()||'',
     plan:  document.getElementById('m_plan')?.value||'Starter',
-    registrations_included: getCheckedRegs(),
     gst_applicable: gst.mode==='with',
     base_amount: gst.base,
     gst_rate: gst.mode==='with' ? gst.rate : 0,
