@@ -1150,7 +1150,7 @@ async function saveLead() {
   const country=document.getElementById('l_country')?.value;
   const product=document.getElementById('l_product')?.value.trim();
   if (!company||!country||!product) { BGX_Toast('Company, Country and Product are required.','error'); return; }
-  const mSel=document.getElementById('l_member'); const mName=mSel?.value?mSel.options[mSel.selectedIndex]?.text.split(' — ')[0]:'';
+  const mSel=document.getElementById('l_member'); const mId=mSel?.value||''; const mName=mId?mSel.options[mSel.selectedIndex]?.text.split(' — ')[0]:'';
   const quality = document.getElementById('l_status')?.value || 'new';
   const notesBase = document.getElementById('l_notes')?.value.trim()||'';
   const payload={
@@ -1164,12 +1164,24 @@ async function saveLead() {
     notes: mName ? `${notesBase}${notesBase?' | ':''}Assigned to: ${mName}` : notesBase
   };
   const sb=getSB();
+  let newId = Date.now();
   try {
-    const {error}=await sb.from('buy_leads').insert([payload]);
+    const {data,error}=await sb.from('buy_leads').insert([payload]).select().single();
     if(error){ BGX_Toast('DB Error: '+error.message,'error'); return; }
+    if(data?.id) newId = data.id;
   } catch(e){ BGX_Toast('Connection error — lead not saved.','error'); return; }
-  allLeads.unshift({...payload,id:Date.now()}); document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads); closeModal(); buildDashboard();
+  if (mId) await linkLeadToMember(newId, mId);
+  allLeads.unshift({...payload,id:newId}); document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads); closeModal(); buildDashboard();
   BGX_Toast(`✅ Buy lead added${mName?' & assigned to '+mName:''}!`,'success');
+}
+
+/* Records that a lead is visible to a specific member's client
+   dashboard (client-portal.html reads this table directly). Safe
+   to call repeatedly — duplicates are silently ignored. */
+async function linkLeadToMember(leadId, clientId) {
+  const sb=getSB(); if(!sb) return;
+  try { await sb.from('lead_assignments').upsert([{lead_id:leadId, client_id:clientId, is_visible:true}], {onConflict:'lead_id,client_id'}); }
+  catch(e){ console.warn('lead_assignments link failed:', e); }
 }
 
 function openEditLead(id) {
@@ -1191,7 +1203,7 @@ async function updateLead(id) {
   const country=document.getElementById('l_country')?.value;
   const product=document.getElementById('l_product')?.value.trim();
   if (!company||!country||!product) { BGX_Toast('Company, Country and Product are required.','error'); return; }
-  const mSel=document.getElementById('l_member'); const mName=mSel?.value?mSel.options[mSel.selectedIndex]?.text.split(' — ')[0]:'';
+  const mSel=document.getElementById('l_member'); const mId=mSel?.value||''; const mName=mId?mSel.options[mSel.selectedIndex]?.text.split(' — ')[0]:'';
   const quality = document.getElementById('l_status')?.value || 'new';
   const notesBase = document.getElementById('l_notes')?.value.trim()||'';
   const payload={
@@ -1200,6 +1212,7 @@ async function updateLead(id) {
     email: document.getElementById('l_email')?.value.trim()||'',
     phone: document.getElementById('l_phone')?.value.trim()||'',
     quality,
+    status: mName ? 'assigned' : undefined,
     notes: mName ? `${notesBase}${notesBase?' | ':''}Assigned to: ${mName}` : notesBase
   };
   const sb=getSB();
@@ -1207,6 +1220,7 @@ async function updateLead(id) {
     const {error}=await sb.from('buy_leads').update(payload).eq('id',id);
     if(error){ BGX_Toast('DB Error: '+error.message,'error'); return; }
   } catch(e){ BGX_Toast('Connection error — changes not saved.','error'); return; }
+  if (mId) await linkLeadToMember(id, mId);
   allLeads = allLeads.map(l => String(l.id)===String(id) ? {...l,...payload} : l);
   renderLeads(allLeads); closeModal(); buildDashboard();
   BGX_Toast('✅ Buy lead updated!','success');

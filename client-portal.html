@@ -11,14 +11,12 @@
 <style>
 body{background:#EEF2F7;overflow-x:hidden;}
 
-/* ── SIDEBAR ── */
+/* ── SIDEBAR (desktop: fixed; tablet+mobile: drawer) ── */
 .sidebar{position:fixed;top:0;left:0;bottom:0;width:240px;background:var(--navy);display:flex;flex-direction:column;z-index:200;overflow-y:auto;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
 .sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.sb-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:white;line-height:1;}
-.sb-logo span{color:var(--gold-light);font-style:italic;}
 .sb-tag{font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.28);font-family:'Space Grotesk',sans-serif;margin-top:3px;}
 .sb-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.sb-uname{font-size:13.5px;font-weight:700;color:white;margin-bottom:2px;}
+.sb-uname{font-size:13.5px;font-weight:700;color:white;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sb-uplan{font-size:11px;color:var(--gold-light);font-family:'Space Grotesk',sans-serif;font-weight:600;}
 .sb-nav{flex:1;padding:8px 12px;}
 .sb-section{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);font-family:'Space Grotesk',sans-serif;padding:14px 10px 5px;}
@@ -34,43 +32,49 @@ body{background:#EEF2F7;overflow-x:hidden;}
 /* ── MAIN ── */
 .portal-main{margin-left:240px;min-height:100vh;display:flex;flex-direction:column;}
 .portal-topbar{background:white;border-bottom:1px solid var(--border-soft);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(11,25,41,0.05);}
-.ptb-left{display:flex;align-items:center;gap:14px;}
-.ptb-title{font-size:15px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
-.ptb-right{display:flex;align-items:center;gap:12px;}
-.ptb-notif{width:36px;height:36px;border-radius:10px;background:var(--sky);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;position:relative;}
+.ptb-left{display:flex;align-items:center;gap:14px;min-width:0;}
+.ptb-title{font-size:15px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ptb-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.ptb-notif{width:36px;height:36px;border-radius:10px;background:var(--sky);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;position:relative;flex-shrink:0;}
 .ptb-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
-.ptb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;cursor:pointer;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;background:none;border:none;}
+.ptb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;cursor:pointer;flex-shrink:0;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;background:none;border:none;flex-shrink:0;}
 .hamburger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;}
 
 /* ── PANELS ── */
-.portal-body{padding:28px 32px;flex:1;}
+.portal-body{padding:28px 32px;flex:1;max-width:1240px;width:100%;margin:0 auto;}
 .p-panel{display:none;}
-.p-panel.active{display:block;}
+.p-panel.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.panel-head{margin-bottom:22px;}
+.panel-head h2{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;line-height:1.2;}
+.panel-head p{font-size:14px;color:var(--text-mid);}
 
 /* Stat cards */
 .dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.dsc{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:22px;display:flex;align-items:center;gap:16px;transition:all 0.3s;}
+.dsc{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:22px;display:flex;align-items:center;gap:16px;transition:all 0.3s;min-width:0;}
 .dsc:hover{box-shadow:var(--shadow-mid);transform:translateY(-2px);}
 .dsc-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
 .ic-blue{background:rgba(30,95,168,0.1);}
 .ic-green{background:rgba(16,185,129,0.1);}
 .ic-gold{background:rgba(184,134,11,0.1);}
 .ic-purple{background:rgba(91,58,138,0.1);}
-.dsc-num{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--navy);line-height:1;}
+.dsc-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
 .dsc-lbl{font-size:11.5px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;margin-top:2px;}
 
 /* White card */
-.wcard{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:26px;box-shadow:var(--shadow-soft);}
+.wcard{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:26px;box-shadow:var(--shadow-soft);margin-bottom:20px;}
+.wcard:last-child{margin-bottom:0;}
 .wcard h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;}
-.grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:20px;}
+.grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:20px;align-items:start;}
+.grid-2 .wcard{margin-bottom:0;}
 
 /* Lead items in dashboard */
 .lead-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-soft);}
 .lead-item:last-child{border-bottom:none;}
 .li-flag{font-size:20px;flex-shrink:0;}
-.li-info{flex:1;}
-.li-country{font-size:13.5px;font-weight:600;color:var(--navy);}
+.li-info{flex:1;min-width:0;}
+.li-country{font-size:13.5px;font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .li-product{font-size:11.5px;color:var(--text-light);}
 .more-link{font-size:13px;font-weight:600;color:var(--blue);display:inline-block;margin-top:12px;}
 
@@ -89,10 +93,10 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
 /* Membership progress */
 .mem-overview{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.mem-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px;}
+.mem-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px;gap:12px;}
 .mem-row:last-child{border-bottom:none;}
-.mem-key{color:var(--text-light);}
-.mem-val{font-weight:700;color:var(--navy);}
+.mem-key{color:var(--text-light);flex-shrink:0;}
+.mem-val{font-weight:700;color:var(--navy);text-align:right;}
 .progress-wrap{margin-top:6px;}
 .progress-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);margin-bottom:6px;}
 .progress-lbl strong{color:var(--navy);}
@@ -100,11 +104,20 @@ body{background:#EEF2F7;overflow-x:hidden;}
 .progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--blue-bright));transition:width 1s ease;}
 .progress-fill.gold{background:linear-gradient(90deg,var(--gold),var(--gold-bright));}
 
-/* Leads table */
+/* Plan pill (mirrors admin portal colors) */
+.plan-pill{display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.pp-starter{background:#F0F4FF;color:#3B5BDB;}
+.pp-growth{background:#FFF8E7;color:#B8860B;}
+.pp-professional{background:#E3F2FD;color:#1565C0;}
+.pp-enterprise{background:#F1F5F9;color:#475569;}
+.pp-registration{background:#ECFDF5;color:#0F766E;}
+.gst-pill{display:inline-flex;align-items:center;background:var(--sky);border-radius:100px;padding:5px 12px;font-size:11.5px;color:var(--text-mid);font-weight:600;font-family:'Space Grotesk',sans-serif;}
+
+/* Leads table (desktop/tablet: grid; mobile: stacked cards via data-label) */
 .leads-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
 .leads-toolbar{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:12px;}
 .lt-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
-.lt-head{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr 1.2fr 1fr;background:var(--navy);padding:12px 22px;font-size:var(--fs-lbl);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
+.lt-head{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr 1.2fr 1fr;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
 .lt-row{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr 1.2fr 1fr;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;transition:background 0.2s;}
 .lt-row:last-child{border-bottom:none;}
 .lt-row:hover{background:var(--sky);}
@@ -113,27 +126,58 @@ body{background:#EEF2F7;overflow-x:hidden;}
 .lt-product,.lt-qty,.lt-date{color:var(--text-mid);font-size:13px;}
 .empty-state{text-align:center;padding:48px 24px;}
 .empty-icon{font-size:44px;margin-bottom:12px;}
-.empty-state p{font-size:14px;color:var(--text-mid);}
+.empty-state p{font-size:14px;color:var(--text-mid);line-height:1.6;}
 
-/* Sidebar overlay mobile */
+/* Sidebar overlay for drawer mode */
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(11,25,41,0.55);z-index:199;}
 .sb-overlay.open{display:block;}
 
-@media(max-width:900px){
-  .sidebar{transform:translateX(-100%);}
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — 3 tiers
+   Desktop  : > 1024px  (default styles above)
+   Tablet   : 769px–1024px
+   Mobile   : ≤ 768px
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── TABLET ── */
+@media(max-width:1024px){
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg);}
   .sidebar.open{transform:translateX(0);}
   .portal-main{margin-left:0;}
   .hamburger{display:flex;}
-  .dash-stats{grid-template-columns:1fr 1fr;}
+  .dash-stats{grid-template-columns:repeat(2,1fr);}
   .grid-2{grid-template-columns:1fr;}
-  .mem-overview{grid-template-columns:1fr;}
-  .portal-body{padding:20px 20px;}
-  .portal-topbar{padding:0 20px;}
-  .lt-head,.lt-row{grid-template-columns:0.4fr 1.5fr 1.5fr 1fr 1fr;}
-  .lt-head>*:nth-child(4),.lt-row>*:nth-child(4){display:none;}
+  .mem-overview{grid-template-columns:1fr;gap:30px;}
+  .portal-body{padding:24px;}
 }
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .portal-topbar{padding:0 16px;height:58px;}
+  .ptb-title{font-size:14px;}
+  .portal-body{padding:18px 14px;}
+  .panel-head h2{font-size:22px;}
+  .dsc{padding:16px;gap:12px;border-radius:var(--r-lg);}
+  .dsc-icon{width:40px;height:40px;font-size:18px;border-radius:11px;}
+  .dsc-num{font-size:24px;}
+  .dsc-lbl{font-size:10.5px;}
+  .wcard{padding:18px;border-radius:var(--r-lg);}
+  .leads-table-wrap{border-radius:var(--r-lg);}
+
+  /* Leads table → stacked card list (grid columns don't survive a phone width) */
+  .lt-head{display:none;}
+  .lt-row{display:flex;flex-direction:column;align-items:stretch;gap:7px;padding:16px 18px;}
+  .lt-row > *{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font-size:13px;}
+  .lt-row > *::before{content:attr(data-label);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;flex-shrink:0;}
+  .lt-num{display:none;}
+  .leads-toolbar{padding:14px 16px;}
+
+  .mem-row{font-size:13px;}
+}
+
 @media(max-width:480px){
-  .dash-stats{grid-template-columns:1fr;}
+  .dash-stats{grid-template-columns:1fr 1fr;gap:10px;}
+  .dsc{flex-direction:column;align-items:flex-start;gap:8px;}
 }
 </style>
 </head>
@@ -173,7 +217,7 @@ body{background:#EEF2F7;overflow-x:hidden;}
   <!-- TOPBAR -->
   <div class="portal-topbar">
     <div class="ptb-left">
-      <button class="hamburger" onclick="openSidebar()"><span></span><span></span><span></span></button>
+      <button class="hamburger" onclick="openSidebar()" aria-label="Open menu"><span></span><span></span><span></span></button>
       <div class="ptb-title" id="topbarTitle">Dashboard</div>
     </div>
     <div class="ptb-right">
@@ -187,14 +231,14 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
     <!-- DASHBOARD -->
     <div class="p-panel active" id="panel-dashboard">
-      <div style="margin-bottom:22px;">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--navy);margin-bottom:4px;">Welcome back, <span id="greetName">—</span></h2>
-        <p style="font-size:14px;color:var(--text-mid);">Here is a summary of your export journey with BuyGenix.</p>
+      <div class="panel-head">
+        <h2>Welcome back, <span id="greetName">—</span></h2>
+        <p>Here is a summary of your export journey with BuyGenix.</p>
       </div>
       <div class="dash-stats">
-        <div class="dsc"><div class="dsc-icon ic-blue">🎯</div><div><div class="dsc-num" id="statTotal">—</div><div class="dsc-lbl">Total Leads</div></div></div>
-        <div class="dsc"><div class="dsc-icon ic-green">✅</div><div><div class="dsc-num" id="statDel">—</div><div class="dsc-lbl">Leads Delivered</div></div></div>
-        <div class="dsc"><div class="dsc-icon ic-gold">⏳</div><div><div class="dsc-num" id="statPend">—</div><div class="dsc-lbl">Pending Leads</div></div></div>
+        <div class="dsc"><div class="dsc-icon ic-blue">🎯</div><div><div class="dsc-num" id="statTotal">—</div><div class="dsc-lbl">Lead Quota</div></div></div>
+        <div class="dsc"><div class="dsc-icon ic-green">✅</div><div><div class="dsc-num" id="statDel">—</div><div class="dsc-lbl">Leads Received</div></div></div>
+        <div class="dsc"><div class="dsc-icon ic-gold">⏳</div><div><div class="dsc-num" id="statPend">—</div><div class="dsc-lbl">Remaining This Cycle</div></div></div>
         <div class="dsc"><div class="dsc-icon ic-purple">📅</div><div><div class="dsc-num" id="statDays">—</div><div class="dsc-lbl">Days Remaining</div></div></div>
       </div>
       <div class="grid-2">
@@ -204,9 +248,9 @@ body{background:#EEF2F7;overflow-x:hidden;}
           <a href="#" class="more-link" onclick="showPanel('leads',document.querySelector('[onclick*=leads]'));return false;">View all leads →</a>
         </div>
         <div class="rm-card" id="rmCard">
-          <div class="rm-av" id="rmAv">PM</div>
-          <div class="rm-name" id="rmName">Priya Mehra</div>
-          <div class="rm-role" id="rmRole">Senior Export Consultant</div>
+          <div class="rm-av" id="rmAv">BG</div>
+          <div class="rm-name" id="rmName">Your Relationship Manager</div>
+          <div class="rm-role" id="rmRole">BuyGenix Solutions</div>
           <div class="rm-note">Your dedicated Relationship Manager. Available Mon–Sat, 10am–6pm IST.</div>
           <a href="https://wa.me/919818187246" class="rm-btn rm-btn-wa" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
           <a href="mailto:Buygenixsolutions@gmail.com" class="rm-btn rm-btn-email">📧 Send Email</a>
@@ -237,10 +281,10 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
     <!-- LEADS PANEL -->
     <div class="p-panel" id="panel-leads">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px;">
+      <div class="panel-head" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
         <div>
-          <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">My Buyer Leads</h2>
-          <p style="font-size:14px;color:var(--text-mid);">All verified buyer enquiries delivered to your account.</p>
+          <h2>My Buyer Leads</h2>
+          <p>All verified buyer enquiries delivered to your account.</p>
         </div>
         <a href="https://wa.me/919818187246?text=Hello%2C%20I%20would%20like%20to%20request%20more%20leads%20for%20my%20product%20category." class="btn-primary btn-sm" target="_blank" rel="noopener">💬 Request More Leads</a>
       </div>
@@ -253,14 +297,14 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
     <!-- REPORTS PANEL -->
     <div class="p-panel" id="panel-reports">
-      <div style="margin-bottom:22px;">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">Performance Reports</h2>
-        <p style="font-size:14px;color:var(--text-mid);">Monthly reports and analytics from your Relationship Manager.</p>
+      <div class="panel-head">
+        <h2>Performance Reports</h2>
+        <p>Monthly reports and analytics from your Relationship Manager.</p>
       </div>
       <div class="wcard">
         <div class="empty-state">
           <div class="empty-icon">📊</div>
-          <p>Your first performance report will be available after your first month.<br>Professional members receive monthly reports automatically.</p>
+          <p>Your first performance report will be available after your first month.<br>Professional &amp; Enterprise members receive monthly reports automatically.</p>
           <a href="https://wa.me/919818187246?text=Hello%2C%20I%20would%20like%20to%20request%20my%20performance%20report." class="btn-primary btn-sm" style="margin-top:18px;display:inline-flex;" target="_blank" rel="noopener">Request Report via WhatsApp</a>
         </div>
       </div>
@@ -268,15 +312,15 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
     <!-- MEMBERSHIP PANEL -->
     <div class="p-panel" id="panel-membership">
-      <div style="margin-bottom:22px;">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">My Membership</h2>
-        <p style="font-size:14px;color:var(--text-mid);">Your current plan details and how to upgrade.</p>
+      <div class="panel-head">
+        <h2>My Membership</h2>
+        <p>Your current plan, billing details, and how to upgrade.</p>
       </div>
       <div class="grid-2">
         <div class="wcard">
           <h3>📋 Current Plan</h3>
           <div class="mem-row"><span class="mem-key">Plan Name</span><strong class="mem-val" id="mPlan">—</strong></div>
-          <div class="mem-row"><span class="mem-key">Status</span><span class="badge badge-green">Active</span></div>
+          <div class="mem-row"><span class="mem-key">Status</span><span class="badge badge-green" id="mStatus">Active</span></div>
           <div class="mem-row"><span class="mem-key">Activated</span><strong class="mem-val" id="mStart">—</strong></div>
           <div class="mem-row"><span class="mem-key">Renews On</span><strong class="mem-val" id="mRenew">—</strong></div>
           <div class="divider"></div>
@@ -289,13 +333,19 @@ body{background:#EEF2F7;overflow-x:hidden;}
           </div>
         </div>
       </div>
+      <div class="wcard">
+        <h3>🧾 Billing Details</h3>
+        <div class="mem-row"><span class="mem-key">Amount Charged</span><strong class="mem-val" id="mAmount">—</strong></div>
+        <div class="mem-row"><span class="mem-key">GST</span><strong class="mem-val" id="mGstLine">—</strong></div>
+        <div id="mGstBreakdown" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
+      </div>
     </div>
 
     <!-- PROFILE PANEL -->
     <div class="p-panel" id="panel-profile">
-      <div style="margin-bottom:22px;">
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;">My Profile</h2>
-        <p style="font-size:14px;color:var(--text-mid);">Your account and business information.</p>
+      <div class="panel-head">
+        <h2>My Profile</h2>
+        <p>Your account and business information.</p>
       </div>
       <div class="wcard" style="max-width:600px;">
         <h3>👤 Account Details</h3>
@@ -303,6 +353,7 @@ body{background:#EEF2F7;overflow-x:hidden;}
         <div class="mem-row"><span class="mem-key">Email</span><strong class="mem-val" id="profEmail">—</strong></div>
         <div class="mem-row"><span class="mem-key">Phone</span><strong class="mem-val" id="profPhone">—</strong></div>
         <div class="mem-row"><span class="mem-key">Business Name</span><strong class="mem-val" id="profBiz">—</strong></div>
+        <div class="mem-row"><span class="mem-key">City</span><strong class="mem-val" id="profCity">—</strong></div>
         <div class="divider"></div>
         <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;">To update your profile details, contact your Relationship Manager.</p>
         <a href="https://wa.me/919818187246?text=Hello%2C%20I%20need%20to%20update%20my%20profile%20details." class="btn-primary btn-sm" target="_blank" rel="noopener" style="display:inline-flex;">💬 Contact RM to Update</a>
@@ -317,12 +368,41 @@ body{background:#EEF2F7;overflow-x:hidden;}
 <script>
 let _sb = null;
 let _user = null;
+let _clientRow = null;
+
+/* Plan tiers not defined in the shared BGX.PLANS catalogue (which
+   only covers the 4 lead-volume plans). Kept local to this file
+   since it's specific to how the client portal presents a
+   Registration-only membership — does not touch js/bgx-data.js. */
+const LOCAL_PLAN_FALLBACK = {
+  registration: {
+    label: 'Registration',
+    features: [
+      'End-to-end business & tax registration support',
+      'PAN, TAN, GST, Udyam, Trade License, DSC & more',
+      'Import-export registrations: IEC, RCMC, APEDA & more',
+      'Dedicated registration specialist',
+      'Application tracked through to approval'
+    ]
+  }
+};
+const PLAN_PILL_CLASS = { starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise', registration:'pp-registration' };
 
 function getSB() {
   if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) {
     _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
   }
   return _sb;
+}
+
+/* RM name/phone/email are packed into clients.notes as free text
+   (same convention admin-portal.html writes when a member is
+   added/edited) — this unpacks them for display here. */
+function parseRM(notes) {
+  notes = notes || '';
+  const rmName  = notes.match(/RM:(.*?)(\s*\|)/)?.[1]?.trim() || '';
+  const rmPhone = notes.match(/RM Phone:(.*?)(\s*\|)/)?.[1]?.trim() || '';
+  return { rmName, rmPhone };
 }
 
 /* ── INIT ── */
@@ -332,120 +412,229 @@ async function initPortal() {
   const { data } = await sb.auth.getSession();
   if (!data.session) { window.location.href = 'login.html'; return; }
   _user = data.session.user;
+  await loadMemberData();
+}
+
+async function loadMemberData() {
+  const sb = getSB();
+  if (!sb) { populateDemo(); populateDemoLeads(); return; }
+  try {
+    /* 1. Fast path: already linked to this Auth account. */
+    let { data, error } = await sb.from('clients').select('*').eq('auth_user_id', _user.id).maybeSingle();
+    if (error) throw error;
+
+    /* 2. First login after admin added this member: match by email
+          (the email admin used when adding them), then self-link
+          so step 1 works directly from the next login onward. */
+    if (!data) {
+      const byEmail = await sb.from('clients').select('*').eq('email', _user.email).maybeSingle();
+      if (byEmail.data) {
+        data = byEmail.data;
+        sb.from('clients').update({ auth_user_id: _user.id }).eq('id', data.id)
+          .then(() => {}).catch(() => {});
+      }
+    }
+
+    if (data) { _clientRow = data; populateProfile(data); populateMember(data); await loadLeads(data.id); }
+    else      { populateProfile(null); populateDemo(); populateDemoLeads(); }
+  } catch (e) {
+    populateProfile(null); populateDemo(); populateDemoLeads();
+  }
+}
+
+function populateProfile(m) {
   const meta = _user.user_metadata || {};
-  const name = meta.full_name || _user.email.split('@')[0];
+  const name = (m && m.name) || meta.full_name || _user.email.split('@')[0];
   const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) || '—';
   document.getElementById('sbUserName').textContent = name;
   document.getElementById('greetName').textContent  = name.split(' ')[0];
   document.getElementById('ptbAvatar').textContent  = initials;
   document.getElementById('profName').textContent   = name;
-  document.getElementById('profEmail').textContent  = _user.email || '—';
-  document.getElementById('profPhone').textContent  = meta.phone || '—';
-  document.getElementById('profBiz').textContent    = meta.business_name || '—';
-  await Promise.all([loadMemberData(), loadLeads()]);
+  document.getElementById('profEmail').textContent  = (m && m.email) || _user.email || '—';
+  document.getElementById('profPhone').textContent  = (m && m.phone) || meta.phone || '—';
+  document.getElementById('profBiz').textContent    = (m && m.business_name) || meta.business_name || '—';
+  document.getElementById('profCity').textContent   = (m && m.city) || '—';
 }
 
-async function loadMemberData() {
-  const sb = getSB(); if (!sb) { populateDemo(); return; }
-  try {
-    const { data } = await sb.from('members').select('*').eq('user_id', _user.id).single();
-    if (data) { populateMember(data); } else { populateDemo(); }
-  } catch(e) { populateDemo(); }
+function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—'; }
+function fmtINR(n) { return '₹' + Number(n||0).toLocaleString('en-IN'); }
+
+function planQuota(planKey) {
+  const p = BGX.PLANS[planKey];
+  if (!p) return null;                       // unknown / Registration → not lead-volume based
+  if (p.indian_leads == null && p.intl_leads == null) return Infinity; // Enterprise
+  return (p.indian_leads||0) + (p.intl_leads||0);
+}
+
+function populateMember(m) {
+  const planKey = (m.plan || 'starter').toLowerCase();
+  const plan = BGX.PLANS[planKey] || LOCAL_PLAN_FALLBACK[planKey];
+  const label = (plan?.label || m.plan || 'Starter') + ' Plan';
+  const pillClass = PLAN_PILL_CLASS[planKey] || 'pp-starter';
+
+  document.getElementById('sbUserPlan').innerHTML = `<span class="plan-pill ${pillClass}" style="padding:2px 9px;font-size:10.5px;">${plan?.label||m.plan||'Starter'}</span>`;
+  document.getElementById('memPlan').innerHTML = `<span class="plan-pill ${pillClass}">${plan?.label||m.plan||'Starter'}</span>`;
+  document.getElementById('mPlan').innerHTML   = `<span class="plan-pill ${pillClass}">${plan?.label||m.plan||'Starter'}</span>`;
+
+  const status = (m.plan_status||'active');
+  const statusMap = { active:'badge-green', pending:'badge-orange', expired:'badge-red', suspended:'badge-red' };
+  [document.getElementById('memStatus'), document.getElementById('mStatus')].forEach(el => {
+    el.textContent = status.charAt(0).toUpperCase()+status.slice(1);
+    el.className = 'badge ' + (statusMap[status]||'badge-green');
+  });
+
+  document.getElementById('memStart').textContent = fmtDate(m.join_date);
+  document.getElementById('memRenew').textContent = fmtDate(m.renewal_date);
+  document.getElementById('mStart').textContent   = fmtDate(m.join_date);
+  document.getElementById('mRenew').textContent   = fmtDate(m.renewal_date);
+
+  const days = m.renewal_date ? Math.max(0, Math.round((new Date(m.renewal_date) - new Date()) / 86400000)) : null;
+  document.getElementById('statDays').textContent = days==null ? '—' : days;
+  if (m.join_date && m.renewal_date) {
+    const total = Math.max(1, Math.round((new Date(m.renewal_date)-new Date(m.join_date))/86400000));
+    const used  = Math.min(total, Math.round((new Date()-new Date(m.join_date))/86400000));
+    document.getElementById('daysUsedLbl').textContent = `${used} / ${total} days`;
+    document.getElementById('daysBar').style.width = `${Math.min(100,(used/total)*100)}%`;
+  }
+
+  /* RM */
+  const rm = parseRM(m.notes);
+  if (rm.rmName) {
+    document.getElementById('rmName').textContent = rm.rmName;
+    document.getElementById('rmAv').textContent = rm.rmName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('rmRole').textContent = 'Your Relationship Manager';
+  }
+  const waLink = rm.rmPhone ? `https://wa.me/${rm.rmPhone.replace(/\D/g,'')}` : 'https://wa.me/919818187246';
+  document.querySelectorAll('.rm-btn-wa').forEach(b => b.href = waLink);
+
+  /* Plan features */
+  const feats = plan?.features || [];
+  document.getElementById('memFeats').innerHTML = feats.length
+    ? feats.map(f => `<div style="display:flex;align-items:flex-start;gap:9px;"><span style="color:#1D7A3A;font-weight:700;flex-shrink:0;">✔</span>${f}</div>`).join('')
+    : '<div style="color:var(--text-light)">Contact your RM for full plan details.</div>';
+
+  /* Billing & GST */
+  document.getElementById('mAmount').textContent = fmtINR(m.amount_charged);
+  if (m.gst_applicable) {
+    const rate = m.gst_rate || 18;
+    document.getElementById('mGstLine').textContent = `With GST (${rate}%)`;
+    const pills = [];
+    if (m.supply_type === 'inter') {
+      pills.push(`<span class="gst-pill">IGST: ${fmtINR(m.igst_amount)}</span>`);
+    } else {
+      pills.push(`<span class="gst-pill">CGST: ${fmtINR(m.cgst_amount)}</span>`);
+      pills.push(`<span class="gst-pill">SGST: ${fmtINR(m.sgst_amount)}</span>`);
+    }
+    pills.push(`<span class="gst-pill">Base: ${fmtINR(m.base_amount)}</span>`);
+    document.getElementById('mGstBreakdown').innerHTML = pills.join('');
+  } else {
+    document.getElementById('mGstLine').textContent = 'Without GST';
+    document.getElementById('mGstBreakdown').innerHTML = '';
+  }
+
+  /* Lead quota stat (shown on Dashboard) — computed from the
+     plan's promised quota, not from leads actually delivered yet;
+     "Leads Received" (below, from loadLeads) carries the real count. */
+  const quota = planQuota(planKey);
+  document.getElementById('statTotal').textContent = quota==null ? '—' : (quota===Infinity ? 'Unlimited' : quota);
+  window._planQuota = quota;
+  refreshLeadDependentStats();
 }
 
 function populateDemo() {
-  const plan = 'Growth Plan';
-  document.getElementById('sbUserPlan').textContent = plan;
-  document.getElementById('memPlan').textContent    = plan;
-  document.getElementById('mPlan').textContent      = plan;
-  const s = 'January 1, 2025', r = 'December 31, 2025';
+  document.getElementById('sbUserPlan').innerHTML = `<span class="plan-pill pp-growth" style="padding:2px 9px;font-size:10.5px;">Growth</span>`;
+  ['memPlan','mPlan'].forEach(id => document.getElementById(id).innerHTML = `<span class="plan-pill pp-growth">Growth</span>`);
+  const s = 'January 1, 2026', r = 'December 31, 2026';
   document.getElementById('memStart').textContent  = s;
   document.getElementById('memRenew').textContent  = r;
   document.getElementById('mStart').textContent    = s;
   document.getElementById('mRenew').textContent    = r;
-  document.getElementById('statTotal').textContent = '25';
-  document.getElementById('statDel').textContent   = '12';
-  document.getElementById('statPend').textContent  = '13';
-  const days = Math.max(0, Math.round((new Date('2025-12-31') - new Date()) / 86400000));
+  const days = Math.max(0, Math.round((new Date('2026-12-31') - new Date()) / 86400000));
   document.getElementById('statDays').textContent  = days;
-  document.getElementById('leadsUsedLbl').textContent = '12 / 25';
-  document.getElementById('leadsBar').style.width  = '48%';
-  document.getElementById('daysUsedLbl').textContent = '135 / 365 days';
-  document.getElementById('daysBar').style.width   = '37%';
+  document.getElementById('daysUsedLbl').textContent = '— / 365 days';
+  document.getElementById('daysBar').style.width   = '0%';
+  document.getElementById('mAmount').textContent   = fmtINR(27000);
+  document.getElementById('mGstLine').textContent  = 'Without GST';
+  window._planQuota = planQuota('growth');
   const feats = BGX.PLANS['growth']?.features || [];
   document.getElementById('memFeats').innerHTML = feats.map(f => `<div style="display:flex;align-items:flex-start;gap:9px;"><span style="color:#1D7A3A;font-weight:700;flex-shrink:0;">✔</span>${f}</div>`).join('');
 }
 
-function populateMember(m) {
-  const planKey = (m.plan || 'growth').toLowerCase();
-  const plan = BGX.PLANS[planKey];
-  const label = (plan?.label || m.plan || 'Growth') + ' Plan';
-  document.getElementById('sbUserPlan').textContent = label;
-  document.getElementById('memPlan').textContent    = label;
-  document.getElementById('mPlan').textContent      = label;
-  const fmt = d => d ? new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—';
-  document.getElementById('memStart').textContent  = fmt(m.start_date);
-  document.getElementById('memRenew').textContent  = fmt(m.renewal_date);
-  document.getElementById('mStart').textContent    = fmt(m.start_date);
-  document.getElementById('mRenew').textContent    = fmt(m.renewal_date);
-  const total = (m.leads_indian||0) + (m.leads_international||0);
-  const del = m.leads_delivered || 0;
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statDel').textContent   = del;
-  document.getElementById('statPend').textContent  = Math.max(0, total - del);
-  const days = Math.max(0, Math.round((new Date(m.renewal_date||Date.now()) - new Date()) / 86400000));
-  document.getElementById('statDays').textContent  = days;
-  document.getElementById('leadsUsedLbl').textContent = `${del} / ${total}`;
-  document.getElementById('leadsBar').style.width  = total ? `${Math.min(100,(del/total)*100)}%` : '0%';
-  if (m.rm_name) { document.getElementById('rmName').textContent = m.rm_name; document.getElementById('rmAv').textContent = m.rm_name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase(); }
-  if (m.rm_role) document.getElementById('rmRole').textContent = m.rm_role;
-  const feats = plan?.features || [];
-  document.getElementById('memFeats').innerHTML = feats.map(f => `<div style="display:flex;align-items:flex-start;gap:9px;"><span style="color:#1D7A3A;font-weight:700;flex-shrink:0;">✔</span>${f}</div>`).join('') || '<div style="color:var(--text-light)">See your plan page for full details.</div>';
-}
-
-async function loadLeads() {
-  const sb = getSB(); if (!sb) { populateDemoLeads(); return; }
-  try {
-    const { data } = await sb.from('leads').select('*').eq('member_id', _user.id).order('created_at',{ascending:false}).limit(20);
-    if (data && data.length) { renderLeads(data); } else { populateDemoLeads(); }
-  } catch(e) { populateDemoLeads(); }
+function refreshLeadDependentStats() {
+  const quota = window._planQuota;
+  const received = window._leadsReceived || 0;
+  document.getElementById('statDel').textContent = received;
+  if (quota == null) { document.getElementById('statPend').textContent = '—'; return; }
+  if (quota === Infinity) { document.getElementById('statPend').textContent = 'Unlimited'; }
+  else { document.getElementById('statPend').textContent = Math.max(0, quota - received); }
+  document.getElementById('leadsUsedLbl').textContent = quota===Infinity ? `${received} / Unlimited` : `${received} / ${quota}`;
+  document.getElementById('leadsBar').style.width = (quota===Infinity||!quota) ? '0%' : `${Math.min(100,(received/quota)*100)}%`;
 }
 
 function statusBadge(s) {
-  const map = { new:'badge-green', hot:'badge-orange', verified:'badge-blue', delivered:'badge-blue', responded:'badge-green', closed:'badge-navy' };
+  const map = { new:'badge-green', hot:'badge-orange', verified:'badge-blue', delivered:'badge-blue', assigned:'badge-blue', responded:'badge-green', closed:'badge-navy' };
   return `<span class="badge ${map[s]||'badge-green'}">${s||'new'}</span>`;
 }
 
+/* ── LEADS — read from lead_assignments (the real link between a
+   member and the buy_leads admin assigned them), not a guess. ── */
+async function loadLeads(clientId) {
+  const sb = getSB();
+  if (!sb) { renderLeads([]); return; }
+  try {
+    const { data, error } = await sb
+      .from('lead_assignments')
+      .select('assigned_at, is_visible, buy_leads(*)')
+      .eq('client_id', clientId)
+      .eq('is_visible', true)
+      .order('assigned_at', { ascending:false })
+      .limit(50);
+    if (error) throw error;
+    const leads = (data||[])
+      .filter(r => r.buy_leads)
+      .map(r => ({ ...r.buy_leads, assigned_at: r.assigned_at }));
+    renderLeads(leads);
+  } catch (e) {
+    renderLeads([]);
+  }
+}
+
 function renderLeads(leads) {
+  window._leadsReceived = leads.length;
   document.getElementById('leadsBadge').textContent = leads.length;
-  document.getElementById('leadsTableBody').innerHTML = leads.map((l,i) => `
+  refreshLeadDependentStats();
+
+  document.getElementById('leadsTableBody').innerHTML = leads.length ? leads.map((l,i) => `
     <div class="lt-row">
-      <span class="lt-num">${String(i+1).padStart(2,'0')}</span>
-      <span class="lt-country">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
-      <span class="lt-product">${l.product||'—'}</span>
-      <span class="lt-qty">${l.quantity||'—'}</span>
-      <span class="lt-date">${l.created_at ? new Date(l.created_at).toLocaleDateString('en-IN') : '—'}</span>
-      <span>${statusBadge(l.status)}</span>
-    </div>`).join('');
-  document.getElementById('recentLeads').innerHTML = leads.slice(0,4).map(l => `
+      <span class="lt-num" data-label="#">${String(i+1).padStart(2,'0')}</span>
+      <span class="lt-country" data-label="Country">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
+      <span class="lt-product" data-label="Product">${l.product||'—'}</span>
+      <span class="lt-qty" data-label="Quantity">${l.quantity||'—'}</span>
+      <span class="lt-date" data-label="Delivered">${l.assigned_at ? new Date(l.assigned_at).toLocaleDateString('en-IN') : '—'}</span>
+      <span data-label="Status">${statusBadge(l.quality)}</span>
+    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div>`;
+
+  document.getElementById('recentLeads').innerHTML = leads.length ? leads.slice(0,4).map(l => `
     <div class="lead-item">
       <span class="li-flag">${BGX.FLAGS[l.country]||'🌍'}</span>
       <div class="li-info"><div class="li-country">${l.country} — ${l.product}</div><div class="li-product">${l.quantity||''}</div></div>
-      ${statusBadge(l.status)}
-    </div>`).join('');
+      ${statusBadge(l.quality)}
+    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads yet. Your RM will deliver leads shortly after onboarding.</p></div>`;
 }
 
 function populateDemoLeads() {
-  const leads = BGX.SAMPLE_LEADS.slice(0,6);
+  const leads = (BGX.SAMPLE_LEADS||[]).slice(0,6);
+  window._leadsReceived = leads.length;
   document.getElementById('leadsBadge').textContent = leads.length;
+  refreshLeadDependentStats();
   document.getElementById('leadsTableBody').innerHTML = leads.map((l,i) => `
     <div class="lt-row">
-      <span class="lt-num">${String(i+1).padStart(2,'0')}</span>
-      <span class="lt-country">${l.flag} ${l.country}</span>
-      <span class="lt-product">${l.product}</span>
-      <span class="lt-qty">${l.qty}</span>
-      <span class="lt-date">Sample</span>
-      <span>${statusBadge(l.status)}</span>
+      <span class="lt-num" data-label="#">${String(i+1).padStart(2,'0')}</span>
+      <span class="lt-country" data-label="Country">${l.flag} ${l.country}</span>
+      <span class="lt-product" data-label="Product">${l.product}</span>
+      <span class="lt-qty" data-label="Quantity">${l.qty}</span>
+      <span class="lt-date" data-label="Delivered">Sample</span>
+      <span data-label="Status">${statusBadge(l.status)}</span>
     </div>`).join('');
   document.getElementById('recentLeads').innerHTML = leads.slice(0,4).map(l => `
     <div class="lead-item">
@@ -465,11 +654,12 @@ function showPanel(name, el) {
   const titles = { dashboard:'Dashboard', leads:'My Leads', reports:'Reports', membership:'My Membership', profile:'Profile' };
   document.getElementById('topbarTitle').textContent = titles[name] || name;
   closeSidebar();
+  document.querySelector('.portal-body').scrollIntoView({behavior:'instant',block:'start'});
 }
 
-/* Sidebar mobile */
-function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sbOverlay').classList.add('open'); }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sbOverlay').classList.remove('open'); }
+/* Sidebar drawer (tablet + mobile) */
+function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sbOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sbOverlay').classList.remove('open'); document.body.style.overflow=''; }
 
 /* Sign out */
 async function doSignOut() {
