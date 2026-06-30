@@ -117,8 +117,8 @@ body{background:#EEF2F7;overflow-x:hidden;}
 .leads-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
 .leads-toolbar{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:12px;}
 .lt-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
-.lt-head{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr 1.2fr 1fr;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
-.lt-row{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr 1.2fr 1fr;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;transition:background 0.2s;}
+.lt-head{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
+.lt-row{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;transition:background 0.2s;}
 .lt-row:last-child{border-bottom:none;}
 .lt-row:hover{background:var(--sky);}
 .lt-num{font-weight:600;color:var(--text-light);}
@@ -290,7 +290,7 @@ body{background:#EEF2F7;overflow-x:hidden;}
       </div>
       <div class="leads-table-wrap">
         <div class="leads-toolbar"><span class="lt-title">All Delivered Leads</span></div>
-        <div class="lt-head"><span>#</span><span>Country</span><span>Product</span><span>Quantity</span><span>Delivered</span><span>Status</span></div>
+        <div class="lt-head"><span>#</span><span>Country</span><span>Product</span><span>Quantity</span></div>
         <div id="leadsTableBody"><div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div></div>
       </div>
     </div>
@@ -610,8 +610,6 @@ function renderLeads(leads) {
       <span class="lt-country" data-label="Country">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
       <span class="lt-product" data-label="Product">${l.product||'—'}</span>
       <span class="lt-qty" data-label="Quantity">${l.quantity||'—'}</span>
-      <span class="lt-date" data-label="Delivered">${l.assigned_at ? new Date(l.assigned_at).toLocaleDateString('en-IN') : '—'}</span>
-      <span data-label="Status">${statusBadge(l.quality)}</span>
     </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div>`;
 
   document.getElementById('recentLeads').innerHTML = leads.length ? leads.slice(0,4).map(l => `
@@ -633,8 +631,6 @@ function populateDemoLeads() {
       <span class="lt-country" data-label="Country">${l.flag} ${l.country}</span>
       <span class="lt-product" data-label="Product">${l.product}</span>
       <span class="lt-qty" data-label="Quantity">${l.qty}</span>
-      <span class="lt-date" data-label="Delivered">Sample</span>
-      <span data-label="Status">${statusBadge(l.status)}</span>
     </div>`).join('');
   document.getElementById('recentLeads').innerHTML = leads.slice(0,4).map(l => `
     <div class="lead-item">
