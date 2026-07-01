@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buy Lead Search — Taxonomy Manager | BuyGenix Solutions</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<style>
+body{background:#EEF2F7;}
+.lsa-topbar{background:var(--navy);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;}
+.lsa-brand{display:flex;align-items:center;gap:12px;}
+.lsa-brand img{height:34px;}
+.lsa-brand-text{color:white;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;}
+.lsa-brand-text span{display:block;font-size:10px;font-weight:500;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase;}
+.lsa-back{color:rgba(255,255,255,0.65);font-size:13px;font-family:'Space Grotesk',sans-serif;text-decoration:none;}
+.lsa-back:hover{color:white;}
+
+.lsa-wrap{max-width:1100px;margin:0 auto;padding:32px 24px 70px;}
+.lsa-gate{max-width:380px;margin:80px auto;background:white;border-radius:var(--r-xl);padding:36px;box-shadow:var(--shadow-mid);text-align:center;}
+.lsa-gate h2{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--navy);margin-bottom:10px;}
+.lsa-gate p{font-size:13.5px;color:var(--text-mid);margin-bottom:20px;line-height:1.6;}
+
+.lsa-tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;}
+.lsa-tab{padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--border-soft);background:white;color:var(--text-body);font-family:'Space Grotesk',sans-serif;transition:all .2s;}
+.lsa-tab:hover{border-color:var(--blue);}
+.lsa-tab.active{background:var(--blue);border-color:var(--blue);color:white;}
+.lsa-panel{display:none;}
+.lsa-panel.active{display:block;}
+
+.lsa-card{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:24px;box-shadow:var(--shadow-soft);margin-bottom:18px;}
+.lsa-card h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px;font-family:'Space Grotesk',sans-serif;}
+.lsa-form-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;}
+.lsa-form-row .form-control{flex:1;min-width:180px;}
+.lsa-add-btn{background:var(--blue);color:white;border:none;border-radius:var(--r-md);padding:0 20px;height:42px;font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;flex-shrink:0;}
+.lsa-add-btn:hover{background:var(--blue-mid);}
+
+.lsa-list{display:flex;flex-direction:column;gap:0;}
+.lsa-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--border-soft);}
+.lsa-row:last-child{border-bottom:none;}
+.lsa-row-name{flex:1;font-size:13.5px;font-weight:600;color:var(--navy);}
+.lsa-row-sub{font-size:11.5px;color:var(--text-light);}
+.lsa-row-del{background:none;border:none;color:#DC2626;cursor:pointer;font-size:13px;padding:4px 8px;}
+.lsa-chip{display:inline-flex;align-items:center;gap:6px;background:var(--sky);border-radius:100px;padding:5px 6px 5px 12px;font-size:12px;color:var(--text-mid);font-weight:600;font-family:'Space Grotesk',sans-serif;margin:3px 4px 3px 0;}
+.lsa-chip button{background:none;border:none;color:#DC2626;cursor:pointer;font-size:13px;padding:2px 6px;}
+.lsa-empty{color:var(--text-light);font-size:13px;padding:14px 4px;}
+.lsa-product-block{border:1px solid var(--border-soft);border-radius:var(--r-md);padding:14px 16px;margin-bottom:10px;}
+.lsa-product-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:6px;}
+.lsa-syn-add{display:flex;gap:8px;margin-top:8px;}
+.lsa-syn-add input{flex:1;}
+.lsa-syn-add button{flex-shrink:0;background:var(--gold);color:white;border:none;border-radius:8px;padding:0 14px;font-size:12px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="lsa-topbar">
+  <div class="lsa-brand">
+    <img src="assets/logo-new.png" alt="BuyGenix">
+    <div class="lsa-brand-text">Buy Lead Search<span>Taxonomy Manager</span></div>
+  </div>
+  <a href="/admin" class="lsa-back">← Back to Admin CRM</a>
+</div>
+
+<div id="gateWrap">
+  <div class="lsa-gate">
+    <h2>🔒 Admin Access</h2>
+    <p>This page manages product categories and search synonyms for Buy Lead Search. Sign in with your admin account to continue.</p>
+    <a href="/admin" class="btn-primary btn-sm" style="display:inline-flex;">Sign In via Admin CRM →</a>
+  </div>
+</div>
+
+<div class="lsa-wrap" id="appWrap" style="display:none;">
+
+  <div class="lsa-tabs">
+    <div class="lsa-tab active" onclick="switchTab('categories',this)">📁 Categories</div>
+    <div class="lsa-tab" onclick="switchTab('subcategories',this)">📂 Sub-Categories</div>
+    <div class="lsa-tab" onclick="switchTab('products',this)">📦 Products &amp; Synonyms</div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="lsa-panel active" id="tab-categories">
+    <div class="lsa-card">
+      <h3>+ Add Category</h3>
+      <div class="lsa-form-row">
+        <input class="form-control" id="catName" placeholder="e.g. Vegetables, Textiles, Spices">
+        <button class="lsa-add-btn" onclick="addCategory()">Add Category</button>
+      </div>
+    </div>
+    <div class="lsa-card">
+      <h3>All Categories</h3>
+      <div class="lsa-list" id="catList"><div class="lsa-empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- SUBCATEGORIES -->
+  <div class="lsa-panel" id="tab-subcategories">
+    <div class="lsa-card">
+      <h3>+ Add Sub-Category</h3>
+      <div class="lsa-form-row">
+        <select class="form-control" id="subCatParent"><option value="">-- Select Category --</option></select>
+        <input class="form-control" id="subCatName" placeholder="e.g. Root Vegetables, Cotton Fabric">
+        <button class="lsa-add-btn" onclick="addSubcategory()">Add</button>
+      </div>
+    </div>
+    <div class="lsa-card">
+      <h3>All Sub-Categories</h3>
+      <div class="lsa-list" id="subCatList"><div class="lsa-empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS + SYNONYMS -->
+  <div class="lsa-panel" id="tab-products">
+    <div class="lsa-card">
+      <h3>+ Add Product</h3>
+      <div class="lsa-form-row">
+        <select class="form-control" id="prodCat" onchange="populateSubcatOptions()"><option value="">-- Category --</option></select>
+        <select class="form-control" id="prodSubcat"><option value="">-- Sub-Category (optional) --</option></select>
+      </div>
+      <div class="lsa-form-row">
+        <input class="form-control" id="prodName" placeholder="Product name, e.g. Onion">
+        <input class="form-control" id="prodSynonyms" placeholder="Synonyms, comma-separated — e.g. Pyaz, Pyaaz, Pyazz, Baby Onion">
+        <button class="lsa-add-btn" onclick="addProduct()">Add Product</button>
+      </div>
+      <p style="font-size:12px;color:var(--text-light);">Tip: add every common spelling, regional name, and likely typo as a synonym — that's what makes search find this product no matter how a buyer or visitor types it.</p>
+    </div>
+    <div class="lsa-card">
+      <h3>All Products</h3>
+      <div class="lsa-list" id="prodList"><div class="lsa-empty">Loading…</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/shared.js" defer></script>
+<script>
+const ADMIN_EMAILS = ['buygenixsolutions@gmail.com', 'prabhakarmta0910@gmail.com'];
+let _sb = null, _cats = [], _subcats = [], _prods = [], _syns = [];
+
+function getSB() {
+  if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
+  return _sb;
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.lsa-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.lsa-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+async function loadAll() {
+  const sb = getSB();
+  const [c, s, p, sy] = await Promise.all([
+    sb.from('lead_categories').select('*').order('name'),
+    sb.from('lead_subcategories').select('*').order('name'),
+    sb.from('lead_products').select('*').order('product_name'),
+    sb.from('lead_product_synonyms').select('*')
+  ]);
+  _cats = c.data || []; _subcats = s.data || []; _prods = p.data || []; _syns = sy.data || [];
+  renderCategories(); renderSubcategories(); renderProducts(); populateDropdowns();
+}
+
+function populateDropdowns() {
+  const opts = _cats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+  document.getElementById('subCatParent').innerHTML = '<option value="">-- Select Category --</option>' + opts;
+  document.getElementById('prodCat').innerHTML = '<option value="">-- Category --</option>' + opts;
+}
+
+function populateSubcatOptions() {
+  const catId = document.getElementById('prodCat').value;
+  const subs = _subcats.filter(s => s.category_id === catId);
+  document.getElementById('prodSubcat').innerHTML = '<option value="">-- Sub-Category (optional) --</option>' + subs.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+}
+
+/* CATEGORIES */
+function renderCategories() {
+  document.getElementById('catList').innerHTML = _cats.length ? _cats.map(c => `
+    <div class="lsa-row">
+      <span class="lsa-row-name">${c.name}</span>
+      <span class="lsa-row-sub">${_subcats.filter(s=>s.category_id===c.id).length} sub-categories · ${_prods.filter(p=>p.category_id===c.id).length} products</span>
+      <button class="lsa-row-del" onclick="deleteCategory('${c.id}')">🗑 Delete</button>
+    </div>`).join('') : '<div class="lsa-empty">No categories yet — add one above.</div>';
+}
+async function addCategory() {
+  const name = document.getElementById('catName').value.trim();
+  if (!name) { BGX_Toast('Enter a category name.','error'); return; }
+  const sb = getSB();
+  const { error } = await sb.from('lead_categories').insert([{ name }]);
+  if (error) { BGX_Toast('Error: '+error.message,'error'); return; }
+  document.getElementById('catName').value = '';
+  BGX_Toast('Category added!','success');
+  loadAll();
+}
+async function deleteCategory(id) {
+  if (!confirm('Delete this category? Its sub-categories and products will also lose this category link.')) return;
+  const sb = getSB();
+  await sb.from('lead_categories').delete().eq('id', id);
+  BGX_Toast('Category deleted.','info');
+  loadAll();
+}
+
+/* SUBCATEGORIES */
+function renderSubcategories() {
+  document.getElementById('subCatList').innerHTML = _subcats.length ? _subcats.map(s => {
+    const catName = _cats.find(c=>c.id===s.category_id)?.name || '—';
+    return `<div class="lsa-row">
+      <span class="lsa-row-name">${s.name}</span>
+      <span class="lsa-row-sub">in ${catName}</span>
+      <button class="lsa-row-del" onclick="deleteSubcategory('${s.id}')">🗑 Delete</button>
+    </div>`;
+  }).join('') : '<div class="lsa-empty">No sub-categories yet.</div>';
+}
+async function addSubcategory() {
+  const category_id = document.getElementById('subCatParent').value;
+  const name = document.getElementById('subCatName').value.trim();
+  if (!category_id || !name) { BGX_Toast('Select a category and enter a name.','error'); return; }
+  const sb = getSB();
+  const { error } = await sb.from('lead_subcategories').insert([{ category_id, name }]);
+  if (error) { BGX_Toast('Error: '+error.message,'error'); return; }
+  document.getElementById('subCatName').value = '';
+  BGX_Toast('Sub-category added!','success');
+  loadAll();
+}
+async function deleteSubcategory(id) {
+  if (!confirm('Delete this sub-category?')) return;
+  const sb = getSB();
+  await sb.from('lead_subcategories').delete().eq('id', id);
+  BGX_Toast('Sub-category deleted.','info');
+  loadAll();
+}
+
+/* PRODUCTS + SYNONYMS */
+function renderProducts() {
+  document.getElementById('prodList').innerHTML = _prods.length ? _prods.map(p => {
+    const catName = _cats.find(c=>c.id===p.category_id)?.name || '—';
+    const subName = _subcats.find(s=>s.id===p.subcategory_id)?.name;
+    const mySyns = _syns.filter(s => s.product_id === p.id);
+    return `
+    <div class="lsa-product-block">
+      <div class="lsa-product-head">
+        <div><strong style="font-size:14px;color:var(--navy);">${p.product_name}</strong><div class="lsa-row-sub">${catName}${subName?' / '+subName:''}</div></div>
+        <button class="lsa-row-del" onclick="deleteProduct('${p.id}')">🗑 Delete Product</button>
+      </div>
+      <div>${mySyns.length ? mySyns.map(s => `<span class="lsa-chip">${s.synonym}<button onclick="deleteSynonym('${s.id}')">✕</button></span>`).join('') : '<span class="lsa-row-sub">No synonyms yet.</span>'}</div>
+      <div class="lsa-syn-add">
+        <input class="form-control" placeholder="Add another synonym…" id="syn-input-${p.id}" onkeydown="if(event.key==='Enter')addSynonym('${p.id}')">
+        <button onclick="addSynonym('${p.id}')">+ Add</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="lsa-empty">No products yet — add one above.</div>';
+}
+async function addProduct() {
+  const category_id = document.getElementById('prodCat').value || null;
+  const subcategory_id = document.getElementById('prodSubcat').value || null;
+  const product_name = document.getElementById('prodName').value.trim();
+  const synRaw = document.getElementById('prodSynonyms').value.trim();
+  if (!product_name) { BGX_Toast('Enter a product name.','error'); return; }
+  const sb = getSB();
+  const { data, error } = await sb.from('lead_products').insert([{ category_id, subcategory_id, product_name }]).select().single();
+  if (error) { BGX_Toast('Error: '+error.message,'error'); return; }
+  if (synRaw) {
+    const syns = synRaw.split(',').map(s=>s.trim()).filter(Boolean).map(synonym => ({ product_id: data.id, synonym }));
+    if (syns.length) await sb.from('lead_product_synonyms').insert(syns);
+  }
+  document.getElementById('prodName').value = '';
+  document.getElementById('prodSynonyms').value = '';
+  BGX_Toast('Product added!','success');
+  loadAll();
+}
+async function deleteProduct(id) {
+  if (!confirm('Delete this product and all its synonyms?')) return;
+  const sb = getSB();
+  await sb.from('lead_products').delete().eq('id', id);
+  BGX_Toast('Product deleted.','info');
+  loadAll();
+}
+async function addSynonym(productId) {
+  const input = document.getElementById('syn-input-'+productId);
+  const synonym = input.value.trim();
+  if (!synonym) return;
+  const sb = getSB();
+  const { error } = await sb.from('lead_product_synonyms').insert([{ product_id: productId, synonym }]);
+  if (error) { BGX_Toast('Error: '+error.message,'error'); return; }
+  input.value = '';
+  loadAll();
+}
+async function deleteSynonym(id) {
+  const sb = getSB();
+  await sb.from('lead_product_synonyms').delete().eq('id', id);
+  loadAll();
+}
+
+/* AUTH GATE */
+(async function init() {
+  const sb = getSB();
+  if (!sb) return;
+  try {
+    const { data } = await sb.auth.getSession();
+    const email = data?.session?.user?.email;
+    if (email && ADMIN_EMAILS.includes(email)) {
+      document.getElementById('gateWrap').style.display = 'none';
+      document.getElementById('appWrap').style.display = 'block';
+      loadAll();
+    }
+  } catch (e) { /* not signed in — gate stays visible */ }
+})();
+</script>
+</body>
+</html>
