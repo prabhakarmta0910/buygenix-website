@@ -85,6 +85,35 @@ function getSB() {
       dropMenu.classList.remove('open');
     });
   }
+
+  /* ── Search button — was previously decorative (no click
+     behavior at all). This only ADDS behavior to the existing
+     button; nothing about its appearance, position, or markup
+     changes. When "Buy & Leads" is the selected category, it
+     routes to the new Buy Lead Search results page. The other two
+     categories (Products/Services, Companies) are left exactly as
+     they were — no new behavior added for those, since only Buy
+     Lead Search was requested. */
+  function wireSearchSubmit(inputId, labelId, dropdownEl) {
+    const input = document.getElementById(inputId);
+    const label = document.getElementById(labelId);
+    if (!input || !dropdownEl) return;
+    const btn = dropdownEl.querySelector('.nav-search-btn');
+    function submit() {
+      const category = label ? label.textContent.trim() : '';
+      const term = input.value.trim();
+      if (category === 'Buy & Leads') {
+        window.location.href = 'buy-lead-search.html' + (term ? '?q=' + encodeURIComponent(term) : '');
+      }
+      /* Products/Services and Companies: unchanged — still no-op,
+         exactly matching this button's behavior before this edit. */
+    }
+    if (btn) btn.addEventListener('click', submit);
+    input.addEventListener('keydown', function(e) { if (e.key === 'Enter') submit(); });
+  }
+  wireSearchSubmit('navSearchInput', 'navSearchLabel', dropMenu ? dropMenu.closest('.nav-search') : document.querySelector('.nav-search'));
+  const dropMenu2 = document.getElementById('navSearchMenu2');
+  if (dropMenu2) wireSearchSubmit('navSearchInput2', 'navSearchLabel2', dropMenu2.closest('.nav-search'));
 })();
 
 /* ── SCROLL REVEAL ── */
