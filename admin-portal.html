@@ -259,6 +259,7 @@ body{background:#EEF2F7;}
             </div>
             <div style="display:flex;gap:8px;">
               <button class="btn-refresh" onclick="loadLeads()">↻ Refresh</button>
+              <button class="btn-refresh" onclick="openBulkUpload()" style="background:#10B981;color:white;border-color:#10B981;">📤 Bulk Upload</button>
               <button class="btn-add-row" onclick="openAddLead()">+ Add Lead</button>
             </div>
           </div>
@@ -1782,7 +1783,11 @@ let _prPollTimer = null;
 async function loadPostReq() {
   const sb = getSB();
   try {
-    const { data } = await sb.from('enquiries').select('*').eq('interest','leads').order('created_at',{ascending:false}).limit(200);
+    const { data } = await sb.from('enquiries').select('*')
+      .eq('interest','leads')
+      .neq('status','approved')
+      .neq('status','converted')
+      .order('created_at',{ascending:false}).limit(200);
     allPostReq = data && data.length ? data : [];
   } catch(e){ allPostReq = []; }
   const newCount = allPostReq.filter(e=>!e.status||e.status==='new').length;
@@ -1911,9 +1916,89 @@ async function updatePRStatus(id, newStatus) {
       allLeads.unshift({...leadPayload,id:Date.now()});
       document.getElementById('sbLeadCnt').textContent = allLeads.length;
       renderLeads(allLeads); buildDashboard();
+
+      /* Remove from Enquiries panel — it's now in Buy Leads,
+         no need to see it in both places. Status 'converted'
+         is filtered out by loadPostReq on next load. */
+      try { await sb.from('enquiries').update({status:'converted'}).eq('id',id); } catch(e){}
+      allPostReq = allPostReq.filter(e => String(e.id) !== String(id));
+      document.getElementById('sbPostCnt').textContent = allPostReq.filter(e=>!e.status||e.status==='new').length || allPostReq.length;
+      renderPostReq(allPostReq);
       BGX_Toast('✅ Moved to Buy Leads!','success');
     }
   }
+}
+
+function openBulkUpload() {
+  openModal(`<h3>📤 Bulk Upload Buy Leads</h3>
+    <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;">Upload a CSV file to add multiple buy leads at once. Download the template below to get the correct column format.</p>
+    <div style="background:var(--sky);border-radius:var(--r-md);padding:12px 14px;margin-bottom:14px;font-size:12.5px;color:var(--text-mid);">
+      <strong style="color:var(--navy);">Required columns:</strong> company, country, product<br>
+      <strong style="color:var(--navy);">Optional columns:</strong> quantity, quality, phone, email, notes
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+      <button class="btn-outline btn-sm" onclick="downloadCSVTemplate()">⬇ Download Template</button>
+    </div>
+    <div class="form-group">
+      <label>Upload CSV File *</label>
+      <input type="file" class="form-control" id="bulkCSVFile" accept=".csv">
+    </div>
+    <div id="bulkPreview" style="margin-top:10px;font-size:12.5px;color:var(--text-mid);"></div>
+    <div class="modal-footer">
+      <button class="btn-outline btn-sm" onclick="closeModal()">Cancel</button>
+      <button class="btn-add-row" onclick="processBulkUpload()">Upload Leads</button>
+    </div>`);
+}
+
+function downloadCSVTemplate() {
+  const headers = 'company,country,product,quantity,quality,phone,email,notes';
+  const example = 'Al Falah Trading LLC,UAE,Organic Turmeric,5 MT/month,hot,+971501234567,buyer@company.com,Looking for premium organic turmeric';
+  const blob = new Blob([headers + '\n' + example], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'buy-leads-template.csv';
+  a.click();
+}
+
+async function processBulkUpload() {
+  const file = document.getElementById('bulkCSVFile')?.files?.[0];
+  if (!file) { BGX_Toast('Please select a CSV file.','error'); return; }
+  const preview = document.getElementById('bulkPreview');
+  preview.textContent = 'Processing…';
+  const text = await file.text();
+  const lines = text.trim().split('\n').filter(Boolean);
+  if (lines.length < 2) { BGX_Toast('CSV must have a header row and at least one data row.','error'); preview.textContent=''; return; }
+  const headers = lines[0].split(',').map(h=>h.trim().toLowerCase().replace(/"/g,''));
+  const idxOf = k => headers.indexOf(k);
+  const rows = lines.slice(1).map(line => {
+    const cols = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|(?<=,)$|^(?=,))/g)?.map(c=>c.replace(/^"|"$/g,'').trim()) || line.split(',').map(c=>c.trim());
+    return {
+      company: cols[idxOf('company')] || 'Unknown',
+      country: cols[idxOf('country')] || 'India',
+      product: cols[idxOf('product')] || '',
+      quantity: cols[idxOf('quantity')] || '',
+      quality:  cols[idxOf('quality')]  || 'new',
+      phone:    cols[idxOf('phone')]    || '',
+      email:    cols[idxOf('email')]    || '',
+      notes:    cols[idxOf('notes')]    || '',
+      status:   'unassigned',
+      source:   'bulk_upload'
+    };
+  }).filter(r => r.product);
+  if (!rows.length) { BGX_Toast('No valid rows found (product column is required).','error'); preview.textContent=''; return; }
+  preview.textContent = `Found ${rows.length} valid rows. Uploading…`;
+  const sb = getSB();
+  let ok = 0, fail = 0;
+  const BATCH = 50;
+  for (let i = 0; i < rows.length; i += BATCH) {
+    try {
+      const { error } = await sb.from('buy_leads').insert(rows.slice(i, i+BATCH));
+      if (error) { fail += Math.min(BATCH, rows.length-i); }
+      else { ok += Math.min(BATCH, rows.length-i); }
+    } catch(e) { fail += Math.min(BATCH, rows.length-i); }
+  }
+  preview.innerHTML = `<strong style="color:#1D7A3A;">✅ ${ok} leads uploaded</strong>${fail?` &nbsp;|&nbsp; <span style="color:#DC2626;">⚠ ${fail} failed</span>`:''}`;
+  if (ok > 0) { await loadLeads(); buildDashboard(); BGX_Toast(`✅ ${ok} leads uploaded successfully!`,'success'); }
 }
 
 async function deletePR(id) {

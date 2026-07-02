@@ -27,24 +27,28 @@
 .bls-banner-text strong{color:var(--navy);}
 .bls-banner a{flex-shrink:0;}
 
-/* Result card */
-.lead-card{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:26px 28px;box-shadow:var(--shadow-soft);margin-bottom:18px;transition:box-shadow .25s;}
-.lead-card:hover{box-shadow:var(--shadow-mid);}
-.lc-title{display:flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-.lc-verified{color:#1D7A3A;font-size:16px;}
-.lc-meta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--text-light);margin-bottom:14px;font-family:'Space Grotesk',sans-serif;}
-.lc-meta span{display:flex;align-items:center;gap:5px;}
-.lc-desc{font-size:13.5px;color:var(--text-body);line-height:1.65;margin-bottom:16px;}
-.lc-details{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin-bottom:18px;}
-.lc-row{display:flex;font-size:13px;gap:8px;}
-.lc-key{color:var(--text-light);min-width:88px;flex-shrink:0;}
-.lc-val{color:var(--navy);font-weight:700;}
-.lc-val.locked{color:var(--text-light);font-weight:500;font-style:italic;}
-.lc-divider{height:1px;background:var(--border-soft);margin-bottom:16px;}
-.lc-btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;border:none;border-radius:var(--r-md);padding:11px 22px;font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;text-decoration:none;transition:background .2s;}
-.lc-btn:hover{background:var(--blue-mid);}
-.lc-btn.locked{background:var(--sky-mid);color:var(--text-mid);}
-.lc-btn.locked:hover{background:var(--sky-mid);}
+/* ── Lead Card (matches Image 1 exactly) ── */
+.lead-card{background:#ffffff;border:1px solid #e8edf3;border-radius:12px;padding:22px 26px;box-shadow:0 2px 10px rgba(11,25,41,0.07);margin-bottom:16px;transition:box-shadow .2s;}
+.lead-card:hover{box-shadow:0 4px 18px rgba(11,25,41,0.11);}
+.lc-title{font-size:19px;font-weight:700;color:#1a2b4a;display:flex;align-items:center;gap:8px;margin-bottom:5px;font-family:'Plus Jakarta Sans',sans-serif;}
+.lc-verified{color:#1D7A3A;font-size:17px;}
+.lc-meta{display:flex;align-items:center;gap:16px;font-size:12.5px;color:#6b7a8d;margin-bottom:11px;flex-wrap:wrap;}
+.lc-meta span{display:flex;align-items:center;gap:4px;}
+.lc-desc{font-size:13.5px;color:#374151;line-height:1.55;margin-bottom:14px;}
+.lc-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 20px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #f0f4f8;}
+.lc-field{display:flex;align-items:flex-start;gap:0;font-size:13px;}
+.lc-key{color:#6b7a8d;min-width:130px;flex-shrink:0;}
+.lc-sep{color:#9ca3af;flex-shrink:0;margin-right:4px;}
+.lc-val{color:#1a2b4a;font-weight:600;}
+.lc-val.masked{color:#6b7a8d;font-weight:400;}
+.lc-extra{display:flex;flex-direction:column;gap:5px;margin-bottom:14px;}
+.lc-extra-row{display:flex;align-items:flex-start;gap:0;font-size:12.5px;color:#374151;}
+.lc-extra-key{color:#6b7a8d;min-width:88px;flex-shrink:0;}
+.lc-footer{display:flex;justify-content:flex-end;margin-top:4px;}
+.lc-btn{background:#1D5FA8;color:white;border:none;border-radius:8px;padding:10px 26px;font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:background .2s;}
+.lc-btn:hover{background:#164e8f;}
+.lc-btn.locked{background:#64748b;}
+.lc-btn.locked:hover{background:#475569;}
 
 .bls-empty{text-align:center;padding:64px 24px;}
 .bls-empty-icon{font-size:48px;margin-bottom:14px;}
@@ -52,9 +56,9 @@
 .bls-empty p{font-size:13.5px;color:var(--text-mid);max-width:420px;margin:0 auto;line-height:1.6;}
 .bls-loading{text-align:center;padding:64px 24px;color:var(--text-light);font-size:13.5px;}
 
-@media(max-width:560px){
-  .lc-details{grid-template-columns:1fr;}
-  .lead-card{padding:20px;}
+@media(max-width:640px){
+  .lc-grid{grid-template-columns:1fr;}
+  .lead-card{padding:18px;}
   .bls-banner{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -87,14 +91,15 @@
 <div class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About Us</a><a href="registration.html">Registration</a><a href="contact.html">Contact</a><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a><a href="membership.html" class="m-cta">Membership Plans →</a><a href="login.html" class="m-cta m-cta-gold">Client Login →</a></div>
 
 <div class="bls-wrap">
+<div id="blsHeaderWrap">
   <div class="bls-head">
     <div class="bls-eyebrow">🔍 Buy Lead Search</div>
     <h1>Find Real Buyers <em>Looking For Your Product</em></h1>
     <p>Search by product name, category, or however you'd naturally spell it — we match common synonyms and typos automatically.</p>
   </div>
-
   <div id="blsBanner"></div>
-  <div id="blsCount" class="bls-count"></div>
+</div>
+<div id="blsCount" class="bls-count"></div>
   <div id="blsResults"><div class="bls-loading">Searching…</div></div>
 </div>
 
@@ -134,31 +139,43 @@ function renderBanner() {
 }
 
 function cardHTML(l) {
-  const desc = l.is_unlocked && l.notes
-    ? l.notes
-    : `I am interested in buying ${l.product || 'this product'}${l.quantity ? ' — ' + l.quantity : ''}.`;
-  const buyerName = l.is_unlocked ? (l.contact_name || l.company || '—') : null;
-  const phone = l.is_unlocked ? (l.phone || '—') : null;
+  const product = l.product || 'Product';
+  const location = l.country || '—';
+  const date = fmtDate(l.created_at);
+  const desc = `I am interested in buying ${product}.`;
+
+  const buyerName     = l.is_unlocked ? (l.contact_name || l.company || '—') : '**********';
+  const rawPhone      = l.is_unlocked ? (l.phone || '—') : null;
+  const phoneDisplay  = l.is_unlocked ? (l.phone || '—') : maskPhone(l.phone || '+910000000000');
+  const qty           = l.quantity || 'On request';
+  const supplierPref  = l.is_unlocked ? (l.notes ? l.notes.replace(/From Enquiries.*?\.?\s*/,'').replace(/Qty:.*?(\||$)/,'').replace(/Urgency:.*?(\||$)/,'').replace(/Purpose:.*?(\||$)/,'').replace(/Location:.*?(\||$)/,'').replace(/\|\s*$|\|\s*\|/g,'').replace(/Assigned to:.*$/,'').trim() || 'Open to all suppliers' : 'Open to all suppliers') : 'Login to view full details';
+  const buys = product;
+
+  const waNum = rawPhone ? rawPhone.replace(/\D/g,'') : '';
+  const contactBtn = l.is_unlocked
+    ? `<a href="${waNum ? 'https://wa.me/'+waNum : 'contact.html'}" target="_blank" rel="noopener" class="lc-btn">Contact Buyer</a>`
+    : `<a href="login.html" class="lc-btn locked">🔒 Login to Contact</a>`;
+
   return `
   <div class="lead-card">
-    <div class="lc-title">Looking for ${l.product || 'Product'} <span class="lc-verified">✔</span></div>
+    <div class="lc-title">Looking for ${product} <span class="lc-verified">✔</span></div>
     <div class="lc-meta">
-      <span>📍 ${l.country || '—'}</span>
-      <span>🕒 ${fmtDate(l.created_at)}</span>
+      <span>📍 ${location}</span>
+      <span>🕒 ${date}</span>
     </div>
     <div class="lc-desc">${desc}</div>
-    <div class="lc-details">
-      <div class="lc-row"><span class="lc-key">Buyer Name</span><span class="lc-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? buyerName : 'Login to view'}</span></div>
-      <div class="lc-row"><span class="lc-key">Mobile</span><span class="lc-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? phone : 'Login to view'}</span></div>
-      <div class="lc-row"><span class="lc-key">Quantity</span><span class="lc-val">${l.quantity || 'On request'}</span></div>
-      <div class="lc-row"><span class="lc-key">Quality</span><span class="lc-val" style="text-transform:capitalize;">${l.quality || 'New'}</span></div>
+    <div class="lc-grid">
+      <div class="lc-field"><span class="lc-key">Buyer Name</span><span class="lc-sep">: </span><span class="lc-val ${l.is_unlocked?'':'masked'}">${buyerName}</span></div>
+      <div class="lc-field"><span class="lc-key">Mobile No.</span><span class="lc-sep">: </span><span class="lc-val ${l.is_unlocked?'':'masked'}">${phoneDisplay}</span></div>
+      <div class="lc-field"><span class="lc-key">Quantity</span><span class="lc-sep">: </span><span class="lc-val">${qty}</span></div>
+      <div class="lc-field"><span class="lc-key">Supplier Preference</span><span class="lc-sep">: </span><span class="lc-val ${l.is_unlocked?'':'masked'}">${supplierPref}</span></div>
     </div>
-    <div class="lc-divider"></div>
-    ${l.is_unlocked
-      ? `<a href="https://wa.me/${(phone||'').replace(/\D/g,'')}" target="_blank" rel="noopener" class="lc-btn">💬 Contact Buyer</a>`
-      : `<a href="login.html" class="lc-btn locked">🔒 Login to Contact Buyer</a>`
-    }
-  </div>`;
+    <div class="lc-extra">
+      <div class="lc-extra-row"><span class="lc-extra-key" style="color:#6b7a8d;">Buys</span><span style="color:#9ca3af;margin-right:4px;">:</span><span>${buys}</span></div>
+      <div class="lc-extra-row"><span class="lc-extra-key" style="color:#6b7a8d;">Engagement</span><span style="color:#9ca3af;margin-right:4px;">:</span><span>📋 Requirement - 1 &nbsp;|&nbsp; ↩ Replies - 0</span></div>
+    </div>
+    <div class="lc-footer">${contactBtn}</div>
+  </div>`
 }
 
 async function runSearch(term) {
@@ -166,6 +183,8 @@ async function runSearch(term) {
   document.getElementById('blsCount').textContent = '';
   const sb = getSB();
   if (!sb || !term || !term.trim()) {
+    document.getElementById('blsHeaderWrap').style.display = 'block';
+    document.getElementById('blsCount').style.display = 'none';
     document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">🔍</div><h3>Search for a product</h3><p>Try "Onion", "Basmati Rice", "Cotton Fabric" — or however you'd naturally spell it.</p></div>`;
     return;
   }
@@ -174,12 +193,22 @@ async function runSearch(term) {
     if (error) throw error;
     const results = data || [];
     if (results.length && results[0].is_unlocked !== undefined) _isMember = !!results[0].is_unlocked;
-    renderBanner();
-    document.getElementById('blsCount').innerHTML = `<strong>${results.length}</strong> buy lead${results.length===1?'':'s'} found for "<strong>${term}</strong>"`;
-    document.getElementById('blsResults').innerHTML = results.length
-      ? results.map(cardHTML).join('')
-      : `<div class="bls-empty"><div class="bls-empty-icon">📭</div><h3>No buy leads found</h3><p>No current buyer requirements match "${term}" yet. Try a different spelling, or check back soon — new requirements are added regularly.</p></div>`;
+
+    if (results.length) {
+      /* After search with results — hide header, show only cards */
+      document.getElementById('blsHeaderWrap').style.display = 'none';
+      document.getElementById('blsCount').style.display = 'none';
+      document.getElementById('blsResults').innerHTML = results.map(cardHTML).join('');
+    } else {
+      /* No results — keep header visible, show empty state */
+      document.getElementById('blsHeaderWrap').style.display = 'block';
+      renderBanner();
+      document.getElementById('blsCount').innerHTML = `<strong>0</strong> results for "<strong>${term}</strong>"`;
+      document.getElementById('blsCount').style.display = 'block';
+      document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">📭</div><h3>No buy leads found</h3><p>No current buyer requirements match "<strong>${term}</strong>" yet. Try a different spelling, or check back soon — new requirements are added regularly.</p></div>`;
+    }
   } catch (e) {
+    document.getElementById('blsHeaderWrap').style.display = 'block';
     document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">⚠️</div><h3>Search unavailable</h3><p>We couldn't load results right now. Please try again in a moment.</p></div>`;
   }
 }
