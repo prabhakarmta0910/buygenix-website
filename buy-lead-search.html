@@ -14,7 +14,7 @@
 /* ─────────────────────────────────────────────
    PAGE LAYOUT
 ───────────────────────────────────────────── */
-.bls-wrap{max-width:860px;margin:0 auto;padding:48px var(--pad-x) 90px;}
+.bls-wrap{max-width:860px;margin:0 auto;padding:52px var(--pad-x) 90px;}
 .bls-head{text-align:center;margin-bottom:32px;}
 .bls-eyebrow{display:inline-flex;align-items:center;gap:6px;background:#FEF9ED;border:1px solid #E9C97A;color:#9A6E00;padding:5px 18px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:16px;}
 .bls-head h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#0B1929;line-height:1.25;margin-bottom:10px;}
@@ -22,6 +22,23 @@
 .bls-head p{font-size:14.5px;color:#5A6A7A;max-width:520px;margin:0 auto;line-height:1.7;}
 .bls-count{font-size:12.5px;color:#8A9AAA;margin-bottom:16px;font-family:'Space Grotesk',sans-serif;letter-spacing:0.3px;}
 .bls-count strong{color:#0B1929;}
+
+/* Results strip — shown above cards after search */
+.bls-results-strip{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:0 0 18px;
+  margin-bottom:6px;
+  border-bottom:1px solid #EEF3F8;
+}
+.bls-strip-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.bls-strip-count{font-family:'Space Grotesk',sans-serif;font-size:13px;color:#5A6A7A;}
+.bls-strip-count strong{font-size:15px;color:#0B1929;font-weight:700;}
+.bls-strip-term{display:inline-flex;align-items:center;gap:6px;background:#EEF7FF;border:1px solid #C5DEFF;border-radius:100px;padding:4px 14px;font-size:12.5px;color:#1D5FA8;font-weight:600;font-family:'Space Grotesk',sans-serif;}
+.bls-strip-right{font-size:12px;color:#AABBC8;font-family:'Space Grotesk',sans-serif;}
 
 /* Member banner */
 .bls-banner{display:flex;align-items:center;gap:14px;background:#F0F7FF;border:1px solid #C5DEFF;border-radius:10px;padding:13px 18px;margin-bottom:28px;}
@@ -301,17 +318,34 @@ async function runSearch(term) {
     if (results.length && results[0].is_unlocked !== undefined) _isMember = !!results[0].is_unlocked;
 
     if (results.length) {
-      /* After search with results — hide header, show only cards */
+      /* Hide hero heading — show slim results strip instead */
       document.getElementById('blsHeaderWrap').style.display = 'none';
       document.getElementById('blsCount').style.display = 'none';
-      document.getElementById('blsResults').innerHTML = results.map(cardHTML).join('');
+
+      const memberBanner = _isMember ? '' : `
+        <div class="bls-banner" style="margin-bottom:20px;">
+          <span class="bls-banner-icon">🔒</span>
+          <div class="bls-banner-text"><strong>You're viewing limited details.</strong> Login as a BuyGenix member to unlock buyer name, mobile &amp; complete requirement.</div>
+          <a href="login.html" class="btn-primary btn-sm">Member Login →</a>
+        </div>`;
+
+      document.getElementById('blsResults').innerHTML =
+        `<div class="bls-results-strip">
+           <div class="bls-strip-left">
+             <div class="bls-strip-count"><strong>${results.length}</strong> ${results.length === 1 ? 'lead' : 'leads'} found</div>
+             <span class="bls-strip-term">🔍 ${term.trim()}</span>
+           </div>
+           <div class="bls-strip-right">Showing verified buyer requirements</div>
+         </div>
+         ${memberBanner}
+         ${results.map((r,i) => cardHTML(r,i)).join('')}`;
     } else {
-      /* No results — keep header visible, show empty state */
+      /* No results — keep hero visible */
       document.getElementById('blsHeaderWrap').style.display = 'block';
       renderBanner();
       document.getElementById('blsCount').innerHTML = `<strong>0</strong> results for "<strong>${term}</strong>"`;
       document.getElementById('blsCount').style.display = 'block';
-      document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">📭</div><h3>No buy leads found</h3><p>No current buyer requirements match "<strong>${term}</strong>" yet. Try a different spelling, or check back soon — new requirements are added regularly.</p></div>`;
+      document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">📭</div><h3>No buy leads found</h3><p>No current buyer requirements match "<strong>${term}</strong>" yet. Try a different spelling, or check back soon.</p></div>`;
     }
   } catch (e) {
     document.getElementById('blsHeaderWrap').style.display = 'block';
