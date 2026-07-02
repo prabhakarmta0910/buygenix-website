@@ -15,6 +15,7 @@
    PAGE LAYOUT
 ───────────────────────────────────────────── */
 .bls-wrap{max-width:860px;margin:0 auto;padding:52px var(--pad-x) 90px;}
+.bls-wrap.results-mode{padding-top:24px;}
 .bls-head{text-align:center;margin-bottom:32px;}
 .bls-eyebrow{display:inline-flex;align-items:center;gap:6px;background:#FEF9ED;border:1px solid #E9C97A;color:#9A6E00;padding:5px 18px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:16px;}
 .bls-head h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#0B1929;line-height:1.25;margin-bottom:10px;}
@@ -321,6 +322,7 @@ async function runSearch(term) {
       /* Hide hero heading — show slim results strip instead */
       document.getElementById('blsHeaderWrap').style.display = 'none';
       document.getElementById('blsCount').style.display = 'none';
+      document.querySelector('.bls-wrap').classList.add('results-mode');
 
       const memberBanner = _isMember ? '' : `
         <div class="bls-banner" style="margin-bottom:20px;">
@@ -342,6 +344,7 @@ async function runSearch(term) {
     } else {
       /* No results — keep hero visible */
       document.getElementById('blsHeaderWrap').style.display = 'block';
+      document.querySelector('.bls-wrap').classList.remove('results-mode');
       renderBanner();
       document.getElementById('blsCount').innerHTML = `<strong>0</strong> results for "<strong>${term}</strong>"`;
       document.getElementById('blsCount').style.display = 'block';
@@ -349,6 +352,7 @@ async function runSearch(term) {
     }
   } catch (e) {
     document.getElementById('blsHeaderWrap').style.display = 'block';
+    document.querySelector('.bls-wrap').classList.remove('results-mode');
     document.getElementById('blsResults').innerHTML = `<div class="bls-empty"><div class="bls-empty-icon">⚠️</div><h3>Search unavailable</h3><p>We couldn't load results right now. Please try again in a moment.</p></div>`;
   }
 }
