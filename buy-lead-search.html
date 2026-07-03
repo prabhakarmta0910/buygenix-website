@@ -49,85 +49,66 @@
 .bls-banner a{flex-shrink:0;}
 
 /* ─────────────────────────────────────────────
-   LEAD CARD — Professional Design
+   LEAD CARD — Clean B2B style (matches reference)
 ───────────────────────────────────────────── */
 .lead-card{
   background:#ffffff;
-  border:1px solid #E4EBF3;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 2px 14px rgba(11,25,41,0.06);
-  margin-bottom:20px;
-  transition:box-shadow 0.25s,transform 0.2s;
+  border:1px solid #DDE6EF;
+  border-radius:10px;
+  padding:22px 26px 20px;
+  margin-bottom:16px;
+  box-shadow:0 1px 6px rgba(11,25,41,0.05);
+  transition:box-shadow 0.2s;
 }
-.lead-card:hover{
-  box-shadow:0 6px 24px rgba(11,25,41,0.11);
-  transform:translateY(-2px);
-}
+.lead-card:hover{box-shadow:0 3px 16px rgba(11,25,41,0.09);}
+.lc-body{padding:0;}
 
-/* Top accent stripe */
-.lc-stripe{height:3px;background:linear-gradient(90deg,#1D5FA8,#2D8CFF);}
+/* Title */
+.lc-title-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.lc-title{font-size:18px;font-weight:700;color:#2D3748;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.3;}
+.lc-check{color:#1A7A45;font-size:17px;flex-shrink:0;}
 
-.lc-body{padding:24px 28px;}
-
-/* Title row */
-.lc-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:8px;}
-.lc-title{font-size:18.5px;font-weight:700;color:#0B1929;font-family:'Plus Jakarta Sans',sans-serif;line-height:1.3;}
-.lc-badge{display:inline-flex;align-items:center;gap:5px;background:#EDFAF2;border:1px solid #A7E0BE;color:#1A7A45;padding:4px 11px;border-radius:100px;font-size:11px;font-weight:700;font-family:'Space Grotesk',sans-serif;white-space:nowrap;flex-shrink:0;}
-
-/* Meta (location + date) */
-.lc-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#7A8FA6;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;}
-.lc-meta span{display:flex;align-items:center;gap:5px;}
+/* Meta */
+.lc-meta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-size:12.5px;color:#718096;margin-bottom:12px;}
+.lc-meta span{display:flex;align-items:center;gap:4px;}
 
 /* Description */
-.lc-desc{font-size:13.5px;color:#3D4F63;line-height:1.65;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid #EEF3F8;}
+.lc-desc{font-size:13.5px;color:#4A5568;line-height:1.55;margin-bottom:16px;}
 
-/* Details grid — 2 column */
-.lc-details{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:16px;}
-.lc-detail-item{display:flex;align-items:flex-start;padding:9px 0;border-bottom:1px solid #F3F6FA;gap:0;}
-.lc-detail-item:nth-child(odd){padding-right:24px;}
-.lc-detail-item:nth-child(even){padding-left:24px;border-left:1px solid #F3F6FA;}
-.lc-detail-key{font-size:12px;color:#8A9AAA;font-weight:600;min-width:100px;flex-shrink:0;letter-spacing:0.2px;font-family:'Space Grotesk',sans-serif;padding-top:1px;}
-.lc-detail-sep{color:#C5CDD8;font-size:12px;margin:0 6px 0 0;flex-shrink:0;padding-top:1px;}
-.lc-detail-val{font-size:13px;color:#0B1929;font-weight:700;line-height:1.4;}
-.lc-detail-val.locked{font-weight:400;color:#9AAABB;font-style:italic;display:flex;align-items:center;gap:4px;}
-.lc-detail-val.locked::before{content:'🔒';font-size:10px;font-style:normal;}
+/* Details grid — 2 col */
+.lc-details{display:grid;grid-template-columns:1fr 1fr;gap:2px 0;margin-bottom:16px;}
+.lc-detail-item{display:flex;align-items:flex-start;padding:6px 0;gap:0;}
+.lc-detail-item:nth-child(odd){padding-right:20px;}
+.lc-detail-item:nth-child(even){padding-left:20px;border-left:1px solid #EDF2F7;}
+.lc-detail-key{font-size:13px;color:#718096;min-width:100px;flex-shrink:0;}
+.lc-detail-sep{color:#A0AEC0;margin:0 6px 0 0;flex-shrink:0;font-size:13px;}
+.lc-detail-val{font-size:13px;color:#1A202C;font-weight:700;line-height:1.4;}
+.lc-detail-val.locked{font-weight:400;color:#A0AEC0;font-style:italic;}
 
-/* Extra info row (Buys + Engagement) */
-.lc-extras{background:#F8FAFC;border-radius:8px;padding:11px 14px;margin-bottom:20px;display:flex;flex-direction:column;gap:6px;}
-.lc-extra-row{display:flex;align-items:flex-start;gap:0;font-size:12.5px;}
-.lc-extra-key{color:#8A9AAA;font-weight:600;min-width:90px;flex-shrink:0;font-family:'Space Grotesk',sans-serif;}
-.lc-extra-sep{color:#C5CDD8;margin:0 6px 0 0;flex-shrink:0;}
-.lc-extra-val{color:#3D4F63;line-height:1.5;}
-.lc-eng-val{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.lc-eng-chip{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:#5A6A7A;background:#EEF2F7;border-radius:100px;padding:3px 10px;font-weight:500;}
-.lc-eng-divider{color:#C5CDD8;font-size:11px;}
+/* Divider */
+.lc-divider{height:1px;background:#EDF2F7;margin:4px 0 16px;}
 
-/* Footer (button area) */
-.lc-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.lc-footer-note{font-size:11.5px;color:#9AAABB;font-family:'Space Grotesk',sans-serif;}
-.lc-btn{background:#1D5FA8;color:white;border:none;border-radius:9px;padding:11px 28px;font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background 0.2s,box-shadow 0.2s;box-shadow:0 2px 8px rgba(29,95,168,0.25);}
-.lc-btn:hover{background:#164e90;box-shadow:0 4px 14px rgba(29,95,168,0.35);}
-.lc-btn.locked{background:white;color:#1D5FA8;border:1.5px solid #C5DEFF;box-shadow:none;}
-.lc-btn.locked:hover{background:#F0F7FF;box-shadow:none;}
+/* Footer — button LEFT */
+.lc-footer{display:flex;align-items:center;justify-content:flex-start;gap:14px;flex-wrap:wrap;}
+.lc-footer-note{font-size:12px;color:#A0AEC0;margin-left:4px;}
+.lc-btn{background:#2563EB;color:white;border:none;border-radius:7px;padding:10px 22px;font-size:13.5px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:background 0.2s;}
+.lc-btn:hover{background:#1D4ED8;}
+.lc-btn.locked{background:white;color:#2563EB;border:1.5px solid #BFDBFE;}
+.lc-btn.locked:hover{background:#EFF6FF;}
 
-/* Empty / loading / error states */
+/* Empty / loading / error */
 .bls-empty{text-align:center;padding:60px 24px;}
 .bls-empty-icon{font-size:46px;margin-bottom:16px;line-height:1;}
 .bls-empty h3{font-size:18px;font-weight:700;color:#0B1929;margin-bottom:8px;font-family:'Space Grotesk',sans-serif;}
 .bls-empty p{font-size:13.5px;color:#5A6A7A;max-width:420px;margin:0 auto;line-height:1.7;}
 .bls-loading{text-align:center;padding:60px 24px;color:#8A9AAA;font-size:13.5px;font-family:'Space Grotesk',sans-serif;}
-.bls-loading::before{content:'';display:block;width:32px;height:32px;border:3px solid #E4EBF3;border-top-color:#1D5FA8;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;}
+.bls-loading::before{content:'';display:block;width:28px;height:28px;border:3px solid #E4EBF3;border-top-color:#2563EB;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 14px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* Responsive */
 @media(max-width:640px){
-  .lc-body{padding:18px 16px;}
   .lc-details{grid-template-columns:1fr;}
   .lc-detail-item:nth-child(even){padding-left:0;border-left:none;}
-  .lc-title-row{flex-direction:column;gap:8px;}
-  .lc-footer{flex-direction:column;align-items:stretch;}
-  .lc-btn{justify-content:center;}
+  .lead-card{padding:18px 16px 16px;}
   .bls-banner{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -208,96 +189,60 @@ function renderBanner() {
 }
 
 function cardHTML(l, idx) {
-  const product       = l.product || 'Product';
-  const location      = l.country || '—';
-  const date          = fmtDate(l.created_at);
-  const desc          = `I am interested in buying ${product}.`;
-  const qty           = l.quantity || 'On request';
-  const buyerName     = l.is_unlocked ? (l.contact_name || l.company || '—')  : null;
-  const rawPhone      = l.is_unlocked ? (l.phone || '') : null;
-  const phoneDisplay  = l.is_unlocked ? (l.phone || '—') : maskPhone(l.phone || '+910000000000');
-  const cleanNotes    = (l.notes || '')
-    .replace(/From Enquiries.*?\.\s*/,'')
-    .replace(/Qty:.*?(\||$)/g,'')
-    .replace(/Urgency:.*?(\||$)/g,'')
-    .replace(/Purpose:.*?(\||$)/g,'')
-    .replace(/Location:.*?(\||$)/g,'')
-    .replace(/Assigned to:.*$/,'')
-    .replace(/\|\s*/g,'')
-    .trim();
-  const supplierPref  = l.is_unlocked ? (cleanNotes || 'Open to all suppliers') : null;
-  const waNum = rawPhone ? rawPhone.replace(/\D/g,'') : '';
+  const product   = l.product || 'Product';
+  const location  = l.country || '\u2014';
+  const date      = fmtDate(l.created_at);
+  const desc      = `I am interested in buying ${product}.`;
+  const qty       = l.quantity || 'On request';
+  const urgency   = (l.notes || '').match(/Urgency:(.*?)(\||$)/i)?.[1]?.trim()
+    || (l.quality ? l.quality.charAt(0).toUpperCase() + l.quality.slice(1) : 'General');
+  const buyerName = l.is_unlocked ? (l.contact_name || l.company || '\u2014') : null;
+  const phone     = l.is_unlocked ? (l.phone || '\u2014') : maskPhone(l.phone || '+910000000000');
+  const waNum     = l.is_unlocked && l.phone ? l.phone.replace(/\D/g,'') : '';
   const contactBtn = l.is_unlocked
-    ? `<a href="${waNum ? 'https://wa.me/'+waNum : 'contact.html'}" target="_blank" rel="noopener" class="lc-btn">📞 Contact Buyer</a>`
-    : `<a href="login.html" class="lc-btn locked">🔒 Member Login to Contact</a>`;
-  const footerNote = l.is_unlocked
-    ? `<span class="lc-footer-note">✅ Full details visible</span>`
-    : `<span class="lc-footer-note">Members get full buyer access — <a href="membership.html" style="color:#1D5FA8;font-weight:600;">View Plans</a></span>`;
+    ? `<a href="${waNum ? 'https://wa.me/'+waNum : 'contact.html'}" target="_blank" rel="noopener" class="lc-btn">Contact Buyer</a>`
+    : `<a href="login.html" class="lc-btn locked">\U0001F512 Login to Contact</a>`;
+  const footerNote = !l.is_unlocked
+    ? `<span class="lc-footer-note">Members get full access \u2014 <a href="membership.html" style="color:#2563EB;font-weight:600;">View Plans</a></span>`
+    : '';
 
   return `
   <div class="lead-card">
-    <div class="lc-stripe"></div>
-    <div class="lc-body">
-
-      <div class="lc-title-row">
-        <div class="lc-title">Looking for ${product}</div>
-        <span class="lc-badge">✔ Verified</span>
+    <div class="lc-title-row">
+      <span class="lc-title">Looking for ${product}</span>
+      <span class="lc-check">\u2714</span>
+    </div>
+    <div class="lc-meta">
+      <span>\U0001F4CD ${location}</span>
+      <span>\U0001F550 ${date}</span>
+    </div>
+    <div class="lc-desc">${desc}</div>
+    <div class="lc-details">
+      <div class="lc-detail-item">
+        <span class="lc-detail-key">Buyer Name</span>
+        <span class="lc-detail-sep">:</span>
+        <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? buyerName : 'Member Access Only'}</span>
       </div>
-
-      <div class="lc-meta">
-        <span>📍 ${location}</span>
-        <span>🕒 ${date}</span>
+      <div class="lc-detail-item">
+        <span class="lc-detail-key">Mobile No.</span>
+        <span class="lc-detail-sep">:</span>
+        <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? phone : 'Member Access Only'}</span>
       </div>
-
-      <div class="lc-desc">${desc}</div>
-
-      <div class="lc-details">
-        <div class="lc-detail-item">
-          <span class="lc-detail-key">Buyer Name</span>
-          <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? buyerName : 'Member Access Only'}</span>
-        </div>
-        <div class="lc-detail-item">
-          <span class="lc-detail-key">Mobile No.</span>
-          <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? phoneDisplay : 'Member Access Only'}</span>
-        </div>
-        <div class="lc-detail-item">
-          <span class="lc-detail-key">Quantity</span>
-          <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val">${qty}</span>
-        </div>
-        <div class="lc-detail-item">
-          <span class="lc-detail-key">Supplier Pref.</span>
-          <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? supplierPref : 'Member Access Only'}</span>
-        </div>
+      <div class="lc-detail-item">
+        <span class="lc-detail-key">Quantity</span>
+        <span class="lc-detail-sep">:</span>
+        <span class="lc-detail-val">${qty}</span>
       </div>
-
-      <div class="lc-extras">
-        <div class="lc-extra-row">
-          <span class="lc-extra-key">Buys</span>
-          <span class="lc-extra-sep">:</span>
-          <span class="lc-extra-val">${product}</span>
-        </div>
-        <div class="lc-extra-row">
-          <span class="lc-extra-key">Engagement</span>
-          <span class="lc-extra-sep">:</span>
-          <span class="lc-extra-val">
-            <span class="lc-eng-val">
-              <span class="lc-eng-chip">📋 Requirement&nbsp;1</span>
-              <span class="lc-eng-divider">|</span>
-              <span class="lc-eng-chip">↩ Replies&nbsp;0</span>
-            </span>
-          </span>
-        </div>
+      <div class="lc-detail-item">
+        <span class="lc-detail-key">Requirement</span>
+        <span class="lc-detail-sep">:</span>
+        <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? urgency : 'Member Access Only'}</span>
       </div>
-
-      <div class="lc-footer">
-        ${footerNote}
-        ${contactBtn}
-      </div>
-
+    </div>
+    <div class="lc-divider"></div>
+    <div class="lc-footer">
+      ${contactBtn}
+      ${footerNote}
     </div>
   </div>`;
 }
