@@ -598,7 +598,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ POST REQUIREMENTS ═══ -->
 <section style="background:#f0f2f5;padding:52px 24px;">
 <style>
-.pyr-outer{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 600px 1fr;gap:20px;align-items:stretch;}
+.pyr-outer{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 600px 1fr;gap:20px;align-items:stretch;min-height:580px;}
 /* Left map card */
 .pyr-map{background:white;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.07);padding:14px 10px;display:flex;flex-direction:column;height:100%;box-sizing:border-box;}
 .pyr-map-title{text-align:center;font-size:16px;font-weight:700;color:#06b6d4;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #06b6d4;}
@@ -715,7 +715,6 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   <!-- CENTER: Form -->
   <div class="pyr-form">
     <div class="pyr-title">Post Your Requirements</div>
-    <div class="pyr-chevron">&#10003;</div>
     <div class="pyr-row">
       <input class="pyr-input" type="text" id="pyr_name" placeholder="Name">
       <input class="pyr-input" type="email" id="pyr_email" placeholder="Email">
@@ -755,8 +754,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
       </select>
     </div>
     <textarea class="pyr-textarea" id="pyr_msg" placeholder="Message"></textarea>
-    <button class="pyr-btn" onclick="submitRequirement()">Get Quote Now</button>
-    <div class="pyr-msg" id="pyrMsg"></div>
+    <button class="pyr-btn" id="pyrBtn" onclick="submitRequirement()">Get Quote Now</button>
   </div>
 
   <!-- RIGHT: Image -->
@@ -778,29 +776,43 @@ async function submitRequirement() {
   const purpose = document.getElementById('pyr_purpose')?.value;
   const msg     = document.getElementById('pyr_msg')?.value.trim();
   const location= (document.getElementById('pyr_country')?.options[document.getElementById('pyr_country')?.selectedIndex]?.text || '').replace('Select Country','').trim();
-  const msgEl   = document.getElementById('pyrMsg');
+  const btn = document.getElementById('pyrBtn');
+
+  /* Show message ON the button for 3 seconds, then restore */
+  function btnMsg(text, isErr) {
+    if(!btn) return;
+    btn.textContent = text;
+    btn.style.background = isErr ? '#dc2626' : '#15803d';
+    btn.disabled = true;
+    setTimeout(()=>{
+      btn.textContent = 'Get Quote Now';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3000);
+  }
+
   if (!name||!email||!phone||!product) {
-    msgEl.className='pyr-msg err'; msgEl.textContent='Please fill Name, Email, Phone and Product Name.'; return;
+    btnMsg('⚠ Fill Name, Email, Phone & Product', true); return;
   }
   try {
     if(typeof BGX_SUPABASE_URL==='undefined'||!BGX_SUPABASE_URL||BGX_SUPABASE_URL.includes('YOUR')){
-      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Configuration error — could not connect. Please call/WhatsApp us instead.'; return;
+      btnMsg('⚠ Config error — call/WhatsApp us', true); return;
     }
     const sb=window.supabase?.createClient?.(BGX_SUPABASE_URL,BGX_SUPABASE_ANON);
     if(!sb){
-      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Could not load submission service. Please refresh and try again.'; return;
+      btnMsg('⚠ Service error — refresh & retry', true); return;
     }
     const {error} = await sb.from('enquiries').insert([{name,email,phone,business:product,message:`Qty:${qty} ${unit} | Urgency:${urgency} | Purpose:${purpose} | Location:${location} | ${msg}`,interest:'leads',status:'new'}]);
     if(error){
-      msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Submission failed: '+error.message; return;
+      btnMsg('⚠ Submission failed — try again', true); return;
     }
   } catch(e){
-    msgEl.className='pyr-msg err'; msgEl.textContent='⚠ Network error — please check your connection and try again.'; return;
+    btnMsg('⚠ Network error — check connection', true); return;
   }
-  msgEl.className='pyr-msg ok'; msgEl.textContent='✅ Your requirement has been submitted! We will contact you shortly.';
+  btnMsg('✅ Submitted! We will contact you soon', false);
   ['pyr_name','pyr_email','pyr_phone','pyr_product','pyr_qty','pyr_msg'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   ['pyr_unit','pyr_urgency','pyr_purpose','pyr_country'].forEach(id=>{const el=document.getElementById(id);if(el)el.selectedIndex=0;});
-  document.getElementById('pyr_phone_code').textContent='+91';;
+  document.getElementById('pyr_phone_code').textContent='+91';
 
 }
 
@@ -822,26 +834,16 @@ function onCountryChange(){
   if(ph&&!ph.value)updatePhonePlaceholder(ph,false);
 }
 
-/* Center "Phone" placeholder when field is empty; normal when active */
+/* Phone code always visible — placeholder stays left-aligned */
 function updatePhonePlaceholder(el,active){
-  const codeEl=document.getElementById('pyr_phone_code');
-  if(active||el.value){
-    el.style.paddingLeft='52px';
-    el.style.textAlign='left';
-    if(codeEl){codeEl.style.opacity='1';codeEl.style.pointerEvents='none';}
-  } else {
-    el.style.paddingLeft='12px';
-    el.style.textAlign='center';
-    if(codeEl)codeEl.style.opacity='0';
-  }
+  el.style.paddingLeft='52px';
+  el.style.textAlign='left';
 }
 (function(){
   const ph=document.getElementById('pyr_phone');
   if(!ph)return;
-  updatePhonePlaceholder(ph,false);
-  ph.addEventListener('focus',function(){updatePhonePlaceholder(this,true);});
-  ph.addEventListener('blur', function(){updatePhonePlaceholder(this,false);});
-  ph.addEventListener('input',function(){updatePhonePlaceholder(this,!!this.value);});
+  ph.style.paddingLeft='52px';
+  ph.style.textAlign='left';
 })();
 </script>
 </section>
