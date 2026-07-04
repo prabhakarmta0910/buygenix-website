@@ -264,7 +264,9 @@
 
 <!-- ═══ HERO / FULL-WIDTH BANNER ═══ -->
 <section class="hero">
-  <img class="hero-banner-img" src="assets/spices-banner.png" alt="Cooking Spices and Masala">
+  <a href="buy-lead-search.html?q=spices" style="display:block;cursor:pointer;" title="Find Spice Buyers — Search Buy Leads">
+    <img class="hero-banner-img" src="assets/spices-banner.png" alt="Cooking Spices and Masala">
+  </a>
 </section>
 
 <!-- ═══ B2B CATEGORY GRID ═══ -->
@@ -816,7 +818,31 @@ function onCountryChange(){
   const code=sel?.value||'+91';
   const codeEl=document.getElementById('pyr_phone_code');
   if(codeEl)codeEl.textContent=code;
+  const ph=document.getElementById('pyr_phone');
+  if(ph&&!ph.value)updatePhonePlaceholder(ph,false);
 }
+
+/* Center "Phone" placeholder when field is empty; normal when active */
+function updatePhonePlaceholder(el,active){
+  const codeEl=document.getElementById('pyr_phone_code');
+  if(active||el.value){
+    el.style.paddingLeft='52px';
+    el.style.textAlign='left';
+    if(codeEl){codeEl.style.opacity='1';codeEl.style.pointerEvents='none';}
+  } else {
+    el.style.paddingLeft='12px';
+    el.style.textAlign='center';
+    if(codeEl)codeEl.style.opacity='0';
+  }
+}
+(function(){
+  const ph=document.getElementById('pyr_phone');
+  if(!ph)return;
+  updatePhonePlaceholder(ph,false);
+  ph.addEventListener('focus',function(){updatePhonePlaceholder(this,true);});
+  ph.addEventListener('blur', function(){updatePhonePlaceholder(this,false);});
+  ph.addEventListener('input',function(){updatePhonePlaceholder(this,!!this.value);});
+})();
 </script>
 </section>
 <!-- ═══ END POST REQUIREMENTS ═══ -->
