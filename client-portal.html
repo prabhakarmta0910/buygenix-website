@@ -117,10 +117,15 @@ body{background:#EEF2F7;overflow-x:hidden;}
 .leads-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
 .leads-toolbar{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:12px;}
 .lt-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
-.lt-head{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
-.lt-row{display:grid;grid-template-columns:0.5fr 2fr 2fr 1.5fr;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13.5px;align-items:center;transition:background 0.2s;}
+.lt-head{display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;}
+.lt-row{display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13px;align-items:center;transition:background 0.2s;}
 .lt-row:last-child{border-bottom:none;}
 .lt-row:hover{background:var(--sky);}
+.lt-cell-main{font-size:13.5px;font-weight:600;color:var(--navy);}
+.lt-cell-sub{font-size:11.5px;color:var(--text-light);margin-top:2px;}
+.lt-urgency{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.lt-act-btn{background:white;border:1.5px solid var(--blue);color:var(--blue);border-radius:7px;padding:6px 14px;font-size:12.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
+.lt-act-btn:hover{background:var(--blue);color:white;}
 .lt-num{font-weight:600;color:var(--text-light);}
 .lt-country{font-weight:600;color:var(--navy);}
 .lt-product,.lt-qty,.lt-date{color:var(--text-mid);font-size:13px;}
@@ -168,8 +173,7 @@ body{background:#EEF2F7;overflow-x:hidden;}
   .lt-head{display:none;}
   .lt-row{display:flex;flex-direction:column;align-items:stretch;gap:7px;padding:16px 18px;}
   .lt-row > *{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font-size:13px;}
-  .lt-row > *::before{content:attr(data-label);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;flex-shrink:0;}
-  .lt-num{display:none;}
+  .lt-row > *::before{content:attr(data-label);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;flex-shrink:0;}  .lt-num{display:none;}
   .leads-toolbar{padding:14px 16px;}
 
   .mem-row{font-size:13px;}
@@ -290,7 +294,7 @@ body{background:#EEF2F7;overflow-x:hidden;}
       </div>
       <div class="leads-table-wrap">
         <div class="leads-toolbar"><span class="lt-title">All Delivered Leads</span></div>
-        <div class="lt-head"><span>#</span><span>Country</span><span>Product</span><span>Quantity</span></div>
+        <div class="lt-head"><span>#</span><span>Product</span><span>Location</span><span>Qty</span><span>Unit</span><span>Urgency</span><span>Actions</span></div>
         <div id="leadsTableBody"><div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div></div>
       </div>
     </div>
@@ -362,6 +366,12 @@ body{background:#EEF2F7;overflow-x:hidden;}
 
   </div><!-- /portal-body -->
 </div><!-- /portal-main -->
+
+<div id="leadModal" style="display:none;position:fixed;inset:0;background:rgba(11,25,41,0.55);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
+  <div style="background:white;border-radius:16px;padding:28px;max-width:520px;width:100%;box-shadow:0 24px 60px rgba(11,25,41,0.22);max-height:90vh;overflow-y:auto;" onclick="event.stopPropagation()">
+    <div id="leadModalBody"></div>
+  </div>
+</div>
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
@@ -603,40 +613,72 @@ function renderLeads(leads) {
   window._leadsReceived = leads.length;
   document.getElementById('leadsBadge').textContent = leads.length;
   refreshLeadDependentStats();
-
-  document.getElementById('leadsTableBody').innerHTML = leads.length ? leads.map((l,i) => `
+  function uBadge(q) {
+    const map={hot:['#fef2f2','#dc2626'],verified:['#eff6ff','#2563eb'],new:['#f0fdf4','#16a34a']};
+    const [bg,col]=(map[(q||'new').toLowerCase()]||['#f0fdf4','#16a34a']);
+    return `<span class="lt-urgency" style="background:${bg};color:${col};">${q||'New'}</span>`;
+  }
+  function viewLeadModal(l) {
+    const note=(l.notes||'').replace(/From Enquiries.*?\.\s*/,'').replace(/Qty:.*?(\||$)/g,'').replace(/Urgency:.*?(\||$)/g,'').replace(/Purpose:.*?(\||$)/g,'').replace(/Location:.*?(\||$)/g,'').replace(/Assigned to:.*$/,'').replace(/\|\s*/g,'').trim();
+    const waNum=l.phone?l.phone.replace(/\D/g,''):'';
+    document.getElementById('leadModal').style.display='flex';
+    document.getElementById('leadModalBody').innerHTML=`<h3>🎯 Lead Details</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        ${[['Product',l.product||'—'],['Location',l.country||'—'],['Quantity',l.quantity||'—'],['Quality',l.quality||'—']].map(([k,v])=>`
+        <div style="background:var(--sky);border-radius:8px;padding:9px 12px;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div><div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div></div>`).join('')}
+      </div>
+      ${note?`<div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;margin-bottom:14px;">${note}</div>`:''}
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        ${waNum?`<a href="https://wa.me/${waNum}" target="_blank" class="btn-primary btn-sm" style="display:inline-flex;">💬 WhatsApp</a>`:''}
+        ${l.email?`<a href="mailto:${l.email}" class="btn-primary btn-sm" style="display:inline-flex;">📧 Email</a>`:''}
+        <button class="btn-outline btn-sm" onclick="document.getElementById('leadModal').style.display='none'">Close</button>
+      </div>`;
+  }
+  window.viewLeadModal=viewLeadModal;
+  const COLS='grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;';
+  document.getElementById('leadsTableBody').innerHTML = leads.length ? leads.map((l,i)=>`
     <div class="lt-row">
-      <span class="lt-num" data-label="#">${String(i+1).padStart(2,'0')}</span>
-      <span class="lt-country" data-label="Country">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
-      <span class="lt-product" data-label="Product">${l.product||'—'}</span>
-      <span class="lt-qty" data-label="Quantity">${l.quantity||'—'}</span>
+      <span data-label="#" style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div data-label="Product"><div class="lt-cell-main">${l.product||'—'}</div><div class="lt-cell-sub">${l.company||l.contact_name||''}</div></div>
+      <span data-label="Location">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
+      <span data-label="Qty">${l.quantity||'—'}</span>
+      <span data-label="Unit">—</span>
+      <span data-label="Urgency">${uBadge(l.quality)}</span>
+      <span data-label="Actions"><button class="lt-act-btn" onclick='viewLeadModal(${JSON.stringify(l).replace(/'/g,"&apos;")})'>View</button></span>
     </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div>`;
-
-  document.getElementById('recentLeads').innerHTML = leads.length ? leads.slice(0,4).map(l => `
+  document.getElementById('recentLeads').innerHTML = leads.length ? leads.slice(0,4).map(l=>`
     <div class="lead-item">
       <span class="li-flag">${BGX.FLAGS[l.country]||'🌍'}</span>
-      <div class="li-info"><div class="li-country">${l.country} — ${l.product}</div><div class="li-product">${l.quantity||''}</div></div>
-      ${statusBadge(l.quality)}
-    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads yet. Your RM will deliver leads shortly after onboarding.</p></div>`;
+      <div class="li-info"><div class="li-country">${l.country||'—'} — ${l.product||'—'}</div><div class="li-product">${l.quantity||''}</div></div>
+      ${uBadge(l.quality)}
+    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads yet. Your RM will deliver leads shortly.</p></div>`;
 }
 
 function populateDemoLeads() {
-  const leads = (BGX.SAMPLE_LEADS||[]).slice(0,6);
-  window._leadsReceived = leads.length;
-  document.getElementById('leadsBadge').textContent = leads.length;
+  const leads=(BGX.SAMPLE_LEADS||[]).slice(0,6);
+  window._leadsReceived=leads.length;
+  document.getElementById('leadsBadge').textContent=leads.length;
   refreshLeadDependentStats();
-  document.getElementById('leadsTableBody').innerHTML = leads.map((l,i) => `
+  function uBadge(q) {
+    const map={hot:['#fef2f2','#dc2626'],verified:['#eff6ff','#2563eb'],new:['#f0fdf4','#16a34a']};
+    const [bg,col]=(map[(q||'new').toLowerCase()]||['#f0fdf4','#16a34a']);
+    return `<span class="lt-urgency" style="background:${bg};color:${col};">${q||'New'}</span>`;
+  }
+  document.getElementById('leadsTableBody').innerHTML=leads.map((l,i)=>`
     <div class="lt-row">
-      <span class="lt-num" data-label="#">${String(i+1).padStart(2,'0')}</span>
-      <span class="lt-country" data-label="Country">${l.flag} ${l.country}</span>
-      <span class="lt-product" data-label="Product">${l.product}</span>
-      <span class="lt-qty" data-label="Quantity">${l.qty}</span>
+      <span data-label="#" style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
+      <div data-label="Product"><div class="lt-cell-main">${l.product||'—'}</div><div class="lt-cell-sub">${l.country||''}</div></div>
+      <span data-label="Location">${l.flag||'🌍'} ${l.country||'—'}</span>
+      <span data-label="Qty">${l.qty||'—'}</span>
+      <span data-label="Unit">—</span>
+      <span data-label="Urgency">${uBadge(l.status)}</span>
+      <span data-label="Actions"><button class="lt-act-btn" onclick="alert('Login for full details')">View</button></span>
     </div>`).join('');
-  document.getElementById('recentLeads').innerHTML = leads.slice(0,4).map(l => `
+  document.getElementById('recentLeads').innerHTML=leads.slice(0,4).map(l=>`
     <div class="lead-item">
       <span class="li-flag">${l.flag}</span>
       <div class="li-info"><div class="li-country">${l.country} — ${l.product}</div><div class="li-product">${l.qty}</div></div>
-      ${statusBadge(l.status)}
+      ${uBadge(l.status)}
     </div>`).join('');
 }
 

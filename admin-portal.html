@@ -263,7 +263,7 @@ body{background:#EEF2F7;}
               <button class="btn-add-row" onclick="openAddLead()">+ Add Lead</button>
             </div>
           </div>
-          <div class="at-head" style="grid-template-columns:40px 1.4fr 1.5fr 0.9fr 1fr 1.1fr 100px;"><span>#</span><span>Company / Country</span><span>Product</span><span>Quantity</span><span>Quality</span><span>Contact</span><span>Actions</span></div>
+          <div class="at-head" style="grid-template-columns:40px 1.5fr 1.3fr 1.1fr 0.8fr 0.8fr 1fr 1fr 130px;"><span>#</span><span>Name</span><span>Product</span><span>Location</span><span>Qty</span><span>Unit</span><span>Quality</span><span>Status</span><span>Actions</span></div>
           <div id="leadBody"><div class="empty-row">Loading leads…</div></div>
         </div>
       </div>
@@ -697,20 +697,42 @@ function renderMem(list) {
 }
 
 function renderLeads(list) {
-  document.getElementById('leadBody').innerHTML = list.length ? list.map((l,i) => `
-    <div class="at-row" style="grid-template-columns:40px 1.4fr 1.5fr 0.9fr 1fr 1.1fr 100px;">
+  const qColors={hot:'#dc2626',verified:'#2563eb',new:'#16a34a'};
+  const qBg   ={hot:'#fef2f2',verified:'#eff6ff',new:'#f0fdf4'};
+  const sColors={unassigned:'#d97706',assigned:'#2563eb',delivered:'#16a34a',hot:'#dc2626',converted:'#6b7280'};
+  const sBg   ={unassigned:'#fffbeb',assigned:'#eff6ff',delivered:'#f0fdf4',hot:'#fef2f2',converted:'#f9fafb'};
+  const COLS = 'grid-template-columns:40px 1.5fr 1.3fr 1.1fr 0.8fr 0.8fr 1fr 1fr 130px;';
+  const time = ts => ts ? new Date(ts).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : '—';
+  document.getElementById('leadBody').innerHTML = list.length ? list.map((l,i) => {
+    const q = (l.quality||'new').toLowerCase();
+    const s = (l.status||'unassigned').toLowerCase();
+    const highlight = s==='unassigned' ? 'background:#fffbeb;' : '';
+    return `
+    <div class="at-row" style="${COLS}${highlight}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div><div class="cell-name">${l.company||l.name||'—'}</div><div class="cell-sub">${l.country||'—'} ${BGX.FLAGS[l.country]||''}</div></div>
-      <span style="color:var(--text-mid);font-size:13px;">${l.product||'—'}</span>
-      <span style="color:var(--text-mid);font-size:13px;">${l.quantity||'—'}</span>
-      <span style="font-size:12px;color:var(--text-light);">${l.quality||l.source||'—'}</span>
-      <div><div style="font-size:12.5px;">${l.email||'—'}</div><div class="cell-sub">${l.phone||'—'}</div></div>
-      <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewLead(${JSON.stringify(l).replace(/'/g,"&apos;")})'>👁 View</button>
-        <button class="act-btn" onclick="openEditLead('${l.id||i}')">✏️ Edit</button>
-        <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">🗑 Delete</button>
+      <div>
+        <div class="cell-name">${l.company||l.contact_name||'—'}</div>
+        <div class="cell-sub">${l.phone||''} ${l.email ? '&nbsp;'+l.email : ''}</div>
+        <div class="cell-sub" style="color:var(--text-light);font-size:11px;">🕒 ${time(l.created_at)}</div>
       </div>
-    </div>`).join('') : '<div class="empty-row">No buyer leads found.</div>';
+      <div>
+        <div class="cell-name">${l.product||'—'}</div>
+        <div class="cell-sub">${l.category||l.source||''}</div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--text-mid);">${l.country||'—'} ${BGX.FLAGS[l.country]||''}</div>
+      </div>
+      <span style="font-size:13px;color:var(--text-mid);">${l.quantity||'—'}</span>
+      <span style="font-size:13px;color:var(--text-light);">—</span>
+      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${qBg[q]||'#f0fdf4'};color:${qColors[q]||'#16a34a'};">${l.quality||'new'}</span></span>
+      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${sBg[s]||'#f9fafb'};color:${sColors[s]||'#374151'};">${l.status||'unassigned'}</span></span>
+      <div class="act-btns">
+        <button class="act-btn ab-view" onclick='viewLead(${JSON.stringify(l).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn" onclick="openEditLead('${l.id||i}')">Edit</button>
+        <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">Del</button>
+      </div>
+    </div>`;
+  }).join('') : '<div class="empty-row">No buyer leads found.</div>';
 }
 
 function viewLead(l) {
