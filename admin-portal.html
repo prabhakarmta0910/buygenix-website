@@ -25,7 +25,7 @@ body{background:#EEF2F7;}
 
 /* ── ADMIN APP ── */
 #adminApp{display:none;}
-.admin-sidebar{position:fixed;top:0;left:0;bottom:0;width:228px;background:var(--navy);display:flex;flex-direction:column;z-index:200;overflow-y:auto;}
+.admin-sidebar{position:fixed;top:0;left:0;bottom:0;width:228px;background:var(--navy);display:flex;flex-direction:column;z-index:200;overflow-y:auto;;transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);}
 .asb-brand{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.07);}
 .asb-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:700;color:white;}
 .asb-name span{color:var(--gold-light);font-style:italic;}
@@ -71,7 +71,7 @@ body{background:#EEF2F7;}
 .qcard-sub{font-size:12.5px;color:var(--text-mid);}
 
 /* Table */
-.admin-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-soft);}
+.admin-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;overflow-x:auto;box-shadow:var(--shadow-soft);}
 .table-toolbar{padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:10px;}
 .toolbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .tb-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
@@ -124,8 +124,33 @@ body{background:#EEF2F7;}
 .dr-key{color:var(--text-light);}
 .dr-val{font-weight:700;color:var(--navy);}
 
-@media(max-width:1100px){.admin-stats{grid-template-columns:repeat(3,1fr);}.quick-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:900px){.admin-main{margin-left:0;}.admin-sidebar{display:none;}.admin-stats{grid-template-columns:repeat(2,1fr);}.quick-grid{grid-template-columns:1fr 1fr;}.admin-body{padding:20px;}}
+
+.asb-overlay{display:none;position:fixed;inset:0;background:rgba(11,25,41,0.5);z-index:199;}
+.asb-overlay.open{display:block;}
+.asb-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:6px 4px;background:none;border:none;flex-shrink:0;}
+.asb-hamburger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;}
+/* TABLET 769–1100px */
+@media(max-width:1100px){
+  .admin-main{margin-left:0;}
+  .admin-sidebar{transform:translateX(-100%);box-shadow:0 20px 60px rgba(11,25,41,0.3);}
+  .admin-sidebar.open{transform:translateX(0);}
+  .asb-hamburger{display:flex;}
+  .admin-stats{grid-template-columns:repeat(3,1fr);}
+  .quick-grid{grid-template-columns:repeat(2,1fr);}
+  .admin-body{padding:22px 20px;}
+  .admin-topbar{padding:0 20px;}
+  .admin-table-wrap{overflow-x:auto;}
+  .at-head,.at-row{min-width:700px;}
+}
+/* MOBILE ≤768px */
+@media(max-width:768px){
+  .admin-stats{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .quick-grid{grid-template-columns:1fr;}
+  .admin-body{padding:16px 12px;}
+  .admin-topbar{padding:0 12px;height:56px;}
+  .atb-title{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;}
+  .atb-clock{display:none;}
+}
 </style>
 </head>
 <body>
@@ -190,7 +215,7 @@ body{background:#EEF2F7;}
   </div>
 
   <div class="admin-main">
-    <div class="admin-topbar">
+    <div class="admin-topbar"><button class="asb-hamburger" onclick="openAdminSidebar()" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="atb-title" id="adminTopTitle">Dashboard</div>
       <div class="atb-right">
         <div class="atb-clock" id="adminClock"></div>
@@ -583,6 +608,17 @@ function bootAdmin(user) {
   });
 }
 
+function openAdminSidebar(){
+  document.querySelector('.admin-sidebar').classList.add('open');
+  document.getElementById('asbOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeAdminSidebar(){
+  document.querySelector('.admin-sidebar').classList.remove('open');
+  document.getElementById('asbOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAdminSidebar();});
 async function doAdminSignOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); location.reload(); }
 
 /* Keep an admin signed in across page refreshes — but only if the
