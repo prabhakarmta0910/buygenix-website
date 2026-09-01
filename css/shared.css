@@ -135,7 +135,7 @@ input,textarea,select{font-family:inherit;}
 .mobile-nav .m-cta-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light))!important;}
 
 
-/* ── HERO BANNER SECTION (Full Size) ── */
+/* ── HERO BANNER SECTION (FULL ORIGINAL IMAGE - NO CROP) ── */
 .hero {
   width: 100%;
   margin: 0;
@@ -157,27 +157,28 @@ input,textarea,select{font-family:inherit;}
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
-  /* NO MAX-HEIGHT - Shows full original size! */
+  /* IMPORTANT: No max-height, no object-fit, just natural aspect ratio */
 }
 
-/* Desktop (1024px+) - Full Size */
+/* Desktop (1024px+) - Show FULL Image */
 @media(min-width: 1024px) {
   .hero-banner-img {
     width: 100%;
     height: auto;
+    /* Full original aspect ratio - ZERO CROPPING */
   }
 }
 
-/* Tablet (768px - 1023px) - Full Size */
+/* Tablet (768px - 1023px) - Show FULL Image */
 @media(max-width: 1023px) and (min-width: 768px) {
   .hero-banner-img {
     width: 100%;
     height: auto;
+    /* Full original aspect ratio - ZERO CROPPING */
   }
 }
 
-/* Mobile (below 768px) - Full Size */
+/* Mobile (below 768px) - Show FULL Image */
 @media(max-width: 767px) {
   .hero {
     margin-top: 60px;
@@ -186,6 +187,7 @@ input,textarea,select{font-family:inherit;}
   .hero-banner-img {
     width: 100%;
     height: auto;
+    /* Full original aspect ratio - ZERO CROPPING */
   }
 }
 
