@@ -137,27 +137,32 @@ input,textarea,select{font-family:inherit;}
 
 /* ── HERO BANNER SECTION (COMPLETELY UNRESTRICTED - FULL IMAGE) ── */
 .hero {
-  width: 100vw;           /* Full viewport width */
-  max-width: none;        /* No max-width */
-  margin: 0;
-  margin-left: calc(-50vw + 50%);  /* Full bleed */
-  padding: 0;
-  background: white;
-  display: block;
-  overflow: visible;
+  width: 100vw !important;           /* Full viewport width */
+  max-width: none !important;        /* No max-width */
+  margin: 0 !important;
+  margin-left: calc(-50vw + 50%) !important;  /* Full bleed */
+  padding: 0 !important;
+  background: white !important;
+  display: block !important;
+  overflow: visible !important;
 }
 
 .hero a {
-  display: block;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .hero-banner-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  min-width: 100%;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
   /* Absolutely NO restrictions */
   /* Shows COMPLETE original image */
 }
@@ -165,38 +170,41 @@ input,textarea,select{font-family:inherit;}
 /* All devices - Same unrestricted behavior */
 @media(min-width: 1024px) {
   .hero {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(-50vw + 50%) !important;
   }
   
   .hero-banner-img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
 @media(max-width: 1023px) and (min-width: 768px) {
   .hero {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(-50vw + 50%) !important;
   }
   
   .hero-banner-img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
 @media(max-width: 767px) {
   .hero {
-    margin-top: 60px;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    margin-top: 60px !important;
+    width: 100vw !important;
+    max-width: none !important;
+    margin-left: calc(-50vw + 50%) !important;
   }
   
   .hero-banner-img {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
