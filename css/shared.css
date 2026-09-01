@@ -8,9 +8,11 @@
 :root {
   /* ── UNIFIED COLOR PALETTE - PROFESSIONAL BLUE ── */
   --navy:         #0B1929;
+  --navy-mid:     #0D1929;      /* Darker navy shade */
   --blue:         #2563EB;      /* Professional, trustworthy, clean */
   --blue-dark:    #1E40AF;      /* Hover state - darker shade */
   --blue-light:   #3B82F6;      /* Light backgrounds, accents */
+  --blue-mid:     #1E40AF;      /* Fallback for blue-mid (same as dark) */
   --gold:         #B8860B;
   --gold-light:   #F0C84A;
   --gold-pale:    #FDF6E3;
