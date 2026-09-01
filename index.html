@@ -523,11 +523,58 @@
 </script>
 
 <!-- ═══ HERO / FULL-WIDTH BANNER ═══ -->
-<section class="hero" style="width:100vw !important;max-width:100vw !important;margin-left:calc(-50vw + 50%) !important;overflow:visible !important;padding:0 !important;margin:0 !important;margin-top:60px !important;display:block !important;">
+<section class="hero" style="width:100vw !important;max-width:100vw !important;margin-left:calc(-50vw + 50%) !important;overflow:visible !important;padding:0 !important;margin:0 !important;display:block !important;" id="heroSection">
   <a href="buy-lead-search.html?q=spices" style="display:block !important;cursor:pointer;width:100% !important;height:auto !important;" title="Find Spice Buyers — Search Buy Leads">
     <img class="hero-banner-img" src="assets/spices-banner.png" alt="Cooking Spices and Masala" style="display:block !important;width:100% !important;height:auto !important;max-width:none !important;margin:0 !important;padding:0 !important;">
   </a>
 </section>
+
+<script>
+(function(){
+  function adjustHeroBannerMargin(){
+    var hero = document.getElementById('heroSection');
+    var navbar = document.querySelector('.navbar');
+    var searchBar2 = document.getElementById('navSearchBar2');
+    
+    if(!hero || !navbar) return;
+    
+    var navHeight = navbar.offsetHeight || 60;
+    var searchBar2Height = 0;
+    
+    // Check if search bar 2 is visible and has content/height
+    if(searchBar2){
+      var searchBar2Rect = searchBar2.getBoundingClientRect();
+      var searchBar2Height_actual = searchBar2.offsetHeight || 0;
+      
+      // If search bar is visible at top of screen (position is set to something)
+      if(searchBar2Rect.top <= 70 && searchBar2Height_actual > 0){
+        searchBar2Height = searchBar2Height_actual;
+      }
+    }
+    
+    var totalMarginTop = navHeight + searchBar2Height;
+    hero.style.marginTop = totalMarginTop + 'px';
+  }
+  
+  // Initial adjustment on page load
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){
+      setTimeout(adjustHeroBannerMargin, 100);
+    });
+  } else {
+    setTimeout(adjustHeroBannerMargin, 100);
+  }
+  
+  // Adjust on scroll (search bar appears/disappears)
+  window.addEventListener('scroll', adjustHeroBannerMargin, {passive: true});
+  
+  // Adjust on window resize
+  window.addEventListener('resize', adjustHeroBannerMargin, {passive: true});
+  
+  // Adjust on page visibility change
+  document.addEventListener('visibilitychange', adjustHeroBannerMargin);
+})();
+</script>
 
 <!-- ═══ B2B CATEGORY GRID ═══ -->
 <section id="bgx-marketplace" style="background:var(--sky);padding:0;">
