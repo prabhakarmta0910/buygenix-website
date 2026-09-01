@@ -204,7 +204,7 @@ input,textarea,select{font-family:inherit;}
     width: 100vw !important;
     max-width: none !important;
     margin-left: calc(-50vw + 50%) !important;
-    margin-top: 60px !important; /* Fallback - JavaScript adjusts dynamically */
+    margin-top: 120px !important;
   }
   
   .hero-banner-img {
