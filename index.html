@@ -541,13 +541,15 @@
     var navHeight = navbar.offsetHeight || 60;
     var searchBar2Height = 0;
     
-    // Check if search bar 2 is visible and has content/height
+    // Check if search bar 2 exists and is visible
     if(searchBar2){
-      var searchBar2Rect = searchBar2.getBoundingClientRect();
+      // Check if element is displayed (not display:none)
+      var searchBar2Display = window.getComputedStyle(searchBar2).display;
       var searchBar2Height_actual = searchBar2.offsetHeight || 0;
+      var searchBar2Rect = searchBar2.getBoundingClientRect();
       
-      // If search bar is visible at top of screen (position is set to something)
-      if(searchBar2Rect.top <= 70 && searchBar2Height_actual > 0){
+      // If search bar is visible (display != none AND has height AND is near top)
+      if(searchBar2Display !== 'none' && searchBar2Height_actual > 0 && searchBar2Rect.top >= -10){
         searchBar2Height = searchBar2Height_actual;
       }
     }
@@ -559,20 +561,27 @@
   // Initial adjustment on page load
   if(document.readyState === 'loading'){
     document.addEventListener('DOMContentLoaded', function(){
-      setTimeout(adjustHeroBannerMargin, 100);
+      // Multiple calls to ensure detection works
+      setTimeout(adjustHeroBannerMargin, 50);
+      setTimeout(adjustHeroBannerMargin, 150);
+      setTimeout(adjustHeroBannerMargin, 300);
     });
   } else {
-    setTimeout(adjustHeroBannerMargin, 100);
+    setTimeout(adjustHeroBannerMargin, 50);
+    setTimeout(adjustHeroBannerMargin, 150);
   }
   
-  // Adjust on scroll (search bar appears/disappears)
+  // Adjust on scroll (navbar/search bar show/hide)
   window.addEventListener('scroll', adjustHeroBannerMargin, {passive: true});
   
-  // Adjust on window resize
+  // Adjust on window resize (responsive changes)
   window.addEventListener('resize', adjustHeroBannerMargin, {passive: true});
   
   // Adjust on page visibility change
   document.addEventListener('visibilitychange', adjustHeroBannerMargin);
+  
+  // Also adjust periodically to catch any dynamic changes
+  setInterval(adjustHeroBannerMargin, 2000);
 })();
 </script>
 
