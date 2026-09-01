@@ -135,59 +135,68 @@ input,textarea,select{font-family:inherit;}
 .mobile-nav .m-cta-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light))!important;}
 
 
-/* ── HERO BANNER SECTION (FULL ORIGINAL IMAGE - NO CROP) ── */
+/* ── HERO BANNER SECTION (COMPLETELY UNRESTRICTED - FULL IMAGE) ── */
 .hero {
-  width: 100%;
+  width: 100vw;           /* Full viewport width */
+  max-width: none;        /* No max-width */
   margin: 0;
+  margin-left: calc(-50vw + 50%);  /* Full bleed */
   padding: 0;
   background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   overflow: visible;
 }
 
 .hero a {
   display: block;
-  width: 100%;
-  height: auto;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
 .hero-banner-img {
   display: block;
   width: 100%;
   height: auto;
-  /* IMPORTANT: No max-height, no object-fit, just natural aspect ratio */
+  min-width: 100%;
+  /* Absolutely NO restrictions */
+  /* Shows COMPLETE original image */
 }
 
-/* Desktop (1024px+) - Show FULL Image */
+/* All devices - Same unrestricted behavior */
 @media(min-width: 1024px) {
-  .hero-banner-img {
-    width: 100%;
-    height: auto;
-    /* Full original aspect ratio - ZERO CROPPING */
-  }
-}
-
-/* Tablet (768px - 1023px) - Show FULL Image */
-@media(max-width: 1023px) and (min-width: 768px) {
-  .hero-banner-img {
-    width: 100%;
-    height: auto;
-    /* Full original aspect ratio - ZERO CROPPING */
-  }
-}
-
-/* Mobile (below 768px) - Show FULL Image */
-@media(max-width: 767px) {
   .hero {
-    margin-top: 60px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
   }
   
   .hero-banner-img {
     width: 100%;
     height: auto;
-    /* Full original aspect ratio - ZERO CROPPING */
+  }
+}
+
+@media(max-width: 1023px) and (min-width: 768px) {
+  .hero {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
+  .hero-banner-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media(max-width: 767px) {
+  .hero {
+    margin-top: 60px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  
+  .hero-banner-img {
+    width: 100%;
+    height: auto;
   }
 }
 
