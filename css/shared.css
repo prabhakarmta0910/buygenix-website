@@ -362,15 +362,14 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
 /* Mobile nav gold CTA (Client Login) */
 .mobile-nav .m-cta-gold{background:linear-gradient(135deg,var(--gold),var(--gold-light))!important;margin-top:8px;}
 
-/* ═══ WHAT WE OFFER — CARD BACKGROUND FIX ═══ */
+/* ═══ WHAT WE OFFER — CARD BACKGROUND FIX (white shading) ═══ */
 /* Fixes invisible/no-color cards in "What We Offer" section on homepage */
 .wwo-card{
-  background:linear-gradient(135deg, rgba(184,134,11,0.15) 0%, rgba(15,25,41,0.25) 100%) !important;
-  border:1px solid rgba(240,200,74,0.2) !important;
+  background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%) !important;
+  border:1px solid rgba(255,255,255,0.08) !important;
   transition:background .3s, border .3s !important;
 }
 .wwo-card:hover{
-  background:linear-gradient(135deg, rgba(184,134,11,0.25) 0%, rgba(15,25,41,0.35) 100%) !important;
-  border:1px solid rgba(240,200,74,0.4) !important;
-  box-shadow:0 8px 24px rgba(240,200,74,0.15) !important;
+  background:linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%) !important;
+  border:1px solid rgba(255,255,255,0.16) !important;
 }
