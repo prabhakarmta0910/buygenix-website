@@ -847,8 +847,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   .wwo-title em{color:#F0C84A;font-style:italic;}
   .wwo-sub{font-size:13.5px;color:rgba(255,255,255,0.38);max-width:520px;margin:0 auto;line-height:1.7;}
   .wwo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.07);}
-  .wwo-card{background:rgba(255,255,255,0.035);padding:26px 24px;position:relative;transition:background .3s;display:flex;flex-direction:column;}
-  .wwo-card:hover{background:rgba(184,134,11,0.07);}
+  .wwo-card{background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);border:1px solid rgba(255,255,255,0.08);padding:26px 24px;position:relative;transition:background .3s, border .3s;display:flex;flex-direction:column;}
+  .wwo-card:hover{background:linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.04) 100%);border:1px solid rgba(255,255,255,0.16);}
   .wwo-card:not(:nth-child(3n))::after{content:'';position:absolute;top:15%;right:0;width:1px;height:70%;background:rgba(255,255,255,0.06);}
   .wwo-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#B8860B,#F0C84A);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
   .wwo-card:hover::before{transform:scaleX(1);}
