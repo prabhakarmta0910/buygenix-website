@@ -183,13 +183,13 @@ input,textarea,select{font-family:inherit;}
   }
 }
 
-/* TABLET (768px - 1023px) - 60px navbar */
+/* TABLET (768px - 1023px) - navbar (60px) + search bar (60px) = 120px */
 @media(max-width: 1023px) and (min-width: 768px) {
   .hero {
     width: 100vw !important;
     max-width: none !important;
     margin-left: calc(-50vw + 50%) !important;
-    margin-top: 60px !important;
+    margin-top: 120px !important;
   }
   
   .hero-banner-img {
@@ -198,13 +198,13 @@ input,textarea,select{font-family:inherit;}
   }
 }
 
-/* MOBILE (below 768px) - Navbar (60px) + Secondary search bar (60px) = 120px */
+/* MOBILE (below 768px) - navbar (60px) + search bar (60px) = 120px */
 @media(max-width: 767px) {
   .hero {
     width: 100vw !important;
     max-width: none !important;
     margin-left: calc(-50vw + 50%) !important;
-    margin-top: 60px !important; /* Fallback - JavaScript adjusts dynamically */
+    margin-top: 120px !important;
   }
   
   .hero-banner-img {
