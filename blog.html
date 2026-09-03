@@ -20,8 +20,10 @@
 
 /* ── FILTER TABS ── */
 .bl-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px;}
-.bl-tag{background:white;border:1px solid #e4e8f4;color:#64748b;padding:9px 18px;border-radius:100px;font-size:12.5px;font-weight:600;cursor:default;}
+.bl-tag{background:white;border:1px solid #e4e8f4;color:#64748b;padding:9px 18px;border-radius:100px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .18s;user-select:none;}
+.bl-tag:hover{border-color:#c7d2fe;color:#1e3a8a;}
 .bl-tag.is-active{background:linear-gradient(135deg,#0d1f3c,#1e3a8a);color:white;border-color:transparent;}
+.bl-card.is-hidden{display:none;}
 
 /* ── GRID ── */
 .bl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -86,12 +88,12 @@
 <div class="bl-wrap">
   <div class="bl-inner">
 
-    <div class="bl-tags">
-      <div class="bl-tag is-active">All Posts</div>
-      <div class="bl-tag">GST &amp; Registration</div>
-      <div class="bl-tag">Export Growth</div>
-      <div class="bl-tag">Trademark</div>
-      <div class="bl-tag">Compliance</div>
+    <div class="bl-tags" id="blTags">
+      <div class="bl-tag is-active" data-filter="all">All Posts</div>
+      <div class="bl-tag" data-filter="gst">GST &amp; Registration</div>
+      <div class="bl-tag" data-filter="growth">Export Growth</div>
+      <div class="bl-tag" data-filter="trademark">Trademark</div>
+      <div class="bl-tag" data-filter="compliance">Compliance</div>
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════
@@ -100,9 +102,9 @@
          the image, category tag, date, title, excerpt, and the
          href on "Read more" to point to your full article/page.
          ═══════════════════════════════════════════════════════════ -->
-    <div class="bl-grid">
+    <div class="bl-grid" id="blGrid">
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="gst">
         <div class="bl-card-img">
           <span class="bl-card-cat">GST &amp; Registration</span>
           <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="GST Registration Guide for Exporters">
@@ -115,7 +117,7 @@
         </div>
       </div>
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="growth">
         <div class="bl-card-img">
           <span class="bl-card-cat">Export Growth</span>
           <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80" alt="Finding Verified Buyers for Export Business">
@@ -128,7 +130,7 @@
         </div>
       </div>
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="trademark">
         <div class="bl-card-img">
           <span class="bl-card-cat">Trademark</span>
           <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="Trademark Registration in India">
@@ -141,7 +143,7 @@
         </div>
       </div>
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="compliance">
         <div class="bl-card-img">
           <span class="bl-card-cat">Compliance</span>
           <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80" alt="Business Compliance Checklist India">
@@ -154,7 +156,7 @@
         </div>
       </div>
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="growth">
         <div class="bl-card-img">
           <span class="bl-card-cat">Export Growth</span>
           <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80" alt="Digital Catalogue for Export Products">
@@ -167,7 +169,7 @@
         </div>
       </div>
 
-      <div class="bl-card">
+      <div class="bl-card" data-cat="gst">
         <div class="bl-card-img">
           <span class="bl-card-cat">GST &amp; Registration</span>
           <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80" alt="IEC Code Registration India">
@@ -204,5 +206,25 @@
 <a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener">💬</a>
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
+<script>
+(function(){
+  var tags = document.querySelectorAll('#blTags .bl-tag');
+  var cards = document.querySelectorAll('#blGrid .bl-card');
+  tags.forEach(function(tag){
+    tag.addEventListener('click', function(){
+      tags.forEach(function(t){ t.classList.remove('is-active'); });
+      tag.classList.add('is-active');
+      var filter = tag.getAttribute('data-filter');
+      cards.forEach(function(card){
+        if(filter === 'all' || card.getAttribute('data-cat') === filter){
+          card.classList.remove('is-hidden');
+        } else {
+          card.classList.add('is-hidden');
+        }
+      });
+    });
+  });
+})();
+</script>
 </body>
 </html>
