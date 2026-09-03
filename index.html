@@ -523,67 +523,11 @@
 </script>
 
 <!-- ═══ HERO / FULL-WIDTH BANNER ═══ -->
-<section class="hero" style="width:100vw !important;max-width:100vw !important;margin-left:calc(-50vw + 50%) !important;overflow:visible !important;padding:0 !important;margin:0 !important;display:block !important;" id="heroSection">
+<section class="hero" style="width:100vw !important;max-width:100vw !important;margin-left:calc(-50vw + 50%) !important;margin-right:0 !important;margin-bottom:0 !important;overflow:visible !important;padding:0 !important;display:block !important;" id="heroSection">
   <a href="buy-lead-search.html?q=spices" style="display:block !important;cursor:pointer;width:100% !important;height:auto !important;" title="Find Spice Buyers — Search Buy Leads">
     <img class="hero-banner-img" src="assets/spices-banner.png" alt="Cooking Spices and Masala" style="display:block !important;width:100% !important;height:auto !important;max-width:none !important;margin:0 !important;padding:0 !important;">
   </a>
 </section>
-
-<script>
-(function(){
-  function adjustHeroBannerMargin(){
-    var hero = document.getElementById('heroSection');
-    var navbar = document.querySelector('.navbar');
-    var searchBar2 = document.getElementById('navSearchBar2');
-    
-    if(!hero || !navbar) return;
-    
-    var navHeight = navbar.offsetHeight || 60;
-    var searchBar2Height = 0;
-    
-    // Check if search bar 2 exists and is visible
-    if(searchBar2){
-      // Check if element is displayed (not display:none)
-      var searchBar2Display = window.getComputedStyle(searchBar2).display;
-      var searchBar2Height_actual = searchBar2.offsetHeight || 0;
-      var searchBar2Rect = searchBar2.getBoundingClientRect();
-      
-      // If search bar is visible (display != none AND has height AND is near top)
-      if(searchBar2Display !== 'none' && searchBar2Height_actual > 0 && searchBar2Rect.top >= -10){
-        searchBar2Height = searchBar2Height_actual;
-      }
-    }
-    
-    var totalMarginTop = navHeight + searchBar2Height;
-    hero.style.marginTop = totalMarginTop + 'px';
-  }
-  
-  // Initial adjustment on page load
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', function(){
-      // Multiple calls to ensure detection works
-      setTimeout(adjustHeroBannerMargin, 50);
-      setTimeout(adjustHeroBannerMargin, 150);
-      setTimeout(adjustHeroBannerMargin, 300);
-    });
-  } else {
-    setTimeout(adjustHeroBannerMargin, 50);
-    setTimeout(adjustHeroBannerMargin, 150);
-  }
-  
-  // Adjust on scroll (navbar/search bar show/hide)
-  window.addEventListener('scroll', adjustHeroBannerMargin, {passive: true});
-  
-  // Adjust on window resize (responsive changes)
-  window.addEventListener('resize', adjustHeroBannerMargin, {passive: true});
-  
-  // Adjust on page visibility change
-  document.addEventListener('visibilitychange', adjustHeroBannerMargin);
-  
-  // Also adjust periodically to catch any dynamic changes
-  setInterval(adjustHeroBannerMargin, 2000);
-})();
-</script>
 
 <!-- ═══ B2B CATEGORY GRID ═══ -->
 <section id="bgx-marketplace" style="background:var(--sky);padding:0;">
