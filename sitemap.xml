@@ -55,4 +55,82 @@
     <priority>0.3</priority>
   </url>
 
+  <url>
+    <loc>https://www.buygenixsolutions.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/gst-registration-for-exporters-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/finding-verified-buyers-for-export-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/trademark-registration-guide-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/business-compliance-checklist-for-startups-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/digital-product-catalogue-for-export-business</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/iec-code-registration-guide-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/moowr-scheme-guide-manufacturers-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/rcmc-registration-guide-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/llp-vs-private-limited-company-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/fssai-license-for-food-exporters-india</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/ad-code-registration-for-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://www.buygenixsolutions.com/export-incentive-schemes-rodtep-duty-drawback-epcg</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
