@@ -333,19 +333,6 @@
 .btn-gst-submit{width:100%;height:44px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));color:white;border:none;border-radius:var(--r-lg);font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all 0.25s;box-shadow:0 4px 14px rgba(30,95,168,0.22);}
 .btn-gst-submit:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(30,95,168,0.32);}
 
-/* ── FAQ accordion ── */
-.faq-list{margin-top:6px;}
-.faq-item{border-bottom:1px solid var(--border-soft);}
-.faq-item:last-child{border-bottom:none;}
-.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:18px;background:none;border:none;padding:19px 2px;cursor:pointer;text-align:left;font-family:'Space Grotesk',sans-serif;}
-.faq-q-text{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.4;transition:color .2s;}
-.faq-q:hover .faq-q-text{color:var(--blue-mid);}
-.faq-chevron{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--sky);color:var(--blue-mid);display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s;}
-.faq-chevron svg{transition:transform .3s ease;}
-.faq-item.open .faq-chevron{background:var(--gold);color:white;}
-.faq-item.open .faq-chevron svg{transform:rotate(180deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.faq-a p{margin:0;padding:0 32px 19px 2px;font-size:13.5px;color:var(--text-body);line-height:1.7;}
 
 @media(max-width:900px){
   .gst-grid{grid-template-columns:1fr;}
@@ -944,107 +931,14 @@
     </div>
   </div>
 
-  <div class="gst-block reveal">
-    <h2>Frequently Asked Questions</h2>
-
-    <div class="faq-list" id="faqList">
-      <div class="faq-item open">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">How long does GST Registration take?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a" style="max-height:200px;">
-          <p>GST Registration generally takes 3 to 7 working days, depending on document verification and government approval.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">Is GST Registration mandatory for exporters?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>Yes, GST Registration is highly recommended for exporters to claim Input Tax Credit (ITC) refunds and other export benefits.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">How many days does IEC Registration take?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>IEC Registration is normally issued within 1 to 3 working days after successful application submission.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">What is MSME/Udyam Registration?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>MSME/Udyam Registration helps businesses access government schemes, subsidies, loans and export promotion benefits.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">Who needs FSSAI Registration?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>Any business involved in food manufacturing, processing, storage, distribution or export requires FSSAI Registration.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">What is APEDA Registration?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>APEDA Registration is required for exporters dealing in agricultural and processed food products from India.</p>
-        </div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">What is RCMC and do I need it?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>RCMC (Registration-Cum-Membership Certificate) is needed if you want to claim benefits under India's Foreign Trade Policy or government export schemes for your specific product category — issued by the relevant Export Promotion Council or Commodity Board.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">Do I need ICEGATE registration separately from IEC?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>Yes. IEC lets you legally export/import; ICEGATE registration is what lets you file shipping bills and customs documents online and receive duty drawback or IGST refunds. Most active exporters need both.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" type="button" onclick="toggleFAQ(this)">
-          <span class="faq-q-text">How do I know which registrations my business actually needs?</span>
-          <span class="faq-chevron"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="faq-a">
-          <p>It depends on your product and where you're shipping. Select "Not sure — need guidance" in the form, or message us on WhatsApp, and our team will map out exactly which registrations apply to you.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
+
 
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-brand"><div class="footer-logo-name">Buy<span>genix</span> Solutions</div><p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p><div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank" rel="noopener">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank" rel="noopener">📘</a><a href="https://wa.me/918796787594" target="_blank" rel="noopener">💬</a><a href="mailto:Info@buygenixsolutions.com">📧</a></div></div>
-    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="blog.html">Blog</a></li><li><a href="membership.html">Membership Plans</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="blog.html">Blog</a></li><li><a href="faq.html">FAQ</a></li><li><a href="membership.html">Membership Plans</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html#leads">Buyer Leads</a></li><li><a href="services.html#catalogue">Digital Catalogue</a></li><li><a href="services.html#seo">SEO &amp; SMO</a></li><li><a href="services.html#vcard">Virtual Business Card</a></li><li><a href="registration.html">Registration</a></li></ul></div>
     <div class="footer-col"><h4>Legal &amp; Support</h4><ul><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li><li><a href="login.html">Client Login</a></li><li><a href="contact.html">Get Support</a></li></ul></div>
   </div>
@@ -1083,20 +977,6 @@ function toggleSvc(btn) {
   item.closest('.svc-accordion').querySelectorAll('.svc-item.open').forEach(el => {
     el.classList.remove('open');
     el.querySelector('.svc-a').style.maxHeight = null;
-  });
-  if (!wasOpen) {
-    item.classList.add('open');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
-}
-
-function toggleFAQ(btn) {
-  const item = btn.closest('.faq-item');
-  const answer = item.querySelector('.faq-a');
-  const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('#faqList .faq-item.open').forEach(el => {
-    el.classList.remove('open');
-    el.querySelector('.faq-a').style.maxHeight = null;
   });
   if (!wasOpen) {
     item.classList.add('open');
