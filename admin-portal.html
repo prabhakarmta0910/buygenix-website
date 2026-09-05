@@ -470,6 +470,7 @@ body{background:#EEF2F7;}
           <button class="cat-sec-tab active" id="tab-apparel" onclick="switchCatTab('apparel')">👗 Apparel & Garments</button>
           <button class="cat-sec-tab" id="tab-agriculture" onclick="switchCatTab('agriculture')">🌾 Agriculture & Farming</button>
           <button class="cat-sec-tab" id="tab-electricals" onclick="switchCatTab('electricals')">⚡ Electricals & Electronics</button>
+          <button class="cat-sec-tab" id="tab-food" onclick="switchCatTab('food')">🍽️ Food & Beverages</button>
         </div>
 
         <!-- Search + Count -->
@@ -1570,6 +1571,7 @@ async function loadBannersAdmin() {
     {id:'b1',page:'home',location:'above_apparel',label:'Fashion Banner',image_url:'assets/fashion-banner.png',is_active:true,sort_order:1},
     {id:'b2',page:'home',location:'above_agriculture',label:'Agriculture Banner',image_url:'assets/agri-banner.png',is_active:true,sort_order:2},
     {id:'b3',page:'home',location:'below_agriculture',label:'Deals Banner',image_url:'assets/deals-banner-v2.png',is_active:true,sort_order:3},
+    {id:'b6',page:'home',location:'below_deals',label:'Food & Beverages Banner',image_url:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80',is_active:true,sort_order:4},
     {id:'b4',page:'membership',location:'hero',label:'Membership Banner',image_url:'assets/membership-banner.png',is_active:true,sort_order:1},
     {id:'b5',page:'about',location:'hero',label:'About Us Banner',image_url:'assets/about-banner.png',is_active:true,sort_order:1}
   ];
@@ -1737,6 +1739,7 @@ function openAddCategoryItem() {
           <option value="apparel" ${curCatSection==='apparel'?'selected':''}>👗 Apparel & Garments</option>
           <option value="agriculture" ${curCatSection==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
           <option value="electricals" ${curCatSection==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
+          <option value="food" ${curCatSection==='food'?'selected':''}>🍽️ Food & Beverages</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -1771,6 +1774,7 @@ function openEditCategoryItem(item) {
           <option value="apparel" ${item.section==='apparel'?'selected':''}>👗 Apparel & Garments</option>
           <option value="agriculture" ${item.section==='agriculture'?'selected':''}>🌾 Agriculture & Farming</option>
           <option value="electricals" ${item.section==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
+          <option value="food" ${item.section==='food'?'selected':''}>🍽️ Food & Beverages</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -2096,6 +2100,7 @@ function switchCatTab(section) {
   document.getElementById('tab-apparel').classList.toggle('active', section==='apparel');
   document.getElementById('tab-agriculture').classList.toggle('active', section==='agriculture');
   document.getElementById('tab-electricals').classList.toggle('active', section==='electricals');
+  document.getElementById('tab-food').classList.toggle('active', section==='food');
   document.getElementById('catSearch').value = '';
   renderCatCards();
 }
