@@ -338,7 +338,6 @@
   .gst-grid{grid-template-columns:1fr;}
   .gst-sidebar{position:static;}
   .doc-grid{grid-template-columns:1fr;}
-  .svc-grid{grid-template-columns:repeat(2,1fr);}
 }
 
 /* ── Category toggle (Business & Tax / Import-Export) ── */
@@ -350,50 +349,11 @@
 .cat-tab.active .cat-tab-text strong{color:white;}
 .cat-tab-text span{font-size:11.5px;color:var(--text-light);}
 .cat-tab.active .cat-tab-text span{color:rgba(255,255,255,0.7);}
-.cat-panel{display:none;}
-.cat-panel.active{display:block;}
-
-/* ── Service accordion (scales to many items) ── */
-.svc-accordion{display:flex;flex-direction:column;gap:0;}
-.svc-item{border-bottom:1px solid var(--border-soft);}
-.svc-item:last-child{border-bottom:none;}
-.svc-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;background:none;border:none;padding:16px 2px;cursor:pointer;text-align:left;font-family:'Space Grotesk',sans-serif;}
-.svc-q-left{display:flex;align-items:center;gap:12px;}
-.svc-num{width:30px;height:30px;border-radius:50%;background:var(--sky);color:var(--blue-mid);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:'Space Grotesk',sans-serif;}
-.svc-q-text{font-size:14.5px;font-weight:700;color:var(--navy);line-height:1.4;}
-.svc-q:hover .svc-q-text{color:var(--blue-mid);}
-.svc-chevron{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--sky);color:var(--blue-mid);display:flex;align-items:center;justify-content:center;transition:background .3s,color .3s;}
-.svc-chevron svg{transition:transform .3s ease;}
-.svc-item.open .svc-num{background:var(--blue);color:white;}
-.svc-item.open .svc-chevron{background:var(--gold);color:white;}
-.svc-item.open .svc-chevron svg{transform:rotate(180deg);}
-.svc-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
-.svc-a-inner{padding:0 2px 18px 42px;}
-.svc-a-inner p{font-size:13.5px;color:var(--text-body);line-height:1.7;margin-bottom:10px;}
-.svc-meta{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;}
-.svc-meta-pill{display:flex;align-items:center;gap:6px;background:var(--sky);border-radius:100px;padding:5px 12px;font-size:11.5px;color:var(--text-mid);font-weight:600;font-family:'Space Grotesk',sans-serif;}
-
-/* ── Large category selector (15 categories) ── */
-.svc-cat-select{display:none;width:100%;height:46px;border-radius:var(--r-lg);border:1.5px solid var(--border-soft);background:white;color:var(--navy);font-size:13.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;padding:0 14px;margin-bottom:18px;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231e3a8a' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
-.svc-cat-select:focus{outline:none;border-color:var(--blue);}
 
 .cat-tabs-sm{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:28px;}
-.cat-tab-sm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-radius:var(--r-md);border:1.5px solid var(--border-soft);background:white;color:var(--navy);font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .18s;box-shadow:0 1px 3px rgba(16,24,40,0.04);}
-.cat-tab-sm span{font-weight:700;color:var(--text-light);background:var(--sky);border-radius:100px;padding:2px 9px;font-size:11.5px;flex-shrink:0;}
-.cat-tab-sm:hover{border-color:var(--blue);box-shadow:0 4px 12px rgba(30,95,168,0.1);}
-.cat-tab-sm.active{background:linear-gradient(135deg,var(--blue),var(--blue-mid));border-color:transparent;color:white;box-shadow:0 6px 18px rgba(30,95,168,0.25);}
-.cat-tab-sm.active span{color:white;background:rgba(255,255,255,0.18);}
-
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
-.svc-chip{display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--border-soft);border-radius:var(--r-md);padding:13px 15px;font-size:13px;font-weight:600;color:var(--navy);line-height:1.4;box-shadow:0 1px 3px rgba(16,24,40,0.04);transition:all .18s;}
-.svc-chip:hover{border-color:var(--gold);box-shadow:0 6px 16px rgba(184,134,11,0.12);transform:translateY(-2px);}
-.svc-chip-num{width:26px;height:26px;border-radius:8px;background:var(--sky);color:var(--blue-mid);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;font-family:'Space Grotesk',sans-serif;}
-
-@media(max-width:640px){
-  .svc-cat-select{display:block;}
-  .cat-tabs-sm{display:none;}
-  .svc-grid{grid-template-columns:1fr;}
-}
+.cat-tab-sm{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 16px;border-radius:var(--r-md);border:1.5px solid var(--border-soft);background:white;color:var(--navy);font-size:13px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .18s;box-shadow:0 1px 3px rgba(16,24,40,0.04);text-decoration:none;}
+.cat-tab-sm span{font-weight:700;color:var(--gold);background:var(--sky);border-radius:100px;padding:2px 9px;font-size:13px;flex-shrink:0;}
+.cat-tab-sm:hover{border-color:var(--blue);box-shadow:0 4px 12px rgba(30,95,168,0.1);transform:translateY(-2px);}
 </style>
 </head>
 <body>
@@ -446,362 +406,24 @@
 
       <div class="gst-block reveal">
         <h2>All 245+ Services We Handle</h2>
-        <p style="font-size:13.5px;color:var(--text-mid);margin-bottom:18px;">Organised into 15 categories — from basic company registration to ongoing monthly compliance support. Select a category to view its full service list.</p>
-
-        <select class="svc-cat-select" id="svcCatSelect" onchange="switchCatBySelect(this)">
-            <option value="basic" selected>Basic Business Registrations (20)</option>
-            <option value="gst">GST Services (20)</option>
-            <option value="dgft">DGFT & IEC Services (20)</option>
-            <option value="rcmc">RCMC / Export Promotion Council (15)</option>
-            <option value="icegate">ICEGATE & Customs (20)</option>
-            <option value="expdoc">Export Documentation (20)</option>
-            <option value="fssai">FSSAI Services (7)</option>
-            <option value="agri">Agri Export & Digital Platforms (13)</option>
-            <option value="boards">Commodity Boards & Sector EPCs (15)</option>
-            <option value="incentive">Export Incentive Schemes (12)</option>
-            <option value="research">Market & Compliance Research (13)</option>
-            <option value="metrology">Legal Metrology & Labelling (10)</option>
-            <option value="banking">Banking & Payment Documentation (10)</option>
-            <option value="ai">AI-Powered Export Services (35)</option>
-            <option value="monthly">Monthly & Recurring Compliance Support (15)</option>
-        </select>
+        <p style="font-size:13.5px;color:var(--text-mid);margin-bottom:18px;">Organised into 15 categories — from basic company registration to ongoing monthly compliance support. Tap a category to see the full service list with explanations.</p>
 
         <div class="cat-tabs-sm" id="svcCatTabs">
-          <div class="cat-tab-sm active" data-cat="basic" onclick="switchCat('basic',this)">Basic Business Registrations <span>(20)</span></div>
-          <div class="cat-tab-sm" data-cat="gst" onclick="switchCat('gst',this)">GST Services <span>(20)</span></div>
-          <div class="cat-tab-sm" data-cat="dgft" onclick="switchCat('dgft',this)">DGFT & IEC Services <span>(20)</span></div>
-          <div class="cat-tab-sm" data-cat="rcmc" onclick="switchCat('rcmc',this)">RCMC / Export Promotion Council <span>(15)</span></div>
-          <div class="cat-tab-sm" data-cat="icegate" onclick="switchCat('icegate',this)">ICEGATE & Customs <span>(20)</span></div>
-          <div class="cat-tab-sm" data-cat="expdoc" onclick="switchCat('expdoc',this)">Export Documentation <span>(20)</span></div>
-          <div class="cat-tab-sm" data-cat="fssai" onclick="switchCat('fssai',this)">FSSAI Services <span>(7)</span></div>
-          <div class="cat-tab-sm" data-cat="agri" onclick="switchCat('agri',this)">Agri Export & Digital Platforms <span>(13)</span></div>
-          <div class="cat-tab-sm" data-cat="boards" onclick="switchCat('boards',this)">Commodity Boards & Sector EPCs <span>(15)</span></div>
-          <div class="cat-tab-sm" data-cat="incentive" onclick="switchCat('incentive',this)">Export Incentive Schemes <span>(12)</span></div>
-          <div class="cat-tab-sm" data-cat="research" onclick="switchCat('research',this)">Market & Compliance Research <span>(13)</span></div>
-          <div class="cat-tab-sm" data-cat="metrology" onclick="switchCat('metrology',this)">Legal Metrology & Labelling <span>(10)</span></div>
-          <div class="cat-tab-sm" data-cat="banking" onclick="switchCat('banking',this)">Banking & Payment Documentation <span>(10)</span></div>
-          <div class="cat-tab-sm" data-cat="ai" onclick="switchCat('ai',this)">AI-Powered Export Services <span>(35)</span></div>
-          <div class="cat-tab-sm" data-cat="monthly" onclick="switchCat('monthly',this)">Monthly & Recurring Compliance Support <span>(15)</span></div>
-        </div>
-
-        <div class="cat-panel active" id="cat-basic">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">1</span><span>Proprietorship Registration Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">2</span><span>Partnership Firm Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">3</span><span>LLP Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">4</span><span>Private Limited Company Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">5</span><span>One Person Company Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">6</span><span>Section 8 Company Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">7</span><span>Company Incorporation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">8</span><span>Trade Name Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">9</span><span>Business Name Search</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">10</span><span>PAN Application</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">11</span><span>TAN Application</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">12</span><span>MSME/Udyam Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">13</span><span>Shop & Establishment Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">14</span><span>Professional Tax Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">15</span><span>Digital Signature Certificate (DSC)</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">16</span><span>Class 3 DSC</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">17</span><span>DSC Renewal</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">18</span><span>DSC Token Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">19</span><span>Business Address Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">20</span><span>NOC/Consent Letter Preparation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-gst">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">21</span><span>GST Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">22</span><span>GST Amendment</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">23</span><span>GST Cancellation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">24</span><span>GST Revocation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">25</span><span>GST Registration Restoration Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">26</span><span>GST Return Filing – GSTR-1</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">27</span><span>GST Return Filing – GSTR-3B</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">28</span><span>Nil GST Return Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">29</span><span>GSTR-9 Annual Return</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">30</span><span>GSTR-9C Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">31</span><span>LUT Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">32</span><span>LUT Renewal</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">33</span><span>GST Refund Application</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">34</span><span>Export GST Refund Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">35</span><span>RFD-01 Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">36</span><span>GST Notice Reply Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">37</span><span>GST Registration Clarification Reply</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">38</span><span>GST Practitioner/Consultancy Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">39</span><span>GST Reconciliation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">40</span><span>Input Tax Credit Reconciliation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-dgft">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">41</span><span>IEC Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">42</span><span>IEC Modification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">43</span><span>IEC Update/Annual Confirmation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">44</span><span>IEC Reactivation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">45</span><span>IEC Surrender</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">46</span><span>IEC Profile Correction</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">47</span><span>IEC Bank Account Update</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">48</span><span>IEC Address Update</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">49</span><span>IEC Branch Addition</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">50</span><span>IEC Certificate Download</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">51</span><span>DGFT Login/Profile Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">52</span><span>DGFT DSC Mapping</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">53</span><span>DGFT Application Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">54</span><span>DGFT Query/Deficiency Reply</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">55</span><span>DGFT Authorisation Applications</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">56</span><span>DGFT Export Policy Checking</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">57</span><span>ITC-HS Code Identification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">58</span><span>Product Export Policy Check</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">59</span><span>Restricted Item Export Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">60</span><span>Export License Application Assistance</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-rcmc">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">61</span><span>APEDA RCMC</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">62</span><span>APEDA RCMC Amendment</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">63</span><span>APEDA RCMC Renewal/Related Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">64</span><span>FIEO RCMC</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">65</span><span>Spices Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">66</span><span>Tea Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">67</span><span>Coffee Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">68</span><span>MPEDA Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">69</span><span>EEPC India Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">70</span><span>APEDA Product Addition</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">71</span><span>RCMC Product Addition</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">72</span><span>RCMC Modification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">73</span><span>RCMC Issuance Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">74</span><span>Export Promotion Council Selection</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">75</span><span>RCMC Documentation Preparation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-icegate">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">76</span><span>ICEGATE Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">77</span><span>ICEGATE DSC Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">78</span><span>ICEGATE Profile Update</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">79</span><span>Port Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">80</span><span>Multiple Port Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">81</span><span>AD Code Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">82</span><span>AD Code Amendment</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">83</span><span>Bank Account Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">84</span><span>Shipping Bill Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">85</span><span>Shipping Bill Data Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">86</span><span>Shipping Bill Amendment Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">87</span><span>Shipping Bill Tracking</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">88</span><span>Let Export Order Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">89</span><span>Bill of Export Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">90</span><span>Customs Query Reply Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">91</span><span>Customs Documentation Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">92</span><span>Export General Manifest (EGM) Follow-up</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">93</span><span>Export Documentation Checklist</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">94</span><span>CHA/Customs Documentation Coordination</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">95</span><span>Export Shipment File Preparation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-expdoc">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">96</span><span>Proforma Invoice Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">97</span><span>Commercial Invoice Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">98</span><span>Packing List Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">99</span><span>Purchase Order Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">100</span><span>Sales Contract Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">101</span><span>Export Agreement Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">102</span><span>Letter of Credit Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">103</span><span>Bill of Lading Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">104</span><span>Airway Bill Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">105</span><span>Certificate of Origin Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">106</span><span>Non-Preferential Certificate of Origin</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">107</span><span>Preferential Certificate of Origin</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">108</span><span>e-CoO Application Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">109</span><span>Inspection Certificate Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">110</span><span>Insurance Certificate Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">111</span><span>Shipping Instruction Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">112</span><span>Export Declaration Preparation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">113</span><span>Country-Specific Export Document Checklist</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">114</span><span>Buyer Documentation Checklist</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">115</span><span>Complete Export Shipment Documentation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-fssai">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">116</span><span>FSSAI Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">117</span><span>FSSAI State License</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">118</span><span>FSSAI Central License</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">119</span><span>FSSAI Modification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">120</span><span>FSSAI Renewal</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">121</span><span>FSSAI Annual Return Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">122</span><span>FSSAI Import/Export-related Compliance Assistance</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-agri">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">123</span><span>APEDA Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">124</span><span>APEDA Unit Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">125</span><span>APEDA Traceability Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">126</span><span>HortiNet Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">127</span><span>Peanut.Net Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">128</span><span>Tracenet Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">129</span><span>Meat.Net-related Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">130</span><span>Basmati.Net-related Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">131</span><span>RCAC Application Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">132</span><span>Agriculture Product Testing Coordination</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">133</span><span>Phytosanitary Certificate Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">134</span><span>Health Certificate Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">135</span><span>Laboratory Testing Coordination</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-boards">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">136</span><span>Spices Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">137</span><span>Tea Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">138</span><span>Coffee Board Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">139</span><span>MPEDA Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">140</span><span>APEDA Scheduled Product Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">141</span><span>Tobacco Board-related Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">142</span><span>Shellac & Forest Products EPC Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">143</span><span>Handicraft Export Council Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">144</span><span>Textile Export Council Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">145</span><span>Engineering Export Promotion Council Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">146</span><span>Chemical Export Promotion Council Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">147</span><span>Pharmaceutical Export Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">148</span><span>Leather Export Council Registration</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">149</span><span>Marine Product Export Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">150</span><span>Product-Specific Export Compliance Research</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-incentive">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">151</span><span>RoDTEP Claim Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">152</span><span>Duty Drawback Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">153</span><span>Advance Authorisation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">154</span><span>EPCG Application Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">155</span><span>Export Obligation Tracking</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">156</span><span>DGFT Licence Amendment</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">157</span><span>Licence Closure Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">158</span><span>Redemption Application Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">159</span><span>EODC Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">160</span><span>Export Incentive Reconciliation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">161</span><span>Scheme Eligibility Check</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">162</span><span>Export Promotion Scheme Documentation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-research">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">163</span><span>HS Code Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">164</span><span>Product Classification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">165</span><span>Country Import Requirement Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">166</span><span>Destination Country Compliance Checklist</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">167</span><span>Export Prohibited/Restricted Product Check</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">168</span><span>Importer Requirement Checklist</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">169</span><span>Product Labelling Requirement Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">170</span><span>Packaging Compliance Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">171</span><span>Certificate Requirement Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">172</span><span>Testing Requirement Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">173</span><span>Non-Tariff Barrier Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">174</span><span>Market Entry Compliance Report</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">175</span><span>Country-wise Export Documentation Report</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-metrology">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">176</span><span>Legal Metrology Registration Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">177</span><span>LMPC Registration Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">178</span><span>Importer/Manufacturer Declaration Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">179</span><span>Packaged Commodity Compliance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">180</span><span>Product Label Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">181</span><span>MRP/Net Quantity Label Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">182</span><span>Country of Origin Label Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">183</span><span>Export Packaging Label Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">184</span><span>Barcode/Label Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">185</span><span>Product Compliance Checklist</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-banking">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">186</span><span>AD Bank Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">187</span><span>Export Bank Account Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">188</span><span>Foreign Remittance Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">189</span><span>FIRC Documentation Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">190</span><span>BRC/e-BRC Follow-up Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">191</span><span>Export Payment Reconciliation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">192</span><span>Shipping Bill vs Bank Realisation Reconciliation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">193</span><span>Export Outstanding Payment Tracking</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">194</span><span>Bank Query Documentation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">195</span><span>Export Proceeds Documentation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-ai">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">196</span><span>AI Export Product Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">197</span><span>AI Buyer Requirement Analysis</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">198</span><span>AI Buyer Profile Verification Report</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">199</span><span>AI Country Market Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">200</span><span>AI Competitor Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">201</span><span>AI Product Description Writing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">202</span><span>AI Export Catalogue Creation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">203</span><span>AI Product Brochure Creation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">204</span><span>AI Company Profile Creation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">205</span><span>AI Export Website Content</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">206</span><span>AI SEO Product Content</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">207</span><span>AI Buyer Email Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">208</span><span>AI Cold Email Campaign</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">209</span><span>AI Follow-up Email Campaign</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">210</span><span>AI WhatsApp Business Message Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">211</span><span>AI Proforma Invoice Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">212</span><span>AI Commercial Offer Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">213</span><span>AI Sales Contract Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">214</span><span>AI Export Agreement Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">215</span><span>AI NDA Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">216</span><span>AI LOI/LOA Drafting</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">217</span><span>AI Purchase Order Review</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">218</span><span>AI Export Document Error Checking</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">219</span><span>AI Invoice/PO Cross-Verification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">220</span><span>AI Export Compliance Checklist Generation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">221</span><span>AI HS Code Research Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">222</span><span>AI Country-wise Requirement Report</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">223</span><span>AI Product-to-Country Matching</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">224</span><span>AI Buyer Lead Qualification</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">225</span><span>AI Export Pricing Research</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">226</span><span>AI Incoterms Explanation/Selection Assistance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">227</span><span>AI Export Risk Assessment</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">228</span><span>AI Buyer Communication Translation</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">229</span><span>AI Multilingual Catalogue</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">230</span><span>AI Export Proposal Generation</span></div>
-          </div>
-        </div>
-
-        <div class="cat-panel" id="cat-monthly">
-          <div class="svc-grid">
-            <div class="svc-chip"><span class="svc-chip-num">231</span><span>Monthly GST Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">232</span><span>Quarterly GST Filing</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">233</span><span>Monthly Export Documentation Support</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">234</span><span>Monthly Compliance Monitoring</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">235</span><span>RCMC Expiry Monitoring</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">236</span><span>Licence Expiry Monitoring</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">237</span><span>DSC Expiry Monitoring</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">238</span><span>FSSAI Renewal Reminder</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">239</span><span>Export Compliance Calendar</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">240</span><span>Monthly Export Compliance Report</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">241</span><span>Export Document Record Maintenance</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">242</span><span>Export Shipment File Management</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">243</span><span>Buyer Documentation Management</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">244</span><span>Regulatory Change Monitoring</span></div>
-            <div class="svc-chip"><span class="svc-chip-num">245</span><span>DGFT Notification Monitoring</span></div>
-          </div>
+          <a href="basic-business-registrations.html" class="cat-tab-sm">Basic Business Registrations <span>→</span></a>
+          <a href="gst-services.html" class="cat-tab-sm">GST Services <span>→</span></a>
+          <a href="dgft-iec-services.html" class="cat-tab-sm">DGFT & IEC Services <span>→</span></a>
+          <a href="rcmc-export-promotion-council.html" class="cat-tab-sm">RCMC / Export Promotion Council <span>→</span></a>
+          <a href="icegate-customs-services.html" class="cat-tab-sm">ICEGATE & Customs <span>→</span></a>
+          <a href="export-documentation-services.html" class="cat-tab-sm">Export Documentation <span>→</span></a>
+          <a href="fssai-services.html" class="cat-tab-sm">FSSAI Services <span>→</span></a>
+          <a href="agri-export-digital-platforms.html" class="cat-tab-sm">Agri Export & Digital Platforms <span>→</span></a>
+          <a href="commodity-boards-sector-epcs.html" class="cat-tab-sm">Commodity Boards & Sector EPCs <span>→</span></a>
+          <a href="export-incentive-schemes.html" class="cat-tab-sm">Export Incentive Schemes <span>→</span></a>
+          <a href="market-compliance-research.html" class="cat-tab-sm">Market & Compliance Research <span>→</span></a>
+          <a href="legal-metrology-labelling.html" class="cat-tab-sm">Legal Metrology & Labelling <span>→</span></a>
+          <a href="banking-payment-documentation.html" class="cat-tab-sm">Banking & Payment Documentation <span>→</span></a>
+          <a href="ai-powered-export-services.html" class="cat-tab-sm">AI-Powered Export Services <span>→</span></a>
+          <a href="monthly-recurring-compliance-support.html" class="cat-tab-sm">Monthly & Recurring Compliance Support <span>→</span></a>
         </div>
       </div>
 
@@ -953,38 +575,6 @@
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-function switchCat(id, btn) {
-  document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.cat-tab, .cat-tab-sm').forEach(t => t.classList.remove('active'));
-  document.getElementById('cat-'+id).classList.add('active');
-  if (btn) btn.classList.add('active');
-  var select = document.getElementById('svcCatSelect');
-  if (select) select.value = id;
-}
-
-function switchCatBySelect(select) {
-  var id = select.value;
-  document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.cat-tab, .cat-tab-sm').forEach(t => t.classList.remove('active'));
-  document.getElementById('cat-'+id).classList.add('active');
-  var tab = document.querySelector('.cat-tab-sm[data-cat="'+id+'"]');
-  if (tab) tab.classList.add('active');
-}
-
-function toggleSvc(btn) {
-  const item = btn.closest('.svc-item');
-  const answer = item.querySelector('.svc-a');
-  const wasOpen = item.classList.contains('open');
-  item.closest('.svc-accordion').querySelectorAll('.svc-item.open').forEach(el => {
-    el.classList.remove('open');
-    el.querySelector('.svc-a').style.maxHeight = null;
-  });
-  if (!wasOpen) {
-    item.classList.add('open');
-    answer.style.maxHeight = answer.scrollHeight + 'px';
-  }
-}
-
 async function submitGSTForm() {
   const errEl = document.getElementById('gstErr');
   errEl.classList.remove('show');
