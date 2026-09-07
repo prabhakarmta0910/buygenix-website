@@ -696,7 +696,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
    !important needed because the live grids set columns inline. */
 @media(max-width:1024px){
   .cat-grid-skeleton,
-  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid{
+  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid{
     grid-template-columns:none !important;
     grid-template-rows:repeat(3,1fr) !important;
     grid-auto-flow:column !important;
@@ -712,7 +712,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 }
 @media(max-width:600px){
   .cat-grid-skeleton,
-  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid{grid-auto-columns:31% !important;}
+  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid{grid-auto-columns:31% !important;}
   .cat-vcard{height:78px;}
   .cat-vcard-subs{max-height:36px;}
 }
@@ -792,6 +792,22 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="food-grid"></div>
 </section>
 <!-- ═══ END FOOD & BEVERAGES CATEGORY GRID ═══ -->
+
+<!-- ═══ HANDICRAFTS & HOME DÉCOR CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Handicrafts <span style="color:var(--blue);">&amp;</span> Home Décor</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="handicrafts-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="handicrafts-grid"></div>
+</section>
+<!-- ═══ END HANDICRAFTS & HOME DÉCOR CATEGORY GRID ═══ -->
 
 <!-- ═══ SERVICES ═══ -->
 <section style="background:linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 50%, #102030 100%);padding:52px 0;position:relative;overflow:hidden;">
@@ -1429,20 +1445,23 @@ function updatePhonePlaceholder(el,active){
   try {
     if (typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_URL && !BGX_SUPABASE_URL.includes('YOUR-PROJECT')) {
       const headers = { 'apikey': BGX_SUPABASE_ANON, 'Authorization': 'Bearer ' + BGX_SUPABASE_ANON };
-      const [apRes, agRes, elRes, foRes] = await Promise.all([
+      const [apRes, agRes, elRes, foRes, haRes] = await Promise.all([
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.apparel&is_active=eq.true&order=sort_order.asc`, { headers }),
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.agriculture&is_active=eq.true&order=sort_order.asc`, { headers }),
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.electricals&is_active=eq.true&order=sort_order.asc`, { headers }),
-        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.food&is_active=eq.true&order=sort_order.asc`, { headers })
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.food&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.handicrafts&is_active=eq.true&order=sort_order.asc`, { headers })
       ]);
       if (apRes.ok && agRes.ok) {
-        const [apData, agData, elData, foData] = await Promise.all([apRes.json(), agRes.json(), elRes.ok ? elRes.json() : [], foRes.ok ? foRes.json() : []]);
+        const [apData, agData, elData, foData, haData] = await Promise.all([apRes.json(), agRes.json(), elRes.ok ? elRes.json() : [], foRes.ok ? foRes.json() : [], haRes.ok ? haRes.json() : []]);
         if (apData.length) showGrid('apparel', apData);
         if (agData.length) showGrid('agriculture', agData);
         if (elData.length) showGrid('electricals', elData);
         else showGrid('electricals', ELECTRICALS_DATA);
         if (foData.length) showGrid('food', foData);
         else showGrid('food', FOOD_DATA);
+        if (haData.length) showGrid('handicrafts', haData);
+        else showGrid('handicrafts', HANDICRAFTS_DATA);
         return;
       }
     }
@@ -1556,10 +1575,38 @@ const FOOD_DATA = [
   {title:'Meat & Seafood Products',sub_items:['Frozen Meat','Processed Meat','Seafood','Fish Products'],image_url:'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=300&q=80'}
 ];
 
+const HANDICRAFTS_DATA = [
+  {title:'Wooden Handicrafts',sub_items:['Carved Figurines','Wooden Boxes','Sculptures','Decorative Panels'],image_url:'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=300&q=80'},
+  {title:'Metal Handicrafts & Brassware',sub_items:['Brass Idols','Metal Bowls','Engraved Plates','Decorative Urns'],image_url:'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=300&q=80'},
+  {title:'Home Décor Items',sub_items:['Decorative Bowls','Showpieces','Wall Shelves','Ornaments'],image_url:'https://images.unsplash.com/photo-1526057565006-e6b3a5efb0d4?w=300&q=80'},
+  {title:'Wall Art & Paintings',sub_items:['Canvas Paintings','Wall Hangings','Framed Art','Tapestries'],image_url:'https://images.unsplash.com/photo-1547333590-47fae5f58d21?w=300&q=80'},
+  {title:'Handmade Furniture',sub_items:['Wooden Chairs','Cane Furniture','Stools','Side Tables'],image_url:'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=300&q=80'},
+  {title:'Pottery & Ceramics',sub_items:['Clay Pots','Ceramic Bowls','Decorative Plates','Glazed Pottery'],image_url:'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=300&q=80'},
+  {title:'Candles & Candle Holders',sub_items:['Scented Candles','Brass Candle Stands','Decorative Candles','Lanterns'],image_url:'https://images.unsplash.com/photo-1602874801007-bd458bb1b8b6?w=300&q=80'},
+  {title:'Handwoven Baskets',sub_items:['Cane Baskets','Storage Baskets','Fruit Baskets','Woven Trays'],image_url:'https://images.unsplash.com/photo-1595408076683-4adf043c1c9e?w=300&q=80'},
+  {title:'Decorative Mirrors',sub_items:['Wall Mirrors','Framed Mirrors','Antique Mirrors','Mosaic Mirrors'],image_url:'https://images.unsplash.com/photo-1618220179428-22790b461013?w=300&q=80'},
+  {title:'Wind Chimes & Hangings',sub_items:['Wind Chimes','Door Hangings','Wall Hangings','Mobile Hangings'],image_url:'https://images.unsplash.com/photo-1601275456570-4c47610a2f66?w=300&q=80'},
+  {title:'Handmade Rugs & Carpets',sub_items:['Wool Rugs','Cotton Dhurries','Jute Rugs','Braided Rugs'],image_url:'https://images.unsplash.com/photo-1600166898405-da9535204843?w=300&q=80'},
+  {title:'Marble & Stone Handicrafts',sub_items:['Marble Idols','Stone Carvings','Inlay Work','Marble Vases'],image_url:'https://images.unsplash.com/photo-1610177498629-8567cf5e8fce?w=300&q=80'},
+  {title:'Bamboo & Cane Products',sub_items:['Bamboo Baskets','Cane Furniture','Bamboo Décor','Cane Blinds'],image_url:'https://images.unsplash.com/photo-1622037022824-0c71d511ad76?w=300&q=80'},
+  {title:'Terracotta Products',sub_items:['Terracotta Pots','Wall Décor','Figurines','Planters'],image_url:'https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?w=300&q=80'},
+  {title:'Handicraft Gift Items',sub_items:['Gift Boxes','Souvenirs','Decorative Sets','Corporate Gifts'],image_url:'https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=300&q=80'},
+  {title:'Decorative Vases',sub_items:['Ceramic Vases','Metal Vases','Glass Vases','Flower Pots'],image_url:'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=300&q=80'},
+  {title:'Handmade Jewellery Boxes',sub_items:['Wooden Boxes','Carved Boxes','Mirror Boxes','Multi-Compartment Boxes'],image_url:'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&q=80'},
+  {title:'Wooden Toys',sub_items:['Traditional Toys','Puzzle Toys','Educational Toys','Painted Toys'],image_url:'https://images.unsplash.com/photo-1516981879613-9f5da904015f?w=300&q=80'},
+  {title:'Embroidered Home Furnishings',sub_items:['Embroidered Cushion Covers','Table Runners','Bedspreads','Curtains'],image_url:'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=300&q=80'},
+  {title:'Handicraft Lamps & Lanterns',sub_items:['Table Lamps','Hanging Lanterns','Paper Lamps','Brass Lamps'],image_url:'https://images.unsplash.com/photo-1543198126-42324d3fa6ab?w=300&q=80'},
+  {title:'Papier-Mâché Products',sub_items:['Decorative Boxes','Wall Art','Ornaments','Masks'],image_url:'https://images.unsplash.com/photo-1610375461369-d613b564f4c4?w=300&q=80'},
+  {title:'Handcrafted Cushion Covers',sub_items:['Printed Covers','Embroidered Covers','Patchwork Covers','Silk Covers'],image_url:'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=300&q=80'},
+  {title:'Dhokra Art & Metal Casting',sub_items:['Dhokra Figurines','Tribal Art','Metal Sculptures','Decorative Casting'],image_url:'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=300&q=80'},
+  {title:'Festive & Religious Decor',sub_items:['Diyas','Puja Items','Festive Décor','Religious Idols'],image_url:'https://images.unsplash.com/photo-1605106702734-205df224ecce?w=300&q=80'}
+];
+
 showGrid('apparel', APPAREL_DATA);
 showGrid('agriculture', AGRI_DATA);
 showGrid('electricals', ELECTRICALS_DATA);
 showGrid('food', FOOD_DATA);
+showGrid('handicrafts', HANDICRAFTS_DATA);
 })();
 </script>
 </body>
