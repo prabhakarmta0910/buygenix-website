@@ -472,6 +472,11 @@ body{background:#EEF2F7;}
           <button class="cat-sec-tab" id="tab-electricals" onclick="switchCatTab('electricals')">⚡ Electricals & Electronics</button>
           <button class="cat-sec-tab" id="tab-food" onclick="switchCatTab('food')">🍽️ Food & Beverages</button>
           <button class="cat-sec-tab" id="tab-handicrafts" onclick="switchCatTab('handicrafts')">🏺 Handicrafts & Home Décor</button>
+          <button class="cat-sec-tab" id="tab-textiles" onclick="switchCatTab('textiles')">🧵 Textiles & Fabrics</button>
+          <button class="cat-sec-tab" id="tab-leather" onclick="switchCatTab('leather')">👜 Leather & Leather Products</button>
+          <button class="cat-sec-tab" id="tab-jewellery" onclick="switchCatTab('jewellery')">💎 Jewellery & Gems</button>
+          <button class="cat-sec-tab" id="tab-chemicals" onclick="switchCatTab('chemicals')">🧪 Chemicals & Dyes</button>
+          <button class="cat-sec-tab" id="tab-pharma" onclick="switchCatTab('pharma')">💊 Pharmaceuticals & Healthcare</button>
         </div>
 
         <!-- Search + Count -->
@@ -1741,6 +1746,11 @@ function openAddCategoryItem() {
           <option value="electricals" ${curCatSection==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
           <option value="food" ${curCatSection==='food'?'selected':''}>🍽️ Food & Beverages</option>
           <option value="handicrafts" ${curCatSection==='handicrafts'?'selected':''}>🏺 Handicrafts & Home Décor</option>
+          <option value="textiles" ${curCatSection==='textiles'?'selected':''}>🧵 Textiles & Fabrics</option>
+          <option value="leather" ${curCatSection==='leather'?'selected':''}>👜 Leather & Leather Products</option>
+          <option value="jewellery" ${curCatSection==='jewellery'?'selected':''}>💎 Jewellery & Gems</option>
+          <option value="chemicals" ${curCatSection==='chemicals'?'selected':''}>🧪 Chemicals & Dyes</option>
+          <option value="pharma" ${curCatSection==='pharma'?'selected':''}>💊 Pharmaceuticals & Healthcare</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -1777,6 +1787,11 @@ function openEditCategoryItem(item) {
           <option value="electricals" ${item.section==='electricals'?'selected':''}>⚡ Electricals & Electronics</option>
           <option value="food" ${item.section==='food'?'selected':''}>🍽️ Food & Beverages</option>
           <option value="handicrafts" ${item.section==='handicrafts'?'selected':''}>🏺 Handicrafts & Home Décor</option>
+          <option value="textiles" ${item.section==='textiles'?'selected':''}>🧵 Textiles & Fabrics</option>
+          <option value="leather" ${item.section==='leather'?'selected':''}>👜 Leather & Leather Products</option>
+          <option value="jewellery" ${item.section==='jewellery'?'selected':''}>💎 Jewellery & Gems</option>
+          <option value="chemicals" ${item.section==='chemicals'?'selected':''}>🧪 Chemicals & Dyes</option>
+          <option value="pharma" ${item.section==='pharma'?'selected':''}>💊 Pharmaceuticals & Healthcare</option>
         </select>
       </div>
       <div class="form-group"><label>Sort Order</label>
@@ -2104,6 +2119,11 @@ function switchCatTab(section) {
   document.getElementById('tab-electricals').classList.toggle('active', section==='electricals');
   document.getElementById('tab-food').classList.toggle('active', section==='food');
   document.getElementById('tab-handicrafts').classList.toggle('active', section==='handicrafts');
+  document.getElementById('tab-textiles').classList.toggle('active', section==='textiles');
+  document.getElementById('tab-leather').classList.toggle('active', section==='leather');
+  document.getElementById('tab-jewellery').classList.toggle('active', section==='jewellery');
+  document.getElementById('tab-chemicals').classList.toggle('active', section==='chemicals');
+  document.getElementById('tab-pharma').classList.toggle('active', section==='pharma');
   document.getElementById('catSearch').value = '';
   renderCatCards();
 }

@@ -696,7 +696,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
    !important needed because the live grids set columns inline. */
 @media(max-width:1024px){
   .cat-grid-skeleton,
-  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid{
+  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid,#textiles-grid,#leather-grid,#jewellery-grid,#chemicals-grid,#pharma-grid{
     grid-template-columns:none !important;
     grid-template-rows:repeat(3,1fr) !important;
     grid-auto-flow:column !important;
@@ -712,7 +712,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 }
 @media(max-width:600px){
   .cat-grid-skeleton,
-  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid{grid-auto-columns:31% !important;}
+  #apparel-grid,#agriculture-grid,#electricals-grid,#food-grid,#handicrafts-grid,#textiles-grid,#leather-grid,#jewellery-grid,#chemicals-grid,#pharma-grid{grid-auto-columns:31% !important;}
   .cat-vcard{height:78px;}
   .cat-vcard-subs{max-height:36px;}
 }
@@ -808,6 +808,86 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="handicrafts-grid"></div>
 </section>
 <!-- ═══ END HANDICRAFTS & HOME DÉCOR CATEGORY GRID ═══ -->
+
+<!-- ═══ TEXTILES & FABRICS CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Textiles <span style="color:var(--blue);">&amp;</span> Fabrics</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="textiles-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="textiles-grid"></div>
+</section>
+<!-- ═══ END TEXTILES & FABRICS CATEGORY GRID ═══ -->
+
+<!-- ═══ LEATHER & LEATHER PRODUCTS CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Leather <span style="color:var(--blue);">&amp;</span> Leather Products</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="leather-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="leather-grid"></div>
+</section>
+<!-- ═══ END LEATHER & LEATHER PRODUCTS CATEGORY GRID ═══ -->
+
+<!-- ═══ JEWELLERY & GEMS CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Jewellery <span style="color:var(--blue);">&amp;</span> Gems</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="jewellery-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="jewellery-grid"></div>
+</section>
+<!-- ═══ END JEWELLERY & GEMS CATEGORY GRID ═══ -->
+
+<!-- ═══ CHEMICALS & DYES CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Chemicals <span style="color:var(--blue);">&amp;</span> Dyes</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="chemicals-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="chemicals-grid"></div>
+</section>
+<!-- ═══ END CHEMICALS & DYES CATEGORY GRID ═══ -->
+
+<!-- ═══ PHARMACEUTICALS & HEALTHCARE CATEGORY GRID ═══ -->
+<section style="background:var(--sky);padding:28px 16px;">
+  <div style="text-align:center;margin-bottom:20px;">
+    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Pharmaceuticals <span style="color:var(--blue);">&amp;</span> Healthcare</h2>
+    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
+  </div>
+  <div class="cat-grid-skeleton" id="pharma-skeleton">
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="pharma-grid"></div>
+</section>
+<!-- ═══ END PHARMACEUTICALS & HEALTHCARE CATEGORY GRID ═══ -->
 
 <!-- ═══ SERVICES ═══ -->
 <section style="background:linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 50%, #102030 100%);padding:52px 0;position:relative;overflow:hidden;">
@@ -1445,15 +1525,20 @@ function updatePhonePlaceholder(el,active){
   try {
     if (typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_URL && !BGX_SUPABASE_URL.includes('YOUR-PROJECT')) {
       const headers = { 'apikey': BGX_SUPABASE_ANON, 'Authorization': 'Bearer ' + BGX_SUPABASE_ANON };
-      const [apRes, agRes, elRes, foRes, haRes] = await Promise.all([
+      const [apRes, agRes, elRes, foRes, haRes, teRes, leRes, jeRes, chRes, phRes] = await Promise.all([
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.apparel&is_active=eq.true&order=sort_order.asc`, { headers }),
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.agriculture&is_active=eq.true&order=sort_order.asc`, { headers }),
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.electricals&is_active=eq.true&order=sort_order.asc`, { headers }),
         fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.food&is_active=eq.true&order=sort_order.asc`, { headers }),
-        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.handicrafts&is_active=eq.true&order=sort_order.asc`, { headers })
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.handicrafts&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.textiles&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.leather&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.jewellery&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.chemicals&is_active=eq.true&order=sort_order.asc`, { headers }),
+        fetch(`${BGX_SUPABASE_URL}/rest/v1/category_items?section=eq.pharma&is_active=eq.true&order=sort_order.asc`, { headers })
       ]);
       if (apRes.ok && agRes.ok) {
-        const [apData, agData, elData, foData, haData] = await Promise.all([apRes.json(), agRes.json(), elRes.ok ? elRes.json() : [], foRes.ok ? foRes.json() : [], haRes.ok ? haRes.json() : []]);
+        const [apData, agData, elData, foData, haData, teData, leData, jeData, chData, phData] = await Promise.all([apRes.json(), agRes.json(), elRes.ok ? elRes.json() : [], foRes.ok ? foRes.json() : [], haRes.ok ? haRes.json() : [], teRes.ok ? teRes.json() : [], leRes.ok ? leRes.json() : [], jeRes.ok ? jeRes.json() : [], chRes.ok ? chRes.json() : [], phRes.ok ? phRes.json() : []]);
         if (apData.length) showGrid('apparel', apData);
         if (agData.length) showGrid('agriculture', agData);
         if (elData.length) showGrid('electricals', elData);
@@ -1462,6 +1547,16 @@ function updatePhonePlaceholder(el,active){
         else showGrid('food', FOOD_DATA);
         if (haData.length) showGrid('handicrafts', haData);
         else showGrid('handicrafts', HANDICRAFTS_DATA);
+        if (teData.length) showGrid('textiles', teData);
+        else showGrid('textiles', TEXTILES_DATA);
+        if (leData.length) showGrid('leather', leData);
+        else showGrid('leather', LEATHER_DATA);
+        if (jeData.length) showGrid('jewellery', jeData);
+        else showGrid('jewellery', JEWELLERY_DATA);
+        if (chData.length) showGrid('chemicals', chData);
+        else showGrid('chemicals', CHEMICALS_DATA);
+        if (phData.length) showGrid('pharma', phData);
+        else showGrid('pharma', PHARMA_DATA);
         return;
       }
     }
@@ -1602,11 +1697,151 @@ const HANDICRAFTS_DATA = [
   {title:'Festive & Religious Decor',sub_items:['Diyas','Puja Items','Festive Décor','Religious Idols'],image_url:'https://images.unsplash.com/photo-1605106702734-205df224ecce?w=300&q=80'}
 ];
 
+const TEXTILES_DATA = [
+  {title:'Cotton Fabrics',sub_items:['Cotton Poplin','Cotton Voile','Cotton Canvas','Cotton Twill'],image_url:'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=300&q=80'},
+  {title:'Silk Fabrics',sub_items:['Pure Silk','Art Silk','Silk Blends','Printed Silk'],image_url:'https://images.unsplash.com/photo-1596133107876-ccb4b0a3d3d5?w=300&q=80'},
+  {title:'Synthetic Fabrics',sub_items:['Polyester Fabric','Nylon Fabric','Rayon Fabric','Spandex Blends'],image_url:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=300&q=80'},
+  {title:'Woolen Fabrics',sub_items:['Merino Wool','Wool Blends','Tweed','Flannel'],image_url:'https://images.unsplash.com/photo-1620799139507-2a76f79a2f4d?w=300&q=80'},
+  {title:'Denim Fabric',sub_items:['Raw Denim','Stretch Denim','Washed Denim','Denim Blends'],image_url:'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300&q=80'},
+  {title:'Linen Fabric',sub_items:['Pure Linen','Linen Blends','Printed Linen','Linen Canvas'],image_url:'https://images.unsplash.com/photo-1594736797933-d0f06ba39e59?w=300&q=80'},
+  {title:'Knitted Fabrics',sub_items:['Jersey Knit','Rib Knit','Interlock Knit','Fleece Knit'],image_url:'https://images.unsplash.com/photo-1620799139834-b3e2e5f2b8e0?w=300&q=80'},
+  {title:'Non-Woven Fabrics',sub_items:['Spunbond Fabric','Melt-Blown Fabric','Needle-Punched Fabric','Geotextiles'],image_url:'https://images.unsplash.com/photo-1620799139544-14fc38a1c6c8?w=300&q=80'},
+  {title:'Embroidered Fabrics',sub_items:['Thread Embroidery','Zari Embroidery','Sequin Embroidery','Mirror Work'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Printed Fabrics',sub_items:['Block Print','Digital Print','Screen Print','Batik Print'],image_url:'https://images.unsplash.com/photo-1596401057633-54835f7e0c95?w=300&q=80'},
+  {title:'Yarn & Threads',sub_items:['Cotton Yarn','Polyester Yarn','Embroidery Thread','Sewing Thread'],image_url:'https://images.unsplash.com/photo-1591129841117-3adfd313e34f?w=300&q=80'},
+  {title:'Technical Textiles',sub_items:['Industrial Fabrics','Medical Textiles','Automotive Textiles','Protective Fabrics'],image_url:'https://images.unsplash.com/photo-1620799139678-f9b3f5e8e5d1?w=300&q=80'},
+  {title:'Home Textiles',sub_items:['Bedsheets','Cushion Fabrics','Curtain Material','Table Linen'],image_url:'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=300&q=80'},
+  {title:'Terry Towels',sub_items:['Cotton Towels','Bath Towels','Beach Towels','Kitchen Towels'],image_url:'https://images.unsplash.com/photo-1620626011761-996317b8d101?w=300&q=80'},
+  {title:'Bed Linen',sub_items:['Bedsheets','Pillow Covers','Duvet Covers','Mattress Protectors'],image_url:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=300&q=80'},
+  {title:'Curtain Fabrics',sub_items:['Sheer Curtains','Blackout Fabric','Printed Curtains','Velvet Curtains'],image_url:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=300&q=80'},
+  {title:'Upholstery Fabrics',sub_items:['Sofa Fabric','Chair Fabric','Velvet Upholstery','Leatherette Upholstery'],image_url:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=300&q=80'},
+  {title:'Fabric Trims & Laces',sub_items:['Lace Trims','Ribbons','Piping','Fringes'],image_url:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80'},
+  {title:'Velvet Fabrics',sub_items:['Cotton Velvet','Silk Velvet','Crushed Velvet','Velvet Blends'],image_url:'https://images.unsplash.com/photo-1620799139907-3b8c6d9a4a2b?w=300&q=80'},
+  {title:'Georgette & Chiffon',sub_items:['Plain Georgette','Printed Georgette','Chiffon','Crepe Georgette'],image_url:'https://images.unsplash.com/photo-1596401057633-54835f7e0c95?w=300&q=80'},
+  {title:'Handloom Fabrics',sub_items:['Handloom Cotton','Handloom Silk','Khadi Fabric','Ikat Fabric'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Fusible Interlining',sub_items:['Woven Interlining','Non-Woven Interlining','Knitted Interlining','Fusible Web'],image_url:'https://images.unsplash.com/photo-1620799139544-14fc38a1c6c8?w=300&q=80'},
+  {title:'Fleece Fabrics',sub_items:['Polar Fleece','Cotton Fleece','French Terry','Sherpa Fleece'],image_url:'https://images.unsplash.com/photo-1620799139834-b3e2e5f2b8e0?w=300&q=80'},
+  {title:'Zari & Metallic Fabrics',sub_items:['Zari Border Fabric','Brocade','Metallic Jacquard','Banarasi Fabric'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'}
+];
+
+const LEATHER_DATA = [
+  {title:'Leather Bags',sub_items:['Handbags','Tote Bags','Sling Bags','Backpacks'],image_url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&q=80'},
+  {title:'Leather Footwear',sub_items:['Formal Shoes','Boots','Sandals','Loafers'],image_url:'https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=300&q=80'},
+  {title:'Leather Wallets',sub_items:['Bifold Wallets','Card Holders','Coin Pouches','Travel Wallets'],image_url:'https://images.unsplash.com/photo-1627123424574-724758594e93?w=300&q=80'},
+  {title:'Leather Belts',sub_items:['Formal Belts','Casual Belts','Reversible Belts','Braided Belts'],image_url:'https://images.unsplash.com/photo-1624222247344-550fb60583d5?w=300&q=80'},
+  {title:'Leather Jackets',sub_items:['Biker Jackets','Bomber Jackets','Blazers','Vests'],image_url:'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&q=80'},
+  {title:'Leather Gloves',sub_items:['Driving Gloves','Winter Gloves','Work Gloves','Fashion Gloves'],image_url:'https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=300&q=80'},
+  {title:'Leather Upholstery',sub_items:['Sofa Leather','Car Seat Leather','Furniture Leather','Cushion Leather'],image_url:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=300&q=80'},
+  {title:'Leather Handbags',sub_items:['Designer Handbags','Clutch Bags','Shoulder Bags','Crossbody Bags'],image_url:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80'},
+  {title:'Leather Accessories',sub_items:['Keychains','Bracelets','Phone Cases','Passport Covers'],image_url:'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&q=80'},
+  {title:'Finished Leather',sub_items:['Full Grain Leather','Top Grain Leather','Nubuck Leather','Suede Leather'],image_url:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300&q=80'},
+  {title:'Raw Hides & Skins',sub_items:['Cow Hide','Buffalo Hide','Goat Skin','Sheep Skin'],image_url:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300&q=80'},
+  {title:'Leather Garments',sub_items:['Leather Skirts','Leather Trousers','Leather Dresses','Leather Shirts'],image_url:'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=300&q=80'},
+  {title:'Leather Luggage',sub_items:['Travel Bags','Suitcases','Duffel Bags','Garment Bags'],image_url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&q=80'},
+  {title:'Leather Wall Coverings',sub_items:['Leather Panels','Wall Tiles','Decorative Leather','Acoustic Leather Panels'],image_url:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=300&q=80'},
+  {title:'Leather Sporting Goods',sub_items:['Footballs','Boxing Gloves','Cricket Balls','Gym Equipment'],image_url:'https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=300&q=80'},
+  {title:'Leather Watch Straps',sub_items:['Genuine Leather Straps','Vintage Straps','Woven Leather Straps','Custom Straps'],image_url:'https://images.unsplash.com/photo-1627123424574-724758594e93?w=300&q=80'},
+  {title:'Leather Card Holders',sub_items:['Slim Card Holders','RFID Card Holders','Business Card Cases','ID Holders'],image_url:'https://images.unsplash.com/photo-1627123424574-724758594e93?w=300&q=80'},
+  {title:'Leather Laptop Bags',sub_items:['Laptop Sleeves','Messenger Bags','Briefcases','Office Bags'],image_url:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&q=80'},
+  {title:'Synthetic Leather',sub_items:['PU Leather','PVC Leather','Faux Leather','Vegan Leather'],image_url:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300&q=80'},
+  {title:'Leather Chemicals & Finishing',sub_items:['Tanning Chemicals','Leather Dyes','Finishing Agents','Leather Polish'],image_url:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300&q=80'},
+  {title:'Leather Footwear Components',sub_items:['Soles','Insoles','Heels','Linings'],image_url:'https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=300&q=80'},
+  {title:'Leather Saddlery',sub_items:['Horse Saddles','Riding Gear','Bridles','Equestrian Accessories'],image_url:'https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?w=300&q=80'},
+  {title:'Leather Diaries & Journals',sub_items:['Bound Diaries','Notebooks','Planners','Journals'],image_url:'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&q=80'},
+  {title:'Leather Key Chains',sub_items:['Custom Keychains','Braided Keychains','Monogrammed Keychains','Keyfobs'],image_url:'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&q=80'}
+];
+
+const JEWELLERY_DATA = [
+  {title:'Gold Jewellery',sub_items:['Gold Chains','Gold Rings','Gold Earrings','Gold Bangles'],image_url:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80'},
+  {title:'Silver Jewellery',sub_items:['Silver Chains','Silver Rings','Silver Anklets','Oxidised Jewellery'],image_url:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&q=80'},
+  {title:'Diamond Jewellery',sub_items:['Diamond Rings','Diamond Earrings','Diamond Pendants','Diamond Bracelets'],image_url:'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300&q=80'},
+  {title:'Precious Gemstones',sub_items:['Ruby','Emerald','Sapphire','Topaz'],image_url:'https://images.unsplash.com/photo-1518544866330-4a705aae7c1a?w=300&q=80'},
+  {title:'Semi-Precious Stones',sub_items:['Amethyst','Garnet','Turquoise','Moonstone'],image_url:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80'},
+  {title:'Costume Jewellery',sub_items:['Fashion Earrings','Statement Necklaces','Trendy Bracelets','Imitation Jewellery'],image_url:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80'},
+  {title:'Bridal Jewellery',sub_items:['Bridal Sets','Maang Tikka','Bridal Necklaces','Wedding Rings'],image_url:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&q=80'},
+  {title:'Polished Diamonds',sub_items:['Certified Diamonds','Loose Diamonds','Lab-Grown Diamonds','Diamond Melee'],image_url:'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300&q=80'},
+  {title:'Pearl Jewellery',sub_items:['Pearl Necklaces','Pearl Earrings','Pearl Bracelets','Freshwater Pearls'],image_url:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80'},
+  {title:'Gemstone Beads',sub_items:['Beaded Strands','Loose Beads','Gemstone Malas','Bead Bracelets'],image_url:'https://images.unsplash.com/photo-1518544866330-4a705aae7c1a?w=300&q=80'},
+  {title:'Loose Gemstones',sub_items:['Cut Gemstones','Rough Gemstones','Certified Stones','Birthstones'],image_url:'https://images.unsplash.com/photo-1518544866330-4a705aae7c1a?w=300&q=80'},
+  {title:'Rings',sub_items:['Engagement Rings','Cocktail Rings','Band Rings','Statement Rings'],image_url:'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=300&q=80'},
+  {title:'Necklaces & Pendants',sub_items:['Chain Necklaces','Pendant Sets','Chokers','Layered Necklaces'],image_url:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80'},
+  {title:'Earrings',sub_items:['Studs','Hoops','Jhumkas','Drop Earrings'],image_url:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80'},
+  {title:'Bangles & Bracelets',sub_items:['Gold Bangles','Charm Bracelets','Cuff Bracelets','Kada'],image_url:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&q=80'},
+  {title:'Anklets',sub_items:['Silver Anklets','Beaded Anklets','Payal','Charm Anklets'],image_url:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&q=80'},
+  {title:'Cufflinks & Studs',sub_items:['Metal Cufflinks','Gemstone Cufflinks','Shirt Studs','Tie Pins'],image_url:'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=300&q=80'},
+  {title:'Jewellery Findings',sub_items:['Clasps','Jump Rings','Earring Hooks','Chains by the Metre'],image_url:'https://images.unsplash.com/photo-1518544866330-4a705aae7c1a?w=300&q=80'},
+  {title:'Kundan & Polki Jewellery',sub_items:['Kundan Sets','Polki Necklaces','Meenakari Jewellery','Traditional Sets'],image_url:'https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=300&q=80'},
+  {title:'Temple Jewellery',sub_items:['Temple Necklaces','Temple Earrings','Antique Finish Sets','South Indian Jewellery'],image_url:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80'},
+  {title:'Jewellery Boxes & Packaging',sub_items:['Gift Boxes','Velvet Pouches','Display Trays','Travel Cases'],image_url:'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&q=80'},
+  {title:'Watches',sub_items:['Analog Watches','Smart Watches','Luxury Watches','Fashion Watches'],image_url:'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300&q=80'},
+  {title:'Gemstone Cutting & Polishing',sub_items:['Faceting','Cabochon Cutting','Polishing Services','Custom Cuts'],image_url:'https://images.unsplash.com/photo-1518544866330-4a705aae7c1a?w=300&q=80'},
+  {title:'Antique & Handmade Jewellery',sub_items:['Vintage Jewellery','Handcrafted Pieces','Tribal Jewellery','Artisan Designs'],image_url:'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=300&q=80'}
+];
+
+const CHEMICALS_DATA = [
+  {title:'Industrial Chemicals',sub_items:['Bulk Chemicals','Process Chemicals','Chemical Intermediates','Industrial Solvents'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Textile Dyes',sub_items:['Reactive Dyes','Disperse Dyes','Direct Dyes','Sulphur Dyes'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Pigments',sub_items:['Organic Pigments','Inorganic Pigments','Printing Pigments','Masterbatch Pigments'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Organic Chemicals',sub_items:['Alcohols','Esters','Acids','Amines'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Inorganic Chemicals',sub_items:['Salts','Oxides','Alkalis','Industrial Gases'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Specialty Chemicals',sub_items:['Performance Additives','Catalysts','Coating Chemicals','Custom Formulations'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Agrochemicals',sub_items:['Pesticides','Herbicides','Fungicides','Plant Growth Regulators'],image_url:'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=300&q=80'},
+  {title:'Dyestuffs & Intermediates',sub_items:['Dye Intermediates','Pigment Intermediates','Colorants','Chemical Precursors'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Petrochemicals',sub_items:['Polymers','Solvents','Aromatics','Olefins'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Rubber Chemicals',sub_items:['Accelerators','Antioxidants','Vulcanising Agents','Processing Aids'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Leather Chemicals',sub_items:['Tanning Agents','Fat Liquors','Finishing Chemicals','Leather Dyes'],image_url:'https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300&q=80'},
+  {title:'Paint & Coating Chemicals',sub_items:['Resins','Binders','Thinners','Coating Additives'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Water Treatment Chemicals',sub_items:['Coagulants','Flocculants','Disinfectants','Scale Inhibitors'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Adhesives & Sealants',sub_items:['Industrial Adhesives','Construction Sealants','Epoxy Adhesives','Hot Melt Adhesives'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Surfactants',sub_items:['Anionic Surfactants','Non-Ionic Surfactants','Cationic Surfactants','Specialty Surfactants'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Solvents',sub_items:['Industrial Solvents','Cleaning Solvents','Paint Solvents','Pharma-Grade Solvents'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Food-Grade Chemicals',sub_items:['Food Preservatives','Food Colours','Flavour Chemicals','Food Additives'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Cosmetic-Grade Chemicals',sub_items:['Emulsifiers','Active Ingredients','Fragrance Chemicals','Preservatives'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'},
+  {title:'Fertilizer Chemicals',sub_items:['Nitrogen Fertilizers','Phosphate Fertilizers','Potash Fertilizers','Micronutrients'],image_url:'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=300&q=80'},
+  {title:'Plastic Additives',sub_items:['Plasticizers','Stabilizers','Flame Retardants','UV Stabilizers'],image_url:'https://images.unsplash.com/photo-1616661317677-b8ba0f0bce34?w=300&q=80'},
+  {title:'Reactive Dyes',sub_items:['Cotton Reactive Dyes','Bright Shade Dyes','Cold Brand Dyes','Hot Brand Dyes'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Acid Dyes',sub_items:['Wool Acid Dyes','Nylon Acid Dyes','Leather Acid Dyes','Silk Acid Dyes'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Vat Dyes',sub_items:['Indigo Vat Dyes','Anthraquinone Dyes','Vat Blue','Vat Black'],image_url:'https://images.unsplash.com/photo-1610030181087-540f9c30cee0?w=300&q=80'},
+  {title:'Industrial Acids & Alkalis',sub_items:['Sulphuric Acid','Hydrochloric Acid','Caustic Soda','Soda Ash'],image_url:'https://images.unsplash.com/photo-1614308455770-cef2ee0409c2?w=300&q=80'}
+];
+
+const PHARMA_DATA = [
+  {title:'Generic Medicines',sub_items:['Tablets','Capsules','Generic Formulations','OTC Medicines'],image_url:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&q=80'},
+  {title:'APIs (Active Pharmaceutical Ingredients)',sub_items:['Bulk Drugs','APIs','Drug Intermediates','Raw Materials'],image_url:'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300&q=80'},
+  {title:'Ayurvedic Medicines',sub_items:['Herbal Tablets','Ayurvedic Syrups','Churna','Ayurvedic Oils'],image_url:'https://images.unsplash.com/photo-1611072965169-e0d5b2e73a7a?w=300&q=80'},
+  {title:'Nutraceuticals',sub_items:['Vitamins','Protein Supplements','Health Supplements','Dietary Supplements'],image_url:'https://images.unsplash.com/photo-1550572017-edd951b55104?w=300&q=80'},
+  {title:'Vaccines',sub_items:['Human Vaccines','Veterinary Vaccines','Vaccine Vials','Cold Chain Vaccines'],image_url:'https://images.unsplash.com/photo-1618022325802-8ac7378da5f9?w=300&q=80'},
+  {title:'Medical Devices',sub_items:['Diagnostic Devices','Monitoring Devices','Therapeutic Devices','Surgical Devices'],image_url:'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=300&q=80'},
+  {title:'Surgical Instruments',sub_items:['Scalpels','Forceps','Scissors','Surgical Kits'],image_url:'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=300&q=80'},
+  {title:'Diagnostic Kits',sub_items:['Test Kits','Rapid Diagnostic Kits','Lab Reagents','Point-of-Care Kits'],image_url:'https://images.unsplash.com/photo-1579154204601-01588f351e67?w=300&q=80'},
+  {title:'Herbal Supplements',sub_items:['Herbal Extracts','Botanical Supplements','Herbal Capsules','Plant-Based Supplements'],image_url:'https://images.unsplash.com/photo-1611072965169-e0d5b2e73a7a?w=300&q=80'},
+  {title:'Tablets & Capsules',sub_items:['Coated Tablets','Softgel Capsules','Chewable Tablets','Extended-Release Tablets'],image_url:'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&q=80'},
+  {title:'Syrups & Liquids',sub_items:['Cough Syrups','Oral Suspensions','Liquid Formulations','Paediatric Syrups'],image_url:'https://images.unsplash.com/photo-1550572017-edd951b55104?w=300&q=80'},
+  {title:'Injectables',sub_items:['Vials','Ampoules','Prefilled Syringes','Infusion Solutions'],image_url:'https://images.unsplash.com/photo-1618022325802-8ac7378da5f9?w=300&q=80'},
+  {title:'Ointments & Creams',sub_items:['Topical Ointments','Antiseptic Creams','Pain Relief Gels','Skin Creams'],image_url:'https://images.unsplash.com/photo-1550572017-edd951b55104?w=300&q=80'},
+  {title:'Veterinary Medicines',sub_items:['Animal Vaccines','Livestock Medicines','Pet Medications','Veterinary Supplements'],image_url:'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=300&q=80'},
+  {title:'Homeopathic Medicines',sub_items:['Homeopathic Drops','Homeopathic Tablets','Mother Tinctures','Dilutions'],image_url:'https://images.unsplash.com/photo-1611072965169-e0d5b2e73a7a?w=300&q=80'},
+  {title:'Hospital Equipment',sub_items:['Hospital Beds','Patient Monitors','Ventilators','Examination Tables'],image_url:'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=300&q=80'},
+  {title:'PPE & Medical Consumables',sub_items:['Surgical Masks','Gloves','Gowns','Face Shields'],image_url:'https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=300&q=80'},
+  {title:'Orthopedic Products',sub_items:['Braces','Supports','Implants','Orthopedic Aids'],image_url:'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=300&q=80'},
+  {title:'Dental Products',sub_items:['Dental Instruments','Dental Materials','Oral Care Products','Dental Consumables'],image_url:'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=300&q=80'},
+  {title:'Ophthalmic Products',sub_items:['Eye Drops','Contact Lens Solutions','Ophthalmic Instruments','Vision Care Products'],image_url:'https://images.unsplash.com/photo-1550572017-edd951b55104?w=300&q=80'},
+  {title:'Bandages & Dressings',sub_items:['Gauze','Adhesive Bandages','Wound Dressings','Elastic Bandages'],image_url:'https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=300&q=80'},
+  {title:'First Aid Products',sub_items:['First Aid Kits','Antiseptics','Cotton Rolls','Medical Tape'],image_url:'https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=300&q=80'},
+  {title:'Personal Protective Equipment',sub_items:['N95 Masks','Protective Suits','Safety Goggles','Hand Sanitizers'],image_url:'https://images.unsplash.com/photo-1584634731339-252c581abfc5?w=300&q=80'},
+  {title:'Healthcare Disposables',sub_items:['Syringes','Needles','IV Sets','Disposable Gowns'],image_url:'https://images.unsplash.com/photo-1584982751601-97dcc096659c?w=300&q=80'}
+];
+
 showGrid('apparel', APPAREL_DATA);
 showGrid('agriculture', AGRI_DATA);
 showGrid('electricals', ELECTRICALS_DATA);
 showGrid('food', FOOD_DATA);
 showGrid('handicrafts', HANDICRAFTS_DATA);
+showGrid('textiles', TEXTILES_DATA);
+showGrid('leather', LEATHER_DATA);
+showGrid('jewellery', JEWELLERY_DATA);
+showGrid('chemicals', CHEMICALS_DATA);
+showGrid('pharma', PHARMA_DATA);
 })();
 </script>
 </body>
