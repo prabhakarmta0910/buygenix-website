@@ -2,139 +2,636 @@
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>https://www.buygenixsolutions.com/</loc>
+    <loc>https://buygenixsolutions.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/about</loc>
+    <loc>https://buygenixsolutions.com/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/services</loc>
+    <loc>https://buygenixsolutions.com/services</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/registration</loc>
+    <loc>https://buygenixsolutions.com/registration</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/membership</loc>
+    <loc>https://buygenixsolutions.com/membership</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/contact</loc>
+    <loc>https://buygenixsolutions.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/login</loc>
+    <loc>https://buygenixsolutions.com/login</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/terms</loc>
+    <loc>https://buygenixsolutions.com/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/privacy</loc>
+    <loc>https://buygenixsolutions.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/blog</loc>
+    <loc>https://buygenixsolutions.com/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/gst-registration-for-exporters-guide</loc>
+    <loc>https://buygenixsolutions.com/gst-registration-for-exporters-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/finding-verified-buyers-for-export-business</loc>
+    <loc>https://buygenixsolutions.com/finding-verified-buyers-for-export-business</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/trademark-registration-guide-india</loc>
+    <loc>https://buygenixsolutions.com/trademark-registration-guide-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/business-compliance-checklist-for-startups-india</loc>
+    <loc>https://buygenixsolutions.com/business-compliance-checklist-for-startups-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/digital-product-catalogue-for-export-business</loc>
+    <loc>https://buygenixsolutions.com/digital-product-catalogue-for-export-business</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/iec-code-registration-guide-india</loc>
+    <loc>https://buygenixsolutions.com/iec-code-registration-guide-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/moowr-scheme-guide-manufacturers-india</loc>
+    <loc>https://buygenixsolutions.com/moowr-scheme-guide-manufacturers-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/rcmc-registration-guide-india</loc>
+    <loc>https://buygenixsolutions.com/rcmc-registration-guide-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/llp-vs-private-limited-company-india</loc>
+    <loc>https://buygenixsolutions.com/llp-vs-private-limited-company-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/fssai-license-for-food-exporters-india</loc>
+    <loc>https://buygenixsolutions.com/fssai-license-for-food-exporters-india</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/ad-code-registration-for-exporters</loc>
+    <loc>https://buygenixsolutions.com/ad-code-registration-for-exporters</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/export-incentive-schemes-rodtep-duty-drawback-epcg</loc>
+    <loc>https://buygenixsolutions.com/export-incentive-schemes-rodtep-duty-drawback-epcg</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.buygenixsolutions.com/faq</loc>
+    <loc>https://buygenixsolutions.com/gst-2-0-new-tax-slabs-2026-exporters-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-uk-free-trade-agreement-exporters-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/gst-e-invoicing-threshold-2026-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/gst-appellate-tribunal-gstat-2026-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/rodtep-foreign-trade-policy-updates-2026</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/us-tariffs-on-indian-exports-2026-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/fda-registration-food-exports-usa-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/isf-10-plus-2-filing-guide-usa-shipments</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/fcc-certification-electronics-exports-usa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/us-llc-registration-guide-indian-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://buygenixsolutions.com/basic-business-registrations</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/gst-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/dgft-iec-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/rcmc-export-promotion-council</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/icegate-customs-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/export-documentation-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/fssai-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/agri-export-digital-platforms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/commodity-boards-sector-epcs</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/export-incentive-schemes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/market-compliance-research</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/legal-metrology-labelling</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/banking-payment-documentation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/ai-powered-export-services</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/monthly-recurring-compliance-support</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-china-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-china-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-china</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-usa-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-usa-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-usa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-germany-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-germany-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-germany</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-netherlands-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-netherlands-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-netherlands</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-hong-kong-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-hong-kong-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-hong-kong</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-uk-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-uk-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-uk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-japan-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-japan-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-japan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-france-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-france-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-france</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-italy-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-italy-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-italy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/import-from-india-to-mexico-trade-compliance-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-suppliers-india-mexico-buyers-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/sourcing-from-india-buyer-presence-mexico</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-uae-cepa-2026-trade-milestone-exporters-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-australia-ecta-2026-export-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-oman-cepa-2026-new-trade-agreement-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-singapore-trade-2026-export-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/india-south-korea-cepa-2026-export-guide</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-china-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-vietnam-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-bangladesh-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-turkey-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-indonesia-suppliers-manufacturers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-spices-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-tea-coffee-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-basmati-rice-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-cotton-yarn-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-readymade-garments-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-leather-footwear-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-auto-components-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-handmade-carpets-rugs-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-marble-granite-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-ayurvedic-herbal-products-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-organic-food-products-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-furniture-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-sports-goods-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-plastic-products-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/find-verified-buyers-india-paper-packaging-products-exporters</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://buygenixsolutions.com/brics-summit-2026-new-delhi-trade-exporters-guide</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
