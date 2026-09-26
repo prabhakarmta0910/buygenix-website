@@ -99,12 +99,10 @@ Replace with your actual Supabase project URL and anon key.
 
 ### Update Admin Credentials
 
-In `admin-portal.html`, around line 380:
-```js
-const ADMIN_EMAIL = 'admin@buygenixsolutions.com';
-const ADMIN_PASS  = 'BGX@Admin2025';
-```
-Change these to your actual admin credentials (or rely solely on Supabase auth).
+Admin sign-in goes only through Supabase Auth — there is no password in the code.
+Admin emails are listed in `ADMIN_EMAILS` in `admin-portal.html` and
+`lead-search-admin.html`; the real access control is the Supabase RLS
+policies, which must check the same emails. Update both if admins change.
 
 ### Update Phone & Email
 
