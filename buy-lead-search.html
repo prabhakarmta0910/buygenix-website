@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
 <title>Buy Lead Search | Find Verified Buyer Requirements – BuyGenix Solutions</title>
 <meta name="description" content="Search verified buyer leads by product, category, or common spelling. Find real buyer requirements across India and 50+ countries on BuyGenix Solutions.">
 <meta name="robots" content="noindex">
@@ -131,7 +140,7 @@
 
 <nav class="navbar" id="navbar">
   <a href="index.html" class="nav-logo">
-    <img src="assets/logo-new.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
+    <img src="assets/logo-nav.png" alt="BuyGenix Solutions" style="height:56px;width:auto;object-fit:contain;">
   </a>
   <div class="nav-spacer"></div>
   <div class="nav-search">
@@ -190,6 +199,12 @@ function getSB() {
   return _sb;
 }
 
+/* Escape text before putting it into innerHTML — search terms come from
+   the URL (?q=) and lead fields can originate from public form submissions. */
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—'; }
 function maskPhone(p) { if(!p) return '—'; const digits=p.replace(/\D/g,''); return digits.length<6 ? p : `+${digits.slice(0,2)}-${digits.slice(2,4)}${'*'.repeat(Math.max(0,digits.length-6))}${digits.slice(-2)}`; }
 
@@ -233,34 +248,34 @@ function cardHTML(l, idx) {
     <div class="lc-stripe"></div>
     <div class="lc-body">
       <div class="lc-title-row">
-        <span class="lc-title">Looking for ${product}</span>
+        <span class="lc-title">Looking for ${esc(product)}</span>
         <span class="lc-check">✔</span>
       </div>
       <div class="lc-meta">
-        <span>📍 ${location}</span>
+        <span>📍 ${esc(location)}</span>
         <span>🕒 ${date}</span>
       </div>
-      <div class="lc-desc">${desc}</div>
+      <div class="lc-desc">${esc(desc)}</div>
       <div class="lc-details">
         <div class="lc-detail-item">
           <span class="lc-detail-key">Buyer Name</span>
           <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? buyerName : 'Member Access Only'}</span>
+          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? esc(buyerName) : 'Member Access Only'}</span>
         </div>
         <div class="lc-detail-item">
           <span class="lc-detail-key">Mobile No.</span>
           <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? phone : 'Member Access Only'}</span>
+          <span class="lc-detail-val ${l.is_unlocked?'':'locked'}">${l.is_unlocked ? esc(phone) : 'Member Access Only'}</span>
         </div>
         <div class="lc-detail-item">
           <span class="lc-detail-key">Quantity</span>
           <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val">${qty}</span>
+          <span class="lc-detail-val">${esc(qty)}</span>
         </div>
         <div class="lc-detail-item">
           <span class="lc-detail-key">Requirement</span>
           <span class="lc-detail-sep">:</span>
-          <span class="lc-detail-val">${requirement}</span>
+          <span class="lc-detail-val">${esc(requirement)}</span>
         </div>
       </div>
       <div class="lc-divider"></div>
@@ -319,7 +334,7 @@ async function runSearch(term) {
         `<div class="bls-results-strip">
            <div class="bls-strip-left">
              <div class="bls-strip-count"><strong>${results.length}</strong> ${results.length === 1 ? 'lead' : 'leads'} found</div>
-             <span class="bls-strip-term">🔍 ${term.trim()}</span>
+             <span class="bls-strip-term">🔍 ${esc(term.trim())}</span>
            </div>
            <div class="bls-strip-right">Showing verified buyer requirements</div>
          </div>

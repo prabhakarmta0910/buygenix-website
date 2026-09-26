@@ -548,6 +548,13 @@ function calcGst() {
 }
 let _sb = null, allMem = [], allLeads = [], allEnq = [];
 
+/* Escape text before putting it into innerHTML. Enquiries come from
+   the public contact / post-requirement forms, so anything a visitor
+   types must be shown as text, never run as HTML/JS in the admin CRM. */
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 function getSB() {
   if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
   return _sb;
@@ -725,13 +732,13 @@ function renderMem(list) {
     return `
     <div class="at-row mem-cols">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div><div class="cell-name">${m.full_name||m.name||'—'}</div><div class="cell-sub">${m.business_name||'—'}</div></div>
-      <div><div style="font-size:13px;">${m.email||'—'}</div><div class="cell-sub">${m.phone||'—'}</div></div>
-      <span><span class="plan-pill ${ppClass(m.plan)}">${m.plan||'Starter'}</span><div class="cell-sub" style="margin-top:3px;">${amt}</div></span>
-      <span style="font-size:13px;color:var(--text-mid);">${rmName||'Unassigned'}</span>
-      <span><span class="badge ${m.status==='inactive'?'badge-red':'badge-green'}">${m.status||'Active'}</span></span>
+      <div><div class="cell-name">${esc(m.full_name||m.name||'—')}</div><div class="cell-sub">${esc(m.business_name||'—')}</div></div>
+      <div><div style="font-size:13px;">${esc(m.email||'—')}</div><div class="cell-sub">${esc(m.phone||'—')}</div></div>
+      <span><span class="plan-pill ${ppClass(m.plan)}">${esc(m.plan||'Starter')}</span><div class="cell-sub" style="margin-top:3px;">${amt}</div></span>
+      <span style="font-size:13px;color:var(--text-mid);">${esc(rmName||'Unassigned')}</span>
+      <span><span class="badge ${m.status==='inactive'?'badge-red':'badge-green'}">${esc(m.status||'Active')}</span></span>
       <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewMem(${JSON.stringify(m).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn ab-view" onclick="viewMem(${esc(JSON.stringify(m))})">View</button>
         <button class="act-btn ab-edit" onclick="openEditMember('${m.id||i}')">Edit</button>
         <button class="act-btn ab-del" onclick="deleteMember('${m.id||i}')">🗑 Delete</button>
       </div>
@@ -754,23 +761,23 @@ function renderLeads(list) {
     <div class="at-row" style="${COLS}${highlight}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
       <div>
-        <div class="cell-name">${l.company||l.contact_name||'—'}</div>
-        <div class="cell-sub">${l.phone||''} ${l.email ? '&nbsp;'+l.email : ''}</div>
+        <div class="cell-name">${esc(l.company||l.contact_name||'—')}</div>
+        <div class="cell-sub">${esc(l.phone||'')} ${l.email ? '&nbsp;'+esc(l.email) : ''}</div>
         <div class="cell-sub" style="color:var(--text-light);font-size:11px;">🕒 ${time(l.created_at)}</div>
       </div>
       <div>
-        <div class="cell-name">${l.product||'—'}</div>
-        <div class="cell-sub">${l.category||l.source||''}</div>
+        <div class="cell-name">${esc(l.product||'—')}</div>
+        <div class="cell-sub">${esc(l.category||l.source||'')}</div>
       </div>
       <div>
-        <div style="font-size:13px;color:var(--text-mid);">${l.country||'—'} ${BGX.FLAGS[l.country]||''}</div>
+        <div style="font-size:13px;color:var(--text-mid);">${esc(l.country||'—')} ${BGX.FLAGS[l.country]||''}</div>
       </div>
-      <span style="font-size:13px;color:var(--text-mid);">${l.quantity||'—'}</span>
+      <span style="font-size:13px;color:var(--text-mid);">${esc(l.quantity||'—')}</span>
       <span style="font-size:13px;color:var(--text-light);">—</span>
-      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${qBg[q]||'#f0fdf4'};color:${qColors[q]||'#16a34a'};">${l.quality||'new'}</span></span>
-      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${sBg[s]||'#f9fafb'};color:${sColors[s]||'#374151'};">${l.status||'unassigned'}</span></span>
+      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${qBg[q]||'#f0fdf4'};color:${qColors[q]||'#16a34a'};">${esc(l.quality||'new')}</span></span>
+      <span><span style="display:inline-block;padding:3px 9px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;background:${sBg[s]||'#f9fafb'};color:${sColors[s]||'#374151'};">${esc(l.status||'unassigned')}</span></span>
       <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewLead(${JSON.stringify(l).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn ab-view" onclick="viewLead(${esc(JSON.stringify(l))})">View</button>
         <button class="act-btn" onclick="openEditLead('${l.id||i}')">Edit</button>
         <button class="act-btn ab-del" onclick="deleteLead('${l.id||i}')">Del</button>
       </div>
@@ -785,13 +792,13 @@ function viewLead(l) {
       ${[['Company',l.company||'—'],['Country',`${BGX.FLAGS[l.country]||''} ${l.country||'—'}`],['Product',l.product||'—'],['Quantity',l.quantity||'—'],['Quality',l.quality||'—'],['Status',l.status||'—'],['Email',l.email||'—'],['Phone',l.phone||'—']].map(([k,v])=>`
       <div style="background:var(--sky);border-radius:8px;padding:9px 12px;">
         <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div>
-        <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
+        <div style="font-size:13px;font-weight:600;color:var(--navy);">${esc(v)}</div>
       </div>`).join('')}
     </div>
-    ${l.notes?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Notes</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${l.notes}</div></div>`:''}
+    ${l.notes?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Notes</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${esc(l.notes)}</div></div>`:''}
     <div class="modal-footer">
       ${l.phone?`<a href="https://wa.me/${l.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
-      ${l.email?`<a href="mailto:${l.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
+      ${l.email?`<a href="mailto:${esc(l.email)}" class="btn-primary btn-sm">📧 Email</a>`:''}
       <button class="btn-outline btn-sm" onclick="closeModal();openEditLead('${l.id}')">✏️ Edit</button>
       <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
     </div>`);
@@ -814,21 +821,21 @@ function renderEnq(list) {
     return `<div class="at-row enq-cols" style="${status==='new'?'background:#f0fdf4;':''}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
       <div>
-        <div class="cell-name">${name}</div>
-        <div class="cell-sub">${biz}</div>
+        <div class="cell-name">${esc(name)}</div>
+        <div class="cell-sub">${esc(biz)}</div>
         <div style="font-size:10px;color:var(--text-light);margin-top:2px;">🕐 ${time}</div>
       </div>
       <div>
-        <div style="font-size:12.5px;">${phone}</div>
-        <div class="cell-sub">${email}</div>
+        <div style="font-size:12.5px;">${esc(phone)}</div>
+        <div class="cell-sub">${esc(email)}</div>
       </div>
-      <span style="font-size:12px;color:var(--text-mid);">${interest}</span>
+      <span style="font-size:12px;color:var(--text-mid);">${esc(interest)}</span>
       <div>
-        <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${sBg};color:${sColor};text-transform:capitalize;display:inline-block;margin-bottom:4px;">${status}</span>
-        <div style="font-size:11px;color:var(--text-light);">${src}</div>
+        <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${sBg};color:${sColor};text-transform:capitalize;display:inline-block;margin-bottom:4px;">${esc(status)}</span>
+        <div style="font-size:11px;color:var(--text-light);">${esc(src)}</div>
       </div>
       <div class="act-btns">
-        <button class="act-btn ab-view" onclick='viewEnq(${JSON.stringify(e).replace(/'/g,"&apos;")})'>View &amp; Update</button>
+        <button class="act-btn ab-view" onclick="viewEnq(${esc(JSON.stringify(e))})">View &amp; Update</button>
         ${phone!=='—'?`<a href="https://wa.me/${phone.replace(/\D/g,'')}" class="act-btn ab-deliver" target="_blank" rel="noopener">WA</a>`:''}
       </div>
     </div>`;
@@ -872,9 +879,9 @@ function viewMem(m) {
   const gstLine = m.gst_applicable
     ? `With GST (${m.gst_rate||18}% ${m.supply_type==='inter'?'IGST':'CGST+SGST'}) — base ₹${Number(m.base_amount||0).toLocaleString('en-IN')}`
     : 'Without GST';
-  openModal(`<h3>👤 ${m.full_name||m.name||'Member'}</h3><p>${m.business_name||'—'}</p>
-  ${[['Plan',m.plan],['Amount Charged',amt],['GST',gstLine],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${v||'—'}</strong></div>`).join('')}
-  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${m.email}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${m.id}')">🗑 Delete</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
+  openModal(`<h3>👤 ${esc(m.full_name||m.name||'Member')}</h3><p>${esc(m.business_name||'—')}</p>
+  ${[['Plan',m.plan],['Amount Charged',amt],['GST',gstLine],['Email',m.email],['Phone',m.phone],['RM',rmName],['Status',m.status||m.plan_status||'Active'],['Start',m.join_date?String(m.join_date).split('T')[0]:m.start_date],['Renews',m.renewal_date?String(m.renewal_date).split('T')[0]:m.renewal_date]].map(([k,v])=>`<div class="detail-row"><span class="dr-key">${k}</span><strong class="dr-val">${esc(v||'—')}</strong></div>`).join('')}
+  <div class="modal-footer">${m.phone?`<a href="https://wa.me/${m.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WA</a>`:''} ${m.email?`<a href="mailto:${esc(m.email)}" class="btn-primary btn-sm">📧 Email</a>`:''} <button class="btn-outline btn-sm" onclick="closeModal();openEditMember('${m.id}')">✏️ Edit</button> <button class="btn-outline btn-sm" style="color:#dc2626;border-color:#fecaca;" onclick="deleteMember('${m.id}')">🗑 Delete</button> <button class="btn-outline btn-sm" onclick="closeModal()">Close</button></div>`);
 }
 
 function viewEnq(e) {
@@ -897,18 +904,18 @@ function viewEnq(e) {
       ${[['Name',name],['Business / Product',biz],['Phone',phone],['Email',email],['Interest / Service',interest]].map(([k,v])=>`
         <div style="background:var(--sky);border-radius:8px;padding:10px 12px;">
           <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:3px;">${k}</div>
-          <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--navy);">${esc(v)}</div>
         </div>`).join('')}
       <div style="background:var(--sky);border-radius:8px;padding:10px 12px;">
         <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:3px;">Current Status</div>
-        <div style="font-size:13px;font-weight:700;color:${sColor};text-transform:capitalize;">${status}</div>
+        <div style="font-size:13px;font-weight:700;color:${sColor};text-transform:capitalize;">${esc(status)}</div>
       </div>
     </div>
 
     ${msg !== '—' ? `
     <div style="margin-bottom:14px;">
       <div style="font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message / Details</div>
-      <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;">${msg}</div>
+      <div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--text-body);line-height:1.7;">${esc(msg)}</div>
     </div>` : ''}
 
     <div style="margin-bottom:16px;">
@@ -922,7 +929,7 @@ function viewEnq(e) {
 
     <div class="modal-footer">
       ${phone !== '—' ? `<a href="https://wa.me/${phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank" rel="noopener">💬 WhatsApp</a>` : ''}
-      ${email !== '—' ? `<a href="mailto:${email}" class="btn-primary btn-sm">📧 Email</a>` : ''}
+      ${email !== '—' ? `<a href="mailto:${esc(email)}" class="btn-primary btn-sm">📧 Email</a>` : ''}
       <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
     </div>
   `);
@@ -1200,7 +1207,7 @@ async function updateMember(id) {
 }
 
 function openAddLead() {
-  const memOpts=allMem.map((m,i)=>`<option value="${m.id||i}">${m.full_name||m.name} — ${m.plan}</option>`).join('');
+  const memOpts=allMem.map((m,i)=>`<option value="${m.id||i}">${esc(m.full_name||m.name)} — ${esc(m.plan)}</option>`).join('');
   const ctryOpts=Object.entries(BGX.FLAGS).map(([c,f])=>`<option value="${c}">${f} ${c}</option>`).join('');
   openModal(`<h3>+ Add Buy Lead</h3><p>Add a verified buyer lead, optionally assign to a member.</p>
   <div class="form-row"><div class="form-group"><label>Company Name *</label><input class="form-control" id="l_company" placeholder="e.g. Al Falah Trading LLC"></div><div class="form-group"><label>Country *</label><select class="form-control" id="l_country">${ctryOpts}</select></div></div>
@@ -1253,7 +1260,7 @@ async function linkLeadToMember(leadId, clientId) {
 function openEditLead(id) {
   const l = allLeads.find(x => String(x.id)===String(id));
   if (!l) { BGX_Toast('Lead not found.','error'); return; }
-  const memOpts=allMem.map((m,i)=>`<option value="${m.id||i}">${m.full_name||m.name} — ${m.plan}</option>`).join('');
+  const memOpts=allMem.map((m,i)=>`<option value="${m.id||i}">${esc(m.full_name||m.name)} — ${esc(m.plan)}</option>`).join('');
   const ctryOpts=Object.entries(BGX.FLAGS).map(([c,f])=>`<option value="${c}" ${c===l.country?'selected':''}>${f} ${c}</option>`).join('');
   openModal(`<h3>✏️ Edit Buy Lead</h3><p>Update all details for this buyer lead.</p>
   <div class="form-row"><div class="form-group"><label>Company Name *</label><input class="form-control" id="l_company" value="${(l.company||'').replace(/"/g,'&quot;')}"></div><div class="form-group"><label>Country *</label><select class="form-control" id="l_country">${ctryOpts}</select></div></div>
@@ -1902,18 +1909,18 @@ function renderPostReq(list) {
     return `<div class="at-row" style="grid-template-columns:40px 1.2fr 1fr 1fr 0.8fr 0.8fr 0.8fr 1.2fr 140px;${status==='new'?'background:#f0fdf4;':''}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
       <div>
-        <div class="cell-name">${e.name||'—'}</div>
-        <div class="cell-sub">${e.phone||''} ${e.email||''}</div>
+        <div class="cell-name">${esc(e.name||'—')}</div>
+        <div class="cell-sub">${esc(e.phone||'')} ${esc(e.email||'')}</div>
         <div style="font-size:10px;color:var(--text-light);">🕐 ${time}</div>
       </div>
-      <div><div style="font-size:13px;font-weight:500;">${product}</div><div class="cell-sub">${loc}</div></div>
-      <div><div style="font-size:12.5px;">${e.phone||'—'}</div><div class="cell-sub">${e.email||'—'}</div></div>
-      <span style="font-size:12px;">${qty}</span>
-      <span style="font-size:12px;">${unit}</span>
-      <span style="font-size:12px;">${urgency}</span>
-      <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${statusBg[status]};color:${statusColors[status]};text-transform:capitalize;display:inline-block;">${status}</span>
+      <div><div style="font-size:13px;font-weight:500;">${esc(product)}</div><div class="cell-sub">${esc(loc)}</div></div>
+      <div><div style="font-size:12.5px;">${esc(e.phone||'—')}</div><div class="cell-sub">${esc(e.email||'—')}</div></div>
+      <span style="font-size:12px;">${esc(qty)}</span>
+      <span style="font-size:12px;">${esc(unit)}</span>
+      <span style="font-size:12px;">${esc(urgency)}</span>
+      <span style="font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:${statusBg[status]};color:${statusColors[status]};text-transform:capitalize;display:inline-block;">${esc(status)}</span>
       <div class="act-btns" style="flex-wrap:wrap;gap:4px;">
-        <button class="act-btn ab-view" style="font-size:10px;padding:3px 7px;" onclick='viewPostReq(${JSON.stringify(e).replace(/'/g,"&apos;")})'>View</button>
+        <button class="act-btn ab-view" style="font-size:10px;padding:3px 7px;" onclick="viewPostReq(${esc(JSON.stringify(e))})">View</button>
         <button class="act-btn ab-deliver" style="font-size:10px;padding:3px 7px;background:#2563eb;color:white;" onclick="updatePRStatus('${e.id}','approved')">✅ Accept</button>
         <button class="act-btn" style="font-size:10px;padding:3px 7px;background:#fffbeb;color:#d97706;border:1px solid #d97706;" onclick="updatePRStatus('${e.id}','pending')">⏳</button>
         <button class="act-btn ab-del" style="font-size:10px;padding:3px 7px;" onclick="deletePR('${e.id}')">🗑</button>
@@ -1938,13 +1945,13 @@ function viewPostReq(e) {
   openModal(`<h3>📋 Post Requirement Details</h3>
     <p style="font-size:12px;color:var(--text-light);margin-bottom:14px;">Received: ${e.created_at?new Date(e.created_at).toLocaleString('en-IN'):'Just now'}</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-      ${[['Name',e.name||'—'],['Phone',e.phone||'—'],['Email',e.email||'—'],['Product',product],['Quantity',qty],['Unit',unit],['Urgency Level',urgency],['Purpose',purpose],['Location',loc],['Current Status',`<span style="color:${statusColors[status]};font-weight:700;text-transform:capitalize;">${status}</span>`]].map(([k,v])=>`
+      ${[['Name',esc(e.name||'—')],['Phone',esc(e.phone||'—')],['Email',esc(e.email||'—')],['Product',esc(product)],['Quantity',esc(qty)],['Unit',esc(unit)],['Urgency Level',esc(urgency)],['Purpose',esc(purpose)],['Location',esc(loc)],['Current Status',`<span style="color:${statusColors[status]};font-weight:700;text-transform:capitalize;">${esc(status)}</span>`]].map(([k,v])=>`
       <div style="background:var(--sky);border-radius:8px;padding:9px 12px;">
         <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div>
         <div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div>
       </div>`).join('')}
     </div>
-    ${e.message?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${e.message}</div></div>`:''}
+    ${e.message?`<div style="margin-bottom:14px;"><div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Message</div><div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;">${esc(e.message)}</div></div>`:''}
     <div style="margin-bottom:14px;">
       <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Update Status</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1955,7 +1962,7 @@ function viewPostReq(e) {
     </div>
     <div class="modal-footer">
       ${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn-gold btn-sm" target="_blank">💬 WhatsApp</a>`:''}
-      ${e.email?`<a href="mailto:${e.email}" class="btn-primary btn-sm">📧 Email</a>`:''}
+      ${e.email?`<a href="mailto:${esc(e.email)}" class="btn-primary btn-sm">📧 Email</a>`:''}
       <button class="btn-outline btn-sm" onclick="closeModal()">Close</button>
     </div>`);
 }
