@@ -40,7 +40,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 
 /* top bar */
 .lg-top{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;}
-.lg-top img{height:40px;width:auto;display:block;}
+.lg-top img{height:30px;width:auto;display:block;}
 .lg-top a.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:var(--lg-mid);text-decoration:none;}
 .lg-top a.back:hover{color:var(--lg-blue);}
 
@@ -49,7 +49,9 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 .lg-card{display:grid;grid-template-columns:0.9fr 1fr;width:100%;max-width:920px;background:#fff;border:1px solid var(--lg-line);border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(11,25,41,0.08);}
 
 /* left brand panel */
-.lg-side{background:var(--lg-ink);color:#fff;padding:40px 36px;display:flex;flex-direction:column;}
+.lg-side{position:relative;overflow:hidden;background:var(--lg-ink) url(https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1000&q=80) center/cover no-repeat;color:#fff;padding:40px 36px;display:flex;flex-direction:column;justify-content:flex-end;min-height:560px;}
+.lg-side::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,25,41,.10) 0%,rgba(11,25,41,.45) 38%,rgba(11,25,41,.93) 62%,#0B1929 100%);}
+.lg-side > *{position:relative;}
 .lg-side .tag{font-size:11px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;color:#F0C84A;margin-bottom:14px;}
 .lg-side h1{font-size:30px;line-height:1.2;font-weight:800;letter-spacing:-.6px;margin:0 0 12px;}
 .lg-side p{font-size:14.5px;line-height:1.7;color:rgba(255,255,255,.7);margin:0 0 28px;}
@@ -57,7 +59,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 .lg-points li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.5;color:rgba(255,255,255,.85);}
 .lg-points .tick{width:24px;height:24px;border-radius:50%;background:rgba(37,99,235,.25);color:#93C5FD;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .lg-points .tick .ic{width:14px;height:14px;stroke-width:2.8;}
-.lg-side .foot{margin-top:auto;padding-top:32px;font-size:12.5px;color:rgba(255,255,255,.45);}
+.lg-side .foot{padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);}
 
 /* right form panel */
 .lg-form{padding:40px 40px 34px;}
@@ -111,7 +113,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 }
 @media(max-width:480px){
   .lg-top{padding:14px 16px;}
-  .lg-top img{height:34px;}
+  .lg-top img{height:26px;}
   .lg-wrap{padding:4px 12px 28px;align-items:flex-start;}
   .lg-form{padding:26px 20px 24px;}
   .row2{grid-template-columns:1fr;gap:0;}
@@ -127,7 +129,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 </svg>
 
 <header class="lg-top">
-  <a href="index.html" aria-label="BuyGenix Solutions home"><img src="assets/logo-full.png" alt="BuyGenix Solutions" width="131" height="40"></a>
+  <a href="index.html" aria-label="BuyGenix Solutions home"><img src="assets/logo-full.png" alt="BuyGenix Solutions" width="98" height="30"></a>
   <a class="back" href="index.html"><svg class="ic" style="width:16px;height:16px"><use href="#i-back"/></svg>Back to website</a>
 </header>
 
