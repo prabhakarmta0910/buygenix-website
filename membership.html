@@ -31,149 +31,92 @@
 <link rel="stylesheet" href="css/shared.css">
 <style>
 /* ══ MEMBERSHIP PAGE STYLES ══ */
-.mp-wrap{background:#f4f6fc;min-height:100vh;font-family:"Plus Jakarta Sans","Segoe UI",sans-serif;}
+.mp-page{background:#f4f6fc;font-family:"Plus Jakarta Sans","Segoe UI",sans-serif;color:#1e293b;}
+.mp-tick,.mp-cross{width:18px;height:18px;flex-shrink:0;display:inline-block;vertical-align:middle;}
+.mp-tick{color:#16a34a;}
+.mp-cross{color:#cbd5e1;}
 
-/* ── HERO ── */
-.mp-hero{
-  background:linear-gradient(145deg,#080f1e 0%,#0d1f3c 50%,#0a1628 100%);
-  padding:100px 40px 80px;text-align:center;
-  position:relative;overflow:hidden;
-  margin-top:var(--nav-h);
-}
-.mp-hero::before{content:"";position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,0.12),transparent 65%);}
-.mp-hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;padding:7px 18px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;position:relative;z-index:1;}
-.mp-hero h1{font-family:"Cormorant Garamond",serif;font-size:clamp(36px,5vw,62px);font-weight:700;color:white;line-height:1.15;margin-bottom:16px;position:relative;z-index:1;letter-spacing:-0.5px;}
-.mp-hero h1 em{color:#f59e0b;font-style:italic;}
-.mp-hero p{font-size:16px;color:rgba(255,255,255,0.5);max-width:560px;margin:0 auto 32px;line-height:1.75;position:relative;z-index:1;}
-.mp-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.25);color:#fbbf24;padding:8px 20px;border-radius:100px;font-size:12.5px;font-weight:700;position:relative;z-index:1;}
+/* ── INTRO ── */
+.mp-intro{max-width:760px;margin:0 auto;padding:56px 24px 8px;text-align:center;}
+.mp-intro h1{font-size:clamp(28px,3.4vw,40px);font-weight:800;color:#0B1929;letter-spacing:-0.5px;margin-bottom:12px;}
+.mp-intro p{font-size:16px;line-height:1.7;color:#64748b;}
 
-/* ── PLANS GRID ── */
-.mp-grid-wrap{max-width:1240px;margin:0 auto;padding:56px 32px 80px;}
+/* ── PLAN CARDS ── */
+.mp-grid-wrap{max-width:1240px;margin:0 auto;padding:40px 32px 72px;}
 .mp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-items:stretch;}
-
-/* ── PLAN CARD ── */
-.mp-card{
-  background:white;border-radius:20px;
-  border:1.5px solid #e4e8f4;
-  padding:32px 28px;
-  display:flex;flex-direction:column;
-  position:relative;overflow:hidden;
-  transition:all 0.25s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 2px 12px rgba(0,0,0,0.04);
-}
-.mp-card:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(37,99,235,0.1);border-color:#c7d2fe;}
-.mp-card.popular{
-  border-color:#6366f1;
-  box-shadow:0 8px 32px rgba(99,102,241,0.18);
-  background:linear-gradient(145deg,#fafbff,white);
-}
-.mp-card.popular:hover{box-shadow:0 24px 56px rgba(99,102,241,0.25);}
-.mp-card.enterprise{
-  background:linear-gradient(145deg,#080f1e,#0d1f3c);
-  border-color:rgba(245,158,11,0.3);
-}
-.mp-card.enterprise:hover{border-color:rgba(245,158,11,0.5);box-shadow:0 20px 48px rgba(0,0,0,0.3);}
-
-/* Popular badge */
-.mp-popular-badge{
-  position:absolute;top:0;right:0;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
-  color:white;font-size:9.5px;font-weight:800;
-  padding:6px 16px;letter-spacing:1.5px;text-transform:uppercase;
-  border-radius:0 18px 0 14px;
-}
-.mp-enterprise-badge{
-  position:absolute;top:0;right:0;
-  background:linear-gradient(135deg,#f59e0b,#d97706);
-  color:#1a1100;font-size:9.5px;font-weight:800;
-  padding:6px 16px;letter-spacing:1.5px;text-transform:uppercase;
-  border-radius:0 18px 0 14px;
-}
-
-/* Card header */
-.mp-card-tag{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#94a3b8;margin-bottom:8px;font-family:"Space Grotesk",sans-serif;}
-.mp-card.enterprise .mp-card-tag{color:rgba(255,255,255,0.35);}
-.mp-card-name{font-family:"Cormorant Garamond",serif;font-size:28px;font-weight:700;color:#0d1117;margin-bottom:6px;}
-.mp-card.enterprise .mp-card-name{color:white;}
-.mp-card-desc{font-size:12.5px;color:#64748b;line-height:1.6;margin-bottom:22px;}
-.mp-card.enterprise .mp-card-desc{color:rgba(255,255,255,0.45);}
-
-/* Pricing */
-.mp-price-wrap{margin-bottom:6px;}
-.mp-original{font-size:13px;color:#94a3b8;text-decoration:line-through;margin-bottom:2px;}
-.mp-card.enterprise .mp-original{color:rgba(255,255,255,0.25);}
-.mp-price{display:flex;align-items:baseline;gap:3px;margin-bottom:4px;}
-.mp-curr{font-size:18px;font-weight:700;color:#374151;margin-top:4px;}
-.mp-amt{font-family:"Cormorant Garamond",serif;font-size:42px;font-weight:700;color:#0d1117;line-height:1;}
-.mp-card.enterprise .mp-curr,.mp-card.enterprise .mp-amt{color:white;}
-.mp-period{font-size:12px;color:#94a3b8;font-weight:500;margin-left:2px;}
-.mp-saving{display:inline-block;background:#dcfce7;color:#15803d;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:20px;}
-.mp-card.enterprise .mp-saving{background:rgba(245,158,11,0.15);color:#fbbf24;}
-
-/* Divider */
-.mp-div{height:1px;background:#f0f2f8;margin:18px 0;}
-.mp-card.enterprise .mp-div{background:rgba(255,255,255,0.08);}
-
-/* Features */
-.mp-feats{flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
-.mp-feat{display:flex;align-items:flex-start;gap:9px;font-size:12.5px;color:#374151;line-height:1.5;}
-.mp-card.enterprise .mp-feat{color:rgba(255,255,255,0.7);}
-.mp-feat-icon{font-size:13px;flex-shrink:0;margin-top:1px;width:16px;text-align:center;}
-.mp-feat-label{flex:1;}
-.mp-feat.no{opacity:0.4;}
-
-/* CTA */
-.mp-cta{
-  display:block;text-align:center;
-  padding:14px 20px;border-radius:12px;
-  font-size:14px;font-weight:800;
-  text-decoration:none;letter-spacing:0.2px;
-  transition:all .22s;font-family:inherit;
-  border:none;cursor:pointer;
-}
-.mp-cta.default{background:#f4f6fc;color:#4f46e5;border:1.5px solid #e0e7ff;}
-.mp-cta.default:hover{background:#e0e7ff;border-color:#6366f1;}
-.mp-cta.primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;box-shadow:0 6px 20px rgba(99,102,241,0.3);}
-.mp-cta.primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,0.4);}
-.mp-cta.gold{background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1100;box-shadow:0 6px 20px rgba(245,158,11,0.3);}
-.mp-cta.gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,158,11,0.45);}
+.mp-card{background:#fff;border-radius:20px;border:1.5px solid #e4e8f4;padding:30px 26px;display:flex;flex-direction:column;position:relative;box-shadow:0 2px 12px rgba(11,25,41,0.04);transition:transform .22s,box-shadow .22s,border-color .22s;}
+.mp-card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(37,99,235,0.10);border-color:#bfd3fb;}
+.mp-card.popular{border-color:#2563EB;box-shadow:0 10px 32px rgba(37,99,235,0.16);}
+.mp-card.enterprise{background:linear-gradient(160deg,#0B1929,#132b4d);border-color:#0B1929;color:#fff;}
+.mp-badge{position:absolute;top:-13px;left:26px;background:#2563EB;color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
+.mp-card.enterprise .mp-badge{background:#F0C84A;color:#0B1929;}
+.mp-name{font-size:22px;font-weight:800;color:#0B1929;margin-bottom:6px;}
+.mp-card.enterprise .mp-name{color:#fff;}
+.mp-desc{font-size:13px;color:#64748b;line-height:1.6;min-height:42px;}
+.mp-card.enterprise .mp-desc{color:rgba(255,255,255,0.6);}
+.mp-price{display:flex;align-items:baseline;gap:4px;margin-top:20px;}
+.mp-amt{font-size:36px;font-weight:800;color:#0B1929;letter-spacing:-1px;line-height:1;}
+.mp-card.enterprise .mp-amt{color:#fff;}
+.mp-per{font-size:13px;color:#94a3b8;font-weight:600;}
+.mp-card.enterprise .mp-per{color:rgba(255,255,255,0.5);}
+.mp-leads{display:inline-block;margin-top:12px;background:#EFF5FB;color:#1E40AF;font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:8px;align-self:flex-start;}
+.mp-card.enterprise .mp-leads{background:rgba(240,200,74,0.15);color:#F0C84A;}
+.mp-div{height:1px;background:#eef1f7;margin:20px 0;}
+.mp-card.enterprise .mp-div{background:rgba(255,255,255,0.1);}
+.mp-feats{list-style:none;flex:1;display:flex;flex-direction:column;gap:10px;margin:0 0 26px;padding:0;}
+.mp-feats li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;line-height:1.5;color:#334155;}
+.mp-feats li .mp-tick{margin-top:1px;}
+.mp-card.enterprise .mp-feats li{color:rgba(255,255,255,0.85);}
+.mp-card.enterprise .mp-tick{color:#4ade80;}
+.mp-cta{display:block;text-align:center;padding:13px 18px;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;transition:background .2s,transform .2s;background:#EFF5FB;color:#1E40AF;border:1.5px solid #d6e4fb;}
+.mp-cta:hover{background:#e0ebfa;}
+.mp-card.popular .mp-cta{background:#2563EB;color:#fff;border-color:#2563EB;}
+.mp-card.popular .mp-cta:hover{background:#1E40AF;}
+.mp-card.enterprise .mp-cta{background:#F0C84A;color:#0B1929;border-color:#F0C84A;}
+.mp-card.enterprise .mp-cta:hover{background:#e5b93a;}
 
 /* ── COMPARISON TABLE ── */
-.mp-table-wrap{max-width:1240px;margin:0 auto;padding:0 32px 80px;}
-.mp-table-head{text-align:center;margin-bottom:40px;}
-.mp-table-head h2{font-size:clamp(24px,3vw,36px);font-weight:800;color:#0d1117;margin-bottom:8px;letter-spacing:-0.5px;}
-.mp-table-head p{font-size:15px;color:#64748b;}
+.mp-compare{max-width:1240px;margin:0 auto;padding:0 32px 72px;}
+.mp-compare-head{text-align:center;margin-bottom:28px;}
+.mp-compare-head h2{font-size:clamp(24px,3vw,34px);font-weight:800;color:#0B1929;letter-spacing:-0.5px;margin-bottom:8px;}
+.mp-compare-head p{font-size:15px;color:#64748b;}
+.mp-table-scroll{overflow-x:auto;border-radius:18px;border:1px solid #e4e8f4;box-shadow:0 4px 24px rgba(11,25,41,0.05);background:#fff;}
+.mp-table{width:100%;min-width:760px;border-collapse:collapse;}
+.mp-table th,.mp-table td{padding:14px 18px;text-align:center;border-bottom:1px solid #eef1f7;font-size:14px;}
+.mp-table th:first-child,.mp-table td:first-child{text-align:left;position:sticky;left:0;background:#fff;z-index:1;width:30%;}
+.mp-table thead th{background:#fff;vertical-align:bottom;padding-top:22px;padding-bottom:18px;border-bottom:2px solid #e4e8f4;}
+.mp-table thead th:first-child{font-size:13px;color:#94a3b8;font-weight:700;}
+.mp-th-name{display:block;font-size:16px;font-weight:800;color:#0B1929;}
+.mp-th-price{display:block;margin-top:4px;font-size:13px;font-weight:600;color:#64748b;}
+.mp-table thead th.is-popular{background:#EFF5FB;}
+.mp-table thead th.is-popular .mp-th-name{color:#1E40AF;}
+.mp-table td:first-child{font-weight:600;color:#1e293b;}
+.mp-table td.is-popular{background:#f7faff;}
+.mp-table .mp-group td{background:#f8fafc;font-size:11.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#64748b;text-align:left;padding:10px 18px;}
+.mp-table .mp-group td:first-child{background:#f8fafc;}
+.mp-table tbody tr:last-child td{border-bottom:none;}
+.mp-val{font-weight:700;color:#0B1929;}
 
-.mp-table{width:100%;border-collapse:collapse;background:white;border-radius:20px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.06);border:1px solid #e4e8f4;}
-.mp-table th{padding:18px 20px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;font-family:"Space Grotesk",sans-serif;}
-.mp-table th:first-child{text-align:left;color:#94a3b8;background:#fafbff;width:30%;}
-.mp-table th.t-starter{background:#f8faff;color:#64748b;}
-.mp-table th.t-growth{background:#f5f3ff;color:#6d28d9;}
-.mp-table th.t-pro{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;}
-.mp-table th.t-ent{background:linear-gradient(135deg,#0d1f3c,#1a3a6b);color:#fbbf24;}
-.mp-table td{padding:14px 20px;font-size:13px;border-bottom:1px solid #f0f2f8;color:#374151;text-align:center;vertical-align:middle;}
-.mp-table td:first-child{text-align:left;font-weight:600;color:#0d1117;background:#fafbff;}
-.mp-table tr:last-child td{border-bottom:none;}
-.mp-table tr:hover td{background:#fafbff;}
-.mp-table tr:hover td:first-child{background:#f4f6fc;}
-.t-check{color:#4f46e5;font-weight:800;font-size:15px;}
-.t-cross{color:#cbd5e1;font-size:15px;}
-.t-val{font-weight:700;color:#0d1117;}
-.mp-table-group td{background:#f8faff !important;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#94a3b8 !important;padding:10px 20px;}
+/* ── HELP CTA ── */
+.mp-help{max-width:1240px;margin:0 auto;padding:0 32px 88px;}
+.mp-help-box{background:linear-gradient(135deg,#0B1929,#1E40AF);border-radius:22px;padding:44px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.mp-help-box h2{font-size:clamp(22px,2.6vw,30px);font-weight:800;color:#fff;margin-bottom:8px;}
+.mp-help-box p{font-size:15px;color:rgba(255,255,255,0.72);max-width:560px;line-height:1.7;}
+.mp-help-btn{background:#F0C84A;color:#0B1929;padding:14px 28px;border-radius:12px;font-size:15px;font-weight:800;text-decoration:none;white-space:nowrap;transition:background .2s;}
+.mp-help-btn:hover{background:#e5b93a;}
 
-/* ── FAQ / CTA ── */
-.mp-bottom{max-width:900px;margin:0 auto;padding:0 32px 80px;text-align:center;}
-.mp-bottom h2{font-family:"Cormorant Garamond",serif;font-size:clamp(28px,4vw,44px);font-weight:700;color:#0d1117;margin-bottom:14px;}
-.mp-bottom h2 em{color:#6366f1;font-style:italic;}
-.mp-bottom p{font-size:15px;color:#64748b;line-height:1.8;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto;}
-.mp-bottom-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.mp-bb-primary{background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;padding:15px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all .22s;box-shadow:0 6px 20px rgba(99,102,241,0.3);}
-.mp-bb-primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(99,102,241,0.4);}
-.mp-bb-ghost{background:white;color:#4f46e5;border:1.5px solid #c7d2fe;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all .22s;}
-.mp-bb-ghost:hover{background:#f4f6fc;}
+/* ── LOADING ── */
+.mp-skel{border-radius:20px;background:linear-gradient(90deg,#eef1f6 25%,#e2e7ef 50%,#eef1f6 75%);background-size:200% 100%;animation:mpSkel 1.4s infinite;min-height:520px;}
+@keyframes mpSkel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
-@media(max-width:1100px){.mp-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.mp-grid{grid-template-columns:1fr;}.mp-table-wrap{overflow-x:auto;}}
+@media(max-width:1100px){.mp-grid{grid-template-columns:repeat(2,1fr);row-gap:32px;}}
+@media(max-width:640px){
+  .mp-grid{grid-template-columns:1fr;}
+  .mp-grid-wrap,.mp-compare,.mp-help{padding-left:16px;padding-right:16px;}
+  .mp-intro{padding-top:40px;}
+  .mp-help-box{padding:32px 24px;}
+  .mp-table th,.mp-table td{padding:12px 14px;font-size:13px;}
+}
 </style>
 <script type="application/ld+json">
 {
@@ -191,7 +134,7 @@
     {
      "@type": "ListItem",
      "position": 2,
-     "name": "Choose Your Path toGlobal Export Growth",
+     "name": "Membership Plans",
      "item": "https://buygenixsolutions.com/membership"
     }
    ]
@@ -226,108 +169,156 @@
 </nav>
 <div class="mobile-nav" id="mobileNav"><a href="index.html">Home</a><a href="services.html">Services</a><a href="about.html">About Us</a><a href="registration.html">Registration</a><a href="contact.html">Contact</a><a href="terms.html">Terms &amp; Conditions</a><a href="privacy.html">Privacy Policy</a><a href="membership.html" class="m-cta">Membership Plans →</a><a href="login.html" class="m-cta m-cta-gold">Client Login →</a></div>
 
-<!-- HERO -->
 <!-- ═══ MEMBERSHIP BANNER ═══ -->
-<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Membership Plans — Choose Your Path to Global Export Growth</h1>
 <div style="width:100%;line-height:0;overflow:hidden;margin-top:var(--nav-h);">
-  <img src="assets/membership-banner-hd.jpg" width="2560" height="720" alt="Choose Your Path to Global Export Growth"
+  <img src="assets/membership-banner-hd.jpg" width="2560" height="720" alt="Container ship at a busy export port"
     style="width:100%;height:auto;display:block;">
-</div>
-<div style="background:#0B1929;text-align:center;padding:18px 16px;">
-  <div class="mp-hero-badge">🎉 Save up to ₹8,000 — Limited Time 10% Off All Plans</div>
 </div>
 <!-- ═══ END MEMBERSHIP BANNER ═══ -->
 
-<!-- PLANS GRID — Dynamic from Supabase -->
-<div class="mp-grid-wrap">
-  <div class="mp-grid" id="mpDynGrid">
-    <!-- Skeleton loading -->
-    <div class="mp-skel"></div>
-    <div class="mp-skel"></div>
-    <div class="mp-skel mp-skel-pop"></div>
-    <div class="mp-skel mp-skel-ent"></div>
-  </div>
-</div>
+<main class="mp-page">
+  <section class="mp-intro">
+    <h1>Membership Plans</h1>
+    <p>Every plan runs for 365 days and comes with a dedicated Relationship Manager. Pick the one that fits where your export business is today.</p>
+  </section>
 
-<style>
-.mp-skel{border-radius:20px;background:linear-gradient(90deg,#f0f0f0 25%,#e4e4e4 50%,#f0f0f0 75%);background-size:200% 100%;animation:mpSkel 1.4s infinite;min-height:480px;}
-.mp-skel-pop{background:linear-gradient(90deg,#e8eaf8 25%,#dcdeff 50%,#e8eaf8 75%);background-size:200% 100%;animation:mpSkel 1.4s infinite;}
-.mp-skel-ent{background:linear-gradient(90deg,#1a2030 25%,#222b40 50%,#1a2030 75%);background-size:200% 100%;animation:mpSkel 1.4s infinite;}
-@keyframes mpSkel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
-</style>
+  <!-- PLAN CARDS — dynamic from Supabase -->
+  <section class="mp-grid-wrap" aria-label="Plans">
+    <div class="mp-grid" id="mpDynGrid">
+      <div class="mp-skel"></div><div class="mp-skel"></div><div class="mp-skel"></div><div class="mp-skel"></div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="mp-compare" id="compare">
+    <div class="mp-compare-head">
+      <h2>Compare plans</h2>
+      <p>See exactly what each plan includes, side by side.</p>
+    </div>
+    <div class="mp-table-scroll">
+      <table class="mp-table" id="mpCompare"></table>
+    </div>
+  </section>
+
+  <section class="mp-help">
+    <div class="mp-help-box">
+      <div>
+        <h2>Not sure which plan fits?</h2>
+        <p>Tell us what you export and where you want to sell. Our team will recommend the right plan for your business.</p>
+      </div>
+      <a href="contact.html" class="mp-help-btn">Talk to our team</a>
+    </div>
+  </section>
+</main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
 (function(){
+const TICK  = '<svg class="mp-tick" viewBox="0 0 20 20" fill="none" aria-label="Included"><path d="M4.5 10.5l3.5 3.5 7.5-8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const CROSS = '<svg class="mp-cross" viewBox="0 0 20 20" fill="none" aria-label="Not included"><path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+
+/* Used only if Supabase is unreachable — keep in sync with membership_plans */
 const FALLBACK_PLANS = [
-  {id:1,name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:13500,price_original:15000,saving:1500,lead_limit:5,badge:'',is_popular:false,sort_order:1,cta_text:'Get Started',cta_class:'default',features:['🎯 5 Buyer Leads per month','📱 WhatsApp + Email delivery','❌ Website listing not included','🤝 Dedicated Relationship Manager','💳 1× Virtual Business Card','✅ GST + IEC + MSME assistance','🏛️ FSSAI assistance included','✉️ Email support','❌ No digital catalogue','❌ No business promotion','❌ No SEO / SMO services']},
-  {id:2,name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:27000,price_original:30000,saving:3000,lead_limit:10,badge:'',is_popular:false,sort_order:2,cta_text:'Choose Growth',cta_class:'default',features:['🎯 10 Buyer Leads per month','📱 WhatsApp + Email delivery','🌐 Website listing included','🤝 Dedicated Relationship Manager','📖 Digital catalogue — 10 products','💳 1× Virtual Business Card','📢 Quarterly business promotion','🔍 Basic On-Page SEO','✅ GST + IEC + MSME assistance','🏛️ FSSAI assistance included','✉️ Email support']},
-  {id:3,name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:40500,price_original:45000,saving:4500,lead_limit:15,badge:'Most Popular',is_popular:true,sort_order:3,cta_text:'Get Started',cta_class:'primary',features:['🎯 15 Buyer Leads per month','📱 WhatsApp + Email delivery','🌐 Website listing included','🤝 Dedicated Relationship Manager','📖 Digital catalogue — 15 products','💳 1× Virtual Business Card','📢 Monthly business promotion','🔍 Basic On-Page SEO','📲 Social Media (SMO) included','✅ GST + IEC + MSME included','🏛️ FSSAI licence included','✉️ Email support']},
-  {id:4,name:'Enterprise',subtitle:'Large businesses needing maximum global reach.',price_monthly:72000,price_original:80000,saving:8000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,cta_text:'Contact for Enterprise',cta_class:'gold',features:['🎯 30 Buyer Leads per month','📱 WhatsApp + Email delivery','🌐 Website listing included','🤝 Dedicated Relationship Manager','📖 Digital catalogue — 20 products','💳 5× Team Virtual Business Cards','📢 Weekly business promotion','📊 Monthly performance report','🔍 Basic On-Page SEO','📲 Full Social Media Strategy','✅ GST + IEC + MSME + FSSAI included','📞 Monthly Strategy Call','⭐ Priority Support']}
+  {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:13500,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','1 virtual business card','GST, IEC and MSME registration assistance','FSSAI registration assistance','Email support']},
+  {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:27000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 10 products','1 virtual business card','Quarterly business promotion','Basic on-page SEO','GST, IEC and MSME registration assistance','FSSAI registration assistance']},
+  {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:40500,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 15 products','1 virtual business card','Monthly business promotion','Basic on-page SEO','Social media optimisation (SMO)','GST, IEC and MSME registration included','FSSAI licence included']},
+  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:72000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 20 products','1 virtual business card','Weekly business promotion','Advanced SEO and social media optimisation','All registrations included, with FSSAI','Priority lead matching','Export documentation help']}
 ];
+
+/* Comparison rows. Values per plan name: true = tick, false = cross, string = shown as text.
+   Price and buyer leads come from the plan data itself. */
+const Y = true, N = false;
+const COMPARE = [
+  {group:'Leads and visibility'},
+  {label:'Buyer leads per year', from:'leads'},
+  {label:'Lead delivery on WhatsApp and email', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Business listing on the BuyGenix website', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Priority lead matching', v:{starter:N,growth:N,professional:N,enterprise:Y}},
+  {group:'Support'},
+  {label:'Dedicated Relationship Manager', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Virtual business card', v:{starter:'1',growth:'1',professional:'1',enterprise:'1'}},
+  {label:'Export documentation help', v:{starter:N,growth:N,professional:N,enterprise:Y}},
+  {group:'Marketing'},
+  {label:'Digital catalogue', v:{starter:N,growth:'10 products',professional:'15 products',enterprise:'20 products'}},
+  {label:'Business promotion', v:{starter:N,growth:'Quarterly',professional:'Monthly',enterprise:'Weekly'}},
+  {label:'SEO', v:{starter:N,growth:'Basic',professional:'Basic',enterprise:'Advanced'}},
+  {label:'Social media optimisation', v:{starter:N,growth:N,professional:Y,enterprise:'Advanced'}},
+  {group:'Registrations'},
+  {label:'GST registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
+  {label:'IEC registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
+  {label:'MSME registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
+  {label:'FSSAI licence', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}}
+];
+
+const inr = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+const key = p => String(p.name || '').trim().toLowerCase();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+/* Strip any leading emoji the admin portal may have saved with a feature */
+const cleanFeat = f => String(f).replace(/^[\p{Extended_Pictographic}✀-➿️‍\s]+/u, '').trim();
+
+function cell(v) {
+  if (v === true) return TICK;
+  if (v === false) return CROSS;
+  if (v === undefined || v === null) return '—';
+  return `<span class="mp-val">${esc(v)}</span>`;
+}
+
+function renderCards(plans) {
+  const grid = document.getElementById('mpDynGrid');
+  grid.innerHTML = plans.map(plan => {
+    const ent   = key(plan) === 'enterprise';
+    const pop   = !!plan.is_popular;
+    const feats = (Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features || '[]'))
+                    .filter(f => !String(f).trim().startsWith('❌')).map(cleanFeat)
+                    .filter(f => f && !/^\d+\s+buyer leads per (year|month)$/i.test(f)); /* already shown in .mp-leads */
+    const badge = pop ? (plan.badge || 'Most popular') : ent ? (plan.badge || 'Enterprise') : '';
+    const cta   = ent ? 'Contact us' : `Choose ${esc(plan.name)}`;
+    return `<article class="mp-card${pop ? ' popular' : ''}${ent ? ' enterprise' : ''}">
+      ${badge ? `<span class="mp-badge">${esc(badge)}</span>` : ''}
+      <h3 class="mp-name">${esc(plan.name)}</h3>
+      <p class="mp-desc">${esc(plan.subtitle || '')}</p>
+      <div class="mp-price"><span class="mp-amt">${inr(plan.price_monthly)}</span><span class="mp-per">/ year</span></div>
+      <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per year</span>
+      <div class="mp-div"></div>
+      <ul class="mp-feats">${feats.map(f => `<li>${TICK}<span>${esc(f)}</span></li>`).join('')}</ul>
+      <a href="contact.html" class="mp-cta">${cta}</a>
+    </article>`;
+  }).join('');
+}
+
+function renderCompare(plans) {
+  const t = document.getElementById('mpCompare');
+  const pc = p => p.is_popular ? ' class="is-popular"' : '';
+  const head = `<thead><tr><th scope="col">Features</th>${plans.map(p =>
+    `<th scope="col"${pc(p)}><span class="mp-th-name">${esc(p.name)}</span><span class="mp-th-price">${inr(p.price_monthly)} / year</span></th>`).join('')}</tr></thead>`;
+  const body = COMPARE.map(r => {
+    if (r.group) return `<tr class="mp-group"><td colspan="${plans.length + 1}">${esc(r.group)}</td></tr>`;
+    return `<tr><td>${esc(r.label)}</td>${plans.map(p => {
+      const v = r.from === 'leads' ? String(Number(p.lead_limit || 0)) : (r.v || {})[key(p)];
+      return `<td${pc(p)}>${cell(v)}</td>`;
+    }).join('')}</tr>`;
+  }).join('');
+  t.innerHTML = head + '<tbody>' + body + '</tbody>';
+}
 
 async function loadMembershipPlans() {
   let plans = null;
   try {
-    if(typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_URL && !BGX_SUPABASE_URL.includes('YOUR')) {
+    if (typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_URL && !BGX_SUPABASE_URL.includes('YOUR')) {
       const sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
-      const {data,error} = await sb.from('membership_plans').select('*').eq('is_active',true).order('sort_order');
-      if(!error && data && data.length >= 2) plans = data;
+      const {data, error} = await sb.from('membership_plans').select('*').eq('is_active', true).order('sort_order');
+      if (!error && data && data.length >= 2) plans = data;
     }
-  } catch(e){}
-  renderPlans(plans || FALLBACK_PLANS);
+  } catch (e) {}
+  plans = plans || FALLBACK_PLANS;
+  renderCards(plans);
+  renderCompare(plans);
 }
 
-function parseFeat(f) {
-  const m = f.match(/^(\p{Emoji}|[\u{1F300}-\u{1FAFF}]|[\u2600}-\u27BF]|[✅❌🎯📱🌐🤝📖💳📢🔍📲🏛️✉️📞⭐📊])/u);
-  const emoji = m ? m[0] : '';
-  const text  = emoji ? f.slice(emoji.length).trim() : f;
-  const isNo  = emoji === '❌';
-  return {emoji, text, isNo};
-}
-
-function renderPlans(plans) {
-  const grid = document.getElementById('mpDynGrid');
-  if(!grid) return;
-  const isEnt = p => p.name?.toLowerCase().includes('enterprise') || (p.sort_order >= 4 && plans.length >= 4);
-  const orig  = p => p.price_original || Math.round(p.price_monthly / 0.9 / 1000) * 1000;
-  const save  = p => p.saving || (orig(p) - p.price_monthly);
-
-  grid.innerHTML = plans.map(plan => {
-    const ent      = isEnt(plan);
-    const pop      = plan.is_popular;
-    const feats    = Array.isArray(plan.features) ? plan.features : JSON.parse(plan.features||'[]');
-    const ctaClass = ent ? 'gold' : pop ? 'primary' : 'default';
-    const ctaTxt   = ent ? 'Contact for Enterprise →' : pop ? 'Get Started →' : `Choose ${plan.name} →`;
-    const badgeTxt = ent ? 'Enterprise' : pop ? (plan.badge||'Most Popular') : '';
-
-    const featsHtml = feats.map(f => {
-      const {emoji,text,isNo} = parseFeat(f);
-      const darkStyle = ent ? ' style="color:rgba(255,255,255,0.75);"' : '';
-      const darkStrong = ent ? ' style="color:white;"' : '';
-      return `<div class="mp-feat${isNo?' no':''}"><span class="mp-feat-icon">${emoji||'✅'}</span><span class="mp-feat-label"${darkStyle}>${text}</span></div>`;
-    }).join('');
-
-    return `<div class="mp-card${pop?' popular':''}${ent?' enterprise':''}">
-      ${pop ? '<div class="mp-popular-badge">'+badgeTxt+'</div>' : ''}
-      ${ent && !pop ? '<div class="mp-enterprise-badge">'+badgeTxt+'</div>' : ''}
-      <div class="mp-card-tag">${plan.name}</div>
-      <div class="mp-card-name"${ent?' style="color:white;"':''}>${plan.name}</div>
-      <div class="mp-card-desc">${plan.subtitle||''}</div>
-      <div class="mp-price-wrap">
-        <div class="mp-original"${ent?' style="color:rgba(255,255,255,0.25);"':''}>₹${Number(orig(plan)).toLocaleString('en-IN')} / year</div>
-        <div class="mp-price"><span class="mp-curr"${ent?' style="color:white;"':''}>₹</span><span class="mp-amt"${ent?' style="color:white;"':''}>${Number(plan.price_monthly).toLocaleString('en-IN')}</span><span class="mp-period"${ent?' style="color:rgba(255,255,255,0.4);"':''}>/ year</span></div>
-        <span class="mp-saving">You save ₹${Number(save(plan)).toLocaleString('en-IN')}</span>
-      </div>
-      <div class="mp-div"></div>
-      <div class="mp-feats">${featsHtml}</div>
-      <a href="contact.html" class="mp-cta ${ctaClass}">${ctaTxt}</a>
-    </div>`;
-  }).join('');
-}
-
-loadMembershipPlans();
+/* shared.js (which defines BGX_SUPABASE_URL) loads after this script */
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadMembershipPlans);
+else loadMembershipPlans();
 })();
 </script>
 
