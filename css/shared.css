@@ -277,6 +277,7 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
 /* ── WA FLOAT ── */
 .wa-float{position:fixed;bottom:28px;right:28px;z-index:900;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 6px 24px rgba(37,211,102,0.4);transition:all 0.3s;}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,0.55);}
+.wa-float img{width:30px;height:30px;display:block;}
 
 /* ── SPINNER ── */
 .spinner{width:18px;height:18px;border:2px solid rgba(255,255,255,0.25);border-top-color:white;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;flex-shrink:0;}
@@ -289,8 +290,9 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
 .footer-logo-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:white;line-height:1;}
 .footer-logo-name span{color:var(--gold-light);font-style:italic;}
 .footer-social{display:flex;gap:10px;margin-top:22px;}
-.footer-social a{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;}
-.footer-social a:hover{background:rgba(184,134,11,0.2);border-color:rgba(184,134,11,0.4);transform:translateY(-2px);}
+.footer-social a{width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all 0.2s;}
+.footer-social a:hover{box-shadow:0 0 0 2px var(--gold-light);transform:translateY(-2px);}
+.footer-social a img{width:20px;height:20px;display:block;}
 .footer-col h4{font-size:var(--fs-lbl);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-light);font-family:'Space Grotesk',sans-serif;margin-bottom:18px;}
 .footer-col ul{display:flex;flex-direction:column;gap:10px;}
 .footer-col ul li a{font-size:var(--fs-sm);color:rgba(255,255,255,0.42);transition:color 0.2s;}

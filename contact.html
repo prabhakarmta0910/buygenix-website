@@ -92,13 +92,13 @@
 }
 .ci:last-of-type { border-bottom: none; }
 .ci:hover { transform: translateX(4px); }
-.ci:hover .ci-icon { background: rgba(212,160,23,0.25); }
+.ci:hover .ci-icon { box-shadow: 0 0 0 2px rgba(212,160,23,0.6); }
 .ci-icon {
   width: 40px; height: 40px; border-radius: 10px;
-  background: rgba(255,255,255,0.09);
+  background: #fff;
   display: flex; align-items: center; justify-content: center;
   font-size: 14px; flex-shrink: 0;
-  transition: background 0.2s;
+  transition: box-shadow 0.2s;
 }
 .ci-lbl {
   font-size: 9px; font-weight: 700;
@@ -195,6 +195,8 @@
 .qc-chip.em:hover { background: #eef2ff; color: #4f46e5; border-color: #a5b4fc; }
 .qc-chip.ph  { background: #eff6ff; color: #4f46e5; border: 1px solid #c7d2fe; }
 .qc-chip.ph:hover { background: #4f46e5; color: white; border-color: #4f46e5; }
+.qc-chip img, .soc-pill img { display: block; flex-shrink: 0; }
+.qc-chip.wa:hover img, .qc-chip.ph:hover img { filter: brightness(0) invert(1); }
 
 /* form body */
 .form-body { padding-top: 20px; flex: 1; }
@@ -389,7 +391,7 @@
         <p class="lp-sub">Choose the channel that works best. We're fast to respond.</p>
 
         <a href="mailto:Info@buygenixsolutions.com" class="ci">
-          <div class="ci-icon">📧</div>
+          <div class="ci-icon"><img src="assets/icons/gmail.svg" alt="" width="20" height="20"></div>
           <div>
             <div class="ci-lbl">Email Us</div>
             <div class="ci-val">Info@buygenixsolutions.com</div>
@@ -398,7 +400,7 @@
         </a>
 
         <a href="https://wa.me/918796787594" class="ci">
-          <div class="ci-icon">💬</div>
+          <div class="ci-icon"><img src="assets/icons/whatsapp.svg" alt="" width="20" height="20"></div>
           <div>
             <div class="ci-lbl">WhatsApp Business</div>
             <div class="ci-val">+91 8796787594</div>
@@ -407,7 +409,7 @@
         </a>
 
         <a href="tel:+919818X****6" class="ci">
-          <div class="ci-icon">📞</div>
+          <div class="ci-icon"><img src="assets/icons/phone.svg" alt="" width="20" height="20"></div>
           <div>
             <div class="ci-lbl">Mobile</div>
             <div class="ci-val">+91 8796787594</div>
@@ -416,7 +418,7 @@
         </a>
 
         <a href="https://instagram.com/buygenixsolutions" target="_blank" class="ci">
-          <div class="ci-icon">📷</div>
+          <div class="ci-icon"><img src="assets/icons/instagram.svg" alt="" width="20" height="20"></div>
           <div>
             <div class="ci-lbl">Instagram</div>
             <div class="ci-val">@buygenixsolutions</div>
@@ -435,10 +437,10 @@
 
         <!-- Social pills -->
         <div class="lp-social">
-          <a href="https://instagram.com/buygenixsolutions" target="_blank" class="soc-pill">📷 Instagram</a>
-          <a href="https://facebook.com/buygenixsolutions" target="_blank" class="soc-pill">📘 Facebook</a>
-          <a href="https://wa.me/918796787594" class="soc-pill">💬 WhatsApp</a>
-          <a href="mailto:Info@buygenixsolutions.com" class="soc-pill">📧 Email</a>
+          <a href="https://instagram.com/buygenixsolutions" target="_blank" class="soc-pill"><img src="assets/icons/instagram.svg" alt="" width="14" height="14"> Instagram</a>
+          <a href="https://facebook.com/buygenixsolutions" target="_blank" class="soc-pill"><img src="assets/icons/facebook.svg" alt="" width="14" height="14"> Facebook</a>
+          <a href="https://wa.me/918796787594" class="soc-pill"><img src="assets/icons/whatsapp.svg" alt="" width="14" height="14"> WhatsApp</a>
+          <a href="mailto:Info@buygenixsolutions.com" class="soc-pill"><img src="assets/icons/gmail.svg" alt="" width="14" height="14"> Email</a>
         </div>
 
       </div>
@@ -451,9 +453,9 @@
         <h2>Send Us an Enquiry</h2>
         <p>Fill in the form and we'll respond within 24 working hours with a personalised recommendation. Or reach us instantly:</p>
         <div class="quick-contact">
-          <a href="https://wa.me/918796787594" class="qc-chip wa">💬 WhatsApp Now</a>
-          <a href="mailto:Info@buygenixsolutions.com" class="qc-chip em">📧 Email Us</a>
-          <a href="tel:+919818X****6" class="qc-chip ph">📞 Call Us</a>
+          <a href="https://wa.me/918796787594" class="qc-chip wa"><img src="assets/icons/whatsapp.svg" alt="" width="16" height="16"> WhatsApp Now</a>
+          <a href="mailto:Info@buygenixsolutions.com" class="qc-chip em"><img src="assets/icons/gmail.svg" alt="" width="16" height="16"> Email Us</a>
+          <a href="tel:+919818X****6" class="qc-chip ph"><img src="assets/icons/phone.svg" alt="" width="16" height="16"> Call Us</a>
         </div>
       </div>
 
@@ -608,10 +610,10 @@
 
 </div><!-- end content-wrap -->
 
-<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener">💬</a>
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-brand"><div class="footer-logo-name">Buy<span>genix</span> Solutions</div><p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p><div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank" rel="noopener">📷</a><a href="https://facebook.com/buygenixsolutions" target="_blank" rel="noopener">📘</a><a href="https://wa.me/918796787594" target="_blank" rel="noopener">💬</a><a href="mailto:Info@buygenixsolutions.com">📧</a></div></div>
+    <div class="footer-brand"><div class="footer-logo-name">Buy<span>genix</span> Solutions</div><p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p><div class="footer-social"><a href="https://instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://facebook.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div></div>
     <div class="footer-col"><h4>Navigate</h4><ul><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About Us</a></li><li><a href="membership.html">Membership Plans</a></li><li>
     <a href="contact.html">Contact</a></li></ul></div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html#leads">Buyer Leads</a></li><li><a href="services.html#catalogue">Digital Catalogue</a></li><li><a href="services.html#seo">SEO &amp; SMO</a></li><li><a href="services.html#vcard">Virtual Business Card</a></li><li><a href="registration.html">Registration</a></li></ul></div>
