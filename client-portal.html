@@ -3,714 +3,801 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>Client Portal – BuyGenix Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/shared.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
-body{background:#EEF2F7;overflow-x:hidden;}
+/* ══ CLIENT PORTAL ══ */
+:root{--cp-bg:#F3F6FB;--cp-line:#E3E9F2;--cp-ink:#0B1929;--cp-mid:#475569;--cp-soft:#94A3B8;--cp-blue:#2563EB;--cp-blue-soft:#EAF1FE;--cp-green:#16A34A;--cp-green-soft:#E8F7EE;--cp-amber:#B45309;--cp-amber-soft:#FEF3E2;--cp-red:#DC2626;--cp-red-soft:#FDECEC;--cp-sb:248px;}
+body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',sans-serif;color:var(--cp-ink);}
+.ic{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+.brand-ic{width:18px;height:18px;flex-shrink:0;display:block;}
 
-/* ── SIDEBAR (desktop: fixed; tablet+mobile: drawer) ── */
-.sidebar{position:fixed;top:0;left:0;bottom:0;width:240px;background:var(--navy);display:flex;flex-direction:column;z-index:200;overflow-y:auto;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);}
-.sb-brand{padding:22px 20px 18px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.sb-tag{font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.28);font-family:'Space Grotesk',sans-serif;margin-top:3px;}
-.sb-user{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.07);}
-.sb-uname{font-size:13.5px;font-weight:700;color:white;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sb-uplan{font-size:11px;color:var(--gold-light);font-family:'Space Grotesk',sans-serif;font-weight:600;}
-.sb-nav{flex:1;padding:8px 12px;}
-.sb-section{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.22);font-family:'Space Grotesk',sans-serif;padding:14px 10px 5px;}
-.sb-link{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;font-size:13px;color:rgba(255,255,255,0.55);font-weight:500;cursor:pointer;transition:all 0.2s;margin-bottom:2px;text-decoration:none;}
-.sb-link:hover{background:rgba(255,255,255,0.07);color:white;}
-.sb-link.active{background:rgba(30,95,168,0.38);color:white;}
-.sb-icon{font-size:16px;flex-shrink:0;}
-.sb-badge{margin-left:auto;background:var(--gold);color:white;font-size:10px;font-weight:700;border-radius:100px;padding:1px 7px;font-family:'Space Grotesk',sans-serif;}
-.sb-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,0.07);}
-.sb-signout{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.42);cursor:pointer;transition:color 0.2s;font-family:'Space Grotesk',sans-serif;font-weight:500;}
-.sb-signout:hover{color:rgba(255,255,255,0.75);}
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--cp-sb);background:var(--cp-ink);display:flex;flex-direction:column;z-index:200;overflow-y:auto;transition:transform .3s cubic-bezier(.4,0,.2,1);}
+.sb-brand{padding:20px 22px 18px;border-bottom:1px solid rgba(255,255,255,.07);}
+.sb-brand img{height:40px;width:auto;display:block;}
+.sb-tag{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.4);font-family:'Space Grotesk',sans-serif;font-weight:600;margin-top:8px;}
+.sb-nav{flex:1;padding:14px 12px;}
+.sb-section{font-size:10px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:rgba(255,255,255,.3);padding:16px 12px 6px;}
+.sb-link{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;font-size:13.5px;color:rgba(255,255,255,.66);font-weight:600;cursor:pointer;transition:background .15s,color .15s;margin-bottom:2px;text-decoration:none;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
+.sb-link:hover{background:rgba(255,255,255,.07);color:#fff;}
+.sb-link.active{background:var(--cp-blue);color:#fff;}
+.sb-count{margin-left:auto;background:rgba(255,255,255,.14);color:#fff;font-size:11px;font-weight:700;border-radius:100px;padding:1px 8px;}
+.sb-link.active .sb-count{background:rgba(255,255,255,.25);}
+.sb-footer{padding:14px 12px 18px;border-top:1px solid rgba(255,255,255,.07);}
 
-/* ── MAIN ── */
-.portal-main{margin-left:240px;min-height:100vh;display:flex;flex-direction:column;}
-.portal-topbar{background:white;border-bottom:1px solid var(--border-soft);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(11,25,41,0.05);}
-.ptb-left{display:flex;align-items:center;gap:14px;min-width:0;}
-.ptb-title{font-size:15px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px;}
-.ptb-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
-.ptb-notif{width:36px;height:36px;border-radius:10px;background:var(--sky);border:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;position:relative;flex-shrink:0;}
-.ptb-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--gold);}
-.ptb-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;cursor:pointer;flex-shrink:0;}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:5px;background:none;border:none;flex-shrink:0;}
-.hamburger span{display:block;width:20px;height:2px;background:var(--navy);border-radius:2px;}
+/* ── MAIN / TOPBAR ── */
+.portal-main{margin-left:var(--cp-sb);min-height:100vh;display:flex;flex-direction:column;}
+.topbar{background:#fff;border-bottom:1px solid var(--cp-line);padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:100;}
+.tb-left{display:flex;align-items:center;gap:12px;min-width:0;}
+.tb-title{font-size:16px;font-weight:800;color:var(--cp-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
+.tb-user{display:flex;align-items:center;gap:10px;}
+.tb-uname{font-size:13px;font-weight:700;color:var(--cp-ink);line-height:1.2;}
+.tb-uplan{font-size:11.5px;color:var(--cp-soft);font-weight:600;}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--cp-blue),#1E3A8A);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0;}
+.hamburger{display:none;width:38px;height:38px;border-radius:10px;border:1px solid var(--cp-line);background:#fff;align-items:center;justify-content:center;cursor:pointer;color:var(--cp-ink);}
 
-/* ── PANELS ── */
-.portal-body{padding:28px 32px;flex:1;max-width:1240px;width:100%;margin:0 auto;}
+/* ── BODY / PANELS ── */
+.portal-body{padding:28px;flex:1;max-width:1280px;width:100%;margin:0 auto;}
 .p-panel{display:none;}
-.p-panel.active{display:block;animation:fadeIn .25s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-.panel-head{margin-bottom:22px;}
-.panel-head h2{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--navy);margin-bottom:4px;line-height:1.2;}
-.panel-head p{font-size:14px;color:var(--text-mid);}
+.p-panel.active{display:block;animation:cpIn .2s ease;}
+@keyframes cpIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px;}
+.ph h1{font-size:24px;font-weight:800;letter-spacing:-.4px;color:var(--cp-ink);margin-bottom:4px;}
+.ph p{font-size:14px;color:var(--cp-mid);}
+.card{background:#fff;border:1px solid var(--cp-line);border-radius:16px;padding:22px;}
+.card + .card{margin-top:20px;}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;}
+.card-h h2{font-size:15px;font-weight:800;color:var(--cp-ink);display:flex;align-items:center;gap:9px;}
+.card-h h2 .ic{color:var(--cp-blue);}
+.link-btn{font-size:13px;font-weight:700;color:var(--cp-blue);background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-family:inherit;padding:0;}
+.link-btn:hover{text-decoration:underline;}
+.grid-main{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start;}
+.stack > * + *{margin-top:20px;}
 
-/* Stat cards */
-.dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
-.dsc{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:22px;display:flex;align-items:center;gap:16px;transition:all 0.3s;min-width:0;}
-.dsc:hover{box-shadow:var(--shadow-mid);transform:translateY(-2px);}
-.dsc-icon{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.ic-blue{background:rgba(30,95,168,0.1);}
-.ic-green{background:rgba(16,185,129,0.1);}
-.ic-gold{background:rgba(184,134,11,0.1);}
-.ic-purple{background:rgba(91,58,138,0.1);}
-.dsc-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
-.dsc-lbl{font-size:11.5px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;margin-top:2px;}
+/* notice */
+.notice{display:flex;gap:14px;align-items:flex-start;background:var(--cp-amber-soft);border:1px solid #F6D9A8;color:#7C4A03;border-radius:14px;padding:16px 18px;margin-bottom:20px;font-size:13.5px;line-height:1.6;}
+.notice .ic{color:var(--cp-amber);margin-top:2px;}
+.notice strong{display:block;color:#5B3602;margin-bottom:2px;}
 
-/* White card */
-.wcard{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);padding:26px;box-shadow:var(--shadow-soft);margin-bottom:20px;}
-.wcard:last-child{margin-bottom:0;}
-.wcard h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;}
-.grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;margin-bottom:20px;align-items:start;}
-.grid-2 .wcard{margin-bottom:0;}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:20px;}
+.stat{background:#fff;border:1px solid var(--cp-line);border-radius:16px;padding:18px 18px 16px;}
+.stat-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.stat-lbl{font-size:12.5px;font-weight:700;color:var(--cp-mid);}
+.stat-ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.stat-ic.b{background:var(--cp-blue-soft);color:var(--cp-blue);}
+.stat-ic.g{background:var(--cp-green-soft);color:var(--cp-green);}
+.stat-ic.a{background:var(--cp-amber-soft);color:var(--cp-amber);}
+.stat-ic.p{background:#F1ECFD;color:#6D28D9;}
+.stat-num{font-size:28px;font-weight:800;letter-spacing:-.5px;color:var(--cp-ink);line-height:1.1;}
+.stat-sub{font-size:12px;color:var(--cp-soft);margin-top:4px;font-weight:600;}
 
-/* Lead items in dashboard */
-.lead-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border-soft);}
-.lead-item:last-child{border-bottom:none;}
-.li-flag{font-size:20px;flex-shrink:0;}
-.li-info{flex:1;min-width:0;}
-.li-country{font-size:13.5px;font-weight:600;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.li-product{font-size:11.5px;color:var(--text-light);}
-.more-link{font-size:13px;font-weight:600;color:var(--blue);display:inline-block;margin-top:12px;}
+/* progress */
+.prog{margin-top:4px;}
+.prog + .prog{margin-top:16px;}
+.prog-top{display:flex;justify-content:space-between;font-size:13px;color:var(--cp-mid);margin-bottom:7px;font-weight:600;}
+.prog-top strong{color:var(--cp-ink);}
+.bar{height:8px;background:#EDF1F7;border-radius:100px;overflow:hidden;}
+.bar > i{display:block;height:100%;width:0;border-radius:100px;background:var(--cp-blue);transition:width .8s ease;}
+.bar > i.g{background:var(--cp-green);}
+.bar > i.a{background:#F59E0B;}
+
+/* completeness */
+.pc-wrap{display:flex;gap:18px;align-items:center;margin-bottom:14px;}
+.pc-ring{--p:0;width:74px;height:74px;border-radius:50%;background:conic-gradient(var(--cp-blue) calc(var(--p)*1%),#EDF1F7 0);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pc-ring span{width:58px;height:58px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--cp-ink);}
+.pc-text{font-size:13.5px;color:var(--cp-mid);line-height:1.6;}
+.pc-text strong{color:var(--cp-ink);display:block;font-size:14px;}
+.pc-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.pc-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 10px;border-radius:8px;}
+.pc-chip.miss{background:var(--cp-red-soft);color:var(--cp-red);}
+.pc-chip.ok{background:var(--cp-green-soft);color:var(--cp-green);}
+.pc-chip .ic{width:13px;height:13px;stroke-width:2.6;}
 
 /* RM card */
-.rm-card{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:var(--r-xl);padding:26px;color:white;}
-.rm-av{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-bright));display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;margin-bottom:14px;}
-.rm-name{font-size:17px;font-weight:700;margin-bottom:2px;}
-.rm-role{font-size:11px;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
-.rm-note{font-size:13px;color:rgba(255,255,255,0.52);line-height:1.72;margin-bottom:16px;}
-.rm-btn{display:flex;align-items:center;gap:9px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;transition:all 0.2s;margin-bottom:8px;text-decoration:none;}
-.rm-btn:last-child{margin-bottom:0;}
-.rm-btn-wa{background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);color:#4ADE80;}
-.rm-btn-wa:hover{background:rgba(37,211,102,0.25);}
-.rm-btn-email{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.75);}
-.rm-btn-email:hover{background:rgba(255,255,255,0.12);color:white;}
+.rm{background:linear-gradient(150deg,#0B1929,#1E3A8A);border-radius:16px;padding:22px;color:#fff;}
+.rm-top{display:flex;gap:14px;align-items:center;margin-bottom:14px;}
+.rm-av{width:48px;height:48px;border-radius:50%;background:#F0C84A;color:#0B1929;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;flex-shrink:0;}
+.rm-lbl{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:700;}
+.rm-name{font-size:17px;font-weight:800;}
+.rm-note{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:16px;}
+.rm-btns{display:flex;flex-direction:column;gap:8px;}
+.rm-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:#fff;color:var(--cp-ink);font-size:13.5px;font-weight:700;text-decoration:none;transition:transform .15s;}
+.rm-btn:hover{transform:translateY(-1px);}
+.rm-btn .ic{color:var(--cp-blue);}
 
-/* Membership progress */
-.mem-overview{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-.mem-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px;gap:12px;}
-.mem-row:last-child{border-bottom:none;}
-.mem-key{color:var(--text-light);flex-shrink:0;}
-.mem-val{font-weight:700;color:var(--navy);text-align:right;}
-.progress-wrap{margin-top:6px;}
-.progress-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--text-mid);margin-bottom:6px;}
-.progress-lbl strong{color:var(--navy);}
-.progress-bar{height:7px;background:var(--sky-mid);border-radius:100px;overflow:hidden;}
-.progress-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--blue-bright));transition:width 1s ease;}
-.progress-fill.gold{background:linear-gradient(90deg,var(--gold),var(--gold-bright));}
+/* key/value rows */
+.kv{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--cp-line);font-size:13.5px;}
+.kv:last-child{border-bottom:none;padding-bottom:0;}
+.kv:first-child{padding-top:0;}
+.kv span{color:var(--cp-mid);}
+.kv strong{color:var(--cp-ink);text-align:right;font-weight:700;overflow-wrap:anywhere;}
+.kv strong.missing{color:var(--cp-soft);font-weight:600;}
 
-/* Plan pill (mirrors admin portal colors) */
-.plan-pill{display:inline-block;padding:4px 12px;border-radius:100px;font-size:12px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
-.pp-starter{background:#F0F4FF;color:#3B5BDB;}
-.pp-growth{background:#FFF8E7;color:#B8860B;}
-.pp-professional{background:#E3F2FD;color:#1565C0;}
-.pp-enterprise{background:#F1F5F9;color:#475569;}
-.pp-registration{background:#ECFDF5;color:#0F766E;}
-.gst-pill{display:inline-flex;align-items:center;background:var(--sky);border-radius:100px;padding:5px 12px;font-size:11.5px;color:var(--text-mid);font-weight:600;font-family:'Space Grotesk',sans-serif;}
+/* pills */
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:100px;font-size:12px;font-weight:700;white-space:nowrap;}
+.pill.blue{background:var(--cp-blue-soft);color:#1D4ED8;}
+.pill.green{background:var(--cp-green-soft);color:#15803D;}
+.pill.amber{background:var(--cp-amber-soft);color:var(--cp-amber);}
+.pill.red{background:var(--cp-red-soft);color:var(--cp-red);}
+.pill.grey{background:#EEF2F7;color:var(--cp-mid);}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;}
 
-/* Leads table (desktop/tablet: grid; mobile: stacked cards via data-label) */
-.leads-table-wrap{background:white;border:1px solid var(--border-soft);border-radius:var(--r-xl);overflow:hidden;overflow-x:auto;box-shadow:var(--shadow-soft);}
-.leads-toolbar{padding:16px 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-soft);flex-wrap:wrap;gap:12px;}
-.lt-title{font-size:14px;font-weight:700;color:var(--navy);font-family:'Space Grotesk',sans-serif;}
-.lt-head{display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;background:var(--navy);padding:12px 22px;font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.45);font-family:'Space Grotesk',sans-serif;;min-width:620px;}
-.lt-row{display:grid;grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;padding:13px 22px;border-bottom:1px solid var(--border-soft);font-size:13px;align-items:center;transition:background 0.2s;;min-width:620px;}
-.lt-row:last-child{border-bottom:none;}
-.lt-row:hover{background:var(--sky);}
-.lt-cell-main{font-size:13.5px;font-weight:600;color:var(--navy);}
-.lt-cell-sub{font-size:11.5px;color:var(--text-light);margin-top:2px;}
-.lt-urgency{display:inline-block;padding:3px 10px;border-radius:100px;font-size:11.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
-.lt-act-btn{background:white;border:1.5px solid var(--blue);color:var(--blue);border-radius:7px;padding:6px 14px;font-size:12.5px;font-weight:700;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:all .2s;}
-.lt-act-btn:hover{background:var(--blue);color:white;}
-.lt-num{font-weight:600;color:var(--text-light);}
-.lt-country{font-weight:600;color:var(--navy);}
-.lt-product,.lt-qty,.lt-date{color:var(--text-mid);font-size:13px;}
-.empty-state{text-align:center;padding:48px 24px;}
-.empty-icon{font-size:44px;margin-bottom:12px;}
-.empty-state p{font-size:14px;color:var(--text-mid);line-height:1.6;}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:700;text-decoration:none;border:1px solid transparent;cursor:pointer;font-family:inherit;transition:background .15s,border-color .15s;}
+.btn.primary{background:var(--cp-blue);color:#fff;}
+.btn.primary:hover{background:#1D4ED8;}
+.btn.ghost{background:#fff;color:var(--cp-ink);border-color:var(--cp-line);}
+.btn.ghost:hover{border-color:#C9D5E6;background:#F8FAFD;}
+.btn.wa{background:#fff;color:#128C4B;border-color:#BFE8CF;}
+.btn.wa:hover{background:#F2FBF5;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;}
 
-/* Sidebar overlay for drawer mode */
-.sb-overlay{display:none;position:fixed;inset:0;background:rgba(11,25,41,0.55);z-index:199;}
+/* leads table */
+.toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:16px 18px;border-bottom:1px solid var(--cp-line);}
+.search{display:flex;align-items:center;gap:8px;border:1px solid var(--cp-line);border-radius:10px;padding:0 12px;height:40px;min-width:260px;flex:1;max-width:380px;background:#fff;color:var(--cp-soft);}
+.search input{border:none;outline:none;font-size:13.5px;font-family:inherit;flex:1;color:var(--cp-ink);background:transparent;min-width:0;}
+.chips{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{border:1px solid var(--cp-line);background:#fff;color:var(--cp-mid);border-radius:100px;padding:6px 12px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;}
+.chip.on{background:var(--cp-ink);border-color:var(--cp-ink);color:#fff;}
+.tbl-card{background:#fff;border:1px solid var(--cp-line);border-radius:16px;overflow:hidden;}
+.tbl-scroll{overflow-x:auto;}
+.tbl{width:100%;border-collapse:collapse;min-width:720px;}
+.tbl th{text-align:left;font-size:11.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--cp-soft);padding:12px 18px;background:#F8FAFD;border-bottom:1px solid var(--cp-line);}
+.tbl td{padding:14px 18px;border-bottom:1px solid var(--cp-line);font-size:13.5px;color:var(--cp-mid);vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tbody tr:hover td{background:#FAFCFF;}
+.tbl .main{font-weight:700;color:var(--cp-ink);}
+.tbl .sub{font-size:12px;color:var(--cp-soft);margin-top:2px;}
+.tbl-foot{padding:12px 18px;font-size:12.5px;color:var(--cp-soft);border-top:1px solid var(--cp-line);background:#FBFCFE;}
+.mini-list .row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--cp-line);}
+.mini-list .row:first-child{padding-top:0;}
+.mini-list .row:last-child{border-bottom:none;padding-bottom:0;}
+.mini-list .grow{flex:1;min-width:0;}
+.mini-list .t{font-size:13.5px;font-weight:700;color:var(--cp-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mini-list .s{font-size:12px;color:var(--cp-soft);margin-top:2px;}
+
+/* empty */
+.empty{text-align:center;padding:40px 20px;color:var(--cp-mid);font-size:14px;line-height:1.6;}
+.empty-ic{width:52px;height:52px;border-radius:14px;background:var(--cp-blue-soft);color:var(--cp-blue);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.empty-ic .ic{width:24px;height:24px;}
+.empty strong{display:block;color:var(--cp-ink);font-size:15px;margin-bottom:4px;}
+.empty .btn{margin-top:14px;}
+
+/* features & registrations */
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:10px;}
+.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#334155;line-height:1.5;}
+.ticks .ic{color:var(--cp-green);stroke-width:2.6;margin-top:1px;}
+.reg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.reg{display:flex;gap:12px;align-items:center;border:1px solid var(--cp-line);border-radius:12px;padding:14px;}
+.reg-ic{width:38px;height:38px;border-radius:10px;background:var(--cp-green-soft);color:var(--cp-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.reg-t{font-size:13.5px;font-weight:700;color:var(--cp-ink);}
+.reg-s{font-size:12px;color:var(--cp-soft);margin-top:2px;}
+.plan-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.plan-name{font-size:22px;font-weight:800;color:var(--cp-ink);}
+.plan-price{font-size:14px;color:var(--cp-mid);margin-top:4px;font-weight:600;}
+.gst-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+
+/* modal */
+.modal{display:none;position:fixed;inset:0;background:rgba(11,25,41,.55);z-index:1000;align-items:center;justify-content:center;padding:20px;}
+.modal.open{display:flex;}
+.modal-box{background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(11,25,41,.25);}
+.modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--cp-line);}
+.modal-h h3{font-size:16px;font-weight:800;}
+.icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--cp-line);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--cp-mid);}
+.modal-b{padding:20px 22px 22px;}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.fact{background:#F6F8FC;border-radius:10px;padding:10px 12px;}
+.fact small{display:block;font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--cp-soft);margin-bottom:3px;}
+.fact b{font-size:13.5px;color:var(--cp-ink);overflow-wrap:anywhere;}
+.note{background:#F8FAFC;border:1px solid var(--cp-line);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.7;color:#334155;margin-bottom:16px;white-space:pre-line;}
+
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(11,25,41,.5);z-index:199;}
 .sb-overlay.open{display:block;}
+.skel{display:inline-block;min-width:40px;height:1em;border-radius:6px;background:linear-gradient(90deg,#EEF2F7 25%,#E2E8F0 50%,#EEF2F7 75%);background-size:200% 100%;animation:skel 1.3s infinite;vertical-align:middle;}
+@keyframes skel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
-/* ═══════════════════════════════════════════════════════════
-   RESPONSIVE — 3 tiers
-   Desktop  : > 1024px  (default styles above)
-   Tablet   : 769px–1024px
-   Mobile   : ≤ 768px
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── TABLET ── */
+@media(max-width:1180px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:1024px){
-  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow-lg);}
-  .sidebar.open{transform:translateX(0);}
+  .sidebar{transform:translateX(-100%);}
+  .sidebar.open{transform:none;box-shadow:0 20px 60px rgba(0,0,0,.35);}
   .portal-main{margin-left:0;}
   .hamburger{display:flex;}
-  .dash-stats{grid-template-columns:repeat(2,1fr);}
-  .grid-2{grid-template-columns:1fr;}
-  .mem-overview{grid-template-columns:1fr;gap:30px;}
-  .portal-body{padding:24px;}
+  .grid-main{grid-template-columns:1fr;}
 }
-
-/* ── MOBILE ── */
-@media(max-width:768px){
-  .portal-topbar{padding:0 16px;height:58px;}
-  .ptb-title{font-size:14px;}
+@media(max-width:640px){
+  .topbar{padding:0 14px;height:58px;}
+  .tb-user .tb-meta{display:none;}
   .portal-body{padding:18px 14px;}
-  .panel-head h2{font-size:22px;}
-  .dsc{padding:16px;gap:12px;border-radius:var(--r-lg);}
-  .dsc-icon{width:40px;height:40px;font-size:18px;border-radius:11px;}
-  .dsc-num{font-size:24px;}
-  .dsc-lbl{font-size:10.5px;}
-  .wcard{padding:18px;border-radius:var(--r-lg);}
-  .leads-table-wrap{border-radius:var(--r-lg);}
-
-  /* Leads table → stacked card list (grid columns don't survive a phone width) */
-  .lt-head{display:none;}
-  .lt-row{display:flex;flex-direction:column;align-items:stretch;gap:7px;padding:16px 18px;}
-  .lt-row > *{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;font-size:13px;}
-  .lt-row > *::before{content:attr(data-label);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-light);font-family:'Space Grotesk',sans-serif;flex-shrink:0;}  
-  .leads-toolbar{padding:14px 16px;}
-
-  .mem-row{font-size:13px;}
-}
-
-@media(max-width:480px){
-  .dash-stats{grid-template-columns:1fr 1fr;gap:10px;}
-  .dsc{flex-direction:column;align-items:flex-start;gap:8px;}
+  .ph h1{font-size:21px;}
+  .stats{gap:10px;}
+  .stat{padding:14px;}
+  .stat-num{font-size:22px;}
+  .card{padding:18px;}
+  .search{min-width:0;max-width:none;flex:1 1 100%;}
+  .facts{grid-template-columns:1fr;}
+  /* leads table → stacked cards */
+  .tbl{min-width:0;}
+  .tbl thead{display:none;}
+  .tbl tr{display:block;padding:14px 16px;border-bottom:1px solid var(--cp-line);}
+  .tbl td{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:5px 0;border:none;}
+  .tbl td::before{content:attr(data-label);font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--cp-soft);}
+  .tbl td.cell-main{display:block;}
+  .tbl td.cell-main::before{display:none;}
 }
 </style>
 </head>
 <body>
 
+<!-- Line icons (drawn once, reused with <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 14l2 2 4-4"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M15 17l5-5-5-5M20 12H9M12 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h7"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l2 3h4l2-3h5"/><path d="M5 5h14l2 8v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
+  <symbol id="i-upgrade" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+</svg>
+
 <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
 
 <!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
+<aside class="sidebar" id="sidebar">
   <div class="sb-brand">
-    <img src="assets/logo-nav-light.png" alt="BuyGenix Solutions" style="height:42px;width:auto;object-fit:contain;">
+    <img src="assets/logo-nav-light.png" alt="BuyGenix Solutions">
     <div class="sb-tag">Client Portal</div>
-  </div>
-  <div class="sb-user">
-    <div class="sb-uname" id="sbUserName">Loading…</div>
-    <div class="sb-uplan" id="sbUserPlan">— Plan</div>
   </div>
   <nav class="sb-nav">
     <div class="sb-section">Main</div>
-    <div class="sb-link active" onclick="showPanel('dashboard',this)"><span class="sb-icon">🏠</span>Dashboard</div>
-    <div class="sb-link" onclick="showPanel('leads',this)"><span class="sb-icon">🎯</span>My Leads<span class="sb-badge" id="leadsBadge">—</span></div>
-    <div class="sb-link" onclick="showPanel('reports',this)"><span class="sb-icon">📊</span>Reports</div>
+    <button class="sb-link active" data-panel="dashboard"><svg class="ic"><use href="#i-home"/></svg>Dashboard</button>
+    <button class="sb-link" data-panel="leads"><svg class="ic"><use href="#i-target"/></svg>Buyer Leads<span class="sb-count" id="leadsCount">0</span></button>
+    <button class="sb-link" data-panel="registrations"><svg class="ic"><use href="#i-file"/></svg>Registrations</button>
+    <button class="sb-link" data-panel="reports"><svg class="ic"><use href="#i-chart"/></svg>Reports</button>
     <div class="sb-section">Account</div>
-    <div class="sb-link" onclick="showPanel('membership',this)"><span class="sb-icon">💼</span>My Membership</div>
-    <div class="sb-link" onclick="showPanel('profile',this)"><span class="sb-icon">👤</span>Profile</div>
+    <button class="sb-link" data-panel="membership"><svg class="ic"><use href="#i-card"/></svg>My Membership</button>
+    <button class="sb-link" data-panel="profile"><svg class="ic"><use href="#i-user"/></svg>Business Profile</button>
     <div class="sb-section">Support</div>
-    <a href="https://wa.me/919818187246" class="sb-link" target="_blank" rel="noopener"><span class="sb-icon">💬</span>WhatsApp RM</a>
-    <a href="contact.html" class="sb-link"><span class="sb-icon">✉️</span>Send Enquiry</a>
+    <a class="sb-link js-rm-wa" href="https://wa.me/919818187246" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">WhatsApp my RM</a>
+    <a class="sb-link" href="contact.html"><svg class="ic"><use href="#i-send"/></svg>Send an enquiry</a>
   </nav>
   <div class="sb-footer">
-    <div class="sb-signout" onclick="doSignOut()"><span>🚪</span>Sign Out</div>
+    <button class="sb-link" onclick="doSignOut()"><svg class="ic"><use href="#i-logout"/></svg>Sign out</button>
   </div>
-</div>
+</aside>
 
 <!-- MAIN -->
 <div class="portal-main">
-  <!-- TOPBAR -->
-  <div class="portal-topbar">
-    <div class="ptb-left">
-      <button class="hamburger" onclick="openSidebar()" aria-label="Open menu"><span></span><span></span><span></span></button>
-      <div class="ptb-title" id="topbarTitle">Dashboard</div>
+  <header class="topbar">
+    <div class="tb-left">
+      <button class="hamburger" onclick="openSidebar()" aria-label="Open menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+      <div class="tb-title" id="topbarTitle">Dashboard</div>
     </div>
-    <div class="ptb-right">
-      <div class="ptb-notif">🔔<div class="ptb-dot"></div></div>
-      <div class="ptb-avatar" id="ptbAvatar">—</div>
-    </div>
-  </div>
-
-  <!-- BODY -->
-  <div class="portal-body">
-
-    <!-- DASHBOARD -->
-    <div class="p-panel active" id="panel-dashboard">
-      <div class="panel-head">
-        <h2>Welcome back, <span id="greetName">—</span></h2>
-        <p>Here is a summary of your export journey with BuyGenix.</p>
-      </div>
-      <div class="dash-stats">
-        <div class="dsc"><div class="dsc-icon ic-blue">🎯</div><div><div class="dsc-num" id="statTotal">—</div><div class="dsc-lbl">Lead Quota</div></div></div>
-        <div class="dsc"><div class="dsc-icon ic-green">✅</div><div><div class="dsc-num" id="statDel">—</div><div class="dsc-lbl">Leads Received</div></div></div>
-        <div class="dsc"><div class="dsc-icon ic-gold">⏳</div><div><div class="dsc-num" id="statPend">—</div><div class="dsc-lbl">Remaining This Cycle</div></div></div>
-        <div class="dsc"><div class="dsc-icon ic-purple">📅</div><div><div class="dsc-num" id="statDays">—</div><div class="dsc-lbl">Days Remaining</div></div></div>
-      </div>
-      <div class="grid-2">
-        <div class="wcard">
-          <h3>🎯 Recent Leads</h3>
-          <div id="recentLeads"><div class="empty-state"><div class="empty-icon">📭</div><p>No leads yet. Your RM will deliver leads shortly after onboarding.</p></div></div>
-          <a href="#" class="more-link" onclick="showPanel('leads',document.querySelector('[onclick*=leads]'));return false;">View all leads →</a>
+    <div class="tb-right">
+      <div class="tb-user">
+        <div class="tb-meta" style="text-align:right;">
+          <div class="tb-uname" id="tbName"><span class="skel"></span></div>
+          <div class="tb-uplan" id="tbPlan">&nbsp;</div>
         </div>
-        <div class="rm-card" id="rmCard">
-          <div class="rm-av" id="rmAv">BG</div>
-          <div class="rm-name" id="rmName">Your Relationship Manager</div>
-          <div class="rm-role" id="rmRole">BuyGenix Solutions</div>
-          <div class="rm-note">Your dedicated Relationship Manager. Available Mon–Sat, 10am–6pm IST.</div>
-          <a href="https://wa.me/919818187246" class="rm-btn rm-btn-wa" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
-          <a href="mailto:Buygenixsolutions@gmail.com" class="rm-btn rm-btn-email">📧 Send Email</a>
-        </div>
-      </div>
-      <div class="wcard">
-        <h3>💼 Membership Overview</h3>
-        <div class="mem-overview">
-          <div>
-            <div class="mem-row"><span class="mem-key">Plan</span><strong class="mem-val" id="memPlan">—</strong></div>
-            <div class="mem-row"><span class="mem-key">Start Date</span><strong class="mem-val" id="memStart">—</strong></div>
-            <div class="mem-row"><span class="mem-key">Renewal Date</span><strong class="mem-val" id="memRenew">—</strong></div>
-            <div class="mem-row"><span class="mem-key">Status</span><span class="badge badge-green" id="memStatus">Active</span></div>
-          </div>
-          <div>
-            <div class="progress-wrap" style="margin-bottom:18px;">
-              <div class="progress-lbl"><span>Leads Used</span><strong id="leadsUsedLbl">—</strong></div>
-              <div class="progress-bar"><div class="progress-fill" id="leadsBar" style="width:0%"></div></div>
-            </div>
-            <div class="progress-wrap">
-              <div class="progress-lbl"><span>Days Used</span><strong id="daysUsedLbl">—</strong></div>
-              <div class="progress-bar"><div class="progress-fill gold" id="daysBar" style="width:0%"></div></div>
-            </div>
-          </div>
-        </div>
+        <div class="avatar" id="tbAvatar">·</div>
       </div>
     </div>
+  </header>
 
-    <!-- LEADS PANEL -->
-    <div class="p-panel" id="panel-leads">
-      <div class="panel-head" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+  <main class="portal-body">
+    <div class="notice" id="setupNotice" style="display:none;">
+      <svg class="ic"><use href="#i-alert"/></svg>
+      <div><strong>Your account is being set up</strong>We could not find a membership linked to this email yet. Your Relationship Manager will activate it shortly. If you have already paid, message us on WhatsApp.</div>
+    </div>
+
+    <!-- ═══ DASHBOARD ═══ -->
+    <section class="p-panel active" id="panel-dashboard">
+      <div class="ph">
         <div>
-          <h2>My Buyer Leads</h2>
-          <p>All verified buyer enquiries delivered to your account.</p>
+          <h1>Welcome back, <span id="greetName">there</span></h1>
+          <p id="greetSub">Here is where your export business stands today.</p>
         </div>
-        <a href="https://wa.me/919818187246?text=Hello%2C%20I%20would%20like%20to%20request%20more%20leads%20for%20my%20product%20category." class="btn-primary btn-sm" target="_blank" rel="noopener">💬 Request More Leads</a>
+        <div class="btn-row">
+          <a class="btn wa js-rm-wa" href="https://wa.me/919818187246" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Message RM</a>
+        </div>
       </div>
-      <div class="leads-table-wrap">
-        <div class="leads-toolbar"><span class="lt-title">All Delivered Leads</span></div>
-        <div class="lt-head"><span>#</span><span>Product</span><span>Location</span><span>Qty</span><span>Unit</span><span>Urgency</span><span>Actions</span></div>
-        <div id="leadsTableBody"><div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div></div>
-      </div>
-    </div>
 
-    <!-- REPORTS PANEL -->
-    <div class="p-panel" id="panel-reports">
-      <div class="panel-head">
-        <h2>Performance Reports</h2>
-        <p>Monthly reports and analytics from your Relationship Manager.</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-top"><span class="stat-lbl">Leads received</span><span class="stat-ic g"><svg class="ic"><use href="#i-inbox"/></svg></span></div><div class="stat-num" id="statReceived">0</div><div class="stat-sub" id="statReceivedSub">Delivered to your account</div></div>
+        <div class="stat"><div class="stat-top"><span class="stat-lbl">Leads remaining</span><span class="stat-ic b"><svg class="ic"><use href="#i-target"/></svg></span></div><div class="stat-num" id="statRemaining">—</div><div class="stat-sub" id="statRemainingSub">&nbsp;</div></div>
+        <div class="stat"><div class="stat-top"><span class="stat-lbl">Days to renewal</span><span class="stat-ic a"><svg class="ic"><use href="#i-calendar"/></svg></span></div><div class="stat-num" id="statDays">—</div><div class="stat-sub" id="statDaysSub">&nbsp;</div></div>
+        <div class="stat"><div class="stat-top"><span class="stat-lbl">Profile complete</span><span class="stat-ic p"><svg class="ic"><use href="#i-user"/></svg></span></div><div class="stat-num" id="statProfile">—</div><div class="stat-sub">Helps us match better buyers</div></div>
       </div>
-      <div class="wcard">
-        <div class="empty-state">
-          <div class="empty-icon">📊</div>
-          <p>Your first performance report will be available after your first month.<br>Professional &amp; Enterprise members receive monthly reports automatically.</p>
-          <a href="https://wa.me/919818187246?text=Hello%2C%20I%20would%20like%20to%20request%20my%20performance%20report." class="btn-primary btn-sm" style="margin-top:18px;display:inline-flex;" target="_blank" rel="noopener">Request Report via WhatsApp</a>
-        </div>
-      </div>
-    </div>
 
-    <!-- MEMBERSHIP PANEL -->
-    <div class="p-panel" id="panel-membership">
-      <div class="panel-head">
-        <h2>My Membership</h2>
-        <p>Your current plan, billing details, and how to upgrade.</p>
-      </div>
-      <div class="grid-2">
-        <div class="wcard">
-          <h3>📋 Current Plan</h3>
-          <div class="mem-row"><span class="mem-key">Plan Name</span><strong class="mem-val" id="mPlan">—</strong></div>
-          <div class="mem-row"><span class="mem-key">Status</span><span class="badge badge-green" id="mStatus">Active</span></div>
-          <div class="mem-row"><span class="mem-key">Activated</span><strong class="mem-val" id="mStart">—</strong></div>
-          <div class="mem-row"><span class="mem-key">Renews On</span><strong class="mem-val" id="mRenew">—</strong></div>
-          <div class="divider"></div>
-          <a href="https://wa.me/919818187246?text=Hello%2C%20I%20would%20like%20to%20upgrade%20my%20membership%20plan." class="btn-gold btn-sm" target="_blank" rel="noopener" style="display:inline-flex;">💬 Upgrade My Plan</a>
+      <div class="grid-main">
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-target"/></svg>Recent buyer leads</h2><button class="link-btn" data-goto="leads">View all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
+            <div id="recentLeads" class="mini-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-card"/></svg>Plan usage</h2><button class="link-btn" data-goto="membership">Plan details <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
+            <div class="prog" id="leadsProg"><div class="prog-top"><span>Buyer leads used</span><strong id="leadsUsedLbl">—</strong></div><div class="bar"><i id="leadsBar"></i></div></div>
+            <div class="prog"><div class="prog-top"><span>Membership period used</span><strong id="daysUsedLbl">—</strong></div><div class="bar"><i class="a" id="daysBar"></i></div></div>
+          </div>
         </div>
-        <div class="wcard">
-          <h3>📦 Plan Features</h3>
-          <div id="memFeats" style="display:flex;flex-direction:column;gap:9px;font-size:13.5px;color:var(--text-body);">
-            <div style="color:var(--text-light);">Loading plan details…</div>
+        <div class="stack">
+          <div class="rm">
+            <div class="rm-top"><div class="rm-av" id="rmAv">BG</div><div><div class="rm-lbl">Relationship Manager</div><div class="rm-name" id="rmName">BuyGenix Team</div></div></div>
+            <div class="rm-note">Your single point of contact for leads, registrations and plan questions. Available Mon–Sat, 10am–6pm IST.</div>
+            <div class="rm-btns">
+              <a class="rm-btn js-rm-wa" href="https://wa.me/919818187246" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Chat on WhatsApp</a>
+              <a class="rm-btn" id="rmMail" href="mailto:buygenixsolutions@gmail.com"><img class="brand-ic" src="assets/icons/gmail.svg" alt="">Send an email</a>
+              <a class="rm-btn" id="rmCall" href="tel:+919818187246" style="display:none;"><svg class="ic"><use href="#i-phone"/></svg>Call</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-user"/></svg>Complete your profile</h2></div>
+            <div class="pc-wrap"><div class="pc-ring" id="pcRing"><span id="pcPct">0%</span></div><div class="pc-text"><strong id="pcHead">Add your business details</strong>Buyers and our team rely on these to match you with the right enquiries.</div></div>
+            <div class="pc-list" id="pcMissing"></div>
+            <a class="btn ghost js-rm-wa-profile" href="https://wa.me/919818187246" target="_blank" rel="noopener" style="width:100%;">Share missing details with RM</a>
           </div>
         </div>
       </div>
-      <div class="wcard">
-        <h3>🧾 Billing Details</h3>
-        <div class="mem-row"><span class="mem-key">Amount Charged</span><strong class="mem-val" id="mAmount">—</strong></div>
-        <div class="mem-row"><span class="mem-key">GST</span><strong class="mem-val" id="mGstLine">—</strong></div>
-        <div id="mGstBreakdown" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;"></div>
-      </div>
-    </div>
+    </section>
 
-    <!-- PROFILE PANEL -->
-    <div class="p-panel" id="panel-profile">
-      <div class="panel-head">
-        <h2>My Profile</h2>
-        <p>Your account and business information.</p>
+    <!-- ═══ LEADS ═══ -->
+    <section class="p-panel" id="panel-leads">
+      <div class="ph">
+        <div><h1>Buyer leads</h1><p>Every buyer enquiry your Relationship Manager has delivered to you.</p></div>
+        <a class="btn primary js-rm-wa-more" href="https://wa.me/919818187246" target="_blank" rel="noopener"><svg class="ic"><use href="#i-target"/></svg>Request more leads</a>
       </div>
-      <div class="wcard" style="max-width:600px;">
-        <h3>👤 Account Details</h3>
-        <div class="mem-row"><span class="mem-key">Full Name</span><strong class="mem-val" id="profName">—</strong></div>
-        <div class="mem-row"><span class="mem-key">Email</span><strong class="mem-val" id="profEmail">—</strong></div>
-        <div class="mem-row"><span class="mem-key">Phone</span><strong class="mem-val" id="profPhone">—</strong></div>
-        <div class="mem-row"><span class="mem-key">Business Name</span><strong class="mem-val" id="profBiz">—</strong></div>
-        <div class="mem-row"><span class="mem-key">City</span><strong class="mem-val" id="profCity">—</strong></div>
-        <div class="divider"></div>
-        <p style="font-size:13px;color:var(--text-mid);margin-bottom:14px;">To update your profile details, contact your Relationship Manager.</p>
-        <a href="https://wa.me/919818187246?text=Hello%2C%20I%20need%20to%20update%20my%20profile%20details." class="btn-primary btn-sm" target="_blank" rel="noopener" style="display:inline-flex;">💬 Contact RM to Update</a>
+      <div class="tbl-card">
+        <div class="toolbar">
+          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="leadSearch" type="search" placeholder="Search product, company or country"></label>
+          <div class="chips" id="leadChips"></div>
+        </div>
+        <div class="tbl-scroll">
+          <table class="tbl">
+            <thead><tr><th>Product</th><th>Country</th><th>Quantity</th><th>Type</th><th>Received</th><th></th></tr></thead>
+            <tbody id="leadsBody"></tbody>
+          </table>
+        </div>
+        <div class="tbl-foot" id="leadsFoot">&nbsp;</div>
       </div>
-    </div>
+    </section>
 
-  </div><!-- /portal-body -->
-</div><!-- /portal-main -->
+    <!-- ═══ REGISTRATIONS ═══ -->
+    <section class="p-panel" id="panel-registrations">
+      <div class="ph"><div><h1>Registrations</h1><p>Registrations and services included in your package.</p></div></div>
+      <div class="card">
+        <div class="card-h"><h2><svg class="ic"><use href="#i-file"/></svg>Included registrations</h2></div>
+        <div id="regList"></div>
+      </div>
+      <div class="card" id="pkgCard" style="display:none;">
+        <div class="card-h"><h2><svg class="ic"><use href="#i-inbox"/></svg>Your package</h2></div>
+        <ul class="ticks" id="pkgList"></ul>
+      </div>
+    </section>
 
-<div id="leadModal" style="display:none;position:fixed;inset:0;background:rgba(11,25,41,0.55);z-index:1000;align-items:center;justify-content:center;padding:20px;" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:white;border-radius:16px;padding:28px;max-width:520px;width:100%;box-shadow:0 24px 60px rgba(11,25,41,0.22);max-height:90vh;overflow-y:auto;" onclick="event.stopPropagation()">
-    <div id="leadModalBody"></div>
+    <!-- ═══ REPORTS ═══ -->
+    <section class="p-panel" id="panel-reports">
+      <div class="ph"><div><h1>Reports</h1><p>Performance reports shared by your Relationship Manager.</p></div></div>
+      <div class="card">
+        <div class="empty">
+          <div class="empty-ic"><svg class="ic"><use href="#i-chart"/></svg></div>
+          <strong>No reports yet</strong>
+          Your first report is shared after your first month. Professional and Enterprise members receive a report every month.
+          <div><a class="btn ghost js-rm-wa-report" href="https://wa.me/919818187246" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Request a report</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ MEMBERSHIP ═══ -->
+    <section class="p-panel" id="panel-membership">
+      <div class="ph"><div><h1>My membership</h1><p>Your plan, what it includes and your billing details.</p></div></div>
+      <div class="grid-main">
+        <div class="card">
+          <div class="plan-hero">
+            <div><div class="plan-name" id="mPlanName">—</div><div class="plan-price" id="mPlanPrice">&nbsp;</div></div>
+            <span class="pill green" id="mStatus"><span class="dot"></span>Active</span>
+          </div>
+          <div class="card-h" style="margin-bottom:12px;"><h2 style="font-size:14px;">What your plan includes</h2></div>
+          <ul class="ticks" id="mFeatures"><li style="color:var(--cp-soft)">Loading…</li></ul>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-calendar"/></svg>Membership period</h2></div>
+            <div class="kv"><span>Started</span><strong id="mStart">—</strong></div>
+            <div class="kv"><span>Renews on</span><strong id="mRenew">—</strong></div>
+            <div class="kv"><span>Buyer leads</span><strong id="mLeads">—</strong></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-card"/></svg>Billing</h2></div>
+            <div class="kv"><span>Amount paid</span><strong id="mAmount">—</strong></div>
+            <div class="kv"><span>GST</span><strong id="mGst">—</strong></div>
+            <div class="gst-pills" id="mGstBreak"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-upgrade"/></svg>Need more?</h2></div>
+            <p style="font-size:13.5px;color:var(--cp-mid);line-height:1.6;margin-bottom:14px;">Compare plans to see what more leads, promotion and registrations could do for you.</p>
+            <div class="btn-row">
+              <a class="btn primary" href="membership.html#compare">Compare plans</a>
+              <a class="btn wa js-rm-wa-upgrade" href="https://wa.me/919818187246" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Talk to RM</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROFILE ═══ -->
+    <section class="p-panel" id="panel-profile">
+      <div class="ph"><div><h1>Business profile</h1><p>The details we use to match you with buyers.</p></div></div>
+      <div class="grid-main">
+        <div class="card">
+          <div class="card-h"><h2><svg class="ic"><use href="#i-user"/></svg>Business details</h2></div>
+          <div id="profRows"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2><svg class="ic"><use href="#i-alert"/></svg>Update your details</h2></div>
+          <p style="font-size:13.5px;color:var(--cp-mid);line-height:1.6;margin-bottom:14px;">To keep your listing accurate, profile changes are made by your Relationship Manager. Send the new details and they will update them for you.</p>
+          <a class="btn primary js-rm-wa-profile" href="https://wa.me/919818187246" target="_blank" rel="noopener" style="width:100%;">Send updates on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- LEAD DETAIL MODAL -->
+<div class="modal" id="leadModal" onclick="if(event.target===this)closeLead()">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <div class="modal-h"><h3 id="leadTitle">Lead details</h3><button class="icon-btn" onclick="closeLead()" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b" id="leadBody"></div>
   </div>
 </div>
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
 <script>
-let _sb = null;
-let _user = null;
-let _clientRow = null;
+const DEFAULT_WA = '919818187246';
+const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
+let _sb = null, _user = null, _client = null, _plan = null, _leads = [], _quota = null, _waNum = DEFAULT_WA;
+let _leadFilter = 'all', _leadQuery = '';
 
-/* Plan tiers not defined in the shared BGX.PLANS catalogue (which
-   only covers the 4 lead-volume plans). Kept local to this file
-   since it's specific to how the client portal presents a
-   Registration-only membership — does not touch js/bgx-data.js. */
-const LOCAL_PLAN_FALLBACK = {
-  registration: {
-    label: 'Registration',
-    features: [
-      'End-to-end business & tax registration support',
-      'PAN, TAN, GST, Udyam, Trade License, DSC & more',
-      'Import-export registrations: IEC, RCMC, APEDA & more',
-      'Dedicated registration specialist',
-      'Application tracked through to approval'
-    ]
-  }
-};
-const PLAN_PILL_CLASS = { starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise', registration:'pp-registration' };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ico = (id, st='') => `<svg class="ic"${st ? ` style="${st}"` : ''}><use href="#i-${id}"/></svg>`;
+const fmtDate = d => d ? new Date(d).toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'}) : '—';
+const fmtINR = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+const title = s => String(s || '').charAt(0).toUpperCase() + String(s || '').slice(1);
 
 function getSB() {
-  if (!_sb && window.supabase && BGX_SUPABASE_URL && BGX_SUPABASE_ANON) {
+  if (!_sb && window.supabase && typeof BGX_SUPABASE_URL !== 'undefined' && BGX_SUPABASE_ANON) {
     _sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
   }
   return _sb;
 }
 
-/* RM name/phone/email are packed into clients.notes as free text
-   (same convention admin-portal.html writes when a member is
-   added/edited) — this unpacks them for display here. */
-function parseRM(notes) {
-  notes = notes || '';
-  const rmName  = notes.match(/RM:(.*?)(\s*\|)/)?.[1]?.trim() || '';
-  const rmPhone = notes.match(/RM Phone:(.*?)(\s*\|)/)?.[1]?.trim() || '';
-  return { rmName, rmPhone };
+/* clients.notes is written by admin-portal.html as
+   "<package details> | RM:<name> | RM Phone:<phone> | RM Email:<email>" */
+function parseNotes(notes) {
+  const parts = String(notes || '').split('|').map(s => s.trim());
+  const get = key => (parts.find(p => p.toLowerCase().startsWith(key.toLowerCase() + ':')) || '').slice(key.length + 1).trim();
+  const pkg = parts.filter(p => !/^RM( Phone| Email)?:/i.test(p)).join('\n');
+  const rmName = get('RM');
+  return { pkg, rmName: /^other$/i.test(rmName) ? '' : rmName, rmPhone: get('RM Phone'), rmEmail: get('RM Email') };
+}
+
+function waLink(text) { return `https://wa.me/${_waNum}` + (text ? `?text=${encodeURIComponent(text)}` : ''); }
+function setWaLinks() {
+  document.querySelectorAll('.js-rm-wa').forEach(a => a.href = waLink());
+  document.querySelectorAll('.js-rm-wa-more').forEach(a => a.href = waLink('Hello, I would like to request more buyer leads for my products.'));
+  document.querySelectorAll('.js-rm-wa-report').forEach(a => a.href = waLink('Hello, I would like to request my performance report.'));
+  document.querySelectorAll('.js-rm-wa-upgrade').forEach(a => a.href = waLink('Hello, I would like to discuss upgrading my membership plan.'));
+  document.querySelectorAll('.js-rm-wa-profile').forEach(a => a.href = waLink('Hello, I would like to update my business profile details.'));
 }
 
 /* ── INIT ── */
 async function initPortal() {
   const sb = getSB();
-  if (!sb) { window.location.href = 'login.html'; return; }
+  if (!sb) { location.href = 'login.html'; return; }
   const { data } = await sb.auth.getSession();
-  if (!data.session) { window.location.href = 'login.html'; return; }
+  if (!data.session) { location.href = 'login.html'; return; }
   _user = data.session.user;
-  await loadMemberData();
+  await loadMember();
 }
 
-async function loadMemberData() {
+async function loadMember() {
   const sb = getSB();
-  if (!sb) { populateDemo(); populateDemoLeads(); return; }
+  let row = null;
   try {
-    /* 1. Fast path: already linked to this Auth account. */
-    let { data, error } = await sb.from('clients').select('*').eq('auth_user_id', _user.id).maybeSingle();
-    if (error) throw error;
-
-    /* 2. First login after admin added this member: match by email
-          (the email admin used when adding them), then self-link
-          so step 1 works directly from the next login onward. */
-    if (!data) {
+    let r = await sb.from('clients').select('*').eq('auth_user_id', _user.id).maybeSingle();
+    row = r.data;
+    /* First login after admin added the member: match by email, then self-link */
+    if (!row) {
       const byEmail = await sb.from('clients').select('*').eq('email', _user.email).maybeSingle();
       if (byEmail.data) {
-        data = byEmail.data;
-        sb.from('clients').update({ auth_user_id: _user.id }).eq('id', data.id)
-          .then(() => {}).catch(() => {});
+        row = byEmail.data;
+        sb.from('clients').update({ auth_user_id: _user.id }).eq('id', row.id).then(() => {}, () => {});
       }
     }
-
-    if (data) { _clientRow = data; populateProfile(data); populateMember(data); await loadLeads(data.id); }
-    else      { populateProfile(null); populateDemo(); populateDemoLeads(); }
-  } catch (e) {
-    populateProfile(null); populateDemo(); populateDemoLeads();
-  }
+  } catch (e) { row = null; }
+  _client = row;
+  if (row) { await loadPlan(row.plan); }
+  renderAll();
+  if (row) await loadLeads(row.id);
+  else renderLeads([]);
 }
 
-function populateProfile(m) {
+/* Plan details come from membership_plans — the same source as membership.html */
+async function loadPlan(name) {
+  _plan = null;
+  if (!name) return;
+  try {
+    const { data } = await getSB().from('membership_plans').select('*').ilike('name', name).limit(1);
+    if (data && data[0]) _plan = data[0];
+  } catch (e) {}
+}
+
+async function loadLeads(clientId) {
+  try {
+    const { data, error } = await getSB().from('lead_assignments')
+      .select('assigned_at, is_visible, buy_leads(*)')
+      .eq('client_id', clientId).eq('is_visible', true)
+      .order('assigned_at', { ascending:false }).limit(200);
+    if (error) throw error;
+    renderLeads((data || []).filter(r => r.buy_leads).map(r => ({ ...r.buy_leads, assigned_at: r.assigned_at })));
+  } catch (e) { renderLeads([]); }
+}
+
+/* ── RENDER ── */
+function renderAll() {
+  const m = _client || {};
   const meta = _user.user_metadata || {};
-  const name = (m && m.name) || meta.full_name || _user.email.split('@')[0];
-  const initials = name.split(' ').map(n=>n[0]).join('').toUpperCase().slice(0,2) || '—';
-  document.getElementById('sbUserName').textContent = name;
-  document.getElementById('greetName').textContent  = name.split(' ')[0];
-  document.getElementById('ptbAvatar').textContent  = initials;
-  document.getElementById('profName').textContent   = name;
-  document.getElementById('profEmail').textContent  = (m && m.email) || _user.email || '—';
-  document.getElementById('profPhone').textContent  = (m && m.phone) || meta.phone || '—';
-  document.getElementById('profBiz').textContent    = (m && m.business_name) || meta.business_name || '—';
-  document.getElementById('profCity').textContent   = (m && m.city) || '—';
-}
+  const name = m.name || meta.full_name || _user.email.split('@')[0];
+  const first = name.split(' ')[0];
+  const initials = name.split(/\s+/).map(n => n[0]).join('').toUpperCase().slice(0, 2) || '·';
+  $('tbName').textContent = name;
+  $('tbAvatar').textContent = initials;
+  $('greetName').textContent = first;
+  $('setupNotice').style.display = _client ? 'none' : 'flex';
 
-function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}) : '—'; }
-function fmtINR(n) { return '₹' + Number(n||0).toLocaleString('en-IN'); }
-
-function planQuota(planKey) {
-  const p = BGX.PLANS[planKey];
-  if (!p) return null;                       // unknown / Registration → not lead-volume based
-  if (p.indian_leads == null && p.intl_leads == null) return Infinity; // Enterprise
-  return (p.indian_leads||0) + (p.intl_leads||0);
-}
-
-function populateMember(m) {
-  const planKey = (m.plan || 'starter').toLowerCase();
-  const plan = BGX.PLANS[planKey] || LOCAL_PLAN_FALLBACK[planKey];
-  const label = (plan?.label || m.plan || 'Starter') + ' Plan';
-  const pillClass = PLAN_PILL_CLASS[planKey] || 'pp-starter';
-
-  document.getElementById('sbUserPlan').innerHTML = `<span class="plan-pill ${pillClass}" style="padding:2px 9px;font-size:10.5px;">${plan?.label||m.plan||'Starter'}</span>`;
-  document.getElementById('memPlan').innerHTML = `<span class="plan-pill ${pillClass}">${plan?.label||m.plan||'Starter'}</span>`;
-  document.getElementById('mPlan').innerHTML   = `<span class="plan-pill ${pillClass}">${plan?.label||m.plan||'Starter'}</span>`;
-
-  const status = (m.plan_status||'active');
-  const statusMap = { active:'badge-green', pending:'badge-orange', expired:'badge-red', suspended:'badge-red' };
-  [document.getElementById('memStatus'), document.getElementById('mStatus')].forEach(el => {
-    el.textContent = status.charAt(0).toUpperCase()+status.slice(1);
-    el.className = 'badge ' + (statusMap[status]||'badge-green');
-  });
-
-  document.getElementById('memStart').textContent = fmtDate(m.join_date);
-  document.getElementById('memRenew').textContent = fmtDate(m.renewal_date);
-  document.getElementById('mStart').textContent   = fmtDate(m.join_date);
-  document.getElementById('mRenew').textContent   = fmtDate(m.renewal_date);
-
-  const days = m.renewal_date ? Math.max(0, Math.round((new Date(m.renewal_date) - new Date()) / 86400000)) : null;
-  document.getElementById('statDays').textContent = days==null ? '—' : days;
-  if (m.join_date && m.renewal_date) {
-    const total = Math.max(1, Math.round((new Date(m.renewal_date)-new Date(m.join_date))/86400000));
-    const used  = Math.min(total, Math.round((new Date()-new Date(m.join_date))/86400000));
-    document.getElementById('daysUsedLbl').textContent = `${used} / ${total} days`;
-    document.getElementById('daysBar').style.width = `${Math.min(100,(used/total)*100)}%`;
-  }
+  const planName = m.plan ? title(m.plan) : null;
+  $('tbPlan').textContent = planName ? `${planName} plan` : 'No active plan';
 
   /* RM */
-  const rm = parseRM(m.notes);
+  const rm = parseNotes(m.notes);
+  if (rm.rmPhone && rm.rmPhone.replace(/\D/g, '').length >= 10) {
+    const digits = rm.rmPhone.replace(/\D/g, '');
+    _waNum = digits.length === 10 ? '91' + digits : digits;
+    $('rmCall').href = 'tel:+' + _waNum; $('rmCall').style.display = 'flex';
+  }
   if (rm.rmName) {
-    document.getElementById('rmName').textContent = rm.rmName;
-    document.getElementById('rmAv').textContent = rm.rmName.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase();
-    document.getElementById('rmRole').textContent = 'Your Relationship Manager';
+    $('rmName').textContent = rm.rmName;
+    $('rmAv').textContent = rm.rmName.split(/\s+/).map(n => n[0]).join('').slice(0, 2).toUpperCase();
   }
-  const waLink = rm.rmPhone ? `https://wa.me/${rm.rmPhone.replace(/\D/g,'')}` : 'https://wa.me/919818187246';
-  document.querySelectorAll('.rm-btn-wa').forEach(b => b.href = waLink);
+  $('rmMail').href = 'mailto:' + (rm.rmEmail || DEFAULT_MAIL);
+  setWaLinks();
 
-  /* Plan features */
-  const feats = plan?.features || [];
-  document.getElementById('memFeats').innerHTML = feats.length
-    ? feats.map(f => `<div style="display:flex;align-items:flex-start;gap:9px;"><span style="color:#1D7A3A;font-weight:700;flex-shrink:0;">✔</span>${f}</div>`).join('')
-    : '<div style="color:var(--text-light)">Contact your RM for full plan details.</div>';
+  /* Lead quota: admin-set limit first, else the plan's allowance; none for plans without leads */
+  const planLeads = _plan ? Number(_plan.lead_limit || 0) : 0;
+  _quota = Number(m.lead_limit) > 0 ? Number(m.lead_limit) : (planLeads > 0 ? planLeads : null);
 
-  /* Billing & GST */
-  document.getElementById('mAmount').textContent = fmtINR(m.amount_charged);
+  /* Dates */
+  const days = m.renewal_date ? Math.max(0, Math.ceil((new Date(m.renewal_date) - new Date()) / 86400000)) : null;
+  $('statDays').textContent = days == null ? '—' : days;
+  $('statDaysSub').textContent = m.renewal_date ? `Renews ${fmtDate(m.renewal_date)}` : 'Renewal date not set';
+  if (m.join_date && m.renewal_date) {
+    const total = Math.max(1, Math.round((new Date(m.renewal_date) - new Date(m.join_date)) / 86400000));
+    const used = Math.min(total, Math.max(0, Math.round((new Date() - new Date(m.join_date)) / 86400000)));
+    $('daysUsedLbl').textContent = `${used} of ${total} days`;
+    $('daysBar').style.width = `${(used / total) * 100}%`;
+  }
+  $('greetSub').textContent = planName
+    ? `You are on the ${planName} plan${m.renewal_date ? `, active until ${fmtDate(m.renewal_date)}` : ''}.`
+    : 'Here is where your export business stands today.';
+
+  renderMembership(m, planName);
+  renderRegistrations(m, rm);
+  renderProfile(m, meta);
+}
+
+function statusPill(s) {
+  return `<span class="dot"></span>${esc(title((s || 'active').toLowerCase()))}`;
+}
+
+function renderMembership(m, planName) {
+  $('mPlanName').textContent = planName ? `${planName} plan` : 'No active plan';
+  $('mPlanPrice').textContent = _plan && _plan.price_monthly ? `${fmtINR(_plan.price_monthly)} per year · 365 days` : (planName ? 'Custom package' : '');
+  const st = (m.plan_status || (m.plan ? 'active' : 'pending')).toLowerCase();
+  $('mStatus').className = 'pill ' + ({ active:'green', pending:'amber', expired:'red', suspended:'red' }[st] || 'grey');
+  $('mStatus').innerHTML = statusPill(st);
+  $('mStart').textContent = fmtDate(m.join_date);
+  $('mRenew').textContent = fmtDate(m.renewal_date);
+  $('mLeads').textContent = _quota ? `${_quota} per year` : 'Not included';
+
+  const feats = _plan && Array.isArray(_plan.features) ? _plan.features
+    : String(m.registrations_included || '').split(',').map(s => s.trim()).filter(Boolean);
+  $('mFeatures').innerHTML = feats.length
+    ? feats.map(f => `<li>${ico('check')}<span>${esc(f)}</span></li>`).join('')
+    : `<li style="color:var(--cp-soft)">Your Relationship Manager will share the full details of your package.</li>`;
+
+  $('mAmount').textContent = m.amount_charged ? fmtINR(m.amount_charged) : '—';
   if (m.gst_applicable) {
-    const rate = m.gst_rate || 18;
-    document.getElementById('mGstLine').textContent = `With GST (${rate}%)`;
-    const pills = [];
-    if (m.supply_type === 'inter') {
-      pills.push(`<span class="gst-pill">IGST: ${fmtINR(m.igst_amount)}</span>`);
-    } else {
-      pills.push(`<span class="gst-pill">CGST: ${fmtINR(m.cgst_amount)}</span>`);
-      pills.push(`<span class="gst-pill">SGST: ${fmtINR(m.sgst_amount)}</span>`);
-    }
-    pills.push(`<span class="gst-pill">Base: ${fmtINR(m.base_amount)}</span>`);
-    document.getElementById('mGstBreakdown').innerHTML = pills.join('');
+    $('mGst').textContent = `Included (${m.gst_rate || 18}%)`;
+    const p = m.supply_type === 'inter'
+      ? [['IGST', m.igst_amount]]
+      : [['CGST', m.cgst_amount], ['SGST', m.sgst_amount]];
+    p.unshift(['Base', m.base_amount]);
+    $('mGstBreak').innerHTML = p.map(([k, v]) => `<span class="pill grey">${k} ${fmtINR(v)}</span>`).join('');
   } else {
-    document.getElementById('mGstLine').textContent = 'Without GST';
-    document.getElementById('mGstBreakdown').innerHTML = '';
+    $('mGst').textContent = m.amount_charged ? 'Not applicable' : '—';
+    $('mGstBreak').innerHTML = '';
   }
-
-  /* Lead quota stat (shown on Dashboard) — computed from the
-     plan's promised quota, not from leads actually delivered yet;
-     "Leads Received" (below, from loadLeads) carries the real count. */
-  const quota = planQuota(planKey);
-  document.getElementById('statTotal').textContent = quota==null ? '—' : (quota===Infinity ? 'Unlimited' : quota);
-  window._planQuota = quota;
-  refreshLeadDependentStats();
 }
 
-function populateDemo() {
-  document.getElementById('sbUserPlan').innerHTML = `<span class="plan-pill pp-growth" style="padding:2px 9px;font-size:10.5px;">Growth</span>`;
-  ['memPlan','mPlan'].forEach(id => document.getElementById(id).innerHTML = `<span class="plan-pill pp-growth">Growth</span>`);
-  const s = 'January 1, 2026', r = 'December 31, 2026';
-  document.getElementById('memStart').textContent  = s;
-  document.getElementById('memRenew').textContent  = r;
-  document.getElementById('mStart').textContent    = s;
-  document.getElementById('mRenew').textContent    = r;
-  const days = Math.max(0, Math.round((new Date('2026-12-31') - new Date()) / 86400000));
-  document.getElementById('statDays').textContent  = days;
-  document.getElementById('daysUsedLbl').textContent = '— / 365 days';
-  document.getElementById('daysBar').style.width   = '0%';
-  document.getElementById('mAmount').textContent   = fmtINR(27000);
-  document.getElementById('mGstLine').textContent  = 'Without GST';
-  window._planQuota = planQuota('growth');
-  const feats = BGX.PLANS['growth']?.features || [];
-  document.getElementById('memFeats').innerHTML = feats.map(f => `<div style="display:flex;align-items:flex-start;gap:9px;"><span style="color:#1D7A3A;font-weight:700;flex-shrink:0;">✔</span>${f}</div>`).join('');
+function renderRegistrations(m, rm) {
+  const regs = String(m.registrations_included || '').split(',').map(s => s.trim()).filter(Boolean);
+  $('regList').innerHTML = regs.length
+    ? `<div class="reg-grid">${regs.map(r => `<div class="reg"><div class="reg-ic">${ico('file')}</div><div><div class="reg-t">${esc(r)}</div><div class="reg-s">Handled by your RM</div></div></div>`).join('')}</div>`
+    : `<div class="empty"><div class="empty-ic">${ico('file')}</div><strong>No registrations listed yet</strong>Registrations included in your package will appear here once your RM adds them.</div>`;
+  const pkg = String(rm.pkg || '').split(/\n|\r/).map(s => s.replace(/^[\s*•\-–]+/, '').trim()).filter(Boolean);
+  $('pkgCard').style.display = pkg.length ? 'block' : 'none';
+  $('pkgList').innerHTML = pkg.map(p => `<li>${ico('check')}<span>${esc(p)}</span></li>`).join('');
 }
 
-function refreshLeadDependentStats() {
-  const quota = window._planQuota;
-  const received = window._leadsReceived || 0;
-  document.getElementById('statDel').textContent = received;
-  if (quota == null) { document.getElementById('statPend').textContent = '—'; return; }
-  if (quota === Infinity) { document.getElementById('statPend').textContent = 'Unlimited'; }
-  else { document.getElementById('statPend').textContent = Math.max(0, quota - received); }
-  document.getElementById('leadsUsedLbl').textContent = quota===Infinity ? `${received} / Unlimited` : `${received} / ${quota}`;
-  document.getElementById('leadsBar').style.width = (quota===Infinity||!quota) ? '0%' : `${Math.min(100,(received/quota)*100)}%`;
+const PROFILE_FIELDS = [
+  ['Full name', m => m.name],
+  ['Business name', m => m.business_name],
+  ['Email', m => m.email || (_user && _user.email)],
+  ['Phone', m => m.phone],
+  ['City', m => m.city],
+  ['State', m => m.state],
+  ['GSTIN', m => m.gstin],
+  ['Product category', m => m.category],
+  ['Products', m => Array.isArray(m.products) && m.products.length ? m.products.join(', ') : ''],
+];
+
+function renderProfile(m, meta) {
+  const vals = PROFILE_FIELDS.map(([k, f]) => [k, String(f(m) || '').trim()]);
+  $('profRows').innerHTML = vals.map(([k, v]) =>
+    `<div class="kv"><span>${k}</span><strong class="${v ? '' : 'missing'}">${v ? esc(v) : 'Not added'}</strong></div>`).join('');
+  const done = vals.filter(([, v]) => v).length;
+  const pct = Math.round((done / vals.length) * 100);
+  $('statProfile').textContent = pct + '%';
+  $('pcPct').textContent = pct + '%';
+  $('pcRing').style.setProperty('--p', pct);
+  const missing = vals.filter(([, v]) => !v).map(([k]) => k);
+  $('pcHead').textContent = missing.length ? `${missing.length} detail${missing.length > 1 ? 's' : ''} missing` : 'Your profile is complete';
+  $('pcMissing').innerHTML = missing.length
+    ? missing.map(k => `<span class="pc-chip miss">${ico('x')}${k}</span>`).join('')
+    : `<span class="pc-chip ok">${ico('check')}All details added</span>`;
 }
 
-function statusBadge(s) {
-  const map = { new:'badge-green', hot:'badge-orange', verified:'badge-blue', delivered:'badge-blue', assigned:'badge-blue', responded:'badge-green', closed:'badge-navy' };
-  return `<span class="badge ${map[s]||'badge-green'}">${s||'new'}</span>`;
-}
-
-/* ── LEADS — read from lead_assignments (the real link between a
-   member and the buy_leads admin assigned them), not a guess. ── */
-async function loadLeads(clientId) {
-  const sb = getSB();
-  if (!sb) { renderLeads([]); return; }
-  try {
-    const { data, error } = await sb
-      .from('lead_assignments')
-      .select('assigned_at, is_visible, buy_leads(*)')
-      .eq('client_id', clientId)
-      .eq('is_visible', true)
-      .order('assigned_at', { ascending:false })
-      .limit(50);
-    if (error) throw error;
-    const leads = (data||[])
-      .filter(r => r.buy_leads)
-      .map(r => ({ ...r.buy_leads, assigned_at: r.assigned_at }));
-    renderLeads(leads);
-  } catch (e) {
-    renderLeads([]);
-  }
+/* ── LEADS ── */
+function leadType(l) {
+  const q = String(l.quality || l.status || '').toLowerCase();
+  if (q.includes('hot')) return ['Hot', 'red'];
+  if (q.includes('warm')) return ['Warm', 'amber'];
+  if (q.includes('verif')) return ['Verified', 'blue'];
+  if (q.includes('conv')) return ['Converted', 'green'];
+  if (q === 'new' || !q) return ['New', 'green'];
+  return [title(l.quality), 'grey'];
 }
 
 function renderLeads(leads) {
-  window._leadsReceived = leads.length;
-  document.getElementById('leadsBadge').textContent = leads.length;
-  refreshLeadDependentStats();
-  function uBadge(q) {
-    const map={hot:['#fef2f2','#dc2626'],verified:['#eff6ff','#2563eb'],new:['#f0fdf4','#16a34a']};
-    const [bg,col]=(map[(q||'new').toLowerCase()]||['#f0fdf4','#16a34a']);
-    return `<span class="lt-urgency" style="background:${bg};color:${col};">${q||'New'}</span>`;
+  _leads = leads;
+  $('leadsCount').textContent = leads.length;
+  const got = leads.length;
+  $('statReceived').textContent = got;
+  if (_quota) {
+    $('statRemaining').textContent = Math.max(0, _quota - got);
+    $('statRemainingSub').textContent = `Out of ${_quota} in your plan`;
+    $('leadsUsedLbl').textContent = `${got} of ${_quota}`;
+    $('leadsBar').style.width = `${Math.min(100, (got / _quota) * 100)}%`;
+    $('leadsProg').style.display = '';
+  } else {
+    $('statRemaining').textContent = '—';
+    $('statRemainingSub').textContent = _client ? 'Not included in your plan' : 'No active plan';
+    $('leadsProg').style.display = 'none';
   }
-  function viewLeadModal(l) {
-    const note=(l.notes||'').replace(/From Enquiries.*?\.\s*/,'').replace(/Qty:.*?(\||$)/g,'').replace(/Urgency:.*?(\||$)/g,'').replace(/Purpose:.*?(\||$)/g,'').replace(/Location:.*?(\||$)/g,'').replace(/Assigned to:.*$/,'').replace(/\|\s*/g,'').trim();
-    const waNum=l.phone?l.phone.replace(/\D/g,''):'';
-    document.getElementById('leadModal').style.display='flex';
-    document.getElementById('leadModalBody').innerHTML=`<h3>🎯 Lead Details</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-        ${[['Product',l.product||'—'],['Location',l.country||'—'],['Quantity',l.quantity||'—'],['Quality',l.quality||'—']].map(([k,v])=>`
-        <div style="background:var(--sky);border-radius:8px;padding:9px 12px;"><div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light);margin-bottom:2px;">${k}</div><div style="font-size:13px;font-weight:600;color:var(--navy);">${v}</div></div>`).join('')}
-      </div>
-      ${note?`<div style="background:#f8fafc;border:1px solid var(--border-soft);border-radius:8px;padding:12px;font-size:13px;line-height:1.7;margin-bottom:14px;">${note}</div>`:''}
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        ${waNum?`<a href="https://wa.me/${waNum}" target="_blank" class="btn-primary btn-sm" style="display:inline-flex;">💬 WhatsApp</a>`:''}
-        ${l.email?`<a href="mailto:${l.email}" class="btn-primary btn-sm" style="display:inline-flex;">📧 Email</a>`:''}
-        <button class="btn-outline btn-sm" onclick="document.getElementById('leadModal').style.display='none'">Close</button>
-      </div>`;
-  }
-  window.viewLeadModal=viewLeadModal;
-  const COLS='grid-template-columns:40px 2fr 1.5fr 1fr 0.9fr 1.1fr 100px;';
-  document.getElementById('leadsTableBody').innerHTML = leads.length ? leads.map((l,i)=>`
-    <div class="lt-row">
-      <span data-label="#" style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div data-label="Product"><div class="lt-cell-main">${l.product||'—'}</div><div class="lt-cell-sub">${l.company||l.contact_name||''}</div></div>
-      <span data-label="Location">${BGX.FLAGS[l.country]||'🌍'} ${l.country||'—'}</span>
-      <span data-label="Qty">${l.quantity||'—'}</span>
-      <span data-label="Unit">—</span>
-      <span data-label="Urgency">${uBadge(l.quality)}</span>
-      <span data-label="Actions"><button class="lt-act-btn" onclick='viewLeadModal(${JSON.stringify(l).replace(/'/g,"&apos;")})'>View</button></span>
-    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads delivered yet. Your RM will send your first leads soon.</p></div>`;
-  document.getElementById('recentLeads').innerHTML = leads.length ? leads.slice(0,4).map(l=>`
-    <div class="lead-item">
-      <span class="li-flag">${BGX.FLAGS[l.country]||'🌍'}</span>
-      <div class="li-info"><div class="li-country">${l.country||'—'} — ${l.product||'—'}</div><div class="li-product">${l.quantity||''}</div></div>
-      ${uBadge(l.quality)}
-    </div>`).join('') : `<div class="empty-state"><div class="empty-icon">📭</div><p>No leads yet. Your RM will deliver leads shortly.</p></div>`;
+
+  /* dashboard list */
+  $('recentLeads').innerHTML = got
+    ? leads.slice(0, 5).map((l, i) => { const [t, c] = leadType(l); return `
+      <div class="row"><div class="grow"><div class="t">${esc(l.product || 'Buyer enquiry')}</div><div class="s">${esc([l.country, l.quantity].filter(Boolean).join(' · ') || '—')}</div></div>
+      <span class="pill ${c}">${esc(t)}</span><button class="link-btn" onclick="openLead(${i})">View</button></div>`; }).join('')
+    : emptyLeads();
+
+  /* filter chips from the types actually present */
+  const types = ['all', ...new Set(leads.map(l => leadType(l)[0]))];
+  $('leadChips').innerHTML = types.map(t =>
+    `<button class="chip${t === _leadFilter ? ' on' : ''}" data-f="${esc(t)}">${t === 'all' ? `All (${got})` : esc(t)}</button>`).join('');
+  drawLeadTable();
 }
 
-function populateDemoLeads() {
-  const leads=(BGX.SAMPLE_LEADS||[]).slice(0,6);
-  window._leadsReceived=leads.length;
-  document.getElementById('leadsBadge').textContent=leads.length;
-  refreshLeadDependentStats();
-  function uBadge(q) {
-    const map={hot:['#fef2f2','#dc2626'],verified:['#eff6ff','#2563eb'],new:['#f0fdf4','#16a34a']};
-    const [bg,col]=(map[(q||'new').toLowerCase()]||['#f0fdf4','#16a34a']);
-    return `<span class="lt-urgency" style="background:${bg};color:${col};">${q||'New'}</span>`;
-  }
-  document.getElementById('leadsTableBody').innerHTML=leads.map((l,i)=>`
-    <div class="lt-row">
-      <span data-label="#" style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>
-      <div data-label="Product"><div class="lt-cell-main">${l.product||'—'}</div><div class="lt-cell-sub">${l.country||''}</div></div>
-      <span data-label="Location">${l.flag||'🌍'} ${l.country||'—'}</span>
-      <span data-label="Qty">${l.qty||'—'}</span>
-      <span data-label="Unit">—</span>
-      <span data-label="Urgency">${uBadge(l.status)}</span>
-      <span data-label="Actions"><button class="lt-act-btn" onclick="alert('Login for full details')">View</button></span>
-    </div>`).join('');
-  document.getElementById('recentLeads').innerHTML=leads.slice(0,4).map(l=>`
-    <div class="lead-item">
-      <span class="li-flag">${l.flag}</span>
-      <div class="li-info"><div class="li-country">${l.country} — ${l.product}</div><div class="li-product">${l.qty}</div></div>
-      ${uBadge(l.status)}
-    </div>`).join('');
+function emptyLeads() {
+  const hasQuota = !!_quota;
+  return `<div class="empty"><div class="empty-ic">${ico('inbox')}</div>
+    <strong>${hasQuota ? 'No leads delivered yet' : 'Buyer leads are not part of your plan'}</strong>
+    ${hasQuota ? 'Your Relationship Manager will deliver your first verified buyer leads soon.' : 'Upgrade to a lead plan to receive verified buyer enquiries for your products.'}
+    <div><a class="btn ${hasQuota ? 'ghost' : 'primary'}" href="${hasQuota ? waLink('Hello, when can I expect my first buyer leads?') : 'membership.html#compare'}" ${hasQuota ? 'target="_blank" rel="noopener"' : ''}>${hasQuota ? 'Ask your RM' : 'Compare plans'}</a></div></div>`;
 }
 
-/* ESC closes lead detail modal */
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){
-    const m = document.getElementById('leadModal');
-    if(m) m.style.display = 'none';
-  }
-});
+function drawLeadTable() {
+  const q = _leadQuery.toLowerCase();
+  const rows = _leads.map((l, i) => ({ l, i })).filter(({ l }) =>
+    (_leadFilter === 'all' || leadType(l)[0] === _leadFilter) &&
+    (!q || [l.product, l.company, l.contact_name, l.country, l.category].some(v => String(v || '').toLowerCase().includes(q))));
+  $('leadsBody').innerHTML = rows.length
+    ? rows.map(({ l, i }) => { const [t, c] = leadType(l); return `<tr>
+        <td class="cell-main" data-label="Product"><div class="main">${esc(l.product || 'Buyer enquiry')}</div><div class="sub">${esc(l.company || l.category || '')}</div></td>
+        <td data-label="Country">${esc(l.country || '—')}</td>
+        <td data-label="Quantity">${esc(l.quantity || '—')}</td>
+        <td data-label="Type"><span class="pill ${c}">${esc(t)}</span></td>
+        <td data-label="Received">${fmtDate(l.assigned_at || l.created_at)}</td>
+        <td data-label=""><button class="btn ghost" style="padding:7px 12px;font-size:12.5px;" onclick="openLead(${i})">View details</button></td></tr>`; }).join('')
+    : `<tr><td colspan="6" style="padding:0;">${_leads.length ? `<div class="empty"><strong>No leads match</strong>Try a different search or filter.</div>` : emptyLeads()}</td></tr>`;
+  $('leadsFoot').textContent = _leads.length ? `Showing ${rows.length} of ${_leads.length} leads` : '';
+}
 
-/* Panel switching */
-function showPanel(name, el) {
-  document.querySelectorAll('.p-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
-  const panel = document.getElementById('panel-'+name);
-  if (panel) panel.classList.add('active');
-  if (el) el.classList.add('active');
-  const titles = { dashboard:'Dashboard', leads:'My Leads', reports:'Reports', membership:'My Membership', profile:'Profile' };
-  document.getElementById('topbarTitle').textContent = titles[name] || name;
+function openLead(i) {
+  const l = _leads[i]; if (!l) return;
+  const [t, c] = leadType(l);
+  const note = String(l.notes || '').replace(/From Enquiries.*?\.\s*/, '').replace(/(Qty|Urgency|Purpose|Location):.*?(\||$)/g, '').replace(/Assigned to:.*$/, '').replace(/\|\s*/g, '\n').trim();
+  const wa = String(l.phone || '').replace(/\D/g, '');
+  $('leadTitle').textContent = l.product || 'Lead details';
+  $('leadBody').innerHTML = `
+    <div style="margin-bottom:14px;"><span class="pill ${c}">${esc(t)}</span></div>
+    <div class="facts">${[['Buyer', l.company || l.contact_name], ['Country', l.country], ['Quantity', l.quantity], ['Category', l.category], ['Received', fmtDate(l.assigned_at || l.created_at)], ['Contact person', l.contact_name]]
+      .filter(([, v]) => v).map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
+    ${note ? `<div class="note">${esc(note)}</div>` : ''}
+    <div class="btn-row">
+      ${wa ? `<a class="btn wa" href="https://wa.me/${wa}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">WhatsApp buyer</a>` : ''}
+      ${l.email ? `<a class="btn ghost" href="mailto:${esc(l.email)}"><img class="brand-ic" src="assets/icons/gmail.svg" alt="">Email buyer</a>` : ''}
+      <a class="btn ghost" href="${waLink(`Hello, I need help with the buyer lead for ${l.product || 'my product'}${l.country ? ' from ' + l.country : ''}.`)}" target="_blank" rel="noopener">Ask RM about this lead</a>
+    </div>`;
+  $('leadModal').classList.add('open');
+}
+function closeLead() { $('leadModal').classList.remove('open'); }
+
+/* ── NAV ── */
+const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Business Profile' };
+function showPanel(name) {
+  document.querySelectorAll('.p-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  document.querySelectorAll('.sb-link[data-panel]').forEach(l => l.classList.toggle('active', l.dataset.panel === name));
+  $('topbarTitle').textContent = TITLES[name] || name;
   closeSidebar();
-  document.querySelector('.portal-body').scrollIntoView({behavior:'instant',block:'start'});
+  window.scrollTo({ top: 0 });
 }
+document.addEventListener('click', e => {
+  const nav = e.target.closest('[data-panel],[data-goto]');
+  if (nav) { showPanel(nav.dataset.panel || nav.dataset.goto); return; }
+  const chip = e.target.closest('#leadChips .chip');
+  if (chip) { _leadFilter = chip.dataset.f; document.querySelectorAll('#leadChips .chip').forEach(c => c.classList.toggle('on', c === chip)); drawLeadTable(); }
+});
+$('leadSearch').addEventListener('input', e => { _leadQuery = e.target.value.trim(); drawLeadTable(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLead(); closeSidebar(); } });
 
-/* Sidebar drawer (tablet + mobile) */
-function openSidebar()  { document.getElementById('sidebar').classList.add('open'); document.getElementById('sbOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sbOverlay').classList.remove('open'); document.body.style.overflow=''; }
+function openSidebar()  { $('sidebar').classList.add('open'); $('sbOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeSidebar() { $('sidebar').classList.remove('open'); $('sbOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 
-/* Sign out */
 async function doSignOut() {
   const sb = getSB(); if (sb) await sb.auth.signOut();
-  window.location.href = 'login.html';
+  location.href = 'login.html';
 }
 
 initPortal();
