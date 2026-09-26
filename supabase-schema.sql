@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS members (
   plan            TEXT DEFAULT 'starter' CHECK (plan IN ('starter','growth','professional','enterprise')),
   rm_name         TEXT DEFAULT 'Priya Mehra',
   rm_role         TEXT DEFAULT 'Senior Export Consultant',
-  rm_phone        TEXT DEFAULT '+91 98181 87246',
+  rm_phone        TEXT DEFAULT '+91 87967 87594',
   status          TEXT DEFAULT 'active' CHECK (status IN ('active','inactive','expired','pending')),
   start_date      DATE DEFAULT CURRENT_DATE,
   renewal_date    DATE DEFAULT (CURRENT_DATE + INTERVAL '1 year'),

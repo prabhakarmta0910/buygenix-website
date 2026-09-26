@@ -107,9 +107,9 @@ policies, which must check the same emails. Update both if admins change.
 ### Update Phone & Email
 
 In every HTML file, replace:
-- `+91 98181 87246` → your actual phone number
+- `+91 87967 87594` → your actual phone number
 - `Buygenixsolutions@gmail.com` → your actual email
-- `https://wa.me/919818187246` → your actual WhatsApp link
+- `https://wa.me/918796787594` → your actual WhatsApp link
 
 ---
 
@@ -175,4 +175,4 @@ In every HTML file, replace:
 
 Built for BuyGenix Solutions — Delhi, India 🇮🇳  
 Email: Buygenixsolutions@gmail.com  
-WhatsApp: +91 98181 87246
+WhatsApp: +91 87967 87594

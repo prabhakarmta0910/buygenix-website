@@ -33,7 +33,7 @@ BGX.CATEGORIES = {
 
 /* ── RELATIONSHIP MANAGERS ── */
 BGX.RMS = [
-  { id:"rm1", name:"Priya Mehra",   role:"Senior Export Consultant", phone:"+91 98181 87246", email:"priya@buygenixsolutions.com",   initials:"PM" },
+  { id:"rm1", name:"Priya Mehra",   role:"Senior Export Consultant", phone:"+91 87967 87594", email:"priya@buygenixsolutions.com",   initials:"PM" },
   { id:"rm2", name:"Arjun Kapoor",  role:"Export Consultant",        phone:"+91 98182 11111", email:"arjun@buygenixsolutions.com",  initials:"AK" },
   { id:"rm3", name:"Divya Singh",   role:"Export Consultant",        phone:"+91 98183 22222", email:"divya@buygenixsolutions.com",  initials:"DS" },
   { id:"rm4", name:"Rohit Verma",   role:"Junior Consultant",        phone:"+91 98184 33333", email:"rohit@buygenixsolutions.com",  initials:"RV" },
