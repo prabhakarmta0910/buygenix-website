@@ -17,7 +17,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/shared.css?v=20260927b">
+<link rel="stylesheet" href="css/shared.css?v=20260927c">
   <!-- Organization Schema -->
 <script type="application/ld+json">
 {
@@ -269,7 +269,6 @@
 </script>
 
 <style>
-<style>
 /* ── HERO / FULL-WIDTH BANNER ── */
 .hero{
   margin-top:var(--nav-h);
@@ -421,8 +420,194 @@
   .process-wrap{grid-template-columns:1fr;}
 }
 </style>
+<style>
+/* ── HOMEPAGE REDESIGN: one type family (Inter), consistent section headers, tidy cards ── */
+body.home{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
+.home .pyr-input,.home .pyr-select,.home .pyr-textarea,.home .pyr-btn,.home .pyr-title,.home .pyr-map-title,.home .pyr-phone-code,
+.home .hl6-title,.home .hl6-th,.home .hl6-cell,.home .hl6-btn,.home .stat-lbl,.home .wwo-more,.home .wwo-tag,.home .wcu-tag{font-family:inherit;}
+
+/* Shared section header */
+.home .section-head .eyebrow,.home .h-eyebrow{background:none;border:none;padding:0;color:#2563EB;font-family:inherit;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;display:inline-block;}
+.home .section-head h2,.home .h-title{font-family:inherit;font-size:clamp(26px,2.6vw,34px);font-weight:600;letter-spacing:-.01em;line-height:1.2;color:#0B1929;margin-bottom:12px;}
+.home .section-head h2 em,.home .h-title em{font-style:normal;color:#2563EB;}
+.home .section-head p,.home .h-sub{font-size:15.5px;color:#5B6B82;line-height:1.7;max-width:600px;margin:0 auto;}
+
+/* Marketplace block */
+.home .bgx-sidebar-head{background:#0B1929;}
+.home .bgx-sidebar-head .bgx-hl{font-weight:500;letter-spacing:.1em;font-size:12px;}
+.home .bgx-cat.active{border-left-color:#F0C84A;}
+.home .bgx-sec-title,.home .bgx-det-title{font-size:20px;font-weight:600;letter-spacing:-.01em;color:#0B1929;}
+.home .bgx-tcard{border-radius:12px;border-color:#E4E9F2;}
+.home .bgx-tcard .bgx-tc-name{font-size:12.5px;font-weight:500;color:#1E293B;}
+.home .bgx-promo{border-radius:14px;}
+
+/* Stats */
+.home .stats-bar{background:#fff;border-color:#E4E9F2;}
+.home .stat-item{padding:22px 16px;border-color:#E4E9F2;}
+.home .stat-num{font-family:inherit;font-size:30px;font-weight:600;letter-spacing:-.01em;color:#0B1929;}
+.home .stat-lbl{font-size:12px;letter-spacing:.04em;text-transform:none;color:#5B6B82;margin-top:6px;}
+
+/* Category sections */
+.cat-sec{background:var(--sky);padding:40px var(--pad-x) 36px;}
+.cat-sec > .cat-head,.cat-sec > .cat-grid-skeleton,.cat-sec > [id$="-grid"]{max-width:1400px;margin-left:auto;margin-right:auto;}
+.cat-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #DCE4F0;}
+.cat-head h2{font-size:22px;font-weight:600;letter-spacing:-.01em;color:#0B1929;margin:0;line-height:1.2;}
+.cat-head-link{font-size:14px;font-weight:500;color:#2563EB;text-decoration:none;white-space:nowrap;}
+.cat-head-link:hover{color:#1D4ED8;text-decoration:underline;}
+.home .cat-vcard{height:auto;min-height:108px;border-radius:12px;border:1px solid #E4E9F2;box-shadow:none;}
+.home .cat-vcard:hover{box-shadow:0 10px 26px rgba(11,25,41,.10);border-color:#C9D6EA;}
+.home .cat-vcard img{width:40%;}
+.home .cat-vcard-body{padding:12px 12px;justify-content:center;}
+.home .cat-vcard-title{font-size:13px;font-weight:500;color:#0B1929;margin-bottom:6px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.home .cat-vcard-subs li{font-size:11.5px;color:#64748B;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.home .cat-vcard-subs li:nth-child(n+4){display:none;}
+.home .cat-skel-card{height:108px;border-radius:12px;}
+@media(max-width:1024px){
+  .home .cat-vcard{min-height:92px;}
+  .home .cat-vcard-subs{max-height:none;}
+  .home .cat-vcard-subs li:nth-child(n+3){display:none;}
+}
+@media(max-width:600px){
+  .cat-sec{padding:28px 16px 24px;}
+  .cat-head h2{font-size:18px;}
+  .cat-head-link{font-size:13px;}
+  .home .cat-vcard{min-height:84px;}
+  .home .cat-vcard-body{padding:8px 9px;}
+  .home .cat-vcard-title{font-size:11.5px;}
+  .home .cat-vcard-subs li{font-size:10.5px;}
+}
+
+/* Services (light) */
+.home-svc{background:#fff;padding:88px var(--pad-x);}
+.home .wwo-wrap{max-width:1200px;padding:0;}
+.home .wwo-head{margin-bottom:44px;}
+.home .wwo-tag{color:#2563EB;font-size:12px;font-weight:500;letter-spacing:.14em;border:none;padding:0;margin-bottom:12px;}
+.home .wwo-title{font-family:inherit;font-size:clamp(26px,2.6vw,34px);font-weight:600;letter-spacing:-.01em;color:#0B1929;}
+.home .wwo-title em{font-style:normal;color:#2563EB;}
+.home .wwo-sub{font-size:15.5px;color:#5B6B82;max-width:600px;}
+.home .wwo-grid{gap:20px;border:none;border-radius:0;overflow:visible;}
+.home .wwo-card{background:#fff;border:1px solid #E4E9F2;border-radius:16px;padding:28px;overflow:hidden;transition:box-shadow .2s,border-color .2s,transform .2s;}
+.home .wwo-card:hover{background:#fff;border-color:#C9D6EA;box-shadow:0 14px 34px rgba(11,25,41,.08);transform:translateY(-3px);}
+.home .wwo-card::after{display:none;}
+.home .wwo-card::before{background:linear-gradient(90deg,#2563EB,#3B82F6);height:3px;}
+.home .wwo-ico{width:46px;height:46px;border-radius:12px;background:#EEF4FF;color:#2563EB;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.home .wwo-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.home .wwo-card h3{font-family:inherit;font-size:17px;font-weight:500;color:#0B1929;letter-spacing:-.01em;margin-bottom:8px;}
+.home .wwo-card p{font-size:14px;color:#5B6B82;line-height:1.7;}
+.home .wwo-more{color:#2563EB;font-size:13.5px;font-weight:500;letter-spacing:0;margin-top:18px;}
+.home .wwo-more:hover{color:#1D4ED8;}
+
+/* Why BuyGenix (navy) */
+.home .wcu-tag{color:#F0C84A;font-size:12px;font-weight:500;letter-spacing:.14em;border:none;padding:0;margin-bottom:12px;}
+.home .wcu-title{font-family:inherit;font-size:clamp(26px,2.6vw,34px);font-weight:600;letter-spacing:-.01em;}
+.home .wcu-title em{font-style:normal;color:#F0C84A;}
+.home .wcu-sub{font-size:15.5px;color:rgba(255,255,255,.62);}
+.home .wcu-grid{gap:20px;border:none;border-radius:0;overflow:visible;}
+.home .wcu-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:30px 26px;overflow:hidden;}
+.home .wcu-card::after{display:none;}
+.home .wcu-num{font-size:13px;font-weight:500;color:#F0C84A;letter-spacing:.08em;margin-bottom:18px;}
+.home .wcu-card h3{font-family:inherit;font-size:18px;font-weight:500;letter-spacing:-.01em;}
+.home .wcu-card p{font-size:14px;color:rgba(255,255,255,.62);line-height:1.75;}
+
+/* Post requirement */
+.home-pyr{background:var(--sky);padding:88px var(--pad-x);}
+.home .pyr-outer{max-width:1200px;grid-template-columns:1fr 1.15fr;gap:24px;min-height:0;}
+.home .pyr-map{background:#fff;border:1px solid #E4E9F2;border-radius:18px;box-shadow:0 10px 30px rgba(11,25,41,.06);padding:36px 32px;color:#0B1929;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+.pyr-eyebrow{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#2563EB;margin-bottom:12px;}
+.pyr-h{font-size:24px;font-weight:600;letter-spacing:-.01em;line-height:1.3;color:#0B1929;margin:0 0 18px;}
+.pyr-points{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:12px;}
+.pyr-points li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#334155;line-height:1.5;}
+.pyr-points li::before{content:'';width:18px;height:18px;flex-shrink:0;margin-top:1px;border-radius:50%;background:#2563EB url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat;}
+.home .pyr-map-title{text-align:left;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#64748B;border:none;padding:0;margin:0 0 10px;}
+.home #buyersMapWrap{flex:1 1 auto !important;min-height:240px !important;background:#F3F7FD !important;border:1px solid #E4E9F2;border-radius:12px !important;}
+.home .bpin-lbl{background:#fff;box-shadow:0 1px 3px rgba(11,25,41,.15);}
+.home .pyr-form{border-radius:18px;border:1px solid #E4E9F2;box-shadow:0 10px 30px rgba(11,25,41,.06);padding:36px 32px;}
+.home .pyr-title{text-align:left;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#0B1929;margin-bottom:4px;}
+.pyr-sub{font-size:14px;color:#5B6B82;margin:0 0 22px;}
+.home .pyr-input,.home .pyr-select,.home .pyr-textarea{border:1px solid #D9E1EC;border-radius:10px;}
+.home .pyr-input:focus,.home .pyr-select:focus,.home .pyr-textarea:focus{border-color:#2563EB;box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+.home .pyr-phone-code{border:1px solid #D9E1EC;border-right:none;border-radius:10px 0 0 10px;background:#F5F7FB;color:#0B1929;}
+.home .pyr-phone-code ~ .pyr-input{border-radius:0 10px 10px 0;}
+.home .pyr-btn{border-radius:10px;font-weight:500;background:#2563EB;}
+.home .pyr-btn:hover{background:#1D4ED8;}
+@media(max-width:900px){
+  .home-pyr{padding:56px 16px;}
+  .home .pyr-outer{grid-template-columns:1fr;}
+  .home .pyr-map{display:block;padding:28px 22px;}
+  .home .pyr-map-title,.home #buyersMapWrap{display:none;}
+  .pyr-points{margin-bottom:0;}
+  .home .pyr-form{padding:26px 18px;}
+}
+
+/* Latest leads */
+.home-leads{background:#fff;padding:88px var(--pad-x);}
+.home .hl6-outer{max-width:1320px;margin:0 auto;gap:24px;}
+.home .hl6-card{border:1px solid #E4E9F2;border-radius:18px;box-shadow:0 10px 30px rgba(11,25,41,.05);}
+.hl6-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 18px;}
+.home .hl6-title{text-align:left;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#0B1929;padding:0;}
+.hl6-subt{font-size:14px;color:#5B6B82;margin-top:4px;}
+.hl6-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:500;color:#15803D;background:#ECFDF3;border:1px solid #BBF7D0;padding:5px 11px;border-radius:100px;white-space:nowrap;}
+.hl6-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#22C55E;animation:ping 1.8s infinite;}
+.home .hl6-hr{display:none;}
+.home .hl6-thead{background:#F5F7FB;border-color:#E4E9F2;}
+.home .hl6-th{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#5B6B82;}
+.home .hl6-row{border-color:#EEF1F6;}
+.home .hl6-row:hover{background:#F8FAFD;}
+.home .hl6-cell{color:#1E293B;font-size:14px;}
+.home .hl6-active{color:#15803D;font-size:13px;}
+.home .hl6-btn{border-radius:8px;background:#EEF4FF;color:#1D4ED8;font-weight:500;padding:7px 14px;}
+.home .hl6-btn:hover{background:#2563EB;color:#fff;transform:none;}
+.hl6-side{width:320px;flex-shrink:0;background:#0B1929;border-radius:18px;padding:32px 28px;color:#fff;display:flex;flex-direction:column;position:relative;overflow:hidden;}
+.hl6-side::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#B8860B,#F0C84A 30%,#2563EB 70%,#3B82F6);}
+.hl6-side .k{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#F0C84A;margin-bottom:12px;}
+.hl6-side h3{font-size:22px;font-weight:600;letter-spacing:-.01em;line-height:1.3;margin:0 0 12px;color:#fff;}
+.hl6-side p{font-size:14.5px;color:rgba(255,255,255,.7);line-height:1.7;margin:0 0 24px;}
+.hl6-side-btn{display:block;text-align:center;background:#2563EB;color:#fff;font-weight:500;font-size:14.5px;padding:13px 16px;border-radius:10px;text-decoration:none;margin-top:auto;}
+.hl6-side-btn:hover{background:#1D4ED8;}
+.hl6-side-link{display:block;text-align:center;color:rgba(255,255,255,.8);font-size:14px;font-weight:500;margin-top:12px;text-decoration:none;}
+.hl6-side-link:hover{color:#fff;}
+@media(max-width:1024px){.hl6-side{display:none;}.home-leads{padding:56px 16px;}.hl6-top{padding:18px 16px 14px;}}
+
+/* How it works */
+.home .ps-circle{font-family:inherit;font-size:22px;font-weight:600;color:#2563EB;border:1px solid #D9E1EC;box-shadow:0 6px 18px rgba(11,25,41,.06);}
+.home .process-step h4{font-size:16px;font-weight:500;color:#0B1929;}
+.home .process-step p{font-size:14px;color:#5B6B82;line-height:1.7;}
+.home .process-wrap::before{background:linear-gradient(90deg,#2563EB,#3B82F6 60%,#F0C84A);height:2px;}
+
+/* Testimonials */
+.home .testi-card{border-radius:16px;border-color:#E4E9F2;padding:30px 28px;}
+.home .testi-card::before{content:'';}
+.home .testi-text{font-style:normal;font-size:15px;color:#1E293B;line-height:1.75;}
+.home .testi-av{font-family:inherit;background:#0B1929;color:#F0C84A;}
+.home .testi-name{font-size:14.5px;font-weight:500;color:#0B1929;}
+.home .testi-biz{font-size:13px;color:#5B6B82;}
+
+/* Closing CTA: a contained card so it does not merge into the footer */
+.home .cta-band{background:#0B1929;max-width:1200px;margin:0 auto;border-radius:22px;padding:64px 32px;}
+.home-cta-wrap{background:var(--sky);padding:0 var(--pad-x) 88px;}
+@media(max-width:600px){.home-cta-wrap{padding-bottom:56px;}.home .cta-band{padding:44px 20px;border-radius:18px;}}
+.home .cta-band::before{top:0;left:0;right:0;width:auto;height:3px;border-radius:0;background:linear-gradient(90deg,#B8860B,#F0C84A 30%,#2563EB 70%,#3B82F6);}
+.home .cta-band h2{font-family:inherit;font-size:clamp(26px,2.6vw,34px);letter-spacing:-.01em;}
+.home .cta-band h2 em{font-style:normal;color:#F0C84A;}
+.home .cta-band p{color:rgba(255,255,255,.7);}
+.home .pyr-btn,.home .hl6-side-btn,.home .cat-head-link,.home .wwo-more{font-weight:600;}
+.home h2,.home h3,.home h4,.home .cta-band h2,.home .wcu-card h3,.home .wwo-card h3{font-weight:600;}
+.home .cta-btns a{font-family:inherit;font-weight:500 !important;font-size:15px !important;letter-spacing:0;}
+.home .cta-btns .btn-gold{background:#2563EB;color:#fff;box-shadow:none;}
+.home .cta-btns .btn-gold:hover{background:#1D4ED8;}
+@media(max-width:600px){
+  .home #apparel-grid,.home #agriculture-grid,.home #electricals-grid,.home #food-grid,.home #handicrafts-grid,.home #textiles-grid,.home #leather-grid,.home #jewellery-grid,.home #chemicals-grid,.home #pharma-grid{grid-auto-columns:46% !important;}
+  .home .hl6-thead,.home .hl6-row{grid-template-columns:1.1fr 1.3fr .9fr .8fr !important;}
+  .home .hl6-th:nth-child(1),.home .hl6-cell:nth-child(1),.home .hl6-th:nth-child(4),.home .hl6-cell:nth-child(4),.home .hl6-th:nth-child(5),.home .hl6-cell:nth-child(5){display:none;}
+  .home .hl6-th{font-size:10.5px;padding:10px 8px;}
+  .home .hl6-cell{font-size:12.5px;padding:0 8px;}
+  .home .hl6-btn{font-size:11.5px;padding:5px 10px;}
+  .home .hl6-active{font-size:12px;}
+  .home .hl6-title{font-size:19px;}
+}
+</style>
 </head>
-<body>
+<body class="home">
 <canvas id="bg-canvas"></canvas>
 
 <nav class="navbar" id="navbar">
@@ -621,9 +806,9 @@
           <div class="bgx-promo-inner">
             <div>
               <div style="font-size:10px;color:var(--sky-mid);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Industry Focus</div>
-              <div style="font-size:17px;font-weight:800;color:white;line-height:1.2;margin-bottom:4px;">The Best Packaging<br>& Paper</div>
+              <div style="font-size:18px;font-weight:600;color:white;line-height:1.25;margin-bottom:4px;">The Best Packaging<br>& Paper</div>
               <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:14px;">at the Best Prices</div>
-              <button style="background:transparent;border:2px solid white;color:white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;">Explore Now →</button>
+              <button style="background:transparent;border:2px solid white;color:white;border-radius:6px;padding:7px 18px;font-size:12.5px;font-weight:500;cursor:pointer;">Explore Now →</button>
             </div>
           </div>
         </div>
@@ -632,9 +817,9 @@
           <div class="bgx-promo-inner" style="justify-content:flex-end;">
             <div style="text-align:right;">
               <div style="font-size:10px;color:var(--gold-pale);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Premium Collection</div>
-              <div style="font-size:17px;font-weight:800;color:white;line-height:1.2;margin-bottom:4px;">Furniture Hardware<br>& Accessories</div>
+              <div style="font-size:18px;font-weight:600;color:white;line-height:1.25;margin-bottom:4px;">Furniture Hardware<br>& Accessories</div>
               <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:14px;">Your Personal Stylists</div>
-              <button style="background:var(--text-dark);border:none;color:white;border-radius:6px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;">Explore Now →</button>
+              <button style="background:var(--text-dark);border:none;color:white;border-radius:6px;padding:7px 18px;font-size:12.5px;font-weight:500;cursor:pointer;">Explore Now →</button>
             </div>
           </div>
         </div>
@@ -679,7 +864,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END FASHION BANNER ═══ -->
 
 <!-- ═══ APPAREL CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
+<section class="cat-sec">
 <style>
 .cat-vcard{background:#fff;border-radius:10px;overflow:hidden;cursor:pointer;transition:box-shadow .18s,transform .18s;box-shadow:0 1px 4px rgba(0,0,0,.07);display:flex;align-items:stretch;height:96px;}
 .cat-vcard:hover{box-shadow:0 6px 20px rgba(37,99,235,.14);transform:translateY(-3px);}
@@ -718,13 +903,10 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
   .cat-vcard-subs{max-height:36px;}
 }
 </style>
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Apparel <span style="color:var(--blue);">&amp;</span> Garments</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:220px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+  <div class="cat-head"><h2>Apparel &amp; Garments</h2><a href="buy-lead-search.html?q=garments" class="cat-head-link">Find buyers &rarr;</a></div>
   <!-- skeleton while loading -->
   <div class="cat-grid-skeleton" id="apparel-skeleton">
-    ${Array(24).fill('<div class="cat-skel-card"></div>').join('')}
+    <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
   </div>
   <!-- real grid injected here -->
   <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:12px;display:none;" id="apparel-grid"></div>
@@ -738,11 +920,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END AGRI BANNER ═══ -->
 
 <!-- ═══ AGRICULTURE CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Agriculture, Forestry <span style="color:var(--blue);">&amp;</span> Farming</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Agriculture, Forestry &amp; Farming</h2><a href="buy-lead-search.html?q=agriculture" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="agriculture-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
   </div>
@@ -757,11 +936,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END ELECTRICAL BANNER ═══ -->
 
 <!-- ═══ ELECTRICALS & ELECTRONICS CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Electricals <span style="color:var(--blue);">&amp;</span> Electronics</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Electricals &amp; Electronics</h2><a href="buy-lead-search.html?q=electronics" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="electricals-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -779,11 +955,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END DEALS BANNER ═══ -->
 
 <!-- ═══ FOOD & BEVERAGES CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Food <span style="color:var(--blue);">&amp;</span> Beverages</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Food &amp; Beverages</h2><a href="buy-lead-search.html?q=food" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="food-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -795,11 +968,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END FOOD & BEVERAGES CATEGORY GRID ═══ -->
 
 <!-- ═══ HANDICRAFTS & HOME DÉCOR CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Handicrafts <span style="color:var(--blue);">&amp;</span> Home Décor</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Handicrafts &amp; Home Décor</h2><a href="buy-lead-search.html?q=handicrafts" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="handicrafts-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -811,11 +981,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END HANDICRAFTS & HOME DÉCOR CATEGORY GRID ═══ -->
 
 <!-- ═══ TEXTILES & FABRICS CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Textiles <span style="color:var(--blue);">&amp;</span> Fabrics</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Textiles &amp; Fabrics</h2><a href="buy-lead-search.html?q=textiles" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="textiles-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -827,11 +994,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END TEXTILES & FABRICS CATEGORY GRID ═══ -->
 
 <!-- ═══ LEATHER & LEATHER PRODUCTS CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Leather <span style="color:var(--blue);">&amp;</span> Leather Products</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Leather &amp; Leather Products</h2><a href="buy-lead-search.html?q=leather" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="leather-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -843,11 +1007,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END LEATHER & LEATHER PRODUCTS CATEGORY GRID ═══ -->
 
 <!-- ═══ JEWELLERY & GEMS CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Jewellery <span style="color:var(--blue);">&amp;</span> Gems</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Jewellery &amp; Gems</h2><a href="buy-lead-search.html?q=jewellery" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="jewellery-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -859,11 +1020,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END JEWELLERY & GEMS CATEGORY GRID ═══ -->
 
 <!-- ═══ CHEMICALS & DYES CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Chemicals <span style="color:var(--blue);">&amp;</span> Dyes</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Chemicals &amp; Dyes</h2><a href="buy-lead-search.html?q=chemicals" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="chemicals-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -875,11 +1033,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END CHEMICALS & DYES CATEGORY GRID ═══ -->
 
 <!-- ═══ PHARMACEUTICALS & HEALTHCARE CATEGORY GRID ═══ -->
-<section style="background:var(--sky);padding:28px 16px;">
-  <div style="text-align:center;margin-bottom:20px;">
-    <h2 style="font-size:26px;font-weight:700;color:var(--text-dark);font-family:'Cormorant Garamond',serif;margin-bottom:6px;">Pharmaceuticals <span style="color:var(--blue);">&amp;</span> Healthcare</h2>
-    <div style="display:flex;align-items:center;justify-content:center;width:260px;margin:0 auto;"><div style="flex:1;height:2px;background:var(--blue);border-radius:2px;"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0;margin:0 4px;"></div><div style="flex:1;height:2px;background:var(--border-soft);border-radius:2px;"></div></div>
-  </div>
+<section class="cat-sec">
+  <div class="cat-head"><h2>Pharmaceuticals &amp; Healthcare</h2><a href="buy-lead-search.html?q=pharmaceuticals" class="cat-head-link">Find buyers &rarr;</a></div>
   <div class="cat-grid-skeleton" id="pharma-skeleton">
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
     <div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div><div class="cat-skel-card"></div>
@@ -891,10 +1046,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 <!-- ═══ END PHARMACEUTICALS & HEALTHCARE CATEGORY GRID ═══ -->
 
 <!-- ═══ SERVICES ═══ -->
-<section style="background:linear-gradient(150deg, var(--navy) 0%, var(--navy-mid) 50%, #102030 100%);padding:52px 0;position:relative;overflow:hidden;">
-
-  <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);"></div>
-  <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.15),transparent);"></div>
+<section class="home-svc">
 
   <style>
   .wwo-wrap{max-width:1160px;margin:0 auto;padding:0 32px;}
@@ -928,37 +1080,37 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 
     <div class="wwo-grid reveal-stagger">
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg></div>
         <h3>Verified Buyer Leads</h3>
         <p>Verified buyer enquiries from 50+ countries, matched to your exact product categories via WhatsApp and email.</p>
         <a href="services.html#leads" class="wwo-more">Learn more →</a>
       </div>
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
         <h3>Dedicated Relationship Manager</h3>
         <p>A real, named RM who knows your business, coordinates lead delivery, and provides personalised export guidance.</p>
         <a href="services.html#rm" class="wwo-more">Learn more →</a>
       </div>
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg></div>
         <h3>Digital Product Catalogue</h3>
         <p>Professionally designed catalogue listing your products with images and specs — shareable with international buyers globally.</p>
         <a href="services.html#catalogue" class="wwo-more">Learn more →</a>
       </div>
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
         <h3>SEO &amp; Social Media</h3>
         <p>SEO for your product pages and social media management to build your brand and attract organic buyer enquiries.</p>
         <a href="services.html#seo" class="wwo-more">Learn more →</a>
       </div>
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8" cy="12" r="2.5"/><line x1="14" y1="10" x2="18" y2="10"/><line x1="14" y1="14" x2="18" y2="14"/></svg></div>
         <h3>Virtual Business Card</h3>
         <p>A professional digital business card with your company profile, QR code — shareable at trade fairs and online.</p>
         <a href="services.html#vcard" class="wwo-more">Learn more →</a>
       </div>
       <div class="wwo-card">
-        <div class="wwo-line"></div>
+        <div class="wwo-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/></svg></div>
         <h3>GST &amp; Registration Help</h3>
         <p>Expert help with GST registration, IEC, MSME, and FSSAI licensing — essential credentials for every exporter.</p>
         <a href="registration.html" class="wwo-more">Learn more →</a>
@@ -969,7 +1121,7 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 
 <!-- ═══ WHY BUYGENIX ═══ -->
 <!-- ═══ POST REQUIREMENTS ═══ -->
-<section style="background:var(--sky);padding:52px 24px;">
+<section class="home-pyr">
 <style>
 .pyr-outer{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:1fr 600px 1fr;gap:20px;align-items:stretch;min-height:580px;}
 /* Left map card */
@@ -1007,7 +1159,10 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 
   <!-- LEFT: Map -->
   <div class="pyr-map">
-    <div class="pyr-map-title">Buyers Located</div>
+    <div class="pyr-eyebrow">Buying from India?</div>
+    <h2 class="pyr-h">Post your requirement and get quotes from verified suppliers</h2>
+    <ul class="pyr-points"><li>Free to post, no membership needed</li><li>Matched with verified Indian suppliers</li><li>Our team follows up with you directly</li></ul>
+    <div class="pyr-map-title">Where our buyers are</div>
     <div id="buyersMapWrap" style="flex:1;position:relative;background:var(--sky);border-radius:10px;overflow:hidden;min-height:0;">
       <svg id="worldMapSvg" style="width:100%;height:100%;position:absolute;top:0;left:0;display:block;"></svg>
       <div id="buyerDots" style="position:absolute;inset:0;pointer-events:none;"></div>
@@ -1087,7 +1242,8 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
 
   <!-- CENTER: Form -->
   <div class="pyr-form">
-    <div class="pyr-title">Post Your Requirements</div>
+    <div class="pyr-title">Share your requirement</div>
+    <p class="pyr-sub">Tell us what you need and we will get back to you.</p>
     <div class="pyr-row">
       <input class="pyr-input" type="text" id="pyr_name" placeholder="Name">
       <input class="pyr-input" type="email" id="pyr_email" placeholder="Email">
@@ -1130,10 +1286,6 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
     <button class="pyr-btn" id="pyrBtn" onclick="submitRequirement()">Get Quote Now</button>
   </div>
 
-  <!-- RIGHT: Image -->
-  <div class="pyr-img">
-    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Business Professional">
-  </div>
 
 </div>
 
@@ -1265,25 +1417,25 @@ function updatePhonePlaceholder(el,active){
     <div class="wcu-grid reveal-stagger">
 
       <div class="wcu-card">
-        <div class="wcu-line"></div>
+        <div class="wcu-num">01</div>
         <h3>All Leads Are Verified</h3>
         <p>Every buyer enquiry is manually verified by our team before delivery. You receive only genuine, interested buyers — never cold or junk leads.</p>
       </div>
 
       <div class="wcu-card">
-        <div class="wcu-line"></div>
+        <div class="wcu-num">02</div>
         <h3>50+ Countries Covered</h3>
         <p>Our buyer network spans over 50 countries across Europe, Middle East, Americas, Africa and Asia Pacific — giving Indian exporters truly global reach.</p>
       </div>
 
       <div class="wcu-card">
-        <div class="wcu-line"></div>
+        <div class="wcu-num">03</div>
         <h3>Dedicated Human Support</h3>
         <p>Every member has a real, named Relationship Manager available via WhatsApp and email — a person who knows your business and your goals.</p>
       </div>
 
       <div class="wcu-card">
-        <div class="wcu-line"></div>
+        <div class="wcu-num">04</div>
         <h3>Full Export Ecosystem</h3>
         <p>From your first GST registration to your hundredth export shipment, BuyGenix supports every step — leads, catalogue, registrations, SEO, and strategy.</p>
       </div>
@@ -1293,7 +1445,7 @@ function updatePhonePlaceholder(el,active){
 </section>
 
 <!-- ═══ BUYER LEADS PREVIEW ═══ -->
-<section style="background:var(--sky);padding:36px 32px;">
+<section class="home-leads">
 <style>
 .hl6-outer{display:flex;gap:20px;align-items:stretch;}
 .hl6-card{flex:1;background:white;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,0.07),0 4px 18px rgba(0,0,0,0.06);overflow:hidden;display:flex;flex-direction:column;}
@@ -1351,7 +1503,7 @@ function updatePhonePlaceholder(el,active){
 
   <!-- Card -->
   <div class="hl6-card">
-    <div class="hl6-title">Hot Leads</div>
+    <div class="hl6-top"><div><div class="hl6-title">Latest buyer requirements</div><div class="hl6-subt">Fresh enquiries checked by our team. Buyer contact details are shared with members.</div></div><span class="hl6-live">Live</span></div>
     <div class="hl6-hr"></div>
     <div class="hl6-thead">
       <div class="hl6-th">Name</div>
@@ -1360,16 +1512,19 @@ function updatePhonePlaceholder(el,active){
       <div class="hl6-th">Quantity</div>
       <div class="hl6-th">Date</div>
       <div class="hl6-th">Status</div>
-      <div class="hl6-th">Visit Now</div>
+      <div class="hl6-th"></div>
     </div>
     <div class="hl6-scroll">
       <div class="hl6-ticker" id="hl6Ticker"></div>
     </div>
   </div>
 
-  <!-- Image -->
-  <div class="hl6-img">
-    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=85" alt="Export">
+  <div class="hl6-side">
+    <div class="k">For members</div>
+    <h3>Get leads like these in your category</h3>
+    <p>Verified enquiries matched to your products, delivered on WhatsApp and email with your Relationship Manager's support.</p>
+    <a href="membership.html" class="hl6-side-btn">View membership plans</a>
+    <a href="contact.html" class="hl6-side-link">Talk to our team &rarr;</a>
   </div>
 
 </div>
@@ -1401,7 +1556,7 @@ function updatePhonePlaceholder(el,active){
       +"<div class=\"hl6-cell\">"+l.qty+"</div>"
       +"<div class=\"hl6-cell\">"+l.date+"</div>"
       +"<div class=\"hl6-cell\"><span class=\"hl6-active\">Active</span></div>"
-      +"<div class=\"hl6-cell\"><a href=\"membership.html\" class=\"hl6-btn\">Why Wait?</a></div>"
+      +"<div class=\"hl6-cell\"><a href=\"membership.html\" class=\"hl6-btn\">Unlock</a></div>"
       +"</div>";
   }
   function paint(list){
@@ -1464,21 +1619,21 @@ function updatePhonePlaceholder(el,active){
     </div>
     <div class="testi-grid reveal-stagger">
       <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">BuyGenix connected me with a serious buyer in Germany within the first month. The lead was verified and my RM guided me throughout. Absolutely worth the investment.</p><div class="testi-author"><div class="testi-av">RS</div><div><div class="testi-name">Rajesh Sharma</div><div class="testi-biz">RS Textiles Pvt Ltd — Delhi</div></div></div></div>
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">The Growth Plan gave me access to international leads I would never have found on my own. My RM Priya is exceptional — she knows the export business inside out.</p><div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--gold),var(--gold-bright));">PV</div><div><div class="testi-name">Priya Verma</div><div class="testi-biz">Priya Spice Exports — Mumbai</div></div></div></div>
-      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">GST registration, IEC, MSME — BuyGenix handled everything for my handicrafts business. The digital catalogue has helped me at every trade fair I attend.</p><div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--navy),var(--gold-light));">KJ</div><div><div class="testi-name">Kiran Joshi</div><div class="testi-biz">Kiran Handicrafts — Jaipur</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">The Growth Plan gave me access to international leads I would never have found on my own. My RM Priya is exceptional — she knows the export business inside out.</p><div class="testi-author"><div class="testi-av">PV</div><div><div class="testi-name">Priya Verma</div><div class="testi-biz">Priya Spice Exports — Mumbai</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">GST registration, IEC, MSME — BuyGenix handled everything for my handicrafts business. The digital catalogue has helped me at every trade fair I attend.</p><div class="testi-author"><div class="testi-av">KJ</div><div><div class="testi-name">Kiran Joshi</div><div class="testi-biz">Kiran Handicrafts — Jaipur</div></div></div></div>
     </div>
   </div>
 </section>
 
 <!-- ═══ CTA BAND ═══ -->
-<div class="cta-band">
+<div class="home-cta-wrap"><div class="cta-band">
   <h2>Ready to Take Your Business <em>Global?</em></h2>
   <p>Join 200+ Indian exporters already growing their international business with BuyGenix Solutions. Your first buyer lead is waiting.</p>
   <div class="cta-btns">
     <a href="membership.html" class="btn-gold btn-lg">View Membership Plans →</a>
     <a href="contact.html"    class="btn-outline-white btn-lg">Talk to Our Team</a>
   </div>
-</div>
+</div></div>
 
 <!-- ═══ FOOTER ═══ -->
 <footer class="footer">
