@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="BuyGenix Solutions">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/shared.css?v=20260927e">
 <style>
 /* ── HEADER (same style as the membership page) ── */
@@ -42,125 +42,96 @@
   .svc-hero::before{background:linear-gradient(180deg,rgba(11,25,41,.15) 0%,rgba(11,25,41,.55) 45%,rgba(11,25,41,.94) 100%);}
   .svc-hero-copy{left:16px;right:16px;bottom:22px;max-width:none;text-align:left;}
 }
-/* ── STICKY SERVICE NAV ── */
-.svc-subnav{
-  position:sticky;top:var(--nav-h);z-index:50;
-  background:linear-gradient(135deg,#0b1929 0%,#0f2744 50%,#1a1040 100%);
-  padding:0 var(--pad-x);
-  display:flex;align-items:center;justify-content:center;
-  gap:0;
-  box-shadow:0 4px 24px rgba(0,0,0,0.25);
-  overflow-x:auto;scrollbar-width:none;
-  transition:top 0.35s cubic-bezier(0.4,0,0.2,1);
-}
+/* ── PAGE ── */
+:root{--sv-ink:#0B1929;--sv-body:#334155;--sv-mid:#5B6B82;--sv-line:#E4E9F2;--sv-bg:#F5F7FB;--sv-blue:#2563EB;--sv-gold:#F0C84A;}
+body{background:var(--sv-bg);}
+
+/* sticky service nav */
+.svc-subnav{position:sticky;top:var(--nav-h);z-index:50;background:#fff;border-bottom:1px solid var(--sv-line);box-shadow:0 6px 20px rgba(11,25,41,.05);display:flex;justify-content:center;gap:6px;padding:10px var(--pad-x);overflow-x:auto;scrollbar-width:none;font-family:'Inter',system-ui,sans-serif;transition:top .35s cubic-bezier(.4,0,.2,1);}
 .svc-subnav::-webkit-scrollbar{display:none;}
-.svc-subnav a{
-  position:relative;
-  padding:18px 22px;
-  font-size:12px;font-weight:600;
-  color:rgba(255,255,255,0.55);
-  font-family:'Space Grotesk',sans-serif;
-  letter-spacing:1px;text-transform:uppercase;
-  text-decoration:none;white-space:nowrap;
-  transition:all 0.25s ease;
-  border-bottom:3px solid transparent;
-  display:flex;align-items:center;gap:8px;
-}
-.svc-subnav a::before{
-  content:'';
-  position:absolute;bottom:-1px;left:50%;right:50%;
-  height:3px;
-  background:linear-gradient(90deg,#2563eb,#7c3aed);
-  border-radius:2px 2px 0 0;
-  transition:all 0.3s cubic-bezier(.4,0,.2,1);
-  opacity:0;
-}
-.svc-subnav a:hover{color:white;}
-.svc-subnav a:hover::before{left:16px;right:16px;opacity:1;}
-.svc-subnav a.active{color:white;}
-.svc-subnav a.active::before{left:16px;right:16px;opacity:1;}
-/* dot accent on each item */
-.svc-subnav a .sn-dot{
-  display:inline-block;width:5px;height:5px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.2);
-  flex-shrink:0;transition:background 0.25s;
-}
-.svc-subnav a:hover .sn-dot,
-.svc-subnav a.active .sn-dot{background:linear-gradient(135deg,#2563eb,#7c3aed);}
-/* separator lines between items */
-.svc-subnav a + a::after{
-  content:'';
-  position:absolute;left:0;top:30%;bottom:30%;
-  width:1px;
-  background:rgba(255,255,255,0.08);
-}
+.svc-subnav a{flex-shrink:0;padding:8px 14px;border-radius:100px;font-size:13.5px;font-weight:500;color:var(--sv-mid);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s;}
+.svc-subnav a:hover{background:var(--sv-bg);color:var(--sv-ink);}
+.svc-subnav a.active{background:#EEF4FF;color:#1D4ED8;}
 
-/* ── SERVICE BLOCKS ── */
-.svc-blocks{max-width:var(--page-max);margin:0 auto;padding:48px var(--pad-x) 80px;display:flex;flex-direction:column;gap:24px;}
-.svc-block{background:white;border:1px solid var(--border-soft);border-radius:var(--r-2xl);padding:52px 48px;position:relative;overflow:hidden;transition:box-shadow 0.3s;}
-.svc-block:hover{box-shadow:var(--shadow-mid);}
-.svc-block[id]{scroll-margin-top:calc(var(--nav-h) + 60px);}
-.svc-accent{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--blue),var(--blue-mid));border-radius:5px 0 0 5px;}
-.svc-inner{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;}
-.svc-inner.rev{direction:rtl;}
-.svc-inner.rev>*{direction:ltr;}
-.svc-lbl{display:inline-flex;align-items:center;gap:6px;background:var(--sky-mid);border:1px solid var(--border-soft);color:var(--blue);padding:4px 14px;border-radius:100px;font-size:var(--fs-lbl);font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-family:'Space Grotesk',sans-serif;}
-.svc-block h2{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--navy);margin-bottom:14px;line-height:1.2;}
-.svc-desc{font-size:14.5px;color:var(--text-mid);line-height:var(--lh);margin-bottom:20px;}
-.svc-feats{display:flex;flex-direction:column;gap:9px;margin-bottom:26px;}
-.svc-feat{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text-body);line-height:1.6;}
-.svc-feat-check{color:#1D7A3A;font-size:11px;font-weight:600;flex-shrink:0;margin-top:2px;}
+/* service blocks */
+.sv-wrap{max-width:1180px;margin:0 auto;padding:24px 32px 88px;font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--sv-body);-webkit-font-smoothing:antialiased;}
+.sv{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:64px 0;border-bottom:1px solid var(--sv-line);scroll-margin-top:calc(var(--nav-h) + 72px);}
+.sv:last-of-type{border-bottom:none;}
+.sv.rev .sv-text{order:2;}
+.sv-num{font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--sv-blue);margin-bottom:12px;}
+.sv h2{font-family:inherit;font-size:clamp(24px,2.4vw,30px);font-weight:600;letter-spacing:-.01em;line-height:1.25;color:var(--sv-ink);margin:0 0 14px;}
+.sv-text > p{font-size:15.5px;line-height:1.75;color:var(--sv-body);margin:0 0 20px;}
+.sv-list{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:10px;}
+.sv-list li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:var(--sv-body);}
+.sv-list li::before{content:'';width:18px;height:18px;flex-shrink:0;margin-top:1px;border-radius:50%;background:#EEF4FF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat;}
+.sv-note{font-size:13.5px;line-height:1.6;color:var(--sv-mid);margin:-10px 0 22px;}
+.sv-note a{color:var(--sv-blue);font-weight:500;}
+.sv-cta{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 20px;border-radius:12px;background:var(--sv-blue);color:#fff;font-size:15px;font-weight:500;text-decoration:none;transition:background .15s;}
+.sv-cta:hover{background:#1D4ED8;}
 
-/* ── SERVICE VISUALS ── */
-.svc-visual{border-radius:var(--r-xl);padding:28px;min-height:260px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
-.vis-navy{background:linear-gradient(135deg,var(--navy),var(--navy-mid));}
-.vis-sky{background:linear-gradient(135deg,var(--sky),#DCE9F8);}
-.vis-gold{background:linear-gradient(135deg,#FFF8E7,#FEF0C0);}
-.vis-blue{background:linear-gradient(135deg,var(--blue),var(--blue-mid));}
-.vis-teal{background:linear-gradient(135deg,#E0F5F1,#C5E8E4);}
-.svc-visual h3{font-size:18px;font-weight:600;margin-bottom:8px;}
-.vis-navy h3,.vis-blue h3{color:white;}
-.vis-sky h3,.vis-gold h3,.vis-teal h3{color:var(--navy);}
-.svc-visual p{font-size:13px;line-height:1.7;}
-.vis-navy p,.vis-blue p{color:rgba(255,255,255,0.55);}
-.vis-sky p,.vis-gold p,.vis-teal p{color:var(--text-mid);}
-.vis-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
-.vs{border-radius:10px;padding:12px;text-align:center;}
-.vis-navy .vs,.vis-blue .vs{background:rgba(255,255,255,0.1);}
-.vis-sky .vs,.vis-gold .vs,.vis-teal .vs{background:rgba(255,255,255,0.7);}
-.vs strong{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;line-height:1;}
-.vis-navy .vs strong,.vis-blue .vs strong{color:var(--gold-light);}
-.vis-sky .vs strong,.vis-gold .vs strong,.vis-teal .vs strong{color:var(--navy);}
-.vs span{font-size:10.5px;font-family:'Space Grotesk',sans-serif;margin-top:2px;display:block;}
-.vis-navy .vs span,.vis-blue .vs span{color:rgba(255,255,255,0.38);}
-.vis-sky .vs span,.vis-gold .vs span,.vis-teal .vs span{color:var(--text-light);}
+/* visuals */
+.sv-photo{position:relative;min-height:380px;border-radius:20px;overflow:hidden;background:#0B1929 var(--img) center/cover no-repeat;}
+.sv-photo::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,25,41,0) 40%,rgba(11,25,41,.78) 100%);}
+.sv-chips{position:absolute;left:20px;right:20px;bottom:20px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.sv-chips.c4{grid-template-columns:repeat(4,1fr);}
+.sv-chips span{background:rgba(255,255,255,.94);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sv-mid);line-height:1.35;}
+.sv-chips b{display:block;font-size:17px;font-weight:600;color:var(--sv-ink);margin-bottom:2px;}
 
-/* Lead preview items */
-.lead-preview{background:rgba(255,255,255,0.08);border-radius:10px;padding:11px 13px;margin-bottom:7px;display:flex;align-items:center;gap:11px;}
-.lead-preview:last-child{margin-bottom:0;}
-.lp-flag{font-size:20px;}
-.lp-name{font-size:13px;font-weight:600;color:white;}
-.lp-prod{font-size:11px;color:rgba(255,255,255,0.42);}
-.lp-tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;margin-left:auto;white-space:nowrap;flex-shrink:0;}
-.tag-new{background:rgba(74,222,128,0.15);color:#4ADE80;}
-.tag-hot{background:rgba(251,146,60,0.15);color:#FB923C;}
-.tag-ver{background:rgba(96,165,250,0.15);color:#60A5FA;}
+.sv-panel{background:#fff;border:1px solid var(--sv-line);border-radius:20px;padding:24px;box-shadow:0 14px 36px rgba(11,25,41,.06);}
+.sv-panel-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.sv-panel-h b{font-size:15px;font-weight:600;color:var(--sv-ink);}
+.sv-live{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#15803D;background:#ECFDF3;border:1px solid #BBF7D0;padding:4px 10px;border-radius:100px;}
+.sv-live::before{content:'';width:7px;height:7px;border-radius:50%;background:#22C55E;}
+.sv-lead{display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #EEF1F6;}
+.sv-lead > div{flex:1;min-width:0;}
+.sv-lead strong{display:block;font-size:14.5px;font-weight:500;color:var(--sv-ink);}
+.sv-lead small{font-size:13px;color:var(--sv-mid);}
+.sv-tag{font-size:12px;font-weight:500;padding:4px 10px;border-radius:100px;background:#EEF4FF;color:#1D4ED8;white-space:nowrap;}
+.sv-tag.hot{background:#FFF4E5;color:#B45309;}
+.sv-tag.ok{background:#ECFDF3;color:#15803D;}
+.sv-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.sv-stats span{background:var(--sv-bg);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--sv-mid);}
+.sv-stats b{display:block;font-size:19px;font-weight:600;color:var(--sv-ink);}
 
-/* VCard mockup */
-.vcard{background:linear-gradient(135deg,var(--navy),#0F2840);border-radius:16px;padding:22px;box-shadow:0 12px 40px rgba(11,25,41,0.25);position:relative;overflow:hidden;}
-.vcard::before{content:'';position:absolute;top:-40%;right:-10%;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(212,160,23,0.18),transparent);}
-.vcard-tag{font-size:9px;font-weight:600;letter-spacing:2px;color:var(--gold-light);text-transform:uppercase;font-family:'Space Grotesk',sans-serif;margin-bottom:12px;}
-.vcard-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:white;margin-bottom:2px;}
-.vcard-biz{font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:14px;}
-.vcard-row{font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:5px;display:flex;align-items:center;gap:7px;}
-.vcard-qr{position:absolute;bottom:18px;right:18px;width:42px;height:42px;background:white;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.vcard-cats{font-size:10.5px;color:rgba(255,255,255,0.3);margin-top:10px;}
+.sv-navy{background:#0B1929;border-radius:20px;padding:40px;min-height:380px;display:flex;flex-direction:column;justify-content:center;gap:18px;position:relative;overflow:hidden;}
+.sv-navy::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#B8860B,var(--sv-gold) 30%,var(--sv-blue) 70%,#3B82F6);}
+.sv-card{background:#fff;border-radius:16px;padding:24px 26px;box-shadow:0 20px 50px rgba(0,0,0,.35);max-width:420px;width:100%;margin:0 auto;}
+.sv-card .brand{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sv-blue);margin-bottom:14px;}
+.sv-card .nm{font-size:20px;font-weight:600;color:var(--sv-ink);}
+.sv-card .rl{font-size:13.5px;color:var(--sv-mid);margin:2px 0 16px;}
+.sv-card .row{display:flex;gap:10px;font-size:13.5px;color:var(--sv-body);padding:6px 0;}
+.sv-card .row span{width:62px;flex-shrink:0;color:var(--sv-mid);}
+.sv-card .ft{display:flex;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid #EEF1F6;margin-top:12px;padding-top:14px;font-size:12.5px;color:var(--sv-mid);}
+.sv-qr{width:46px;height:46px;flex-shrink:0;border-radius:8px;background:
+  linear-gradient(90deg,#0B1929 50%,transparent 0) 0 0/8px 8px,
+  linear-gradient(#0B1929 50%,transparent 0) 0 0/8px 8px;border:5px solid #fff;outline:1px solid var(--sv-line);opacity:.85;}
+.sv-navy .cap{text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
 
+/* closing CTA */
+.sv-end{background:#0B1929;border-radius:20px;padding:44px 48px;margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;position:relative;overflow:hidden;}
+.sv-end::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#B8860B,var(--sv-gold) 30%,var(--sv-blue) 70%,#3B82F6);}
+.sv-end .k{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--sv-gold);margin-bottom:10px;}
+.sv-end h2{font-family:inherit;font-size:clamp(22px,2.2vw,28px);font-weight:600;color:#fff;margin:0 0 8px;}
+.sv-end p{font-size:15px;line-height:1.65;color:rgba(255,255,255,.72);margin:0;max-width:560px;}
+.sv-btns{display:flex;gap:12px;flex-wrap:wrap;}
+.sv-btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 22px;border-radius:12px;font-size:15px;font-weight:500;text-decoration:none;white-space:nowrap;}
+.sv-btn.p{background:var(--sv-blue);color:#fff;}
+.sv-btn.p:hover{background:#1D4ED8;}
+.sv-btn.g{border:1px solid rgba(255,255,255,.28);color:#fff;}
+.sv-btn.g:hover{border-color:var(--sv-gold);}
+
+@media(max-width:1024px){.svc-subnav{justify-content:flex-start;}}
 @media(max-width:900px){
-  .svc-block{padding:32px 24px;}
-  .svc-inner,.svc-inner.rev{grid-template-columns:1fr;direction:ltr;}
-  .svc-visual{min-height:200px;}
+  .sv{grid-template-columns:1fr;gap:28px;padding:48px 0;}
+  .sv.rev .sv-text{order:0;}
+  .sv-photo,.sv-navy{min-height:300px;}
+}
+@media(max-width:640px){
+  .sv-wrap{padding:8px 16px 64px;}
+  .sv-chips.c4{grid-template-columns:repeat(2,1fr);}
+  .sv-navy{padding:28px 18px;}
+  .sv-end{padding:32px 22px;}
+  .sv-btn{flex:1;}
 }
 </style>
 <script type="application/ld+json">
@@ -226,575 +197,225 @@
 <!-- ═══ END SERVICES HEADER ═══ -->
 
 <!-- STICKY SUBNAV -->
-<div class="svc-subnav" id="svcSubnav">
-  <a href="#leads"><span class="sn-dot"></span>Buyer Leads</a>
-  <a href="#rm"><span class="sn-dot"></span>Relationship Manager</a>
-  <a href="#catalogue"><span class="sn-dot"></span>Digital Catalogue</a>
-  <a href="#seo"><span class="sn-dot"></span>SEO &amp; SMO</a>
-  <a href="#vcard"><span class="sn-dot"></span>Virtual Business Card</a>
-  <a href="#registration"><span class="sn-dot"></span>Registrations</a>
-  <a href="#reports"><span class="sn-dot"></span>Performance Reports</a>
-  <a href="#payment"><span class="sn-dot"></span>Payment Gateway</a>
-</div>
+<nav class="svc-subnav" id="svcSubnav" aria-label="Services">
+  <a href="#leads">Buyer Leads</a>
+  <a href="#rm">Relationship Manager</a>
+  <a href="#catalogue">Digital Catalogue</a>
+  <a href="#seo">SEO &amp; SMO</a>
+  <a href="#vcard">Virtual Business Card</a>
+  <a href="#registration">Registrations</a>
+  <a href="#reports">Performance Reports</a>
+  <a href="#payment">Payment Gateway</a>
+</nav>
 
-<!-- SERVICE BLOCKS -->
-<style>
-/* ══ RESET & BASE ══ */
-.s7-wrap{width:100%;background:#f6f7fb;font-family:'Plus Jakarta Sans','Inter',sans-serif;}
+<main class="sv-wrap">
 
-/* ══ SECTION CONTAINER ══ */
-.s7-section{
-  max-width:1180px;margin:0 auto;
-  padding:80px 40px;
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:64px;align-items:center;
-  border-bottom:1px solid #e4e8f0;
-}
-.s7-section:last-of-type{border-bottom:none;}
-.s7-section.rev .s7-text{order:2;}
-.s7-section.rev .s7-visual{order:1;}
-
-/* ══ TEXT SIDE ══ */
-.s7-text{display:flex;flex-direction:column;gap:0;}
-.s7-tag{
-  display:inline-flex;align-items:center;gap:7px;
-  font-size:10px;font-weight:600;letter-spacing:2.5px;
-  text-transform:uppercase;color:#6366f1;
-  margin-bottom:16px;
-}
-.s7-tag::before{
-  content:'';width:20px;height:2px;
-  background:linear-gradient(90deg,#6366f1,#8b5cf6);
-  border-radius:2px;display:inline-block;
-}
-.s7-text h3{
-  font-size:clamp(22px,2.2vw,30px);
-  font-weight:600;color:#0d1117;
-  line-height:1.25;letter-spacing:-0.5px;
-  margin-bottom:14px;
-}
-.s7-text p{
-  font-size:14.5px;color:#5a6478;
-  line-height:1.85;margin-bottom:22px;
-}
-.s7-list{
-  list-style:none;padding:0;margin:0 0 28px;
-  display:flex;flex-direction:column;gap:8px;
-}
-.s7-list li{
-  font-size:13.5px;color:#374151;
-  display:flex;align-items:flex-start;gap:10px;
-  line-height:1.6;
-}
-.s7-list li::before{
-  content:'✓';
-  width:20px;height:20px;border-radius:6px;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6);
-  color:white;font-size:10px;font-weight:600;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;margin-top:1px;
-}
-.s7-cta{
-  display:inline-flex;align-items:center;gap:8px;
-  background:#0d1117;color:white;
-  padding:12px 24px;border-radius:10px;
-  font-size:13px;font-weight:600;
-  text-decoration:none;align-self:flex-start;
-  transition:all 0.2s ease;
-  letter-spacing:0.2px;
-}
-.s7-cta:hover{background:#1a237e;transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,17,23,0.2);}
-.s7-cta-arr{transition:transform 0.2s;}
-.s7-cta:hover .s7-cta-arr{transform:translateX(3px);}
-
-/* ══ VISUAL SIDE ══ */
-.s7-visual{
-  border-radius:20px;overflow:hidden;
-  position:relative;background:#e8eaf6;
-}
-.s7-visual img{
-  width:100%;height:360px;
-  object-fit:cover;display:block;
-  transition:transform 0.5s cubic-bezier(.4,0,.2,1);
-}
-.s7-section:hover .s7-visual img{transform:scale(1.03);}
-
-/* Image overlay gradient */
-.s7-img-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(to top,rgba(10,14,30,0.5) 0%,transparent 55%);
-}
-
-/* ══ LIVE LEADS PANEL ══ */
-.s7-leads{
-  background:linear-gradient(145deg,#08111f,#0d2040);
-  border-radius:20px;padding:32px;
-  border:1px solid rgba(255,255,255,0.06);
-  box-shadow:0 24px 60px rgba(0,0,0,0.25);
-}
-.s7-leads-head{
-  display:flex;align-items:center;gap:8px;
-  margin-bottom:22px;
-}
-.s7-live-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 0 3px rgba(34,197,94,0.2);
-  animation:pulse 2s infinite;
-  flex-shrink:0;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(34,197,94,0.4);}
-  70%{box-shadow:0 0 0 8px rgba(34,197,94,0);}
-  100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}
-}
-.s7-leads-title{
-  font-size:10px;font-weight:600;letter-spacing:2px;
-  color:#64748b;text-transform:uppercase;
-  font-family:'Space Grotesk',sans-serif;
-}
-.s7-lead{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 14px;border-radius:12px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.06);
-  margin-bottom:8px;
-  transition:all 0.2s;
-}
-.s7-lead:last-of-type{margin-bottom:0;}
-.s7-lead:hover{background:rgba(255,255,255,0.07);transform:translateX(3px);}
-.s7-lead-flag{font-size:22px;flex-shrink:0;line-height:1;}
-.s7-lead-country{font-size:13px;font-weight:600;color:#f1f5f9;line-height:1.2;}
-.s7-lead-product{font-size:11px;color:rgba(255,255,255,0.35);margin-top:2px;}
-.s7-lead-badge{
-  margin-left:auto;flex-shrink:0;
-  font-size:9px;font-weight:600;
-  padding:4px 10px;border-radius:6px;
-  letter-spacing:0.8px;text-transform:uppercase;
-}
-.lb-new{background:rgba(34,197,94,0.12);color:#4ade80;border:1px solid rgba(34,197,94,0.15);}
-.lb-hot{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.15);}
-.lb-ver{background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.2);}
-.s7-leads-footer{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:1px;background:rgba(255,255,255,0.05);
-  border-radius:12px;overflow:hidden;
-  margin-top:20px;
-}
-.s7-leads-stat{
-  background:#08111f;
-  padding:16px;text-align:center;
-}
-.s7-leads-stat strong{
-  display:block;font-size:26px;font-weight:600;
-  background:linear-gradient(135deg,#818cf8,#60a5fa);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1;
-}
-.s7-leads-stat span{
-  font-size:9.5px;color:rgba(255,255,255,0.25);
-  letter-spacing:2px;text-transform:uppercase;
-  margin-top:4px;display:block;
-}
-
-/* ══ METRIC GRID (used in several services) ══ */
-.s7-metric-grid{
-  display:grid;grid-template-columns:1fr 1fr;gap:12px;
-}
-.s7-metric{
-  background:white;border-radius:14px;
-  padding:20px;text-align:center;
-  border:1px solid #e8ecf5;
-  box-shadow:0 2px 8px rgba(0,0,0,0.04);
-  transition:all 0.2s;
-}
-.s7-metric:hover{box-shadow:0 8px 24px rgba(99,102,241,0.1);border-color:#c7d2fe;transform:translateY(-2px);}
-.s7-metric strong{
-  display:block;font-size:24px;font-weight:600;
-  background:linear-gradient(135deg,#4f46e5,#7c3aed);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  line-height:1;margin-bottom:5px;
-}
-.s7-metric span{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;}
-
-/* ══ BADGE GRID (registrations) ══ */
-.s7-badge-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.s7-badge{
-  border-radius:16px;padding:22px;text-align:center;
-  transition:all 0.2s;cursor:default;
-}
-.s7-badge:hover{transform:translateY(-3px);}
-.s7-badge-code{font-size:28px;font-weight:600;line-height:1;margin-bottom:5px;}
-.s7-badge-plan{font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
-.s7-badge-tick{font-size:11px;font-weight:600;}
-
-/* ══ FEATURE PILLS ══ */
-.s7-pills{display:flex;flex-direction:column;gap:10px;}
-.s7-pill{
-  display:flex;align-items:center;gap:14px;
-  background:white;border-radius:14px;
-  padding:14px 18px;
-  border:1px solid #e8ecf5;
-  box-shadow:0 2px 8px rgba(0,0,0,0.03);
-  transition:all 0.2s;
-}
-.s7-pill:hover{border-color:#c7d2fe;box-shadow:0 4px 16px rgba(99,102,241,0.1);transform:translateX(4px);}
-.s7-pill-icon{
-  width:40px;height:40px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
-}
-.s7-pill-title{font-size:13px;font-weight:600;color:#0d1117;margin-bottom:2px;}
-.s7-pill-sub{font-size:11.5px;color:#64748b;}
-
-/* ══ VCARD MOCKUP ══ */
-.s7-vcard{
-  background:linear-gradient(145deg,#0f172a,#1e3a5f);
-  border-radius:18px;padding:28px;
-  border:1px solid rgba(255,255,255,0.07);
-  box-shadow:0 24px 60px rgba(0,0,0,0.3);
-  position:relative;overflow:hidden;
-}
-.s7-vcard::before{
-  content:'';position:absolute;
-  top:-50px;right:-50px;
-  width:180px;height:180px;border-radius:50%;
-  background:radial-gradient(circle,rgba(245,158,11,0.12),transparent);
-}
-.s7-vcard-brand{font-size:9.5px;font-weight:600;letter-spacing:2px;color:#f59e0b;text-transform:uppercase;margin-bottom:16px;}
-.s7-vcard-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:white;margin-bottom:2px;}
-.s7-vcard-role{font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:18px;}
-.s7-vcard-row{display:flex;align-items:center;gap:9px;font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:7px;}
-.s7-vcard-divider{height:1px;background:rgba(255,255,255,0.06);margin:14px 0;}
-.s7-vcard-footer{display:flex;align-items:center;justify-content:space-between;}
-.s7-vcard-cats{font-size:10.5px;color:rgba(255,255,255,0.2);}
-.s7-vcard-qr{width:44px;height:44px;background:white;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-
-/* ══ CTA BANNER ══ */
-.s7-cta-banner{
-  background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 45%,#312e81 100%);
-  padding:72px 60px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:48px;flex-wrap:wrap;
-  position:relative;overflow:hidden;
-}
-.s7-cta-banner::before{
-  content:'';position:absolute;
-  top:-100px;right:-60px;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(circle,rgba(99,102,241,0.18),transparent 65%);
-}
-.s7-cta-banner::after{
-  content:'';position:absolute;
-  bottom:-80px;left:200px;
-  width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(37,99,235,0.12),transparent 65%);
-}
-.s7-cta-left{position:relative;z-index:2;max-width:520px;}
-.s7-cta-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;color:#818cf8;text-transform:uppercase;margin-bottom:12px;}
-.s7-cta-left h2{font-size:clamp(26px,2.2vw,32px);font-weight:600;color:white;line-height:1.2;margin-bottom:12px;letter-spacing:-0.5px;}
-.s7-cta-left h2 em{color:#f59e0b;font-style:italic;font-family:'Cormorant Garamond',serif;}
-.s7-cta-left p{font-size:14.5px;color:rgba(255,255,255,0.5);line-height:1.8;}
-.s7-cta-right{display:flex;flex-direction:column;gap:12px;min-width:210px;position:relative;z-index:2;}
-.s7-btn-gold{
-  background:linear-gradient(135deg,#f59e0b,#d97706);
-  color:#1a1100;border:none;border-radius:12px;
-  padding:15px 28px;font-size:14px;font-weight:600;
-  cursor:pointer;font-family:inherit;
-  text-decoration:none;text-align:center;
-  transition:all .25s;
-  box-shadow:0 6px 20px rgba(245,158,11,0.35);
-  letter-spacing:0.2px;
-}
-.s7-btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(245,158,11,0.45);}
-.s7-btn-ghost{
-  background:rgba(255,255,255,0.07);
-  color:rgba(255,255,255,0.8);
-  border:1px solid rgba(255,255,255,0.15);
-  border-radius:12px;padding:14px 28px;
-  font-size:14px;font-weight:600;
-  cursor:pointer;font-family:inherit;
-  text-decoration:none;text-align:center;
-  transition:all .25s;
-}
-.s7-btn-ghost:hover{background:rgba(255,255,255,0.12);}
-
-/* ══ RESPONSIVE ══ */
-@media(max-width:900px){
-  .s7-section{grid-template-columns:1fr;gap:36px;padding:56px 24px;}
-  .s7-section.rev .s7-text{order:1;}
-  .s7-section.rev .s7-visual{order:2;}
-  .s7-visual img{height:260px;}
-  .s7-cta-banner{padding:48px 24px;}
-  .s7-badge-grid{grid-template-columns:1fr 1fr;}
-}
-</style>
-
-<div class="s7-wrap">
-
-<!-- ════ 01 BUYER LEADS ════ -->
-<div class="s7-section" id="leads">
-  <div class="s7-text">
-    <div class="s7-tag">Service 01</div>
-    <h3>Verified International<br>Buyer Leads</h3>
-    <p>Receive verified buyer enquiries matched to your exact product category. Every lead is manually reviewed before delivery — so you only speak with serious, ready-to-buy international buyers.</p>
-    <ul class="s7-list">
+<section class="sv" id="leads">
+  <div class="sv-text">
+    <div class="sv-num">01</div>
+    <h2>Verified international buyer leads</h2>
+    <p>Receive verified buyer enquiries matched to your exact product category. Every lead is reviewed before delivery, so you only speak with serious, ready-to-buy international buyers.</p>
+    <ul class="sv-list">
       <li>Matched to your product category and export readiness</li>
-      <li>Delivered via WhatsApp & email within 24–48 hours</li>
-      <li>50+ countries — verified company details included</li>
-      <li>Full tracking via your real-time client portal</li>
+      <li>Delivered on WhatsApp and email within 24–48 hours</li>
+      <li>50+ countries, with verified company details included</li>
+      <li>Full tracking in your client portal</li>
       <li>Starter: 10 leads · Growth: 25 · Professional: 40+</li>
     </ul>
-    <a href="membership.html" class="s7-cta">Get Buyer Leads <span class="s7-cta-arr">→</span></a>
+    <a href="membership.html" class="sv-cta">Get buyer leads <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-leads">
-    <div class="s7-leads-head">
-      <div class="s7-live-dot"></div>
-      <span class="s7-leads-title">Live Buyer Feed</span>
-    </div>
-    <div class="s7-lead"><div class="s7-lead-flag">🇩🇪</div><div style="flex:1"><div class="s7-lead-country">Germany</div><div class="s7-lead-product">Organic Turmeric — 5 MT/month</div></div><span class="s7-lead-badge lb-new">New</span></div>
-    <div class="s7-lead"><div class="s7-lead-flag">🇦🇪</div><div style="flex:1"><div class="s7-lead-country">UAE</div><div class="s7-lead-product">Basmati Rice — 10 MT/month</div></div><span class="s7-lead-badge lb-hot">Hot</span></div>
-    <div class="s7-lead"><div class="s7-lead-flag">🇺🇸</div><div style="flex:1"><div class="s7-lead-country">USA</div><div class="s7-lead-product">Cotton Fabric — 2,000 metres</div></div><span class="s7-lead-badge lb-ver">Verified</span></div>
-    <div class="s7-lead"><div class="s7-lead-flag">🇬🇧</div><div style="flex:1"><div class="s7-lead-country">UK</div><div class="s7-lead-product">Brass Handicrafts — 500 units</div></div><span class="s7-lead-badge lb-new">New</span></div>
-    <div class="s7-lead"><div class="s7-lead-flag">🇸🇬</div><div style="flex:1"><div class="s7-lead-country">Singapore</div><div class="s7-lead-product">Spices & Masala — 2 MT/month</div></div><span class="s7-lead-badge lb-ver">Verified</span></div>
-    <div class="s7-leads-footer">
-      <div class="s7-leads-stat"><strong>50+</strong><span>Countries</span></div>
-      <div class="s7-leads-stat"><strong>500+</strong><span>Leads / Month</span></div>
-    </div>
+  <div class="sv-panel">
+    <div class="sv-panel-h"><b>Latest buyer requirements</b><span class="sv-live">Live</span></div>
+    <div class="sv-lead"><div><strong>Germany</strong><small>Organic turmeric · 5 MT/month</small></div><span class="sv-tag">New</span></div>
+    <div class="sv-lead"><div><strong>UAE</strong><small>Basmati rice · 10 MT/month</small></div><span class="sv-tag hot">Hot</span></div>
+    <div class="sv-lead"><div><strong>USA</strong><small>Cotton fabric · 2,000 metres</small></div><span class="sv-tag ok">Verified</span></div>
+    <div class="sv-lead"><div><strong>UK</strong><small>Brass handicrafts · 500 units</small></div><span class="sv-tag">New</span></div>
+    <div class="sv-lead"><div><strong>Singapore</strong><small>Spices &amp; masala · 2 MT/month</small></div><span class="sv-tag ok">Verified</span></div>
+    <div class="sv-stats"><span><b>50+</b>Countries</span><span><b>500+</b>Leads per month</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 02 RELATIONSHIP MANAGER ════ -->
-<div class="s7-section rev" id="rm">
-  <div class="s7-text">
-    <div class="s7-tag">Service 02</div>
-    <h3>Dedicated Relationship<br>Manager</h3>
-    <p>Every BuyGenix member gets a named Relationship Manager — a real person available on WhatsApp who coordinates your leads and guides you through every step of exporting.</p>
-    <ul class="s7-list">
+<section class="sv rev" id="rm">
+  <div class="sv-text">
+    <div class="sv-num">02</div>
+    <h2>Dedicated Relationship Manager</h2>
+    <p>Every BuyGenix member gets a named Relationship Manager, a real person on WhatsApp who coordinates your leads and guides you through every step of exporting.</p>
+    <ul class="sv-list">
       <li>Named RM assigned within 24 hours of activation</li>
-      <li>Direct WhatsApp & email access at all times</li>
-      <li>Coordinates lead selection, delivery & follow-up</li>
-      <li>Export documentation guidance & buyer communication</li>
-      <li>Quarterly strategy reviews for Professional & Enterprise</li>
+      <li>Direct WhatsApp and email access</li>
+      <li>Coordinates lead selection, delivery and follow-up</li>
+      <li>Guidance on export documents and buyer communication</li>
+      <li>Quarterly strategy reviews for Professional and Enterprise</li>
     </ul>
-    <a href="about.html" class="s7-cta">Meet Our Team <span class="s7-cta-arr">→</span></a>
+    <a href="about.html" class="sv-cta">Meet our team <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=85" alt="Relationship Manager">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-metric-grid" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-metric"><strong>24h</strong><span>Assignment</span></div>
-      <div class="s7-metric"><strong>100%</strong><span>Human Support</span></div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1000&q=80)">
+    <div class="sv-chips"><span><b>24 hours</b>RM assignment</span><span><b>100%</b>Human support</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 03 DIGITAL CATALOGUE ════ -->
-<div class="s7-section" id="catalogue">
-  <div class="s7-text">
-    <div class="s7-tag">Service 03</div>
-    <h3>Professional Digital<br>Product Catalogue</h3>
-    <p>A professionally designed digital catalogue showcasing your products with images, specs and contact details — shareable with global buyers via WhatsApp, email or at trade fairs.</p>
-    <ul class="s7-list">
-      <li>Created by our in-house design team with your branding</li>
-      <li>Single shareable link — WhatsApp, email, exhibitions</li>
-      <li>Growth: up to 10 products · Pro & Enterprise: unlimited</li>
+<section class="sv" id="catalogue">
+  <div class="sv-text">
+    <div class="sv-num">03</div>
+    <h2>Professional digital product catalogue</h2>
+    <p>A professionally designed catalogue of your products with images, specifications and contact details, ready to share with global buyers on WhatsApp, by email or at trade fairs.</p>
+    <ul class="sv-list">
+      <li>Designed in-house with your branding</li>
+      <li>One shareable link for WhatsApp, email and exhibitions</li>
+      <li>Growth: up to 10 products · Professional and Enterprise: unlimited</li>
       <li>Updated whenever your product range changes</li>
-      <li>QR-code ready for trade fair and event use</li>
+      <li>QR-code ready for trade fairs and events</li>
     </ul>
-    <a href="membership.html" class="s7-cta">Get Your Catalogue <span class="s7-cta-arr">→</span></a>
+    <a href="membership.html" class="sv-cta">Get your catalogue <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=800&q=85" alt="Digital Catalogue">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-metric-grid" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-metric"><strong>∞</strong><span>Products (Pro+)</span></div>
-      <div class="s7-metric"><strong>10</strong><span>Products (Growth)</span></div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=1000&q=80)">
+    <div class="sv-chips"><span><b>Unlimited</b>Products on Professional+</span><span><b>10 products</b>On Growth</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 04 SEO & SMO ════ -->
-<div class="s7-section rev" id="seo">
-  <div class="s7-text">
-    <div class="s7-tag">Service 04</div>
-    <h3>SEO &amp; Social Media<br>Optimisation</h3>
-    <p>We optimise your profile for international search engines and run social media campaigns to grow your brand among global buyers — bringing organic enquiries directly to you.</p>
-    <ul class="s7-list">
+<section class="sv rev" id="seo">
+  <div class="sv-text">
+    <div class="sv-num">04</div>
+    <h2>SEO and social media optimisation</h2>
+    <p>We optimise your profile for international search and run social media campaigns that grow your brand among global buyers, bringing organic enquiries straight to you.</p>
+    <ul class="sv-list">
       <li>SEO for your BuyGenix product pages and profile</li>
       <li>Keyword targeting for your categories and export markets</li>
-      <li>Instagram and Facebook brand promotion campaigns</li>
+      <li>Instagram and Facebook brand promotion</li>
       <li>Growth: quarterly promotion · Professional: monthly</li>
-      <li>Content crafted to attract international buyer enquiries</li>
+      <li>Content written to attract international buyer enquiries</li>
     </ul>
-    <a href="membership.html" class="s7-cta">Get SEO &amp; SMO <span class="s7-cta-arr">→</span></a>
+    <a href="membership.html" class="sv-cta">Get SEO &amp; SMO <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=85" alt="SEO Analytics">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-pills" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-pill">
-        <div class="s7-pill-icon" style="background:rgba(99,102,241,0.15);">🔍</div>
-        <div><div class="s7-pill-title">Search Engine Optimisation</div><div class="s7-pill-sub">Rank for export keywords globally</div></div>
-      </div>
-      <div class="s7-pill">
-        <div class="s7-pill-icon" style="background:rgba(236,72,153,0.12);">📱</div>
-        <div><div class="s7-pill-title">Instagram & Facebook</div><div class="s7-pill-sub">Monthly brand promotion campaigns</div></div>
-      </div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&q=80)">
+    <div class="sv-chips"><span><b>Search</b>Rank for export keywords</span><span><b>Social</b>Instagram &amp; Facebook campaigns</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 05 VIRTUAL BUSINESS CARD ════ -->
-<div class="s7-section" id="vcard">
-  <div class="s7-text">
-    <div class="s7-tag">Service 05</div>
-    <h3>Virtual Business Card<br>&amp; QR Profile</h3>
-    <p>A premium digital business card with your brand, products, and a scannable QR code. Share it instantly at trade fairs, over WhatsApp, or by email — no printing required.</p>
-    <ul class="s7-list">
-      <li>Premium card with your logo, products & contact info</li>
-      <li>QR code links directly to your full product catalogue</li>
-      <li>Shareable via WhatsApp, email, or LinkedIn instantly</li>
-      <li>Starter & Growth: 1 · Professional: 3 · Enterprise: unlimited</li>
+<section class="sv" id="vcard">
+  <div class="sv-text">
+    <div class="sv-num">05</div>
+    <h2>Virtual business card and QR profile</h2>
+    <p>A premium digital business card with your brand, products and a scannable QR code. Share it instantly at trade fairs, on WhatsApp or by email, with nothing to print.</p>
+    <ul class="sv-list">
+      <li>Your logo, products and contact details on one card</li>
+      <li>QR code opens your full product catalogue</li>
+      <li>Share on WhatsApp, email or LinkedIn in one tap</li>
+      <li>Starter and Growth: 1 · Professional: 3 · Enterprise: unlimited</li>
       <li>Updated whenever your business details change</li>
     </ul>
-    <a href="membership.html" class="s7-cta">Get Your Card <span class="s7-cta-arr">→</span></a>
+    <a href="membership.html" class="sv-cta">Get your card <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div style="background:linear-gradient(145deg,#08111f,#0d2040);border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:20px;">
-    <div class="s7-vcard">
-      <div class="s7-vcard-brand">BuyGenix Solutions</div>
-      <div class="s7-vcard-name">Rajesh Sharma</div>
-      <div class="s7-vcard-role">Export Manager · RS Textiles Pvt Ltd</div>
-      <div class="s7-vcard-row"><span>📍</span>New Delhi, India</div>
-      <div class="s7-vcard-row"><span>📱</span>+91 98765 43210</div>
-      <div class="s7-vcard-row"><span>✉️</span>rajesh@rstextiles.com</div>
-      <div class="s7-vcard-divider"></div>
-      <div class="s7-vcard-footer">
-        <div class="s7-vcard-cats">Cotton · Silk · Home Textiles</div>
-        <div class="s7-vcard-qr">📱</div>
-      </div>
+  <div class="sv-navy">
+    <div class="sv-card">
+      <div class="brand">RS Textiles Pvt Ltd</div>
+      <div class="nm">Rajesh Sharma</div>
+      <div class="rl">Export Manager</div>
+      <div class="row"><span>Location</span>New Delhi, India</div>
+      <div class="row"><span>Phone</span>+91 98765 43210</div>
+      <div class="row"><span>Email</span>rajesh@rstextiles.com</div>
+      <div class="ft"><span>Cotton · Silk · Home textiles</span><i class="sv-qr" aria-hidden="true"></i></div>
     </div>
-    <div style="text-align:center;font-size:10.5px;color:rgba(255,255,255,0.2);letter-spacing:2px;text-transform:uppercase;">Scan QR to View Full Catalogue</div>
+    <div class="cap">Sample card · scan to view catalogue</div>
   </div>
-</div>
+</section>
 
-<!-- ════ 06 REGISTRATIONS ════ -->
-<div class="s7-section rev" id="registration">
-  <div class="s7-text">
-    <div class="s7-tag">Service 06</div>
-    <h3>Registration &amp;<br>Compliance Assistance</h3>
-    <p>We guide you through every registration an Indian exporter needs — GST, IEC, MSME and FSSAI — ensuring your business is fully compliant and ready to trade globally.</p>
-    <ul class="s7-list">
-      <li>GST registration assistance — all plans included</li>
+<section class="sv rev" id="registration">
+  <div class="sv-text">
+    <div class="sv-num">06</div>
+    <h2>Registration and compliance assistance</h2>
+    <p>We guide you through the registrations an Indian exporter needs, including GST, IEC, MSME and FSSAI, so your business is compliant and ready to trade globally.</p>
+    <ul class="sv-list">
+      <li>GST registration assistance on all plans</li>
       <li>IEC (Import Export Code) registration support</li>
       <li>MSME / Udyam registration for government benefits</li>
       <li>FSSAI licence for food and agricultural exporters</li>
-      <li>Document checklist, application & status follow-up</li>
+      <li>Document checklist, application and status follow-up</li>
     </ul>
-    <a href="registration.html" class="s7-cta">Registration Guide <span class="s7-cta-arr">→</span></a>
+    <a href="registration.html" class="sv-cta">See all registrations <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=85" alt="Registration">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-badge-grid" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-badge" style="background:rgba(34,197,94,0.12);border:1px solid rgba(34,197,94,0.2);">
-        <div class="s7-badge-code" style="color:#4ade80;">GST</div>
-        <div class="s7-badge-plan" style="color:rgba(255,255,255,0.4);">All Plans</div>
-        <div class="s7-badge-tick" style="color:#4ade80;">✔ Included</div>
-      </div>
-      <div class="s7-badge" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.2);">
-        <div class="s7-badge-code" style="color:#818cf8;">IEC</div>
-        <div class="s7-badge-plan" style="color:rgba(255,255,255,0.4);">All Plans</div>
-        <div class="s7-badge-tick" style="color:#818cf8;">✔ Included</div>
-      </div>
-      <div class="s7-badge" style="background:rgba(192,132,252,0.12);border:1px solid rgba(192,132,252,0.2);">
-        <div class="s7-badge-code" style="color:#c084fc;">MSME</div>
-        <div class="s7-badge-plan" style="color:rgba(255,255,255,0.4);">All Plans</div>
-        <div class="s7-badge-tick" style="color:#c084fc;">✔ Included</div>
-      </div>
-      <div class="s7-badge" style="background:rgba(251,146,60,0.12);border:1px solid rgba(251,146,60,0.2);">
-        <div class="s7-badge-code" style="color:#fb923c;">FSSAI</div>
-        <div class="s7-badge-plan" style="color:rgba(255,255,255,0.4);">Growth+</div>
-        <div class="s7-badge-tick" style="color:#fb923c;">✔ Included</div>
-      </div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1000&q=80)">
+    <div class="sv-chips c4"><span><b>GST</b>All plans</span><span><b>IEC</b>All plans</span><span><b>MSME</b>All plans</span><span><b>FSSAI</b>Growth+</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 07 PERFORMANCE REPORTS ════ -->
-<div class="s7-section" id="reports">
-  <div class="s7-text">
-    <div class="s7-tag">Service 07</div>
-    <h3>Performance Reports<br>&amp; Analytics</h3>
-    <p>Track your membership, lead delivery status and business metrics through your real-time client portal and regular reports from your Relationship Manager.</p>
-    <ul class="s7-list">
-      <li>Monthly performance reports for Professional & Enterprise</li>
-      <li>On-request reports for Starter and Growth members</li>
+<section class="sv" id="reports">
+  <div class="sv-text">
+    <div class="sv-num">07</div>
+    <h2>Performance reports and analytics</h2>
+    <p>Track your membership, lead delivery and business metrics in your client portal, with regular reports from your Relationship Manager.</p>
+    <ul class="sv-list">
+      <li>Monthly performance reports for Professional and Enterprise</li>
+      <li>On-request reports for Starter and Growth</li>
       <li>Lead tracking: sent, viewed and responded</li>
-      <li>Real-time dashboard via your client portal login</li>
+      <li>Live dashboard in your client portal</li>
       <li>Quarterly export strategy consultation (Professional)</li>
     </ul>
-    <a href="login.html" class="s7-cta">Access Dashboard <span class="s7-cta-arr">→</span></a>
+    <a href="login.html" class="sv-cta">Open your dashboard <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=85" alt="Analytics Dashboard">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-metric-grid" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-metric"><strong>Live</strong><span>Dashboard</span></div>
-      <div class="s7-metric"><strong>Monthly</strong><span>Reports (Pro)</span></div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&q=80)">
+    <div class="sv-chips"><span><b>Live</b>Client dashboard</span><span><b>Monthly</b>Reports on Professional</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ 08 PAYMENT GATEWAY ════ -->
-<div class="s7-section" id="payment">
-  <div class="s7-text">
-    <div class="s7-tag">Service 08</div>
-    <h3>3rd Party Payment<br>Gateway Setup</h3>
-    <p>We provide professional setup assistance for integrating globally recognised third-party payment gateways into your business website or platform — enabling you to accept international and domestic payments seamlessly.</p>
-    <ul class="s7-list">
-      <li>Integration of industry-standard 3rd party payment gateways</li>
-      <li>Multi-currency support for international transactions</li>
-      <li>Secure checkout page setup & testing</li>
+<section class="sv rev" id="payment">
+  <div class="sv-text">
+    <div class="sv-num">08</div>
+    <h2>Third-party payment gateway setup</h2>
+    <p>We set up and integrate recognised third-party payment gateways on your website or platform, so you can accept international and domestic payments smoothly.</p>
+    <ul class="sv-list">
+      <li>Integration of industry-standard third-party gateways</li>
+      <li>Multi-currency support for international payments</li>
+      <li>Secure checkout setup and testing</li>
       <li>API integration support for your website or app</li>
-      <li>Complete setup documentation & handover</li>
-      <li>One-time professional setup fee — no recurring charges from us</li>
+      <li>Setup documentation and handover</li>
+      <li>One-time setup fee, with no recurring charges from us</li>
     </ul>
-    <p style="font-size:13px;color:var(--text-mid);margin-top:12px;">For full terms governing this service, please read our <a href="terms.html#payment-gateway" style="color:var(--blue);font-weight:600;">Payment Gateway Disclaimer (Section 15)</a> in our Terms &amp; Conditions.</p>
-    <a href="contact.html?service=payment" class="s7-cta">Enquire About Setup <span class="s7-cta-arr">→</span></a>
+    <p class="sv-note">Full terms for this service are in our <a href="terms.html#payment-gateway">Payment Gateway Disclaimer (Section 15)</a>.</p>
+    <a href="contact.html?service=payment" class="sv-cta">Enquire about setup <span aria-hidden="true">&rarr;</span></a>
   </div>
-  <div class="s7-visual">
-    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=85" alt="Payment Gateway Setup">
-    <div class="s7-img-overlay"></div>
-    <div class="s7-metric-grid" style="position:absolute;bottom:20px;left:20px;right:20px;">
-      <div class="s7-metric"><strong>Secure</strong><span>Integration</span></div>
-      <div class="s7-metric"><strong>Global</strong><span>Currencies</span></div>
-    </div>
+  <div class="sv-photo" style="--img:url(https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1000&q=80)">
+    <div class="sv-chips"><span><b>Secure</b>Integration</span><span><b>Global</b>Currencies</span></div>
   </div>
-</div>
+</section>
 
-<!-- ════ CTA BANNER ════ -->
-<div class="s7-cta-banner">
-  <div class="s7-cta-left">
-    <div class="s7-cta-eyebrow">Ready to Start?</div>
-    <h2>All 8 Services Included<br>in Your <em>Membership Plan</em></h2>
-    <p>One plan. Every service above. No hidden fees — just results. Choose the plan that fits your stage of growth and start connecting with global buyers today.</p>
+<section class="sv-end">
+  <div>
+    <div class="k">Ready to start?</div>
+    <h2>All 8 services in one membership plan</h2>
+    <p>One plan covers every service above, with no hidden fees. Choose the plan that fits your stage of growth and start connecting with global buyers.</p>
   </div>
-  <div class="s7-cta-right">
-    <a href="membership.html" class="s7-btn-gold">View All Plans & Pricing →</a>
-    <a href="contact.html" class="s7-btn-ghost">Talk to Our Team</a>
+  <div class="sv-btns">
+    <a href="membership.html" class="sv-btn p">View plans</a>
+    <a href="contact.html" class="sv-btn g">Talk to our team</a>
   </div>
-</div>
+</section>
 
-</div><!-- /s7-wrap -->
+</main>
 
-
-
-
-
-
-
-
+<script>
+/* Sticky subnav: highlight the service in view, and follow the header as it hides */
+(function(){
+  const blocks = document.querySelectorAll('.sv[id]');
+  const subnav = document.getElementById('svcSubnav');
+  const navbar = document.getElementById('navbar');
+  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 64;
+  let lastY = window.pageYOffset;
+  window.addEventListener('scroll', () => {
+    const y = window.pageYOffset;
+    let cur = '';
+    blocks.forEach(b => { if (y >= b.offsetTop - 200) cur = b.id; });
+    subnav.querySelectorAll('a').forEach(a => {
+      const on = a.getAttribute('href') === '#' + cur;
+      if (on && !a.classList.contains('active') && subnav.scrollWidth > subnav.clientWidth) subnav.scrollTo({left: a.offsetLeft - (subnav.clientWidth - a.offsetWidth) / 2, behavior: 'smooth'});
+      a.classList.toggle('active', on);
+    });
+    if (y > lastY && y > 100) { subnav.style.top = '0px'; navbar.style.transform = 'translateY(-100%)'; }
+    else if (y < lastY) { subnav.style.top = navH + 'px'; navbar.style.transform = 'translateY(0)'; }
+    lastY = y <= 0 ? 0 : y;
+  }, { passive: true });
+})();
+</script>
 
 <footer class="footer">
   <div class="footer-grid">
@@ -821,37 +442,5 @@
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js"></script>
-<script>
-/* Sticky subnav active state on scroll */
-const blocks = document.querySelectorAll('.svc-block[id]');
-const subnav = document.getElementById('svcSubnav');
-const navbar = document.getElementById('navbar');
-const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
-
-let lastY = window.pageYOffset;
-window.addEventListener('scroll', () => {
-  const y = window.pageYOffset;
-
-  /* Active link highlight */
-  let cur = '';
-  const offset = 160;
-  blocks.forEach(b => { if (y >= b.offsetTop - offset) cur = b.id; });
-  subnav.querySelectorAll('a').forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
-  });
-
-  /* Move subnav to top when header hides, back under header when it shows */
-  if (y > lastY && y > 100) {
-    /* Scrolling DOWN — header hiding */
-    subnav.style.top = '0px';
-    navbar.style.transform = 'translateY(-100%)';
-  } else if (y < lastY) {
-    /* Scrolling UP — header showing */
-    subnav.style.top = navH + 'px';
-    navbar.style.transform = 'translateY(0)';
-  }
-  lastY = y <= 0 ? 0 : y;
-}, { passive: true });
-</script>
 </body>
 </html>
