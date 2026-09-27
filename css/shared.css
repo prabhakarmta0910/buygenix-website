@@ -381,7 +381,7 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
 /* Mobile nav: Client Login is the solid primary button */
 .mobile-nav .m-cta.m-cta-gold{background:#2563EB!important;color:#fff!important;border-color:#2563EB!important;margin-top:8px;}
 /* Header: narrower search, then none, as the links need the room */
-@media(max-width:1480px){.nav-search{width:300px;}.nav-search-dropdown{display:none;}}
+@media(max-width:1480px){.navbar .nav-search{width:390px;}.navbar .nav-search-dropdown{min-width:0;padding:0 10px;font-size:12.5px;}.navbar .nav-search-btn{padding:0 14px;}.navbar .nav-links a{padding:8px 9px;}}
 @media(max-width:1300px){.navbar .nav-search{display:none;}}
 
 
