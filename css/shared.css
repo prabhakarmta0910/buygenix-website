@@ -109,7 +109,9 @@ input,textarea,select{font-family:inherit;}
 .nav-search-menu a:hover,.nav-search-menu a.active{background:#F2F6FF;color:#1D4ED8;font-weight:600;}
 
 .nav-logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none;}
-.nav-logo img{height:34px !important;width:auto !important;object-fit:contain;display:block;}
+.nav-logo img{height:36px !important;width:auto !important;object-fit:contain;display:block;}
+.navbar .nav-logo{background:#fff;border-radius:10px;padding:5px 12px;}
+@media(max-width:600px){.nav-logo img{height:32px !important;}.navbar .nav-logo{padding:4px 10px;}}
 .nav-wordmark{font-family:'Inter',system-ui,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff;}
 .nav-wordmark span{color:#F0C84A;}
 .nav-logo-text{display:flex;flex-direction:column;}
