@@ -518,9 +518,6 @@ body.home{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
 .pyr-points{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:12px;}
 .pyr-points li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:#334155;line-height:1.5;}
 .pyr-points li::before{content:'';width:18px;height:18px;flex-shrink:0;margin-top:1px;border-radius:50%;background:#2563EB url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat;}
-.home .pyr-map-title{text-align:left;font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#64748B;border:none;padding:0;margin:0 0 10px;}
-.home #buyersMapWrap{flex:1 1 auto !important;min-height:240px !important;background:#F3F7FD !important;border:1px solid #E4E9F2;border-radius:12px !important;}
-.home .bpin-lbl{background:#fff;box-shadow:0 1px 3px rgba(11,25,41,.15);}
 .home .pyr-form{border-radius:18px;border:1px solid #E4E9F2;box-shadow:0 10px 30px rgba(11,25,41,.06);padding:36px 32px;}
 .home .pyr-title{text-align:left;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#0B1929;margin-bottom:4px;}
 .pyr-sub{font-size:14px;color:#5B6B82;margin:0 0 22px;}
@@ -534,7 +531,6 @@ body.home{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
   .home-pyr{padding:56px 16px;}
   .home .pyr-outer{grid-template-columns:1fr;}
   .home .pyr-map{display:block;padding:28px 22px;}
-  .home .pyr-map-title,.home #buyersMapWrap{display:none;}
   .pyr-points{margin-bottom:0;}
   .home .pyr-form{padding:26px 18px;}
 }
@@ -605,6 +601,15 @@ body.home{font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;}
   .home .hl6-active{font-size:12px;}
   .home .hl6-title{font-size:19px;}
 }
+.pyr-steps-title{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#64748B;margin:4px 0 14px;padding-top:22px;border-top:1px solid #EEF1F6;}
+.pyr-steps{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:16px;}
+.pyr-steps li{display:flex;gap:14px;align-items:flex-start;}
+.pyr-steps b{width:30px;height:30px;flex-shrink:0;border-radius:50%;background:#EEF4FF;color:#2563EB;font-size:13.5px;font-weight:600;display:flex;align-items:center;justify-content:center;}
+.pyr-steps strong{display:block;font-size:14.5px;font-weight:500;color:#0B1929;margin-bottom:2px;}
+.pyr-steps span{font-size:13.5px;color:#5B6B82;line-height:1.55;}
+.pyr-wa{margin-top:auto;display:flex;align-items:center;gap:10px;padding:13px 16px;border:1px solid #E4E9F2;border-radius:12px;background:#F8FAFD;font-size:14px;color:#334155;text-decoration:none;}
+.pyr-wa span{font-weight:500;color:#0B1929;}
+.pyr-wa:hover{border-color:#25D366;background:#F2FCF6;}
 </style>
 </head>
 <body class="home">
@@ -1162,81 +1167,13 @@ function bgxShowCat(idx){var cat=BGX_CATS[idx];document.querySelectorAll('.bgx-c
     <div class="pyr-eyebrow">Buying from India?</div>
     <h2 class="pyr-h">Post your requirement and get quotes from verified suppliers</h2>
     <ul class="pyr-points"><li>Free to post, no membership needed</li><li>Matched with verified Indian suppliers</li><li>Our team follows up with you directly</li></ul>
-    <div class="pyr-map-title">Where our buyers are</div>
-    <div id="buyersMapWrap" style="flex:1;position:relative;background:var(--sky);border-radius:10px;overflow:hidden;min-height:0;">
-      <svg id="worldMapSvg" style="width:100%;height:100%;position:absolute;top:0;left:0;display:block;"></svg>
-      <div id="buyerDots" style="position:absolute;inset:0;pointer-events:none;"></div>
-      <div style="position:absolute;top:7px;right:7px;background:var(--blue);color:white;font-size:7.5px;font-weight:800;padding:2px 7px;border-radius:100px;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:3px;z-index:4;">
-        <div style="width:5px;height:5px;border-radius:50%;background:white;animation:ping 1.5s infinite;"></div>LIVE
-      </div>
-    </div>
-    <style>
-    @keyframes ping{0%{transform:scale(1);opacity:1;}70%{transform:scale(2.6);opacity:0;}100%{transform:scale(2.6);opacity:0;}}
-    @keyframes mapScan{0%{top:0;}100%{top:100%;}}
-    .bpin{position:absolute;transform:translate(-50%,-50%);}
-    .bpin-core{width:7px;height:7px;background:var(--blue);border-radius:50%;border:1.5px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.35);position:relative;z-index:2;}
-    .bpin-ring{position:absolute;top:-4px;left:-4px;width:15px;height:15px;border:2px solid rgba(239,68,68,0.55);border-radius:50%;animation:ping 2.4s ease-out infinite;}
-    .bpin-lbl{position:absolute;left:11px;top:-5px;font-size:7.5px;font-weight:700;white-space:nowrap;font-family:'Space Grotesk',sans-serif;background:rgba(255,255,255,0.92);color:#1e293b;padding:1px 4px;border-radius:3px;z-index:3;}
-    .map-scan-line{position:absolute;left:0;right:0;height:1.5px;background:linear-gradient(90deg,transparent,rgba(6,182,212,0.5),transparent);animation:mapScan 4s linear infinite;pointer-events:none;z-index:1;}
-    </style>
-
-    <script>
-    (function(){
-      function go(){
-        const wrap = document.getElementById('buyersMapWrap');
-        if(!wrap){setTimeout(go,300);return;}
-        // Add scan line
-        const sl=document.createElement('div');sl.className='map-scan-line';wrap.appendChild(sl);
-
-        const W=wrap.clientWidth||240, H=wrap.clientHeight||420;
-        const svg=document.getElementById('worldMapSvg');
-        svg.setAttribute('viewBox','0 0 '+W+' '+H);
-
-        // Load D3 + TopoJSON + world data
-        function loadScript(src,cb){var s=document.createElement('script');s.src=src;s.onload=cb;document.head.appendChild(s);}
-        loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js',function(){
-          loadScript('https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js',function(){
-            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-              .then(r=>r.json())
-              .then(function(world){
-                const proj=d3.geoMercator().scale(W*0.17).center([20,10]).translate([W/2,H*0.44]);
-                const path=d3.geoPath().projection(proj);
-                const feats=topojson.feature(world,world.objects.countries).features;
-                d3.select(svg).selectAll('path').data(feats).join('path')
-                  .attr('d',path).attr('fill','var(--blue-light)').attr('fill-opacity','0.62')
-                  .attr('stroke','#ffffff').attr('stroke-width','0.4');
-
-                // Place buyer pins
-                const buyers=[
-                  {name:'U.A.E',lon:55.3,lat:25.2,delay:0},
-                  {name:'Qatar',lon:51.5,lat:25.3,delay:0.3},
-                  {name:'Bahrain',lon:50.6,lat:26.0,delay:0.6},
-                  {name:'Romania',lon:24.9,lat:45.9,delay:0.9},
-                  {name:'U.K',lon:-1.2,lat:52.4,delay:1.2},
-                  {name:'China',lon:104.2,lat:35.9,delay:0.4},
-                  {name:'Philippines',lon:122.0,lat:12.9,delay:1.5},
-                  {name:'India',lon:78.9,lat:22.6,delay:0.2},
-                  {name:'Malaysia',lon:109.7,lat:4.2,delay:0.8},
-                  {name:'Singapore',lon:103.8,lat:1.35,delay:1.1},
-                  {name:'Australia',lon:133.8,lat:-25.3,delay:0.5},
-                  {name:'U.S',lon:-98.5,lat:39.5,delay:1.4}
-                ];
-                const dotsEl=document.getElementById('buyerDots');
-                buyers.forEach(function(b){
-                  const [x,y]=proj([b.lon,b.lat]);
-                  const pin=document.createElement('div');
-                  pin.className='bpin';
-                  pin.style.left=x+'px';pin.style.top=y+'px';
-                  pin.innerHTML='<div class="bpin-ring" style="animation-delay:'+b.delay+'s"></div><div class="bpin-core"></div><div class="bpin-lbl">'+b.name+'</div>';
-                  dotsEl.appendChild(pin);
-                });
-              });
-          });
-        });
-      }
-      if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',go);}else{setTimeout(go,100);}
-    })();
-    </script>
+    <div class="pyr-steps-title">What happens next</div>
+    <ol class="pyr-steps">
+      <li><b>1</b><div><strong>Share your requirement</strong><span>Product, quantity and where you need it delivered.</span></div></li>
+      <li><b>2</b><div><strong>We match suppliers</strong><span>Our team shortlists verified Indian suppliers for your product.</span></div></li>
+      <li><b>3</b><div><strong>Receive quotes</strong><span>Suppliers get in touch with prices and terms.</span></div></li>
+    </ol>
+    <a class="pyr-wa" href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="20" height="20">Prefer WhatsApp? <span>+91 87967 87594</span></a>
 
   </div>
 
