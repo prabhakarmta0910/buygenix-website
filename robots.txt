@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin-portal
+Disallow: /lead-search-admin
 
-Sitemap: https://buygenixsolutions.com/sitemap.xml
+Sitemap: https://www.buygenixsolutions.com/sitemap.xml

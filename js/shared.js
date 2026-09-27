@@ -37,12 +37,12 @@ function getSB() {
   }, { passive: true });
 
   /* Active link — match current filename */
-  const path = window.location.pathname.split('/').pop() || 'index.html';
+  /* works for /about, about.html and / alike */
+  const pageKey = s => (s.split('?')[0].split('#')[0].split('/').pop().replace(/\.html$/, '') || 'index');
+  const path = pageKey(window.location.pathname);
   document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => {
-    const href = (a.getAttribute('href') || '').split('?')[0];
-    if (href === path || (path === '' && href === 'index.html')) {
-      a.classList.add('active');
-    }
+    const href = a.getAttribute('href') || '';
+    if (href && !href.startsWith('http') && pageKey(href) === path) a.classList.add('active');
   });
 
   /* Burger */
@@ -103,7 +103,7 @@ function getSB() {
       const category = label ? label.textContent.trim() : '';
       const term = input.value.trim();
       if (category === 'Buy & Leads') {
-        window.location.href = 'buy-lead-search.html' + (term ? '?q=' + encodeURIComponent(term) : '');
+        window.location.href = '/buy-lead-search' + (term ? '?q=' + encodeURIComponent(term) : '');
       }
       /* Products/Services and Companies: unchanged — still no-op,
          exactly matching this button's behavior before this edit. */
@@ -216,9 +216,9 @@ window.BGX_Submit = async function(data, table) {
 /* ── AUTH ── */
 window.BGX_Auth = {
   async session() { const sb=getSB(); if(!sb) return null; const {data}=await sb.auth.getSession(); return data.session; },
-  async signOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); window.location.href='login.html'; },
+  async signOut() { const sb=getSB(); if(sb) await sb.auth.signOut(); window.location.href='/login'; },
   async require(to) {
-    to = to || 'login.html';
+    to = to || '/login';
     const s = await this.session();
     if (!s) window.location.href = to;
     return s;
@@ -237,3 +237,43 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+/* ── ANALYTICS: key actions sent to GA4 ──
+   whatsapp_click, phone_click, email_click, cta_click and search.
+   Mark whatsapp_click, phone_click and generate_lead as key events in GA4. */
+(function(){
+  function send(name, params){ if (typeof gtag === 'function') gtag('event', name, params); }
+  function where(el){
+    if (el.closest('.navbar, .mobile-nav')) return 'header';
+    if (el.closest('.footer')) return 'footer';
+    if (el.classList.contains('wa-float')) return 'floating_button';
+    return 'page';
+  }
+  document.addEventListener('click', function(e){
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    const label = (a.textContent || a.getAttribute('aria-label') || '').trim().slice(0, 80);
+    const base = { link_url: href, link_text: label, placement: where(a) };
+    if (/wa\.me|whatsapp\.com/i.test(href)) return send('whatsapp_click', base);
+    if (/^tel:/i.test(href)) return send('phone_click', base);
+    if (/^mailto:/i.test(href)) return send('email_click', base);
+    if (/(^|\/)(membership|contact|login)(\.html)?([?#]|$)/.test(href)) {
+      const target = href.replace(/^\//, '').split(/[.?#]/)[0];
+      return send('cta_click', Object.assign(base, { cta_target: target }));
+    }
+  }, true);
+  /* header search */
+  document.querySelectorAll('.nav-search').forEach(function(box){
+    const input = box.querySelector('.nav-search-input');
+    const btn = box.querySelector('.nav-search-btn');
+    const label = box.querySelector('[id^="navSearchLabel"]');
+    if (!input) return;
+    function track(){
+      const term = input.value.trim();
+      if (term) send('search', { search_term: term, search_category: label ? label.textContent.trim() : '' });
+    }
+    if (btn) btn.addEventListener('click', track);
+    input.addEventListener('keydown', function(e){ if (e.key === 'Enter') track(); });
+  });
+})();
