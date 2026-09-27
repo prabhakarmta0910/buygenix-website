@@ -374,29 +374,29 @@ body{background:var(--pg-bg);}
 }
 
 /* registration */
-.rg-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:32px;align-items:start;margin-top:-36px;position:relative;z-index:2;}
+.rg-top{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:32px;align-items:start;margin-top:-36px;position:relative;z-index:2;}
 .rg-note{display:flex;gap:12px;align-items:flex-start;padding:18px 22px;font-size:14.5px;line-height:1.6;color:var(--pg-body);box-shadow:0 10px 30px rgba(11,25,41,.06);}
 .rg-note .ic{color:#16A34A;margin-top:2px;}
 .rg-note b{font-weight:600;color:var(--pg-ink);}
 .rg-first{margin-top:48px;}
 .rg-p{font-size:15px;line-height:1.75;color:var(--pg-body);margin:0 0 12px;max-width:720px;}
 .rg-small{font-size:13.5px;line-height:1.65;color:var(--pg-mid);margin:16px 0 0;}
-.rg-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px;}
+.rg-cats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px;}
 .rg-cats a{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--pg-line);border-radius:12px;padding:15px 16px;font-size:14px;font-weight:500;color:var(--pg-ink);text-decoration:none;line-height:1.35;transition:border-color .15s,box-shadow .15s,color .15s;}
 .rg-cats a::after{content:'\2192';color:var(--pg-soft);flex-shrink:0;transition:color .15s,transform .15s;}
 .rg-cats a:hover{border-color:#BFD2F5;color:#1D4ED8;box-shadow:0 8px 22px rgba(11,25,41,.06);}
 .rg-cats a:hover::after{color:var(--pg-blue);transform:translateX(2px);}
-.rg-steps{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:12px;}
-.rg-steps li{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--pg-line);border-radius:14px;padding:18px 20px;}
+.rg-steps{list-style:none;margin:24px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px;}
+.rg-steps li{display:flex;flex-direction:column;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--pg-line);border-radius:14px;padding:18px 20px;}
 .rg-steps b{width:32px;height:32px;flex-shrink:0;border-radius:50%;background:#EEF4FF;color:var(--pg-blue);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;}
 .rg-steps h3{font-size:15.5px;font-weight:600;margin:4px 0 4px;}
 .rg-steps p{font-size:14px;line-height:1.65;color:var(--pg-mid);margin:0;}
-.rg-docs{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.rg-docs{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
 .rg-docs li{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--pg-line);border-radius:12px;padding:13px 16px;font-size:14px;color:var(--pg-body);}
 .rg-docs li::before{content:'';width:18px;height:18px;flex-shrink:0;border-radius:50%;background:#EEF4FF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563EB' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat;}
-.rg-side{position:sticky;top:calc(var(--nav-h) + 20px);display:grid;gap:16px;}
+.rg-side{display:grid;gap:16px;}
 .rg-form{padding:26px 24px;box-shadow:0 10px 30px rgba(11,25,41,.06);}
-.rg-form h3,.rg-facts h3,.rg-plan h3{font-size:17px;font-weight:600;margin:0 0 6px;}
+.rg-form h3{font-size:17px;font-weight:600;margin:0 0 6px;}
 .rg-form > p{font-size:14px;line-height:1.6;color:var(--pg-mid);margin:0 0 18px;}
 .rg-form label{display:block;font-size:13px;font-weight:500;color:var(--pg-ink);margin:0 0 6px;}
 .rg-form input,.rg-form select{width:100%;box-sizing:border-box;height:46px;border:1px solid #D9E1EC;border-radius:10px;padding:0 14px;font-size:14.5px;font-family:inherit;color:var(--pg-ink);background:#fff;outline:none;margin-bottom:14px;transition:border-color .15s,box-shadow .15s;}
@@ -409,15 +409,13 @@ body{background:var(--pg-bg);}
 .rg-msg.err{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;margin-bottom:14px;}
 .rg-msg.err a{color:#B91C1C;font-weight:600;}
 .rg-msg.ok{background:#F0FDF4;border:1px solid #BBF7D0;color:#15803D;margin-top:12px;}
-.rg-facts{padding:20px 24px 8px;}
-.rg-facts .pg-row{font-size:13.5px;}
-.rg-plan{background:#0B1929;border-radius:16px;padding:24px;color:#fff;position:relative;overflow:hidden;}
-.rg-plan::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#B8860B,var(--pg-gold) 30%,var(--pg-blue) 70%,#3B82F6);}
-.rg-plan h3{color:#fff;}
-.rg-plan p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.72);margin:0 0 16px;}
-.rg-plan .pg-btn{width:100%;}
-@media(max-width:1024px){.rg-grid{grid-template-columns:1fr;}.rg-side{position:static;}.rg-cats{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.rg-cats,.rg-docs{grid-template-columns:1fr;}.rg-first{margin-top:36px;}}
+.rg-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;}
+.rg-facts .pg-box{padding:16px 18px;}
+.rg-facts span{display:block;font-size:13px;color:var(--pg-mid);margin-bottom:4px;}
+.rg-facts b{font-size:15px;font-weight:500;color:var(--pg-ink);}
+@media(max-width:1100px){.rg-steps{grid-template-columns:repeat(3,1fr);}.rg-docs{grid-template-columns:repeat(2,1fr);}.rg-cats{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:1024px){.rg-top{grid-template-columns:1fr;}.rg-cats,.rg-facts{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){.rg-cats,.rg-docs,.rg-steps{grid-template-columns:1fr;}.rg-facts{gap:10px;}.rg-steps li{flex-direction:row;}.rg-first{margin-top:36px;}}
 </style>
 <meta property="og:image" content="https://buygenixsolutions.com/assets/og-default.jpg">
 <meta property="og:image:width" content="1200">
@@ -486,9 +484,8 @@ body{background:var(--pg-bg);}
 </div>
 
 <main class="pg">
-  <div class="rg-grid">
+  <div class="rg-top">
     <div class="rg-main">
-
       <div class="pg-box rg-note">
         <svg class="ic" viewBox="0 0 24 24"><path d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10z"/><polyline points="8 12 11 15 16 9"/></svg>
         <div><b>Included in every BuyGenix membership.</b> Registration assistance for everything below is part of all our plans, with no separate consulting fee on top.</div>
@@ -501,60 +498,7 @@ body{background:var(--pg-bg);}
         <p class="rg-p">Getting one of these wrong, late or skipped can delay a shipment, block a payment or get an application rejected. Our team handles the paperwork end-to-end so you can focus on your business.</p>
       </section>
 
-      <section class="pg-sec">
-        <div class="pg-eyebrow">All services</div>
-        <h2 class="pg-h2">15 categories, 245+ services</h2>
-        <p class="rg-p">From basic company registration to monthly compliance support. Open a category to see every service in it.</p>
-        <div class="rg-cats">
-          <a href="basic-business-registrations.html">Basic Business Registrations</a>
-          <a href="gst-services.html">GST Services</a>
-          <a href="dgft-iec-services.html">DGFT &amp; IEC Services</a>
-          <a href="rcmc-export-promotion-council.html">RCMC / Export Promotion Council</a>
-          <a href="icegate-customs-services.html">ICEGATE &amp; Customs</a>
-          <a href="export-documentation-services.html">Export Documentation</a>
-          <a href="fssai-services.html">FSSAI Services</a>
-          <a href="agri-export-digital-platforms.html">Agri Export &amp; Digital Platforms</a>
-          <a href="commodity-boards-sector-epcs.html">Commodity Boards &amp; Sector EPCs</a>
-          <a href="export-incentive-schemes.html">Export Incentive Schemes</a>
-          <a href="market-compliance-research.html">Market &amp; Compliance Research</a>
-          <a href="legal-metrology-labelling.html">Legal Metrology &amp; Labelling</a>
-          <a href="banking-payment-documentation.html">Banking &amp; Payment Documentation</a>
-          <a href="ai-powered-export-services.html">AI-Powered Export Services</a>
-          <a href="monthly-recurring-compliance-support.html">Monthly &amp; Recurring Compliance</a>
-        </div>
-      </section>
-
-      <section class="pg-sec">
-        <div class="pg-eyebrow">How it works</div>
-        <h2 class="pg-h2">Our 5-step registration process</h2>
-        <ol class="rg-steps">
-          <li><b>1</b><div><h3>Initial consultation</h3><p>We understand your business type, product category and turnover to work out which registrations you need, and in what order.</p></div></li>
-          <li><b>2</b><div><h3>Document collection</h3><p>We send you a precise document checklist. You share your documents on WhatsApp or email and we take it from there.</p></div></li>
-          <li><b>3</b><div><h3>Application filing</h3><p>Our team prepares and files your application on the relevant government portal, carefully, to avoid rejections or delays.</p></div></li>
-          <li><b>4</b><div><h3>Tracking and follow-up</h3><p>We monitor your application and respond to any queries raised by the department on your behalf.</p></div></li>
-          <li><b>5</b><div><h3>Certificate delivery</h3><p>Once approved, we deliver your certificate and GSTIN, IEC or Udyam number to you, with guidance on your next steps.</p></div></li>
-        </ol>
-      </section>
-
-      <section class="pg-sec">
-        <div class="pg-eyebrow">Documents</div>
-        <h2 class="pg-h2">What you'll typically need</h2>
-        <p class="rg-p">Each registration has its own checklist, but most start with the same core documents. For an individual or proprietorship this usually means:</p>
-        <ul class="rg-docs">
-          <li>PAN card of the owner or business</li>
-          <li>Proof of business address</li>
-          <li>Bank statement or cancelled cheque</li>
-          <li>Aadhaar card of the authorised signatory</li>
-          <li>Passport-size photograph</li>
-          <li>Business registration certificate (if any)</li>
-          <li>Authorisation letter (companies and firms)</li>
-          <li>Digital Signature Certificate (companies)</li>
-        </ul>
-        <p class="rg-small">Board-specific registrations (APEDA, Spices Board, MPEDA, Tea, Coffee and Tobacco Boards) and certificates (COO, Phytosanitary, Fumigation) need a few extra product-specific documents. We share the exact list once we know your product.</p>
-      </section>
-
     </div>
-
     <aside class="rg-side">
       <div class="pg-box rg-form" id="rgForm">
         <h3>Get registration help</h3>
@@ -592,22 +536,74 @@ body{background:var(--pg-bg);}
         <div class="rg-msg ok" id="gstOk">Request received. Our team will call you shortly.</div>
       </div>
 
-      <div class="pg-box rg-facts">
-        <h3>Quick facts</h3>
-        <div class="pg-row"><span>Registrations covered</span><b>25+ business &amp; export</b></div>
-        <div class="pg-row"><span>Fastest turnaround</span><b>IEC, Udyam: 1 working day</b></div>
-        <div class="pg-row"><span>Government fee</span><b>PAN, GST, IEC, Udyam: free</b></div>
-        <div class="pg-row"><span>IEC validity</span><b>Lifetime, no renewal</b></div>
-        <div class="pg-row"><span>Export benefit</span><b>Zero-rated GST, full ITC refund</b></div>
-      </div>
-
-      <div class="rg-plan">
-        <h3>Included in all plans</h3>
-        <p>Join as a member and get your registrations sorted alongside your buyer leads.</p>
-        <a href="membership.html" class="pg-btn p">View membership plans</a>
-      </div>
     </aside>
   </div>
+
+  <div class="rg-facts">
+        <div class="pg-box"><span>Registrations covered</span><b>25+ business &amp; export</b></div>
+        <div class="pg-box"><span>Fastest turnaround</span><b>IEC, Udyam: 1 working day</b></div>
+        <div class="pg-box"><span>Government fee</span><b>PAN, GST, IEC, Udyam: free</b></div>
+        <div class="pg-box"><span>IEC validity</span><b>Lifetime, no renewal</b></div>
+  </div>
+  <section class="pg-sec">
+        <div class="pg-eyebrow">All services</div>
+        <h2 class="pg-h2">15 categories, 245+ services</h2>
+        <p class="rg-p">From basic company registration to monthly compliance support. Open a category to see every service in it.</p>
+        <div class="rg-cats">
+          <a href="basic-business-registrations.html">Basic Business Registrations</a>
+          <a href="gst-services.html">GST Services</a>
+          <a href="dgft-iec-services.html">DGFT &amp; IEC Services</a>
+          <a href="rcmc-export-promotion-council.html">RCMC / Export Promotion Council</a>
+          <a href="icegate-customs-services.html">ICEGATE &amp; Customs</a>
+          <a href="export-documentation-services.html">Export Documentation</a>
+          <a href="fssai-services.html">FSSAI Services</a>
+          <a href="agri-export-digital-platforms.html">Agri Export &amp; Digital Platforms</a>
+          <a href="commodity-boards-sector-epcs.html">Commodity Boards &amp; Sector EPCs</a>
+          <a href="export-incentive-schemes.html">Export Incentive Schemes</a>
+          <a href="market-compliance-research.html">Market &amp; Compliance Research</a>
+          <a href="legal-metrology-labelling.html">Legal Metrology &amp; Labelling</a>
+          <a href="banking-payment-documentation.html">Banking &amp; Payment Documentation</a>
+          <a href="ai-powered-export-services.html">AI-Powered Export Services</a>
+          <a href="monthly-recurring-compliance-support.html">Monthly &amp; Recurring Compliance</a>
+        </div>
+      </section>
+  <section class="pg-sec">
+        <div class="pg-eyebrow">How it works</div>
+        <h2 class="pg-h2">Our 5-step registration process</h2>
+        <ol class="rg-steps">
+          <li><b>1</b><div><h3>Initial consultation</h3><p>We understand your business type, product category and turnover to work out which registrations you need, and in what order.</p></div></li>
+          <li><b>2</b><div><h3>Document collection</h3><p>We send you a precise document checklist. You share your documents on WhatsApp or email and we take it from there.</p></div></li>
+          <li><b>3</b><div><h3>Application filing</h3><p>Our team prepares and files your application on the relevant government portal, carefully, to avoid rejections or delays.</p></div></li>
+          <li><b>4</b><div><h3>Tracking and follow-up</h3><p>We monitor your application and respond to any queries raised by the department on your behalf.</p></div></li>
+          <li><b>5</b><div><h3>Certificate delivery</h3><p>Once approved, we deliver your certificate and GSTIN, IEC or Udyam number to you, with guidance on your next steps.</p></div></li>
+        </ol>
+      </section>
+  <section class="pg-sec">
+        <div class="pg-eyebrow">Documents</div>
+        <h2 class="pg-h2">What you'll typically need</h2>
+        <p class="rg-p">Each registration has its own checklist, but most start with the same core documents. For an individual or proprietorship this usually means:</p>
+        <ul class="rg-docs">
+          <li>PAN card of the owner or business</li>
+          <li>Proof of business address</li>
+          <li>Bank statement or cancelled cheque</li>
+          <li>Aadhaar card of the authorised signatory</li>
+          <li>Passport-size photograph</li>
+          <li>Business registration certificate (if any)</li>
+          <li>Authorisation letter (companies and firms)</li>
+          <li>Digital Signature Certificate (companies)</li>
+        </ul>
+        <p class="rg-small">Board-specific registrations (APEDA, Spices Board, MPEDA, Tea, Coffee and Tobacco Boards) and certificates (COO, Phytosanitary, Fumigation) need a few extra product-specific documents. We share the exact list once we know your product.</p>
+      </section>
+  <section class="pg-sec pg-cta">
+    <div>
+      <h2>Registrations are included in every plan</h2>
+      <p>Join as a member and get your registrations sorted alongside your buyer leads, with one team handling it all.</p>
+    </div>
+    <div class="pg-btns">
+      <a href="membership.html" class="pg-btn p">View membership plans</a>
+      <a href="contact.html" class="pg-btn g">Talk to our team</a>
+    </div>
+  </section>
 </main>
 
 <footer class="footer">
