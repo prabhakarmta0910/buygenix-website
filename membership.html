@@ -387,8 +387,8 @@ function renderCards(plans) {
     const own   = lists[i].filter(f => !isShared(f) && !(prev && prev.some(g => norm(g) === norm(f))));
     const badge = pop ? (plan.badge || 'Most popular') : ent ? (plan.badge || 'Enterprise') : '';
     /* Plans with a live id and price can be bought online; the rest go to Contact */
-    const payable = !ent && /^[0-9a-f-]{36}$/i.test(String(plan.id || '')) && Number(plan.price_monthly) > 0;
-    const cta   = ent ? 'Contact us' : payable ? `Buy ${esc(plan.name)}` : `Choose ${esc(plan.name)}`;
+    const payable = /^[0-9a-f-]{36}$/i.test(String(plan.id || '')) && Number(plan.price_monthly) > 0;
+    const cta   = payable ? `Buy ${esc(plan.name)}` : ent ? 'Contact us' : `Choose ${esc(plan.name)}`;
     return `<article class="mp-card${pop ? ' popular' : ''}${ent ? ' enterprise' : ''}">
       ${badge ? `<span class="mp-badge">${esc(badge)}</span>` : ''}
       <h3 class="mp-name">${esc(plan.name)}</h3>
