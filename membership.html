@@ -583,7 +583,7 @@ else loadMembershipPlans();
     const rzp = new Razorpay({
       key: order.key_id, order_id: order.order_id, amount: order.amount, currency: order.currency,
       name: 'BuyGenix Solutions', description: order.plan + ' membership (1 year)',
-      prefill: { name: body.name, email: body.email, contact: body.phone },
+      prefill: { name: body.name, email: body.email, contact: (d => d.length === 10 ? '+91' + d : (body.phone.startsWith('+') ? '+' + d : d))(body.phone.replace(/\D/g, '')) },
       notes: { plan: order.plan },
       theme: { color: '#2563EB' },
       modal: { ondismiss: () => busy(false) },
