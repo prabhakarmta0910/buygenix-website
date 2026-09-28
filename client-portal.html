@@ -435,7 +435,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
         <div class="tbl-card">
           <div class="toolbar">
             <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="leadSearch" type="search" placeholder="Search product, company or country"></label>
-            <div class="chips" id="leadChips"></div>
+            
           </div>
           <div class="tbl-scroll">
             <table class="tbl">
@@ -590,7 +590,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
 let _sb = null, _user = null, _client = null, _plan = null, _leads = [], _quota = null, _waNum = DEFAULT_WA;
-let _leadFilter = 'all', _leadQuery = '';
+let _leadQuery = '';
 let _profile = null, _tags = {}, _credits = null;
 
 const $ = id => document.getElementById(id);
@@ -801,15 +801,6 @@ function renderProfile(m, meta) {
 }
 
 /* ── LEADS ── */
-function leadType(l) {
-  const q = String(l.quality || l.status || '').toLowerCase();
-  if (q.includes('hot')) return ['Hot', 'red'];
-  if (q.includes('warm')) return ['Warm', 'amber'];
-  if (q.includes('verif')) return ['Verified', 'blue'];
-  if (q.includes('conv')) return ['Converted', 'green'];
-  if (q === 'new' || !q) return ['New', 'green'];
-  return [title(l.quality), 'grey'];
-}
 
 function renderLeads(leads) {
   _leads = leads;
@@ -832,15 +823,11 @@ function renderLeads(leads) {
 
   /* dashboard list */
   $('recentLeads').innerHTML = got
-    ? leads.slice(0, 5).map((l, i) => { const [t, c] = leadType(l); return `
+    ? leads.slice(0, 5).map((l, i) => `
       <div class="row"><div class="grow"><div class="t">${esc(l.product || 'Buyer enquiry')}</div><div class="s">${esc([l.country, l.quantity].filter(Boolean).join(' · ') || '—')}</div></div>
-      <span class="pill ${c}">${esc(t)}</span><button class="link-btn" onclick="openLead(${i})">View</button></div>`; }).join('')
+      <button class="link-btn" onclick="openLead(${i})">View</button></div>`).join('')
     : emptyLeads();
 
-  /* filter chips from the types actually present */
-  const types = ['all', ...new Set(leads.map(l => leadType(l)[0]))];
-  $('leadChips').innerHTML = types.map(t =>
-    `<button class="chip${t === _leadFilter ? ' on' : ''}" data-f="${esc(t)}">${t === 'all' ? `All (${got})` : esc(t)}</button>`).join('');
   drawLeadTable();
 }
 
@@ -856,30 +843,27 @@ function emptyLeads() {
 function drawLeadTable() {
   const q = _leadQuery.toLowerCase();
   const rows = _leads.map((l, i) => ({ l, i })).filter(({ l }) =>
-    (_leadFilter === 'all' || leadType(l)[0] === _leadFilter) &&
     (!q || [l.product, l.company, l.contact_name, l.country, l.category].some(v => String(v || '').toLowerCase().includes(q))));
   $('leadsBody').innerHTML = rows.length
-    ? rows.map(({ l, i }) => { const [t, c] = leadType(l); return `<tr>
-        <td class="cell-main" data-label="Product"><div class="main">${esc(l.product || 'Buyer enquiry')}</div><div class="sub"><span class="pill ${c}">${esc(t)}</span></div></td>
+    ? rows.map(({ l, i }) => `<tr>
+        <td class="cell-main" data-label="Product"><div class="main">${esc(l.product || 'Buyer enquiry')}</div><div class="sub">${esc(l.category || '')}</div></td>
         <td class="cell-main" data-label="Buyer"><div class="main">${esc(l.contact_name || l.company || '—')}</div><div class="sub">${esc(l.contact_name && l.company ? l.company : '')}</div></td>
         <td data-label="Contact"><div class="lc">${l.phone ? `<a href="tel:${esc(String(l.phone).replace(/[^\d+]/g, ''))}">${esc(l.phone)}</a>` : ''}${l.email ? `<a href="mailto:${esc(l.email)}">${esc(l.email)}</a>` : ''}${!l.phone && !l.email ? '—' : ''}</div></td>
         <td data-label="Country">${esc(l.country || '—')}</td>
         <td data-label="Quantity">${esc(l.quantity || '—')}</td>
         <td data-label="Bought on">${fmtDate(l.assigned_at || l.created_at)}</td>
-        <td data-label=""><button class="btn ghost" style="padding:7px 12px;font-size:12.5px;" onclick="openLead(${i})">View details</button></td></tr>`; }).join('')
+        <td data-label=""><button class="btn ghost" style="padding:7px 12px;font-size:12.5px;" onclick="openLead(${i})">View details</button></td></tr>`).join('')
     : `<tr><td colspan="7" style="padding:0;">${_leads.length ? `<div class="empty"><strong>No leads match</strong>Try a different search or filter.</div>` : emptyLeads()}</td></tr>`;
   $('leadsFoot').textContent = _leads.length ? `Showing ${rows.length} of ${_leads.length} leads` : '';
 }
 
 function openLead(i) {
   const l = _leads[i]; if (!l) return;
-  const [t, c] = leadType(l);
   const note = String(l.notes || '').replace(/From Enquiries.*?\.\s*/, '').replace(/(Qty|Urgency|Purpose|Location):.*?(\||$)/g, '').replace(/Assigned to:.*$/, '').replace(/\|\s*/g, '\n').trim();
   const wa = String(l.phone || '').replace(/\D/g, '');
   $('leadTitle').textContent = l.product || 'Lead details';
   $('leadBody').innerHTML = `
-    <div style="margin-bottom:14px;"><span class="pill ${c}">${esc(t)}</span></div>
-    <div class="facts">${[['Contact person', l.contact_name], ['Company', l.company], ['Mobile', l.phone], ['Email', l.email], ['Country', l.country], ['Quantity', l.quantity], ['Quality', l.quality && title(l.quality)], ['Category', l.category], ['Posted', l.created_at && fmtDate(l.created_at)], ['Bought on', fmtDate(l.assigned_at || l.created_at)]]
+    <div class="facts">${[['Contact person', l.contact_name], ['Company', l.company], ['Mobile', l.phone], ['Email', l.email], ['Country', l.country], ['Quantity', l.quantity], ['Category', l.category], ['Posted', l.created_at && fmtDate(l.created_at)], ['Bought on', fmtDate(l.assigned_at || l.created_at)]]
       .filter(([, v]) => v).map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
     ${note ? `<div class="note">${esc(note)}</div>` : ''}
     <div class="btn-row">
@@ -1041,8 +1025,6 @@ function showPanel(name) {
 document.addEventListener('click', e => {
   const nav = e.target.closest('[data-panel],[data-goto]');
   if (nav) { showPanel(nav.dataset.panel || nav.dataset.goto); return; }
-  const chip = e.target.closest('#leadChips .chip');
-  if (chip) { _leadFilter = chip.dataset.f; document.querySelectorAll('#leadChips .chip').forEach(c => c.classList.toggle('on', c === chip)); drawLeadTable(); }
 });
 $('leadSearch').addEventListener('input', e => { _leadQuery = e.target.value.trim(); drawLeadTable(); });
 $('pfLogoFile').addEventListener('change', e => uploadLogo(e.target.files[0]));
