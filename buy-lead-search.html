@@ -97,6 +97,21 @@
 .lc-owned{font-size:13px;color:#15803D;font-weight:500;}
 .lc-owned a{color:#15803D;}
 .lc-closed{font-size:13px;color:#888;}
+.lc-panel:empty{display:none;}
+.lc-panel{margin-top:14px;border:1px solid #D6E4F2;background:#F6FAFE;border-radius:8px;padding:16px 18px;font-family:'Roboto',Arial,sans-serif;}
+.lc-panel.ok{border-color:#BFE3CB;background:#F3FBF6;}
+.lc-panel.err{border-color:#F5C2C2;background:#FEF6F6;}
+.lc-panel h3{font-size:15px;font-weight:500;color:#222;margin:0 0 12px;}
+.lc-panel p{font-size:14px;color:#444;line-height:1.5;margin:0 0 12px;}
+.lc-panel p a{color:#1F6FB2;font-weight:500;}
+.lc-cr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.lc-cr div{background:#fff;border:1px solid #E1E8F0;border-radius:6px;padding:10px 12px;}
+.lc-cr small{display:block;font-size:12px;color:#666;margin-bottom:2px;}
+.lc-cr b{font-size:20px;font-weight:700;color:#222;}
+.lc-cr.three{grid-template-columns:repeat(3,1fr);}
+.lc-cr .after{border-color:#1F6FB2;}
+.lc-cr .after b{color:#1F6FB2;}
+.lc-panel .row{display:flex;gap:8px;flex-wrap:wrap;}
 
 /* Empty / loading / error */
 .bls-empty{text-align:center;padding:60px 24px;}
@@ -125,6 +140,8 @@
   .lc-bottom{flex-direction:column;align-items:stretch;}
   .lc-act{align-items:stretch;max-width:none;text-align:left;}
   .lc-act .lc-btn{justify-content:center;flex:1;}
+  .lc-cr,.lc-cr.three{grid-template-columns:1fr 1fr;}
+  .lc-panel .row .lc-btn{flex:1;justify-content:center;}
   .bls-banner{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -234,7 +251,7 @@ function bannerHTML() {
   if (s === 'free') return box('🔒', `<strong>Buy a membership to buy leads.</strong> Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.`, `<a href="/membership" class="btn-primary btn-sm">View Plans →</a>`);
   if (s === 'waiting') return box('⏳', `<strong>Your membership is active.</strong> You can buy leads from <strong>${esc(fmtWhen(q.unlock_from))}</strong> (24 hours after purchase).`, `<a href="/client-portal" class="btn-primary btn-sm">My Portal →</a>`);
   if (s === 'empty') return box('ℹ️', `<strong>You have used all ${q.lead_limit || ''} lead credits.</strong> Leads you bought are in your portal. Talk to your Relationship Manager to add more.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
-  return box('✅', `<strong>${q.remaining} of ${q.lead_limit} lead credits left.</strong> Press "Contact Buyer" on a lead to use 1 credit. The full contact shows here and in your portal.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
+  return box('✅', `<strong>Lead credits: ${q.lead_limit} total · ${q.used || 0} used · ${q.remaining} remaining.</strong> Press "Contact Buyer" on a lead to use 1 credit. The full contact shows here and in your portal.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
 }
 function renderBanner() { document.getElementById('blsBanner').innerHTML = bannerHTML(); }
 
@@ -297,26 +314,50 @@ function cardHTML(l, idx) {
         </div>
         <div class="lc-act" id="lf-${idx}">${actionHTML(l, idx)}</div>
       </div>
+      <div class="lc-panel" id="lx-${idx}" aria-live="polite"></div>
     </div>
   </div>`;
 }
 
+/* Credit numbers: total allowed by the plan, used so far, left now */
+function credits() {
+  const q = _quota || {};
+  const total = Number(q.lead_limit) || 0, used = Number(q.used) || 0;
+  return { total, used, left: Math.max(0, q.remaining != null ? Number(q.remaining) : total - used) };
+}
+function creditGrid(c, afterLabel, after) {
+  return `<div class="lc-cr${afterLabel ? '' : ' three'}">
+    <div><small>Total credits</small><b>${c.total}</b></div>
+    <div><small>Already used</small><b>${c.used}</b></div>
+    <div${afterLabel ? '' : ' class="after"'}><small>Remaining${afterLabel ? ' now' : ''}</small><b>${c.left}</b></div>
+    ${afterLabel ? `<div class="after"><small>${afterLabel}</small><b>${after}</b></div>` : ''}</div>`;
+}
+function panel(i, html, kind) {
+  const x = document.getElementById('lx-' + i);
+  x.className = 'lc-panel' + (kind ? ' ' + kind : '');
+  x.innerHTML = html;
+  document.getElementById('lf-' + i).style.visibility = html && kind !== 'ok' ? 'hidden' : '';
+}
 function showMsg(i, html, err) {
-  document.getElementById('lf-' + i).innerHTML =
-    `<span class="lc-msg${err ? ' err' : ''}">${html}</span><div class="row"><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">OK</button></div>`;
+  panel(i, `<p>${html}</p><div class="row"><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">OK</button></div>`, err ? 'err' : '');
 }
 function rmLink() { return 'https://wa.me/918796787594?text=' + encodeURIComponent('Hello, I need more buyer lead credits.'); }
 function contactBuyer(i) {
   const s = buyerState(), q = _quota || {};
   if (s === 'guest') { location.href = loginUrl(); return; }
-  const f = document.getElementById('lf-' + i);
-  if (s === 'free') { f.innerHTML = `<span class="lc-msg">Buyer contacts are for members. Every plan includes lead credits.</span><div class="row"><a class="lc-btn" href="/membership">View Plans</a><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`; return; }
+  if (s === 'free') return panel(i, `<p>Buyer contacts are for members. Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.</p><div class="row"><a class="lc-btn" href="/membership">View Plans</a><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`);
   if (s === 'waiting') return showMsg(i, `Your membership is active. You can contact buyers from <b>${esc(fmtWhen(q.unlock_from))}</b>.`);
-  if (s === 'empty') return showMsg(i, `You have used all your lead credits. <a href="${rmLink()}" target="_blank" rel="noopener">Ask your RM</a> for more.`);
-  f.innerHTML = `<span class="lc-msg">Use 1 of your ${q.remaining} lead credits to see this buyer's full contact?</span>
-     <div class="row"><button class="lc-btn" type="button" onclick="doBuy(${i})">Yes, use 1 credit</button><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`;
+  const c = credits();
+  if (s === 'empty') return panel(i, `<h3>No lead credits left</h3>${creditGrid(c, 'After this lead', 0)}<p>You have used all ${c.total} credits in your plan. <a href="${rmLink()}" target="_blank" rel="noopener">Ask your RM</a> for more.</p><div class="row"><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">OK</button></div>`, 'err');
+  panel(i, `<h3>Buy this lead with 1 credit?</h3>
+    ${creditGrid(c, 'Left after this lead', c.left - 1)}
+    <p>You will see this buyer's full name, mobile, email and company. The lead is saved in your portal.</p>
+    <div class="row"><button class="lc-btn" type="button" id="lb-${i}" onclick="doBuy(${i})">Yes, use 1 credit</button><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`);
 }
-function redrawCard(i) { document.getElementById('lf-' + i).innerHTML = actionHTML(_results[i], i); }
+function redrawCard(i) {
+  panel(i, '');
+  document.getElementById('lf-' + i).innerHTML = actionHTML(_results[i], i);
+}
 
 const BUY_ERRORS = {
   NOT_YET_ELIGIBLE: 'Lead buying opens 24 hours after your membership purchase.',
@@ -326,16 +367,21 @@ const BUY_ERRORS = {
   LEAD_UNAVAILABLE: 'Sorry, this lead is closed. It has reached its buyer limit.',
 };
 async function doBuy(i) {
-  const f = document.getElementById('lf-' + i);
-  f.innerHTML = `<button class="lc-btn" disabled>Opening contact…</button>`;
+  const btn = document.getElementById('lb-' + i);
+  if (btn) { btn.disabled = true; btn.textContent = 'Opening contact…'; }
   try {
     const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: _results[i].id });
     if (error) throw error;
     Object.assign(_results[i], data.lead || {}, { is_unlocked: true, available: true });
-    if (!data.already && _quota) { _quota.remaining = Math.max(0, (_quota.remaining || 0) - 1); _quota.used = (_quota.used || 0) + 1; }
+    if (!data.already && _quota) {
+      _quota.used = (Number(_quota.used) || 0) + 1;
+      _quota.remaining = data.remaining != null ? Number(data.remaining) : Math.max(0, (Number(_quota.remaining) || 0) - 1);
+    }
     if (typeof gtag === 'function') gtag('event', 'lead_unlock', { product: _results[i].product || '' });
-    document.getElementById('lead-' + i).outerHTML = cardHTML(_results[i], i);
-    renderResults(); // credits changed → refresh banner and other buttons
+    renderResults(); // credits changed → refresh banner and other cards
+    const c = credits();
+    panel(i, `<h3>✓ Lead bought. Full contact is shown above.</h3>${creditGrid(c)}
+      <p>This lead is saved in <a href="/client-portal">your portal</a> under Buyer Leads.</p>`, 'ok');
   } catch (e) {
     const code = Object.keys(BUY_ERRORS).find(k => String(e.message || '').includes(k));
     if (code === 'LEAD_UNAVAILABLE') _results[i].available = false;
