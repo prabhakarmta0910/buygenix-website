@@ -210,6 +210,9 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 .credit-txt{font-size:13.5px;color:var(--cp-mid);line-height:1.5;}
 .credit-txt b{color:var(--cp-ink);font-weight:600;}
 .credit .bar{width:180px;}
+.tbl .lc{display:flex;flex-direction:column;gap:2px;font-size:13px;}
+.tbl .lc a{color:var(--cp-blue);text-decoration:none;overflow-wrap:anywhere;}
+.tbl .lc a:hover{text-decoration:underline;}
 .buy-strip{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--cp-line);border-radius:14px;padding:16px 18px;margin-bottom:22px;}
 .buy-strip-t{flex:1 1 260px;font-size:13px;color:var(--cp-mid);line-height:1.5;}
 .buy-strip-t b{display:block;font-size:15px;color:var(--cp-ink);font-weight:600;}
@@ -436,7 +439,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
           </div>
           <div class="tbl-scroll">
             <table class="tbl">
-              <thead><tr><th>Product</th><th>Country</th><th>Quantity</th><th>Type</th><th>Received</th><th></th></tr></thead>
+              <thead><tr><th>Product</th><th>Buyer</th><th>Contact</th><th>Country</th><th>Quantity</th><th>Bought on</th><th></th></tr></thead>
               <tbody id="leadsBody"></tbody>
             </table>
           </div>
@@ -857,13 +860,14 @@ function drawLeadTable() {
     (!q || [l.product, l.company, l.contact_name, l.country, l.category].some(v => String(v || '').toLowerCase().includes(q))));
   $('leadsBody').innerHTML = rows.length
     ? rows.map(({ l, i }) => { const [t, c] = leadType(l); return `<tr>
-        <td class="cell-main" data-label="Product"><div class="main">${esc(l.product || 'Buyer enquiry')}</div><div class="sub">${esc(l.company || l.category || '')}</div></td>
+        <td class="cell-main" data-label="Product"><div class="main">${esc(l.product || 'Buyer enquiry')}</div><div class="sub"><span class="pill ${c}">${esc(t)}</span></div></td>
+        <td class="cell-main" data-label="Buyer"><div class="main">${esc(l.contact_name || l.company || '—')}</div><div class="sub">${esc(l.contact_name && l.company ? l.company : '')}</div></td>
+        <td data-label="Contact"><div class="lc">${l.phone ? `<a href="tel:${esc(String(l.phone).replace(/[^\d+]/g, ''))}">${esc(l.phone)}</a>` : ''}${l.email ? `<a href="mailto:${esc(l.email)}">${esc(l.email)}</a>` : ''}${!l.phone && !l.email ? '—' : ''}</div></td>
         <td data-label="Country">${esc(l.country || '—')}</td>
         <td data-label="Quantity">${esc(l.quantity || '—')}</td>
-        <td data-label="Type"><span class="pill ${c}">${esc(t)}</span></td>
-        <td data-label="Received">${fmtDate(l.assigned_at || l.created_at)}</td>
+        <td data-label="Bought on">${fmtDate(l.assigned_at || l.created_at)}</td>
         <td data-label=""><button class="btn ghost" style="padding:7px 12px;font-size:12.5px;" onclick="openLead(${i})">View details</button></td></tr>`; }).join('')
-    : `<tr><td colspan="6" style="padding:0;">${_leads.length ? `<div class="empty"><strong>No leads match</strong>Try a different search or filter.</div>` : emptyLeads()}</td></tr>`;
+    : `<tr><td colspan="7" style="padding:0;">${_leads.length ? `<div class="empty"><strong>No leads match</strong>Try a different search or filter.</div>` : emptyLeads()}</td></tr>`;
   $('leadsFoot').textContent = _leads.length ? `Showing ${rows.length} of ${_leads.length} leads` : '';
 }
 
@@ -875,7 +879,7 @@ function openLead(i) {
   $('leadTitle').textContent = l.product || 'Lead details';
   $('leadBody').innerHTML = `
     <div style="margin-bottom:14px;"><span class="pill ${c}">${esc(t)}</span></div>
-    <div class="facts">${[['Buyer', l.company || l.contact_name], ['Country', l.country], ['Quantity', l.quantity], ['Category', l.category], ['Received', fmtDate(l.assigned_at || l.created_at)], ['Contact person', l.contact_name]]
+    <div class="facts">${[['Contact person', l.contact_name], ['Company', l.company], ['Mobile', l.phone], ['Email', l.email], ['Country', l.country], ['Quantity', l.quantity], ['Quality', l.quality && title(l.quality)], ['Category', l.category], ['Posted', l.created_at && fmtDate(l.created_at)], ['Bought on', fmtDate(l.assigned_at || l.created_at)]]
       .filter(([, v]) => v).map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
     ${note ? `<div class="note">${esc(note)}</div>` : ''}
     <div class="btn-row">
