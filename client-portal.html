@@ -204,32 +204,18 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 @keyframes skel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
 /* lead marketplace */
-.tabs{display:flex;gap:4px;background:#EAEFF6;border-radius:12px;padding:4px;width:max-content;max-width:100%;margin-bottom:18px;}
-.tab{border:none;background:none;padding:9px 16px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--cp-mid);cursor:pointer;font-family:inherit;white-space:nowrap;}
-.tab.on{background:#fff;color:var(--cp-ink);box-shadow:0 1px 3px rgba(11,25,41,.08);}
-.tab .n{margin-left:6px;font-size:12px;color:var(--cp-soft);}
 .credit{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#fff;border:1px solid var(--cp-line);border-radius:16px;padding:16px 20px;margin-bottom:16px;}
 .credit-l{display:flex;align-items:center;gap:14px;}
 .credit-num{font-size:26px;font-weight:600;color:var(--cp-ink);line-height:1;}
 .credit-txt{font-size:13.5px;color:var(--cp-mid);line-height:1.5;}
 .credit-txt b{color:var(--cp-ink);font-weight:600;}
 .credit .bar{width:180px;}
-.mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
-.mk{background:#fff;border:1px solid var(--cp-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;}
-.mk:hover{border-color:#C9D5E6;box-shadow:0 8px 22px rgba(11,25,41,.06);}
-.mk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
-.mk-prod{font-size:15px;font-weight:600;color:var(--cp-ink);line-height:1.35;}
-.mk-cat{font-size:12.5px;color:var(--cp-soft);margin-top:2px;}
-.mk-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.mk-facts div{background:#F6F8FC;border-radius:9px;padding:8px 10px;font-size:13px;color:var(--cp-ink);font-weight:600;overflow-wrap:anywhere;}
-.mk-facts small{display:block;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--cp-soft);font-weight:600;margin-bottom:2px;}
-.mk-buyer{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--cp-mid);}
-.mk-buyer .lock{width:26px;height:26px;border-radius:8px;background:#EEF2F7;color:var(--cp-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.mk-buyer .lock .ic{width:14px;height:14px;}
-.mk-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:4px;}
-.mk-meta{font-size:12px;color:var(--cp-soft);}
-.mk .btn{padding:8px 14px;font-size:13px;}
-.more-row{display:flex;justify-content:center;margin-top:18px;}
+.buy-strip{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--cp-line);border-radius:14px;padding:16px 18px;margin-bottom:22px;}
+.buy-strip-t{flex:1 1 260px;font-size:13px;color:var(--cp-mid);line-height:1.5;}
+.buy-strip-t b{display:block;font-size:15px;color:var(--cp-ink);font-weight:600;}
+.buy-strip .search{flex:1 1 220px;}
+.mine-h{font-size:15px;font-weight:600;color:var(--cp-ink);margin:0 0 12px;}
+.mine-h .n{margin-left:6px;font-size:12.5px;color:var(--cp-soft);font-weight:500;}
 .filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
 .filters .search{max-width:none;}
 .sel{height:40px;border:1px solid var(--cp-line);border-radius:10px;padding:0 12px;font-size:13.5px;font-family:inherit;color:var(--cp-ink);background:#fff;min-width:180px;}
@@ -263,7 +249,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 .pf-preview .logo-box{width:56px;height:56px;border-style:solid;}
 .pf-preview b{display:block;font-size:15px;color:var(--cp-ink);}
 .pf-preview span{font-size:12.5px;color:var(--cp-soft);}
-@media(max-width:640px){.pf-grid{grid-template-columns:1fr;}.credit .bar{width:100%;}.tabs{width:100%;}.tab{flex:1;}}
+@media(max-width:640px){.pf-grid{grid-template-columns:1fr;}.credit .bar{width:100%;}.buy-strip .btn{width:100%;justify-content:center;}}
 @media(max-width:1180px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:1024px){
   .sidebar{transform:translateX(-100%);}
@@ -426,7 +412,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <!-- ═══ LEADS ═══ -->
     <section class="p-panel" id="panel-leads">
       <div class="ph">
-        <div><h1>Buyer leads</h1><p>Browse fresh buyer requirements and unlock the ones that match your products.</p></div>
+        <div><h1>Buyer leads</h1><p>Leads you have bought. Search the website to find and buy new buyer leads.</p></div>
         <a class="btn ghost js-rm-wa-more" href="https://wa.me/918796787594" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Ask RM for help</a>
       </div>
 
@@ -435,21 +421,14 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
         <div class="bar"><i id="crBar"></i></div>
       </div>
 
-      <div class="tabs" role="tablist">
-        <button class="tab on" data-ltab="find" role="tab">Find buyers<span class="n" id="findN"></span></button>
-        <button class="tab" data-ltab="mine" role="tab">My leads<span class="n" id="mineN">0</span></button>
-      </div>
+      <form class="buy-strip" id="buyForm" action="/buy-lead-search" method="get">
+        <div class="buy-strip-t"><b>Find new buyers</b><span>Search a product, then press "Buy lead" on the leads you want. Each lead uses 1 credit and appears below.</span></div>
+        <label class="search"><svg class="ic"><use href="#i-search"/></svg><input name="q" id="buyQ" type="search" placeholder="e.g. rice, cotton, spices" required></label>
+        <button class="btn primary" type="submit">Search leads</button>
+      </form>
 
-      <div id="ltab-find">
-        <div class="filters">
-          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="mkSearch" type="search" placeholder="Search product or category, e.g. rice, cotton, spices"></label>
-          <select class="sel" id="mkCountry" aria-label="Country"><option value="">All countries</option></select>
-        </div>
-        <div class="mk-grid" id="mkGrid"></div>
-        <div class="more-row"><button class="btn ghost" id="mkMore" style="display:none;">Show more leads</button></div>
-      </div>
-
-      <div id="ltab-mine" style="display:none;">
+      <h2 class="mine-h">My leads <span class="n" id="mineN">0</span></h2>
+      <div id="ltab-mine">
         <div class="tbl-card">
           <div class="toolbar">
             <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="leadSearch" type="search" placeholder="Search product, company or country"></label>
@@ -609,7 +588,7 @@ const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
 let _sb = null, _user = null, _client = null, _plan = null, _leads = [], _quota = null, _waNum = DEFAULT_WA;
 let _leadFilter = 'all', _leadQuery = '';
-let _profile = null, _tags = {}, _credits = null, _mk = [], _mkTotal = 0, _mkQ = '', _mkCountry = '', _mkBusy = false, _mkLoaded = false;
+let _profile = null, _tags = {}, _credits = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -863,11 +842,12 @@ function renderLeads(leads) {
 }
 
 function emptyLeads() {
-  const hasQuota = !!_quota;
+  const c = _credits || {};
+  const paid = c.active && c.lead_limit;
   return `<div class="empty"><div class="empty-ic">${ico('inbox')}</div>
-    <strong>${hasQuota ? 'No leads delivered yet' : 'Buyer leads are not part of your plan'}</strong>
-    ${hasQuota ? 'Your Relationship Manager will deliver your first verified buyer leads soon.' : 'Upgrade to a lead plan to receive verified buyer enquiries for your products.'}
-    <div><a class="btn ${hasQuota ? 'ghost' : 'primary'}" href="${hasQuota ? waLink('Hello, when can I expect my first buyer leads?') : 'membership.html#compare'}" ${hasQuota ? 'target="_blank" rel="noopener"' : ''}>${hasQuota ? 'Ask your RM' : 'Compare plans'}</a></div></div>`;
+    <strong>${paid ? 'No leads bought yet' : 'Buy a membership to buy leads'}</strong>
+    ${paid ? 'Search the website for your product and press "Buy lead". The leads you buy will be listed here.' : 'Every plan includes lead credits. Leads you buy with them are listed here.'}
+    <div><a class="btn primary" href="${paid ? '/buy-lead-search' : '/membership'}">${paid ? 'Search & buy leads' : 'View plans'}</a></div></div>`;
 }
 
 function drawLeadTable() {
@@ -919,101 +899,20 @@ function renderCredits() {
     const free = !c || !c.active;
     $('crNum').textContent = '0';
     $('crTxt').innerHTML = free
-      ? `<b>Buy a membership to unlock buyer leads</b><br>You can browse every lead now. Contacts open once your plan is active. <a href="/membership" style="color:var(--cp-blue);font-weight:600">View plans</a>`
+      ? `<b>Buy a membership to unlock buyer leads</b><br>Every plan includes lead credits to buy buyer leads. <a href="/membership" style="color:var(--cp-blue);font-weight:600">View plans</a>`
       : `<b>Buyer leads are not part of your plan</b><br><a href="/membership#compare" style="color:var(--cp-blue)">Upgrade your plan</a> to start unlocking leads.`;
     $('crBar').style.width = '0'; return;
   }
   $('crNum').textContent = c.remaining;
   if (c.active && c.unlock_from) {
     const t = new Date(c.unlock_from).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' });
-    $('crTxt').innerHTML = `<b>lead credits ready</b> · your membership is active. Buyer contacts unlock from <b>${t}</b>, 24 hours after purchase. You can browse leads and complete your profile now.`;
+    $('crTxt').innerHTML = `<b>lead credits ready</b> · your membership is active. You can buy leads from <b>${t}</b>, 24 hours after purchase. Complete your profile meanwhile.`;
     $('crBar').style.width = '0'; return;
   }
   $('crTxt').innerHTML = c.active
     ? `<b>lead credit${c.remaining === 1 ? '' : 's'} left</b> · ${c.used} of ${c.lead_limit} used this membership year`
     : `<b>Your membership is not active</b> · renew to keep unlocking leads`;
   $('crBar').style.width = `${Math.min(100, (c.used / c.lead_limit) * 100)}%`;
-}
-
-/* ── FIND BUYERS (masked, paged) ── */
-function relTime(d) {
-  const days = Math.floor((Date.now() - new Date(d)) / 86400000);
-  return days <= 0 ? 'Today' : days === 1 ? 'Yesterday' : days < 30 ? `${days} days ago` : fmtDate(d);
-}
-async function loadMarket(reset) {
-  if (_mkBusy || !_client) { if (!_client) $('mkGrid').innerHTML = emptyMarket(); return; }
-  _mkBusy = true;
-  if (reset) { _mk = []; $('mkGrid').innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="skel" style="width:160px"></span></div>'; }
-  try {
-    const { data, error } = await getSB().rpc('browse_leads', { p_search: _mkQ || null, p_country: _mkCountry || null, p_offset: _mk.length });
-    if (error) throw error;
-    _mk = _mk.concat(data || []);
-    _mkTotal = data && data[0] ? Number(data[0].total) : (reset ? 0 : _mkTotal);
-  } catch (e) { if (reset) _mk = []; }
-  _mkBusy = false; _mkLoaded = true;
-  drawMarket();
-}
-function emptyMarket() {
-  return `<div class="empty" style="grid-column:1/-1"><div class="empty-ic">${ico('search')}</div><strong>${_client ? 'No leads match' : 'Buyer leads are for members'}</strong>${_client ? 'Try another product or country.' : 'Choose a plan to browse and unlock buyer leads.'}</div>`;
-}
-function drawMarket() {
-  $('findN').textContent = _mkTotal ? _mkTotal.toLocaleString('en-IN') : '';
-  if (!_mk.length) { $('mkGrid').innerHTML = emptyMarket(); $('mkMore').style.display = 'none'; return; }
-  $('mkGrid').innerHTML = _mk.map((l, i) => `
-    <div class="mk">
-      <div class="mk-top"><div><div class="mk-prod">${esc(l.product || 'Buyer requirement')}</div><div class="mk-cat">${esc(l.category || '')}</div></div>
-        ${l.unlocked ? '<span class="pill green">Unlocked</span>' : (l.unlocked_by ? `<span class="pill grey">${l.unlocked_by} of 5 taken</span>` : '<span class="pill blue">New</span>')}</div>
-      <div class="mk-facts"><div><small>Country</small>${esc(l.country || '—')}</div><div><small>Quantity</small>${esc(l.quantity || 'On request')}</div></div>
-      <div class="mk-buyer"><span class="lock">${ico(l.unlocked ? 'unlock' : 'lock')}</span>${esc(l.buyer_hint || 'Verified buyer')}</div>
-      <div class="mk-foot"><span class="mk-meta">${relTime(l.posted_at)}</span>
-        ${l.unlocked ? `<button class="btn ghost" onclick="openUnlocked('${l.id}')">View contact</button>` : `<button class="btn primary" onclick="askUnlock(${i})">${ico('unlock', 'width:15px;height:15px')}Unlock</button>`}</div>
-    </div>`).join('');
-  $('mkMore').style.display = _mk.length < _mkTotal ? '' : 'none';
-}
-async function loadCountries() {
-  try {
-    const { data } = await getSB().rpc('lead_countries');
-    $('mkCountry').innerHTML = '<option value="">All countries</option>' + (data || []).map(c => `<option value="${esc(c.country)}">${esc(c.country)} (${c.n})</option>`).join('');
-  } catch (e) {}
-}
-function askUnlock(i) {
-  const l = _mk[i]; if (!l) return;
-  const c = _credits || {};
-  const wait = c.active && c.unlock_from;
-  const can = c.active && c.remaining > 0 && !wait;
-  $('leadTitle').textContent = 'Unlock buyer contact';
-  $('leadBody').innerHTML = `
-    <div class="facts">${[['Product', l.product], ['Country', l.country], ['Quantity', l.quantity || 'On request'], ['Posted', relTime(l.posted_at)]].map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v || '—')}</b></div>`).join('')}</div>
-    ${can
-      ? `<div class="note">Unlocking shows the buyer's name, phone and email and adds this lead to <b>My leads</b>. It uses <b>1</b> of your <b>${c.remaining}</b> remaining lead credits.</div>
-         <div class="btn-row"><button class="btn primary" id="unlockGo" onclick="doUnlock(${i})">${ico('unlock')}Unlock for 1 credit</button><button class="btn ghost" onclick="closeLead()">Cancel</button></div>`
-      : wait ? `<div class="note">Your membership is active. Buyer contacts unlock from <b>${new Date(c.unlock_from).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' })}</b>, 24 hours after purchase. Your ${c.remaining} lead credits are waiting.</div>
-         <div class="btn-row"><button class="btn primary" data-goto="profile" onclick="closeLead()">Complete your profile meanwhile</button><button class="btn ghost" onclick="closeLead()">Close</button></div>`
-      : `<div class="note">${!c.active ? 'Buyer contacts are available to members. Buy a membership plan and your lead credits start straight away.' : !c.lead_limit ? 'Buyer leads are not part of your current plan. Upgrade to unlock buyer contacts.' : 'You have used all the lead credits in your plan. Upgrade or talk to your RM for more.'}</div>
-         <div class="btn-row"><a class="btn primary" href="/membership">${!c.active ? 'Buy membership' : 'Compare plans'}</a><a class="btn wa" href="${waLink('Hello, I would like more buyer lead credits.')}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Talk to RM</a></div>`}`;
-  $('leadModal').classList.add('open');
-}
-async function doUnlock(i) {
-  const l = _mk[i]; const btn = $('unlockGo');
-  if (btn) { btn.disabled = true; btn.textContent = 'Unlocking…'; }
-  const msgs = { NOT_YET_ELIGIBLE: 'Buyer contacts unlock 24 hours after your membership purchase.', NO_CREDITS: 'You have used all your lead credits.', PLAN_INACTIVE: 'Your membership is not active.', LEAD_UNAVAILABLE: 'This lead is no longer available.', NO_MEMBERSHIP: 'No membership is linked to your account.' };
-  try {
-    const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: l.id });
-    if (error) throw error;
-    if (typeof gtag === 'function') gtag('event', 'unlock_lead', { product: l.product, country: l.country });
-    l.unlocked = true; l.buyer_hint = data.lead && data.lead.company || l.buyer_hint; l.unlocked_by = (l.unlocked_by || 0) + 1;
-    await Promise.all([loadCredits(), loadLeads(_client.id)]);
-    drawMarket();
-    openUnlocked(l.id);
-  } catch (e) {
-    const code = Object.keys(msgs).find(k => String(e.message || '').includes(k));
-    $('leadBody').insertAdjacentHTML('afterbegin', `<div class="notice" style="margin-bottom:14px">${ico('alert')}<div>${msgs[code] || 'Could not unlock this lead. Please try again.'}</div></div>`);
-    if (btn) { btn.disabled = false; btn.innerHTML = `${ico('unlock')}Unlock for 1 credit`; }
-  }
-}
-function openUnlocked(id) {
-  const i = _leads.findIndex(x => x.id === id);
-  if (i >= 0) openLead(i); else closeLead();
 }
 
 /* ── COMPANY PROFILE ── */
@@ -1132,7 +1031,6 @@ function showPanel(name) {
   document.querySelectorAll('.p-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
   document.querySelectorAll('.sb-link[data-panel]').forEach(l => l.classList.toggle('active', l.dataset.panel === name));
   $('topbarTitle').textContent = TITLES[name] || name;
-  if (name === 'leads' && !_mkLoaded) { loadMarket(true); loadCountries(); }
   closeSidebar();
   window.scrollTo({ top: 0 });
 }
@@ -1143,15 +1041,6 @@ document.addEventListener('click', e => {
   if (chip) { _leadFilter = chip.dataset.f; document.querySelectorAll('#leadChips .chip').forEach(c => c.classList.toggle('on', c === chip)); drawLeadTable(); }
 });
 $('leadSearch').addEventListener('input', e => { _leadQuery = e.target.value.trim(); drawLeadTable(); });
-document.querySelectorAll('[data-ltab]').forEach(t => t.addEventListener('click', () => {
-  document.querySelectorAll('[data-ltab]').forEach(x => x.classList.toggle('on', x === t));
-  $('ltab-find').style.display = t.dataset.ltab === 'find' ? '' : 'none';
-  $('ltab-mine').style.display = t.dataset.ltab === 'mine' ? '' : 'none';
-}));
-let _mkT;
-$('mkSearch').addEventListener('input', e => { clearTimeout(_mkT); _mkT = setTimeout(() => { _mkQ = e.target.value.trim(); loadMarket(true); }, 300); });
-$('mkCountry').addEventListener('change', e => { _mkCountry = e.target.value; loadMarket(true); });
-$('mkMore').addEventListener('click', () => loadMarket(false));
 $('pfLogoFile').addEventListener('change', e => uploadLogo(e.target.files[0]));
 $('pf_about').addEventListener('input', e => { $('pfAboutN').textContent = e.target.value.length; });
 $('pfForm').addEventListener('input', () => { $('pfMsg').textContent = ''; updateProfileStrength(); });

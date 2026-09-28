@@ -279,13 +279,19 @@ function getSB() {
   return _sb;
 }
 
+/* Where to go after sign-in: only our own lead search page may be passed in ?next= */
+const AFTER_LOGIN = (() => {
+  const n = new URLSearchParams(location.search).get('next') || '';
+  return /^\/buy-lead-search(\?[^#]*)?$/.test(n) ? n : 'client-portal.html';
+})();
+
 (async function() {
   const sb = getSB(); if (!sb) return;
   sb.auth.onAuthStateChange(evt => { if (evt === 'PASSWORD_RECOVERY') switchTab('newpw'); });
   if (IS_RECOVERY) { switchTab('newpw'); return; }
   /* Already signed in → straight to the portal */
   const { data } = await sb.auth.getSession();
-  if (data.session) location.href = 'client-portal.html';
+  if (data.session) location.href = AFTER_LOGIN;
 })();
 
 function switchTab(tab) {
@@ -328,7 +334,7 @@ async function handleLogin() {
     showAlert('loginErr','error', error.message.includes('Invalid') ? 'Incorrect email or password. Please try again.' : error.message);
   } else {
     showAlert('loginOk','success','Signed in. Opening your dashboard…');
-    setTimeout(() => location.href = 'client-portal.html', 800);
+    setTimeout(() => location.href = AFTER_LOGIN, 800);
   }
 }
 
