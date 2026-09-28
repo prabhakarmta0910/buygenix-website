@@ -97,6 +97,7 @@
 .lc-owned{font-size:13px;color:#15803D;font-weight:500;}
 .lc-owned a{color:#15803D;}
 .lc-closed{font-size:13px;color:#888;}
+.lc-admin{font-size:12.5px;color:#9A6E00;font-weight:500;}
 /* Buy popup */
 .bp-ov{position:fixed;inset:0;z-index:3000;background:rgba(11,25,41,.5);display:none;align-items:center;justify-content:center;padding:16px;font-family:'Roboto',Arial,sans-serif;}
 .bp-ov.open{display:flex;}
@@ -259,6 +260,7 @@ function buyerState() {
 
 function bannerHTML() {
   const q = _quota || {}, s = buyerState();
+  if (_results.some(r => r.admin_view)) return `<div class="bls-banner"><span class="bls-banner-icon">🛡️</span><div class="bls-banner-text"><strong>Admin view.</strong> You can see every buyer contact. Members see a contact only after they buy that lead with a credit. To test buying, sign in with a member account.</div><a href="/admin-portal" class="btn-primary btn-sm">Admin Portal →</a></div>`;
   const box = (icon, text, link) => `<div class="bls-banner"><span class="bls-banner-icon">${icon}</span><div class="bls-banner-text">${text}</div>${link || ''}</div>`;
   if (s === 'guest') return box('🔒', `<strong>Buyer contacts are hidden.</strong> Sign in as a member and press "Contact Buyer". Each contact uses 1 lead credit from your plan.`, `<a href="${loginUrl()}" class="btn-primary btn-sm">Member Login →</a>`);
   if (s === 'free') return box('🔒', `<strong>Buy a membership to buy leads.</strong> Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.`, `<a href="/membership" class="btn-primary btn-sm">View Plans →</a>`);
@@ -287,7 +289,7 @@ function actionHTML(l, idx) {
     return `<div class="row">
         ${wa ? `<a href="https://wa.me/${wa}" target="_blank" rel="noopener" class="lc-btn wa">WhatsApp</a><a href="tel:+${wa}" class="lc-btn">Call Buyer</a>` : ''}
         ${!wa && l.email ? `<a href="mailto:${esc(l.email)}" class="lc-btn">Email Buyer</a>` : ''}
-      </div><span class="lc-owned">✓ Bought · saved in <a href="/client-portal">your portal</a></span>`;
+      </div>${l.bought ? `<span class="lc-owned">✓ Bought · saved in <a href="/client-portal">your portal</a></span>` : `<span class="lc-admin">Admin view · not bought</span>`}`;
   }
   if (!l.available) return `<span class="lc-closed">This requirement is closed</span>`;
   return `<button class="lc-btn" type="button" onclick="contactBuyer(${idx})">Contact Buyer</button>`;
