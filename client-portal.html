@@ -203,6 +203,67 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 .skel{display:inline-block;min-width:40px;height:1em;border-radius:6px;background:linear-gradient(90deg,#EEF2F7 25%,#E2E8F0 50%,#EEF2F7 75%);background-size:200% 100%;animation:skel 1.3s infinite;vertical-align:middle;}
 @keyframes skel{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
 
+/* lead marketplace */
+.tabs{display:flex;gap:4px;background:#EAEFF6;border-radius:12px;padding:4px;width:max-content;max-width:100%;margin-bottom:18px;}
+.tab{border:none;background:none;padding:9px 16px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--cp-mid);cursor:pointer;font-family:inherit;white-space:nowrap;}
+.tab.on{background:#fff;color:var(--cp-ink);box-shadow:0 1px 3px rgba(11,25,41,.08);}
+.tab .n{margin-left:6px;font-size:12px;color:var(--cp-soft);}
+.credit{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:#fff;border:1px solid var(--cp-line);border-radius:16px;padding:16px 20px;margin-bottom:16px;}
+.credit-l{display:flex;align-items:center;gap:14px;}
+.credit-num{font-size:26px;font-weight:600;color:var(--cp-ink);line-height:1;}
+.credit-txt{font-size:13.5px;color:var(--cp-mid);line-height:1.5;}
+.credit-txt b{color:var(--cp-ink);font-weight:600;}
+.credit .bar{width:180px;}
+.mk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.mk{background:#fff;border:1px solid var(--cp-line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;transition:border-color .15s,box-shadow .15s;}
+.mk:hover{border-color:#C9D5E6;box-shadow:0 8px 22px rgba(11,25,41,.06);}
+.mk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.mk-prod{font-size:15px;font-weight:600;color:var(--cp-ink);line-height:1.35;}
+.mk-cat{font-size:12.5px;color:var(--cp-soft);margin-top:2px;}
+.mk-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mk-facts div{background:#F6F8FC;border-radius:9px;padding:8px 10px;font-size:13px;color:var(--cp-ink);font-weight:600;overflow-wrap:anywhere;}
+.mk-facts small{display:block;font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--cp-soft);font-weight:600;margin-bottom:2px;}
+.mk-buyer{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--cp-mid);}
+.mk-buyer .lock{width:26px;height:26px;border-radius:8px;background:#EEF2F7;color:var(--cp-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mk-buyer .lock .ic{width:14px;height:14px;}
+.mk-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:4px;}
+.mk-meta{font-size:12px;color:var(--cp-soft);}
+.mk .btn{padding:8px 14px;font-size:13px;}
+.more-row{display:flex;justify-content:center;margin-top:18px;}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.filters .search{max-width:none;}
+.sel{height:40px;border:1px solid var(--cp-line);border-radius:10px;padding:0 12px;font-size:13.5px;font-family:inherit;color:var(--cp-ink);background:#fff;min-width:180px;}
+/* profile form */
+.pf-sec{background:#fff;border:1px solid var(--cp-line);border-radius:16px;padding:22px;}
+.pf-sec + .pf-sec{margin-top:16px;}
+.pf-sec h2{font-size:15px;font-weight:600;color:var(--cp-ink);margin:0 0 4px;}
+.pf-sec > p{font-size:13px;color:var(--cp-soft);margin:0 0 16px;}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;}
+.pf-grid .full{grid-column:1/-1;}
+.fld label{display:block;font-size:12.5px;font-weight:600;color:var(--cp-ink);margin-bottom:6px;}
+.fld label small{font-weight:500;color:var(--cp-soft);}
+.fld input,.fld select,.fld textarea{width:100%;box-sizing:border-box;border:1px solid #D9E1EC;border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;color:var(--cp-ink);background:#fff;outline:none;}
+.fld textarea{min-height:110px;resize:vertical;line-height:1.6;}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--cp-blue);box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+.fld .hint{font-size:12px;color:var(--cp-soft);margin-top:5px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;border:1px solid #D9E1EC;border-radius:10px;padding:6px;min-height:44px;background:#fff;cursor:text;}
+.tags:focus-within{border-color:var(--cp-blue);box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+.tag{display:inline-flex;align-items:center;gap:6px;background:var(--cp-blue-soft);color:#1D4ED8;border-radius:8px;padding:5px 8px 5px 10px;font-size:13px;font-weight:600;}
+.tag button{border:none;background:none;color:#1D4ED8;cursor:pointer;font-size:15px;line-height:1;padding:0 2px;}
+.tags input{border:none;outline:none;flex:1;min-width:140px;font-size:14px;font-family:inherit;padding:5px 6px;box-shadow:none;}
+.logo-row{display:flex;align-items:center;gap:16px;}
+.logo-box{width:84px;height:84px;border-radius:14px;border:1px dashed #C9D5E6;background:#F8FAFD;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;color:var(--cp-soft);font-size:12px;text-align:center;}
+.logo-box img{width:100%;height:100%;object-fit:contain;background:#fff;}
+.pf-actions{position:sticky;bottom:0;z-index:5;display:flex;justify-content:flex-end;align-items:center;gap:12px;background:rgba(243,246,251,.94);backdrop-filter:blur(6px);padding:14px 0;margin-top:16px;}
+.pf-msg{font-size:13.5px;margin-right:auto;}
+.pf-msg.ok{color:var(--cp-green);}
+.pf-msg.err{color:var(--cp-red);}
+.pf-side{position:sticky;top:84px;}
+.pf-preview{display:flex;gap:12px;align-items:center;margin-bottom:14px;}
+.pf-preview .logo-box{width:56px;height:56px;border-style:solid;}
+.pf-preview b{display:block;font-size:15px;color:var(--cp-ink);}
+.pf-preview span{font-size:12.5px;color:var(--cp-soft);}
+@media(max-width:640px){.pf-grid{grid-template-columns:1fr;}.credit .bar{width:100%;}.tabs{width:100%;}.tab{flex:1;}}
 @media(max-width:1180px){.stats{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media(max-width:1024px){
   .sidebar{transform:translateX(-100%);}
@@ -256,6 +317,9 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
   <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
   <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></symbol>
   <symbol id="i-upgrade" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.5-2"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
 </svg>
 
 <div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
@@ -274,7 +338,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <button class="sb-link" data-panel="reports"><svg class="ic"><use href="#i-chart"/></svg>Reports</button>
     <div class="sb-section">Account</div>
     <button class="sb-link" data-panel="membership"><svg class="ic"><use href="#i-card"/></svg>My Membership</button>
-    <button class="sb-link" data-panel="profile"><svg class="ic"><use href="#i-user"/></svg>Business Profile</button>
+    <button class="sb-link" data-panel="profile"><svg class="ic"><use href="#i-user"/></svg>Company Profile</button>
     <div class="sb-section">Support</div>
     <a class="sb-link js-rm-wa" href="https://wa.me/918796787594" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">WhatsApp my RM</a>
     <a class="sb-link" href="/contact"><svg class="ic"><use href="#i-send"/></svg>Send an enquiry</a>
@@ -353,7 +417,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
             <div class="card-h"><h2><svg class="ic"><use href="#i-user"/></svg>Complete your profile</h2></div>
             <div class="pc-wrap"><div class="pc-ring" id="pcRing"><span id="pcPct">0%</span></div><div class="pc-text"><strong id="pcHead">Add your business details</strong>Buyers and our team rely on these to match you with the right enquiries.</div></div>
             <div class="pc-list" id="pcMissing"></div>
-            <a class="btn ghost js-rm-wa-profile" href="https://wa.me/918796787594" target="_blank" rel="noopener" style="width:100%;">Share missing details with RM</a>
+            <button class="btn primary" data-goto="profile" style="width:100%;">Complete company profile</button>
           </div>
         </div>
       </div>
@@ -362,21 +426,43 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <!-- ═══ LEADS ═══ -->
     <section class="p-panel" id="panel-leads">
       <div class="ph">
-        <div><h1>Buyer leads</h1><p>Every buyer enquiry your Relationship Manager has delivered to you.</p></div>
-        <a class="btn primary js-rm-wa-more" href="https://wa.me/918796787594" target="_blank" rel="noopener"><svg class="ic"><use href="#i-target"/></svg>Request more leads</a>
+        <div><h1>Buyer leads</h1><p>Browse fresh buyer requirements and unlock the ones that match your products.</p></div>
+        <a class="btn ghost js-rm-wa-more" href="https://wa.me/918796787594" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Ask RM for help</a>
       </div>
-      <div class="tbl-card">
-        <div class="toolbar">
-          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="leadSearch" type="search" placeholder="Search product, company or country"></label>
-          <div class="chips" id="leadChips"></div>
+
+      <div class="credit" id="creditBar">
+        <div class="credit-l"><div class="credit-num" id="crNum">—</div><div class="credit-txt" id="crTxt">Loading your lead credits…</div></div>
+        <div class="bar"><i id="crBar"></i></div>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-ltab="find" role="tab">Find buyers<span class="n" id="findN"></span></button>
+        <button class="tab" data-ltab="mine" role="tab">My leads<span class="n" id="mineN">0</span></button>
+      </div>
+
+      <div id="ltab-find">
+        <div class="filters">
+          <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="mkSearch" type="search" placeholder="Search product or category, e.g. rice, cotton, spices"></label>
+          <select class="sel" id="mkCountry" aria-label="Country"><option value="">All countries</option></select>
         </div>
-        <div class="tbl-scroll">
-          <table class="tbl">
-            <thead><tr><th>Product</th><th>Country</th><th>Quantity</th><th>Type</th><th>Received</th><th></th></tr></thead>
-            <tbody id="leadsBody"></tbody>
-          </table>
+        <div class="mk-grid" id="mkGrid"></div>
+        <div class="more-row"><button class="btn ghost" id="mkMore" style="display:none;">Show more leads</button></div>
+      </div>
+
+      <div id="ltab-mine" style="display:none;">
+        <div class="tbl-card">
+          <div class="toolbar">
+            <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="leadSearch" type="search" placeholder="Search product, company or country"></label>
+            <div class="chips" id="leadChips"></div>
+          </div>
+          <div class="tbl-scroll">
+            <table class="tbl">
+              <thead><tr><th>Product</th><th>Country</th><th>Quantity</th><th>Type</th><th>Received</th><th></th></tr></thead>
+              <tbody id="leadsBody"></tbody>
+            </table>
+          </div>
+          <div class="tbl-foot" id="leadsFoot">&nbsp;</div>
         </div>
-        <div class="tbl-foot" id="leadsFoot">&nbsp;</div>
       </div>
     </section>
 
@@ -445,16 +531,63 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 
     <!-- ═══ PROFILE ═══ -->
     <section class="p-panel" id="panel-profile">
-      <div class="ph"><div><h1>Business profile</h1><p>The details we use to match you with buyers.</p></div></div>
+      <div class="ph"><div><h1>Company profile</h1><p>A complete profile helps us match you with the right buyers and builds trust when you contact them.</p></div></div>
       <div class="grid-main">
-        <div class="card">
-          <div class="card-h"><h2><svg class="ic"><use href="#i-user"/></svg>Business details</h2></div>
-          <div id="profRows"></div>
-        </div>
-        <div class="card">
-          <div class="card-h"><h2><svg class="ic"><use href="#i-alert"/></svg>Update your details</h2></div>
-          <p style="font-size:13.5px;color:var(--cp-mid);line-height:1.6;margin-bottom:14px;">To keep your listing accurate, profile changes are made by your Relationship Manager. Send the new details and they will update them for you.</p>
-          <a class="btn primary js-rm-wa-profile" href="https://wa.me/918796787594" target="_blank" rel="noopener" style="width:100%;">Send updates on WhatsApp</a>
+        <form id="pfForm" autocomplete="on" onsubmit="saveProfile(event)">
+          <div class="pf-sec">
+            <h2>Company</h2><p>How your business appears to buyers.</p>
+            <div class="pf-grid">
+              <div class="fld full"><label>Company logo <small>(PNG, JPG or WEBP, up to 1 MB)</small></label>
+                <div class="logo-row"><div class="logo-box" id="pfLogoBox">No logo</div>
+                  <div><input type="file" id="pfLogoFile" accept="image/png,image/jpeg,image/webp" style="display:none"><button type="button" class="btn ghost" onclick="document.getElementById('pfLogoFile').click()">Upload logo</button><div class="hint" id="pfLogoHint">A square logo looks best.</div></div></div></div>
+              <div class="fld"><label for="pf_company_name">Company name *</label><input id="pf_company_name" maxlength="120" required></div>
+              <div class="fld"><label for="pf_business_type">Business type *</label><select id="pf_business_type" required><option value="">Select</option><option>Manufacturer</option><option>Manufacturer &amp; Exporter</option><option>Exporter</option><option>Merchant Exporter / Trader</option><option>Wholesaler / Distributor</option><option>Service Provider</option></select></div>
+              <div class="fld full"><label for="pf_tagline">Tagline <small>(one line)</small></label><input id="pf_tagline" maxlength="120" placeholder="e.g. Exporters of premium basmati rice since 2008"></div>
+              <div class="fld full"><label for="pf_about">About your company *</label><textarea id="pf_about" maxlength="3000" required placeholder="What you make, your capacity, quality standards and the markets you serve."></textarea><div class="hint"><span id="pfAboutN">0</span> / 3000</div></div>
+              <div class="fld"><label for="pf_year_established">Year established</label><input id="pf_year_established" type="number" min="1800" max="2100" placeholder="e.g. 2012"></div>
+              <div class="fld"><label for="pf_employees">Team size</label><select id="pf_employees"><option value="">Select</option><option>1–10</option><option>11–50</option><option>51–200</option><option>201–500</option><option>500+</option></select></div>
+              <div class="fld"><label for="pf_annual_turnover">Annual turnover</label><select id="pf_annual_turnover"><option value="">Select</option><option>Up to ₹1 crore</option><option>₹1–5 crore</option><option>₹5–25 crore</option><option>₹25–100 crore</option><option>Above ₹100 crore</option></select></div>
+              <div class="fld"><label for="pf_website">Website</label><input id="pf_website" type="url" maxlength="200" placeholder="https://"></div>
+            </div>
+          </div>
+
+          <div class="pf-sec">
+            <h2>Products &amp; markets</h2><p>Press Enter after each item. These decide which buyer leads fit you.</p>
+            <div class="pf-grid">
+              <div class="fld full"><label>Products you sell *</label><div class="tags" data-tags="products" data-max="50"><input placeholder="e.g. Basmati rice"></div></div>
+              <div class="fld full"><label>Categories</label><div class="tags" data-tags="categories" data-max="20"><input placeholder="e.g. Agriculture, Food &amp; Beverages"></div></div>
+              <div class="fld full"><label>Export markets</label><div class="tags" data-tags="export_markets" data-max="60"><input placeholder="e.g. UAE, Germany, USA"></div></div>
+              <div class="fld full"><label>Certifications</label><div class="tags" data-tags="certifications" data-max="30"><input placeholder="e.g. ISO 9001, FSSAI, APEDA"></div></div>
+            </div>
+          </div>
+
+          <div class="pf-sec">
+            <h2>Contact &amp; compliance</h2><p>Shown only to our team and to buyers you contact.</p>
+            <div class="pf-grid">
+              <div class="fld"><label for="pf_contact_person">Contact person *</label><input id="pf_contact_person" maxlength="100" required></div>
+              <div class="fld"><label for="pf_designation">Designation</label><input id="pf_designation" maxlength="80" placeholder="e.g. Director"></div>
+              <div class="fld"><label for="pf_phone">Phone *</label><input id="pf_phone" type="tel" maxlength="20" required></div>
+              <div class="fld"><label for="pf_whatsapp">WhatsApp</label><input id="pf_whatsapp" type="tel" maxlength="20"></div>
+              <div class="fld"><label for="pf_email">Business email</label><input id="pf_email" type="email" maxlength="150"></div>
+              <div class="fld"><label for="pf_country">Country</label><input id="pf_country" maxlength="60"></div>
+              <div class="fld full"><label for="pf_address">Address</label><input id="pf_address" maxlength="250"></div>
+              <div class="fld"><label for="pf_city">City *</label><input id="pf_city" maxlength="80" required></div>
+              <div class="fld"><label for="pf_state">State</label><input id="pf_state" maxlength="80"></div>
+              <div class="fld"><label for="pf_pincode">PIN code</label><input id="pf_pincode" maxlength="10"></div>
+              <div class="fld"><label for="pf_gstin">GSTIN</label><input id="pf_gstin" maxlength="15" style="text-transform:uppercase"></div>
+              <div class="fld"><label for="pf_iec">IEC</label><input id="pf_iec" maxlength="10" style="text-transform:uppercase"></div>
+            </div>
+          </div>
+
+          <div class="pf-actions"><span class="pf-msg" id="pfMsg"></span><button type="submit" class="btn primary" id="pfSave">Save profile</button></div>
+        </form>
+
+        <div class="pf-side">
+          <div class="card">
+            <div class="pf-preview"><div class="logo-box" id="pfPrevLogo">—</div><div><b id="pfPrevName">Your company</b><span id="pfPrevType">Complete your profile</span></div></div>
+            <div class="pc-wrap" style="margin-bottom:10px;"><div class="pc-ring" id="pcRing2"><span id="pcPct2">0%</span></div><div class="pc-text"><strong id="pcHead2">Profile strength</strong>Fill the starred fields to reach 100%.</div></div>
+            <div class="pc-list" id="pcMissing2"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -476,6 +609,7 @@ const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
 let _sb = null, _user = null, _client = null, _plan = null, _leads = [], _quota = null, _waNum = DEFAULT_WA;
 let _leadFilter = 'all', _leadQuery = '';
+let _profile = null, _tags = {}, _credits = null, _mk = [], _mkTotal = 0, _mkQ = '', _mkCountry = '', _mkBusy = false, _mkLoaded = false;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -525,19 +659,13 @@ async function loadMember() {
   const sb = getSB();
   let row = null;
   try {
-    let r = await sb.from('clients').select('*').eq('auth_user_id', _user.id).maybeSingle();
+    /* First login after admin added the member: link by email on the server (only sets auth_user_id) */
+    await sb.rpc('link_my_client').then(() => {}, () => {});
+    const r = await sb.from('clients').select('*').eq('auth_user_id', _user.id).maybeSingle();
     row = r.data;
-    /* First login after admin added the member: match by email, then self-link */
-    if (!row) {
-      const byEmail = await sb.from('clients').select('*').eq('email', _user.email).maybeSingle();
-      if (byEmail.data) {
-        row = byEmail.data;
-        sb.from('clients').update({ auth_user_id: _user.id }).eq('id', row.id).then(() => {}, () => {});
-      }
-    }
   } catch (e) { row = null; }
   _client = row;
-  if (row) { await loadPlan(row.plan); }
+  if (row) { await Promise.all([loadPlan(row.plan), loadProfile(row.id), loadCredits()]); }
   renderAll();
   if (row) await loadLeads(row.id);
   else renderLeads([]);
@@ -673,6 +801,7 @@ const PROFILE_FIELDS = [
 ];
 
 function renderProfile(m, meta) {
+  if ($('pfForm')) { if (_client) { fillProfileForm(); } else { $('pfForm').querySelectorAll('input,select,textarea,button').forEach(el => el.disabled = true); } return; }
   const vals = PROFILE_FIELDS.map(([k, f]) => [k, String(f(m) || '').trim()]);
   $('profRows').innerHTML = vals.map(([k, v]) =>
     `<div class="kv"><span>${k}</span><strong class="${v ? '' : 'missing'}">${v ? esc(v) : 'Not added'}</strong></div>`).join('');
@@ -702,8 +831,10 @@ function leadType(l) {
 function renderLeads(leads) {
   _leads = leads;
   $('leadsCount').textContent = leads.length;
+  $('mineN').textContent = leads.length;
   const got = leads.length;
   $('statReceived').textContent = got;
+  if (_credits && _credits.lead_limit) _quota = _credits.lead_limit;
   if (_quota) {
     $('statRemaining').textContent = Math.max(0, _quota - got);
     $('statRemainingSub').textContent = `Out of ${_quota} in your plan`;
@@ -775,12 +906,221 @@ function openLead(i) {
 }
 function closeLead() { $('leadModal').classList.remove('open'); }
 
+/* ── LEAD CREDITS ── */
+async function loadCredits() {
+  try { const { data } = await getSB().rpc('my_lead_quota'); _credits = data && data[0] ? data[0] : null; } catch (e) { _credits = null; }
+  renderCredits();
+}
+function renderCredits() {
+  const c = _credits;
+  if (!_client) { $('crNum').textContent = '—'; $('crTxt').innerHTML = '<b>No active membership</b><br>Choose a plan to unlock buyer leads.'; return; }
+  if (!c || !c.lead_limit) {
+    $('crNum').textContent = '0';
+    $('crTxt').innerHTML = `<b>Buyer leads are not part of your plan</b><br><a href="/membership#compare" style="color:var(--cp-blue)">Compare plans</a> to start unlocking leads.`;
+    $('crBar').style.width = '0'; return;
+  }
+  $('crNum').textContent = c.remaining;
+  $('crTxt').innerHTML = c.active
+    ? `<b>lead credit${c.remaining === 1 ? '' : 's'} left</b> · ${c.used} of ${c.lead_limit} used this membership year`
+    : `<b>Your membership is not active</b> · renew to keep unlocking leads`;
+  $('crBar').style.width = `${Math.min(100, (c.used / c.lead_limit) * 100)}%`;
+}
+
+/* ── FIND BUYERS (masked, paged) ── */
+function relTime(d) {
+  const days = Math.floor((Date.now() - new Date(d)) / 86400000);
+  return days <= 0 ? 'Today' : days === 1 ? 'Yesterday' : days < 30 ? `${days} days ago` : fmtDate(d);
+}
+async function loadMarket(reset) {
+  if (_mkBusy || !_client) { if (!_client) $('mkGrid').innerHTML = emptyMarket(); return; }
+  _mkBusy = true;
+  if (reset) { _mk = []; $('mkGrid').innerHTML = '<div class="empty" style="grid-column:1/-1"><span class="skel" style="width:160px"></span></div>'; }
+  try {
+    const { data, error } = await getSB().rpc('browse_leads', { p_search: _mkQ || null, p_country: _mkCountry || null, p_offset: _mk.length });
+    if (error) throw error;
+    _mk = _mk.concat(data || []);
+    _mkTotal = data && data[0] ? Number(data[0].total) : (reset ? 0 : _mkTotal);
+  } catch (e) { if (reset) _mk = []; }
+  _mkBusy = false; _mkLoaded = true;
+  drawMarket();
+}
+function emptyMarket() {
+  return `<div class="empty" style="grid-column:1/-1"><div class="empty-ic">${ico('search')}</div><strong>${_client ? 'No leads match' : 'Buyer leads are for members'}</strong>${_client ? 'Try another product or country.' : 'Choose a plan to browse and unlock buyer leads.'}</div>`;
+}
+function drawMarket() {
+  $('findN').textContent = _mkTotal ? _mkTotal.toLocaleString('en-IN') : '';
+  if (!_mk.length) { $('mkGrid').innerHTML = emptyMarket(); $('mkMore').style.display = 'none'; return; }
+  $('mkGrid').innerHTML = _mk.map((l, i) => `
+    <div class="mk">
+      <div class="mk-top"><div><div class="mk-prod">${esc(l.product || 'Buyer requirement')}</div><div class="mk-cat">${esc(l.category || '')}</div></div>
+        ${l.unlocked ? '<span class="pill green">Unlocked</span>' : (l.unlocked_by ? `<span class="pill grey">${l.unlocked_by} of 5 taken</span>` : '<span class="pill blue">New</span>')}</div>
+      <div class="mk-facts"><div><small>Country</small>${esc(l.country || '—')}</div><div><small>Quantity</small>${esc(l.quantity || 'On request')}</div></div>
+      <div class="mk-buyer"><span class="lock">${ico(l.unlocked ? 'unlock' : 'lock')}</span>${esc(l.buyer_hint || 'Verified buyer')}</div>
+      <div class="mk-foot"><span class="mk-meta">${relTime(l.posted_at)}</span>
+        ${l.unlocked ? `<button class="btn ghost" onclick="openUnlocked('${l.id}')">View contact</button>` : `<button class="btn primary" onclick="askUnlock(${i})">${ico('unlock', 'width:15px;height:15px')}Unlock</button>`}</div>
+    </div>`).join('');
+  $('mkMore').style.display = _mk.length < _mkTotal ? '' : 'none';
+}
+async function loadCountries() {
+  try {
+    const { data } = await getSB().rpc('lead_countries');
+    $('mkCountry').innerHTML = '<option value="">All countries</option>' + (data || []).map(c => `<option value="${esc(c.country)}">${esc(c.country)} (${c.n})</option>`).join('');
+  } catch (e) {}
+}
+function askUnlock(i) {
+  const l = _mk[i]; if (!l) return;
+  const c = _credits || {};
+  const can = c.active && c.remaining > 0;
+  $('leadTitle').textContent = 'Unlock buyer contact';
+  $('leadBody').innerHTML = `
+    <div class="facts">${[['Product', l.product], ['Country', l.country], ['Quantity', l.quantity || 'On request'], ['Posted', relTime(l.posted_at)]].map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v || '—')}</b></div>`).join('')}</div>
+    ${can
+      ? `<div class="note">Unlocking shows the buyer's name, phone and email and adds this lead to <b>My leads</b>. It uses <b>1</b> of your <b>${c.remaining}</b> remaining lead credits.</div>
+         <div class="btn-row"><button class="btn primary" id="unlockGo" onclick="doUnlock(${i})">${ico('unlock')}Unlock for 1 credit</button><button class="btn ghost" onclick="closeLead()">Cancel</button></div>`
+      : `<div class="note">${!c.lead_limit ? 'Buyer leads are not part of your current plan.' : !c.active ? 'Your membership is not active right now.' : 'You have used all the lead credits in your plan.'} Upgrade or talk to your RM to unlock more leads.</div>
+         <div class="btn-row"><a class="btn primary" href="/membership#compare">Compare plans</a><a class="btn wa" href="${waLink('Hello, I would like more buyer lead credits.')}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Talk to RM</a></div>`}`;
+  $('leadModal').classList.add('open');
+}
+async function doUnlock(i) {
+  const l = _mk[i]; const btn = $('unlockGo');
+  if (btn) { btn.disabled = true; btn.textContent = 'Unlocking…'; }
+  const msgs = { NO_CREDITS: 'You have used all your lead credits.', PLAN_INACTIVE: 'Your membership is not active.', LEAD_UNAVAILABLE: 'This lead is no longer available.', NO_MEMBERSHIP: 'No membership is linked to your account.' };
+  try {
+    const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: l.id });
+    if (error) throw error;
+    if (typeof gtag === 'function') gtag('event', 'unlock_lead', { product: l.product, country: l.country });
+    l.unlocked = true; l.buyer_hint = data.lead && data.lead.company || l.buyer_hint; l.unlocked_by = (l.unlocked_by || 0) + 1;
+    await Promise.all([loadCredits(), loadLeads(_client.id)]);
+    drawMarket();
+    openUnlocked(l.id);
+  } catch (e) {
+    const code = Object.keys(msgs).find(k => String(e.message || '').includes(k));
+    $('leadBody').insertAdjacentHTML('afterbegin', `<div class="notice" style="margin-bottom:14px">${ico('alert')}<div>${msgs[code] || 'Could not unlock this lead. Please try again.'}</div></div>`);
+    if (btn) { btn.disabled = false; btn.innerHTML = `${ico('unlock')}Unlock for 1 credit`; }
+  }
+}
+function openUnlocked(id) {
+  const i = _leads.findIndex(x => x.id === id);
+  if (i >= 0) openLead(i); else closeLead();
+}
+
+/* ── COMPANY PROFILE ── */
+const PF_FIELDS = ['company_name','business_type','tagline','about','year_established','employees','annual_turnover','website','contact_person','designation','phone','whatsapp','email','country','address','city','state','pincode','gstin','iec'];
+const PF_REQUIRED = [['Logo', p => p.logo_url], ['Company name', p => p.company_name], ['Business type', p => p.business_type], ['About', p => p.about && p.about.length >= 40], ['Products', p => (p.products || []).length], ['Export markets', p => (p.export_markets || []).length], ['Contact person', p => p.contact_person], ['Phone', p => p.phone], ['City', p => p.city], ['GSTIN or IEC', p => p.gstin || p.iec]];
+
+async function loadProfile(clientId) {
+  try { const { data } = await getSB().from('company_profiles').select('*').eq('client_id', clientId).maybeSingle(); _profile = data; } catch (e) { _profile = null; }
+}
+function profileSeed() {
+  const m = _client || {};
+  return Object.assign({ company_name: m.business_name, contact_person: m.name, phone: m.phone, email: m.email || (_user && _user.email),
+    city: m.city, state: m.state, gstin: m.gstin, country: 'India', products: Array.isArray(m.products) ? m.products : [], categories: m.category ? [m.category] : [],
+    export_markets: [], certifications: [] }, _profile || {});
+}
+function fillProfileForm() {
+  const p = profileSeed();
+  PF_FIELDS.forEach(f => { const el = $('pf_' + f); if (el) el.value = p[f] ?? ''; });
+  document.querySelectorAll('[data-tags]').forEach(box => { _tags[box.dataset.tags] = [...(p[box.dataset.tags] || [])]; drawTags(box); });
+  setLogo(p.logo_url);
+  $('pfAboutN').textContent = ($('pf_about').value || '').length;
+  updateProfileStrength();
+}
+function drawTags(box) {
+  const key = box.dataset.tags, input = box.querySelector('input');
+  box.querySelectorAll('.tag').forEach(t => t.remove());
+  (_tags[key] || []).forEach((v, i) => {
+    const t = document.createElement('span'); t.className = 'tag'; t.textContent = v;
+    const x = document.createElement('button'); x.type = 'button'; x.innerHTML = '&times;'; x.setAttribute('aria-label', 'Remove ' + v);
+    x.onclick = () => { _tags[key].splice(i, 1); drawTags(box); updateProfileStrength(); };
+    t.appendChild(x); box.insertBefore(t, input);
+  });
+}
+function wireTags() {
+  document.querySelectorAll('[data-tags]').forEach(box => {
+    const input = box.querySelector('input'), key = box.dataset.tags, max = Number(box.dataset.max || 50);
+    box.addEventListener('click', () => input.focus());
+    const add = () => {
+      input.value.split(',').map(v => v.trim().slice(0, 60)).filter(Boolean).forEach(v => {
+        _tags[key] = _tags[key] || [];
+        if (_tags[key].length < max && !_tags[key].some(x => x.toLowerCase() === v.toLowerCase())) _tags[key].push(v);
+      });
+      input.value = ''; drawTags(box); updateProfileStrength();
+    };
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); add(); }
+      else if (e.key === 'Backspace' && !input.value && (_tags[key] || []).length) { _tags[key].pop(); drawTags(box); updateProfileStrength(); }
+    });
+    input.addEventListener('blur', add);
+  });
+}
+function readProfileForm() {
+  const p = { client_id: _client.id };
+  PF_FIELDS.forEach(f => { const v = ($('pf_' + f).value || '').trim(); p[f] = v || null; });
+  p.year_established = p.year_established ? parseInt(p.year_established, 10) : null;
+  if (p.gstin) p.gstin = p.gstin.toUpperCase(); if (p.iec) p.iec = p.iec.toUpperCase();
+  ['products','categories','export_markets','certifications'].forEach(k => p[k] = _tags[k] || []);
+  p.logo_url = (_profile && _profile.logo_url) || null;
+  return p;
+}
+function setLogo(url) {
+  const html = url ? `<img src="${esc(url)}" alt="Company logo">` : 'No logo';
+  $('pfLogoBox').innerHTML = html; $('pfPrevLogo').innerHTML = url ? html : '—';
+}
+function updateProfileStrength() {
+  if (!_client) return;
+  const p = Object.assign(profileSeed(), readProfileForm());
+  const done = PF_REQUIRED.filter(([, f]) => f(p)).length, pct = Math.round(done / PF_REQUIRED.length * 100);
+  const miss = PF_REQUIRED.filter(([, f]) => !f(p)).map(([k]) => k);
+  [['pcPct2','pcRing2','pcHead2','pcMissing2'], ['pcPct','pcRing','pcHead','pcMissing']].forEach(([a, b, c, d]) => {
+    $(a).textContent = pct + '%'; $(b).style.setProperty('--p', pct);
+    $(c).textContent = miss.length ? `${miss.length} detail${miss.length > 1 ? 's' : ''} missing` : 'Your profile is complete';
+    $(d).innerHTML = miss.length ? miss.map(k => `<span class="pc-chip miss">${ico('x')}${k}</span>`).join('') : `<span class="pc-chip ok">${ico('check')}All key details added</span>`;
+  });
+  $('statProfile').textContent = pct + '%';
+  $('pfPrevName').textContent = p.company_name || 'Your company';
+  $('pfPrevType').textContent = [p.business_type, p.city].filter(Boolean).join(' · ') || 'Complete your profile';
+}
+async function saveProfile(e) {
+  e.preventDefault();
+  if (!_client) return;
+  document.querySelectorAll('[data-tags] input').forEach(i => i.dispatchEvent(new Event('blur')));
+  const p = readProfileForm(), msg = $('pfMsg'), btn = $('pfSave');
+  if (!p.products.length) { msg.className = 'pf-msg err'; msg.textContent = 'Add at least one product.'; return; }
+  if (p.gstin && !/^[0-9]{2}[A-Z0-9]{13}$/.test(p.gstin)) { msg.className = 'pf-msg err'; msg.textContent = 'GSTIN should be 15 characters.'; return; }
+  if (p.website && !/^https?:\/\//i.test(p.website)) p.website = 'https://' + p.website;
+  btn.disabled = true; btn.textContent = 'Saving…'; msg.textContent = '';
+  p.updated_at = new Date().toISOString();
+  const { data, error } = await getSB().from('company_profiles').upsert(p, { onConflict: 'client_id' }).select().maybeSingle();
+  btn.disabled = false; btn.textContent = 'Save profile';
+  if (error) { msg.className = 'pf-msg err'; msg.textContent = 'Could not save. Please check the fields and try again.'; return; }
+  _profile = data; msg.className = 'pf-msg ok'; msg.textContent = 'Profile saved';
+  if (typeof gtag === 'function') gtag('event', 'profile_saved');
+  updateProfileStrength();
+}
+async function uploadLogo(file) {
+  const hint = $('pfLogoHint');
+  if (!file) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) { hint.textContent = 'Please choose a PNG, JPG or WEBP image.'; return; }
+  if (file.size > 1048576) { hint.textContent = 'Logo must be under 1 MB.'; return; }
+  hint.textContent = 'Uploading…';
+  const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
+  const path = `${_user.id}/logo-${Date.now()}.${ext}`;
+  const sb = getSB();
+  const { error } = await sb.storage.from('company-logos').upload(path, file, { upsert: true, contentType: file.type, cacheControl: '3600' });
+  if (error) { hint.textContent = 'Upload failed. Please try again.'; return; }
+  const url = sb.storage.from('company-logos').getPublicUrl(path).data.publicUrl;
+  _profile = Object.assign(_profile || {}, { logo_url: url });
+  setLogo(url); hint.textContent = 'Logo added. Remember to save your profile.';
+  updateProfileStrength();
+}
+
 /* ── NAV ── */
-const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Business Profile' };
+const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Company Profile' };
 function showPanel(name) {
   document.querySelectorAll('.p-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
   document.querySelectorAll('.sb-link[data-panel]').forEach(l => l.classList.toggle('active', l.dataset.panel === name));
   $('topbarTitle').textContent = TITLES[name] || name;
+  if (name === 'leads' && !_mkLoaded) { loadMarket(true); loadCountries(); }
   closeSidebar();
   window.scrollTo({ top: 0 });
 }
@@ -791,6 +1131,19 @@ document.addEventListener('click', e => {
   if (chip) { _leadFilter = chip.dataset.f; document.querySelectorAll('#leadChips .chip').forEach(c => c.classList.toggle('on', c === chip)); drawLeadTable(); }
 });
 $('leadSearch').addEventListener('input', e => { _leadQuery = e.target.value.trim(); drawLeadTable(); });
+document.querySelectorAll('[data-ltab]').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('[data-ltab]').forEach(x => x.classList.toggle('on', x === t));
+  $('ltab-find').style.display = t.dataset.ltab === 'find' ? '' : 'none';
+  $('ltab-mine').style.display = t.dataset.ltab === 'mine' ? '' : 'none';
+}));
+let _mkT;
+$('mkSearch').addEventListener('input', e => { clearTimeout(_mkT); _mkT = setTimeout(() => { _mkQ = e.target.value.trim(); loadMarket(true); }, 300); });
+$('mkCountry').addEventListener('change', e => { _mkCountry = e.target.value; loadMarket(true); });
+$('mkMore').addEventListener('click', () => loadMarket(false));
+$('pfLogoFile').addEventListener('change', e => uploadLogo(e.target.files[0]));
+$('pf_about').addEventListener('input', e => { $('pfAboutN').textContent = e.target.value.length; });
+$('pfForm').addEventListener('input', () => { $('pfMsg').textContent = ''; updateProfileStrength(); });
+wireTags();
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLead(); closeSidebar(); } });
 
 function openSidebar()  { $('sidebar').classList.add('open'); $('sbOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
