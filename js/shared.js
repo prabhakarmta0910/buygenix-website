@@ -225,6 +225,84 @@ window.BGX_Auth = {
   }
 };
 
+/* ── SIGNED-IN MEMBER: header shows the member and links to the dashboard ── */
+(function() {
+  let session = null, member = {};
+  try {
+    const raw = localStorage.getItem('sb-' + BGX_SUPABASE_URL.split('//')[1].split('.')[0] + '-auth-token');
+    session = raw ? JSON.parse(raw) : null;
+    member = JSON.parse(localStorage.getItem('bgx_member') || '{}') || {};
+  } catch (e) { return; }
+  if (!session || !session.refresh_token || !session.user) {
+    try { localStorage.removeItem('bgx_member'); } catch (e) {}
+    return;
+  }
+  const email = session.user.email || '';
+  const name = member.name || (session.user.user_metadata || {}).full_name || email.split('@')[0] || 'Member';
+  const first = name.split(/\s+/)[0];
+  const initials = member.initials || name.split(/\s+/).map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  const esc = v => String(v || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  const css = document.createElement('style');
+  css.textContent = `
+.navbar.is-member{box-shadow:inset 0 -2px 0 #F0C84A;}
+.nav-me{display:inline-flex !important;align-items:center;gap:8px;margin-left:6px !important;padding:4px 14px 4px 4px !important;border-radius:100px !important;background:rgba(240,200,74,.14) !important;border:1px solid rgba(240,200,74,.55) !important;color:#fff !important;font-weight:600 !important;}
+.nav-me:hover{background:rgba(240,200,74,.24) !important;}
+.nav-me::after{display:none !important;}
+.nav-av{width:28px;height:28px;border-radius:50%;background:#F0C84A;color:#0B1929;display:inline-flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;letter-spacing:.3px;flex-shrink:0;}
+.nav-me small{display:block;font-size:10.5px;font-weight:500;color:rgba(255,255,255,.7);line-height:1.1;}
+.nav-me b{display:block;font-weight:600;line-height:1.2;}
+.nav-me-m{display:none;margin-left:auto;margin-right:10px;text-decoration:none;}
+.m-me{display:flex;align-items:center;gap:12px;padding:14px 16px;margin-bottom:10px;border-radius:12px;background:rgba(240,200,74,.12);border:1px solid rgba(240,200,74,.4);color:#fff;font-size:13px;line-height:1.35;}
+.m-me b{display:block;font-size:14.5px;}
+.bgx-welcome{position:fixed;left:20px;bottom:24px;z-index:950;display:flex;align-items:center;gap:12px;max-width:calc(100vw - 110px);background:#0B1929;color:#fff;border:1px solid rgba(240,200,74,.5);border-radius:14px;padding:12px 14px;box-shadow:0 12px 30px rgba(11,25,41,.3);font-size:13.5px;line-height:1.4;transition:opacity .3s,transform .3s;}
+.bgx-welcome.hide{opacity:0;transform:translateY(12px);pointer-events:none;}
+.bgx-welcome a{color:#F0C84A;font-weight:600;text-decoration:none;white-space:nowrap;}
+.bgx-welcome button{background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:0 2px;line-height:1;}
+@media(max-width:1024px){.nav-me-m{display:inline-flex;}}`;
+  document.head.appendChild(css);
+
+  const nb = document.querySelector('.navbar');
+  if (nb) nb.classList.add('is-member');
+
+  /* desktop: "Client Login" becomes the member chip */
+  document.querySelectorAll('.nav-links a[href="/login"]').forEach(a => {
+    a.className = 'nav-me';
+    a.href = '/client-portal';
+    a.title = 'Signed in as ' + email;
+    a.innerHTML = `<span class="nav-av">${esc(initials)}</span><span><small>Hi, ${esc(first)}</small><b>My Dashboard</b></span>`;
+  });
+  /* tablet/mobile: avatar next to the menu button */
+  const burger = document.getElementById('navBurger');
+  if (burger && !document.querySelector('.nav-me-m')) {
+    const m = document.createElement('a');
+    m.className = 'nav-me-m'; m.href = '/client-portal'; m.setAttribute('aria-label', 'My Dashboard');
+    m.innerHTML = `<span class="nav-av">${esc(initials)}</span>`;
+    burger.parentNode.insertBefore(m, burger);
+  }
+  const mob = document.getElementById('mobileNav');
+  if (mob) {
+    mob.querySelectorAll('a[href="/login"]').forEach(a => { a.href = '/client-portal'; a.textContent = 'My Dashboard →'; });
+    const card = document.createElement('div');
+    card.className = 'm-me';
+    card.innerHTML = `<span class="nav-av">${esc(initials)}</span><span><b>${esc(name)}</b>${esc(member.plan ? member.plan + ' plan' : 'Signed in')}</span>`;
+    mob.insertBefore(card, mob.firstChild);
+  }
+
+  /* once per visit: a short welcome with the two most useful links */
+  let seen = false;
+  try { seen = sessionStorage.getItem('bgx_welcomed') === '1'; sessionStorage.setItem('bgx_welcomed', '1'); } catch (e) {}
+  if (!seen && !/buy-lead-search/.test(location.pathname)) {
+    const w = document.createElement('div');
+    w.className = 'bgx-welcome'; w.setAttribute('role', 'status');
+    w.innerHTML = `<span>Welcome back, <b>${esc(first)}</b>.</span><a href="/buy-lead-search">Buy leads</a><a href="/client-portal">Dashboard →</a><button type="button" aria-label="Close">&times;</button>`;
+    document.body.appendChild(w);
+    const close = () => { w.classList.add('hide'); setTimeout(() => w.remove(), 400); };
+    w.querySelector('button').onclick = close;
+    setTimeout(close, 8000);
+  }
+})();
+
 /* ── SMOOTH ANCHOR SCROLL ── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {

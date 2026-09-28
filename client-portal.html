@@ -37,6 +37,9 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 .tb-title{font-size:16px;font-weight:600;color:var(--cp-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .tb-right{display:flex;align-items:center;gap:12px;flex-shrink:0;}
 .tb-user{display:flex;align-items:center;gap:10px;}
+.tb-site{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 12px;border:1px solid var(--cp-line);border-radius:10px;font-size:13px;font-weight:600;color:var(--cp-ink);text-decoration:none;background:#fff;}
+.tb-site:hover{border-color:var(--cp-blue);color:var(--cp-blue);}
+.tb-site .ic{width:16px;height:16px;}
 .tb-uname{font-size:13px;font-weight:600;color:var(--cp-ink);line-height:1.2;}
 .tb-uplan{font-size:11.5px;color:var(--cp-soft);font-weight:600;}
 .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--cp-blue),#1E3A8A);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;flex-shrink:0;}
@@ -264,6 +267,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 @media(max-width:640px){
   .topbar{padding:0 14px;height:58px;}
   .tb-user .tb-meta{display:none;}
+  .tb-site span{display:none;}
   .portal-body{padding:18px 14px;}
   .ph h1{font-size:21px;}
   .stats{gap:10px;}
@@ -328,6 +332,9 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <div class="sb-section">Account</div>
     <button class="sb-link" data-panel="membership"><svg class="ic"><use href="#i-card"/></svg>My Membership</button>
     <button class="sb-link" data-panel="profile"><svg class="ic"><use href="#i-user"/></svg>Company Profile</button>
+    <div class="sb-section">Website</div>
+    <a class="sb-link" href="/buy-lead-search"><svg class="ic"><use href="#i-search"/></svg>Search &amp; buy leads</a>
+    <a class="sb-link" href="/"><svg class="ic"><use href="#i-globe"/></svg>Go to website</a>
     <div class="sb-section">Support</div>
     <a class="sb-link js-rm-wa" href="https://wa.me/918796787594" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">WhatsApp my RM</a>
     <a class="sb-link" href="/contact"><svg class="ic"><use href="#i-send"/></svg>Send an enquiry</a>
@@ -345,6 +352,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
       <div class="tb-title" id="topbarTitle">Dashboard</div>
     </div>
     <div class="tb-right">
+      <a class="tb-site" href="/"><svg class="ic"><use href="#i-globe"/></svg><span>Website</span></a>
       <div class="tb-user">
         <div class="tb-meta" style="text-align:right;">
           <div class="tb-uname" id="tbName"><span class="skel"></span></div>
@@ -585,7 +593,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 </div>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260927h"></script>
+<script src="js/shared.js?v=20260928a"></script>
 <script>
 const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
@@ -689,6 +697,8 @@ function renderAll() {
   const paid = m.plan && !/^(none|free)$/i.test(m.plan) && (m.plan_status || '').toLowerCase() !== 'free';
   const planName = paid ? title(m.plan) : null;
   $('tbPlan').textContent = planName ? `${planName} plan` : 'No active plan';
+  /* remembered so the public website can greet the member and link back here */
+  try { localStorage.setItem('bgx_member', JSON.stringify({ name, initials, plan: planName || '' })); } catch (e) {}
 
   /* RM */
   const rm = parseNotes(m.notes);
@@ -1038,6 +1048,7 @@ function closeSidebar() { $('sidebar').classList.remove('open'); $('sbOverlay').
 
 async function doSignOut() {
   const sb = getSB(); if (sb) await sb.auth.signOut();
+  try { localStorage.removeItem('bgx_member'); } catch (e) {}
   location.href = 'login.html';
 }
 

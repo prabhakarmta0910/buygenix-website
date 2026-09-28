@@ -97,21 +97,28 @@
 .lc-owned{font-size:13px;color:#15803D;font-weight:500;}
 .lc-owned a{color:#15803D;}
 .lc-closed{font-size:13px;color:#888;}
-.lc-panel:empty{display:none;}
-.lc-panel{margin-top:14px;border:1px solid #D6E4F2;background:#F6FAFE;border-radius:8px;padding:16px 18px;font-family:'Roboto',Arial,sans-serif;}
-.lc-panel.ok{border-color:#BFE3CB;background:#F3FBF6;}
-.lc-panel.err{border-color:#F5C2C2;background:#FEF6F6;}
-.lc-panel h3{font-size:15px;font-weight:500;color:#222;margin:0 0 12px;}
-.lc-panel p{font-size:14px;color:#444;line-height:1.5;margin:0 0 12px;}
-.lc-panel p a{color:#1F6FB2;font-weight:500;}
-.lc-cr{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
-.lc-cr div{background:#fff;border:1px solid #E1E8F0;border-radius:6px;padding:10px 12px;}
-.lc-cr small{display:block;font-size:12px;color:#666;margin-bottom:2px;}
-.lc-cr b{font-size:20px;font-weight:700;color:#222;}
-.lc-cr.three{grid-template-columns:repeat(3,1fr);}
-.lc-cr .after{border-color:#1F6FB2;}
-.lc-cr .after b{color:#1F6FB2;}
-.lc-panel .row{display:flex;gap:8px;flex-wrap:wrap;}
+/* Buy popup */
+.bp-ov{position:fixed;inset:0;z-index:3000;background:rgba(11,25,41,.5);display:none;align-items:center;justify-content:center;padding:16px;font-family:'Roboto',Arial,sans-serif;}
+.bp-ov.open{display:flex;}
+.bp-box{background:#fff;border-radius:12px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(11,25,41,.3);overflow:hidden;}
+.bp-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:18px 20px 0;}
+.bp-hd h3{font-size:17px;font-weight:500;color:#222;margin:0 0 3px;}
+.bp-hd p{font-size:13px;color:#666;margin:0;}
+.bp-x{border:none;background:#F2F4F7;width:30px;height:30px;border-radius:8px;font-size:18px;line-height:1;color:#555;cursor:pointer;flex-shrink:0;}
+.bp-bd{padding:16px 20px 20px;}
+.bp-calc{border:1px solid #E3E8EF;border-radius:8px;padding:6px 14px;margin-bottom:14px;}
+.bp-calc div{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;font-size:14.5px;color:#444;}
+.bp-calc div b{font-size:16px;color:#222;font-weight:700;}
+.bp-calc .less b{color:#C2410C;}
+.bp-calc .tot{border-top:1px dashed #C9D2DE;margin-top:2px;}
+.bp-calc .tot span{font-weight:500;color:#222;}
+.bp-calc .tot b{font-size:20px;color:#1F6FB2;}
+.bp-note{font-size:13px;color:#555;line-height:1.5;margin:0 0 16px;}
+.bp-note a{color:#1F6FB2;font-weight:500;}
+.bp-note.err{color:#B91C1C;}
+.bp-row{display:flex;gap:8px;}
+.bp-row .lc-btn{flex:1;justify-content:center;}
+.bp-ok{width:46px;height:46px;border-radius:50%;background:#E8F7EE;color:#16A34A;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 10px;}
 
 /* Empty / loading / error */
 .bls-empty{text-align:center;padding:60px 24px;}
@@ -140,8 +147,7 @@
   .lc-bottom{flex-direction:column;align-items:stretch;}
   .lc-act{align-items:stretch;max-width:none;text-align:left;}
   .lc-act .lc-btn{justify-content:center;flex:1;}
-  .lc-cr,.lc-cr.three{grid-template-columns:1fr 1fr;}
-  .lc-panel .row .lc-btn{flex:1;justify-content:center;}
+
   .bls-banner{flex-direction:column;align-items:flex-start;}
 }
 </style>
@@ -215,8 +221,15 @@
 </footer>
 <a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
 
+<div class="bp-ov" id="bpOv" role="dialog" aria-modal="true" aria-labelledby="bpTitle">
+  <div class="bp-box">
+    <div class="bp-hd"><div><h3 id="bpTitle">Buy this lead</h3><p id="bpSub"></p></div><button class="bp-x" type="button" id="bpClose" aria-label="Close">&times;</button></div>
+    <div class="bp-bd" id="bpBody" aria-live="polite"></div>
+  </div>
+</div>
+
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260927h"></script>
+<script src="js/shared.js?v=20260928a"></script>
 <script>
 let _sb = null, _user = null, _quota = null, _results = [], _term = '';
 function getSB() {
@@ -251,7 +264,7 @@ function bannerHTML() {
   if (s === 'free') return box('🔒', `<strong>Buy a membership to buy leads.</strong> Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.`, `<a href="/membership" class="btn-primary btn-sm">View Plans →</a>`);
   if (s === 'waiting') return box('⏳', `<strong>Your membership is active.</strong> You can buy leads from <strong>${esc(fmtWhen(q.unlock_from))}</strong> (24 hours after purchase).`, `<a href="/client-portal" class="btn-primary btn-sm">My Portal →</a>`);
   if (s === 'empty') return box('ℹ️', `<strong>You have used all ${q.lead_limit || ''} lead credits.</strong> Leads you bought are in your portal. Talk to your Relationship Manager to add more.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
-  return box('✅', `<strong>Lead credits: ${q.lead_limit} total · ${q.used || 0} used · ${q.remaining} remaining.</strong> Press "Contact Buyer" on a lead to use 1 credit. The full contact shows here and in your portal.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
+  return box('✅', `<strong>${q.remaining} lead credits remaining</strong> (${q.used || 0} of ${q.lead_limit} used). Press "Contact Buyer" on a lead to use 1 credit. The full contact shows here and in your portal.`, `<a href="/client-portal" class="btn-primary btn-sm">My Leads →</a>`);
 }
 function renderBanner() { document.getElementById('blsBanner').innerHTML = bannerHTML(); }
 
@@ -314,50 +327,55 @@ function cardHTML(l, idx) {
         </div>
         <div class="lc-act" id="lf-${idx}">${actionHTML(l, idx)}</div>
       </div>
-      <div class="lc-panel" id="lx-${idx}" aria-live="polite"></div>
     </div>
   </div>`;
 }
 
-/* Credit numbers: total allowed by the plan, used so far, left now */
+/* Credits: how many the plan allows, how many are used, how many are left */
 function credits() {
   const q = _quota || {};
   const total = Number(q.lead_limit) || 0, used = Number(q.used) || 0;
   return { total, used, left: Math.max(0, q.remaining != null ? Number(q.remaining) : total - used) };
 }
-function creditGrid(c, afterLabel, after) {
-  return `<div class="lc-cr${afterLabel ? '' : ' three'}">
-    <div><small>Total credits</small><b>${c.total}</b></div>
-    <div><small>Already used</small><b>${c.used}</b></div>
-    <div${afterLabel ? '' : ' class="after"'}><small>Remaining${afterLabel ? ' now' : ''}</small><b>${c.left}</b></div>
-    ${afterLabel ? `<div class="after"><small>${afterLabel}</small><b>${after}</b></div>` : ''}</div>`;
+
+/* ── Buy popup ── */
+let _bpLast = null, _bpBusy = false;
+function openPop(i, title, body) {
+  const l = _results[i] || {};
+  _bpLast = document.activeElement;
+  document.getElementById('bpTitle').textContent = title;
+  document.getElementById('bpSub').textContent = `${l.product || 'Buyer requirement'} · ${String(l.country || '').replace(/\s+-\s+/g, ', ')}`;
+  document.getElementById('bpBody').innerHTML = body;
+  document.getElementById('bpOv').classList.add('open');
+  const f = document.querySelector('#bpBody .lc-btn'); if (f) setTimeout(() => f.focus(), 30);
 }
-function panel(i, html, kind) {
-  const x = document.getElementById('lx-' + i);
-  x.className = 'lc-panel' + (kind ? ' ' + kind : '');
-  x.innerHTML = html;
-  document.getElementById('lf-' + i).style.visibility = html && kind !== 'ok' ? 'hidden' : '';
+function closePop() {
+  if (_bpBusy) return;
+  document.getElementById('bpOv').classList.remove('open');
+  if (_bpLast) _bpLast.focus();
 }
-function showMsg(i, html, err) {
-  panel(i, `<p>${html}</p><div class="row"><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">OK</button></div>`, err ? 'err' : '');
+function popMsg(i, title, html, err, extra) {
+  openPop(i, title, `<p class="bp-note${err ? ' err' : ''}">${html}</p><div class="bp-row">${extra || ''}<button class="lc-btn ghost" type="button" onclick="closePop()">${extra ? 'Cancel' : 'OK'}</button></div>`);
 }
 function rmLink() { return 'https://wa.me/918796787594?text=' + encodeURIComponent('Hello, I need more buyer lead credits.'); }
+
 function contactBuyer(i) {
   const s = buyerState(), q = _quota || {};
   if (s === 'guest') { location.href = loginUrl(); return; }
-  if (s === 'free') return panel(i, `<p>Buyer contacts are for members. Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.</p><div class="row"><a class="lc-btn" href="/membership">View Plans</a><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`);
-  if (s === 'waiting') return showMsg(i, `Your membership is active. You can contact buyers from <b>${esc(fmtWhen(q.unlock_from))}</b>.`);
+  if (s === 'free') return popMsg(i, 'Membership needed', 'Buyer contacts are for members. Every plan includes lead credits: Starter 5, Growth 10, Professional 15, Enterprise 30.', false, '<a class="lc-btn" href="/membership">View Plans</a>');
+  if (s === 'waiting') return popMsg(i, 'Almost ready', `Your membership is active. You can buy leads from <b>${esc(fmtWhen(q.unlock_from))}</b>, 24 hours after purchase.`);
   const c = credits();
-  if (s === 'empty') return panel(i, `<h3>No lead credits left</h3>${creditGrid(c, 'After this lead', 0)}<p>You have used all ${c.total} credits in your plan. <a href="${rmLink()}" target="_blank" rel="noopener">Ask your RM</a> for more.</p><div class="row"><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">OK</button></div>`, 'err');
-  panel(i, `<h3>Buy this lead with 1 credit?</h3>
-    ${creditGrid(c, 'Left after this lead', c.left - 1)}
-    <p>You will see this buyer's full name, mobile, email and company. The lead is saved in your portal.</p>
-    <div class="row"><button class="lc-btn" type="button" id="lb-${i}" onclick="doBuy(${i})">Yes, use 1 credit</button><button class="lc-btn ghost" type="button" onclick="redrawCard(${i})">Cancel</button></div>`);
+  if (s === 'empty') return popMsg(i, 'No credits left', `You have used all ${c.total} lead credits in your plan. <a href="${rmLink()}" target="_blank" rel="noopener">Ask your RM</a> for more.`, true);
+  openPop(i, 'Buy this lead', `
+    <div class="bp-calc">
+      <div><span>Total remaining credits</span><b>${c.left}</b></div>
+      <div class="less"><span>Less: bought for this lead</span><b>&minus; 1</b></div>
+      <div class="tot"><span>Left after this lead</span><b>${c.left - 1}</b></div>
+    </div>
+    <p class="bp-note">You will see the buyer's full name, mobile, email and company. The lead is saved in your dashboard.</p>
+    <div class="bp-row"><button class="lc-btn ghost" type="button" onclick="closePop()">Cancel</button><button class="lc-btn" type="button" id="bpBuy" onclick="doBuy(${i})">Buy lead</button></div>`);
 }
-function redrawCard(i) {
-  panel(i, '');
-  document.getElementById('lf-' + i).innerHTML = actionHTML(_results[i], i);
-}
+function redrawCard(i) { document.getElementById('lf-' + i).innerHTML = actionHTML(_results[i], i); }
 
 const BUY_ERRORS = {
   NOT_YET_ELIGIBLE: 'Lead buying opens 24 hours after your membership purchase.',
@@ -367,8 +385,9 @@ const BUY_ERRORS = {
   LEAD_UNAVAILABLE: 'Sorry, this lead is closed. It has reached its buyer limit.',
 };
 async function doBuy(i) {
-  const btn = document.getElementById('lb-' + i);
-  if (btn) { btn.disabled = true; btn.textContent = 'Opening contact…'; }
+  const btn = document.getElementById('bpBuy');
+  if (btn) { btn.disabled = true; btn.textContent = 'Buying…'; }
+  _bpBusy = true;
   try {
     const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: _results[i].id });
     if (error) throw error;
@@ -378,18 +397,25 @@ async function doBuy(i) {
       _quota.remaining = data.remaining != null ? Number(data.remaining) : Math.max(0, (Number(_quota.remaining) || 0) - 1);
     }
     if (typeof gtag === 'function') gtag('event', 'lead_unlock', { product: _results[i].product || '' });
+    _bpBusy = false;
     renderResults(); // credits changed → refresh banner and other cards
     const c = credits();
-    panel(i, `<h3>✓ Lead bought. Full contact is shown above.</h3>${creditGrid(c)}
-      <p>This lead is saved in <a href="/client-portal">your portal</a> under Buyer Leads.</p>`, 'ok');
+    openPop(i, 'Lead bought', `<div class="bp-ok">✓</div>
+      <div class="bp-calc"><div class="tot" style="border-top:none"><span>Remaining credits</span><b>${c.left}</b></div></div>
+      <p class="bp-note">The buyer's full contact is now open on the lead, and saved in your <a href="/client-portal">dashboard</a>.</p>
+      <div class="bp-row"><button class="lc-btn" type="button" onclick="closePop();document.getElementById('lead-${i}').scrollIntoView({behavior:'smooth',block:'center'})">View contact</button></div>`);
   } catch (e) {
+    _bpBusy = false;
     const code = Object.keys(BUY_ERRORS).find(k => String(e.message || '').includes(k));
-    if (code === 'LEAD_UNAVAILABLE') _results[i].available = false;
+    if (code === 'LEAD_UNAVAILABLE') { _results[i].available = false; redrawCard(i); }
     if (code === 'NO_CREDITS' && _quota) _quota.remaining = 0;
-    showMsg(i, esc(code ? BUY_ERRORS[code] : 'Could not open this contact. Please try again.'), true);
-    if (code === 'NO_CREDITS') renderBanner();
+    popMsg(i, 'Could not buy this lead', esc(code ? BUY_ERRORS[code] : 'Please try again in a moment.'), true);
+    if (code === 'NO_CREDITS') renderResults();
   }
 }
+document.getElementById('bpClose').addEventListener('click', closePop);
+document.getElementById('bpOv').addEventListener('click', e => { if (e.target.id === 'bpOv') closePop(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.getElementById('bpOv').classList.contains('open')) closePop(); });
 
 function skeletonCards(n) {
   return Array(n).fill(0).map(()=>`
