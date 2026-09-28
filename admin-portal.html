@@ -1034,7 +1034,7 @@ function buildDashboard() {
   document.getElementById('dMTrend').textContent=`${allMem.filter(m=>(m.plan_status||'active')==='active').length} active`;
   document.getElementById('dLeads').textContent=allLeads.length;
   document.getElementById('dEnq').textContent=allEnq.filter(e=>!e.status||e.status==='new').length;
-  const fallbackPriceMap={starter:13500,growth:27000,professional:40500,enterprise:72000};
+  const fallbackPriceMap={starter:15000,growth:30000,professional:45000,enterprise:80000};
   const rev=allMem.reduce((s,m)=>{
     const charged = Number(m.amount_charged)||0;
     return s + (charged>0 ? charged : (fallbackPriceMap[(m.plan||'starter').toLowerCase()]||0));
@@ -1315,7 +1315,7 @@ function openAddMember() {
         <div class="form-group"><label>Billing Type</label>
           <select class="form-control" id="m_gst_mode" onchange="toggleGstFields()"><option value="without">Without GST</option><option value="with">With GST</option></select>
         </div>
-        <div class="form-group"><label>Base Amount (₹) *</label><input type="number" class="form-control" id="m_base_amount" placeholder="e.g. 27000" min="0" step="0.01" oninput="calcGst()"></div>
+        <div class="form-group"><label>Base Amount (₹) *</label><input type="number" class="form-control" id="m_base_amount" placeholder="e.g. 30000" min="0" step="0.01" oninput="calcGst()"></div>
       </div>
       <div id="gstFieldsWrap" style="display:none;">
         <div class="form-row">
@@ -1634,10 +1634,10 @@ async function loadPlansAdmin() {
   } catch(e) {}
   // Fallback — exact match with membership.html
   allPlans = [
-    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:13500,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','1× Virtual Business Card','GST + IEC + MSME assistance','FSSAI assistance included','Email support']},
-    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:27000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 10 products','1× Virtual Business Card','Quarterly business promotion','Basic On-Page SEO','GST + IEC + MSME assistance','FSSAI assistance included']},
-    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:40500,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 15 products','1× Virtual Business Card','Monthly business promotion','Basic On-Page SEO','Social Media (SMO) included','GST + IEC + MSME included','FSSAI licence included']},
-    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:72000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 20 products','1× Virtual Business Card','Weekly business promotion','Advanced SEO + SMO','All Registrations + FSSAI','Priority Lead Matching','Export Documentation Help']}
+    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','1× Virtual Business Card','GST + IEC + MSME assistance','FSSAI assistance included','Email support']},
+    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 10 products','1× Virtual Business Card','Quarterly business promotion','Basic On-Page SEO','GST + IEC + MSME assistance','FSSAI assistance included']},
+    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 15 products','1× Virtual Business Card','Monthly business promotion','Basic On-Page SEO','Social Media (SMO) included','GST + IEC + MSME included','FSSAI licence included']},
+    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 Buyer Leads per month','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 20 products','1× Virtual Business Card','Weekly business promotion','Advanced SEO + SMO','All Registrations + FSSAI','Priority Lead Matching','Export Documentation Help']}
   ];
   renderPlans();
 }
@@ -1680,7 +1680,7 @@ function openAddPlan() {
     </div>
     <div class="form-group"><label>Subtitle</label><input class="form-control" id="mp_sub" placeholder="e.g. For growing export businesses"></div>
     <div class="form-row">
-      <div class="form-group"><label>Yearly Price (₹) *</label><input type="number" class="form-control" id="mp_price" placeholder="13500"></div>
+      <div class="form-group"><label>Yearly Price (₹) *</label><input type="number" class="form-control" id="mp_price" placeholder="15000"></div>
       <div class="form-group"><label>Leads / Month</label><input type="number" class="form-control" id="mp_leads" placeholder="5"></div>
     </div>
     <div class="form-row">
