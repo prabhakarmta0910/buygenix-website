@@ -393,7 +393,7 @@ async function doBuy(i) {
   try {
     const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: _results[i].id });
     if (error) throw error;
-    Object.assign(_results[i], data.lead || {}, { is_unlocked: true, available: true });
+    Object.assign(_results[i], data.lead || {}, { is_unlocked: true, available: true, bought: true, admin_view: false });
     if (!data.already && _quota) {
       _quota.used = (Number(_quota.used) || 0) + 1;
       _quota.remaining = data.remaining != null ? Number(data.remaining) : Math.max(0, (Number(_quota.remaining) || 0) - 1);
