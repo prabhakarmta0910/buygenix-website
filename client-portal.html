@@ -593,7 +593,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 </div>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928a"></script>
+<script src="js/shared.js?v=20260928b"></script>
 <script>
 const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
@@ -642,6 +642,12 @@ async function initPortal() {
   const { data } = await sb.auth.getSession();
   if (!data.session) { location.href = 'login.html'; return; }
   _user = data.session.user;
+  /* name, mobile, company and main product are required once; the login page asks for them */
+  try {
+    await sb.rpc('link_my_client');
+    const { data: d } = await sb.rpc('my_details');
+    if (d && d.missing && d.missing.length) { location.replace('/login'); return; }
+  } catch (e) {}
   await loadMember();
 }
 

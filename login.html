@@ -92,6 +92,19 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 .wa-btn{width:100%;height:46px;border:1px solid var(--lg-line);background:#fff;color:var(--lg-ink);border-radius:12px;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;transition:border-color .15s,background .15s;}
 .wa-btn:hover{border-color:#BFE8CF;background:#F4FBF6;}
 .wa-btn img{width:20px;height:20px;}
+.g-btn{width:100%;height:48px;border:1px solid #D5DCE6;background:#fff;color:var(--lg-ink);border-radius:12px;font-family:inherit;font-size:14px;font-weight:600;display:none;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color .15s,background .15s;}
+.g-btn.on{display:flex;}
+.g-btn:hover{border-color:#A9B8CC;background:#F8FAFD;}
+.g-btn img{width:20px;height:20px;}
+.g-btn:disabled{opacity:.7;cursor:wait;}
+.g-or{display:none;}
+.g-or.on{display:flex;}
+.wa-link{display:block;text-align:center;margin-top:14px;font-size:12.5px;font-weight:600;color:var(--lg-mid);text-decoration:none;}
+.wa-link:hover{color:var(--lg-ink);}
+.steps{display:flex;gap:6px;margin:0 0 18px;}
+.steps span{flex:1;height:4px;border-radius:4px;background:var(--lg-line);}
+.steps span.on{background:var(--lg-blue);}
+.req{color:#DC2626;}
 .note{margin:18px 0 0;text-align:center;font-size:12.5px;color:var(--lg-mid);}
 .note a{color:var(--lg-blue);font-weight:600;text-decoration:none;}
 .note a:hover{text-decoration:underline;}
@@ -157,6 +170,8 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         <div class="seg" role="tablist"><button class="on" onclick="switchTab('login')" role="tab">Sign in</button><button onclick="switchTab('signup')" role="tab">New member</button></div>
         <div class="auth-alert error" id="loginErr"></div>
         <div class="auth-alert success" id="loginOk"></div>
+        <button class="g-btn" type="button" onclick="signInGoogle(this)"><img src="assets/icons/google.svg" alt="">Continue with Google</button>
+        <div class="or g-or">or sign in with email</div>
         <div class="field">
           <label for="loginEmail">Email address</label>
           <input type="email" id="loginEmail" class="form-control" placeholder="you@company.com" autocomplete="email">
@@ -172,10 +187,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
           <span id="loginBtnTxt">Sign in</span>
           <span id="loginSpin" class="spinner" style="display:none;"></span>
         </button>
-        <div class="or">or</div>
-        <a href="https://wa.me/918796787594?text=Hello%2C%20I%20need%20help%20accessing%20my%20BuyGenix%20portal." class="wa-btn" target="_blank" rel="noopener">
-          <img src="assets/icons/whatsapp.svg" alt="">Get help on WhatsApp
-        </a>
+        <a href="https://wa.me/918796787594?text=Hello%2C%20I%20need%20help%20accessing%20my%20BuyGenix%20portal." class="wa-link" target="_blank" rel="noopener">Need help signing in? Message us on WhatsApp</a>
         <p class="note">Not a member yet? <a href="/membership">View membership plans</a></p>
       </div>
 
@@ -186,6 +198,8 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         <div class="seg" role="tablist"><button onclick="switchTab('login')" role="tab">Sign in</button><button class="on" onclick="switchTab('signup')" role="tab">New member</button></div>
         <div class="auth-alert error" id="signupErr"></div>
         <div class="auth-alert success" id="signupOk"></div>
+        <button class="g-btn" type="button" onclick="signInGoogle(this)"><img src="assets/icons/google.svg" alt="">Sign up with Google</button>
+        <div class="or g-or">or create an account with email</div>
         <div class="row2">
           <div class="field">
             <label for="regName">Full name</label>
@@ -216,6 +230,35 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
           <span id="signupSpin" class="spinner" style="display:none;"></span>
         </button>
         <p class="note">Already have an account? <a href="#" onclick="switchTab('login');return false;">Sign in</a></p>
+      </div>
+
+      <!-- COMPLETE DETAILS (required once, after Google or first sign-in) -->
+      <div class="auth-panel" id="panel-complete">
+        <div class="steps" aria-hidden="true"><span class="on"></span><span class="on"></span></div>
+        <h2>Complete your details</h2>
+        <p class="sub" id="cdSub">Just 3 details so your Relationship Manager can reach you and match buyers to your product.</p>
+        <div class="auth-alert error" id="cdErr"></div>
+        <div class="field">
+          <label for="cdName">Full name <span class="req">*</span></label>
+          <input type="text" id="cdName" class="form-control" placeholder="Your full name" maxlength="100" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="cdPhone">Mobile / WhatsApp number <span class="req">*</span></label>
+          <input type="tel" id="cdPhone" class="form-control" placeholder="+91 98765 43210" maxlength="20" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="cdCompany">Company name <span class="req">*</span></label>
+          <input type="text" id="cdCompany" class="form-control" placeholder="Your company or business name" maxlength="150" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="cdProduct">Main product you sell <span class="req">*</span></label>
+          <input type="text" id="cdProduct" class="form-control" placeholder="e.g. Basmati rice, cotton yarn, spices" maxlength="100">
+        </div>
+        <button class="auth-submit" id="cdBtn" onclick="saveDetails()">
+          <span id="cdBtnTxt">Save and continue</span>
+          <span id="cdSpin" class="spinner" style="display:none;"></span>
+        </button>
+        <p class="note">Signed in as <b id="cdEmail"></b> · <a href="#" onclick="signOutHere();return false;">Use another account</a></p>
       </div>
 
       <!-- RESET PASSWORD -->
@@ -265,7 +308,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 <footer class="lg-bottom"><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></footer>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928a"></script>
+<script src="js/shared.js?v=20260928b"></script>
 <script>
 /* A password-reset email link lands here with type=recovery in the URL hash.
    Read it before the Supabase client consumes the hash. */
@@ -289,10 +332,77 @@ const AFTER_LOGIN = (() => {
   const sb = getSB(); if (!sb) return;
   sb.auth.onAuthStateChange(evt => { if (evt === 'PASSWORD_RECOVERY') switchTab('newpw'); });
   if (IS_RECOVERY) { switchTab('newpw'); return; }
-  /* Already signed in → straight to the portal */
+  showOAuthError();
+  showGoogleIfEnabled();
+  /* Already signed in (including coming back from Google) → check details, then the portal */
   const { data } = await sb.auth.getSession();
-  if (data.session) location.href = AFTER_LOGIN;
+  if (data.session) afterSignIn(data.session);
 })();
+
+/* Google sign-in shows only once it is switched on in Supabase */
+async function showGoogleIfEnabled() {
+  try {
+    const r = await fetch(BGX_SUPABASE_URL + '/auth/v1/settings', { headers: { apikey: BGX_SUPABASE_ANON } });
+    const s = await r.json();
+    if (s && s.external && s.external.google) document.querySelectorAll('.g-btn,.g-or').forEach(el => el.classList.add('on'));
+  } catch (e) {}
+}
+async function signInGoogle(btn) {
+  const sb = getSB(); if (!sb) return;
+  btn.disabled = true;
+  const back = location.origin + '/login' + (AFTER_LOGIN.startsWith('/buy-lead-search') ? '?next=' + encodeURIComponent(AFTER_LOGIN) : '');
+  const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back } });
+  if (error) { btn.disabled = false; showAlert('loginErr', 'error', 'Google sign-in is not available right now. Please use email and password.'); }
+}
+function showOAuthError() {
+  const q = new URLSearchParams(location.search + '&' + location.hash.replace(/^#/, ''));
+  if (q.get('error_description')) showAlert('loginErr', 'error', 'Google sign-in did not complete. Please try again.');
+}
+
+/* Name, mobile, company and main product are required once for every member */
+async function afterSignIn(session) {
+  const sb = getSB();
+  try {
+    await sb.rpc('link_my_client');
+    const { data: d, error } = await sb.rpc('my_details');
+    if (error) throw error;
+    if (d && d.missing && d.missing.length) {
+      const meta = session.user.user_metadata || {};
+      document.getElementById('cdName').value = d.name || meta.full_name || meta.name || '';
+      document.getElementById('cdPhone').value = d.phone || meta.phone || '';
+      document.getElementById('cdCompany').value = d.company || meta.business_name || '';
+      document.getElementById('cdProduct').value = d.product || '';
+      document.getElementById('cdEmail').textContent = session.user.email || '';
+      switchTab('complete');
+      return;
+    }
+  } catch (e) { /* if the check fails, do not lock the member out */ }
+  location.href = AFTER_LOGIN;
+}
+const CD_ERRORS = { BAD_NAME: 'Please enter your full name.', BAD_PHONE: 'Please enter a valid mobile number with at least 10 digits.', BAD_COMPANY: 'Please enter your company name.', BAD_PRODUCT: 'Please enter the main product you sell.' };
+async function saveDetails() {
+  clearAlert('cdErr');
+  const v = id => document.getElementById(id).value.trim();
+  const name = v('cdName'), phone = v('cdPhone'), company = v('cdCompany'), product = v('cdProduct');
+  if (name.length < 2) return showAlert('cdErr', 'error', CD_ERRORS.BAD_NAME);
+  if (phone.replace(/\D/g, '').length < 10) return showAlert('cdErr', 'error', CD_ERRORS.BAD_PHONE);
+  if (company.length < 2) return showAlert('cdErr', 'error', CD_ERRORS.BAD_COMPANY);
+  if (product.length < 2) return showAlert('cdErr', 'error', CD_ERRORS.BAD_PRODUCT);
+  setLoad('cdBtn', 'cdBtnTxt', 'cdSpin', true);
+  const { error } = await getSB().rpc('save_my_details', { p_name: name, p_phone: phone, p_company: company, p_product: product });
+  setLoad('cdBtn', 'cdBtnTxt', 'cdSpin', false);
+  if (error) {
+    const code = Object.keys(CD_ERRORS).find(k => String(error.message || '').includes(k));
+    return showAlert('cdErr', 'error', code ? CD_ERRORS[code] : 'Could not save your details. Please try again.');
+  }
+  if (typeof gtag === 'function') gtag('event', 'profile_basics_complete');
+  location.href = AFTER_LOGIN;
+}
+async function signOutHere() {
+  const sb = getSB(); if (sb) await sb.auth.signOut();
+  try { localStorage.removeItem('bgx_member'); } catch (e) {}
+  switchTab('login');
+}
 
 function switchTab(tab) {
   document.querySelectorAll('.auth-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
@@ -334,7 +444,8 @@ async function handleLogin() {
     showAlert('loginErr','error', error.message.includes('Invalid') ? 'Incorrect email or password. Please try again.' : error.message);
   } else {
     showAlert('loginOk','success','Signed in. Opening your dashboard…');
-    setTimeout(() => location.href = AFTER_LOGIN, 800);
+    const { data } = await sb.auth.getSession();
+    afterSignIn(data.session);
   }
 }
 
@@ -386,7 +497,7 @@ async function handleNewPassword() {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Enter') return;
   const id = (document.querySelector('.auth-panel.active') || {}).id;
-  ({ 'panel-login': handleLogin, 'panel-signup': handleSignup, 'panel-reset': handleReset, 'panel-newpw': handleNewPassword }[id] || (() => {}))();
+  ({ 'panel-login': handleLogin, 'panel-signup': handleSignup, 'panel-reset': handleReset, 'panel-newpw': handleNewPassword, 'panel-complete': saveDetails }[id] || (() => {}))();
 });
 </script>
 </body>

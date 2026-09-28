@@ -292,7 +292,7 @@ window.BGX_Auth = {
   /* once per visit: a short welcome with the two most useful links */
   let seen = false;
   try { seen = sessionStorage.getItem('bgx_welcomed') === '1'; sessionStorage.setItem('bgx_welcomed', '1'); } catch (e) {}
-  if (!seen && !/buy-lead-search/.test(location.pathname)) {
+  if (!seen && !/buy-lead-search|login|portal/.test(location.pathname)) {
     const w = document.createElement('div');
     w.className = 'bgx-welcome'; w.setAttribute('role', 'status');
     w.innerHTML = `<span>Welcome back, <b>${esc(first)}</b>.</span><a href="/buy-lead-search">Buy leads</a><a href="/client-portal">Dashboard →</a><button type="button" aria-label="Close">&times;</button>`;
