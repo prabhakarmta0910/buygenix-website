@@ -31,6 +31,14 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "buygenixsolution.vercel.app" }],
+      "destination": "https://www.buygenixsolutions.com/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin-portal.html" },
     { "source": "/portal", "destination": "/client-portal.html" }
