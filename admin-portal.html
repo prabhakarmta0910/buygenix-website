@@ -117,6 +117,9 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 .mem-cols{grid-template-columns:0.35fr 1.7fr 1.6fr 1fr 1.2fr 0.8fr 1.4fr;}
 .lead-cols{grid-template-columns:0.3fr 1.4fr 1.5fr 1.2fr 1.1fr 1fr 0.9fr;}
 .enq-cols{grid-template-columns:0.3fr 1.6fr 1.4fr 1.5fr 1fr 1fr;}
+.pay-cols{grid-template-columns:0.9fr 1.5fr 1.5fr 0.9fr 1fr 1.1fr;}
+.pay-st{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:100px;}
+.pay-st.paid{background:#ECFDF3;color:#15803D;}.pay-st.created{background:#FFFBEB;color:#B45309;}.pay-st.failed{background:#FEF2F2;color:#B91C1C;}
 .rm-cols{grid-template-columns:1.5fr 1.3fr 1.6fr 0.8fr 1.2fr;}
 .cell-name{font-weight:600;color:var(--ad-ink);}
 .cell-sub{font-size:12px;color:var(--ad-soft);margin-top:2px;}
@@ -262,6 +265,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
       <div class="asb-link" onclick="showAPanel('leads',this)"><svg class="ic"><use href="#i-target"/></svg>Buy Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('enquiries',this)"><svg class="ic"><use href="#i-mail"/></svg>Contact Messages<span class="asb-count" id="sbEnqCnt">0</span></div>
       <div class="asb-sec">Website</div>
+      <div class="asb-link" onclick="showAPanel('payments',this)"><svg class="ic"><use href="#i-card"/></svg>Payments<span class="asb-count" id="sbPayCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('plans',this)"><svg class="ic"><use href="#i-card"/></svg>Membership Plans</div>
       <div class="asb-link" onclick="showAPanel('categories',this)"><svg class="ic"><use href="#i-layout"/></svg>Category Grid</div>
       <div class="asb-link" onclick="showAPanel('banners',this)"><svg class="ic"><use href="#i-image"/></svg>Site Banners</div>
@@ -434,6 +438,30 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
           </div>
           <div class="at-head enq-cols"><span>#</span><span>Name &amp; Business</span><span>Contact</span><span>Interest / Product</span><span>Source</span><span>Actions</span></div>
           <div id="enqBody"><div class="empty-row">Loading enquiries…</div></div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS -->
+      <div class="a-panel" id="ap-payments">
+        <div class="admin-table-wrap">
+          <div class="table-toolbar">
+            <div class="toolbar-left">
+              <span class="tb-title">Razorpay payments</span>
+              <div class="search-wrap"><svg class="ic" style="width:15px;height:15px"><use href="#i-search"/></svg><input type="text" placeholder="Name, email, phone, payment ID…" id="paySearch" oninput="renderPayments()"></div>
+              <select class="filter-sel" id="payStatus" onchange="renderPayments()">
+                <option value="">All status</option>
+                <option value="paid">Paid</option>
+                <option value="created">Started, not paid</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span id="payTotal" style="font-size:13px;color:var(--ad-mid);"></span>
+              <button class="btn-refresh" onclick="loadPayments();BGX_Toast('Refreshed!','success');">↻ Refresh</button>
+            </div>
+          </div>
+          <div class="at-head pay-cols"><span>Date</span><span>Customer</span><span>Contact</span><span>Plan</span><span>Amount</span><span>Status</span></div>
+          <div id="payBody"><div class="empty-row">Loading payments…</div></div>
         </div>
       </div>
 
@@ -912,10 +940,11 @@ function showAPanel(name, el) {
   document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
   const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners'};
+  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners',payments:'Payments'};
   document.getElementById('adminTopTitle').textContent = titles[name]||name;
   if(name==='rms') renderRMs();
   if(name==='plans') loadPlansAdmin();
+  if(name==='payments') loadPayments();
   if(name==='categories') loadCategoriesAdmin();
   if(name==='banners') loadBannersAdmin();
   if(name==='enquiries') { loadEnquiries(); startEnqPolling(); }
@@ -958,6 +987,38 @@ async function loadLeads() {
   try { const { data }=await sb.from('buy_leads').select('*').order('created_at',{ascending:false}).limit(200); allLeads=data&&data.length?data:DEMO_LEADS(); } catch(e){ allLeads=DEMO_LEADS(); }
   document.getElementById('sbLeadCnt').textContent=allLeads.length; renderLeads(allLeads);
 }
+let allPay = [];
+async function loadPayments() {
+  const sb = getSB();
+  try {
+    const { data, error } = await sb.from('payments').select('*').order('created_at', { ascending: false }).limit(500);
+    allPay = !error && data ? data : [];
+  } catch (e) { allPay = []; }
+  const c = document.getElementById('sbPayCnt'); if (c) c.textContent = allPay.filter(p => p.status === 'paid').length;
+  renderPayments();
+}
+function renderPayments() {
+  const body = document.getElementById('payBody'); if (!body) return;
+  const q = (document.getElementById('paySearch').value || '').toLowerCase();
+  const st = document.getElementById('payStatus').value;
+  const list = allPay.filter(p => (!st || p.status === st) && (!q || [p.customer_name, p.customer_email, p.customer_phone, p.business_name, p.razorpay_payment_id, p.razorpay_order_id].join(' ').toLowerCase().includes(q)));
+  const inr = n => '₹' + Number(n || 0).toLocaleString('en-IN');
+  const paid = allPay.filter(p => p.status === 'paid');
+  document.getElementById('payTotal').textContent = `${paid.length} paid · ${inr(paid.reduce((a, p) => a + p.amount_paise / 100, 0))} received`;
+  const label = { paid: 'Paid', created: 'Not paid', failed: 'Failed' };
+  body.innerHTML = list.length ? list.map(p => {
+    const d = new Date(p.paid_at || p.created_at);
+    return `<div class="at-row pay-cols">
+      <span style="font-size:12.5px;">${d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}<div class="cell-sub">${d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })}</div></span>
+      <div><div class="cell-name">${esc(p.customer_name)}</div><div class="cell-sub">${esc(p.business_name || '')}${p.gstin ? ' · GSTIN ' + esc(p.gstin) : ''}</div></div>
+      <div><div style="font-size:12.5px;">${esc(p.customer_phone)}</div><div class="cell-sub">${esc(p.customer_email)}</div></div>
+      <span>${esc(p.plan_name)}</span>
+      <div><div style="font-weight:600;color:var(--ad-ink,#0B1929);">${inr(p.amount_paise / 100)}</div><div class="cell-sub">${inr(p.base_amount)} + ${inr(p.gst_amount)} GST</div></div>
+      <div><span class="pay-st ${esc(p.status)}">${label[p.status] || esc(p.status)}</span><div class="cell-sub" style="margin-top:4px;">${esc(p.razorpay_payment_id || p.razorpay_order_id)}</div></div>
+    </div>`;
+  }).join('') : '<div class="empty-row">No payments yet.</div>';
+}
+
 async function loadEnquiries() {
   const sb=getSB();
   try {

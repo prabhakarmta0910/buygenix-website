@@ -386,14 +386,18 @@ function renderCards(plans) {
     /* Each card lists only what it adds over the plan before it */
     const own   = lists[i].filter(f => !isShared(f) && !(prev && prev.some(g => norm(g) === norm(f))));
     const badge = pop ? (plan.badge || 'Most popular') : ent ? (plan.badge || 'Enterprise') : '';
-    const cta   = ent ? 'Contact us' : `Choose ${esc(plan.name)}`;
+    /* Plans with a live id and price can be bought online; the rest go to Contact */
+    const payable = !ent && /^[0-9a-f-]{36}$/i.test(String(plan.id || '')) && Number(plan.price_monthly) > 0;
+    const cta   = ent ? 'Contact us' : payable ? `Buy ${esc(plan.name)}` : `Choose ${esc(plan.name)}`;
     return `<article class="mp-card${pop ? ' popular' : ''}${ent ? ' enterprise' : ''}">
       ${badge ? `<span class="mp-badge">${esc(badge)}</span>` : ''}
       <h3 class="mp-name">${esc(plan.name)}</h3>
       <p class="mp-desc">${esc(plan.subtitle || '')}</p>
       <div class="mp-price"><span class="mp-amt">${inr(plan.price_monthly)}</span><span class="mp-per">/ year</span></div>
       <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per year</span>
-      <a href="/contact" class="mp-cta">${cta}</a>
+      ${payable
+        ? `<a href="/contact" class="mp-cta" data-pay-plan="${esc(plan.id)}" data-pay-name="${esc(plan.name)}" data-pay-price="${Number(plan.price_monthly)}">${cta}</a><a href="/contact" class="mp-alt">+ 18% GST &middot; or talk to our team</a>`
+        : `<a href="/contact" class="mp-cta">${cta}</a>`}
       <div class="mp-div"></div>
       ${prev ? `<p class="mp-plus">Everything in ${esc(plans[i - 1].name)}, plus:</p>` : ''}
       <ul class="mp-feats">${own.map(f => `<li>${TICK}<span>${esc(f)}</span></li>`).join('')}</ul>
@@ -438,5 +442,177 @@ else loadMembershipPlans();
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js?v=20260927h"></script>
+<!-- ═══ RAZORPAY CHECKOUT ═══ -->
+<style>
+.pay-ov{position:fixed;inset:0;z-index:3000;background:rgba(11,25,41,.55);display:none;align-items:center;justify-content:center;padding:16px;font-family:'Inter',system-ui,sans-serif;}
+.pay-ov.open{display:flex;}
+.pay-box{background:#fff;border-radius:18px;width:100%;max-width:460px;max-height:calc(100vh - 32px);overflow:auto;box-shadow:0 24px 60px rgba(11,25,41,.3);}
+.pay-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:22px 24px 0;}
+.pay-hd h3{font-size:18px;font-weight:600;color:var(--mp-ink);margin:0 0 4px;}
+.pay-hd p{font-size:13.5px;color:var(--mp-mid);margin:0;}
+.pay-x{border:none;background:var(--mp-bg);width:34px;height:34px;border-radius:10px;font-size:18px;line-height:1;color:var(--mp-mid);cursor:pointer;flex-shrink:0;}
+.pay-bd{padding:18px 24px 24px;}
+.pay-sum{background:var(--mp-bg);border-radius:12px;padding:14px 16px;margin-bottom:18px;font-size:14px;}
+.pay-sum div{display:flex;justify-content:space-between;padding:3px 0;color:var(--mp-body);}
+.pay-sum .t{border-top:1px solid var(--mp-line);margin-top:6px;padding-top:9px;font-weight:600;color:var(--mp-ink);font-size:15px;}
+.pay-bd label{display:block;font-size:13px;font-weight:500;color:var(--mp-ink);margin:0 0 6px;}
+.pay-bd label small{font-weight:400;color:var(--mp-soft);}
+.pay-bd input{width:100%;box-sizing:border-box;height:44px;border:1px solid #D9E1EC;border-radius:10px;padding:0 13px;font-size:14.5px;font-family:inherit;color:var(--mp-ink);outline:none;margin-bottom:12px;}
+.pay-bd input:focus{border-color:var(--mp-blue);box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+.pay-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.pay-go{width:100%;height:48px;border:none;border-radius:10px;background:var(--mp-blue);color:#fff;font-family:inherit;font-size:15px;font-weight:500;cursor:pointer;margin-top:4px;}
+.pay-go:hover{background:var(--mp-blue-dk);}
+.pay-go:disabled{opacity:.7;cursor:default;}
+.pay-note{font-size:12.5px;color:var(--mp-mid);line-height:1.55;margin:12px 0 0;text-align:center;}
+.pay-note a{color:var(--mp-blue);}
+.pay-msg{display:none;border-radius:10px;padding:11px 13px;font-size:13.5px;line-height:1.55;margin-bottom:14px;}
+.pay-msg.show{display:block;}
+.pay-msg.err{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;}
+.pay-msg.err a{color:#B91C1C;font-weight:600;}
+.pay-ok{display:none;text-align:center;padding:8px 0 4px;}
+.pay-ok.show{display:block;}
+.pay-ok .ic{width:54px;height:54px;border-radius:50%;background:#ECFDF3;color:#16A34A;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.pay-ok h4{font-size:18px;font-weight:600;color:var(--mp-ink);margin:0 0 6px;}
+.pay-ok p{font-size:14px;color:var(--mp-mid);line-height:1.6;margin:0 0 6px;}
+.mp-alt{display:block;text-align:center;font-size:13px;color:var(--mp-mid);margin-top:10px;text-decoration:none;}
+.mp-alt:hover{color:var(--mp-blue);}
+.mp-card.enterprise .mp-alt{color:rgba(255,255,255,.7);}
+@media(max-width:480px){.pay-2{grid-template-columns:1fr;gap:0;}.pay-hd{padding:18px 18px 0;}.pay-bd{padding:16px 18px 20px;}}
+</style>
+
+<div class="pay-ov" id="payOv" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+  <div class="pay-box">
+    <div class="pay-hd">
+      <div><h3 id="payTitle">Buy membership</h3><p id="paySub">Secure payment by Razorpay</p></div>
+      <button class="pay-x" type="button" id="payClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="pay-bd">
+      <div id="payForm">
+        <div class="pay-sum" id="paySum"></div>
+        <div class="pay-msg err" id="payErr"></div>
+        <label for="pyName">Full name</label>
+        <input id="pyName" autocomplete="name" maxlength="100">
+        <div class="pay-2">
+          <div><label for="pyEmail">Email</label><input id="pyEmail" type="email" autocomplete="email" maxlength="150"></div>
+          <div><label for="pyPhone">Mobile / WhatsApp</label><input id="pyPhone" type="tel" autocomplete="tel" maxlength="20" placeholder="+91"></div>
+        </div>
+        <label for="pyBiz">Business name <small>(optional)</small></label>
+        <input id="pyBiz" autocomplete="organization" maxlength="150">
+        <label for="pyGst">GSTIN <small>(optional, for a GST invoice)</small></label>
+        <input id="pyGst" maxlength="15" style="text-transform:uppercase">
+        <button class="pay-go" type="button" id="payGo">Pay securely</button>
+        <p class="pay-note">Payments are processed by Razorpay. By paying you agree to our <a href="/terms" target="_blank">Terms</a> and <a href="/terms#refunds" target="_blank">Refund Policy</a>.</p>
+      </div>
+      <div class="pay-ok" id="payOk">
+        <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h4>Payment successful</h4>
+        <p id="payOkTxt"></p>
+        <p>Your Relationship Manager will contact you within 24 hours to start onboarding.</p>
+        <button class="pay-go" type="button" id="payDone" style="margin-top:14px">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const ov = $('payOv'), err = $('payErr'), go = $('payGo');
+  const inr = n => '₹' + Number(n).toLocaleString('en-IN');
+  const WA = 'https://wa.me/918796787594?text=' + encodeURIComponent('Hello BuyGenix, I want to buy a membership plan.');
+  let plan = null, lastFocus = null;
+
+  function fnUrl(name){ return BGX_SUPABASE_URL + '/functions/v1/' + name; }
+  function headers(){ return { 'Content-Type': 'application/json', apikey: BGX_SUPABASE_ANON, Authorization: 'Bearer ' + BGX_SUPABASE_ANON }; }
+  function showErr(html){ err.innerHTML = html; err.classList.add('show'); }
+  function busy(on, label){ go.disabled = on; go.textContent = on ? label : 'Pay securely'; }
+  function track(name, params){ if (typeof gtag === 'function') gtag('event', name, params); }
+
+  function open(p){
+    plan = p; lastFocus = document.activeElement;
+    const base = Number(p.price), gst = Math.round(base * 0.18);
+    $('payTitle').textContent = p.name + ' membership';
+    $('paySum').innerHTML = `<div><span>${p.name} plan, 1 year</span><span>${inr(base)}</span></div><div><span>GST (18%)</span><span>${inr(gst)}</span></div><div class="t"><span>Total</span><span>${inr(base + gst)}</span></div>`;
+    err.classList.remove('show'); $('payForm').style.display = ''; $('payOk').classList.remove('show'); busy(false);
+    ov.classList.add('open'); document.body.style.overflow = 'hidden';
+    setTimeout(() => $('pyName').focus(), 50);
+    track('begin_checkout', { currency: 'INR', value: base + gst, items: [{ item_name: p.name, price: base }] });
+  }
+  function close(){ ov.classList.remove('open'); document.body.style.overflow = ''; if (lastFocus) lastFocus.focus(); }
+  $('payClose').onclick = close; $('payDone').onclick = close;
+  ov.addEventListener('click', e => { if (e.target === ov && !go.disabled) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && ov.classList.contains('open') && !go.disabled) close(); });
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-pay-plan]');
+    if (!b) return;
+    e.preventDefault();
+    open({ id: b.dataset.payPlan, name: b.dataset.payName, price: b.dataset.payPrice });
+  });
+
+  function loadCheckout(){
+    return new Promise((res, rej) => {
+      if (window.Razorpay) return res();
+      const s = document.createElement('script');
+      s.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      s.onload = res; s.onerror = () => rej(new Error('checkout'));
+      document.head.appendChild(s);
+    });
+  }
+
+  go.addEventListener('click', async () => {
+    err.classList.remove('show');
+    const body = { plan_id: plan.id, name: $('pyName').value.trim(), email: $('pyEmail').value.trim(),
+      phone: $('pyPhone').value.trim(), business: $('pyBiz').value.trim(), gstin: $('pyGst').value.trim() };
+    if (body.name.length < 2) return showErr('Please enter your full name.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.email)) return showErr('Please enter a valid email address.');
+    if (body.phone.replace(/\D/g, '').length < 10) return showErr('Please enter a valid mobile number.');
+    busy(true, 'Starting payment...');
+    let order;
+    try {
+      const [r] = await Promise.all([fetch(fnUrl('razorpay-order'), { method: 'POST', headers: headers(), body: JSON.stringify(body) }), loadCheckout()]);
+      order = await r.json();
+      if (!r.ok) throw new Error(order.error || 'order');
+    } catch (e) {
+      busy(false);
+      let msg = e.message && e.message !== 'order' && e.message !== 'checkout' ? e.message : 'We could not start the payment';
+      if (!/[.!?]$/.test(msg)) msg += '.';
+      return showErr(`${msg} Please try again, or <a href="${WA}" target="_blank" rel="noopener">message us on WhatsApp</a>.`);
+    }
+    busy(true, 'Waiting for payment...');
+    const rzp = new Razorpay({
+      key: order.key_id, order_id: order.order_id, amount: order.amount, currency: order.currency,
+      name: 'BuyGenix Solutions', description: order.plan + ' membership (1 year)',
+      prefill: { name: body.name, email: body.email, contact: body.phone },
+      notes: { plan: order.plan },
+      theme: { color: '#2563EB' },
+      modal: { ondismiss: () => busy(false) },
+      handler: async (resp) => {
+        busy(true, 'Confirming payment...');
+        try {
+          const v = await fetch(fnUrl('razorpay-verify'), { method: 'POST', headers: headers(), body: JSON.stringify(resp) });
+          const d = await v.json();
+          if (!v.ok) throw new Error(d.error || 'verify');
+          track('purchase', { transaction_id: resp.razorpay_payment_id, currency: 'INR', value: order.amount / 100, items: [{ item_name: order.plan, price: order.base }] });
+          $('payForm').style.display = 'none';
+          $('payOkTxt').textContent = `${order.plan} membership, ${inr(order.amount / 100)} paid. Payment ID: ${resp.razorpay_payment_id}. Razorpay will email your receipt to ${body.email}.`;
+          $('payOk').classList.add('show');
+          go.disabled = false;
+        } catch (e) {
+          busy(false);
+          showErr(`Your payment went through but we could not confirm it here. Please keep your payment ID <b>${resp.razorpay_payment_id}</b> and <a href="${WA}" target="_blank" rel="noopener">message us on WhatsApp</a>; our team will confirm it.`);
+        }
+      },
+    });
+    rzp.on('payment.failed', (r) => {
+      busy(false);
+      showErr(`Payment failed: ${(r.error && r.error.description) || 'please try again'}. No money was taken, or it will be refunded automatically by your bank.`);
+    });
+    rzp.open();
+  });
+})();
+</script>
+<!-- ═══ END RAZORPAY CHECKOUT ═══ -->
+
 </body>
 </html>
