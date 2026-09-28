@@ -490,6 +490,7 @@ async function handleLogin() {
     showAlert('loginErr','error', error.message.includes('Invalid') ? 'Incorrect email or password. Please try again.' : error.message);
   } else {
     showAlert('loginOk','success','Signed in. Opening your dashboard…');
+    if (typeof gtag === 'function') gtag('event', 'login', { method: 'email' });
     const { data } = await sb.auth.getSession();
     afterSignIn(data.session);
   }
@@ -510,7 +511,7 @@ async function handleSignup() {
   const { error } = await sb.auth.signUp({ email, password: pw, options:{ data:{ full_name:name, phone, business_name:biz } } });
   setLoad('signupBtn','signupBtnTxt','signupSpin',false);
   if (error) showAlert('signupErr','error', error.message);
-  else showAlert('signupOk','success','Account created. Please confirm your email, then sign in.');
+  else { showAlert('signupOk','success','Account created. Please confirm your email, then sign in.'); if (typeof gtag === 'function') gtag('event', 'sign_up', { method: 'email' }); }
 }
 
 async function handleReset() {

@@ -32,6 +32,7 @@
     }
   ],
   "redirects": [
+    { "source": "/gst", "destination": "/gst-services", "permanent": true },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "buygenixsolution.vercel.app" }],
