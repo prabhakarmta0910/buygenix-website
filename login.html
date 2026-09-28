@@ -97,6 +97,8 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 .g-btn:hover{border-color:#A9B8CC;background:#F8FAFD;}
 .g-btn img{width:20px;height:20px;}
 .g-btn:disabled{opacity:.7;cursor:wait;}
+.g-slot{display:none;justify-content:center;min-height:44px;}
+.g-slot.on{display:flex;}
 .g-or{display:none;}
 .g-or.on{display:flex;}
 .wa-link{display:block;text-align:center;margin-top:14px;font-size:12.5px;font-weight:600;color:var(--lg-mid);text-decoration:none;}
@@ -170,6 +172,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         <div class="seg" role="tablist"><button class="on" onclick="switchTab('login')" role="tab">Sign in</button><button onclick="switchTab('signup')" role="tab">New member</button></div>
         <div class="auth-alert error" id="loginErr"></div>
         <div class="auth-alert success" id="loginOk"></div>
+        <div class="g-slot" data-text="continue_with"></div>
         <button class="g-btn" type="button" onclick="signInGoogle(this)"><img src="assets/icons/google.svg" alt="">Continue with Google</button>
         <div class="or g-or">or sign in with email</div>
         <div class="field">
@@ -198,6 +201,7 @@ body{background:var(--lg-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         <div class="seg" role="tablist"><button onclick="switchTab('login')" role="tab">Sign in</button><button class="on" onclick="switchTab('signup')" role="tab">New member</button></div>
         <div class="auth-alert error" id="signupErr"></div>
         <div class="auth-alert success" id="signupOk"></div>
+        <div class="g-slot" data-text="signup_with"></div>
         <button class="g-btn" type="button" onclick="signInGoogle(this)"><img src="assets/icons/google.svg" alt="">Sign up with Google</button>
         <div class="or g-or">or create an account with email</div>
         <div class="row2">
@@ -339,13 +343,55 @@ const AFTER_LOGIN = (() => {
   if (data.session) afterSignIn(data.session);
 })();
 
-/* Google sign-in shows only once it is switched on in Supabase */
+/* Google sign-in shows only once it is switched on in Supabase.
+   Google's own button signs in on this page, so Google shows buygenixsolutions.com
+   (not the Supabase address). If it cannot load, the redirect button is the fallback. */
+const GOOGLE_CLIENT_ID = '1005774474069-pngnh0se47p6li45ec1tkda5k0vvlokj.apps.googleusercontent.com';
+let _gNonce = '';
 async function showGoogleIfEnabled() {
   try {
     const r = await fetch(BGX_SUPABASE_URL + '/auth/v1/settings', { headers: { apikey: BGX_SUPABASE_ANON } });
     const s = await r.json();
-    if (s && s.external && s.external.google) document.querySelectorAll('.g-btn,.g-or').forEach(el => el.classList.add('on'));
+    if (!(s && s.external && s.external.google)) return;
+    document.querySelectorAll('.g-or').forEach(el => el.classList.add('on'));
+    try { await renderGoogleButtons(); }
+    catch (e) { document.querySelectorAll('.g-btn').forEach(el => el.classList.add('on')); }
   } catch (e) {}
+}
+function loadGis() {
+  return new Promise((res, rej) => {
+    if (window.google && google.accounts && google.accounts.id) return res();
+    const s = document.createElement('script');
+    s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+    setTimeout(rej, 8000);
+  });
+}
+async function renderGoogleButtons() {
+  await loadGis();
+  const raw = Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, '0')).join('');
+  const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(raw))), b => b.toString(16).padStart(2, '0')).join('');
+  _gNonce = raw;
+  google.accounts.id.initialize({ client_id: GOOGLE_CLIENT_ID, callback: onGoogleCredential, nonce: hash, ux_mode: 'popup', context: 'signin', itp_support: true });
+  document.querySelectorAll('.g-slot').forEach(slot => {
+    slot.classList.add('on');
+    google.accounts.id.renderButton(slot, { type: 'standard', theme: 'outline', size: 'large', shape: 'rectangular',
+      text: slot.dataset.text || 'continue_with', logo_alignment: 'center', width: Math.min(400, slot.parentElement.clientWidth || 360) });
+  });
+}
+async function onGoogleCredential(resp) {
+  clearAlert('loginErr');
+  const sb = getSB(); if (!sb || !resp || !resp.credential) return;
+  const { data, error } = await sb.auth.signInWithIdToken({ provider: 'google', token: resp.credential, nonce: _gNonce });
+  if (error) {
+    switchTab('login');
+    showAlert('loginErr', 'error', 'Google sign-in did not complete. Please try again, or use email and password.');
+    renderGoogleButtons().catch(() => {});
+    return;
+  }
+  if (typeof gtag === 'function') gtag('event', 'login', { method: 'Google' });
+  afterSignIn(data.session);
 }
 async function signInGoogle(btn) {
   const sb = getSB(); if (!sb) return;
