@@ -507,7 +507,7 @@ else loadMembershipPlans();
         <div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h4>Payment successful</h4>
         <p id="payOkTxt"></p>
-        <p>Your Relationship Manager will contact you within 24 hours to start onboarding.</p>
+        <p>Your membership is active. Buyer lead contacts unlock 24 hours after purchase. <a href="/login" style="color:var(--mp-blue);font-weight:600">Sign in</a> with <b id="payOkEmail"></b> to start unlocking buyer leads. Your Relationship Manager will also contact you within 24 hours.</p>
         <button class="pay-go" type="button" id="payDone" style="margin-top:14px">Done</button>
       </div>
     </div>
@@ -596,6 +596,7 @@ else loadMembershipPlans();
           track('purchase', { transaction_id: resp.razorpay_payment_id, currency: 'INR', value: order.amount / 100, items: [{ item_name: order.plan, price: order.base }] });
           $('payForm').style.display = 'none';
           $('payOkTxt').textContent = `${order.plan} membership, ${inr(order.amount / 100)} paid. Payment ID: ${resp.razorpay_payment_id}. Razorpay will email your receipt to ${body.email}.`;
+          $('payOkEmail').textContent = body.email;
           $('payOk').classList.add('show');
           go.disabled = false;
         } catch (e) {

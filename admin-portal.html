@@ -1197,6 +1197,39 @@ function openModal(html) { document.getElementById('modalBody').innerHTML=html; 
 function closeModal()    { document.getElementById('modalBg').classList.remove('open'); }
 document.getElementById('modalBg').addEventListener('click', e=>{ if(e.target===document.getElementById('modalBg')) closeModal(); });
 
+let _memProf = {};
+async function editMemProfile(id) {
+  const box = document.getElementById('memProfileBox'); if (!box) return;
+  const { data } = await getSB().from('company_profiles').select('*').eq('client_id', id).maybeSingle();
+  const p = data || {}; _memProf = p;
+  const F = [['company_name','Company name'],['business_type','Business type'],['tagline','Tagline'],['year_established','Year established'],['employees','Team size'],['annual_turnover','Annual turnover'],['website','Website'],
+    ['contact_person','Contact person'],['designation','Designation'],['phone','Phone'],['whatsapp','WhatsApp'],['email','Email'],['address','Address'],['city','City'],['state','State'],['pincode','PIN code'],['country','Country'],['gstin','GSTIN'],['iec','IEC']];
+  const A = [['products','Products'],['categories','Categories'],['export_markets','Export markets'],['certifications','Certifications']];
+  const inp = 'style="width:100%;box-sizing:border-box;border:1px solid #D9E1EC;border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit;"';
+  box.innerHTML = `<div style="border-top:1px solid #E4E9F2;padding-top:14px;">
+    <div style="font-weight:600;margin-bottom:10px;">Edit company profile</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      ${F.map(([k, l]) => `<label style="font-size:12px;font-weight:600;">${l}<input id="amp_${k}" ${inp} value="${esc(p[k] ?? '')}"></label>`).join('')}
+      <label style="font-size:12px;font-weight:600;grid-column:1/-1;">About<textarea id="amp_about" ${inp} rows="4">${esc(p.about || '')}</textarea></label>
+      ${A.map(([k, l]) => `<label style="font-size:12px;font-weight:600;grid-column:1/-1;">${l} <span style="font-weight:400;color:#94A3B8">(comma separated)</span><input id="amp_${k}" ${inp} value="${esc((p[k] || []).join(', '))}"></label>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;"><span id="ampMsg" style="font-size:13px;margin-right:auto;"></span>
+      <button class="act-btn" onclick="loadMemProfile('${id}')">Cancel</button><button class="act-btn ab-edit" onclick="saveMemProfile('${id}')">Save profile</button></div></div>`;
+  box._fields = [F, A];
+}
+async function saveMemProfile(id) {
+  const box = document.getElementById('memProfileBox'); const [F, A] = box._fields;
+  const row = { client_id: id, updated_at: new Date().toISOString(), logo_url: _memProf.logo_url || null };
+  F.forEach(([k]) => { const v = document.getElementById('amp_' + k).value.trim(); row[k] = v || null; });
+  row.about = document.getElementById('amp_about').value.trim() || null;
+  row.year_established = row.year_established ? parseInt(row.year_established, 10) || null : null;
+  A.forEach(([k]) => row[k] = document.getElementById('amp_' + k).value.split(',').map(x => x.trim()).filter(Boolean).slice(0, 50));
+  if (row.gstin) row.gstin = row.gstin.toUpperCase(); if (row.iec) row.iec = row.iec.toUpperCase();
+  const { error } = await getSB().from('company_profiles').upsert(row, { onConflict: 'client_id' });
+  if (error) { document.getElementById('ampMsg').textContent = 'Could not save: ' + error.message; document.getElementById('ampMsg').style.color = '#B91C1C'; return; }
+  BGX_Toast('Profile saved', 'success');
+  loadMemProfile(id);
+}
 async function loadMemProfile(id) {
   const box = document.getElementById('memProfileBox'); if (!box) return;
   box.innerHTML = '<div class="cell-sub">Loading company profile…</div>';
@@ -1209,6 +1242,7 @@ async function loadMemProfile(id) {
     ]);
     prof = pr.data; unlocked = (la.data || []).filter(r => r.buy_leads);
   } catch (e) {}
+  const memRow = (typeof allMem !== 'undefined' ? allMem : []).find(x => x.id === id);
   const list = a => (a || []).length ? a.map(esc).join(', ') : '—';
   const rows = prof ? [['Company', prof.company_name], ['Business type', prof.business_type], ['Established', prof.year_established], ['Team size', prof.employees], ['Turnover', prof.annual_turnover],
     ['Products', list(prof.products)], ['Categories', list(prof.categories)], ['Export markets', list(prof.export_markets)], ['Certifications', list(prof.certifications)],
@@ -1218,10 +1252,12 @@ async function loadMemProfile(id) {
     <div style="border-top:1px solid var(--ad-line,#E4E9F2);padding-top:14px;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
         ${prof && prof.logo_url ? `<img src="${esc(prof.logo_url)}" alt="" style="width:44px;height:44px;object-fit:contain;border:1px solid #E4E9F2;border-radius:10px;background:#fff;">` : ''}
-        <div><div style="font-weight:600;">Company profile</div><div class="cell-sub">${prof ? 'Updated ' + new Date(prof.updated_at).toLocaleDateString('en-IN') : 'Not filled by the member yet'}</div></div>
+        <div style="flex:1;"><div style="font-weight:600;">Company profile</div><div class="cell-sub">${prof ? 'Updated ' + new Date(prof.updated_at).toLocaleDateString('en-IN') : 'Not filled by the member yet'}</div></div>
+        <button class="act-btn ab-edit" onclick="editMemProfile('${id}')">${prof ? 'Edit profile' : 'Fill profile'}</button>
       </div>
       ${prof && prof.about ? `<p style="font-size:13px;line-height:1.6;margin:0 0 10px;">${esc(prof.about)}</p>` : ''}
       ${rows.filter(([, v]) => v).map(([k, v]) => `<div style="display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid #F0F3F8;font-size:13px;"><span style="color:#5B6B82;">${k}</span><span style="text-align:right;">${k === 'Products' || k === 'Categories' || k === 'Export markets' || k === 'Certifications' ? v : esc(v)}</span></div>`).join('')}
+      ${memRow && memRow.leads_from && new Date(memRow.leads_from) > new Date() ? `<div class="cell-sub" style="margin-top:12px;color:#B45309;">Lead unlocking opens ${new Date(memRow.leads_from).toLocaleString('en-IN')} (24 hours after purchase)</div>` : ''}
       <div style="font-weight:600;margin:14px 0 6px;">Leads unlocked / assigned (${unlocked.length})</div>
       ${unlocked.length ? unlocked.slice(0, 10).map(r => `<div class="cell-sub" style="padding:3px 0;">${esc(r.buy_leads.product || '—')} · ${esc(r.buy_leads.country || '')} · ${new Date(r.assigned_at).toLocaleDateString('en-IN')}</div>`).join('') : '<div class="cell-sub">None yet</div>'}
     </div>`;

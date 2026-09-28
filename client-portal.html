@@ -369,7 +369,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
   <main class="portal-body">
     <div class="notice" id="setupNotice" style="display:none;">
       <svg class="ic"><use href="#i-alert"/></svg>
-      <div><strong>Your account is being set up</strong>We could not find a membership linked to this email yet. Your Relationship Manager will activate it shortly. If you have already paid, message us on WhatsApp.</div>
+      <div><strong>We could not load your account</strong>Please refresh the page. If this keeps happening, message us on WhatsApp.</div>
     </div>
 
     <!-- ═══ DASHBOARD ═══ -->
@@ -704,7 +704,8 @@ function renderAll() {
   $('greetName').textContent = first;
   $('setupNotice').style.display = _client ? 'none' : 'flex';
 
-  const planName = m.plan ? title(m.plan) : null;
+  const paid = m.plan && !/^(none|free)$/i.test(m.plan) && (m.plan_status || '').toLowerCase() !== 'free';
+  const planName = paid ? title(m.plan) : null;
   $('tbPlan').textContent = planName ? `${planName} plan` : 'No active plan';
 
   /* RM */
@@ -915,11 +916,19 @@ function renderCredits() {
   const c = _credits;
   if (!_client) { $('crNum').textContent = '—'; $('crTxt').innerHTML = '<b>No active membership</b><br>Choose a plan to unlock buyer leads.'; return; }
   if (!c || !c.lead_limit) {
+    const free = !c || !c.active;
     $('crNum').textContent = '0';
-    $('crTxt').innerHTML = `<b>Buyer leads are not part of your plan</b><br><a href="/membership#compare" style="color:var(--cp-blue)">Compare plans</a> to start unlocking leads.`;
+    $('crTxt').innerHTML = free
+      ? `<b>Buy a membership to unlock buyer leads</b><br>You can browse every lead now. Contacts open once your plan is active. <a href="/membership" style="color:var(--cp-blue);font-weight:600">View plans</a>`
+      : `<b>Buyer leads are not part of your plan</b><br><a href="/membership#compare" style="color:var(--cp-blue)">Upgrade your plan</a> to start unlocking leads.`;
     $('crBar').style.width = '0'; return;
   }
   $('crNum').textContent = c.remaining;
+  if (c.active && c.unlock_from) {
+    const t = new Date(c.unlock_from).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' });
+    $('crTxt').innerHTML = `<b>lead credits ready</b> · your membership is active. Buyer contacts unlock from <b>${t}</b>, 24 hours after purchase. You can browse leads and complete your profile now.`;
+    $('crBar').style.width = '0'; return;
+  }
   $('crTxt').innerHTML = c.active
     ? `<b>lead credit${c.remaining === 1 ? '' : 's'} left</b> · ${c.used} of ${c.lead_limit} used this membership year`
     : `<b>Your membership is not active</b> · renew to keep unlocking leads`;
@@ -970,21 +979,24 @@ async function loadCountries() {
 function askUnlock(i) {
   const l = _mk[i]; if (!l) return;
   const c = _credits || {};
-  const can = c.active && c.remaining > 0;
+  const wait = c.active && c.unlock_from;
+  const can = c.active && c.remaining > 0 && !wait;
   $('leadTitle').textContent = 'Unlock buyer contact';
   $('leadBody').innerHTML = `
     <div class="facts">${[['Product', l.product], ['Country', l.country], ['Quantity', l.quantity || 'On request'], ['Posted', relTime(l.posted_at)]].map(([k, v]) => `<div class="fact"><small>${k}</small><b>${esc(v || '—')}</b></div>`).join('')}</div>
     ${can
       ? `<div class="note">Unlocking shows the buyer's name, phone and email and adds this lead to <b>My leads</b>. It uses <b>1</b> of your <b>${c.remaining}</b> remaining lead credits.</div>
          <div class="btn-row"><button class="btn primary" id="unlockGo" onclick="doUnlock(${i})">${ico('unlock')}Unlock for 1 credit</button><button class="btn ghost" onclick="closeLead()">Cancel</button></div>`
-      : `<div class="note">${!c.lead_limit ? 'Buyer leads are not part of your current plan.' : !c.active ? 'Your membership is not active right now.' : 'You have used all the lead credits in your plan.'} Upgrade or talk to your RM to unlock more leads.</div>
-         <div class="btn-row"><a class="btn primary" href="/membership#compare">Compare plans</a><a class="btn wa" href="${waLink('Hello, I would like more buyer lead credits.')}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Talk to RM</a></div>`}`;
+      : wait ? `<div class="note">Your membership is active. Buyer contacts unlock from <b>${new Date(c.unlock_from).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'numeric', minute:'2-digit' })}</b>, 24 hours after purchase. Your ${c.remaining} lead credits are waiting.</div>
+         <div class="btn-row"><button class="btn primary" data-goto="profile" onclick="closeLead()">Complete your profile meanwhile</button><button class="btn ghost" onclick="closeLead()">Close</button></div>`
+      : `<div class="note">${!c.active ? 'Buyer contacts are available to members. Buy a membership plan and your lead credits start straight away.' : !c.lead_limit ? 'Buyer leads are not part of your current plan. Upgrade to unlock buyer contacts.' : 'You have used all the lead credits in your plan. Upgrade or talk to your RM for more.'}</div>
+         <div class="btn-row"><a class="btn primary" href="/membership">${!c.active ? 'Buy membership' : 'Compare plans'}</a><a class="btn wa" href="${waLink('Hello, I would like more buyer lead credits.')}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">Talk to RM</a></div>`}`;
   $('leadModal').classList.add('open');
 }
 async function doUnlock(i) {
   const l = _mk[i]; const btn = $('unlockGo');
   if (btn) { btn.disabled = true; btn.textContent = 'Unlocking…'; }
-  const msgs = { NO_CREDITS: 'You have used all your lead credits.', PLAN_INACTIVE: 'Your membership is not active.', LEAD_UNAVAILABLE: 'This lead is no longer available.', NO_MEMBERSHIP: 'No membership is linked to your account.' };
+  const msgs = { NOT_YET_ELIGIBLE: 'Buyer contacts unlock 24 hours after your membership purchase.', NO_CREDITS: 'You have used all your lead credits.', PLAN_INACTIVE: 'Your membership is not active.', LEAD_UNAVAILABLE: 'This lead is no longer available.', NO_MEMBERSHIP: 'No membership is linked to your account.' };
   try {
     const { data, error } = await getSB().rpc('unlock_lead', { p_lead_id: l.id });
     if (error) throw error;
