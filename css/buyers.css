@@ -109,3 +109,6 @@
   .bx-leads{grid-template-columns:1fr;}
   .bx-cta{grid-template-columns:1fr;}
 }
+
+/* The hero has its own lead search, so the header search box is not repeated here */
+body[data-page="buyers"] .navbar .nav-search{display:none;}
