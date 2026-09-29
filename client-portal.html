@@ -190,6 +190,39 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 /* modal */
 .modal{display:none;position:fixed;inset:0;background:rgba(11,25,41,.55);z-index:1000;align-items:center;justify-content:center;padding:20px;}
 .modal.open{display:flex;}
+.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.pp-card{background:#fff;border:1px solid var(--cp-line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
+.pp-img{height:150px;background:#EEF2F7 center/cover no-repeat;display:flex;align-items:center;justify-content:center;color:var(--cp-soft);font-size:12.5px;}
+.pp-b{padding:12px 14px;display:flex;flex-direction:column;gap:4px;flex:1;}
+.pp-b b{font-size:14px;color:var(--cp-ink);line-height:1.35;}
+.pp-b span{font-size:13px;color:var(--cp-mid);}
+.pp-actions{display:flex;gap:8px;padding:0 14px 14px;}
+.pp-actions .btn{flex:1;padding:8px 10px;font-size:12.5px;}
+.pp-add{border:1.5px dashed #C9D5E6;background:#F8FAFD;border-radius:14px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--cp-blue);font-weight:600;font-size:14px;cursor:pointer;font-family:inherit;}
+.pp-add:hover{background:#F1F6FF;}
+.spec-row{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-bottom:8px;}
+.spec-row input{border:1px solid #D9E1EC;border-radius:10px;padding:9px 11px;font-size:13.5px;font-family:inherit;min-width:0;}
+.spec-row button{border:none;background:#F2F4F7;border-radius:9px;width:36px;cursor:pointer;color:var(--cp-mid);font-size:16px;}
+.pp-imgbox{display:flex;gap:12px;align-items:center;}
+.pp-imgbox .pp-img{width:96px;height:96px;border-radius:12px;flex-shrink:0;}
+.pub-card{border:1px solid #BFD2F5;background:#F5F8FF;border-radius:14px;padding:14px 16px;margin-top:14px;font-size:13px;color:var(--cp-body);line-height:1.55;}
+.pub-card b{display:block;font-size:14px;color:var(--cp-ink);margin-bottom:4px;}
+.pub-card a{color:var(--cp-blue);font-weight:600;word-break:break-all;}
+.pub-toggle{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:13px;font-weight:600;color:var(--cp-ink);cursor:pointer;}
+.pub-toggle input{width:18px;height:18px;accent-color:var(--cp-blue);}
+.enq{border:1px solid var(--cp-line);border-radius:14px;padding:14px 16px;background:#fff;margin-bottom:10px;}
+.enq-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:flex-start;}
+.enq-top b{font-size:14.5px;color:var(--cp-ink);}
+.enq-top span{font-size:12.5px;color:var(--cp-soft);}
+.enq-meta{font-size:13px;color:var(--cp-mid);margin-top:4px;}
+.enq-msg{font-size:13.5px;color:var(--cp-body);background:#F6F8FC;border-radius:10px;padding:10px 12px;margin-top:10px;white-space:pre-line;}
+.enq-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center;}
+.enq-act .btn{padding:8px 12px;font-size:12.5px;}
+.enq-act select{border:1px solid #D9E1EC;border-radius:9px;padding:7px 10px;font-size:12.5px;font-family:inherit;margin-left:auto;}
+.match{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #EEF1F6;}
+.match:first-child{border-top:none;}
+.match b{font-size:13.5px;color:var(--cp-ink);}
+.match small{display:block;font-size:12.5px;color:var(--cp-mid);}
 .modal-box{background:#fff;border-radius:18px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(11,25,41,.25);}
 .modal-h{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--cp-line);}
 .modal-h h3{font-size:16px;font-weight:600;}
@@ -332,6 +365,9 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <div class="sb-section">Account</div>
     <button class="sb-link" data-panel="membership"><svg class="ic"><use href="#i-card"/></svg>My Membership</button>
     <button class="sb-link" data-panel="profile"><svg class="ic"><use href="#i-user"/></svg>Company Profile</button>
+    <div class="sb-section">Supplier page</div>
+    <button class="sb-link" data-panel="products"><svg class="ic"><use href="#i-card"/></svg>My Products<span class="sb-count" id="prodCount">0</span></button>
+    <button class="sb-link" data-panel="enquiries"><svg class="ic"><use href="#i-send"/></svg>Buyer Enquiries<span class="sb-count" id="enqCount">0</span></button>
     <div class="sb-section">Website</div>
     <a class="sb-link" href="/buy-lead-search"><svg class="ic"><use href="#i-search"/></svg>Search &amp; buy leads</a>
     <a class="sb-link" href="/"><svg class="ic"><use href="#i-globe"/></svg>Go to website</a>
@@ -393,6 +429,14 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
           <div class="card">
             <div class="card-h"><h2><svg class="ic"><use href="#i-target"/></svg>Recent buyer leads</h2><button class="link-btn" data-goto="leads">View all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
             <div id="recentLeads" class="mini-list"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-search"/></svg>Buyer leads for your products</h2><a class="link-btn" href="/buy-lead-search">Search all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></a></div>
+            <div id="matchLeads"><div class="empty" style="padding:18px 0">Add your products to see matching buyer leads.</div></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2><svg class="ic"><use href="#i-send"/></svg>Buyer enquiries</h2><button class="link-btn" data-goto="enquiries">View all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
+            <div id="dashEnq" class="mini-list"></div>
           </div>
           <div class="card">
             <div class="card-h"><h2><svg class="ic"><use href="#i-card"/></svg>Plan usage</h2><button class="link-btn" data-goto="membership">Plan details <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
@@ -552,7 +596,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
           </div>
 
           <div class="pf-sec">
-            <h2>Contact &amp; compliance</h2><p>Shown only to our team and to buyers you contact.</p>
+            <h2>Contact &amp; compliance</h2><p>Your city, address and website appear on your public page. Phone and WhatsApp are shown to buyers on paid plans. GSTIN and IEC numbers are never shown; buyers only see a verified badge.</p>
             <div class="pf-grid">
               <div class="fld"><label for="pf_contact_person">Contact person *</label><input id="pf_contact_person" maxlength="100" required></div>
               <div class="fld"><label for="pf_designation">Designation</label><input id="pf_designation" maxlength="80" placeholder="e.g. Director"></div>
@@ -577,11 +621,49 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
             <div class="pf-preview"><div class="logo-box" id="pfPrevLogo">—</div><div><b id="pfPrevName">Your company</b><span id="pfPrevType">Complete your profile</span></div></div>
             <div class="pc-wrap" style="margin-bottom:10px;"><div class="pc-ring" id="pcRing2"><span id="pcPct2">0%</span></div><div class="pc-text"><strong id="pcHead2">Profile strength</strong>Fill the starred fields to reach 100%.</div></div>
             <div class="pc-list" id="pcMissing2"></div>
+            <div class="pub-card" id="pubCard"><b>Your public company page</b><span id="pubTxt">Save your profile to get your page on BuyGenix.</span>
+              <label class="pub-toggle"><input type="checkbox" id="pf_is_public" checked> Show my company in Products &amp; Companies search</label></div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ═══ PRODUCTS ═══ -->
+    <section class="p-panel" id="panel-products">
+      <div class="ph"><div><h1>My products</h1><p>Products with a photo and price appear in Products search and on your company page. Buyers send enquiries straight to you.</p></div>
+        <a class="btn ghost" id="pubLinkTop" href="/search?type=products" target="_blank" rel="noopener"><svg class="ic"><use href="#i-globe"/></svg>View public page</a></div>
+      <div class="notice" id="prodNotice" style="display:none;margin-bottom:16px;"><svg class="ic"><use href="#i-alert"/></svg><div><strong>Complete your company profile</strong>Buyers can see your products once your company profile has a company name. <a href="#" data-goto="profile">Open company profile</a></div></div>
+      <div class="pp-grid" id="prodGrid"></div>
+    </section>
+
+    <!-- ═══ ENQUIRIES ═══ -->
+    <section class="p-panel" id="panel-enquiries">
+      <div class="ph"><div><h1>Buyer enquiries</h1><p>Enquiries buyers sent from your company page and your products. Reply fast: buyers usually contact several suppliers.</p></div></div>
+      <div id="enqList"></div>
+    </section>
   </main>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal" id="prodModal" onclick="if(event.target===this)closeProduct()">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="prodTitle" style="max-width:640px">
+    <div class="modal-h"><h3 id="prodTitle">Add product</h3><button class="icon-btn" onclick="closeProduct()" aria-label="Close"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <form class="modal-b" id="prodForm" onsubmit="saveProduct(event)">
+      <div class="pf-grid">
+        <div class="fld full"><label>Product photo <small>(JPG, PNG or WEBP, up to 2 MB)</small></label>
+          <div class="pp-imgbox"><div class="pp-img" id="ppImg">No photo</div><div><input type="file" id="ppFile" accept="image/png,image/jpeg,image/webp" style="display:none"><button type="button" class="btn ghost" onclick="document.getElementById('ppFile').click()">Upload photo</button><div class="hint" id="ppHint">A clear photo on a plain background gets the most enquiries.</div></div></div></div>
+        <div class="fld full"><label for="pp_name">Product name *</label><input id="pp_name" maxlength="120" required placeholder="e.g. 1121 Steam Basmati Rice"></div>
+        <div class="fld"><label for="pp_category">Category</label><input id="pp_category" maxlength="80" placeholder="e.g. Rice"></div>
+        <div class="fld"><label for="pp_min_order">Minimum order</label><input id="pp_min_order" maxlength="60" placeholder="e.g. 5 Metric Ton"></div>
+        <div class="fld"><label for="pp_price">Price (₹) <small>leave empty for "on request"</small></label><input id="pp_price" type="number" min="0" step="0.01" placeholder="e.g. 95"></div>
+        <div class="fld"><label for="pp_price_max">Up to price (₹) <small>optional range</small></label><input id="pp_price_max" type="number" min="0" step="0.01"></div>
+        <div class="fld"><label for="pp_unit">Per unit</label><select id="pp_unit"><option value="">Select</option><option>Kilogram</option><option>Metric Ton</option><option>Ton</option><option>Quintal</option><option>Piece</option><option>Dozen</option><option>Pack</option><option>Box</option><option>Carton</option><option>Bag</option><option>Meter</option><option>Square Feet</option><option>Litre</option><option>Set</option><option>Pair</option><option>Container</option></select></div>
+        <div class="fld full"><label for="pp_description">Description</label><textarea id="pp_description" maxlength="2000" placeholder="Grade, packing, origin, shelf life, delivery ports…"></textarea></div>
+        <div class="fld full"><label>Specifications <small>(up to 8, e.g. Grain length · 8.3 mm)</small></label><div id="ppSpecs"></div><button type="button" class="btn ghost" id="ppAddSpec" onclick="addSpecRow()">+ Add specification</button></div>
+      </div>
+      <div class="pf-actions"><span class="pf-msg" id="ppMsg"></span><button type="submit" class="btn primary" id="ppSave">Save product</button></div>
+    </form>
+  </div>
 </div>
 
 <!-- LEAD DETAIL MODAL -->
@@ -593,13 +675,13 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 </div>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928b"></script>
+<script src="js/shared.js?v=20260929a"></script>
 <script>
 const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
 let _sb = null, _user = null, _client = null, _plan = null, _leads = [], _quota = null, _waNum = DEFAULT_WA;
 let _leadQuery = '';
-let _profile = null, _tags = {}, _credits = null;
+let _profile = null, _tags = {}, _credits = null, _products = [], _enq = [], _editProd = null, _ppImage = null;
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -664,6 +746,7 @@ async function loadMember() {
   if (row) { await Promise.all([loadPlan(row.plan), loadProfile(row.id), loadCredits()]); }
   renderAll();
   if (row) await loadLeads(row.id);
+  if (row) { await Promise.all([loadProducts(row.id), loadEnquiries()]); renderPublicCard(); loadMatches(); }
   else renderLeads([]);
 }
 
@@ -975,6 +1058,7 @@ function readProfileForm() {
   if (p.gstin) p.gstin = p.gstin.toUpperCase(); if (p.iec) p.iec = p.iec.toUpperCase();
   ['products','categories','export_markets','certifications'].forEach(k => p[k] = _tags[k] || []);
   p.logo_url = (_profile && _profile.logo_url) || null;
+  p.is_public = $('pf_is_public').checked;
   return p;
 }
 function setLogo(url) {
@@ -1009,6 +1093,7 @@ async function saveProfile(e) {
   btn.disabled = false; btn.textContent = 'Save profile';
   if (error) { msg.className = 'pf-msg err'; msg.textContent = 'Could not save. Please check the fields and try again.'; return; }
   _profile = data; msg.className = 'pf-msg ok'; msg.textContent = 'Profile saved';
+  renderPublicCard(); renderProducts(); loadMatches();
   if (typeof gtag === 'function') gtag('event', 'profile_saved');
   updateProfileStrength();
 }
@@ -1030,7 +1115,121 @@ async function uploadLogo(file) {
 }
 
 /* ── NAV ── */
-const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Company Profile' };
+/* ── SUPPLIER PAGE: products, enquiries, public page, matching leads ── */
+const pubUrl = () => _profile && _profile.slug ? `https://www.buygenixsolutions.com/company/${_profile.slug}` : '';
+const inrP = n => '₹' + Number(n).toLocaleString('en-IN', { maximumFractionDigits: 2 });
+function priceTxt(p) {
+  if (p.price == null && p.price_max == null) return 'Price on request';
+  const r = p.price != null && p.price_max != null && p.price_max !== p.price ? `${inrP(p.price)} – ${inrP(p.price_max)}` : inrP(p.price != null ? p.price : p.price_max);
+  return r + (p.unit ? ` / ${p.unit}` : '');
+}
+function renderPublicCard() {
+  if ($('pf_is_public')) $('pf_is_public').checked = !_profile || _profile.is_public !== false;
+  const url = pubUrl(), listed = url && _profile.is_public !== false && (_products.length || (_profile.products || []).length);
+  $('pubTxt').innerHTML = url
+    ? (listed ? `Buyers can find you here: <a href="${esc(url)}" target="_blank" rel="noopener">${esc(url.replace('https://www.', ''))}</a>` : `Your page address is <a href="${esc(url)}" target="_blank" rel="noopener">${esc(url.replace('https://www.', ''))}</a>. It goes live when your profile is public and has at least one product.`)
+    : 'Save your profile with a company name to get your page on BuyGenix.';
+  $('pubLinkTop').href = url || '/search?type=products';
+}
+async function loadProducts(clientId) {
+  try { const { data } = await getSB().from('company_products').select('*').eq('client_id', clientId).order('sort').order('created_at'); _products = data || []; } catch (e) { _products = []; }
+  renderProducts();
+}
+function renderProducts() {
+  $('prodCount').textContent = _products.length;
+  $('prodNotice').style.display = _profile && _profile.company_name ? 'none' : 'flex';
+  $('prodGrid').innerHTML = `<button class="pp-add" type="button" onclick="openProduct()">${ico('upgrade')}Add a product</button>` + _products.map(p => `
+    <div class="pp-card"><div class="pp-img" style="${p.image_url ? `background-image:url('${esc(p.image_url)}')` : ''}">${p.image_url ? '' : 'No photo'}</div>
+      <div class="pp-b"><b>${esc(p.name)}</b><span>${esc(priceTxt(p))}</span>${p.min_order ? `<span>MOQ: ${esc(p.min_order)}</span>` : ''}</div>
+      <div class="pp-actions"><button class="btn ghost" type="button" onclick="openProduct('${p.id}')">Edit</button><button class="btn ghost" type="button" onclick="deleteProduct('${p.id}')">Delete</button></div></div>`).join('');
+}
+function addSpecRow(k, v) {
+  const box = $('ppSpecs'); if (box.children.length >= 8) return;
+  const d = document.createElement('div'); d.className = 'spec-row';
+  d.innerHTML = `<input placeholder="Name, e.g. Moisture" maxlength="40" value="${esc(k || '')}"><input placeholder="Value, e.g. 12% max" maxlength="80" value="${esc(v || '')}"><button type="button" aria-label="Remove">&times;</button>`;
+  d.querySelector('button').onclick = () => d.remove();
+  box.appendChild(d); $('ppAddSpec').style.display = box.children.length >= 8 ? 'none' : '';
+}
+function setPpImage(url) { _ppImage = url || null; const b = $('ppImg'); b.style.backgroundImage = url ? `url('${url}')` : ''; b.textContent = url ? '' : 'No photo'; }
+function openProduct(id) {
+  _editProd = id ? _products.find(p => p.id === id) : null;
+  const p = _editProd || {};
+  $('prodTitle').textContent = _editProd ? 'Edit product' : 'Add product';
+  ['name', 'category', 'min_order', 'price', 'price_max', 'unit', 'description'].forEach(f => { $('pp_' + f).value = p[f] ?? ''; });
+  $('ppSpecs').innerHTML = ''; (p.specs || []).forEach(s => addSpecRow(s.k, s.v)); if (!(p.specs || []).length) addSpecRow();
+  setPpImage(p.image_url); $('ppMsg').textContent = ''; $('ppHint').textContent = 'A clear photo on a plain background gets the most enquiries.';
+  $('prodModal').classList.add('open'); setTimeout(() => $('pp_name').focus(), 40);
+}
+function closeProduct() { $('prodModal').classList.remove('open'); }
+async function uploadProductImage(file) {
+  const hint = $('ppHint'); if (!file) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(file.type)) { hint.textContent = 'Please choose a JPG, PNG or WEBP image.'; return; }
+  if (file.size > 2097152) { hint.textContent = 'Photo must be under 2 MB.'; return; }
+  hint.textContent = 'Uploading…';
+  const ext = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
+  const path = `${_user.id}/products/${Date.now()}.${ext}`, sb = getSB();
+  const { error } = await sb.storage.from('company-logos').upload(path, file, { contentType: file.type, cacheControl: '31536000' });
+  if (error) { hint.textContent = 'Upload failed. Please try again.'; return; }
+  setPpImage(sb.storage.from('company-logos').getPublicUrl(path).data.publicUrl); hint.textContent = 'Photo added.';
+}
+async function saveProduct(e) {
+  e.preventDefault();
+  const msg = $('ppMsg'), btn = $('ppSave'), num = v => v === '' ? null : Number(v);
+  const row = { client_id: _client.id, name: $('pp_name').value.trim(), category: $('pp_category').value.trim() || null, min_order: $('pp_min_order').value.trim() || null,
+    price: num($('pp_price').value), price_max: num($('pp_price_max').value), unit: $('pp_unit').value || null, description: $('pp_description').value.trim() || null, image_url: _ppImage,
+    specs: [...$('ppSpecs').children].map(r => { const [k, v] = r.querySelectorAll('input'); return { k: k.value.trim(), v: v.value.trim() }; }).filter(s => s.k && s.v) };
+  if (row.name.length < 2) { msg.className = 'pf-msg err'; msg.textContent = 'Please enter the product name.'; return; }
+  if (row.price != null && row.price_max != null && row.price_max < row.price) { msg.className = 'pf-msg err'; msg.textContent = 'The "up to" price should be higher than the price.'; return; }
+  if (!_editProd) row.sort = _products.length;
+  btn.disabled = true; btn.textContent = 'Saving…';
+  const q = _editProd ? getSB().from('company_products').update(row).eq('id', _editProd.id) : getSB().from('company_products').insert(row);
+  const { error } = await q;
+  btn.disabled = false; btn.textContent = 'Save product';
+  if (error) { msg.className = 'pf-msg err'; msg.textContent = /PRODUCT_LIMIT/.test(error.message) ? 'You can list up to 60 products.' : 'Could not save. Please check the fields and try again.'; return; }
+  if (typeof gtag === 'function') gtag('event', _editProd ? 'product_updated' : 'product_added', { has_photo: !!row.image_url, has_price: row.price != null });
+  closeProduct(); await loadProducts(_client.id); renderPublicCard(); loadMatches();
+}
+async function deleteProduct(id) {
+  const p = _products.find(x => x.id === id); if (!p || !confirm(`Delete "${p.name}"? Buyers will no longer see it.`)) return;
+  const { error } = await getSB().from('company_products').delete().eq('id', id);
+  if (!error) { await loadProducts(_client.id); renderPublicCard(); }
+}
+async function loadEnquiries() {
+  try { const { data } = await getSB().from('supplier_inquiries').select('*').order('created_at', { ascending: false }).limit(200); _enq = data || []; } catch (e) { _enq = []; }
+  renderEnquiries();
+}
+const ENQ_ST = { new: 'New', replied: 'Replied', closed: 'Closed' };
+function enqActions(q) {
+  const wa = String(q.buyer_phone || '').replace(/\D/g, ''), txt = `Hello ${q.buyer_name}, thank you for your enquiry for ${q.product} on BuyGenix.`;
+  return `${wa ? `<a class="btn wa" href="https://wa.me/${wa}?text=${encodeURIComponent(txt)}" target="_blank" rel="noopener"><img class="brand-ic" src="assets/icons/whatsapp.svg" alt="">WhatsApp</a><a class="btn ghost" href="tel:${esc(q.buyer_phone)}">${ico('phone')}Call</a>` : ''}${q.buyer_email ? `<a class="btn ghost" href="mailto:${esc(q.buyer_email)}?subject=${encodeURIComponent('Your enquiry for ' + q.product)}">${ico('send')}Email</a>` : ''}`;
+}
+function renderEnquiries() {
+  const fresh = _enq.filter(q => q.status === 'new').length;
+  $('enqCount').textContent = fresh || _enq.length;
+  $('enqList').innerHTML = _enq.length ? _enq.map(q => `
+    <div class="enq"><div class="enq-top"><div><b>${esc(q.product)}</b>${q.quantity ? ` · ${esc(q.quantity)}` : ''}<div class="enq-meta">${esc(q.buyer_name)}${q.buyer_country ? ', ' + esc(q.buyer_country) : ''} · ${esc(q.buyer_phone)}${q.buyer_email ? ' · ' + esc(q.buyer_email) : ''}</div></div><span>${fmtDate(q.created_at)}</span></div>
+      ${q.message ? `<div class="enq-msg">${esc(q.message)}</div>` : ''}
+      <div class="enq-act">${enqActions(q)}<select onchange="setEnqStatus('${q.id}', this.value)" aria-label="Status">${Object.entries(ENQ_ST).map(([k, v]) => `<option value="${k}"${q.status === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div></div>`).join('')
+    : `<div class="card empty"><div class="empty-ic">${ico('send')}</div><strong>No enquiries yet</strong>Add products with photos and prices so buyers can find you in Products search.<div><button class="btn primary" data-goto="products">Add products</button></div></div>`;
+  $('dashEnq').innerHTML = _enq.length ? _enq.slice(0, 4).map(q => `<div class="row"><div class="grow"><div class="t">${esc(q.product)}</div><div class="s">${esc([q.buyer_name, q.buyer_country, fmtDate(q.created_at)].filter(Boolean).join(' · '))}</div></div><span class="pill ${q.status === 'new' ? 'blue' : 'grey'}">${ENQ_ST[q.status] || q.status}</span></div>`).join('')
+    : `<div class="empty" style="padding:18px 0">Enquiries from your company page will appear here.</div>`;
+}
+async function setEnqStatus(id, status) {
+  const { error } = await getSB().from('supplier_inquiries').update({ status }).eq('id', id);
+  if (!error) { const q = _enq.find(x => x.id === id); if (q) q.status = status; renderEnquiries(); }
+}
+/* your products → live buyer leads (search_buy_leads), so a supplier sees demand for what they sell */
+async function loadMatches() {
+  const names = [...new Set(_products.map(p => p.name).concat((_profile && _profile.products) || []).map(s => String(s).trim()).filter(Boolean))].slice(0, 4);
+  if (!names.length) { $('matchLeads').innerHTML = '<div class="empty" style="padding:18px 0">Add your products to see matching buyer leads.</div>'; return; }
+  const rows = await Promise.all(names.map(async n => { try { const { data } = await getSB().rpc('search_buy_leads', { search_term: n }); return { n, list: data || [] }; } catch (e) { return { n, list: [] }; } }));
+  $('matchLeads').innerHTML = rows.map(({ n, list }) => {
+    const open = list.filter(l => l.available && !l.is_unlocked).length, c = [...new Set(list.map(l => String(l.country || '').split(/[,-]/).pop().trim()).filter(Boolean))].slice(0, 3).join(', ');
+    return `<div class="match"><div><b>${esc(n)}</b><small>${list.length ? `${list.length} buyer requirement${list.length > 1 ? 's' : ''}${c ? ' · ' + esc(c) : ''}` : 'No buyer requirements yet'}</small></div>${list.length ? `<a class="btn ghost" style="padding:7px 12px;font-size:12.5px" href="/buy-lead-search?q=${encodeURIComponent(n)}">${open ? 'View ' + open : 'View'}</a>` : ''}</div>`;
+  }).join('');
+}
+
+const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Company Profile', products:'My Products', enquiries:'Buyer Enquiries' };
 function showPanel(name) {
   document.querySelectorAll('.p-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
   document.querySelectorAll('.sb-link[data-panel]').forEach(l => l.classList.toggle('active', l.dataset.panel === name));
@@ -1044,10 +1243,11 @@ document.addEventListener('click', e => {
 });
 $('leadSearch').addEventListener('input', e => { _leadQuery = e.target.value.trim(); drawLeadTable(); });
 $('pfLogoFile').addEventListener('change', e => uploadLogo(e.target.files[0]));
+$('ppFile').addEventListener('change', e => { uploadProductImage(e.target.files[0]); e.target.value = ''; });
 $('pf_about').addEventListener('input', e => { $('pfAboutN').textContent = e.target.value.length; });
 $('pfForm').addEventListener('input', () => { $('pfMsg').textContent = ''; updateProfileStrength(); });
 wireTags();
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLead(); closeSidebar(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLead(); closeProduct(); closeSidebar(); } });
 
 function openSidebar()  { $('sidebar').classList.add('open'); $('sbOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeSidebar() { $('sidebar').classList.remove('open'); $('sbOverlay').classList.remove('open'); document.body.style.overflow = ''; }

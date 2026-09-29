@@ -79,6 +79,8 @@ function getSB() {
         a.classList.add('active');
         dropLabel.textContent = a.getAttribute('data-val');
         dropMenu.classList.remove('open');
+        const inp = document.getElementById('navSearchInput');
+        if (inp) inp.placeholder = { 'Companies': 'Search suppliers...', 'Buy & Leads': 'Search buy leads...' }[a.getAttribute('data-val')] || 'Search Product...';
       });
     });
     document.addEventListener('click', function() {
@@ -102,11 +104,14 @@ function getSB() {
     function submit() {
       const category = label ? label.textContent.trim() : '';
       const term = input.value.trim();
+      const q = term ? '&q=' + encodeURIComponent(term) : '';
       if (category === 'Buy & Leads') {
         window.location.href = '/buy-lead-search' + (term ? '?q=' + encodeURIComponent(term) : '');
+      } else if (category === 'Companies') {
+        window.location.href = '/search?type=companies' + q;
+      } else {
+        window.location.href = '/search?type=products' + q;
       }
-      /* Products/Services and Companies: unchanged — still no-op,
-         exactly matching this button's behavior before this edit. */
     }
     if (btn) btn.addEventListener('click', submit);
     input.addEventListener('keydown', function(e) { if (e.key === 'Enter') submit(); });

@@ -605,7 +605,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 </div>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928b"></script>
+<script src="js/shared.js?v=20260929a"></script>
 <script>
 /* ───────────────────────────────────────────────────────────────
    ADMIN AUTH — SECURITY FIX (21 Jun 2026)
@@ -1234,13 +1234,15 @@ async function loadMemProfile(id) {
   const box = document.getElementById('memProfileBox'); if (!box) return;
   box.innerHTML = '<div class="cell-sub">Loading company profile…</div>';
   const sb = getSB();
-  let prof = null, unlocked = [];
+  let prof = null, unlocked = [], prods = [], enqs = [];
   try {
-    const [pr, la] = await Promise.all([
+    const [pr, la, pp, eq] = await Promise.all([
       sb.from('company_profiles').select('*').eq('client_id', id).maybeSingle(),
-      sb.from('lead_assignments').select('assigned_at, buy_leads(product,country,quantity)').eq('client_id', id).order('assigned_at', { ascending: false }).limit(50)
+      sb.from('lead_assignments').select('assigned_at, buy_leads(product,country,quantity)').eq('client_id', id).order('assigned_at', { ascending: false }).limit(50),
+      sb.from('company_products').select('name,price,price_max,unit,image_url').eq('client_id', id).order('sort'),
+      sb.from('supplier_inquiries').select('product,quantity,buyer_name,buyer_country,buyer_phone,status,created_at').eq('client_id', id).order('created_at', { ascending: false }).limit(20)
     ]);
-    prof = pr.data; unlocked = (la.data || []).filter(r => r.buy_leads);
+    prof = pr.data; unlocked = (la.data || []).filter(r => r.buy_leads); prods = pp.data || []; enqs = eq.data || [];
   } catch (e) {}
   const memRow = (typeof allMem !== 'undefined' ? allMem : []).find(x => x.id === id);
   const list = a => (a || []).length ? a.map(esc).join(', ') : '—';
@@ -1258,6 +1260,11 @@ async function loadMemProfile(id) {
       ${prof && prof.about ? `<p style="font-size:13px;line-height:1.6;margin:0 0 10px;">${esc(prof.about)}</p>` : ''}
       ${rows.filter(([, v]) => v).map(([k, v]) => `<div style="display:flex;justify-content:space-between;gap:14px;padding:6px 0;border-bottom:1px solid #F0F3F8;font-size:13px;"><span style="color:#5B6B82;">${k}</span><span style="text-align:right;">${k === 'Products' || k === 'Categories' || k === 'Export markets' || k === 'Certifications' ? v : esc(v)}</span></div>`).join('')}
       ${memRow && memRow.leads_from && new Date(memRow.leads_from) > new Date() ? `<div class="cell-sub" style="margin-top:12px;color:#B45309;">Lead unlocking opens ${new Date(memRow.leads_from).toLocaleString('en-IN')} (24 hours after purchase)</div>` : ''}
+      ${prof && prof.slug ? `<div class="cell-sub" style="margin-top:10px;">Public page: <a href="/company/${esc(prof.slug)}" target="_blank" rel="noopener">/company/${esc(prof.slug)}</a>${prof.is_public === false ? ' (hidden by member)' : ''}</div>` : ''}
+      <div style="font-weight:600;margin:14px 0 6px;">Products listed (${prods.length})</div>
+      ${prods.length ? prods.slice(0, 12).map(x => `<div class="cell-sub" style="padding:3px 0;">${esc(x.name)}${x.price != null ? ' · ₹' + esc(x.price) + (x.price_max ? '–' + esc(x.price_max) : '') + (x.unit ? '/' + esc(x.unit) : '') : ' · price on request'}${x.image_url ? '' : ' · no photo'}</div>`).join('') : '<div class="cell-sub">No products yet</div>'}
+      <div style="font-weight:600;margin:14px 0 6px;">Buyer enquiries received (${enqs.length})</div>
+      ${enqs.length ? enqs.slice(0, 10).map(q => `<div class="cell-sub" style="padding:3px 0;">${esc(q.product)}${q.quantity ? ' · ' + esc(q.quantity) : ''} · ${esc(q.buyer_name)}${q.buyer_country ? ', ' + esc(q.buyer_country) : ''} · ${esc(q.buyer_phone)} · ${esc(q.status)} · ${new Date(q.created_at).toLocaleDateString('en-IN')}</div>`).join('') : '<div class="cell-sub">No enquiries yet</div>'}
       <div style="font-weight:600;margin:14px 0 6px;">Leads unlocked / assigned (${unlocked.length})</div>
       ${unlocked.length ? unlocked.slice(0, 10).map(r => `<div class="cell-sub" style="padding:3px 0;">${esc(r.buy_leads.product || '—')} · ${esc(r.buy_leads.country || '')} · ${new Date(r.assigned_at).toLocaleDateString('en-IN')}</div>`).join('') : '<div class="cell-sub">None yet</div>'}
     </div>`;

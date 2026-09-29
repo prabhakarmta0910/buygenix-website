@@ -231,7 +231,7 @@
 </div>
 
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928b"></script>
+<script src="js/shared.js?v=20260929a"></script>
 <script>
 let _sb = null, _user = null, _quota = null, _results = [], _term = '';
 function getSB() {
@@ -494,6 +494,8 @@ function getQueryParam(name) {
 
 function doPageSearch() {
   const term = document.getElementById('navSearchInput').value.trim();
+  const cat = (document.getElementById('navSearchLabel') || {}).textContent || '';
+  if (!/Buy/.test(cat)) return; /* Products and Companies are routed to /search by shared.js */
   const url = new URL(window.location.href);
   if (term) url.searchParams.set('q', term); else url.searchParams.delete('q');
   window.history.replaceState({}, '', url);

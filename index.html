@@ -1282,6 +1282,7 @@ const COUNTRIES=[{n:'Afghanistan',c:'+93'},{n:'Albania',c:'+355'},{n:'Algeria',c
   const from=(new URLSearchParams(location.search).get('from')||'').toLowerCase();
   const pick=Array.from(sel.options).find(o=>from&&o.textContent.toLowerCase()===from)||Array.from(sel.options).find(o=>o.textContent==='India');
   if(pick){sel.value=pick.value;pick.selected=true;}
+  const want=new URLSearchParams(location.search).get('product'); const pr=document.getElementById('pyr_product'); if(want&&pr&&!pr.value) pr.value=want.slice(0,120);
   onCountryChange();
 })();
 function onCountryChange(){
@@ -1596,7 +1597,7 @@ function updatePhonePlaceholder(el,active){
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/bgx-data.js"></script>
-<script src="js/shared.js?v=20260928b"></script>
+<script src="js/shared.js?v=20260929a"></script>
 <script>/* links like /#post-requirement: land on the section after images have loaded */
 window.addEventListener('load',function(){var h=location.hash.slice(1);var e=h&&document.getElementById(h);if(!e)return;var go=function(){e.scrollIntoView();};go();setTimeout(go,700);setTimeout(go,1600);});</script>
 <script>
