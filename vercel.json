@@ -41,7 +41,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/company/:slug", "destination": "/company" },
+    { "source": "/company/:slug", "destination": "/api/company?slug=:slug" },
+    { "source": "/sitemap-companies.xml", "destination": "/api/sitemap-companies" },
     { "source": "/admin", "destination": "/admin-portal" },
     { "source": "/portal", "destination": "/client-portal" }
   ]

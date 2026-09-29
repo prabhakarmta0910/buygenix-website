@@ -3,5 +3,7 @@ Allow: /
 Disallow: /admin
 Disallow: /admin-portal
 Disallow: /lead-search-admin
+Disallow: /api/
 
 Sitemap: https://www.buygenixsolutions.com/sitemap.xml
+Sitemap: https://www.buygenixsolutions.com/sitemap-companies.xml

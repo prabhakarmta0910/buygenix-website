@@ -249,7 +249,8 @@
         logo: c.logo_url || undefined, description: desc, foundingDate: c.year_established ? String(c.year_established) : undefined,
         address: { '@type': 'PostalAddress', addressLocality: c.city || undefined, addressRegion: c.state || undefined, addressCountry: c.country || 'IN' },
         makesOffer: prods.slice(0, 20).map(p => ({ '@type': 'Offer', itemOffered: { '@type': 'Product', name: p.name, image: p.image_url || undefined }, price: p.price != null ? String(p.price) : undefined, priceCurrency: p.price != null ? 'INR' : undefined })) };
-      const s = document.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(ld); document.head.appendChild(s);
+      /* the server already sends Organization data for /company/<slug>; add it only if missing */
+      if (![...document.querySelectorAll('script[type="application/ld+json"]')].some(x => /"Organization"/.test(x.textContent))) { const s = document.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(ld); document.head.appendChild(s); }
       if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) setTimeout(() => el.scrollIntoView({ block: 'center' }), 100); }
     }
   }
