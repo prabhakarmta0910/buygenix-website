@@ -4,6 +4,8 @@ Disallow: /admin
 Disallow: /admin-portal
 Disallow: /lead-search-admin
 Disallow: /api/
+Disallow: /buyers-template
 
 Sitemap: https://www.buygenixsolutions.com/sitemap.xml
 Sitemap: https://www.buygenixsolutions.com/sitemap-companies.xml
+Sitemap: https://www.buygenixsolutions.com/sitemap-buyers.xml

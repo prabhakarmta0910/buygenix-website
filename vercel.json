@@ -43,6 +43,10 @@
   "rewrites": [
     { "source": "/company/:slug", "destination": "/api/company?slug=:slug" },
     { "source": "/sitemap-companies.xml", "destination": "/api/sitemap-companies" },
+    { "source": "/buyers", "destination": "/api/buyers" },
+    { "source": "/buyers/:a/:b", "destination": "/api/buyers?path=:a/:b" },
+    { "source": "/buyers/:a", "destination": "/api/buyers?path=:a" },
+    { "source": "/sitemap-buyers.xml", "destination": "/api/sitemap-buyers" },
     { "source": "/admin", "destination": "/admin-portal" },
     { "source": "/portal", "destination": "/client-portal" }
   ]
