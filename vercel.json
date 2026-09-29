@@ -41,8 +41,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/company/:slug", "destination": "/company.html" },
-    { "source": "/admin", "destination": "/admin-portal.html" },
-    { "source": "/portal", "destination": "/client-portal.html" }
+    { "source": "/company/:slug", "destination": "/company" },
+    { "source": "/admin", "destination": "/admin-portal" },
+    { "source": "/portal", "destination": "/client-portal" }
   ]
 }
