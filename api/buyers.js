@@ -57,12 +57,11 @@ const HUES = [217, 152, 28, 262, 340, 190, 45, 5];
 const hue = t => HUES[[...String(t)].reduce((a, c) => a + c.charCodeAt(0), 0) % HUES.length];
 const badge = t => `<span class="bx-ico" style="--h:${hue(t)}">${esc(String(t).trim().charAt(0).toUpperCase())}</span>`;
 
-function hero({ crumbs, title, intro, stats, q, chips }) {
+function hero({ crumbs, title, intro, q, chips }) {
   return `<section class="bx-hero">
     ${crumbsHtml(crumbs)}
     <h1>${title}</h1>
     <p>${intro}</p>
-    <div class="bx-stats">${stats.map(([v, k]) => `<div><b>${v}</b><span>${k}</span></div>`).join('')}</div>
     <form class="bx-find" action="/buy-lead-search" method="get" role="search">${ICON.search}<input name="q" value="${esc(q || '')}" placeholder="Search buyer requirements, e.g. basmati rice" aria-label="Search buyer requirements"><button type="submit">Search leads</button></form>
     ${chips && chips.length ? `<div class="bx-from"><span>Buyers from</span>${chips.map(p => `<em>${esc(p)}</em>`).join('')}</div>` : ''}
   </section>`;
@@ -79,24 +78,19 @@ function ctaHtml(name, side) {
 }
 
 function indexPage(dir) {
-  const total = dir.reduce((s, c) => s + Number(c.leads || 0), 0);
-  const subs = dir.reduce((s, c) => s + (c.subs || []).filter(x => x.leads > 0).length, 0);
   const cats = dir.filter(c => c.leads > 0).sort((a, b) => b.leads - a.leads).concat(dir.filter(c => !c.leads));
-  const top = Math.max(1, ...cats.map(c => Number(c.leads || 0)));
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers & Importers', url: url('') }];
   const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Category',
-    intro: 'Live buyer requirements from importers, wholesalers and bulk buyers in India and abroad. Pick a category to see what buyers want, how much, and where.',
-    stats: [[n(total), 'Buyer requirements'], [n(cats.filter(c => c.leads > 0).length), 'Categories'], [n(subs), 'Sub-categories']] })}
+    intro: 'Live buyer requirements from importers, wholesalers and bulk buyers in India and abroad. Pick a category to see what buyers want, how much, and where.' })}
   <div class="bx-cats">${cats.map(c => `
     <section class="bx-cat">
-      <a class="bx-cat-hd" href="/buyers/${esc(c.slug)}">${badge(c.name)}<span><b>${esc(c.name)}</b><small>${n(c.leads)} buyer requirement${c.leads == 1 ? '' : 's'}</small></span></a>
-      <div class="bx-bar"><i style="width:${Math.max(4, Math.round(100 * (c.leads || 0) / top))}%;--h:${hue(c.name)}"></i></div>
-      <ul>${(c.subs || []).filter(s => s.leads > 0).slice(0, 6).map(s => `<li><a href="/buyers/${esc(c.slug)}/${esc(s.slug)}">${esc(s.name)}</a><span>${n(s.leads)}</span></li>`).join('') || '<li class="bx-muted">New requirements coming soon</li>'}</ul>
+      <a class="bx-cat-hd" href="/buyers/${esc(c.slug)}">${badge(c.name)}<span><b>${esc(c.name)}</b><small>Buyers &amp; importers</small></span></a>
+      <ul>${(c.subs || []).filter(s => s.leads > 0).slice(0, 6).map(s => `<li><a href="/buyers/${esc(c.slug)}/${esc(s.slug)}">${esc(s.name)}</a></li>`).join('') || '<li class="bx-muted">New requirements coming soon</li>'}</ul>
       <a class="bx-more" href="/buyers/${esc(c.slug)}">View all ${esc(c.name)} buyers &rarr;</a></section>`).join('')}</div>
   ${ctaHtml('products')}`;
   return {
     title: 'Buyers & Importers by Category | Buy Leads | BuyGenix',
-    desc: `${n(total)} buyer requirements from importers and bulk buyers in India and abroad, across agriculture, apparel, food, handicrafts, packaging and more.`,
+    desc: 'Buyer requirements from importers and bulk buyers in India and abroad, across agriculture, apparel, food, handicrafts, packaging and more.',
     canonical: url(''), index: true, body, ld: [crumbsLd(crumbs)],
   };
 }
@@ -116,31 +110,30 @@ function page(d) {
   const places = st.places || [];
   const noun = d.name;
   const intro = total
-    ? `${n(total)} buyer requirement${total > 1 ? 's' : ''} for ${esc(noun)} on BuyGenix${places.length ? `, from buyers in ${esc(listPlaces(places, 6))}` : ''}. See what they need and how much, then contact them directly.`
+    ? `Buyer requirements for ${esc(noun)} on BuyGenix${places.length ? `, from buyers in ${esc(listPlaces(places, 6))}` : ''}. See what they need and how much, then contact them directly.`
     : `No open buyer requirements for ${esc(noun)} right now. New requirements are added regularly; post yours or check related products below.`;
   const kids = d.children || [], rel = d.related || [], sup = d.suppliers || [];
   const childTitle = lvl === 'category' ? `Browse ${d.name} by sub-category` : `Browse ${d.name} products`;
-  const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}"${x.leads ? '' : ' class="nil"'}>${esc(x.name)}${x.leads ? `<b>${n(x.leads)}</b>` : ''}</a>`).join('')}</div></section>` : '';
+  const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}"${x.leads ? '' : ' class="nil"'}>${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const supHtml = sup.length ? `<section class="bx-sec"><h2>${esc(noun)} suppliers</h2><div class="bx-sups">${sup.slice(0, 8).map(s => `<a class="bx-sup" href="/company/${esc(s.slug)}">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="" loading="lazy">` : badge(s.company_name)}<span><b>${esc(s.company_name)}</b><small>${esc([s.city, s.state].filter(Boolean).join(', '))}${s.business_type ? ' · ' + esc(s.business_type) : ''}</small>${s.paid ? '<em>Verified member</em>' : ''}</span></a>`).join('')}</div></section>` : '';
   const body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
-    stats: [[n(total), 'Buyer requirements'], [n(places.length), 'Buyer locations'], [total ? fmt(st.latest) : '—', 'Latest requirement']],
     chips: places.slice(0, 8) })}
   ${pills(kids.filter(k => k.leads > 0).concat(kids.filter(k => !k.leads)).slice(0, 40), childTitle)}
   <div class="bx-grid">
     <div>
-      ${leads.length ? `<h2 class="bx-h2">Latest ${esc(noun)} buyer requirements</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>${total > leads.length ? `<div class="bx-all"><a class="dr-btn out" href="/buy-lead-search?q=${encodeURIComponent(d.name)}">See all ${n(total)} ${esc(noun)} buy leads &rarr;</a></div>` : ''}` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>${intro}</p></div>`}
+      ${leads.length ? `<h2 class="bx-h2">Latest ${esc(noun)} buyer requirements</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>${total > leads.length ? `<div class="bx-all"><a class="dr-btn out" href="/buy-lead-search?q=${encodeURIComponent(d.name)}">See all ${esc(noun)} buy leads &rarr;</a></div>` : ''}` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>${intro}</p></div>`}
       ${pills(rel.filter(k => k.leads > 0).slice(0, 20), 'Related products')}
     </div>
     <aside class="bx-side">${supHtml}${ctaHtml(d.name, true)}</aside>
   </div>`;
   const index = total >= 3 || (lvl === 'product' && sup.length > 0);
   const desc = total
-    ? `${n(total)} buyer requirements for ${d.name}${places.length ? ` from ${listPlaces(places, 4)}` : ''}. See quantities and buyer locations, and contact ${d.name} buyers and importers on BuyGenix.`
+    ? `Buyer requirements for ${d.name}${places.length ? ` from ${listPlaces(places, 4)}` : ''}. See quantities and buyer locations, and contact ${d.name} buyers and importers on BuyGenix.`
     : `Find ${d.name} buyers and importers on BuyGenix. Post your requirement or list your company to get buyer inquiries.`;
   const ld = [crumbsLd(crumbs)];
-  if (leads.length) ld.push({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${d.name} buyer requirements`, numberOfItems: total,
+  if (leads.length) ld.push({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${d.name} buyer requirements`,
     itemListElement: leads.slice(0, 20).map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.product}${l.quantity ? ' – ' + l.quantity : ''}${l.place ? ' – ' + l.place : ''}` })) });
-  return { title: `${d.name} Buyers & Importers${total ? ` | ${n(total)} Buy Leads` : ''} | BuyGenix`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
+  return { title: `${d.name} Buyers & Importers | Buy Leads | BuyGenix`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
 }
 
 module.exports = async (req, res) => {

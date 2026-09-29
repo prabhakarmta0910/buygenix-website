@@ -15,7 +15,7 @@
 .bx-stats div{min-width:150px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);}
 .bx-stats b{display:block;font-size:22px;font-weight:700;color:#fff;line-height:1.2;}
 .bx-stats span{font-size:12.5px;color:#9FB2CE;}
-.bx-find{position:relative;display:flex;gap:8px;max-width:640px;}
+.bx-find{position:relative;display:flex;gap:8px;max-width:640px;margin-top:22px;}
 .bx-find svg{position:absolute;left:14px;top:50%;width:18px;height:18px;transform:translateY(-50%);fill:none;stroke:#8A99AD;stroke-width:2;}
 .bx-find input{flex:1;min-width:0;height:48px;border:none;border-radius:12px;padding:0 14px 0 42px;font-family:inherit;font-size:14.5px;color:#0B1929;outline:none;}
 .bx-find input:focus{box-shadow:0 0 0 4px rgba(37,99,235,.35);}
