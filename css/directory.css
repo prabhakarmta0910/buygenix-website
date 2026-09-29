@@ -104,6 +104,10 @@ body{background:var(--dr-bg);}
 .cp-contact a{color:var(--dr-blue);}
 .cp-side{position:sticky;top:calc(var(--nav-h) + 16px);}
 .cp-desc{font-size:13px;color:var(--dr-mid);line-height:1.55;margin:4px 0 6px;}
+/* narrow product cards: spec name above its value */
+.cp-prod .dr-specs{gap:6px;margin-bottom:8px;}
+.cp-prod .dr-specs div{grid-template-columns:1fr;gap:0;}
+.cp-prod .dr-specs span{font-size:11.5px;letter-spacing:.02em;}
 
 /* inquiry form (popup and inline) */
 .iq-ov{position:fixed;inset:0;z-index:3000;background:rgba(11,25,41,.5);display:none;align-items:center;justify-content:center;padding:16px;}
