@@ -149,6 +149,20 @@ body{background:var(--bp-bg);}
  ]
 }
 </script>
+<style>/* buyers box under the guide's call to action */
+.bp-buyers{margin-top:18px;border:1px solid var(--bp-line,#E4E9F2);border-radius:18px;padding:24px 28px;background:linear-gradient(135deg,#EEF4FF,#fff);}
+.bp-buyers h3{font-family:inherit;font-size:19px;font-weight:600;color:#0B1929;margin:0 0 6px;}
+.bp-buyers p{font-size:14.5px;color:#475569;margin:0 0 14px;line-height:1.6;}
+.bp-buyers-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.bp-buyers-links a{font-size:13.5px;padding:7px 12px;border-radius:100px;border:1px solid #D6E3FB;background:#fff;color:#0B1929;text-decoration:none;}
+.bp-buyers-links a:hover{border-color:#2563EB;color:#1D4ED8;}
+.bp-buyers-row{display:flex;flex-wrap:wrap;gap:10px;}
+.bp-buyers-row a{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:12px;font-size:14.5px;font-weight:500;text-decoration:none;}
+.bp-buyers-row a.pri{background:#2563EB;color:#fff;}
+.bp-buyers-row a.pri:hover{background:#1D4ED8;}
+.bp-buyers-row a.out{border:1px solid #BFD2F5;color:#1D4ED8;background:#fff;}
+@media(max-width:600px){.bp-buyers{padding:20px 18px;}}
+</style>
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -208,6 +222,13 @@ body{background:var(--bp-bg);}
         <h3>Need Help Getting This Done?</h3>
         <p>BuyGenix Solutions matches your frozen foods & ice cream business with verified global buyers and builds your professional export catalogue.</p>
         <a href="/membership">List Your Products →</a>
+      </div>
+
+      <div class="bp-buyers">
+        <h3>Looking for buyers for your products?</h3>
+        <p>See live requirements from importers and bulk buyers in India and abroad: what they want, how much, and where. Contact them directly with a BuyGenix membership.</p>
+        <div class="bp-buyers-links"><a href="/buyers/food-beverages/frozen-foods-ice-cream">Frozen Foods Ice Cream buyers</a><a href="/buyers/agriculture/dairy-milk-products">Dairy Products buyers</a><a href="/buyers/food-beverages/bakery-products">Bakery Products buyers</a><a href="/buyers/food-beverages">Food &amp; Beverages buyers</a></div>
+        <div class="bp-buyers-row"><a class="pri" href="/buyers">Browse all buyer requirements</a><a class="out" href="/membership">View membership plans</a></div>
       </div>
     </div>
   </div>
