@@ -6,6 +6,23 @@ Disallow: /lead-search-admin
 Disallow: /api/
 Disallow: /buyers-template
 
+# AI search and answer engines are welcome to read public pages
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /admin-portal
+Disallow: /lead-search-admin
+Disallow: /api/
+Disallow: /buyers-template
+
 Sitemap: https://www.buygenixsolutions.com/sitemap.xml
 Sitemap: https://www.buygenixsolutions.com/sitemap-companies.xml
 Sitemap: https://www.buygenixsolutions.com/sitemap-buyers.xml
