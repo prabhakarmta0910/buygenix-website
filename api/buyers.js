@@ -3,6 +3,8 @@
 //   /buyers/<category>                    e.g. /buyers/agriculture
 //   /buyers/<category>/<sub-category>     e.g. /buyers/apparel-fashion/men-clothing
 //   /buyers/<product>                     e.g. /buyers/mens-t-shirts
+//   /buyers/countries                     buyers by country
+//   /buyers/country/<country>             e.g. /buyers/country/uae
 // Buyer contact details are never sent; the page links to the lead search to buy them.
 const fs = require('fs');
 const path = require('path');
@@ -84,11 +86,16 @@ const INDEX_FAQ = [
   ['I want to buy from India. How do I use BuyGenix?', 'Post your requirement free on the BuyGenix website with the product, quantity and delivery location. The BuyGenix team connects you with suitable Indian suppliers and exporters.'],
 ];
 
-function indexPage(dir) {
+function countryStrip(list, title) {
+  return list && list.length ? `<section class="bx-sec"><h2>${esc(title || 'Buyers & importers by country')}</h2><div class="bx-pills">${list.map(c => `<a href="/buyers/country/${esc(c.slug)}">${esc(c.short_name || c.name)}</a>`).join('')}</div></section>` : '';
+}
+
+function indexPage(dir, countries) {
   const cats = dir.filter(c => c.leads > 0).sort((a, b) => b.leads - a.leads).concat(dir.filter(c => !c.leads));
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers & Importers', url: url('') }];
   const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Category',
     intro: 'Live buyer requirements from importers, wholesalers and bulk buyers in India and abroad. Pick a category to see what buyers want, how much, and where.' })}
+  ${countryStrip((countries || []).filter(c => c.leads >= 20))}
   <div class="bx-cats">${cats.map(c => `
     <section class="bx-cat">
       <a class="bx-cat-hd" href="/buyers/${esc(c.slug)}">${badge(c.name)}<span><b>${esc(c.name)}</b><small>Buyers &amp; importers</small></span></a>
@@ -152,6 +159,67 @@ function page(d) {
   return { title: `${d.name} Buyers & Importers | Buy Leads | BuyGenix`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
 }
 
+// ── Buyers by country ──
+const COUNTRY_FAQ = (nm, cities, prods) => [
+  [`What do buyers in ${nm} import?`, `Recent requirements from ${nm} on BuyGenix include ${prods.slice(0, 8).join(', ')}. Each requirement shows the product, quantity, buyer location and date.`],
+  [`Where are the ${nm} buyers located?`, cities.length ? `Requirements come from buyers in ${listPlaces(cities, 6)} and other cities across ${nm}.` : `Requirements come from importers, wholesalers and distributors across ${nm}.`],
+  [`How do I contact importers in ${nm}?`, `BuyGenix members unlock a buyer's name, mobile number and email with the lead credits in their membership plan, then contact the buyer directly. Product, quantity and location are free to browse.`],
+  [`How many suppliers receive each ${nm} requirement?`, `Each buyer requirement is shared with at most 5 suppliers, so buyers get a few serious quotes and your offer is not lost in a crowd.`],
+  [`Is there a fee to browse ${nm} buyer requirements?`, `No. Anyone can browse requirements by country, category and product. Contact details need a BuyGenix membership.`],
+];
+
+function countryCta(nm) {
+  return `<div class="bx-cta bx-cta-side">
+    <div class="bx-cta-box sell"><b>Do you export to ${esc(nm)}?</b><span>Unlock each buyer's name, mobile and email with a BuyGenix membership, and get matched leads from your Relationship Manager.</span>
+      <div class="row"><a class="dr-btn pri" href="/membership">View plans</a><a class="dr-btn out" href="/export-buyer-leads">How it works</a></div></div>
+  </div>`;
+}
+
+function countryPage(d) {
+  const nm = d.short_name || d.name, st = d.stats || {}, leads = d.leads || [], total = Number(st.leads || 0);
+  // Drop spelling variants of the same city (Jebel Ali / Jabel Ali / Jebal Ali).
+  const seen = new Set(), cities = (st.cities || []).filter(c => { const k = String(c || '').toLowerCase().replace(/[aeiou\s]/g, ''); return c && !seen.has(k) && seen.add(k); }).slice(0, 6);
+  const prods = (d.products || []).map(p => p.name);
+  const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') }, { name: nm, url: url('country/' + d.slug) }];
+  const intro = `Buyer requirements from importers, wholesalers and distributors in ${esc(d.name)}${cities.length ? `, including ${esc(listPlaces(cities, 5))}` : ''}. See what they want to buy and how much, then contact them directly.`;
+  const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}">${esc(x.name)}</a>`).join('')}</div></section>` : '';
+  const faqs = COUNTRY_FAQ(nm, cities, prods);
+  const body = `${hero({ crumbs, title: `Buyers &amp; Importers in ${esc(nm)}`, intro, q: '', chips: cities })}
+  ${pills((d.products || []).slice(0, 30), `What buyers in ${nm} are looking for`)}
+  <div class="bx-grid">
+    <div>
+      ${leads.length ? `<h2 class="bx-h2">Latest buyer requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements from ${esc(nm)} are added regularly.</p></div>`}
+      ${pills(d.categories || [], `${nm} buyers by category`)}
+      <section class="bx-sec bx-faq"><h2>Buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
+      ${pills((d.others || []).map(o => ({ name: o.name, path: 'country/' + o.slug })), 'Buyers in other countries')}
+    </div>
+    <aside class="bx-side">${countryCta(nm)}</aside>
+  </div>`;
+  const ld = [crumbsLd(crumbs), { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+  if (leads.length) ld.push({ '@context': 'https://schema.org', '@type': 'ItemList', name: `Buyer requirements from ${d.name}`,
+    itemListElement: leads.slice(0, 20).map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.product}${l.quantity ? ' – ' + l.quantity : ''}${l.place ? ' – ' + l.place : ''}` })) });
+  return {
+    title: `Buyers & Importers in ${nm} | Buy Leads from ${nm} | BuyGenix`,
+    desc: `Live buyer requirements from importers in ${d.name}: ${prods.slice(0, 4).join(', ')} and more. See quantities and locations, then contact ${nm} buyers on BuyGenix.`.slice(0, 158),
+    canonical: url('country/' + d.slug), index: total >= 20, body, ld,
+  };
+}
+
+function countriesPage(list) {
+  const rows = (list || []).filter(c => c.leads > 0);
+  const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') }];
+  const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Country',
+    intro: 'Buyer requirements from importers, wholesalers and distributors around the world. Pick a country to see what its buyers want and how much.' })}
+  <div class="bx-cats">${rows.map(c => `
+    <section class="bx-cat"><a class="bx-cat-hd" href="/buyers/country/${esc(c.slug)}">${badge(c.short_name || c.name)}<span><b>${esc(c.short_name || c.name)}</b><small>Buyers &amp; importers</small></span></a>
+    <a class="bx-more" href="/buyers/country/${esc(c.slug)}">View ${esc(c.short_name || c.name)} buyers &rarr;</a></section>`).join('')}</div>
+  ${ctaHtml('products')}`;
+  return { title: 'Buyers & Importers by Country | Buy Leads | BuyGenix',
+    desc: 'Buyer requirements from importers in the UAE, UK, USA, Australia, Singapore, Saudi Arabia, Germany and more. Browse by country on BuyGenix.',
+    canonical: url('countries'), index: true, body, ld: [crumbsLd(crumbs)] };
+}
+
 // Plain answers built from the page's own data, so search engines and AI assistants can quote them.
 function buyerFaqs(name, places, leads, total) {
   const where = listPlaces(places, 6);
@@ -177,7 +245,9 @@ module.exports = async (req, res) => {
   const host = req.headers.host || 'www.buygenixsolutions.com';
   let t = await template(host), view = null;
   try {
-    if (!p) view = indexPage(await rpc('buyer_directory', {}));
+    if (!p) { const [dir, ctry] = await Promise.all([rpc('buyer_directory', {}), rpc('buyer_country_list', {}).catch(() => [])]); view = indexPage(dir, ctry); }
+    else if (p === 'countries') view = countriesPage(await rpc('buyer_country_list', {}));
+    else if (p.startsWith('country/')) { const d = await rpc('buyer_country_page', { p_slug: p.slice(8) }); if (d) view = countryPage(d); }
     else { const d = await rpc('buyer_page', { p_path: p }); if (d) view = page(d); }
   } catch (e) { view = null; }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
