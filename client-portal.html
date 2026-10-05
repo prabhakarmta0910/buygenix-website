@@ -99,7 +99,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 .pc-text strong{color:var(--cp-ink);display:block;font-size:14px;}
 .pc-list{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
 .pc-chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px;}
-.pc-chip.miss{background:var(--cp-red-soft);color:var(--cp-red);}
+.pc-chip.miss{background:var(--cp-amber-soft);color:var(--cp-amber);}
 .pc-chip.ok{background:var(--cp-green-soft);color:var(--cp-green);}
 .pc-chip .ic{width:13px;height:13px;stroke-width:2.6;}
 
@@ -318,6 +318,22 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
   .tbl td.cell-main{display:block;}
   .tbl td.cell-main::before{display:none;}
 }
+
+/* ── LAYOUT POLISH ── */
+.sb-brand{padding:22px 22px 18px;}
+.sb-brand img{height:34px;}
+.sb-link{white-space:nowrap;}
+.tb-title{font-size:14px;color:var(--cp-mid);}
+.tb-title::before{content:"Client Portal  /  ";white-space:pre;color:var(--cp-soft);font-weight:500;}
+.ph{align-items:center;min-height:52px;}
+.ph h1{font-size:22px;margin:0 0 4px;}
+.ph p{margin:0;font-size:13.5px;}
+.dash-empty{padding:16px 0 4px !important;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;font-size:13.5px;color:var(--cp-mid);}
+.dash-empty .btn{height:36px;font-size:13px;}
+.notice a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px;}
+.card,.stat{border-radius:14px;}
+.card-h .link-btn{white-space:nowrap;flex-shrink:0;}
+@media(max-width:600px){.tb-title::before{content:"";}}
 </style>
 </head>
 <body>
@@ -353,7 +369,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sb-brand">
-    <img src="assets/logo-nav-light.png" alt="BuyGenix Solutions">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions">
     <div class="sb-tag">Client Portal</div>
   </div>
   <nav class="sb-nav">
@@ -432,7 +448,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
           </div>
           <div class="card">
             <div class="card-h"><h2><svg class="ic"><use href="#i-search"/></svg>Buyer leads for your products</h2><a class="link-btn" href="/buy-lead-search">Search all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></a></div>
-            <div id="matchLeads"><div class="empty" style="padding:18px 0">Add your products to see matching buyer leads.</div></div>
+            <div id="matchLeads"><div class="empty dash-empty">Add your products to see matching buyer leads.<div><button class="btn ghost" data-goto="products">Add products</button></div></div></div>
           </div>
           <div class="card">
             <div class="card-h"><h2><svg class="ic"><use href="#i-send"/></svg>Buyer enquiries</h2><button class="link-btn" data-goto="enquiries">View all <svg class="ic" style="width:14px;height:14px"><use href="#i-arrow"/></svg></button></div>
@@ -1212,7 +1228,7 @@ function renderEnquiries() {
       <div class="enq-act">${enqActions(q)}<select onchange="setEnqStatus('${q.id}', this.value)" aria-label="Status">${Object.entries(ENQ_ST).map(([k, v]) => `<option value="${k}"${q.status === k ? ' selected' : ''}>${v}</option>`).join('')}</select></div></div>`).join('')
     : `<div class="card empty"><div class="empty-ic">${ico('send')}</div><strong>No enquiries yet</strong>Add products with photos and prices so buyers can find you in Products search.<div><button class="btn primary" data-goto="products">Add products</button></div></div>`;
   $('dashEnq').innerHTML = _enq.length ? _enq.slice(0, 4).map(q => `<div class="row"><div class="grow"><div class="t">${esc(q.product)}</div><div class="s">${esc([q.buyer_name, q.buyer_country, fmtDate(q.created_at)].filter(Boolean).join(' · '))}</div></div><span class="pill ${q.status === 'new' ? 'blue' : 'grey'}">${ENQ_ST[q.status] || q.status}</span></div>`).join('')
-    : `<div class="empty" style="padding:18px 0">Enquiries from your company page will appear here.</div>`;
+    : `<div class="empty dash-empty">Buyers send enquiries from your products and company page. Add products with photos and prices to start.<div><button class="btn ghost" data-goto="products">Add products</button></div></div>`;
 }
 async function setEnqStatus(id, status) {
   const { error } = await getSB().from('supplier_inquiries').update({ status }).eq('id', id);
@@ -1221,7 +1237,7 @@ async function setEnqStatus(id, status) {
 /* your products → live buyer leads (search_buy_leads), so a supplier sees demand for what they sell */
 async function loadMatches() {
   const names = [...new Set(_products.map(p => p.name).concat((_profile && _profile.products) || []).map(s => String(s).trim()).filter(Boolean))].slice(0, 4);
-  if (!names.length) { $('matchLeads').innerHTML = '<div class="empty" style="padding:18px 0">Add your products to see matching buyer leads.</div>'; return; }
+  if (!names.length) { $('matchLeads').innerHTML = '<div class="empty dash-empty">Add your products to see matching buyer leads.<div><button class="btn ghost" data-goto="products">Add products</button></div></div>'; return; }
   const rows = await Promise.all(names.map(async n => { try { const { data } = await getSB().rpc('search_buy_leads', { search_term: n }); return { n, list: data || [] }; } catch (e) { return { n, list: [] }; } }));
   $('matchLeads').innerHTML = rows.map(({ n, list }) => {
     const open = list.filter(l => l.available && !l.is_unlocked).length, c = [...new Set(list.map(l => String(l.country || '').split(/[,-]/).pop().trim()).filter(Boolean))].slice(0, 3).join(', ');
