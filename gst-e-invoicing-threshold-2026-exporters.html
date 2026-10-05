@@ -103,7 +103,7 @@ body{background:var(--bp-bg);}
    "description": "GST e-invoicing threshold in 2026 explained — the ₹5 crore mandatory limit, the 30-day IRP reporting rule for larger exporters, and how it applies to export invoices.",
    "image": "https://images.unsplash.com/photo-1539376248633-cf94fa8b7bd8?w=1200&q=80&h=630&fit=crop",
    "datePublished": "2026-09-05",
-   "dateModified": "2026-09-05",
+   "dateModified": "2026-10-02",
    "author": {
     "@type": "Organization",
     "name": "BuyGenix Solutions Team",
@@ -145,6 +145,51 @@ body{background:var(--bp-bg);}
      "item": "https://www.buygenixsolutions.com/gst-e-invoicing-threshold-2026-exporters"
     }
    ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is e-invoicing mandatory for export invoices?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Once your aggregate turnover has crossed ₹5 crore in any financial year since GST began, e-invoicing covers B2B, export, SEZ and deemed-export supplies."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What do EXPWP and EXPWOP mean?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "They are the supply types used for export e-invoices: EXPWP is export with payment of tax and EXPWOP is export without payment of tax. Shipping bill details are captured separately in the invoice data."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the 30-day IRP rule?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "If your aggregate turnover is ₹10 crore or more, you must report each invoice to the Invoice Registration Portal within 30 days of the invoice date. After that, the IRP will not generate an IRN for it."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens if I do not generate an e-invoice?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Non-compliant invoices can attract a penalty of ₹10,000 per invoice, the buyer cannot claim input tax credit, and for exporters a missing IRN can affect GSTR-1 reporting and refund claims."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can an e-invoice be cancelled?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Only on the IRP within 24 hours of generation. After that, issue a credit note to reverse it."
+     }
+    }
+   ]
   }
  ]
 }
@@ -163,6 +208,7 @@ body{background:var(--bp-bg);}
 .bp-buyers-row a.out{border:1px solid #BFD2F5;color:#1D4ED8;background:#fff;}
 @media(max-width:600px){.bp-buyers{padding:20px 18px;}}
 </style>
+<link rel="stylesheet" href="/css/guide.css?v=20261002a">
 </head>
 <body>
 <canvas id="bg-canvas"></canvas>
@@ -203,18 +249,37 @@ body{background:var(--bp-bg);}
 
   <div class="bp-article">
     <div class="bp-article-inner">
+      <div class="g-updated"><span>Last updated <b>2 October 2026</b></span></div>
+
       <p>E-invoicing under GST has quietly expanded to cover a huge share of India's exporting businesses. If your turnover has grown in the last couple of years, it's worth confirming whether you're now required to generate e-invoices — because getting this wrong doesn't just risk a penalty, it can invalidate your export invoice entirely.</p>
 
-      <h2>The Current e-Invoicing Threshold</h2>
+      <div class="g-answer"><span class="k">Quick answer</span>
+        <p>In 2026, GST e-invoicing is mandatory for every business whose aggregate turnover has exceeded ₹5 crore in any financial year since GST began, and it covers export invoices too. Export invoices are tagged EXPWP (export with payment of tax) or EXPWOP (export without payment of tax). Businesses with turnover of ₹10 crore or more must report invoices to the IRP within 30 days of the invoice date, or no IRN is generated.</p>
+      </div>
+
+      <div class="g-facts"><div><b>₹5 crore</b><span>Turnover threshold, in any year since GST</span></div><div><b>EXPWP / EXPWOP</b><span>Supply types for export invoices</span></div><div><b>30 days</b><span>IRP reporting limit at ₹10 crore+ turnover</span></div><div><b>₹10,000</b><span>Penalty per non-compliant invoice</span></div></div>
+
+      <nav class="g-toc" aria-label="On this page"><span class="k">On this page</span>
+        <ol>
+          <li><a href="#the-current-e-invoicing-threshold">The Current e-Invoicing Threshold</a></li>
+          <li><a href="#does-this-apply-to-export-invoices-too">Does This Apply to Export Invoices Too</a></li>
+          <li><a href="#the-30-day-irp-reporting-rule-for-larger-exporters">The 30-Day IRP Reporting Rule for Larger Exporters</a></li>
+          <li><a href="#what-happens-if-you-don-t-comply">What Happens If You Don't Comply</a></li>
+          <li><a href="#getting-ready-if-you-ve-just-crossed-the-threshold">Getting Ready If You've Just Crossed the Threshold</a></li>
+          <li><a href="#frequently-asked-questions">Frequently asked questions</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="the-current-e-invoicing-threshold">The Current e-Invoicing Threshold</h2>
       <p>As of 2026, <strong>e-invoicing is mandatory for any GST-registered business whose aggregate annual turnover has exceeded ₹5 crore in any financial year since GST was introduced</strong> — not just your current year's turnover. This is a crucial detail: once your turnover crosses ₹5 crore in any single year, the obligation applies going forward permanently, even if turnover dips in a later year. The threshold applies on a PAN basis, meaning it covers your total business turnover across all GST registrations under that PAN.</p>
 
-      <h2>Does This Apply to Export Invoices Too</h2>
+      <h2 id="does-this-apply-to-export-invoices-too">Does This Apply to Export Invoices Too</h2>
       <p>Yes. E-invoicing covers <strong>B2B, export, SEZ, and deemed-export supplies</strong> once you cross the threshold — it isn't limited to domestic B2B transactions. Export invoices are tagged with a supply type of <strong>EXPWP (export with payment of tax)</strong> or <strong>EXPWOP (export without payment of tax)</strong>, with shipping bill details captured separately in the invoice data.</p>
 
-      <h2>The 30-Day IRP Reporting Rule for Larger Exporters</h2>
+      <h2 id="the-30-day-irp-reporting-rule-for-larger-exporters">The 30-Day IRP Reporting Rule for Larger Exporters</h2>
       <p>If your aggregate turnover is <strong>₹10 crore or more</strong>, a stricter rule applies: you must report your invoice to the Invoice Registration Portal (IRP) <strong>within 30 days of the invoice date</strong>, or the IRP will refuse to generate an Invoice Reference Number (IRN) for it. A missed deadline isn't a minor inconvenience — without a valid IRN, the invoice isn't considered legally valid, which can directly block a GST refund claim on zero-rated exports that depends on that invoice.</p>
 
-      <h2>What Happens If You Don't Comply</h2>
+      <h2 id="what-happens-if-you-don-t-comply">What Happens If You Don't Comply</h2>
       <ul>
         <li>Non-compliant invoices can attract a penalty of <strong>₹10,000 per invoice</strong></li>
         <li>The buyer cannot claim Input Tax Credit on an invoice without a valid IRN</li>
@@ -222,10 +287,19 @@ body{background:var(--bp-bg);}
         <li>e-Invoices can only be cancelled on the IRP within 24 hours of generation — after that, a credit note is the only way to reverse it</li>
       </ul>
 
-      <h2>Getting Ready If You've Just Crossed the Threshold</h2>
+      <h2 id="getting-ready-if-you-ve-just-crossed-the-threshold">Getting Ready If You've Just Crossed the Threshold</h2>
       <p>If your business has recently crossed ₹5 crore turnover for the first time, preparation typically takes 2 to 4 weeks: enabling the e-invoice API on the GST portal, configuring your accounting software or a GST Suvidha Provider (GSP) tool, cleaning up HSN codes and customer GSTIN master data, and running test invoices on the sandbox before going live.</p>
 
       <p>The threshold has been lowered progressively since e-invoicing began in 2020 — starting at ₹500 crore and stepping down to today's ₹5 crore — so businesses hovering near the limit should assume further tightening is possible and get their systems export-ready in advance rather than scrambling after crossing it.</p>
+
+      <h2 id="frequently-asked-questions">Frequently asked questions</h2>
+      <div class="g-faq">
+        <div><h3>Is e-invoicing mandatory for export invoices?</h3><p>Yes. Once your aggregate turnover has crossed ₹5 crore in any financial year since GST began, e-invoicing covers B2B, export, SEZ and deemed-export supplies.</p></div>
+        <div><h3>What do EXPWP and EXPWOP mean?</h3><p>They are the supply types used for export e-invoices: EXPWP is export with payment of tax and EXPWOP is export without payment of tax. Shipping bill details are captured separately in the invoice data.</p></div>
+        <div><h3>What is the 30-day IRP rule?</h3><p>If your aggregate turnover is ₹10 crore or more, you must report each invoice to the Invoice Registration Portal within 30 days of the invoice date. After that, the IRP will not generate an IRN for it.</p></div>
+        <div><h3>What happens if I do not generate an e-invoice?</h3><p>Non-compliant invoices can attract a penalty of ₹10,000 per invoice, the buyer cannot claim input tax credit, and for exporters a missing IRN can affect GSTR-1 reporting and refund claims.</p></div>
+        <div><h3>Can an e-invoice be cancelled?</h3><p>Only on the IRP within 24 hours of generation. After that, issue a credit note to reverse it.</p></div>
+      </div>
 
       <div class="bp-cta">
         <h3>Need Help Getting This Done?</h3>

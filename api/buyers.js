@@ -77,6 +77,13 @@ function ctaHtml(name, side) {
   </div>`;
 }
 
+const INDEX_FAQ = [
+  ['What is BuyGenix?', 'BuyGenix Solutions is an Indian B2B platform based in New Delhi. It connects Indian exporters and suppliers with requirements from importers, wholesalers and bulk buyers in India and abroad, and helps with export registrations such as IEC, GST, APEDA and RCMC.'],
+  ['What are buyer requirements (buy leads)?', 'A buyer requirement is an enquiry from a business that wants to buy a product: what they need, how much, and where. BuyGenix lists these requirements by category, sub-category and product.'],
+  ['How do suppliers contact these buyers?', 'BuyGenix members unlock a buyer\'s name, mobile number and email with the lead credits in their membership plan, then contact the buyer directly. Contact details are not shown publicly.'],
+  ['I want to buy from India. How do I use BuyGenix?', 'Post your requirement free on the BuyGenix website with the product, quantity and delivery location. The BuyGenix team connects you with suitable Indian suppliers and exporters.'],
+];
+
 function indexPage(dir) {
   const cats = dir.filter(c => c.leads > 0).sort((a, b) => b.leads - a.leads).concat(dir.filter(c => !c.leads));
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers & Importers', url: url('') }];
@@ -87,11 +94,14 @@ function indexPage(dir) {
       <a class="bx-cat-hd" href="/buyers/${esc(c.slug)}">${badge(c.name)}<span><b>${esc(c.name)}</b><small>Buyers &amp; importers</small></span></a>
       <ul>${(c.subs || []).filter(s => s.leads > 0).slice(0, 6).map(s => `<li><a href="/buyers/${esc(c.slug)}/${esc(s.slug)}">${esc(s.name)}</a></li>`).join('') || '<li class="bx-muted">New requirements coming soon</li>'}</ul>
       <a class="bx-more" href="/buyers/${esc(c.slug)}">View all ${esc(c.name)} buyers &rarr;</a></section>`).join('')}</div>
-  ${ctaHtml('products')}`;
+  ${ctaHtml('products')}
+  <section class="bx-sec bx-faq" style="margin-top:22px"><h2>About BuyGenix buyer requirements</h2>${INDEX_FAQ.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>`;
   return {
     title: 'Buyers & Importers by Category | Buy Leads | BuyGenix',
     desc: 'Buyer requirements from importers and bulk buyers in India and abroad, across agriculture, apparel, food, handicrafts, packaging and more.',
-    canonical: url(''), index: true, body, ld: [crumbsLd(crumbs)],
+    canonical: url(''), index: true, body,
+    ld: [crumbsLd(crumbs), { '@context': 'https://schema.org', '@type': 'FAQPage',
+      mainEntity: INDEX_FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
   };
 }
 
@@ -116,16 +126,20 @@ function page(d) {
   const childTitle = lvl === 'category' ? `Browse ${d.name} by sub-category` : `Browse ${d.name} products`;
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}"${x.leads ? '' : ' class="nil"'}>${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const supHtml = sup.length ? `<section class="bx-sec"><h2>${esc(noun)} suppliers</h2><div class="bx-sups">${sup.slice(0, 8).map(s => `<a class="bx-sup" href="/company/${esc(s.slug)}">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="" loading="lazy">` : badge(s.company_name)}<span><b>${esc(s.company_name)}</b><small>${esc([s.city, s.state].filter(Boolean).join(', '))}${s.business_type ? ' · ' + esc(s.business_type) : ''}</small>${s.paid ? '<em>Verified member</em>' : ''}</span></a>`).join('')}</div></section>` : '';
-  const body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
+  let body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
     chips: places.slice(0, 8) })}
   ${pills(kids.filter(k => k.leads > 0).concat(kids.filter(k => !k.leads)).slice(0, 40), childTitle)}
   <div class="bx-grid">
     <div>
       ${leads.length ? `<h2 class="bx-h2">Latest ${esc(noun)} buyer requirements</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>${total > leads.length ? `<div class="bx-all"><a class="dr-btn out" href="/buy-lead-search?q=${encodeURIComponent(d.name)}">See all ${esc(noun)} buy leads &rarr;</a></div>` : ''}` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>${intro}</p></div>`}
       ${pills(rel.filter(k => k.leads > 0).slice(0, 20), 'Related products')}
+      <!--FAQ-->
     </div>
     <aside class="bx-side">${supHtml}${ctaHtml(d.name, true)}</aside>
   </div>`;
+  const faqs = buyerFaqs(d.name, places, leads, total);
+  const faqHtml = `<section class="bx-sec bx-faq"><h2>${esc(noun)} buyers: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>`;
+  body = body.replace('<!--FAQ-->', faqHtml);
   const index = total >= 3 || (lvl === 'product' && sup.length > 0);
   const desc = total
     ? `Buyer requirements for ${d.name}${places.length ? ` from ${listPlaces(places, 4)}` : ''}. See quantities and buyer locations, and contact ${d.name} buyers and importers on BuyGenix.`
@@ -133,7 +147,29 @@ function page(d) {
   const ld = [crumbsLd(crumbs)];
   if (leads.length) ld.push({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${d.name} buyer requirements`,
     itemListElement: leads.slice(0, 20).map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.product}${l.quantity ? ' – ' + l.quantity : ''}${l.place ? ' – ' + l.place : ''}` })) });
+  ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
   return { title: `${d.name} Buyers & Importers | Buy Leads | BuyGenix`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
+}
+
+// Plain answers built from the page's own data, so search engines and AI assistants can quote them.
+function buyerFaqs(name, places, leads, total) {
+  const where = listPlaces(places, 6);
+  const qty = [...new Set(leads.map(l => String(l.quantity || '').trim())
+    .filter(q => q && !/^(bulk|on request|n\/?a|-)$/i.test(q)))].slice(0, 4);
+  return [
+    [`Who buys ${name} through BuyGenix?`, total
+      ? `Importers, wholesalers, distributors and bulk buyers post requirements for ${name} on BuyGenix${where ? `, including buyers in ${where}` : ''}. Each requirement shows the product, quantity, buyer location and date.`
+      : `Importers, wholesalers and bulk buyers in India and abroad post requirements on BuyGenix. New requirements for ${name} are added as buyers send them.`],
+    ...(qty.length ? [[`What quantities do ${name} buyers ask for?`,
+      `Recent requirements range across order sizes, for example ${qty.join(', ')}. Many buyers also ask for bulk or container loads and share the exact quantity when you contact them.`]] : []),
+    [`How can I contact ${name} buyers?`,
+      `Buyer names, mobile numbers and emails are shared with BuyGenix members. Members use their yearly lead credits to unlock a buyer's contact details and reach them directly, with support from a Relationship Manager.`],
+    [`Can I list my company as a ${name} supplier?`,
+      `Yes. BuyGenix members get a company page with their products, which buyers can find in the BuyGenix supplier directory and send enquiries to.`],
+    [`I want to buy ${name}. How do I find suppliers?`,
+      `Post your requirement free on BuyGenix with the product, quantity and delivery location. The BuyGenix team connects you with suitable Indian suppliers and exporters.`],
+  ];
 }
 
 module.exports = async (req, res) => {

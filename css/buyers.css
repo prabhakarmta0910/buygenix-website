@@ -112,3 +112,10 @@
 
 /* The hero has its own lead search, so the header search box is not repeated here */
 body[data-page="buyers"] .navbar .nav-search{display:none;}
+
+/* FAQ, written for people and for search / AI answers */
+.bx-faq{margin-top:4px;}
+.bx-faq-i{padding:12px 0;border-top:1px solid var(--dr-line);}
+.bx-faq-i:first-of-type{border-top:none;padding-top:2px;}
+.dr-wrap .bx-faq-i h3{font-size:15px;font-weight:600;margin:0 0 4px;color:var(--dr-ink);}
+.bx-faq-i p{margin:0;font-size:14px;line-height:1.65;color:var(--dr-body);}

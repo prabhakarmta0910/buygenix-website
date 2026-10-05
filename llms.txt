@@ -11,6 +11,18 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Services](https://www.buygenixsolutions.com/services): buyer leads, digital catalogue, SEO and registrations
 - [Export registrations](https://www.buygenixsolutions.com/registration): IEC, GST, APEDA, FSSAI, RCMC, Spices Board and other registrations
 
+## Buyer requirements by category
+- [Agriculture buyers](https://www.buygenixsolutions.com/buyers/agriculture): spices, grains, fruits, vegetables, dry fruits
+- [Apparel & Fashion buyers](https://www.buygenixsolutions.com/buyers/apparel-fashion): men's and women's clothing, garments, footwear
+- [Food & Beverages buyers](https://www.buygenixsolutions.com/buyers/food-beverages)
+- [Textiles & Fabrics buyers](https://www.buygenixsolutions.com/buyers/textiles-fabrics)
+- [Handicrafts & Home Decor buyers](https://www.buygenixsolutions.com/buyers/handicrafts-home-decor)
+- [Packaging & Paper buyers](https://www.buygenixsolutions.com/buyers/packaging-paper)
+- [Leather Products buyers](https://www.buygenixsolutions.com/buyers/leather-products)
+- [Jewellery & Gems buyers](https://www.buygenixsolutions.com/buyers/jewellery-gems)
+- [Chemicals & Dyes buyers](https://www.buygenixsolutions.com/buyers/chemicals-dyes)
+- [Pharma & Healthcare buyers](https://www.buygenixsolutions.com/buyers/pharma-healthcare)
+
 ## For buyers sourcing from India
 - [Post a requirement](https://www.buygenixsolutions.com/#post-requirement): free, the team connects buyers with suitable Indian suppliers
 - [Supplier directory](https://www.buygenixsolutions.com/search?type=companies): Indian suppliers and their products
@@ -22,6 +34,8 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [RoDTEP vs Duty Drawback vs EPCG](https://www.buygenixsolutions.com/export-incentive-schemes-rodtep-duty-drawback-epcg)
 - [India-UK FTA (CETA) for exporters](https://www.buygenixsolutions.com/india-uk-free-trade-agreement-exporters-guide)
 - [ISF 10+2 filing for USA shipments](https://www.buygenixsolutions.com/isf-10-plus-2-filing-guide-usa-shipments)
+- [MOOWR scheme](https://www.buygenixsolutions.com/moowr-scheme-guide-manufacturers-india): duty deferment for manufacturers
+- [GST e-invoicing for exporters](https://www.buygenixsolutions.com/gst-e-invoicing-threshold-2026-exporters): threshold, EXPWP/EXPWOP, 30-day rule
 - [All guides](https://www.buygenixsolutions.com/blog)
 
 ## Contact
