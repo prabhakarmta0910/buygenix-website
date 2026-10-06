@@ -10,6 +10,10 @@ module.exports = async (req, res) => {
     rows = rows.concat([{ path: 'countries', latest: new Date().toISOString() }],
       (ctry || []).filter(c => c.leads >= 20).map(c => ({ path: 'country/' + c.slug, latest: c.latest })));
   } catch (e) { /* country pages are optional */ }
+  try {
+    const combos = await rpc('list_country_product_pages', { p_min: 12 });
+    rows = rows.concat((combos || []).map(c => ({ path: `country/${c.country}/${c.product}`, latest: c.latest })));
+  } catch (e) { /* product-by-country pages are optional */ }
   const urls = [{ path: '', latest: new Date().toISOString() }].concat(rows).map(r => `  <url>
     <loc>${esc(`${SITE}/buyers${r.path ? '/' + r.path : ''}`)}</loc>
     <lastmod>${String(r.latest || '').slice(0, 10)}</lastmod>

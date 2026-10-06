@@ -5,6 +5,7 @@
 //   /buyers/<product>                     e.g. /buyers/mens-t-shirts
 //   /buyers/countries                     buyers by country
 //   /buyers/country/<country>             e.g. /buyers/country/uae
+//   /buyers/country/<country>/<product>   e.g. /buyers/country/uae/turmeric
 // Buyer contact details are never sent; the page links to the lead search to buy them.
 const fs = require('fs');
 const path = require('path');
@@ -194,7 +195,7 @@ function countryPage(d) {
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}">${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const faqs = COUNTRY_FAQ(nm, cities, prods);
   const body = `${hero({ crumbs, title: `Buyers &amp; Importers in ${esc(nm)}`, intro, q: '', chips: cities })}
-  ${pills((d.products || []).slice(0, 30), `What buyers in ${nm} are looking for`)}
+  ${pills((d.products || []).slice(0, 30).map(x => ({ name: x.name, path: x.leads >= COMBO_MIN ? `country/${d.slug}/${x.path}` : x.path })), `What buyers in ${nm} are looking for`)}
   <div class="bx-grid">
     <div>
       ${leads.length ? `<h2 class="bx-h2">Latest buyer requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements from ${esc(nm)} are added regularly.</p></div>`}
@@ -212,6 +213,49 @@ function countryPage(d) {
     title: `Buyers & Importers in ${nm} | Buy Leads from ${nm} | BuyGenix`,
     desc: `Live buyer requirements from importers in ${d.name}: ${prods.slice(0, 4).join(', ')} and more. See quantities and locations, then contact ${nm} buyers on BuyGenix.`.slice(0, 158),
     canonical: url('country/' + d.slug), index: total >= 20, body, ld,
+  };
+}
+
+// ── Product buyers in one country, e.g. /buyers/country/uae/turmeric ──
+const COMBO_MIN = 12;
+function comboPage(d) {
+  const c = d.country, pr = d.product, nm = c.short_name || c.name, st = d.stats || {}, leads = d.leads || [], total = Number(st.leads || 0);
+  const kept = [];
+  for (const x of st.cities || []) {
+    const n = String(x || '').trim(), k = n.toLowerCase();
+    if (!n || / or |\//i.test(n) || n.split(/\s+/).length > 2) continue;
+    if (kept.some(y => { const z = y.toLowerCase(); return k.startsWith(z) || z.startsWith(k); })) continue;
+    kept.push(n);
+  }
+  const cities = kept.slice(0, 5);
+  const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') },
+    { name: nm, url: url('country/' + c.slug) }, { name: pr.name, url: url(`country/${c.slug}/${pr.slug}`) }];
+  const intro = `Live requirements from ${esc(pr.name.toLowerCase())} importers and bulk buyers in ${esc(c.name)}.`;
+  const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="${esc(x.href)}">${esc(x.name)}</a>`).join('')}</div></section>` : '';
+  const qty = [...new Set(leads.map(l => String(l.quantity || '').trim()).filter(q => q && !/^(bulk|on request|n\/?a|-)$/i.test(q)))].slice(0, 4);
+  const faqs = [
+    [`Who buys ${pr.name} in ${nm}?`, `Importers, wholesalers and distributors in ${c.name}${cities.length ? `, including buyers in ${listPlaces(cities, 4)}` : ''}, post requirements for ${pr.name} on BuyGenix. Each requirement shows the quantity, location and date.`],
+    ...(qty.length ? [[`What quantities do ${nm} buyers ask for?`, `Recent ${pr.name} requirements from ${nm} include ${qty.join(', ')}.`]] : []),
+    [`How do I contact ${pr.name} importers in ${nm}?`, `BuyGenix members unlock a buyer's name, mobile number and email with the lead credits in their membership plan. Each requirement is shared with at most 5 suppliers.`],
+  ];
+  const body = `${hero({ crumbs, title: `${esc(pr.name)} Buyers in ${esc(nm)}`, intro, q: pr.name, chips: cities })}
+  <div class="bx-grid">
+    <div>
+      ${leads.length ? `<h2 class="bx-h2">Latest ${esc(pr.name)} requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements are added regularly.</p></div>`}
+      ${pills((d.other_countries || []).map(o => ({ name: o.name, href: o.leads >= COMBO_MIN ? `/buyers/country/${o.slug}/${pr.slug}` : `/buyers/country/${o.slug}` })), `${pr.name} buyers in other countries`)}
+      ${pills((d.other_products || []).map(o => ({ name: o.name, href: o.leads >= COMBO_MIN ? `/buyers/country/${c.slug}/${o.slug}` : `/buyers/${o.slug}` })), `More products wanted in ${nm}`)}
+      <section class="bx-sec bx-faq"><h2>${esc(pr.name)} buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
+    </div>
+    <aside class="bx-side">${countryCta(nm)}<div class="bx-sec" style="margin-top:14px"><h2>All ${esc(pr.name)} buyers</h2><div class="bx-pills"><a href="/buyers/${esc(pr.slug)}">${esc(pr.name)} buyers worldwide</a><a href="/buyers/country/${esc(c.slug)}">All buyers in ${esc(nm)}</a></div></div></aside>
+  </div>`;
+  const ld = [crumbsLd(crumbs), { '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+  if (leads.length) ld.push({ '@context': 'https://schema.org', '@type': 'ItemList', name: `${pr.name} buyer requirements from ${c.name}`,
+    itemListElement: leads.slice(0, 20).map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.product}${l.quantity ? ' – ' + l.quantity : ''}${l.place ? ' – ' + l.place : ''}` })) });
+  return {
+    title: `${pr.name} Buyers & Importers in ${nm} | BuyGenix`,
+    desc: `Live ${pr.name} buyer requirements from importers in ${c.name}${qty.length ? `: ${qty.slice(0, 2).join(', ')} and more` : ''}. See quantities and locations, then contact buyers on BuyGenix.`.slice(0, 158),
+    canonical: url(`country/${c.slug}/${pr.slug}`), index: total >= COMBO_MIN, body, ld,
   };
 }
 
@@ -256,6 +300,7 @@ module.exports = async (req, res) => {
   try {
     if (!p) { const [dir, ctry] = await Promise.all([rpc('buyer_directory', {}), rpc('buyer_country_list', {}).catch(() => [])]); view = indexPage(dir, ctry); }
     else if (p === 'countries') view = countriesPage(await rpc('buyer_country_list', {}));
+    else if (/^country\/[a-z-]+\/[a-z0-9-]+$/.test(p)) { const [, cs, ps] = p.split('/'); const d = await rpc('buyer_country_product_page', { p_country: cs, p_product: ps }); if (d) view = comboPage(d); }
     else if (p.startsWith('country/')) { const d = await rpc('buyer_country_page', { p_slug: p.slice(8) }); if (d) view = countryPage(d); }
     else {
       const d = await rpc('buyer_page', { p_path: p });
