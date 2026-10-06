@@ -59,13 +59,13 @@ const HUES = [217, 152, 28, 262, 340, 190, 45, 5];
 const hue = t => HUES[[...String(t)].reduce((a, c) => a + c.charCodeAt(0), 0) % HUES.length];
 const badge = t => `<span class="bx-ico" style="--h:${hue(t)}">${esc(String(t).trim().charAt(0).toUpperCase())}</span>`;
 
-function hero({ crumbs, title, intro, q, chips }) {
+function hero({ crumbs, title, intro, q, chips, links }) {
   return `<section class="bx-hero">
     ${crumbsHtml(crumbs)}
     <h1>${title}</h1>
     <p>${intro}</p>
     <form class="bx-find" action="/buy-lead-search" method="get" role="search">${ICON.search}<input name="q" value="${esc(q || '')}" placeholder="Search buyer requirements, e.g. basmati rice" aria-label="Search buyer requirements"><button type="submit">Search leads</button></form>
-    ${chips && chips.length ? `<div class="bx-from"><span>Buyers from</span>${chips.map(p => `<em>${esc(p)}</em>`).join('')}</div>` : ''}
+    ${chips && chips.length ? `<div class="bx-from"><span>Buyers from</span>${chips.map(p => links && links[p] ? `<a href="/buyers/country/${esc(links[p])}">${esc(p)}</a>` : `<em>${esc(p)}</em>`).join('')}</div>` : ''}
   </section>`;
 }
 
@@ -134,7 +134,7 @@ function page(d) {
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}"${x.leads ? '' : ' class="nil"'}>${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const supHtml = sup.length ? `<section class="bx-sec"><h2>${esc(noun)} suppliers</h2><div class="bx-sups">${sup.slice(0, 8).map(s => `<a class="bx-sup" href="/company/${esc(s.slug)}">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="" loading="lazy">` : badge(s.company_name)}<span><b>${esc(s.company_name)}</b><small>${esc([s.city, s.state].filter(Boolean).join(', '))}${s.business_type ? ' · ' + esc(s.business_type) : ''}</small>${s.paid ? '<em>Verified member</em>' : ''}</span></a>`).join('')}</div></section>` : '';
   let body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
-    chips: places.slice(0, 8) })}
+    chips: places.slice(0, 8), links: d.countryLinks })}
   ${pills(kids.filter(k => k.leads > 0).concat(kids.filter(k => !k.leads)).slice(0, 40), childTitle)}
   <div class="bx-grid">
     <div>
@@ -248,7 +248,14 @@ module.exports = async (req, res) => {
     if (!p) { const [dir, ctry] = await Promise.all([rpc('buyer_directory', {}), rpc('buyer_country_list', {}).catch(() => [])]); view = indexPage(dir, ctry); }
     else if (p === 'countries') view = countriesPage(await rpc('buyer_country_list', {}));
     else if (p.startsWith('country/')) { const d = await rpc('buyer_country_page', { p_slug: p.slice(8) }); if (d) view = countryPage(d); }
-    else { const d = await rpc('buyer_page', { p_path: p }); if (d) view = page(d); }
+    else {
+      const d = await rpc('buyer_page', { p_path: p });
+      if (d) {
+        const places = ((d.stats || {}).places || []).slice(0, 8);
+        d.countryLinks = places.length ? await rpc('buyer_country_slugs', { p_places: places }).catch(() => ({})) : {};
+        view = page(d);
+      }
+    }
   } catch (e) { view = null; }
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   if (!view) {

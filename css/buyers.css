@@ -23,7 +23,9 @@
 .bx-find button:hover{background:#1D4ED8;}
 .bx-from{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:16px;}
 .bx-from span{font-size:12.5px;color:#8FA3C0;margin-right:4px;}
-.bx-from em{font-style:normal;font-size:12.5px;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,.08);color:#DCE6F5;}
+.bx-from em,.bx-from a{font-style:normal;font-size:12.5px;padding:4px 10px;border-radius:100px;background:rgba(255,255,255,.08);color:#DCE6F5;text-decoration:none;}
+.bx-from a{border:1px solid rgba(255,255,255,.18);transition:background .15s,border-color .15s;}
+.bx-from a:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.4);color:#fff;}
 
 /* shared bits */
 .bx-ico{--h:217;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:40px;height:40px;border-radius:12px;font-weight:700;font-size:16px;
@@ -104,7 +106,7 @@
   .bx-stats div{min-width:0;flex:1 1 0;padding:10px;}
   .bx-stats b{font-size:16px;}
   .bx-stats span{font-size:11px;line-height:1.3;display:block;}
-  .bx-from em:nth-of-type(n+5){display:none;}
+  .bx-from > :nth-child(n+6){display:none;}
   .bx-find button{padding:0 14px;}
   .bx-leads{grid-template-columns:1fr;}
   .bx-cta{grid-template-columns:1fr;}

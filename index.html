@@ -1568,6 +1568,33 @@ function updatePhonePlaceholder(el,active){
 </script>
 </section>
 
+<!-- ═══ BUYERS BY COUNTRY ═══ -->
+<section class="home-countries">
+<style>
+.home-countries{background:var(--sky);padding:72px var(--pad-x);}
+.hc-inner{max-width:1240px;margin:0 auto;}
+.hc-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.hc-head h2{font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(22px,2.2vw,28px);font-weight:700;color:var(--navy);letter-spacing:-.02em;line-height:1.25;margin:6px 0 0;}
+.hc-head p{font-size:14.5px;color:var(--text-body);margin:6px 0 0;max-width:620px;line-height:1.6;}
+.hc-eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);}
+.hc-all{font-size:14px;font-weight:600;color:var(--blue);text-decoration:none;white-space:nowrap;}
+.hc-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;}
+.hc-card{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid #E4E9F2;border-radius:12px;padding:16px 16px 14px;text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s;}
+.hc-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 8px 20px rgba(11,25,41,.07);}
+.hc-card b{font-family:"Plus Jakarta Sans",sans-serif;font-size:15.5px;font-weight:700;color:var(--navy);}
+.hc-card span{font-size:12.5px;color:#5B6B82;line-height:1.4;}
+@media(max-width:1024px){.hc-grid{grid-template-columns:repeat(4,minmax(0,1fr));}.home-countries{padding:56px 16px;}}
+@media(max-width:600px){.hc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}.hc-card{padding:14px 14px 12px;}}
+</style>
+<div class="hc-inner">
+  <div class="hc-head">
+    <div><div class="hc-eyebrow">Buyers by country</div><h2>See what importers in each market want</h2><p>Live buyer requirements grouped by country. Product, quantity and city are free to browse.</p></div>
+    <a class="hc-all" href="/buyers/countries">All countries &rarr;</a>
+  </div>
+  <div class="hc-grid"><a class="hc-card" href="/buyers/country/uae"><b>UAE</b><span>Dubai, Abu Dhabi, Sharjah</span></a><a class="hc-card" href="/buyers/country/uk"><b>UK</b><span>London and across Britain</span></a><a class="hc-card" href="/buyers/country/usa"><b>USA</b><span>New York, Texas and more</span></a><a class="hc-card" href="/buyers/country/australia"><b>Australia</b><span>Sydney, Melbourne</span></a><a class="hc-card" href="/buyers/country/singapore"><b>Singapore</b><span>Port and trading hub</span></a><a class="hc-card" href="/buyers/country/saudi-arabia"><b>Saudi Arabia</b><span>Riyadh, Jeddah, Dammam</span></a><a class="hc-card" href="/buyers/country/qatar"><b>Qatar</b><span>Doha</span></a><a class="hc-card" href="/buyers/country/canada"><b>Canada</b><span>Toronto, Vancouver</span></a><a class="hc-card" href="/buyers/country/oman"><b>Oman</b><span>Muscat, Sohar</span></a><a class="hc-card" href="/buyers/country/germany"><b>Germany</b><span>Hamburg and more</span></a><a class="hc-card" href="/buyers/country/malaysia"><b>Malaysia</b><span>Klang, Kuala Lumpur</span></a><a class="hc-card" href="/buyers/country/japan"><b>Japan</b><span>Tokyo, Osaka</span></a></div>
+</div>
+</section>
+
 <!-- ═══ HOW IT WORKS ═══ -->
 <section class="section" style="background:white;">
   <div class="section-inner">
