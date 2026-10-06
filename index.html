@@ -2008,14 +2008,21 @@ body.home .cat-sec .cat-vcard-subs li:nth-child(n+3){display:none;}
   body.home .cat-sec .cat-grid-skeleton{grid-template-columns:repeat(6,minmax(0,1fr));}
 }
 @media(max-width:1024px){
-  body.home .cat-sec #apparel-grid,body.home .cat-sec #agriculture-grid,body.home .cat-sec #electricals-grid,body.home .cat-sec #food-grid,body.home .cat-sec #handicrafts-grid,body.home .cat-sec #textiles-grid,body.home .cat-sec #leather-grid,body.home .cat-sec #jewellery-grid,body.home .cat-sec #chemicals-grid,body.home .cat-sec #pharma-grid,body.home .cat-sec .cat-grid-skeleton{grid-template-columns:none !important;grid-template-rows:repeat(2,auto) !important;grid-auto-flow:column !important;grid-auto-columns:34% !important;grid-auto-rows:auto;gap:10px !important;}
+  body.home .cat-sec #apparel-grid,body.home .cat-sec #agriculture-grid,body.home .cat-sec #electricals-grid,body.home .cat-sec #food-grid,body.home .cat-sec #handicrafts-grid,body.home .cat-sec #textiles-grid,body.home .cat-sec #leather-grid,body.home .cat-sec #jewellery-grid,body.home .cat-sec #chemicals-grid,body.home .cat-sec #pharma-grid,body.home .cat-sec .cat-grid-skeleton{grid-template-columns:none !important;grid-template-rows:repeat(2,auto) !important;grid-auto-flow:column !important;grid-auto-columns:calc((100% - 4 * 12px) / 5.3) !important;grid-auto-rows:auto;gap:12px !important;}
   body.home .cat-sec .cat-vcard{height:auto;}
+  body.home .cat-sec .cat-vcard-body{padding:8px 10px 10px;}
+  body.home .cat-sec .cat-vcard-title{font-size:13px;margin-bottom:4px;}
+  body.home .cat-sec .cat-vcard-subs li{font-size:11.5px;}
+  body.home .cat-sec .cat-skel-card{height:160px;}
+}
+@media(max-width:767px){
+  body.home .cat-sec #apparel-grid,body.home .cat-sec #agriculture-grid,body.home .cat-sec #electricals-grid,body.home .cat-sec #food-grid,body.home .cat-sec #handicrafts-grid,body.home .cat-sec #textiles-grid,body.home .cat-sec #leather-grid,body.home .cat-sec #jewellery-grid,body.home .cat-sec #chemicals-grid,body.home .cat-sec #pharma-grid,body.home .cat-sec .cat-grid-skeleton{grid-auto-columns:calc((100% - 3 * 12px) / 4.3) !important;}
 }
 @media(max-width:600px){
-  body.home .cat-sec #apparel-grid,body.home .cat-sec #agriculture-grid,body.home .cat-sec #electricals-grid,body.home .cat-sec #food-grid,body.home .cat-sec #handicrafts-grid,body.home .cat-sec #textiles-grid,body.home .cat-sec #leather-grid,body.home .cat-sec #jewellery-grid,body.home .cat-sec #chemicals-grid,body.home .cat-sec #pharma-grid,body.home .cat-sec .cat-grid-skeleton{grid-auto-columns:42% !important;}
+  body.home .cat-sec #apparel-grid,body.home .cat-sec #agriculture-grid,body.home .cat-sec #electricals-grid,body.home .cat-sec #food-grid,body.home .cat-sec #handicrafts-grid,body.home .cat-sec #textiles-grid,body.home .cat-sec #leather-grid,body.home .cat-sec #jewellery-grid,body.home .cat-sec #chemicals-grid,body.home .cat-sec #pharma-grid,body.home .cat-sec .cat-grid-skeleton{grid-auto-columns:calc((100% - 2 * 10px) / 2.7) !important;gap:10px !important;}
   body.home .cat-sec .cat-vcard-title{font-size:12.5px;}
   body.home .cat-sec .cat-vcard-subs li{font-size:11px;}
-  body.home .cat-sec .cat-skel-card{height:170px;}
+  body.home .cat-sec .cat-skel-card{height:150px;}
 }
 </style>
 </body>
