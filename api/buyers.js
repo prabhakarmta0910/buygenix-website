@@ -97,6 +97,7 @@ function indexPage(dir, countries) {
   const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Category',
     intro: 'Live buyer requirements from importers, wholesalers and bulk buyers, by category.' })}
   ${countryStrip((countries || []).filter(c => c.leads >= 20))}
+  <section class="bx-sec"><h2>Export Demand Report</h2><p class="bx-muted" style="margin:0 0 10px">The most requested products and most active import markets this month, updated from live buyer requirements.</p><div class="bx-pills"><a href="/export-demand-report">Read this month's report</a></div></section>
   <div class="bx-cats">${cats.map(c => `
     <section class="bx-cat">
       <a class="bx-cat-hd" href="/buyers/${esc(c.slug)}">${badge(c.name)}<span><b>${esc(c.name)}</b><small>Buyers &amp; importers</small></span></a>
@@ -259,6 +260,48 @@ function comboPage(d) {
   };
 }
 
+// ── Export Demand Report: rankings from live buyer requirements, no counts ──
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function reportPage(d) {
+  const g = new Date(d.generated || Date.now()), month = `${MONTHS[g.getUTCMonth()]} ${g.getUTCFullYear()}`, days = d.days || 60;
+  const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'Export Demand Report', url: SITE + '/export-demand-report' }];
+  const prods = d.products || [], cats = d.categories || [], ctry = d.countries || [];
+  const top3 = prods.slice(0, 3).map(p => p.name);
+  const faqs = [
+    [`What are importers buying in ${month}?`, `The most requested products on BuyGenix in the last ${days} days were ${prods.slice(0, 5).map(p => p.name).join(', ')}. The full ranking of ${prods.length} products is on this page.`],
+    ['Which countries are importing the most?', `Ranked by the number of buyer requirements, the most active markets were ${ctry.slice(0, 6).map(c => c.name).join(', ')}.`],
+    ['How is this report made?', `It ranks live buyer requirements received by BuyGenix from importers, wholesalers and bulk buyers in the last ${days} days, after removing duplicates. It updates automatically. Requirement counts and buyer details are not published.`],
+    ['Can I quote this report?', `Yes. Please cite it as "BuyGenix Export Demand Report, ${month}" and link to https://www.buygenixsolutions.com/export-demand-report.`],
+  ];
+  const body = `${hero({ crumbs, title: `Export Demand Report: ${esc(month)}`, intro: `What importers asked for in the last ${days} days, ranked from live buyer requirements.`, q: '' })}
+  <div class="rp-grid">
+    <section class="bx-sec"><h2>Most requested products</h2>
+      <ol class="rp-rank">${prods.map(p => `<li><a href="/buyers/${esc(p.slug)}">${esc(p.name)}</a></li>`).join('')}</ol></section>
+    <div>
+      <section class="bx-sec"><h2>Top categories</h2><ol class="rp-rank rp-short">${cats.map(c => `<li><a href="/buyers/${esc(c.slug)}">${esc(c.name)}</a></li>`).join('')}</ol></section>
+      <section class="bx-sec"><h2>Key findings</h2><ul class="rp-notes">
+        <li>${esc(top3.join(', '))} were the three most requested products.</li>
+        <li>${esc(ctry.slice(0, 3).map(c => c.name).join(', '))} sent the most buyer requirements.</li>
+        <li>The busiest categories were ${esc(cats.slice(0, 3).map(c => c.name).join(', '))}.</li></ul></section>
+    </div>
+  </div>
+  <section class="bx-sec"><h2>What each market is asking for</h2>
+    <div class="rp-ctry">${ctry.map((c, i) => `<div class="rp-c"><div class="rp-ch"><span>${i + 1}</span><a href="/buyers/country/${esc(c.slug)}">${esc(c.name)}</a></div>
+      <ol>${(c.products || []).map(p => `<li><a href="${p.combo ? `/buyers/country/${esc(c.slug)}/${esc(p.slug)}` : `/buyers/${esc(p.slug)}`}">${esc(p.name)}</a></li>`).join('')}</ol></div>`).join('')}</div></section>
+  <section class="bx-sec bx-faq"><h2>About this report</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
+  ${ctaHtml('these products')}`;
+  const ld = [crumbsLd(crumbs),
+    { '@context': 'https://schema.org', '@type': 'Article', headline: `Export Demand Report: ${month}`, description: `Most requested export products and most active import markets on BuyGenix in the last ${days} days.`,
+      datePublished: g.toISOString().slice(0, 10), dateModified: g.toISOString().slice(0, 10), mainEntityOfPage: SITE + '/export-demand-report',
+      author: { '@type': 'Organization', name: 'BuyGenix Solutions', url: SITE + '/' }, publisher: { '@type': 'Organization', name: 'BuyGenix Solutions', url: SITE + '/' } },
+    { '@context': 'https://schema.org', '@type': 'ItemList', name: `Most requested export products, ${month}`,
+      itemListElement: prods.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: url(p.slug) })) },
+    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
+  return { title: `Export Demand Report ${month}: What Importers Are Buying | BuyGenix`,
+    desc: `Most requested export products this month: ${top3.join(', ')} and more, plus what buyers in the UAE, UK, USA and other markets want. Updated from live buyer requirements.`.slice(0, 158),
+    canonical: SITE + '/export-demand-report', index: true, body, ld };
+}
+
 function countriesPage(list) {
   const rows = (list || []).filter(c => c.leads > 0);
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') }];
@@ -300,6 +343,7 @@ module.exports = async (req, res) => {
   try {
     if (!p) { const [dir, ctry] = await Promise.all([rpc('buyer_directory', {}), rpc('buyer_country_list', {}).catch(() => [])]); view = indexPage(dir, ctry); }
     else if (p === 'countries') view = countriesPage(await rpc('buyer_country_list', {}));
+    else if (p === 'export-demand-report') view = reportPage(await rpc('export_demand_report', { p_days: 60 }));
     else if (/^country\/[a-z-]+\/[a-z0-9-]+$/.test(p)) { const [, cs, ps] = p.split('/'); const d = await rpc('buyer_country_product_page', { p_country: cs, p_product: ps }); if (d) view = comboPage(d); }
     else if (p.startsWith('country/')) { const d = await rpc('buyer_country_page', { p_slug: p.slice(8) }); if (d) view = countryPage(d); }
     else {

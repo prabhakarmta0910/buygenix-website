@@ -6,6 +6,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 
 ## For exporters and suppliers
 - [Buyers & importers by category](https://www.buygenixsolutions.com/buyers): live buyer requirements by category, sub-category and product
+- [Export Demand Report](https://www.buygenixsolutions.com/export-demand-report): monthly ranking of the most requested export products and the most active import markets, from live buyer requirements (no counts published)
 - [Buyers & importers by country](https://www.buygenixsolutions.com/buyers/countries): buyer requirements grouped by country (UAE, UK, USA, Australia, Singapore, Saudi Arabia, Germany and more)
 - [Search buy leads](https://www.buygenixsolutions.com/buy-lead-search): search buyer requirements by product
 - [Verified buyer leads for exporters](https://www.buygenixsolutions.com/export-buyer-leads): what a BuyGenix buyer lead is, how leads are shared (max 5 sellers each) and how exporters unlock buyer contacts
