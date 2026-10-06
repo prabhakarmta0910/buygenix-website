@@ -94,7 +94,7 @@ function indexPage(dir, countries) {
   const cats = dir.filter(c => c.leads > 0).sort((a, b) => b.leads - a.leads).concat(dir.filter(c => !c.leads));
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers & Importers', url: url('') }];
   const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Category',
-    intro: 'Live buyer requirements from importers, wholesalers and bulk buyers in India and abroad. Pick a category to see what buyers want, how much, and where.' })}
+    intro: 'Live buyer requirements from importers, wholesalers and bulk buyers, by category.' })}
   ${countryStrip((countries || []).filter(c => c.leads >= 20))}
   <div class="bx-cats">${cats.map(c => `
     <section class="bx-cat">
@@ -127,14 +127,14 @@ function page(d) {
   const places = st.places || [];
   const noun = d.name;
   const intro = total
-    ? `Buyer requirements for ${esc(noun)} on BuyGenix${places.length ? `, from buyers in ${esc(listPlaces(places, 6))}` : ''}. See what they need and how much, then contact them directly.`
+    ? `Live buyer requirements for ${esc(noun)} from importers, wholesalers and bulk buyers.`
     : `No open buyer requirements for ${esc(noun)} right now. New requirements are added regularly; post yours or check related products below.`;
   const kids = d.children || [], rel = d.related || [], sup = d.suppliers || [];
   const childTitle = lvl === 'category' ? `Browse ${d.name} by sub-category` : `Browse ${d.name} products`;
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}"${x.leads ? '' : ' class="nil"'}>${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const supHtml = sup.length ? `<section class="bx-sec"><h2>${esc(noun)} suppliers</h2><div class="bx-sups">${sup.slice(0, 8).map(s => `<a class="bx-sup" href="/company/${esc(s.slug)}">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="" loading="lazy">` : badge(s.company_name)}<span><b>${esc(s.company_name)}</b><small>${esc([s.city, s.state].filter(Boolean).join(', '))}${s.business_type ? ' · ' + esc(s.business_type) : ''}</small>${s.paid ? '<em>Verified member</em>' : ''}</span></a>`).join('')}</div></section>` : '';
   let body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
-    chips: places.slice(0, 8), links: d.countryLinks })}
+    chips: places.slice(0, 6), links: d.countryLinks })}
   ${pills(kids.filter(k => k.leads > 0).concat(kids.filter(k => !k.leads)).slice(0, 40), childTitle)}
   <div class="bx-grid">
     <div>
@@ -178,10 +178,19 @@ function countryCta(nm) {
 function countryPage(d) {
   const nm = d.short_name || d.name, st = d.stats || {}, leads = d.leads || [], total = Number(st.leads || 0);
   // Drop spelling variants of the same city (Jebel Ali / Jabel Ali / Jebal Ali).
-  const seen = new Set(), cities = (st.cities || []).filter(c => { const k = String(c || '').toLowerCase().replace(/[aeiou\s]/g, ''); return c && !seen.has(k) && seen.add(k); }).slice(0, 6);
+  // Keep clean city names only: no "X or Y", no long port names, no spelling variants (Riyad / Riyadh, Jeddah Islamic).
+  const kept = [];
+  for (const c of st.cities || []) {
+    const n = String(c || '').trim(), k = n.toLowerCase();
+    if (!n || / or |\//i.test(n) || n.split(/\s+/).length > 2) continue;
+    const kk = k.replace(/[aeiou\s]/g, '');
+    if (kept.some(x => { const y = x.toLowerCase(), yy = y.replace(/[aeiou\s]/g, ''); return yy === kk || k.startsWith(y) || y.startsWith(k); })) continue;
+    kept.push(n);
+  }
+  const cities = kept.slice(0, 5);
   const prods = (d.products || []).map(p => p.name);
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') }, { name: nm, url: url('country/' + d.slug) }];
-  const intro = `Buyer requirements from importers, wholesalers and distributors in ${esc(d.name)}${cities.length ? `, including ${esc(listPlaces(cities, 5))}` : ''}. See what they want to buy and how much, then contact them directly.`;
+  const intro = `Live buyer requirements from importers and distributors in ${esc(d.name)}.`;
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}">${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const faqs = COUNTRY_FAQ(nm, cities, prods);
   const body = `${hero({ crumbs, title: `Buyers &amp; Importers in ${esc(nm)}`, intro, q: '', chips: cities })}
@@ -210,7 +219,7 @@ function countriesPage(list) {
   const rows = (list || []).filter(c => c.leads > 0);
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }, { name: 'By country', url: url('countries') }];
   const body = `${hero({ crumbs, title: 'Buyers &amp; Importers by Country',
-    intro: 'Buyer requirements from importers, wholesalers and distributors around the world. Pick a country to see what its buyers want and how much.' })}
+    intro: 'Live buyer requirements from importers around the world, by country.' })}
   <div class="bx-cats">${rows.map(c => `
     <section class="bx-cat"><a class="bx-cat-hd" href="/buyers/country/${esc(c.slug)}">${badge(c.short_name || c.name)}<span><b>${esc(c.short_name || c.name)}</b><small>Buyers &amp; importers</small></span></a>
     <a class="bx-more" href="/buyers/country/${esc(c.slug)}">View ${esc(c.short_name || c.name)} buyers &rarr;</a></section>`).join('')}</div>
