@@ -347,6 +347,12 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
           <div class="asc"><div class="asc-top"><span class="asc-lbl">Revenue</span><span class="asc-icon a"><svg class="ic"><use href="#i-rupee"/></svg></span></div><div class="asc-num" id="dRev">—</div><div class="asc-trend">Amount charged, INR</div></div>
           <div class="asc"><div class="asc-top"><span class="asc-lbl">Expiring in 30 days</span><span class="asc-icon r"><svg class="ic"><use href="#i-clock"/></svg></span></div><div class="asc-num" id="dExp">—</div><div class="asc-trend">Need renewal</div></div>
         </div>
+        <div class="card su-card" id="upCard">
+          <div class="card-h"><h3><svg class="ic"><use href="#i-rupee"/></svg>Unfinished payments</h3>
+            <div class="su-tabs up-tabs"><button class="on" data-up="todo" onclick="upTab(this)">To call</button><button data-up="done" onclick="upTab(this)">Followed up</button></div></div>
+          <p class="hint" style="margin:-6px 0 10px;font-size:12.5px;color:#64748B;">People who opened the payment form on the membership page but did not finish paying. Call or WhatsApp within 1 hour and offer help, UPI or bank transfer with a GST invoice.</p>
+          <div id="upBody"><div class="empty-row" style="padding:20px;">Loading…</div></div>
+        </div>
         <div class="card su-card" id="suCard">
           <div class="card-h"><h3><svg class="ic"><use href="#i-users"/></svg>New sign-ups to follow up</h3>
             <div class="su-tabs"><button class="on" data-su="todo" onclick="suTab(this)">To contact</button><button data-su="done" onclick="suTab(this)">Contacted</button></div></div>
@@ -961,6 +967,77 @@ async function setFollowup(id, status) {
   BGX_Toast(status ? 'Marked as ' + status.replace('_', ' ') : 'Moved back to To contact', 'success');
 }
 
+/* ── Unfinished payments: checkout started on /membership, not paid ── */
+let allUnpaid = null, upView = 'todo';
+async function loadUnpaid() {
+  const sb = getSB(); if (!sb) return;
+  try {
+    const { data, error } = await sb.from('payments').select('id,plan_name,base_amount,gst_amount,customer_name,customer_email,customer_phone,business_name,status,created_at,followup_status,followup_at').order('created_at', { ascending: false }).limit(300);
+    if (error) throw error;
+    const paid = new Set((data || []).filter(x => x.status === 'paid').map(x => String(x.customer_email || '').toLowerCase()));
+    // one row per person: their latest unpaid attempt, and nobody who has since paid
+    const seen = new Set();
+    allUnpaid = (data || []).filter(x => {
+      const k = String(x.customer_email || x.customer_phone || x.id).toLowerCase();
+      if (x.status === 'paid' || paid.has(k) || seen.has(k)) return false;
+      seen.add(k); return true;
+    });
+  } catch (e) { allUnpaid = []; }
+  renderUnpaid();
+}
+function upTab(btn) {
+  upView = btn.dataset.up;
+  document.querySelectorAll('.up-tabs button').forEach(b => b.classList.toggle('on', b === btn));
+  renderUnpaid();
+}
+function upMessage(x) {
+  const first = suFirstName({ name: x.customer_name }) || 'there';
+  return [
+    `Hello ${first},`,
+    ``,
+    `Thank you for choosing the BuyGenix *${x.plan_name || 'membership'}* plan. We noticed the payment was not completed.`,
+    ``,
+    `If something went wrong, we can help you finish it by UPI or bank transfer, with a GST invoice.`,
+    ``,
+    `Can we call you for 5 minutes today?`,
+    ``,
+    `Team BuyGenix Solutions`,
+    `www.buygenixsolutions.com`,
+  ].join('\n');
+}
+function renderUnpaid() {
+  const el = document.getElementById('upBody'); if (!el || !allUnpaid) return;
+  const list = allUnpaid.filter(x => upView === 'done' ? x.followup_status : !x.followup_status);
+  const todoBtn = document.querySelector('.up-tabs button[data-up="todo"]');
+  if (todoBtn) todoBtn.textContent = `To call (${allUnpaid.filter(x => !x.followup_status).length})`;
+  if (!list.length) { el.innerHTML = `<div class="empty-row" style="padding:20px;">${upView === 'done' ? 'Nobody followed up yet.' : 'No unfinished payments. All caught up.'}</div>`; return; }
+  el.innerHTML = list.map(x => {
+    const digits = String(x.customer_phone || '').replace(/\D/g, '');
+    const wa = digits.length === 10 ? '91' + digits : digits;
+    const fresh = (Date.now() - new Date(x.created_at)) < 3600000;
+    const amt = (Number(x.base_amount) || 0) + (Number(x.gst_amount) || 0);
+    const id = esc(String(x.id));
+    return `<div class="su-row">
+      <div><div class="su-name">${esc(x.customer_name || '—')}${fresh && !x.followup_status ? '<span class="su-new">Call now</span>' : ''}</div><div class="su-sub">${esc(x.business_name || '')}</div></div>
+      <div><div class="su-sub" style="margin:0">${esc(x.customer_email || '')}</div><div class="su-sub">${esc(x.customer_phone || 'No phone')}</div></div>
+      <div><div class="su-sub" style="margin:0">Plan</div><div class="su-name" style="font-weight:500;font-size:13.5px">${esc(x.plan_name || '—')}${amt ? ` · ₹${amt.toLocaleString('en-IN')}` : ''}</div></div>
+      <div class="su-when">${suAgo(x.created_at)}${x.followup_status ? `<br><span class="su-done">${esc(x.followup_status.replace('_', ' '))}</span>` : ''}</div>
+      <div class="su-act">
+        ${wa ? `<a class="wa" href="https://wa.me/${wa}?text=${encodeURIComponent(upMessage(x))}" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+${wa}">Call</a>` : ''}
+        ${x.customer_email ? `<a href="mailto:${esc(x.customer_email)}">Email</a>` : ''}
+        ${x.followup_status ? `<button onclick="setPayFollowup('${id}', null)">Undo</button>` : `<button class="pri" onclick="setPayFollowup('${id}', 'contacted')">Contacted</button><button onclick="setPayFollowup('${id}', 'will_pay')">Will pay</button><button onclick="setPayFollowup('${id}', 'no_answer')">No answer</button><button onclick="setPayFollowup('${id}', 'not_interested')">Not interested</button>`}
+      </div></div>`;
+  }).join('');
+}
+async function setPayFollowup(id, status) {
+  const sb = getSB(); if (!sb) return;
+  const { error } = await sb.rpc('admin_set_payment_followup', { p_id: id, p_status: status });
+  if (error) { BGX_Toast('Could not save: ' + error.message, 'error'); return; }
+  const x = (allUnpaid || []).find(y => String(y.id) === String(id)); if (x) { x.followup_status = status; x.followup_at = status ? new Date().toISOString() : null; }
+  renderUnpaid();
+  BGX_Toast(status ? 'Saved: ' + status.replace('_', ' ') : 'Moved back to To call', 'success');
+}
+
 function goPanel(name) {
   showAPanel(name, document.querySelector(`.asb-link[onclick*="'${name}'"]`));
 }
@@ -1200,6 +1277,7 @@ function buildDashboard() {
   document.getElementById('dExp').textContent=allMem.filter(m=>{ if(!m.renewal_date) return false; const d=new Date(m.renewal_date); return d>=now&&d<=in30; }).length;
   renderAttention();
   renderSignups();
+  if (allUnpaid === null) loadUnpaid(); else renderUnpaid();
 }
 
 const ppClass = k => ({ starter:'pp-starter', growth:'pp-growth', professional:'pp-professional', enterprise:'pp-enterprise', registration:'pp-registration' }[(k||'starter').toLowerCase()]||'pp-starter');
