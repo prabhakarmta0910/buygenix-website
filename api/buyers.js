@@ -80,6 +80,21 @@ function ctaHtml(name, side) {
   </div>`;
 }
 
+// Free buyer-alert sign-up: saved as an enquiry (interest 'buyer-alerts') for the team to follow up.
+function alertBox(product, where, k) {
+  const id = k || 's';
+  const p = esc(product), w = esc(where || '');
+  return `<form class="bx-alert bx-alert-${id}" data-product="${p}" data-where="${w}" novalidate>
+    <b>${product === 'product' ? `Get new buyer requirements from ${w} free` : `Get new ${p} buyer requirements free`}</b>
+    <span>We send matching requirements${where ? ` from ${w}` : ''} to your WhatsApp. No charge, no spam.</span>
+    <label class="sr" for="bxaName-${id}">Your name</label><input id="bxaName-${id}" name="name" placeholder="Your name" autocomplete="name" required maxlength="80">
+    <label class="sr" for="bxaPhone-${id}">WhatsApp number</label><input id="bxaPhone-${id}" name="phone" placeholder="WhatsApp number with country code" autocomplete="tel" inputmode="tel" required maxlength="20">
+    <label class="sr" for="bxaEmail-${id}">Email (optional)</label><input id="bxaEmail-${id}" name="email" type="email" placeholder="Email (optional)" autocomplete="email" maxlength="120">
+    <button type="submit" class="dr-btn pri">Send me buyer requirements</button>
+    <small class="bx-alert-msg" role="status"></small>
+  </form>`;
+}
+
 const INDEX_FAQ = [
   ['What is BuyGenix?', 'BuyGenix Solutions is an Indian B2B platform based in New Delhi. It connects Indian exporters and suppliers with requirements from importers, wholesalers and bulk buyers in India and abroad, and helps with export registrations such as IEC, GST, APEDA and RCMC.'],
   ['What are buyer requirements (buy leads)?', 'A buyer requirement is an enquiry from a business that wants to buy a product: what they need, how much, and where. BuyGenix lists these requirements by category, sub-category and product.'],
@@ -137,6 +152,7 @@ function page(d) {
   const supHtml = sup.length ? `<section class="bx-sec"><h2>${esc(noun)} suppliers</h2><div class="bx-sups">${sup.slice(0, 8).map(s => `<a class="bx-sup" href="/company/${esc(s.slug)}">${s.logo_url ? `<img src="${esc(s.logo_url)}" alt="" loading="lazy">` : badge(s.company_name)}<span><b>${esc(s.company_name)}</b><small>${esc([s.city, s.state].filter(Boolean).join(', '))}${s.business_type ? ' · ' + esc(s.business_type) : ''}</small>${s.paid ? '<em>Verified member</em>' : ''}</span></a>`).join('')}</div></section>` : '';
   let body = `${hero({ crumbs, title: `${esc(d.name)} Buyers &amp; Importers`, intro, q: d.name,
     chips: places.slice(0, 6), links: d.countryLinks })}
+  ${alertBox(d.name, '', 'm')}
   ${pills(kids.filter(k => k.leads > 0).concat(kids.filter(k => !k.leads)).slice(0, 40), childTitle)}
   <div class="bx-grid">
     <div>
@@ -144,7 +160,7 @@ function page(d) {
       ${pills(rel.filter(k => k.leads > 0).slice(0, 20), 'Related products')}
       <!--FAQ-->
     </div>
-    <aside class="bx-side">${supHtml}${ctaHtml(d.name, true)}</aside>
+    <aside class="bx-side">${alertBox(d.name)}${supHtml}${ctaHtml(d.name, true)}</aside>
   </div>`;
   const faqs = buyerFaqs(d.name, places, leads, total);
   const faqHtml = `<section class="bx-sec bx-faq"><h2>${esc(noun)} buyers: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>`;
@@ -196,6 +212,7 @@ function countryPage(d) {
   const pills = (arr, title) => arr.length ? `<section class="bx-sec"><h2>${esc(title)}</h2><div class="bx-pills">${arr.map(x => `<a href="/buyers/${esc(x.path)}">${esc(x.name)}</a>`).join('')}</div></section>` : '';
   const faqs = COUNTRY_FAQ(nm, cities, prods);
   const body = `${hero({ crumbs, title: `Buyers &amp; Importers in ${esc(nm)}`, intro, q: '', chips: cities })}
+  ${alertBox('product', nm, 'm')}
   ${pills((d.products || []).slice(0, 30).map(x => ({ name: x.name, path: x.leads >= COMBO_MIN ? `country/${d.slug}/${x.path}` : x.path })), `What buyers in ${nm} are looking for`)}
   <div class="bx-grid">
     <div>
@@ -204,7 +221,7 @@ function countryPage(d) {
       <section class="bx-sec bx-faq"><h2>Buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
       ${pills((d.others || []).map(o => ({ name: o.name, path: 'country/' + o.slug })), 'Buyers in other countries')}
     </div>
-    <aside class="bx-side">${countryCta(nm)}</aside>
+    <aside class="bx-side">${alertBox('product', nm)}${countryCta(nm)}</aside>
   </div>`;
   const ld = [crumbsLd(crumbs), { '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];
@@ -240,6 +257,7 @@ function comboPage(d) {
     [`How do I contact ${pr.name} importers in ${nm}?`, `BuyGenix members unlock a buyer's name, mobile number and email with the lead credits in their membership plan. Each requirement is shared with at most 5 suppliers.`],
   ];
   const body = `${hero({ crumbs, title: `${esc(pr.name)} Buyers in ${esc(nm)}`, intro, q: pr.name, chips: cities })}
+  ${alertBox(pr.name, nm, 'm')}
   <div class="bx-grid">
     <div>
       ${leads.length ? `<h2 class="bx-h2">Latest ${esc(pr.name)} requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements are added regularly.</p></div>`}
@@ -247,7 +265,7 @@ function comboPage(d) {
       ${pills((d.other_products || []).map(o => ({ name: o.name, href: o.leads >= COMBO_MIN ? `/buyers/country/${c.slug}/${o.slug}` : `/buyers/${o.slug}` })), `More products wanted in ${nm}`)}
       <section class="bx-sec bx-faq"><h2>${esc(pr.name)} buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
     </div>
-    <aside class="bx-side">${countryCta(nm)}<div class="bx-sec" style="margin-top:14px"><h2>All ${esc(pr.name)} buyers</h2><div class="bx-pills"><a href="/buyers/${esc(pr.slug)}">${esc(pr.name)} buyers worldwide</a><a href="/buyers/country/${esc(c.slug)}">All buyers in ${esc(nm)}</a></div></div></aside>
+    <aside class="bx-side">${alertBox(pr.name, nm)}${countryCta(nm)}<div class="bx-sec" style="margin-top:14px"><h2>All ${esc(pr.name)} buyers</h2><div class="bx-pills"><a href="/buyers/${esc(pr.slug)}">${esc(pr.name)} buyers worldwide</a><a href="/buyers/country/${esc(c.slug)}">All buyers in ${esc(nm)}</a></div></div></aside>
   </div>`;
   const ld = [crumbsLd(crumbs), { '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }];

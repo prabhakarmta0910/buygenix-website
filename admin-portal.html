@@ -1371,7 +1371,7 @@ function renderEnq(list) {
     const status  = e.status || 'new';
     const sColor  = statusColors[status] || '#16a34a';
     const sBg     = statusBg[status] || '#f0fdf4';
-    const src = e.interest==='gst' ? 'GST Help' : e.interest==='leads' ? 'Post Req.' : e.interest==='membership' ? 'Membership' : e.interest==='general' ? 'Contact' : e.source ? e.source : 'Contact';
+    const src = e.interest==='buyer-alerts' ? 'Buyer alerts' : e.interest==='gst' ? 'GST Help' : e.interest==='leads' ? 'Post Req.' : e.interest==='membership' ? 'Membership' : e.interest==='general' ? 'Contact' : e.source ? e.source : 'Contact';
     const time    = e.created_at ? new Date(e.created_at).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'}) : 'Just now';
     return `<div class="at-row enq-cols" style="${status==='new'?'background:#f0fdf4;':''}">
       <span style="color:var(--text-light);font-weight:600;">${String(i+1).padStart(2,'0')}</span>

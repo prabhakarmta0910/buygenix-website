@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/directory.css?v=20260929b">
-<link rel="stylesheet" href="/css/buyers.css?v=20261007c">
+<link rel="stylesheet" href="/css/buyers.css?v=20261008a">
 <meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -85,5 +85,31 @@
 
 <script src="/js/bgx-data.js"></script>
 <script src="/js/shared.js?v=20260929a"></script>
+<script>
+/* Buyer-alert sign-up on buyer pages */
+document.addEventListener('submit', async function (e) {
+  var f = e.target; if (!f.classList || !f.classList.contains('bx-alert')) return;
+  e.preventDefault();
+  var msg = f.querySelector('.bx-alert-msg'), btn = f.querySelector('button');
+  var name = f.name.value.trim(), phone = f.phone.value.trim(), email = f.email.value.trim();
+  var product = f.dataset.product, where = f.dataset.where;
+  if (name.length < 2) { msg.textContent = 'Please enter your name.'; f.name.focus(); return; }
+  if (phone.replace(/\D/g, '').length < 10) { msg.textContent = 'Please enter a valid WhatsApp number.'; f.phone.focus(); return; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Please check your email address.'; f.email.focus(); return; }
+  btn.disabled = true; msg.textContent = 'Sending...';
+  try {
+    var sb = getSB();
+    var r = await sb.from('enquiries').insert([{ name: name, phone: phone, email: email || '', business: product === 'product' ? (where ? 'Buyers in ' + where : 'Buyer requirements') : product,
+      message: 'Buyer alerts: ' + (product === 'product' ? 'any product' : product) + (where ? ' | Market: ' + where : '') + ' | Page: ' + location.pathname,
+      interest: 'buyer-alerts', status: 'new' }]);
+    if (r.error) throw r.error;
+    if (window.gtag) gtag('event', 'generate_lead', { lead_source: 'buyer_alerts', item_name: product });
+    f.innerHTML = '<b>Thank you, ' + name.replace(/[<>&"]/g, '') + '.</b><span>Our team will send matching buyer requirements to your WhatsApp shortly.</span><a class="dr-btn out" href="/membership">See membership plans</a>';
+  } catch (err) {
+    btn.disabled = false;
+    msg.innerHTML = 'Could not send. Please message us on <a href="https://wa.me/918796787594" target="_blank" rel="noopener">WhatsApp</a>.';
+  }
+});
+</script>
 </body>
 </html>
