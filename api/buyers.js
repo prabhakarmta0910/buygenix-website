@@ -76,7 +76,7 @@ function ctaHtml(name, side) {
     <div class="bx-cta-box sell"><b>Do you supply ${esc(name)}?</b><span>Unlock each buyer's name, mobile and email with a BuyGenix membership, and get your company listed for buyers.</span>
       <div class="row"><a class="dr-btn pri" href="/buy-lead-search?q=${q}">Contact these buyers</a><a class="dr-btn out" href="/membership">View plans</a></div></div>
     <div class="bx-cta-box buy"><b>Looking to buy ${esc(name)}?</b><span>Post your requirement free. Our team connects you with suitable Indian suppliers.</span>
-      <div class="row"><a class="dr-btn pri" href="/?product=${q}#post-requirement">Post requirement</a><a class="dr-btn out" href="/search?type=products&amp;q=${q}">Browse suppliers</a></div></div>
+      <div class="row"><a class="dr-btn pri" rel="nofollow" href="/?product=${q}#post-requirement">Post requirement</a><a class="dr-btn out" href="/search?type=products&amp;q=${q}">Browse suppliers</a></div></div>
   </div>`;
 }
 

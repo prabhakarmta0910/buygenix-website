@@ -168,7 +168,7 @@
       const q = S.q ? esc(S.q) : 'this';
       return `<div class="dr-card dr-empty"><h3>No ${S.type === 'products' ? 'products' : 'suppliers'} listed for ${S.q ? '“' + q + '”' : 'this search'} yet</h3>
         <p>Post your requirement and our team will find verified Indian suppliers for you. It is free and there is no membership needed.</p>
-        <div class="row"><a class="dr-btn pri" href="/?product=${encodeURIComponent(S.q)}#post-requirement">Post your requirement</a><a class="dr-btn wa" href="https://wa.me/${WA_BGX}?text=${encodeURIComponent('Hello BuyGenix, I am looking for suppliers of ' + (S.q || 'a product') + '.')}" target="_blank" rel="noopener">WhatsApp us</a></div></div>`;
+        <div class="row"><a class="dr-btn pri" rel="nofollow" href="/?product=${encodeURIComponent(S.q)}#post-requirement">Post your requirement</a><a class="dr-btn wa" href="https://wa.me/${WA_BGX}?text=${encodeURIComponent('Hello BuyGenix, I am looking for suppliers of ' + (S.q || 'a product') + '.')}" target="_blank" rel="noopener">WhatsApp us</a></div></div>`;
     }
     async function load(reset) {
       if (S.busy) return; S.busy = true;

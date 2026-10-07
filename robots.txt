@@ -5,6 +5,10 @@ Disallow: /admin-portal
 Disallow: /lead-search-admin
 Disallow: /api/
 Disallow: /buyers-template
+# Internal search results and form prefill links (noindex, no unique content)
+Disallow: /search?
+Disallow: /buy-lead-search?
+Disallow: /?product=
 
 # AI search and answer engines are welcome to read public pages
 User-agent: GPTBot
@@ -22,6 +26,10 @@ Disallow: /admin-portal
 Disallow: /lead-search-admin
 Disallow: /api/
 Disallow: /buyers-template
+# Internal search results and form prefill links (noindex, no unique content)
+Disallow: /search?
+Disallow: /buy-lead-search?
+Disallow: /?product=
 
 Sitemap: https://www.buygenixsolutions.com/sitemap.xml
 Sitemap: https://www.buygenixsolutions.com/sitemap-companies.xml
