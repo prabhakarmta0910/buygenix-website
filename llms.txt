@@ -14,7 +14,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Services](https://www.buygenixsolutions.com/services): buyer leads, digital catalogue, SEO and registrations
 - [Export registrations](https://www.buygenixsolutions.com/registration): IEC, GST, APEDA, FSSAI, RCMC, Spices Board and other registrations
 
-## Registration and compliance services (245+ services in 15 categories)
+## Registration and compliance services (260+ services in 16 categories)
 - [Basic Business Registrations](https://www.buygenixsolutions.com/basic-business-registrations): 20 services. Business registration help in India: PAN, TAN, Udyam (MSME), DSC, proprietorship, partnership, LLP and company incorporation, filed and followed up by one team.
 - [GST Services](https://www.buygenixsolutions.com/gst-services): 20 services. GST services for exporters: GST registration, LUT filing for zero-rated exports, monthly and annual returns, amendments and IGST refunds, handled end to end.
 - [DGFT & IEC Services](https://www.buygenixsolutions.com/dgft-iec-services): 20 services. IEC code registration, IEC update and DGFT services for exporters: applications, modifications and DGFT portal support, filed and tracked by one team.
@@ -29,6 +29,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Legal Metrology & Labelling](https://www.buygenixsolutions.com/legal-metrology-labelling): 10 services. Legal Metrology registration for packers and importers, and packaging label compliance for products sold in India and abroad.
 - [Banking & Payment Documentation](https://www.buygenixsolutions.com/banking-payment-documentation): 10 services. Export banking and payment documentation: AD bank paperwork, foreign remittance and FIRC, BRC and e-BRC follow-up, and export payment reconciliation.
 - [AI-Powered Export Services](https://www.buygenixsolutions.com/ai-powered-export-services): 35 services. AI-assisted export services: buyer and market research, quotation and contract drafting, export document checks and buyer lead qualification.
+- [International Filings & Registrations](https://www.buygenixsolutions.com/international-filings-registrations): 15 services. International filings for exporters: US FDA registration and Prior Notice, D-U-N-S, US LLC and EIN, UK company, UK and EU EORI, REX, GS1, halal, Amazon Global Selling and ECGC.
 - [Monthly & Recurring Compliance](https://www.buygenixsolutions.com/monthly-recurring-compliance-support): 15 services. Monthly compliance support for exporters: GST filing, export documentation support, RCMC, licence, DSC and FSSAI expiry tracking, and DGFT notification monitoring.
 
 ## Buyer requirements by category
