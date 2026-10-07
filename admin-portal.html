@@ -1936,10 +1936,10 @@ async function loadPlansAdmin() {
   } catch(e) {}
   // Fallback — exact match with membership.html
   allPlans = [
-    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','1× Virtual Business Card','GST + IEC + MSME assistance','FSSAI assistance included','Email support']},
-    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 10 products','1× Virtual Business Card','Quarterly business promotion','Basic On-Page SEO','GST + IEC + MSME assistance','FSSAI assistance included']},
-    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 15 products','1× Virtual Business Card','Monthly business promotion','Basic On-Page SEO','Social Media (SMO) included','GST + IEC + MSME included','FSSAI licence included']},
-    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 Buyer Leads per year','WhatsApp + Email delivery','Website listing included','Dedicated Relationship Manager','Digital catalogue — 20 products','1× Virtual Business Card','Weekly business promotion','Advanced SEO + SMO','All Registrations + FSSAI','Priority Lead Matching','Export Documentation Help']}
+    {id:'p1',name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,badge:'',is_popular:false,sort_order:1,features:['5 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', '1 virtual business card', 'IEC and MSME registration', 'Email support']},
+    {id:'p2',name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', '1 virtual business card', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+    {id:'p3',name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,badge:'',is_popular:false,sort_order:3,features:['15 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (10 pages)', '1 virtual business card', 'Quarterly business promotion', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+    {id:'p4',name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'All business and export registrations (except FSSAI)', 'Priority lead matching', 'Export documentation assistance']}
   ];
   renderPlans();
 }
@@ -1963,7 +1963,7 @@ function renderPlans() {
         <span class="mp-price-amt">${Number(plan.price_monthly).toLocaleString('en-IN')}</span>
         <span class="mp-price-period">/ year + GST</span>
       </div>
-      <span class="mp-leads-tag">${plan.lead_limit >= 9999 ? 'Unlimited' : Number(plan.lead_limit).toLocaleString('en-IN')} leads / year</span>
+      <span class="mp-leads-tag">${plan.lead_limit >= 9999 ? 'Unlimited' : Number(plan.lead_limit).toLocaleString('en-IN')} leads / month</span>
       <div class="mp-divider"></div>
       <div class="mp-feats">${features.map(f=>`<div class="mp-feat">${f}</div>`).join('')}</div>
       <div class="mp-card-actions">

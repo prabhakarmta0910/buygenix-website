@@ -854,7 +854,7 @@ function renderMembership(m, planName) {
   $('mStatus').innerHTML = statusPill(st);
   $('mStart').textContent = fmtDate(m.join_date);
   $('mRenew').textContent = fmtDate(m.renewal_date);
-  $('mLeads').textContent = _quota ? `${_quota} per year` : 'Not included';
+  $('mLeads').textContent = _quota ? `${_quota} per month` : 'Not included';
 
   const feats = _plan && Array.isArray(_plan.features) ? _plan.features
     : String(m.registrations_included || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -1013,7 +1013,7 @@ function renderCredits() {
     $('crBar').style.width = '0'; return;
   }
   $('crTxt').innerHTML = c.active
-    ? `<b>lead credit${c.remaining === 1 ? '' : 's'} left</b> · ${c.used} of ${c.lead_limit} used this membership year`
+    ? `<b>lead credit${c.remaining === 1 ? '' : 's'} left</b> · ${c.used} of ${c.lead_limit} used this month`
     : `<b>Your membership is not active</b> · renew to keep unlocking leads`;
   $('crBar').style.width = `${Math.min(100, (c.used / c.lead_limit) * 100)}%`;
 }

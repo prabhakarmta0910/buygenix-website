@@ -346,7 +346,7 @@ function buyerFaqs(name, places, leads, total) {
     ...(qty.length ? [[`What quantities do ${name} buyers ask for?`,
       `Recent requirements range across order sizes, for example ${qty.join(', ')}. Many buyers also ask for bulk or container loads and share the exact quantity when you contact them.`]] : []),
     [`How can I contact ${name} buyers?`,
-      `Buyer names, mobile numbers and emails are shared with BuyGenix members. Members use their yearly lead credits to unlock a buyer's contact details and reach them directly, with support from a Relationship Manager.`],
+      `Buyer names, mobile numbers and emails are shared with BuyGenix members. Members use their monthly lead credits to unlock a buyer's contact details and reach them directly, with support from a Relationship Manager.`],
     [`Can I list my company as a ${name} supplier?`,
       `Yes. BuyGenix members get a company page with their products, which buyers can find in the BuyGenix supplier directory and send enquiries to.`],
     [`I want to buy ${name}. How do I find suppliers?`,

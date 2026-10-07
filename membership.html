@@ -13,11 +13,11 @@
   gtag('config', 'G-JSBLXX38E9');
 </script>
 <title>Membership Plans | Export Buyer Leads from Global Importers | BuyGenix</title>
-<meta name="description" content="BuyGenix membership plans with export buyer lead credits: Starter 5, Growth 10, Professional 15 and Enterprise 30 leads a year, plus a Relationship Manager. From ₹15,000 + GST.">
+<meta name="description" content="BuyGenix membership plans with export buyer lead credits: Starter 5, Growth 10, Professional 15 and Enterprise 30 leads a month, plus a Relationship Manager. From ₹15,000 + GST.">
 <meta name="keywords" content="BuyGenix Membership, B2B Membership Plans India, Buyer Leads Membership, Export Membership Plan, Starter Plan, Growth Plan, Professional Plan, Enterprise Plan, Export Business Growth, B2B Subscription India, Lead Generation Plan India">
 <link rel="canonical" href="https://www.buygenixsolutions.com/membership">
 <meta property="og:title" content="Membership Plans | Export Buyer Leads | BuyGenix">
-<meta property="og:description" content="BuyGenix membership plans with export buyer lead credits: Starter 5, Growth 10, Professional 15 and Enterprise 30 leads a year, plus a Relationship Manager. From ₹15,000 + GST.">
+<meta property="og:description" content="BuyGenix membership plans with export buyer lead credits: Starter 5, Growth 10, Professional 15 and Enterprise 30 leads a month, plus a Relationship Manager. From ₹15,000 + GST.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.buygenixsolutions.com/membership">
 <meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
@@ -207,7 +207,7 @@
      "name": "What does a lead credit unlock?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "One lead credit opens one buyer's full contact: name, mobile number and email. Starter includes 5 credits a year, Growth 10, Professional 15 and Enterprise 30."
+      "text": "One lead credit opens one buyer's full contact: name, mobile number and email. Starter includes 5 credits a month, Growth 10, Professional 15 and Enterprise 30. Unused credits do not carry over to the next month."
      }
     },
     {
@@ -340,7 +340,7 @@
   <section class="mp-faq" aria-labelledby="mpFaqTitle">
     <h2 id="mpFaqTitle">Common questions</h2>
     <details><summary>How long does a membership last?</summary><p>Every plan runs for 365 days from activation.</p></details>
-    <details><summary>What does a lead credit unlock?</summary><p>One lead credit opens one buyer's full contact: name, mobile number and email. Starter includes 5 credits a year, Growth 10, Professional 15 and Enterprise 30.</p></details>
+    <details><summary>What does a lead credit unlock?</summary><p>One lead credit opens one buyer's full contact: name, mobile number and email. Starter includes 5 credits a month, Growth 10, Professional 15 and Enterprise 30. Unused credits do not carry over to the next month.</p></details>
     <details><summary>Can I see buyer leads before I buy a plan?</summary><p>Yes. Product, quantity and buyer location are free to browse on the <a href="/buyers">Buyers</a> and <a href="/buy-lead-search">Buy Lead Search</a> pages. Contact details need a membership.</p></details>
     <details><summary>How many sellers get the same lead?</summary><p>Each lead is shared with at most 5 sellers, so buyers receive a few serious quotes.</p></details>
     <details><summary>How are buyer leads delivered?</summary><p>Leads are shared with you on WhatsApp and email, and they also appear in your client portal.</p></details>
@@ -393,10 +393,10 @@ const CROSS = '<svg class="mp-cross" viewBox="0 0 20 20" fill="none" aria-label=
 
 /* Used only if Supabase is unreachable — keep in sync with membership_plans */
 const FALLBACK_PLANS = [
-  {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','1 virtual business card','GST, IEC and MSME registration assistance','FSSAI registration assistance','Email support']},
-  {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 10 products','1 virtual business card','Quarterly business promotion','Basic on-page SEO','GST, IEC and MSME registration assistance','FSSAI registration assistance']},
-  {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 15 products','1 virtual business card','Monthly business promotion','Basic on-page SEO','Social media optimisation (SMO)','GST, IEC and MSME registration included','FSSAI licence included']},
-  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per year','Lead delivery on WhatsApp and email','Business listing on the BuyGenix website','Dedicated Relationship Manager','Digital catalogue with 20 products','1 virtual business card','Weekly business promotion','Advanced SEO and social media optimisation','All registrations included, with FSSAI','Priority lead matching','Export documentation help']}
+  {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', '1 virtual business card', 'IEC and MSME registration', 'Email support']},
+  {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', '1 virtual business card', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+  {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (10 pages)', '1 virtual business card', 'Quarterly business promotion', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'All business and export registrations (except FSSAI)', 'Priority lead matching', 'Export documentation assistance']}
 ];
 
 /* Comparison rows. Values per plan name: true = tick, false = cross, string = shown as text.
@@ -404,24 +404,25 @@ const FALLBACK_PLANS = [
 const Y = true, N = false;
 const COMPARE = [
   {group:'Leads and visibility'},
-  {label:'Buyer leads per year', from:'leads'},
+  {label:'Buyer leads per month', from:'leads'},
   {label:'Lead delivery on WhatsApp and email', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Business listing on the BuyGenix website', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Priority lead matching', v:{starter:N,growth:N,professional:N,enterprise:Y}},
   {group:'Support'},
   {label:'Dedicated Relationship Manager', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Virtual business card', v:{starter:'1',growth:'1',professional:'1',enterprise:'1'}},
-  {label:'Export documentation help', v:{starter:N,growth:N,professional:N,enterprise:Y}},
+  {label:'Export documentation', v:{starter:N,growth:N,professional:N,enterprise:'Assistance'}},
   {group:'Marketing'},
-  {label:'Digital catalogue', v:{starter:N,growth:'10 products',professional:'15 products',enterprise:'20 products'}},
-  {label:'Business promotion', v:{starter:N,growth:'Quarterly',professional:'Monthly',enterprise:'Weekly'}},
+  {label:'Business website', v:{starter:N,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Digital catalogue', v:{starter:N,growth:N,professional:'10 pages',enterprise:'15 pages'}},
+  {label:'Business promotion', v:{starter:N,growth:N,professional:'Quarterly',enterprise:'Monthly'}},
   {label:'SEO', v:{starter:N,growth:'Basic',professional:'Basic',enterprise:'Advanced'}},
-  {label:'Social media optimisation', v:{starter:N,growth:N,professional:Y,enterprise:'Advanced'}},
   {group:'Registrations'},
-  {label:'GST registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
-  {label:'IEC registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
-  {label:'MSME registration', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}},
-  {label:'FSSAI licence', v:{starter:'Assistance',growth:'Assistance',professional:'Included',enterprise:'Included'}}
+  {label:'GST registration', v:{starter:N,growth:Y,professional:Y,enterprise:Y}},
+  {label:'IEC registration', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'MSME registration', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Other business and export registrations', v:{starter:N,growth:N,professional:N,enterprise:Y}},
+  {label:'FSSAI licence', v:{starter:N,growth:N,professional:N,enterprise:N}}
 ];
 
 const inr = n => '₹' + Number(n || 0).toLocaleString('en-IN');
@@ -468,7 +469,7 @@ function renderCards(plans) {
       <h3 class="mp-name">${esc(plan.name)}</h3>
       <p class="mp-desc">${esc(plan.subtitle || '')}</p>
       <div class="mp-price"><span class="mp-amt">${inr(plan.price_monthly)}</span><span class="mp-per">/ year</span></div>
-      <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per year</span>
+      <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per month</span>
       ${payable
         ? `<a href="/contact" class="mp-cta" data-pay-plan="${esc(plan.id)}" data-pay-name="${esc(plan.name)}" data-pay-price="${Number(plan.price_monthly)}">${cta}</a><a href="/contact" class="mp-alt">+ 18% GST &middot; or talk to our team</a>`
         : `<a href="/contact" class="mp-cta">${cta}</a>`}
