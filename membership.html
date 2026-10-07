@@ -76,7 +76,9 @@
 .mp-card.enterprise .mp-amt{color:#fff;}
 .mp-per{font-size:13px;color:var(--mp-soft);font-weight:500;}
 .mp-card.enterprise .mp-per{color:rgba(255,255,255,.55);}
-.mp-leads{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:#EEF4FF;color:var(--mp-blue-dk);font-size:13px;font-weight:600;padding:5px 11px;border-radius:8px;align-self:flex-start;font-variant-numeric:tabular-nums;}
+.mp-leads{display:inline-flex;flex-direction:column;gap:2px;margin-top:12px;background:#EEF4FF;color:var(--mp-blue-dk);padding:7px 12px;border-radius:8px;align-self:flex-start;font-variant-numeric:tabular-nums;}
+.mp-leads b{font-size:13px;font-weight:600;}
+.mp-leads small{font-size:12px;font-weight:500;opacity:.78;}
 .mp-card.enterprise .mp-leads{background:rgba(240,200,74,.14);color:var(--mp-gold);}
 .mp-div{height:1px;background:var(--mp-line);margin:22px 0;}
 .mp-card.enterprise .mp-div{background:rgba(255,255,255,.1);}
@@ -113,6 +115,7 @@
 .mp-table .mp-group td:first-child{background:#F8FAFC;}
 .mp-table tbody tr:last-child td{border-bottom:none;}
 .mp-val{font-weight:600;color:var(--mp-ink);}
+.mp-sub{display:block;margin-top:2px;font-size:12px;color:var(--mp-mid);}
 
 /* ── HELP CTA ── */
 .mp-help{max-width:1240px;margin:0 auto;padding:0 32px 88px;}
@@ -396,7 +399,7 @@ const FALLBACK_PLANS = [
   {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', '1 virtual business card', 'IEC and MSME registration', 'Email support']},
   {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', '1 virtual business card', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
   {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (10 pages)', '1 virtual business card', 'Quarterly business promotion', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
-  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'All business and export registrations (except FSSAI)', 'Priority lead matching', 'Export documentation assistance']}
+  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'GST, IEC and MSME registration', '2 months of GST return filing', 'Priority lead matching', 'Export documentation assistance']}
 ];
 
 /* Comparison rows. Values per plan name: true = tick, false = cross, string = shown as text.
@@ -404,7 +407,7 @@ const FALLBACK_PLANS = [
 const Y = true, N = false;
 const COMPARE = [
   {group:'Leads and visibility'},
-  {label:'Buyer leads per month', from:'leads'},
+  {label:'Buyer leads', from:'leads'},
   {label:'Lead delivery on WhatsApp and email', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Business listing on the BuyGenix website', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Priority lead matching', v:{starter:N,growth:N,professional:N,enterprise:Y}},
@@ -421,7 +424,7 @@ const COMPARE = [
   {label:'GST registration', v:{starter:N,growth:Y,professional:Y,enterprise:Y}},
   {label:'IEC registration', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'MSME registration', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
-  {label:'Other business and export registrations', v:{starter:N,growth:N,professional:N,enterprise:Y}},
+  {label:'GST return filing', v:{starter:N,growth:N,professional:N,enterprise:'2 months'}},
   {label:'FSSAI licence', v:{starter:N,growth:N,professional:N,enterprise:N}}
 ];
 
@@ -469,7 +472,7 @@ function renderCards(plans) {
       <h3 class="mp-name">${esc(plan.name)}</h3>
       <p class="mp-desc">${esc(plan.subtitle || '')}</p>
       <div class="mp-price"><span class="mp-amt">${inr(plan.price_monthly)}</span><span class="mp-per">/ year</span></div>
-      <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per month</span>
+      <span class="mp-leads"><b>${Number(plan.lead_limit || 0) * 12} buyer leads a year</b><small>${Number(plan.lead_limit || 0)} every month</small></span>
       ${payable
         ? `<a href="/contact" class="mp-cta" data-pay-plan="${esc(plan.id)}" data-pay-name="${esc(plan.name)}" data-pay-price="${Number(plan.price_monthly)}">${cta}</a><a href="/contact" class="mp-alt">+ 18% GST &middot; or talk to our team</a>`
         : `<a href="/contact" class="mp-cta">${cta}</a>`}
@@ -488,7 +491,9 @@ function renderCompare(plans) {
   const body = COMPARE.map(r => {
     if (r.group) return `<tr class="mp-group"><td colspan="${plans.length + 1}">${esc(r.group)}</td></tr>`;
     return `<tr><td>${esc(r.label)}</td>${plans.map(p => {
-      const v = r.from === 'leads' ? String(Number(p.lead_limit || 0)) : (r.v || {})[key(p)];
+      if (r.from === 'leads') { const n = Number(p.lead_limit || 0);
+        return `<td${pc(p)}><span class="mp-val">${n * 12} a year</span><span class="mp-sub">${n} a month</span></td>`; }
+      const v = (r.v || {})[key(p)];
       return `<td${pc(p)}>${cell(v)}</td>`;
     }).join('')}</tr>`;
   }).join('');
