@@ -76,9 +76,7 @@
 .mp-card.enterprise .mp-amt{color:#fff;}
 .mp-per{font-size:13px;color:var(--mp-soft);font-weight:500;}
 .mp-card.enterprise .mp-per{color:rgba(255,255,255,.55);}
-.mp-leads{display:inline-flex;flex-direction:column;gap:2px;margin-top:12px;background:#EEF4FF;color:var(--mp-blue-dk);padding:7px 12px;border-radius:8px;align-self:flex-start;font-variant-numeric:tabular-nums;}
-.mp-leads b{font-size:13px;font-weight:600;}
-.mp-leads small{font-size:12px;font-weight:500;opacity:.78;}
+.mp-leads{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:#EEF4FF;color:var(--mp-blue-dk);font-size:13px;font-weight:600;padding:5px 11px;border-radius:8px;align-self:flex-start;font-variant-numeric:tabular-nums;}
 .mp-card.enterprise .mp-leads{background:rgba(240,200,74,.14);color:var(--mp-gold);}
 .mp-div{height:1px;background:var(--mp-line);margin:22px 0;}
 .mp-card.enterprise .mp-div{background:rgba(255,255,255,.1);}
@@ -115,7 +113,6 @@
 .mp-table .mp-group td:first-child{background:#F8FAFC;}
 .mp-table tbody tr:last-child td{border-bottom:none;}
 .mp-val{font-weight:600;color:var(--mp-ink);}
-.mp-sub{display:block;margin-top:2px;font-size:12px;color:var(--mp-mid);}
 
 /* ── HELP CTA ── */
 .mp-help{max-width:1240px;margin:0 auto;padding:0 32px 88px;}
@@ -407,7 +404,7 @@ const FALLBACK_PLANS = [
 const Y = true, N = false;
 const COMPARE = [
   {group:'Leads and visibility'},
-  {label:'Buyer leads', from:'leads'},
+  {label:'Buyer leads per month', from:'leads'},
   {label:'Lead delivery on WhatsApp and email', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Business listing on the BuyGenix website', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {label:'Priority lead matching', v:{starter:N,growth:N,professional:N,enterprise:Y}},
@@ -472,7 +469,7 @@ function renderCards(plans) {
       <h3 class="mp-name">${esc(plan.name)}</h3>
       <p class="mp-desc">${esc(plan.subtitle || '')}</p>
       <div class="mp-price"><span class="mp-amt">${inr(plan.price_monthly)}</span><span class="mp-per">/ year</span></div>
-      <span class="mp-leads"><b>${Number(plan.lead_limit || 0) * 12} buyer leads a year</b><small>${Number(plan.lead_limit || 0)} every month</small></span>
+      <span class="mp-leads">${Number(plan.lead_limit || 0)} buyer leads per month</span>
       ${payable
         ? `<a href="/contact" class="mp-cta" data-pay-plan="${esc(plan.id)}" data-pay-name="${esc(plan.name)}" data-pay-price="${Number(plan.price_monthly)}">${cta}</a><a href="/contact" class="mp-alt">+ 18% GST &middot; or talk to our team</a>`
         : `<a href="/contact" class="mp-cta">${cta}</a>`}
@@ -491,9 +488,7 @@ function renderCompare(plans) {
   const body = COMPARE.map(r => {
     if (r.group) return `<tr class="mp-group"><td colspan="${plans.length + 1}">${esc(r.group)}</td></tr>`;
     return `<tr><td>${esc(r.label)}</td>${plans.map(p => {
-      if (r.from === 'leads') { const n = Number(p.lead_limit || 0);
-        return `<td${pc(p)}><span class="mp-val">${n * 12} a year</span><span class="mp-sub">${n} a month</span></td>`; }
-      const v = (r.v || {})[key(p)];
+      const v = r.from === 'leads' ? String(Number(p.lead_limit || 0)) : (r.v || {})[key(p)];
       return `<td${pc(p)}>${cell(v)}</td>`;
     }).join('')}</tr>`;
   }).join('');
