@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
+<title>Free Export Proforma Invoice Generator (PDF) | BuyGenix</title>
+<meta name="description" content="Create an export proforma invoice free: exporter and buyer details, HS codes, Incoterm, ports, payment terms and bank details. Download as PDF. No sign-up.">
+<link rel="canonical" href="https://www.buygenixsolutions.com/proforma-invoice-generator">
+<meta property="og:title" content="Free Export Proforma Invoice Generator (PDF) | BuyGenix">
+<meta property="og:description" content="Create an export proforma invoice free: exporter and buyer details, HS codes, Incoterm, ports, payment terms and bank details. Download as PDF. No sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.buygenixsolutions.com/proforma-invoice-generator">
+<meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BuyGenix Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/lp.css?v=20261006b">
+<link rel="stylesheet" href="css/tools.css?v=20261008a">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.buygenixsolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Free export tools",
+     "item": "https://www.buygenixsolutions.com/export-tools"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Proforma invoice generator",
+     "item": "https://www.buygenixsolutions.com/proforma-invoice-generator"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "name": "Export Proforma Invoice Generator",
+   "url": "https://www.buygenixsolutions.com/proforma-invoice-generator",
+   "description": "Free tool to create an export proforma invoice and save it as a PDF.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "BuyGenix Solutions",
+    "url": "https://www.buygenixsolutions.com"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is a proforma invoice in export?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A proforma invoice is a quotation in invoice format that an exporter sends before shipment. It lists the goods, quantities, prices, Incoterm, payment terms and delivery time, so the buyer can confirm the order, open a letter of credit or arrange an import licence."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is a proforma invoice the same as a commercial invoice?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. A proforma invoice is sent before the sale is final and is not a demand for payment. The commercial invoice is issued at shipment and is the document customs uses for valuation."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What should an export proforma invoice include?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Exporter and buyer details, invoice number and date, a description of each product with HS code, quantity, unit price and total, the currency, the Incoterm and named place, ports of loading and discharge, country of origin, payment terms, delivery time, validity of the offer and bank details."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I use a proforma invoice for advance payment?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Buyers often pay an advance against a proforma invoice. Keep the bank details accurate and state the advance percentage in the payment terms."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is my data saved by BuyGenix?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The generator runs in your browser. Your details are kept only on your own device so the form is filled next time, and you can clear them with one click."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions" width="106" height="38">
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-search">
+    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
+      <span id="navSearchLabel">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+  <div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a>
+    <a href="/contact">Contact</a><a href="/membership" class="nav-cta-outline">Membership Plans</a><a href="/login" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a><a href="/contact">Contact</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a><a href="/membership" class="m-cta">Membership Plans →</a><a href="/login" class="m-cta m-cta-gold">Client Login →</a></div>
+
+
+<main class="lp">
+<section class="tl-hero"><div class="lp-wrap">
+<nav class="lp-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/export-tools">Free export tools</a><span>/</span>Proforma invoice generator</nav>
+<h1>Free export proforma invoice generator</h1>
+<p class="lp-lead">Fill in your details, add your products and download a clean proforma invoice as a PDF. Built for exporters: Incoterms, HS codes, ports, payment terms and bank details are all on it.</p>
+<div class="tl-badges"><span>Free, no sign-up</span><span>Runs in your browser</span><span>Save as PDF</span></div>
+</div></section>
+
+<section class="tl-app"><div class="lp-wrap tl-grid">
+<form class="tl-panel" id="piForm" autocomplete="on" onsubmit="return false">
+<h2>Invoice details</h2>
+<p class="tl-hint">The preview updates as you type. Your details stay on this device only.</p>
+
+<div class="tl-group"><b>Exporter (seller)</b>
+<div class="tl-f"><label for="sName">Company name</label><input id="sName" placeholder="Your company name"></div>
+<div class="tl-f"><label for="sAddr">Address</label><textarea id="sAddr" placeholder="Street, city, state, PIN, India"></textarea></div>
+<div class="tl-row"><div class="tl-f"><label for="sIec">IEC</label><input id="sIec" placeholder="10-character IEC"></div><div class="tl-f"><label for="sGst">GSTIN</label><input id="sGst" placeholder="15-character GSTIN"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="sEmail">Email</label><input id="sEmail" type="email"></div><div class="tl-f"><label for="sPhone">Phone</label><input id="sPhone"></div></div>
+</div>
+
+<div class="tl-group"><b>Buyer (consignee)</b>
+<div class="tl-f"><label for="bName">Company name</label><input id="bName" placeholder="Buyer company name"></div>
+<div class="tl-f"><label for="bAddr">Address and country</label><textarea id="bAddr" placeholder="Street, city, country"></textarea></div>
+</div>
+
+<div class="tl-group"><b>Invoice and shipment</b>
+<div class="tl-row three"><div class="tl-f"><label for="iNo">Invoice no.</label><input id="iNo" placeholder="PI-001"></div><div class="tl-f"><label for="iDate">Date</label><input id="iDate" type="date"></div><div class="tl-f"><label for="iValid">Valid for (days)</label><input id="iValid" type="number" min="1" value="30"></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="iCur">Currency</label><select id="iCur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option><option>INR</option></select></div>
+<div class="tl-f"><label for="iInco">Incoterm</label><select id="iInco"><option>EXW</option><option>FCA</option><option selected>FOB</option><option>CFR</option><option>CIF</option><option>CPT</option><option>CIP</option><option>DAP</option><option>DDP</option></select></div>
+<div class="tl-f"><label for="iPlace">Named place</label><input id="iPlace" placeholder="e.g. Nhava Sheva"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="iPol">Port of loading</label><input id="iPol" placeholder="e.g. Nhava Sheva, India"></div><div class="tl-f"><label for="iPod">Port of discharge</label><input id="iPod" placeholder="e.g. Jebel Ali, UAE"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="iPay">Payment terms</label><select id="iPay"><option>30% advance, 70% against copy of bill of lading</option><option>100% advance (T/T)</option><option>Letter of credit at sight</option><option>Documents against payment (D/P)</option><option>Documents against acceptance (D/A) 60 days</option><option>Other (write in notes)</option></select></div>
+<div class="tl-f"><label for="iDel">Delivery time</label><input id="iDel" placeholder="e.g. 30 days from order confirmation"></div></div>
+</div>
+
+<div class="tl-group"><b>Products</b>
+<div class="tl-scroll"><table class="tl-items"><thead><tr><th>Description</th><th>HS code</th><th>Qty</th><th>Unit</th><th>Unit price</th><th></th></tr></thead><tbody id="items"></tbody></table></div>
+<button type="button" class="tl-add" id="addItem">+ Add product</button>
+<div class="tl-row three"><div class="tl-f"><label for="iFreight">Freight</label><input id="iFreight" type="number" min="0" step="0.01" placeholder="0.00"><small>For CFR, CIF, CPT, CIP, DAP, DDP</small></div>
+<div class="tl-f"><label for="iIns">Insurance</label><input id="iIns" type="number" min="0" step="0.01" placeholder="0.00"><small>For CIF and CIP</small></div>
+<div class="tl-f"><label for="iDisc">Discount</label><input id="iDisc" type="number" min="0" step="0.01" placeholder="0.00"></div></div>
+</div>
+
+<div class="tl-group"><b>Bank and notes</b>
+<div class="tl-f"><label for="iBank">Bank details</label><textarea id="iBank" placeholder="Bank name, account name, account no., SWIFT, branch address"></textarea></div>
+<div class="tl-f"><label for="iNotes">Notes</label><textarea id="iNotes" placeholder="Packing, quality, inspection, documents provided"></textarea></div>
+</div>
+
+<div class="tl-actions"><button type="button" class="lp-btn pri" id="printBtn">Download PDF</button><button type="button" class="lp-btn out" id="clearBtn">Clear form</button></div>
+<p class="tl-note">"Download PDF" opens your browser's print window. Choose "Save as PDF" as the printer.</p>
+</form>
+
+<div class="tl-sticky"><div class="tl-paper" id="invoice" aria-live="polite">
+<div class="inv-top"><div><h3>PROFORMA INVOICE</h3><div id="pSeller" class="nm"></div></div>
+<div class="inv-meta"><div>No. <b id="pNo"></b></div><div>Date: <span id="pDate"></span></div><div>Valid until: <span id="pValid"></span></div></div></div>
+<div class="inv-parties"><div><b>Exporter</b><p id="pSAddr"></p><p id="pSIds"></p></div><div><b>Buyer</b><p class="nm" id="pBName"></p><p id="pBAddr"></p></div></div>
+<div class="inv-terms"><div><b>Incoterm</b><span id="pInco"></span></div><div><b>Port of loading</b><span id="pPol"></span></div><div><b>Port of discharge</b><span id="pPod"></span></div>
+<div><b>Country of origin</b><span>India</span></div><div><b>Payment terms</b><span id="pPay"></span></div><div><b>Delivery</b><span id="pDel"></span></div></div>
+<div class="tl-scroll"><table class="inv-table"><thead><tr><th>#</th><th>Description</th><th>HS code</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Amount</th></tr></thead><tbody id="pItems"></tbody></table></div>
+<div class="inv-sum"><div><span>Subtotal</span><span id="pSub"></span></div><div id="rFreight"><span>Freight</span><span id="pFreight"></span></div><div id="rIns"><span>Insurance</span><span id="pIns"></span></div><div id="rDisc"><span>Discount</span><span id="pDisc"></span></div><div class="tot"><span id="pTotL">Total</span><span id="pTot"></span></div></div>
+<div class="inv-foot"><div><b>Bank details</b><p id="pBank"></p><b style="margin-top:10px">Notes</b><p id="pNotes"></p></div><div class="inv-sign"><div>For <span id="pSign"></span></div><div class="ln">Authorised signatory</div></div></div>
+</div></div>
+</div></section>
+
+<section class="tl-content"><div class="lp-wrap lp-narrow">
+<h2>What goes on an export proforma invoice</h2>
+<p>A proforma invoice is the quotation your buyer uses to confirm an order, open a letter of credit or apply for an import licence. If it is complete and matches what you will ship, the commercial invoice and the rest of the documents follow without changes.</p>
+<table><tr><th>Field</th><th>Why it matters</th></tr>
+<tr><td>HS code</td><td>Lets the buyer check import duty and any licence before confirming. Use the code for the exact product, not the category.</td></tr>
+<tr><td>Incoterm and named place</td><td>Decides who pays freight and insurance and where risk passes, for example FOB Nhava Sheva or CIF Jebel Ali.</td></tr>
+<tr><td>Payment terms</td><td>Advance, letter of credit, D/P or D/A. Banks follow these words, so write them exactly.</td></tr>
+<tr><td>Validity</td><td>Freight rates and exchange rates move. A validity date protects your price.</td></tr>
+<tr><td>Bank details</td><td>Account name, number and SWIFT code for the advance or LC proceeds.</td></tr></table>
+<h2>Frequently asked questions</h2>
+<details><summary>What is a proforma invoice in export?</summary><p>A proforma invoice is a quotation in invoice format that an exporter sends before shipment. It lists the goods, quantities, prices, Incoterm, payment terms and delivery time, so the buyer can confirm the order, open a letter of credit or arrange an import licence.</p></details><details><summary>Is a proforma invoice the same as a commercial invoice?</summary><p>No. A proforma invoice is sent before the sale is final and is not a demand for payment. The commercial invoice is issued at shipment and is the document customs uses for valuation.</p></details><details><summary>What should an export proforma invoice include?</summary><p>Exporter and buyer details, invoice number and date, a description of each product with HS code, quantity, unit price and total, the currency, the Incoterm and named place, ports of loading and discharge, country of origin, payment terms, delivery time, validity of the offer and bank details.</p></details><details><summary>Can I use a proforma invoice for advance payment?</summary><p>Yes. Buyers often pay an advance against a proforma invoice. Keep the bank details accurate and state the advance percentage in the payment terms.</p></details><details><summary>Is my data saved by BuyGenix?</summary><p>No. The generator runs in your browser. Your details are kept only on your own device so the form is filled next time, and you can clear them with one click.</p></details>
+<div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
+<div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/export-price-calculator"><b>Export price calculator</b><span>Work out EXW, FOB, CFR and CIF prices per unit from your costs, freight, insurance and margin.</span></a><a href="/export-buyer-leads"><b>Verified buyer leads</b><span>See what importers in the UAE, UK, USA and more are asking for, and contact them directly.</span></a></div>
+</div></section>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var KEY='bgx_pi_v1', F=['sName','sAddr','sIec','sGst','sEmail','sPhone','bName','bAddr','iNo','iDate','iValid','iCur','iInco','iPlace','iPol','iPod','iPay','iDel','iFreight','iIns','iDisc','iBank','iNotes'];
+function addRow(d){d=d||{};var tr=document.createElement('tr');
+ tr.innerHTML='<td><input data-k="desc" placeholder="Product and specification"></td><td><input data-k="hs" class="num" placeholder="0910"></td><td><input data-k="qty" class="num" type="number" min="0" step="any"></td><td><input data-k="unit" class="num" placeholder="kg"></td><td><input data-k="price" class="num" type="number" min="0" step="any"></td><td><button type="button" class="del" aria-label="Remove product">&times;</button></td>';
+ tr.querySelectorAll('input').forEach(function(x){x.value=d[x.dataset.k]||''});
+ tr.querySelector('.del').onclick=function(){tr.remove();if(!$('items').children.length)addRow();render()};
+ $('items').appendChild(tr)}
+function rows(){return Array.prototype.map.call($('items').children,function(tr){var o={};tr.querySelectorAll('input').forEach(function(x){o[x.dataset.k]=x.value.trim()});return o})}
+function num(v){var n=parseFloat(v);return isFinite(n)?n:0}
+function money(n){return $('iCur').value+' '+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function txt(id,v,ph){var el=$(id);el.textContent=v||ph||'';el.classList.toggle('inv-empty',!v)}
+function fmtDate(s){if(!s)return '';var d=new Date(s+'T00:00:00');return isNaN(d)?'':d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+function render(){
+ var v={};F.forEach(function(k){v[k]=$(k).value.trim()});
+ txt('pSeller',v.sName,'Your company name');txt('pSign',v.sName,'your company');
+ txt('pSAddr',v.sAddr,'Exporter address');
+ var ids=[v.sIec&&('IEC: '+v.sIec),v.sGst&&('GSTIN: '+v.sGst),v.sEmail,v.sPhone].filter(Boolean).join('\n');txt('pSIds',ids,'');
+ txt('pBName',v.bName,'Buyer company name');txt('pBAddr',v.bAddr,'Buyer address and country');
+ txt('pNo',v.iNo,'PI-001');txt('pDate',fmtDate(v.iDate),'-');
+ var vu='';if(v.iDate&&num(v.iValid)>0){var d=new Date(v.iDate+'T00:00:00');d.setDate(d.getDate()+num(v.iValid));vu=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}txt('pValid',vu,'-');
+ txt('pInco',v.iInco+(v.iPlace?' '+v.iPlace:''),'');txt('pPol',v.iPol,'-');txt('pPod',v.iPod,'-');txt('pPay',v.iPay,'');txt('pDel',v.iDel,'-');
+ var tb=$('pItems');tb.textContent='';var sub=0,n=0;
+ rows().forEach(function(r){if(!r.desc&&!r.qty&&!r.price)return;n++;var amt=num(r.qty)*num(r.price);sub+=amt;var tr=document.createElement('tr');
+  [n,r.desc,r.hs,(r.qty?num(r.qty).toLocaleString('en-US')+' '+r.unit:''),(r.price?money(num(r.price)):''),money(amt)].forEach(function(c,i){var td=document.createElement('td');td.textContent=c;if(i>2)td.className='r';tr.appendChild(td)});tb.appendChild(tr)});
+ if(!n){var tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.className='inv-empty';td.textContent='Add your products on the left';tr.appendChild(td);tb.appendChild(tr)}
+ var fr=num(v.iFreight),ins=num(v.iIns),dc=num(v.iDisc);
+ $('rFreight').style.display=fr?'':'none';$('rIns').style.display=ins?'':'none';$('rDisc').style.display=dc?'':'none';
+ $('pSub').textContent=money(sub);$('pFreight').textContent=money(fr);$('pIns').textContent=money(ins);$('pDisc').textContent='- '+money(dc);
+ $('pTotL').textContent='Total '+v.iInco+(v.iPlace?' '+v.iPlace:'');$('pTot').textContent=money(sub+fr+ins-dc);
+ txt('pBank',v.iBank,'Bank name, account and SWIFT');txt('pNotes',v.iNotes,'-');
+ try{v.items=rows();localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}
+}
+var saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+if(saved){F.forEach(function(k){if(saved[k]!=null)$(k).value=saved[k]});(saved.items&&saved.items.length?saved.items:[{}]).forEach(addRow)}else{addRow();addRow()}
+if(!$('iDate').value)$('iDate').value=new Date().toISOString().slice(0,10);
+$('piForm').addEventListener('input',render);$('piForm').addEventListener('change',render);
+$('addItem').onclick=function(){addRow();render()};
+$('clearBtn').onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}F.forEach(function(k){var el=$(k);el.value=el.tagName==='SELECT'?el.options[el.tagName==='SELECT'&&k==='iInco'?2:0].value:''});$('iValid').value=30;$('iDate').value=new Date().toISOString().slice(0,10);$('items').textContent='';addRow();addRow();render()};
+$('printBtn').onclick=function(){render();if(window.gtag)gtag('event','tool_use',{tool:'proforma_invoice',action:'pdf'});window.print()};
+render();
+})();
+</script>
+
+
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-name">Buy<span>genix</span> Solutions</a>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p>
+      <ul class="footer-contact">
+        <li><a href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="18" height="18">WhatsApp +91 87967 87594</a></li>
+        <li><a href="tel:+918796787594"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call +91 87967 87594</a></li>
+        <li><a href="mailto:Info@buygenixsolutions.com"><img src="assets/icons/gmail.svg" alt="" width="18" height="18">Info@buygenixsolutions.com</a></li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delhi, India</li>
+      </ul>
+      <div class="footer-social"><a href="https://www.instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://www.facebook.com/profile.php?id=61589380079379" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/services">Services</a></li><li><a href="/membership">Membership Plans</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/export-buyer-leads">Buyer Leads</a></li><li><a href="/services#catalogue">Digital Catalogue</a></li><li><a href="/services#seo">SEO &amp; SMO</a></li><li><a href="/services#vcard">Virtual Business Card</a></li><li><a href="/registration">Registrations</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/buyers">Buyers by Category</a></li><li><a href="/blog">Blog</a></li><li><a href="/faq">FAQ</a></li><li><a href="/login">Client Login</a></li><li><a href="/contact">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BuyGenix Solutions. All rights reserved.</p>
+    <nav aria-label="Legal"><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a></nav>
+  </div>
+</footer>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js?v=20260929a"></script>
+</body>
+</html>

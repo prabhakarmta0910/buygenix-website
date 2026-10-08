@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
+<title>Export Price Calculator: EXW, FOB, CFR, CIF | BuyGenix</title>
+<meta name="description" content="Free export price calculator. Enter product cost, packing, port charges, freight, insurance and margin to get EXW, FOB, CFR and CIF prices per unit in INR and USD.">
+<link rel="canonical" href="https://www.buygenixsolutions.com/export-price-calculator">
+<meta property="og:title" content="Export Price Calculator: EXW, FOB, CFR, CIF | BuyGenix">
+<meta property="og:description" content="Free export price calculator. Enter product cost, packing, port charges, freight, insurance and margin to get EXW, FOB, CFR and CIF prices per unit in INR and USD.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.buygenixsolutions.com/export-price-calculator">
+<meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BuyGenix Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/lp.css?v=20261006b">
+<link rel="stylesheet" href="css/tools.css?v=20261008a">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.buygenixsolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Free export tools",
+     "item": "https://www.buygenixsolutions.com/export-tools"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Export price calculator",
+     "item": "https://www.buygenixsolutions.com/export-price-calculator"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "name": "Export Price Calculator",
+   "url": "https://www.buygenixsolutions.com/export-price-calculator",
+   "description": "Free calculator for EXW, FOB, CFR and CIF export prices.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "BuyGenix Solutions",
+    "url": "https://www.buygenixsolutions.com"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How do I calculate the FOB price for export?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Add your product cost, export packing and the costs of getting the goods on board at the port of loading: inland transport, customs clearance, port and terminal charges and documentation. Add your profit margin and convert to the buyer's currency at your bank rate. That is your FOB price."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the difference between FOB, CFR and CIF?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "FOB covers costs up to loading on the vessel at the port of loading. CFR adds ocean freight to the destination port. CIF adds ocean freight and minimum marine insurance. Under all three, risk passes to the buyer once the goods are on board."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is insurance calculated for a CIF price?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Marine insurance is usually taken for 110% of the CIF value. This calculator uses CIF = (FOB + freight) / (1 - 1.1 x insurance rate), so the insurance is included in the value it covers."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which exchange rate should I use?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Use the rate your bank gives you for export proceeds, or a slightly cautious rate if you quote for 30 days or more. The calculator does not fetch live rates, so enter today's rate yourself."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Should export incentives be included in the price?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Many exporters keep benefits such as RoDTEP or duty drawback out of the quotation and treat them as a cushion. If your market is very price-sensitive, you can lower your margin by the expected benefit."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions" width="106" height="38">
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-search">
+    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
+      <span id="navSearchLabel">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+  <div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a>
+    <a href="/contact">Contact</a><a href="/membership" class="nav-cta-outline">Membership Plans</a><a href="/login" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a><a href="/contact">Contact</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a><a href="/membership" class="m-cta">Membership Plans →</a><a href="/login" class="m-cta m-cta-gold">Client Login →</a></div>
+
+
+<main class="lp">
+<section class="tl-hero"><div class="lp-wrap">
+<nav class="lp-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/export-tools">Free export tools</a><span>/</span>Export price calculator</nav>
+<h1>Export price calculator: EXW, FOB, CFR and CIF</h1>
+<p class="lp-lead">Enter your costs once and see your export price per unit under each Incoterm, in rupees and in your buyer's currency. Use it before you reply to a buyer requirement.</p>
+<div class="tl-badges"><span>Free, no sign-up</span><span>Per unit and per shipment</span><span>Insurance on 110% of CIF</span></div>
+</div></section>
+
+<section class="tl-app"><div class="lp-wrap tl-grid">
+<form class="tl-panel" id="pcForm" onsubmit="return false">
+<h2>Your costs</h2>
+<p class="tl-hint">Enter amounts in Indian rupees unless the label says otherwise.</p>
+<div class="tl-group"><b>Shipment</b>
+<div class="tl-row"><div class="tl-f"><label for="qty">Quantity in shipment</label><input id="qty" type="number" min="0" step="any" value="1000"></div><div class="tl-f"><label for="unit">Unit</label><input id="unit" value="kg"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="cur">Buyer's currency</label><select id="cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option></select></div><div class="tl-f"><label for="rate">Exchange rate (INR per 1 unit)</label><input id="rate" type="number" min="0" step="any" placeholder="Enter today's bank rate"><small>Use your bank's export rate.</small></div></div>
+</div>
+<div class="tl-group"><b>Cost per unit (INR)</b>
+<div class="tl-row three"><div class="tl-f"><label for="cost">Product cost</label><input id="cost" type="number" min="0" step="any" value="100"></div><div class="tl-f"><label for="pack">Export packing</label><input id="pack" type="number" min="0" step="any" value="5"></div><div class="tl-f"><label for="other">Other per unit</label><input id="other" type="number" min="0" step="any" value="0"><small>Labels, testing</small></div></div>
+</div>
+<div class="tl-group"><b>Costs to the port, per shipment (INR)</b>
+<div class="tl-row three"><div class="tl-f"><label for="inland">Inland transport</label><input id="inland" type="number" min="0" step="any" value="15000"></div><div class="tl-f"><label for="cha">Customs and port charges</label><input id="cha" type="number" min="0" step="any" value="12000"><small>CHA, terminal, handling</small></div><div class="tl-f"><label for="docs">Documents</label><input id="docs" type="number" min="0" step="any" value="3000"><small>COO, inspection, courier</small></div></div>
+</div>
+<div class="tl-group"><b>Freight, insurance and margin</b>
+<div class="tl-row three"><div class="tl-f"><label for="freight">Ocean freight</label><input id="freight" type="number" min="0" step="any" value="900"><small>Per shipment, in buyer's currency</small></div><div class="tl-f"><label for="ins">Insurance rate (%)</label><input id="ins" type="number" min="0" step="any" value="0.2"><small>Ask your insurer</small></div><div class="tl-f"><label for="margin">Profit margin (%)</label><input id="margin" type="number" min="0" step="any" value="12"></div></div>
+</div>
+<div class="tl-actions"><button type="button" class="lp-btn out" id="resetBtn">Reset example</button></div>
+</form>
+
+<div class="tl-sticky"><div class="pc-res">
+<div class="pc-res-h"><b>Your export price</b><p id="pcSummary"></p></div>
+<p class="pc-warn" id="pcWarn" hidden>Enter today's exchange rate to see prices in your buyer's currency.</p>
+<table class="pc-table"><thead><tr><th>Incoterm</th><th id="hUnit">Per unit</th><th>Per unit (INR)</th><th>Shipment</th></tr></thead><tbody id="pcBody"></tbody></table>
+<div class="pc-break"><b>How the FOB price is built (INR per unit)</b><div id="pcBreak"></div></div>
+</div></div>
+</div></section>
+
+<section class="tl-content"><div class="lp-wrap lp-narrow">
+<h2>How export prices are built</h2>
+<p>Each Incoterm adds the costs the seller pays on top of the one before it. Work out your FOB price first; CFR and CIF follow from it.</p>
+<table><tr><th>Incoterm</th><th>Seller pays</th><th>Risk passes to buyer</th></tr>
+<tr><td>EXW</td><td>Product and export packing</td><td>At your premises</td></tr>
+<tr><td>FOB</td><td>EXW plus inland transport, export clearance and port charges</td><td>On board the vessel at the port of loading</td></tr>
+<tr><td>CFR</td><td>FOB plus ocean freight to the destination port</td><td>On board at the port of loading</td></tr>
+<tr><td>CIF</td><td>CFR plus minimum marine insurance</td><td>On board at the port of loading</td></tr></table>
+<p>For a CIF quote, the insurance is taken on 110% of the CIF value. The calculator uses CIF = (FOB + freight) / (1 - 1.1 x insurance rate).</p>
+<h2>Frequently asked questions</h2>
+<details><summary>How do I calculate the FOB price for export?</summary><p>Add your product cost, export packing and the costs of getting the goods on board at the port of loading: inland transport, customs clearance, port and terminal charges and documentation. Add your profit margin and convert to the buyer&#x27;s currency at your bank rate. That is your FOB price.</p></details><details><summary>What is the difference between FOB, CFR and CIF?</summary><p>FOB covers costs up to loading on the vessel at the port of loading. CFR adds ocean freight to the destination port. CIF adds ocean freight and minimum marine insurance. Under all three, risk passes to the buyer once the goods are on board.</p></details><details><summary>How is insurance calculated for a CIF price?</summary><p>Marine insurance is usually taken for 110% of the CIF value. This calculator uses CIF = (FOB + freight) / (1 - 1.1 x insurance rate), so the insurance is included in the value it covers.</p></details><details><summary>Which exchange rate should I use?</summary><p>Use the rate your bank gives you for export proceeds, or a slightly cautious rate if you quote for 30 days or more. The calculator does not fetch live rates, so enter today&#x27;s rate yourself.</p></details><details><summary>Should export incentives be included in the price?</summary><p>Many exporters keep benefits such as RoDTEP or duty drawback out of the quotation and treat them as a cushion. If your market is very price-sensitive, you can lower your margin by the expected benefit.</p></details>
+<div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
+<div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/proforma-invoice-generator"><b>Proforma invoice generator</b><span>Make an export proforma invoice with Incoterm, ports, HS codes and bank details, then save it as a PDF.</span></a><a href="/export-buyer-leads"><b>Verified buyer leads</b><span>See what importers in the UAE, UK, USA and more are asking for, and contact them directly.</span></a></div>
+</div></section>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var KEY='bgx_pc_v1',F=['qty','unit','cur','rate','cost','pack','other','inland','cha','docs','freight','ins','margin'],DEF={};
+F.forEach(function(k){DEF[k]=$(k).value});
+function n(k){var v=parseFloat($(k).value);return isFinite(v)&&v>0?v:0}
+function inr(v){return '\u20B9'+v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fx(v){return $('cur').value+' '+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+var sent=false;
+function calc(){
+ var q=n('qty'),rate=n('rate'),m=n('margin')/100,ins=n('ins')/100,u=$('unit').value.trim()||'unit';
+ var base=n('cost')+n('pack')+n('other'),port=q?(n('inland')+n('cha')+n('docs'))/q:0;
+ var exw=base*(1+m),fob=(base+port)*(1+m);
+ var frU=q?n('freight')/q:0;
+ var rows=[['EXW','Ex works, at your premises',exw,rate?exw/rate:null],['FOB','Free on board, port of loading',fob,rate?fob/rate:null]];
+ if(rate){var cfr=fob/rate+frU,den=1-1.1*ins,cif=den>0?cfr/den:cfr;rows.push(['CFR','Cost and freight, destination port',cfr*rate,cfr]);rows.push(['CIF','Cost, insurance and freight',cif*rate,cif])}
+ $('pcWarn').hidden=!!rate;$('hUnit').textContent='Per '+u+' ('+$('cur').value+')';
+ var tb=$('pcBody');tb.textContent='';
+ rows.forEach(function(r){var tr=document.createElement('tr');if(r[0]==='FOB')tr.className='hl';
+  var td=document.createElement('td');var b=document.createElement('b');b.textContent=r[0];var s=document.createElement('span');s.textContent=r[1];td.appendChild(b);td.appendChild(s);tr.appendChild(td);
+  [r[3]!=null?fx(r[3]):'-',inr(r[2]),r[3]!=null?fx(r[3]*q):inr(r[2]*q)].forEach(function(c){var t=document.createElement('td');t.textContent=c;tr.appendChild(t)});tb.appendChild(tr)});
+ $('pcSummary').textContent=q.toLocaleString('en-IN')+' '+u+', '+(m*100).toFixed(1).replace(/\.0$/,'')+'% margin'+(rate?', 1 '+$('cur').value+' = '+inr(rate):'');
+ var br=$('pcBreak');br.textContent='';
+ [['Product, packing and other',base],['Costs to the port',port],['Margin',(base+port)*m],['FOB price',fob]].forEach(function(r,i){var d=document.createElement('div');var a=document.createElement('span');a.textContent=r[0];var b=document.createElement('span');b.textContent=inr(r[1]);if(i===3){a.style.fontWeight=b.style.fontWeight='600'}d.appendChild(a);d.appendChild(b);br.appendChild(d)});
+ try{var o={};F.forEach(function(k){o[k]=$(k).value});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+ if(!sent&&rate&&window.gtag){sent=true;gtag('event','tool_use',{tool:'export_price_calculator',action:'calculate'})}
+}
+try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)F.forEach(function(k){if(s[k]!=null)$(k).value=s[k]})}catch(e){}
+$('pcForm').addEventListener('input',calc);$('pcForm').addEventListener('change',calc);
+$('resetBtn').onclick=function(){F.forEach(function(k){$(k).value=DEF[k]});try{localStorage.removeItem(KEY)}catch(e){}calc()};
+calc();
+})();
+</script>
+
+
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-name">Buy<span>genix</span> Solutions</a>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p>
+      <ul class="footer-contact">
+        <li><a href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="18" height="18">WhatsApp +91 87967 87594</a></li>
+        <li><a href="tel:+918796787594"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call +91 87967 87594</a></li>
+        <li><a href="mailto:Info@buygenixsolutions.com"><img src="assets/icons/gmail.svg" alt="" width="18" height="18">Info@buygenixsolutions.com</a></li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delhi, India</li>
+      </ul>
+      <div class="footer-social"><a href="https://www.instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://www.facebook.com/profile.php?id=61589380079379" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/services">Services</a></li><li><a href="/membership">Membership Plans</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/export-buyer-leads">Buyer Leads</a></li><li><a href="/services#catalogue">Digital Catalogue</a></li><li><a href="/services#seo">SEO &amp; SMO</a></li><li><a href="/services#vcard">Virtual Business Card</a></li><li><a href="/registration">Registrations</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/buyers">Buyers by Category</a></li><li><a href="/blog">Blog</a></li><li><a href="/faq">FAQ</a></li><li><a href="/login">Client Login</a></li><li><a href="/contact">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BuyGenix Solutions. All rights reserved.</p>
+    <nav aria-label="Legal"><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a></nav>
+  </div>
+</footer>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js?v=20260929a"></script>
+</body>
+</html>
