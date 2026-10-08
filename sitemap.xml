@@ -1660,4 +1660,22 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.buygenixsolutions.com/export-tools</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.buygenixsolutions.com/proforma-invoice-generator</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.buygenixsolutions.com/export-price-calculator</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
