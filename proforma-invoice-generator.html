@@ -166,6 +166,7 @@
 
 <div class="tl-group"><b>Exporter (seller)</b>
 <div class="tl-f"><label for="sName">Company name</label><input id="sName" placeholder="Your company name"></div>
+<div class="tl-f"><label for="sLogo">Company logo (optional)</label><div class="tl-logo"><span class="tl-logo-prev" id="logoPrev">No logo</span><label class="tl-add tl-logo-btn" for="sLogo">Upload logo</label><input id="sLogo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden><button type="button" class="tl-logo-del" id="logoDel" hidden>Remove</button></div><small>PNG or JPG. It is resized in your browser and stays on this device.</small></div>
 <div class="tl-f"><label for="sAddr">Address</label><textarea id="sAddr" placeholder="Street, city, state, PIN, India"></textarea></div>
 <div class="tl-row"><div class="tl-f"><label for="sIec">IEC</label><input id="sIec" placeholder="10-character IEC"></div><div class="tl-f"><label for="sGst">GSTIN</label><input id="sGst" placeholder="15-character GSTIN"></div></div>
 <div class="tl-row"><div class="tl-f"><label for="sEmail">Email</label><input id="sEmail" type="email"></div><div class="tl-f"><label for="sPhone">Phone</label><input id="sPhone"></div></div>
@@ -204,7 +205,7 @@
 </form>
 
 <div class="tl-sticky"><div class="tl-paper" id="invoice" aria-live="polite">
-<div class="inv-top"><div><h3>PROFORMA INVOICE</h3><div id="pSeller" class="nm"></div></div>
+<div class="inv-top"><div class="inv-brand"><img id="pLogo" alt="" hidden><div><h3>PROFORMA INVOICE</h3><div id="pSeller" class="nm"></div></div></div>
 <div class="inv-meta"><div>No. <b id="pNo"></b></div><div>Date: <span id="pDate"></span></div><div>Valid until: <span id="pValid"></span></div></div></div>
 <div class="inv-parties"><div><b>Exporter</b><p id="pSAddr"></p><p id="pSIds"></p></div><div><b>Buyer</b><p class="nm" id="pBName"></p><p id="pBAddr"></p></div></div>
 <div class="inv-terms"><div><b>Incoterm</b><span id="pInco"></span></div><div><b>Port of loading</b><span id="pPol"></span></div><div><b>Port of discharge</b><span id="pPod"></span></div>
@@ -265,12 +266,19 @@ function render(){
  txt('pBank',v.iBank,'Bank name, account and SWIFT');txt('pNotes',v.iNotes,'-');
  try{v.items=rows();localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}
 }
+var LKEY='bgx_pi_logo_v1',logo='';
+function showLogo(){var im=$('pLogo'),pv=$('logoPrev');im.hidden=!logo;if(logo)im.src=logo;else im.removeAttribute('src');pv.textContent='';if(logo){var t=document.createElement('img');t.src=logo;t.alt='';pv.appendChild(t)}else pv.textContent='No logo';$('logoDel').hidden=!logo}
+try{logo=localStorage.getItem(LKEY)||''}catch(e){}
+$('sLogo').onchange=function(){var f=this.files&&this.files[0];this.value='';if(!f)return;if(f.size>5*1024*1024){alert('Please choose an image under 5 MB.');return}
+ var rd=new FileReader();rd.onload=function(){var img=new Image();img.onload=function(){var max=480,w=img.naturalWidth||max,h=img.naturalHeight||max/3,k=Math.min(1,max/w,(max/2)/h);var c=document.createElement('canvas');c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));c.getContext('2d').drawImage(img,0,0,c.width,c.height);logo=c.toDataURL('image/png');try{localStorage.setItem(LKEY,logo)}catch(e){}showLogo()};img.onerror=function(){alert('This image could not be read. Try a PNG or JPG file.')};img.src=rd.result};rd.readAsDataURL(f)};
+$('logoDel').onclick=function(){logo='';try{localStorage.removeItem(LKEY)}catch(e){}showLogo()};
+showLogo();
 var saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
 if(saved){F.forEach(function(k){if(saved[k]!=null)$(k).value=saved[k]});(saved.items&&saved.items.length?saved.items:[{}]).forEach(addRow)}else{addRow();addRow()}
 if(!$('iDate').value)$('iDate').value=new Date().toISOString().slice(0,10);
 $('piForm').addEventListener('input',render);$('piForm').addEventListener('change',render);
 $('addItem').onclick=function(){addRow();render()};
-$('clearBtn').onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}F.forEach(function(k){var el=$(k);el.value=el.tagName==='SELECT'?el.options[el.tagName==='SELECT'&&k==='iInco'?2:0].value:''});$('iValid').value=30;$('iDate').value=new Date().toISOString().slice(0,10);$('items').textContent='';addRow();addRow();render()};
+$('clearBtn').onclick=function(){try{localStorage.removeItem(KEY);localStorage.removeItem(LKEY)}catch(e){}logo='';showLogo();F.forEach(function(k){var el=$(k);el.value=el.tagName==='SELECT'?el.options[el.tagName==='SELECT'&&k==='iInco'?2:0].value:''});$('iValid').value=30;$('iDate').value=new Date().toISOString().slice(0,10);$('items').textContent='';addRow();addRow();render()};
 $('printBtn').onclick=function(){render();if(window.gtag)gtag('event','tool_use',{tool:'proforma_invoice',action:'pdf'});window.print()};
 render();
 })();
