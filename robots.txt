@@ -5,6 +5,7 @@ Disallow: /admin-portal
 Disallow: /lead-search-admin
 Disallow: /api/
 Disallow: /buyers-template
+Disallow: /member-tools
 # Internal search results and form prefill links (noindex, no unique content)
 Disallow: /search?
 Disallow: /buy-lead-search?
@@ -26,6 +27,7 @@ Disallow: /admin-portal
 Disallow: /lead-search-admin
 Disallow: /api/
 Disallow: /buyers-template
+Disallow: /member-tools
 # Internal search results and form prefill links (noindex, no unique content)
 Disallow: /search?
 Disallow: /buy-lead-search?
