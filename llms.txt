@@ -14,6 +14,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Free export tools](https://www.buygenixsolutions.com/export-tools): free tools for exporters that run in the browser, no sign-up
 - [Proforma invoice generator](https://www.buygenixsolutions.com/proforma-invoice-generator): make an export proforma invoice with optional logo, HS codes, Incoterm, ports, payment terms and bank details, and save it as a PDF
 - [Export price calculator](https://www.buygenixsolutions.com/export-price-calculator): EXW, FOB, CFR and CIF price per unit from product cost, packing, port charges, freight, insurance and margin
+- [CBM and container load calculator](https://www.buygenixsolutions.com/cbm-calculator): total CBM and weight, cartons per 20 ft, 40 ft and 40 ft high cube container, and air and LCL chargeable weight
 - [Services](https://www.buygenixsolutions.com/services): buyer leads, digital catalogue, SEO and registrations
 - [Export registrations](https://www.buygenixsolutions.com/registration): IEC, GST, APEDA, FSSAI, RCMC, Spices Board and other registrations
 

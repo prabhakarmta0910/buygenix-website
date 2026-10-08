@@ -28,7 +28,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/shared.css?v=20260927g">
 <link rel="stylesheet" href="css/lp.css?v=20261006b">
-<link rel="stylesheet" href="css/tools.css?v=20261008a">
+<link rel="stylesheet" href="css/tools.css?v=20261008d">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -160,30 +160,31 @@
 </div></section>
 
 <section class="tl-app"><div class="lp-wrap tl-grid">
-<form class="tl-panel" id="pcForm" onsubmit="return false">
+<form class="tl-panel pc-form" id="pcForm" onsubmit="return false">
 <h2>Your costs</h2>
-<p class="tl-hint">Enter amounts in Indian rupees unless the label says otherwise.</p>
+<p class="tl-hint">Amounts are in Indian rupees unless the field shows another currency.</p>
 <div class="tl-group"><b>Shipment</b>
-<div class="tl-row"><div class="tl-f"><label for="qty">Quantity in shipment</label><input id="qty" type="number" min="0" step="any" value="1000"></div><div class="tl-f"><label for="unit">Unit</label><input id="unit" value="kg"></div></div>
-<div class="tl-row"><div class="tl-f"><label for="cur">Buyer's currency</label><select id="cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option></select></div><div class="tl-f"><label for="rate">Exchange rate (INR per 1 unit)</label><input id="rate" type="number" min="0" step="any" placeholder="Enter today's bank rate"><small>Use your bank's export rate.</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="qty">Quantity</label><div class="tl-in"><input id="qty" type="number" min="0" step="any" value="1000"></div><small>Total units in this shipment</small></div><div class="tl-f"><label for="unit">Unit</label><div class="tl-in"><input id="unit" type="text" value="kg"></div><small>kg, pieces, cartons</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="cur">Buyer's currency</label><div class="tl-in"><select id="cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option></select></div><small>Your price is quoted in this</small></div><div class="tl-f"><label for="rate">Exchange rate</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="rate" type="number" min="0" step="any" placeholder="Enter rate"></div><small>Your bank's rate for 1 <span class="curName">USD</span></small></div></div>
 </div>
-<div class="tl-group"><b>Cost per unit (INR)</b>
-<div class="tl-row three"><div class="tl-f"><label for="cost">Product cost</label><input id="cost" type="number" min="0" step="any" value="100"></div><div class="tl-f"><label for="pack">Export packing</label><input id="pack" type="number" min="0" step="any" value="5"></div><div class="tl-f"><label for="other">Other per unit</label><input id="other" type="number" min="0" step="any" value="0"><small>Labels, testing</small></div></div>
+<div class="tl-group"><b>Cost per unit</b>
+<div class="tl-row three"><div class="tl-f"><label for="cost">Product cost</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="cost" type="number" min="0" step="any" value="100"></div><small>Per unit</small></div><div class="tl-f"><label for="pack">Export packing</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="pack" type="number" min="0" step="any" value="5"></div><small>Per unit</small></div><div class="tl-f"><label for="other">Other costs</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="other" type="number" min="0" step="any" value="0"></div><small>Labels, testing</small></div></div>
 </div>
-<div class="tl-group"><b>Costs to the port, per shipment (INR)</b>
-<div class="tl-row three"><div class="tl-f"><label for="inland">Inland transport</label><input id="inland" type="number" min="0" step="any" value="15000"></div><div class="tl-f"><label for="cha">Customs and port charges</label><input id="cha" type="number" min="0" step="any" value="12000"><small>CHA, terminal, handling</small></div><div class="tl-f"><label for="docs">Documents</label><input id="docs" type="number" min="0" step="any" value="3000"><small>COO, inspection, courier</small></div></div>
+<div class="tl-group"><b>Costs to the port, whole shipment</b>
+<div class="tl-row three"><div class="tl-f"><label for="inland">Inland transport</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="inland" type="number" min="0" step="any" value="15000"></div><small>Factory to port</small></div><div class="tl-f"><label for="cha">Port and CHA</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="cha" type="number" min="0" step="any" value="12000"></div><small>Clearance, terminal</small></div><div class="tl-f"><label for="docs">Documents</label><div class="tl-in has-pre"><span class="tl-pre">₹</span><input id="docs" type="number" min="0" step="any" value="3000"></div><small>COO, inspection</small></div></div>
 </div>
 <div class="tl-group"><b>Freight, insurance and margin</b>
-<div class="tl-row three"><div class="tl-f"><label for="freight">Ocean freight</label><input id="freight" type="number" min="0" step="any" value="900"><small>Per shipment, in buyer's currency</small></div><div class="tl-f"><label for="ins">Insurance rate (%)</label><input id="ins" type="number" min="0" step="any" value="0.2"><small>Ask your insurer</small></div><div class="tl-f"><label for="margin">Profit margin (%)</label><input id="margin" type="number" min="0" step="any" value="12"></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="freight">Ocean freight</label><div class="tl-in has-pre"><span class="tl-pre curTag">USD</span><input id="freight" type="number" min="0" step="any" value="900"></div><small>Whole shipment</small></div><div class="tl-f"><label for="ins">Insurance</label><div class="tl-in has-suf"><input id="ins" type="number" min="0" step="any" value="0.2"><span class="tl-suf">%</span></div><small>Ask your insurer</small></div><div class="tl-f"><label for="margin">Profit margin</label><div class="tl-in has-suf"><input id="margin" type="number" min="0" step="any" value="12"><span class="tl-suf">%</span></div><small>On total cost</small></div></div>
 </div>
-<div class="tl-actions"><button type="button" class="lp-btn out" id="resetBtn">Reset example</button></div>
+<div class="tl-actions"><button type="button" class="lp-btn out tl-sm" id="resetBtn">Reset example</button></div>
 </form>
 
 <div class="tl-sticky"><div class="pc-res">
 <div class="pc-res-h"><b>Your export price</b><p id="pcSummary"></p></div>
-<p class="pc-warn" id="pcWarn" hidden>Enter today's exchange rate to see prices in your buyer's currency.</p>
-<table class="pc-table"><thead><tr><th>Incoterm</th><th id="hUnit">Per unit</th><th>Per unit (INR)</th><th>Shipment</th></tr></thead><tbody id="pcBody"></tbody></table>
-<div class="pc-break"><b>How the FOB price is built (INR per unit)</b><div id="pcBreak"></div></div>
+<div class="pc-hero"><span class="k" id="heroK"></span><strong id="heroV"></strong><span class="s" id="heroS"></span></div>
+<p class="pc-warn" id="pcWarn" hidden>Enter today's exchange rate to see CFR and CIF, and prices in your buyer's currency.</p>
+<ul class="pc-list" id="pcList"></ul>
+<div class="pc-break"><b>How the FOB price is built, per unit</b><div id="pcBreak"></div></div>
 </div></div>
 </div></section>
 
@@ -200,33 +201,41 @@
 <details><summary>How do I calculate the FOB price for export?</summary><p>Add your product cost, export packing and the costs of getting the goods on board at the port of loading: inland transport, customs clearance, port and terminal charges and documentation. Add your profit margin and convert to the buyer&#x27;s currency at your bank rate. That is your FOB price.</p></details><details><summary>What is the difference between FOB, CFR and CIF?</summary><p>FOB covers costs up to loading on the vessel at the port of loading. CFR adds ocean freight to the destination port. CIF adds ocean freight and minimum marine insurance. Under all three, risk passes to the buyer once the goods are on board.</p></details><details><summary>How is insurance calculated for a CIF price?</summary><p>Marine insurance is usually taken for 110% of the CIF value. This calculator uses CIF = (FOB + freight) / (1 - 1.1 x insurance rate), so the insurance is included in the value it covers.</p></details><details><summary>Which exchange rate should I use?</summary><p>Use the rate your bank gives you for export proceeds, or a slightly cautious rate if you quote for 30 days or more. The calculator does not fetch live rates, so enter today&#x27;s rate yourself.</p></details><details><summary>Should export incentives be included in the price?</summary><p>Many exporters keep benefits such as RoDTEP or duty drawback out of the quotation and treat them as a cushion. If your market is very price-sensitive, you can lower your margin by the expected benefit.</p></details>
 <div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
 <div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
-<h2>More free export tools</h2><div class="tl-more"><a href="/proforma-invoice-generator"><b>Proforma invoice generator</b><span>Make an export proforma invoice with Incoterm, ports, HS codes and bank details, then save it as a PDF.</span></a><a href="/export-buyer-leads"><b>Verified buyer leads</b><span>See what importers in the UAE, UK, USA and more are asking for, and contact them directly.</span></a></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/proforma-invoice-generator"><b>Proforma invoice generator</b><span>Make an export proforma invoice with Incoterm, ports, HS codes and bank details, then save it as a PDF.</span></a><a href="/cbm-calculator"><b>CBM and container load calculator</b><span>Total CBM and weight, cartons per 20 ft, 40 ft and 40 ft high cube container, and air and LCL chargeable weight.</span></a><a href="/export-buyer-leads"><b>Verified buyer leads</b><span>See what importers in the UAE, UK, USA and more are asking for, and contact them directly.</span></a></div>
 </div></section>
 </main>
 <script>
 (function(){
 var $=function(i){return document.getElementById(i)};
-var KEY='bgx_pc_v1',F=['qty','unit','cur','rate','cost','pack','other','inland','cha','docs','freight','ins','margin'],DEF={};
+var KEY='bgx_pc_v2',F=['qty','unit','cur','rate','cost','pack','other','inland','cha','docs','freight','ins','margin'],DEF={};
 F.forEach(function(k){DEF[k]=$(k).value});
+var DOT='  ·  ';
 function n(k){var v=parseFloat($(k).value);return isFinite(v)&&v>0?v:0}
-function inr(v){return '\u20B9'+v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function inr(v){return '₹'+v.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function fx(v){return $('cur').value+' '+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 var sent=false;
 function calc(){
+ var cur=$('cur').value;document.querySelectorAll('.curTag,.curName').forEach(function(e){e.textContent=cur});
  var q=n('qty'),rate=n('rate'),m=n('margin')/100,ins=n('ins')/100,u=$('unit').value.trim()||'unit';
  var base=n('cost')+n('pack')+n('other'),port=q?(n('inland')+n('cha')+n('docs'))/q:0;
- var exw=base*(1+m),fob=(base+port)*(1+m);
- var frU=q?n('freight')/q:0;
- var rows=[['EXW','Ex works, at your premises',exw,rate?exw/rate:null],['FOB','Free on board, port of loading',fob,rate?fob/rate:null]];
- if(rate){var cfr=fob/rate+frU,den=1-1.1*ins,cif=den>0?cfr/den:cfr;rows.push(['CFR','Cost and freight, destination port',cfr*rate,cfr]);rows.push(['CIF','Cost, insurance and freight',cif*rate,cif])}
- $('pcWarn').hidden=!!rate;$('hUnit').textContent='Per '+u+' ('+$('cur').value+')';
- var tb=$('pcBody');tb.textContent='';
- rows.forEach(function(r){var tr=document.createElement('tr');if(r[0]==='FOB')tr.className='hl';
-  var td=document.createElement('td');var b=document.createElement('b');b.textContent=r[0];var s=document.createElement('span');s.textContent=r[1];td.appendChild(b);td.appendChild(s);tr.appendChild(td);
-  [r[3]!=null?fx(r[3]):'-',inr(r[2]),r[3]!=null?fx(r[3]*q):inr(r[2]*q)].forEach(function(c){var t=document.createElement('td');t.textContent=c;tr.appendChild(t)});tb.appendChild(tr)});
- $('pcSummary').textContent=q.toLocaleString('en-IN')+' '+u+', '+(m*100).toFixed(1).replace(/\.0$/,'')+'% margin'+(rate?', 1 '+$('cur').value+' = '+inr(rate):'');
+ var exw=base*(1+m),fob=(base+port)*(1+m),frU=q?n('freight')/q:0,cfr=null,cif=null;
+ if(rate){cfr=fob/rate+frU;var den=1-1.1*ins;cif=den>0?cfr/den:cfr}
+ var rows=[['EXW','Ex works, at your premises',exw,rate?exw/rate:null],['FOB','Free on board, port of loading',fob,rate?fob/rate:null],
+  ['CFR','Cost and freight, destination port',rate?cfr*rate:null,cfr],['CIF','Cost, insurance and freight',rate?cif*rate:null,cif]];
+ $('pcWarn').hidden=!!rate;
+ $('heroK').textContent='FOB price per '+u;
+ $('heroV').textContent=rate?fx(fob/rate):inr(fob);
+ $('heroS').textContent=rate?(inr(fob)+' per '+u+DOT+fx(fob/rate*q)+' for the shipment'):(inr(fob*q)+' for the shipment');
+ var ul=$('pcList');ul.textContent='';
+ rows.forEach(function(r){var li=el('li',r[0]==='FOB'?'hl':'');var L=el('div','l');L.appendChild(el('b','',r[0]));L.appendChild(el('span','',r[1]));
+  var Rr=el('div','r');
+  if(r[2]==null){Rr.appendChild(el('b','muted','Add exchange rate'));Rr.appendChild(el('span','','Needed for freight'))}
+  else{Rr.appendChild(el('b','',r[3]!=null?fx(r[3]):inr(r[2])));Rr.appendChild(el('span','',(r[3]!=null?inr(r[2])+DOT+fx(r[3]*q):inr(r[2]*q))+' total'))}
+  li.appendChild(L);li.appendChild(Rr);ul.appendChild(li)});
+ $('pcSummary').textContent=q.toLocaleString('en-IN')+' '+u+DOT+(m*100).toFixed(1).replace(/\.0$/,'')+'% margin'+(rate?DOT+'1 '+cur+' = '+inr(rate):'');
  var br=$('pcBreak');br.textContent='';
- [['Product, packing and other',base],['Costs to the port',port],['Margin',(base+port)*m],['FOB price',fob]].forEach(function(r,i){var d=document.createElement('div');var a=document.createElement('span');a.textContent=r[0];var b=document.createElement('span');b.textContent=inr(r[1]);if(i===3){a.style.fontWeight=b.style.fontWeight='600'}d.appendChild(a);d.appendChild(b);br.appendChild(d)});
+ [['Product, packing and other',base],['Costs to the port',port],['Margin',(base+port)*m],['FOB price',fob]].forEach(function(r,i){var d=el('div',i===3?'tot':'');d.appendChild(el('span','',r[0]));d.appendChild(el('span','',inr(r[1])));br.appendChild(d)});
  try{var o={};F.forEach(function(k){o[k]=$(k).value});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
  if(!sent&&rate&&window.gtag){sent=true;gtag('event','tool_use',{tool:'export_price_calculator',action:'calculate'})}
 }

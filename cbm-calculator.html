@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
+<title>CBM Calculator and Container Load Calculator (20ft, 40ft) | BuyGenix</title>
+<meta name="description" content="Free CBM calculator for exporters: total CBM and weight, cartons per 20 ft, 40 ft and 40 ft high cube container, air volumetric weight and LCL chargeable weight.">
+<link rel="canonical" href="https://www.buygenixsolutions.com/cbm-calculator">
+<meta property="og:title" content="CBM Calculator and Container Load Calculator (20ft, 40ft) | BuyGenix">
+<meta property="og:description" content="Free CBM calculator for exporters: total CBM and weight, cartons per 20 ft, 40 ft and 40 ft high cube container, air volumetric weight and LCL chargeable weight.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.buygenixsolutions.com/cbm-calculator">
+<meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BuyGenix Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/lp.css?v=20261006b">
+<link rel="stylesheet" href="css/tools.css?v=20261008d">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.buygenixsolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Free export tools",
+     "item": "https://www.buygenixsolutions.com/export-tools"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "CBM and container load calculator",
+     "item": "https://www.buygenixsolutions.com/cbm-calculator"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "name": "CBM and Container Load Calculator",
+   "url": "https://www.buygenixsolutions.com/cbm-calculator",
+   "description": "Free calculator for carton CBM, container loading and air and LCL chargeable weight.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "BuyGenix Solutions",
+    "url": "https://www.buygenixsolutions.com"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How do I calculate CBM for a carton?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Multiply length x width x height in centimetres and divide by 1,000,000. A carton of 50 x 40 x 30 cm is 0.06 CBM. Multiply by the number of cartons for the shipment total."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many CBM fit in a 20 ft and a 40 ft container?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A 20 ft container has about 33 CBM of internal space, a 40 ft about 67 CBM and a 40 ft high cube about 76 CBM. In practice exporters load about 25 to 28, 55 to 58 and 65 to 68 CBM, because cartons never fill every gap."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is volumetric weight for air freight?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Airlines charge on the higher of actual weight and volumetric weight. Volumetric weight is length x width x height in centimetres divided by 6,000 for most air cargo, or by 5,000 for many courier services."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is LCL sea freight charged?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "LCL is charged per revenue ton: the higher of the volume in CBM and the weight in tonnes, where 1 CBM is treated as 1,000 kg."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is the container count exact?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The calculator stacks cartons in a simple block in the best orientation and checks the weight limit. Real loading depends on pallets, carton strength and loading space, so confirm with your forwarder before booking."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions" width="106" height="38">
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-search">
+    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
+      <span id="navSearchLabel">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+  <div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a>
+    <a href="/contact">Contact</a><a href="/membership" class="nav-cta-outline">Membership Plans</a><a href="/login" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a><a href="/contact">Contact</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a><a href="/membership" class="m-cta">Membership Plans →</a><a href="/login" class="m-cta m-cta-gold">Client Login →</a></div>
+
+
+<main class="lp">
+<section class="tl-hero"><div class="lp-wrap">
+<nav class="lp-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/export-tools">Free export tools</a><span>/</span>CBM and container load calculator</nav>
+<h1>CBM and container load calculator</h1>
+<p class="lp-lead">Enter your carton size, weight and number of cartons. See the total CBM and weight, how many cartons fit in a 20 ft, 40 ft or 40 ft high cube container, and the chargeable weight for air and LCL.</p>
+<div class="tl-badges"><span>Free, no sign-up</span><span>20 ft, 40 ft and 40 ft HC</span><span>Air and LCL chargeable weight</span></div>
+</div></section>
+
+<section class="tl-app"><div class="lp-wrap tl-grid">
+<form class="tl-panel" id="cbForm" onsubmit="return false">
+<h2>Your cartons</h2>
+<p class="tl-hint">Measure the outside of the carton, in centimetres.</p>
+<div class="tl-group"><b>Carton size and weight</b>
+<div class="tl-row three"><div class="tl-f"><label for="cL">Length (cm)</label><input id="cL" type="number" min="0" step="any" value="50"></div><div class="tl-f"><label for="cW">Width (cm)</label><input id="cW" type="number" min="0" step="any" value="40"></div><div class="tl-f"><label for="cH">Height (cm)</label><input id="cH" type="number" min="0" step="any" value="30"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="cKg">Gross weight per carton (kg)</label><input id="cKg" type="number" min="0" step="any" value="18"></div><div class="tl-f"><label for="cN">Number of cartons</label><input id="cN" type="number" min="0" step="1" value="500"></div></div>
+<div class="tl-row"><div class="tl-f"><label for="cUp">Orientation</label><select id="cUp"><option value="any">Any way up</option><option value="up">This side up</option></select></div>
+<div class="tl-f"><label for="cDiv">Air volumetric divisor</label><select id="cDiv"><option value="6000">6,000 (air cargo)</option><option value="5000">5,000 (courier)</option></select></div></div>
+</div>
+<div class="tl-actions"><button type="button" class="lp-btn out tl-sm" id="cbReset">Reset example</button></div>
+</form>
+
+<div class="tl-sticky"><div class="pc-res">
+<div class="pc-res-h"><b>Your shipment</b><p id="cbSummary"></p></div>
+<div class="pc-hero"><span class="k">Total volume</span><strong id="cbHero"></strong><span class="s" id="cbHeroS"></span></div>
+<div class="pc-break" style="border-top:0"><b>Shipment totals</b><div id="cbTotals" class="pc-kv"></div></div>
+<div class="pc-sub">Container loading</div>
+<ul class="pc-list" id="cbBody"></ul>
+<p class="tl-note pc-foot">Estimate from a simple block stack and typical container limits. Confirm the load plan with your forwarder before booking.</p>
+</div></div>
+</div></section>
+
+<section class="tl-content"><div class="lp-wrap lp-narrow">
+<h2>Container sizes at a glance</h2>
+<p>Typical internal dimensions and limits. Exact figures vary by shipping line and container, and road weight rules can lower the payload you can actually ship.</p>
+<table><tr><th>Container</th><th>Internal size (L x W x H)</th><th>Capacity</th><th>Usual loading</th><th>Max payload</th></tr>
+<tr><td>20 ft standard</td><td>5.90 x 2.35 x 2.39 m</td><td>about 33 CBM</td><td>25 to 28 CBM</td><td>about 28,000 kg</td></tr>
+<tr><td>40 ft standard</td><td>12.03 x 2.35 x 2.39 m</td><td>about 67 CBM</td><td>55 to 58 CBM</td><td>about 26,700 kg</td></tr>
+<tr><td>40 ft high cube</td><td>12.03 x 2.35 x 2.69 m</td><td>about 76 CBM</td><td>65 to 68 CBM</td><td>about 26,500 kg</td></tr></table>
+<h2>How to use these numbers in a quotation</h2>
+<p>Buyers often ask for a price per container. Work out how many cartons fit, multiply by the quantity per carton, and quote the full-container quantity. For smaller orders, quote LCL or air using the chargeable weight above, and use the <a href="/export-price-calculator">export price calculator</a> to turn freight into a price per unit.</p>
+<h2>Frequently asked questions</h2>
+<details><summary>How do I calculate CBM for a carton?</summary><p>Multiply length x width x height in centimetres and divide by 1,000,000. A carton of 50 x 40 x 30 cm is 0.06 CBM. Multiply by the number of cartons for the shipment total.</p></details><details><summary>How many CBM fit in a 20 ft and a 40 ft container?</summary><p>A 20 ft container has about 33 CBM of internal space, a 40 ft about 67 CBM and a 40 ft high cube about 76 CBM. In practice exporters load about 25 to 28, 55 to 58 and 65 to 68 CBM, because cartons never fill every gap.</p></details><details><summary>What is volumetric weight for air freight?</summary><p>Airlines charge on the higher of actual weight and volumetric weight. Volumetric weight is length x width x height in centimetres divided by 6,000 for most air cargo, or by 5,000 for many courier services.</p></details><details><summary>How is LCL sea freight charged?</summary><p>LCL is charged per revenue ton: the higher of the volume in CBM and the weight in tonnes, where 1 CBM is treated as 1,000 kg.</p></details><details><summary>Is the container count exact?</summary><p>No. The calculator stacks cartons in a simple block in the best orientation and checks the weight limit. Real loading depends on pallets, carton strength and loading space, so confirm with your forwarder before booking.</p></details>
+<div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
+<div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/proforma-invoice-generator"><b>Proforma invoice generator</b><span>Make an export proforma invoice with Incoterm, ports, HS codes and bank details, then save it as a PDF.</span></a><a href="/export-price-calculator"><b>Export price calculator</b><span>Work out EXW, FOB, CFR and CIF prices per unit from your costs, freight, insurance and margin.</span></a><a href="/export-buyer-leads"><b>Verified buyer leads</b><span>See what importers in the UAE, UK, USA and more are asking for, and contact them directly.</span></a></div>
+</div></section>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+var KEY='bgx_cbm_v1',F=['cL','cW','cH','cKg','cN','cUp','cDiv'],DEF={};F.forEach(function(k){DEF[k]=$(k).value});
+var C=[['20 ft standard',589.8,235.2,239.3,28000],['40 ft standard',1203.2,235.2,239.3,26700],['40 ft high cube',1203.2,235.2,269.8,26500]];
+function n(k){var v=parseFloat($(k).value);return isFinite(v)&&v>0?v:0}
+function f(v,d){return v.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function fit(L,W,H,a,b,c,up){var p=up?[[a,b,c],[b,a,c]]:[[a,b,c],[a,c,b],[b,a,c],[b,c,a],[c,a,b],[c,b,a]],best=0;
+ p.forEach(function(o){var k=Math.floor(L/o[0])*Math.floor(W/o[1])*Math.floor(H/o[2]);if(k>best)best=k});return best}
+var sent=false;
+function calc(){
+ var l=n('cL'),w=n('cW'),h=n('cH'),kg=n('cKg'),cnt=Math.floor(n('cN')),up=$('cUp').value==='up',div=+$('cDiv').value;
+ var cb1=l*w*h/1e6,cbm=cb1*cnt,wt=kg*cnt,vol=l*w*h/div*cnt,air=Math.max(wt,vol),rt=Math.max(cbm,wt/1000);
+ $('cbSummary').textContent=f(cnt,0)+' cartons of '+f(l,0)+' x '+f(w,0)+' x '+f(h,0)+' cm, '+f(kg,1)+' kg each';
+ function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+ $('cbHero').textContent=f(cbm,2)+' CBM';
+ $('cbHeroS').textContent=f(wt,1)+' kg gross  \u00B7  '+f(cb1,4)+' CBM per carton';
+ var t=$('cbTotals');t.textContent='';
+ [['Air volumetric weight',f(vol,1)+' kg'],['Air chargeable weight',f(air,1)+' kg'],['LCL revenue tons (W/M)',f(rt,2)]].forEach(function(r,i){var d=el('div',i===1?'tot':'');d.appendChild(el('span','',r[0]));d.appendChild(el('span','',r[1]));t.appendChild(d)});
+ var tb=$('cbBody');tb.textContent='';var best=null;
+ C.forEach(function(c){var bySpace=(l&&w&&h)?fit(c[1],c[2],c[3],l,w,h,up):0,byWt=kg?Math.floor(c[4]/kg):Infinity,per=Math.min(bySpace,byWt);
+  var need=per>0&&cnt>0?Math.ceil(cnt/per):0,used=need?Math.min(100,cnt/(need*per)*100):0;
+  if(need===1&&best===null)best=c[0];
+  var li=el('li',need===1&&best===c[0]?'hl':''),L=el('div','l'),R=el('div','r');
+  L.appendChild(el('b','',c[0]));L.appendChild(el('span','',per>0?(f(per,0)+' cartons each, '+(per<bySpace?'limited by weight':'limited by space')):'Carton is larger than the container'));
+  R.appendChild(el('b','',need?(f(need,0)+(need>1?' containers':' container')):'-'));R.appendChild(el('span','',need?(f(used,0)+'% full'):''));
+  li.appendChild(L);li.appendChild(R);tb.appendChild(li)});
+ try{var o={};F.forEach(function(k){o[k]=$(k).value});localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+ if(!sent&&window.gtag&&cnt){sent=true;gtag('event','tool_use',{tool:'cbm_calculator',action:'calculate'})}
+}
+try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)F.forEach(function(k){if(s[k]!=null)$(k).value=s[k]})}catch(e){}
+$('cbForm').addEventListener('input',calc);$('cbForm').addEventListener('change',calc);
+$('cbReset').onclick=function(){F.forEach(function(k){$(k).value=DEF[k]});try{localStorage.removeItem(KEY)}catch(e){}calc()};
+calc();
+})();
+</script>
+
+
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-name">Buy<span>genix</span> Solutions</a>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p>
+      <ul class="footer-contact">
+        <li><a href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="18" height="18">WhatsApp +91 87967 87594</a></li>
+        <li><a href="tel:+918796787594"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call +91 87967 87594</a></li>
+        <li><a href="mailto:Info@buygenixsolutions.com"><img src="assets/icons/gmail.svg" alt="" width="18" height="18">Info@buygenixsolutions.com</a></li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delhi, India</li>
+      </ul>
+      <div class="footer-social"><a href="https://www.instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://www.facebook.com/profile.php?id=61589380079379" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/services">Services</a></li><li><a href="/membership">Membership Plans</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/export-buyer-leads">Buyer Leads</a></li><li><a href="/services#catalogue">Digital Catalogue</a></li><li><a href="/services#seo">SEO &amp; SMO</a></li><li><a href="/services#vcard">Virtual Business Card</a></li><li><a href="/registration">Registrations</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/buyers">Buyers by Category</a></li><li><a href="/blog">Blog</a></li><li><a href="/export-tools">Free Export Tools</a></li><li><a href="/faq">FAQ</a></li><li><a href="/login">Client Login</a></li><li><a href="/contact">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BuyGenix Solutions. All rights reserved.</p>
+    <nav aria-label="Legal"><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a></nav>
+  </div>
+</footer>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js?v=20260929a"></script>
+</body>
+</html>
