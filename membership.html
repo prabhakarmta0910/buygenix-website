@@ -252,6 +252,14 @@
     },
     {
      "@type": "Question",
+     "name": "What are member tools?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Member tools are included with every plan: an export document pack (proforma invoice, commercial invoice, packing list and certificate of origin draft), a quotation maker with your saved price sheet, ready buyer replies and a demand tracker for your products."
+     }
+    },
+    {
+     "@type": "Question",
      "name": "Which plan is right for me?",
      "acceptedAnswer": {
       "@type": "Answer",
@@ -346,6 +354,7 @@
     <details><summary>How are buyer leads delivered?</summary><p>Leads are shared with you on WhatsApp and email, and they also appear in your client portal.</p></details>
     <details><summary>Is the payment secure?</summary><p>Payments are processed securely by Razorpay, and Razorpay emails your receipt, and the price shown is plus 18% GST.</p></details>
     <details><summary>Can I upgrade my plan later?</summary><p>Yes. Talk to your Relationship Manager and they will move you to the plan you need.</p></details>
+    <details><summary>What are member tools?</summary><p>Member tools are included with every plan: an export document pack (proforma invoice, commercial invoice, packing list and certificate of origin draft), a quotation maker with your saved price sheet, ready buyer replies and a demand tracker for your products. Members open them from the client portal or at <a href="/member-tools">Member tools</a>.</p></details>
     <details><summary>Which plan is right for me?</summary><p>Compare the plans above, or <a href="/contact">send us an enquiry</a> and our team will recommend one for your business.</p></details>
   </section>
 
@@ -393,10 +402,10 @@ const CROSS = '<svg class="mp-cross" viewBox="0 0 20 20" fill="none" aria-label=
 
 /* Used only if Supabase is unreachable — keep in sync with membership_plans */
 const FALLBACK_PLANS = [
-  {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', '1 virtual business card', 'IEC and MSME registration', 'Email support']},
-  {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', '1 virtual business card', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
-  {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (10 pages)', '1 virtual business card', 'Quarterly business promotion', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
-  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'GST, IEC and MSME registration', '2 months of GST return filing', 'Priority lead matching', 'Export documentation assistance']}
+  {name:'Starter',subtitle:'New businesses entering global trade for the first time.',price_monthly:15000,lead_limit:5,is_popular:false,sort_order:1,features:['5 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Export document and quotation tools', '1 virtual business card', 'IEC and MSME registration', 'Email support']},
+  {name:'Growth',subtitle:'Growing businesses expanding into international markets.',price_monthly:30000,lead_limit:10,badge:'Popular',is_popular:true,sort_order:2,features:['10 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Export document and quotation tools', 'Business website', '1 virtual business card', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+  {name:'Professional',subtitle:'Established businesses seeking consistent global leads.',price_monthly:45000,lead_limit:15,is_popular:false,sort_order:3,features:['15 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Export document and quotation tools', 'Business website', 'Digital catalogue (10 pages)', '1 virtual business card', 'Quarterly business promotion', 'Basic on-page SEO', 'GST, IEC and MSME registration']},
+  {name:'Enterprise',subtitle:'Maximum exposure for serious exporters.',price_monthly:80000,lead_limit:30,badge:'Enterprise',is_popular:false,sort_order:4,features:['30 buyer leads per month', 'Lead delivery on WhatsApp and email', 'Business listing on the BuyGenix website', 'Dedicated Relationship Manager', 'Export document and quotation tools', 'Business website', 'Digital catalogue (15 pages)', '1 virtual business card', 'Monthly business promotion', 'Advanced SEO', 'GST, IEC and MSME registration', '2 months of GST return filing', 'Priority lead matching', 'Export documentation assistance']}
 ];
 
 /* Comparison rows. Values per plan name: true = tick, false = cross, string = shown as text.
@@ -417,6 +426,11 @@ const COMPARE = [
   {label:'Digital catalogue', v:{starter:N,growth:N,professional:'10 pages',enterprise:'15 pages'}},
   {label:'Business promotion', v:{starter:N,growth:N,professional:'Quarterly',enterprise:'Monthly'}},
   {label:'SEO', v:{starter:N,growth:'Basic',professional:'Basic',enterprise:'Advanced'}},
+  {group:'Member tools'},
+  {label:'Export document pack', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Quotation maker with price sheet', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Buyer reply templates', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
+  {label:'Product demand tracker', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
   {group:'Registrations'},
   {label:'GST registration', v:{starter:N,growth:Y,professional:Y,enterprise:Y}},
   {label:'IEC registration', v:{starter:Y,growth:Y,professional:Y,enterprise:Y}},
