@@ -26,3 +26,5 @@
   .api-list-h input{min-width:0;width:100%;}
   #ap-proforma .tl-paper{padding:18px 14px;}
 }
+#piPaper .inv-brand{min-height:34px;}
+#piPaper .inv-brand img{max-height:34px;max-width:130px;}
