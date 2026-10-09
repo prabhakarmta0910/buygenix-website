@@ -107,3 +107,29 @@
 .tl-items.mt-wide td:first-child input{min-width:220px;}
 .mt-reply-out{overflow:hidden;}
 .mt-search .tl-in input{border:0;outline:none;font:inherit;font-size:14px;color:var(--lp-ink);padding:10px 14px;flex:1;min-width:0;min-height:42px;background:transparent;border-radius:9px;}
+
+/* ---------- Inside the client portal ---------- */
+:root{--lp-ink:#0B1929;--lp-body:#334155;--lp-mid:#5B6B82;--lp-line:#E3E9F2;--lp-bg:#F3F6FB;--lp-blue:#2563EB;--lp-blue-dk:#1E40AF;--lp-gold:#F0C84A;}
+.mt-portal{--nav-h:64px;}
+.mt-portal .mt-company{border-radius:14px;}
+.mt-portal .mt-tabs{position:sticky;top:76px;z-index:20;box-shadow:0 6px 18px rgba(11,25,41,.05);}
+.mt-portal .mt-pane-h{margin-top:4px;}
+.mt-portal .tl-panel,.mt-portal .tl-paper,.mt-portal .mt-card{border-radius:14px;}
+.mt-portal .tl-sticky{top:136px;}
+.mt-portal .mt-empty{text-align:left;}
+.mt-gate-row{display:flex;gap:10px;flex-wrap:wrap;}
+.mt-portal .mt-gate{max-width:none;}
+/* Two columns need about 900px of content: viewport 1200+ with the sidebar, or 940-1024 when the sidebar is hidden */
+@media (min-width:1025px) and (max-width:1199px), (max-width:939px){
+  .mt-portal .tl-grid{grid-template-columns:1fr;}
+  .mt-portal .tl-sticky{position:static;}
+}
+@media (max-width:1024px){ .mt-portal .mt-tabs{top:70px;} }
+@media (max-width:640px){
+  .mt-portal .mt-tabs{position:static;}
+  .mt-portal .mt-pane-h{flex-direction:column;align-items:stretch;}
+  .mt-portal .mt-saved{width:100%;}
+  .mt-portal .mt-saved select{flex:1 1 100%;}
+  .mt-portal .mt-saved .mt-btn{flex:1;}
+  .mt-portal .tl-paper{padding:18px 14px;}
+}

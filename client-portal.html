@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/tools.css?v=20261009a">
+<link rel="stylesheet" href="css/member-tools.css?v=20261009a">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* ══ CLIENT PORTAL ══ */
@@ -385,7 +387,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
     <button class="sb-link" data-panel="products"><svg class="ic"><use href="#i-card"/></svg>My Products<span class="sb-count" id="prodCount">0</span></button>
     <button class="sb-link" data-panel="enquiries"><svg class="ic"><use href="#i-send"/></svg>Buyer Enquiries<span class="sb-count" id="enqCount">0</span></button>
     <div class="sb-section">Tools</div>
-    <a class="sb-link" href="/member-tools"><svg class="ic"><use href="#i-file"/></svg>Member tools</a>
+    <button class="sb-link" data-panel="tools"><svg class="ic"><use href="#i-file"/></svg>Member tools</button>
     <div class="sb-section">Website</div>
     <a class="sb-link" href="/buy-lead-search"><svg class="ic"><use href="#i-search"/></svg>Search &amp; buy leads</a>
     <a class="sb-link" href="/"><svg class="ic"><use href="#i-globe"/></svg>Go to website</a>
@@ -659,6 +661,155 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
       <div class="ph"><div><h1>Buyer enquiries</h1><p>Enquiries buyers sent from your company page and your products. Reply fast: buyers usually contact several suppliers.</p></div></div>
       <div id="enqList"></div>
     </section>
+
+    <!-- ═══ MEMBER TOOLS ═══ -->
+    <section class="p-panel" id="panel-tools">
+      <div class="ph">
+        <div><h1>Member tools</h1><p>Export documents, quotations, buyer replies and product demand, in one place.</p></div>
+      </div>
+      <div class="mt-portal">
+<div id="mtLoading" class="mt-empty">Loading your tools...</div>
+
+<div id="mtGate" hidden></div>
+
+<div id="mtApp" hidden>
+<div class="mt-demo" id="mtDemo" hidden>Preview mode on this computer: sample company details and sample demand data. Nothing is saved to the server.</div>
+
+<details class="mt-company" id="mtCompany">
+<summary><div><b id="coTitle">Your company details</b><br><span>Used on every document, quotation and reply. Filled from your company profile.</span></div><span class="go">Edit</span></summary>
+<div class="tl-group">
+<div class="mt-co-logo" id="coLogoWrap"><img id="coLogo" alt="" hidden><small id="coLogoNote">Add your logo in Company Profile in the client portal. It appears on your documents.</small></div>
+<div class="tl-row"><div class="tl-f"><label for="coName">Company name</label><input id="coName"><small>As on your IEC</small></div><div class="tl-f"><label for="coContact">Contact person</label><input id="coContact"><small>Signs the documents</small></div></div>
+<div class="tl-f"><label for="coAddr">Address</label><textarea id="coAddr"></textarea><small>Street, city, state, PIN, India</small></div>
+<div class="tl-row"><div class="tl-f"><label for="coIec">IEC</label><input id="coIec"><small>10 characters</small></div><div class="tl-f"><label for="coGst">GSTIN</label><input id="coGst"><small>15 characters</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="coEmail">Email</label><input id="coEmail" type="email"><small>Shown on documents</small></div><div class="tl-f"><label for="coPhone">Phone</label><input id="coPhone"><small>With country code</small></div></div>
+<div class="tl-f"><label for="coBank">Bank details</label><textarea id="coBank" placeholder="Bank name, account name, account no., SWIFT, branch"></textarea><small>Printed on invoices and quotations</small></div>
+<p class="tl-note">Changes here apply to your documents on this device. To update your public profile, use Company Profile in the client portal.</p>
+</div>
+</details>
+
+<div class="mt-tabs" role="tablist">
+<button type="button" data-tab="docs" class="on">Export document pack</button>
+<button type="button" data-tab="quote">Quotation maker</button>
+<button type="button" data-tab="reply">Buyer replies</button>
+<button type="button" data-tab="demand">Demand tracker</button>
+</div>
+
+<!-- ============ DOCUMENT PACK ============ -->
+<section class="mt-pane" id="t-docs">
+<div class="mt-pane-h"><div><h2>Export document pack</h2><p>Enter the shipment once. Get the proforma invoice, commercial invoice, packing list and certificate of origin draft, all with matching details.</p></div>
+<div class="mt-saved"><select id="dSaved" aria-label="Saved document packs"><option value="">Saved packs</option></select><button type="button" class="mt-btn" id="dLoad">Open</button><button type="button" class="mt-btn del" id="dDel">Delete</button><button type="button" class="mt-btn" id="dNew">New pack</button></div></div>
+<div class="tl-grid">
+<form class="tl-panel" id="dForm" onsubmit="return false">
+<div class="tl-group"><b>Buyer (consignee)</b>
+<div class="tl-f"><label for="d_buyName">Company name</label><input id="d_buyName"><small>Importer of record</small></div>
+<div class="tl-f"><label for="d_buyAddr">Address and country</label><textarea id="d_buyAddr"></textarea><small>Full address as on the order</small></div>
+<div class="tl-f"><label for="d_notify">Notify party</label><textarea id="d_notify" placeholder="Same as consignee"></textarea><small>Optional</small></div>
+</div>
+<div class="tl-group"><b>Invoice and shipment</b>
+<div class="tl-row three"><div class="tl-f"><label for="d_no">Invoice no.</label><input id="d_no" placeholder="EXP-001"><small>Same on all documents</small></div><div class="tl-f"><label for="d_date">Date</label><input id="d_date" type="date"><small>Invoice date</small></div><div class="tl-f"><label for="d_po">Buyer order ref.</label><input id="d_po"><small>PO or contract no.</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="d_cur">Currency</label><select id="d_cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option><option>INR</option></select><small>Invoice currency</small></div>
+<div class="tl-f"><label for="d_inco">Incoterm</label><select id="d_inco"><option>EXW</option><option>FCA</option><option selected>FOB</option><option>CFR</option><option>CIF</option><option>CPT</option><option>CIP</option><option>DAP</option><option>DDP</option></select><small>Delivery term</small></div>
+<div class="tl-f"><label for="d_place">Named place</label><input id="d_place" placeholder="Nhava Sheva"><small>Port or place</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="d_pol">Port of loading</label><input id="d_pol"><small>In India</small></div><div class="tl-f"><label for="d_pod">Port of discharge</label><input id="d_pod"><small>Destination port</small></div><div class="tl-f"><label for="d_dest">Final destination</label><input id="d_dest"><small>Country</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="d_mode">Transport</label><select id="d_mode"><option>Sea</option><option>Air</option><option>Road</option></select><small>Mode</small></div><div class="tl-f"><label for="d_vessel">Vessel or flight</label><input id="d_vessel"><small>If known</small></div><div class="tl-f"><label for="d_marks">Marks and numbers</label><input id="d_marks"><small>On the cartons</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="d_pay">Payment terms</label><input id="d_pay" placeholder="30% advance, 70% against copy of B/L"><small>As agreed</small></div><div class="tl-f"><label for="d_del">Delivery time</label><input id="d_del" placeholder="25 days from advance"><small>For the proforma</small></div></div>
+</div>
+<div class="tl-group"><b>Products and packing</b>
+<div class="tl-scroll"><table class="tl-items mt-wide"><thead><tr><th>Description</th><th>HS code</th><th>Qty</th><th>Unit</th><th>Unit price</th><th>Packages</th><th>Net kg</th><th>Gross kg</th><th></th></tr></thead><tbody id="dItems"></tbody></table></div>
+<button type="button" class="tl-add" id="dAdd">+ Add product</button>
+<div class="tl-row three"><div class="tl-f"><label for="d_freight">Freight</label><input id="d_freight" type="number" min="0" step="any"><small>CFR, CIF and others</small></div><div class="tl-f"><label for="d_ins">Insurance</label><input id="d_ins" type="number" min="0" step="any"><small>CIF and CIP</small></div><div class="tl-f"><label for="d_pkgType">Package type</label><input id="d_pkgType" value="Cartons"><small>Cartons, bags, pallets</small></div></div>
+</div>
+<div class="tl-group"><b>Notes</b>
+<div class="tl-f"><label for="d_notes">Notes on the invoice</label><textarea id="d_notes" placeholder="Quality, packing, documents provided"></textarea><small>Optional</small></div>
+</div>
+</form>
+<div class="tl-sticky">
+<div class="mt-seg" id="dSeg"><button type="button" data-doc="pi" class="on">Proforma invoice</button><button type="button" data-doc="ci">Commercial invoice</button><button type="button" data-doc="pl">Packing list</button><button type="button" data-doc="coo">Certificate of origin draft</button></div>
+<div class="tl-paper" id="dPaper"></div>
+<div class="mt-paper-actions"><button type="button" class="mt-btn pri" id="dPrint">Download PDF</button><button type="button" class="mt-btn" id="dSave">Save pack</button><span class="mt-status" id="dStatus"></span></div>
+</div>
+</div>
+</section>
+
+<!-- ============ QUOTATION MAKER ============ -->
+<section class="mt-pane" id="t-quote" hidden>
+<div class="mt-pane-h"><div><h2>Quotation maker</h2><p>Keep a price sheet for your products, then build a branded quotation for any buyer in a minute.</p></div>
+<div class="mt-saved"><select id="qSaved" aria-label="Saved quotations"><option value="">Saved quotations</option></select><button type="button" class="mt-btn" id="qLoad">Open</button><button type="button" class="mt-btn del" id="qDel">Delete</button><button type="button" class="mt-btn" id="qNew">New quotation</button></div></div>
+<div class="tl-grid">
+<form class="tl-panel" id="qForm" onsubmit="return false">
+<div class="tl-group"><b>Your price sheet</b>
+<p class="tl-hint">Save your usual prices once. Add them to any quotation with one click.</p>
+<div class="tl-scroll"><table class="tl-items"><thead><tr><th>Product</th><th>Unit</th><th>Price</th><th>MOQ</th><th></th><th></th></tr></thead><tbody id="sItems"></tbody></table></div>
+<div class="mt-paper-actions" style="margin:0 0 14px"><button type="button" class="tl-add" id="sAdd" style="margin:0">+ Add product</button><button type="button" class="mt-btn" id="sSave">Save price sheet</button><span class="mt-status" id="sStatus"></span></div>
+</div>
+<div class="tl-group"><b>Buyer</b>
+<div class="tl-row"><div class="tl-f"><label for="q_buyName">Contact name</label><input id="q_buyName"><small>Who receives it</small></div><div class="tl-f"><label for="q_buyCo">Company</label><input id="q_buyCo"><small>Buyer company</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="q_buyCountry">Country</label><input id="q_buyCountry"><small>Destination</small></div><div class="tl-f"><label for="q_buyEmail">Email</label><input id="q_buyEmail" type="email"><small>Optional</small></div></div>
+</div>
+<div class="tl-group"><b>Quotation terms</b>
+<div class="tl-row three"><div class="tl-f"><label for="q_no">Quotation no.</label><input id="q_no" placeholder="Q-001"><small>Your reference</small></div><div class="tl-f"><label for="q_date">Date</label><input id="q_date" type="date"><small>Issue date</small></div><div class="tl-f"><label for="q_valid">Valid for (days)</label><input id="q_valid" type="number" min="1" value="15"><small>Offer validity</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="q_cur">Currency</label><select id="q_cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>AUD</option><option>CAD</option><option>SGD</option><option>INR</option></select><small>Quoted in</small></div>
+<div class="tl-f"><label for="q_inco">Incoterm</label><select id="q_inco"><option>EXW</option><option>FCA</option><option selected>FOB</option><option>CFR</option><option>CIF</option><option>DAP</option><option>DDP</option></select><small>Delivery term</small></div>
+<div class="tl-f"><label for="q_place">Named place</label><input id="q_place" placeholder="Nhava Sheva"><small>Port or place</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="q_pay">Payment terms</label><input id="q_pay" placeholder="30% advance, 70% against copy of B/L"><small>As offered</small></div><div class="tl-f"><label for="q_del">Delivery time</label><input id="q_del" placeholder="25 days from order"><small>Lead time</small></div></div>
+</div>
+<div class="tl-group"><b>Quotation lines</b>
+<div class="tl-row"><div class="tl-f"><label for="qPick">Add from price sheet</label><select id="qPick"><option value="">Choose a product</option></select><small>Adds a line with your price</small></div><div class="tl-f"><label>&nbsp;</label><button type="button" class="tl-add" id="qAdd" style="margin:0;min-height:42px">+ Add empty line</button><small>For a custom item</small></div></div>
+<div class="tl-scroll"><table class="tl-items"><thead><tr><th>Product and specification</th><th>Qty</th><th>Unit</th><th>Unit price</th><th></th></tr></thead><tbody id="qItems"></tbody></table></div>
+<div class="tl-f"><label for="q_notes">Notes</label><textarea id="q_notes" placeholder="Packing, quality, samples, certificates"></textarea><small>Optional</small></div>
+</div>
+</form>
+<div class="tl-sticky">
+<div class="tl-paper" id="qPaper"></div>
+<div class="mt-paper-actions"><button type="button" class="mt-btn pri" id="qPrint">Download PDF</button><button type="button" class="mt-btn" id="qSave">Save quotation</button><span class="mt-status" id="qStatus"></span></div>
+</div>
+</div>
+</section>
+
+<!-- ============ BUYER REPLIES ============ -->
+<section class="mt-pane" id="t-reply" hidden>
+<div class="mt-pane-h"><div><h2>Buyer replies</h2><p>Pick the situation, fill in the details and get a clear, professional message. Edit it if you like, then copy it or send it on WhatsApp or email.</p></div></div>
+<div class="tl-grid">
+<form class="tl-panel" id="rForm" onsubmit="return false">
+<div class="tl-group"><b>Situation</b>
+<div class="mt-scen" id="rScen">
+<button type="button" data-s="first" class="on">First reply<small>New buyer requirement</small></button>
+<button type="button" data-s="followup">Follow-up<small>No reply after the offer</small></button>
+<button type="button" data-s="sample">Sample offer<small>Buyer wants to test first</small></button>
+<button type="button" data-s="counter">Price request<small>Buyer asks for a lower price</small></button>
+<button type="button" data-s="confirm">Order confirmation<small>Buyer has agreed</small></button>
+<button type="button" data-s="ship">Shipment update<small>Goods dispatched</small></button>
+</div>
+</div>
+<div class="tl-group"><b>Details</b>
+<div class="tl-row"><div class="tl-f"><label for="r_buyer">Buyer name</label><input id="r_buyer" placeholder="Mr Ahmed"><small>How you address them</small></div><div class="tl-f"><label for="r_product">Product</label><input id="r_product" placeholder="Red chilli whole, S17 Teja"><small>With grade or specification</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="r_qty">Quantity</label><input id="r_qty" placeholder="2 x 40 ft containers"><small>As requested</small></div><div class="tl-f"><label for="r_cur">Currency</label><select id="r_cur"><option>USD</option><option>EUR</option><option>GBP</option><option>AED</option><option>SAR</option><option>INR</option></select><small>Price currency</small></div><div class="tl-f"><label for="r_price">Price</label><input id="r_price" placeholder="2.85"><small>Per unit</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="r_unit">Per</label><input id="r_unit" value="kg"><small>kg, MT, piece</small></div><div class="tl-f"><label for="r_inco">Incoterm</label><select id="r_inco"><option>FOB</option><option>CFR</option><option>CIF</option><option>EXW</option><option>DAP</option></select><small>Delivery term</small></div><div class="tl-f"><label for="r_port">Port or place</label><input id="r_port" placeholder="Nhava Sheva"><small>For the Incoterm</small></div></div>
+<div class="tl-row three"><div class="tl-f"><label for="r_days">Delivery (days)</label><input id="r_days" type="number" min="1" placeholder="25"><small>From confirmation</small></div><div class="tl-f"><label for="r_valid">Offer valid (days)</label><input id="r_valid" type="number" min="1" placeholder="15"><small>Validity</small></div><div class="tl-f"><label for="r_pay">Payment terms</label><input id="r_pay" placeholder="30% advance"><small>Short form</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="r_extra">Sample or shipment details</label><input id="r_extra" placeholder="Courier charges paid by the buyer"><small>Sample terms, vessel, B/L no.</small></div><div class="tl-f"><label for="r_eta">ETA or date</label><input id="r_eta" placeholder="20 November"><small>For shipment updates</small></div></div>
+</div>
+</form>
+<div class="tl-sticky">
+<textarea class="mt-reply-out" id="rOut" aria-label="Your message"></textarea>
+<div class="mt-paper-actions"><button type="button" class="mt-btn pri" id="rCopy">Copy message</button><a class="mt-btn" id="rWa" href="#" target="_blank" rel="noopener">Open in WhatsApp</a><a class="mt-btn" id="rMail" href="#">Open in email</a><span class="mt-status" id="rStatus"></span></div>
+<p class="tl-note" style="margin-top:10px">Messages are written in plain business English. Check the details before you send.</p>
+</div>
+</div>
+</section>
+
+<!-- ============ DEMAND TRACKER ============ -->
+<section class="mt-pane" id="t-demand" hidden>
+<div class="mt-pane-h"><div><h2>Demand tracker</h2><p>See which countries are asking for your product and how demand is moving, from buyer requirements on BuyGenix over the last six months.</p></div></div>
+<div class="mt-card">
+<form class="mt-search" id="dmForm" onsubmit="return false"><div class="tl-in"><input id="dmQ" placeholder="Type a product, for example basmati rice" list="dmList" aria-label="Product"></div><datalist id="dmList"></datalist><button type="submit" class="mt-btn pri" id="dmGo">Show demand</button></form>
+<div class="mt-chips" id="dmMine"></div>
+</div>
+<div id="dmOut"></div>
+</section>
+</div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -694,6 +845,7 @@ body{background:var(--cp-bg);overflow-x:hidden;font-family:'Plus Jakarta Sans',s
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js?v=20260929a"></script>
+<script src="js/member-tools.js?v=20261009a"></script>
 <script>
 const DEFAULT_WA = '918796787594';
 const DEFAULT_MAIL = 'buygenixsolutions@gmail.com';
@@ -737,10 +889,23 @@ function setWaLinks() {
 
 /* ── INIT ── */
 async function initPortal() {
+  /* Local preview only (localhost): sample member, no sign-in, nothing saved to the server */
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && /[?&]demo=1\b/.test(location.search)) {
+    _demo = true;
+    _user = { id: 'demo', email: 'demo@sample-exports.com', user_metadata: { full_name: 'Demo Member' } };
+    _client = { id: '00000000-0000-0000-0000-000000000000', name: 'Demo Member', business_name: 'Sample Exports Pvt Ltd', email: 'demo@sample-exports.com', plan: 'Growth', plan_status: 'active', notes: '', join_date: new Date().toISOString(), renewal_date: null };
+    _credits = { active: true, lead_limit: 10, used: 2, remaining: 8 };
+    await loadPlan('Growth');
+    renderAll(); renderLeads([]);
+    _ready = Promise.resolve();
+    if (/^#tools/.test(location.hash)) showPanel('tools');
+    return;
+  }
   const sb = getSB();
-  if (!sb) { location.href = 'login.html'; return; }
+  const toLogin = () => { const next = /^#tools\/(docs|quote|reply|demand)$/.test(location.hash) ? location.pathname.replace(/\.html$/, '') + location.search + location.hash : ''; location.href = 'login.html' + (next ? '?next=' + encodeURIComponent(next) : ''); };
+  if (!sb) { toLogin(); return; }
   const { data } = await sb.auth.getSession();
-  if (!data.session) { location.href = 'login.html'; return; }
+  if (!data.session) { toLogin(); return; }
   _user = data.session.user;
   /* name, mobile, company and main product are required once; the login page asks for them */
   try {
@@ -748,7 +913,9 @@ async function initPortal() {
     const { data: d } = await sb.rpc('my_details');
     if (d && d.missing && d.missing.length) { location.replace('/login'); return; }
   } catch (e) {}
-  await loadMember();
+  _ready = loadMember();
+  if (/^#tools/.test(location.hash)) showPanel('tools');
+  await _ready;
 }
 
 async function loadMember() {
@@ -1247,13 +1414,24 @@ async function loadMatches() {
   }).join('');
 }
 
-const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Company Profile', products:'My Products', enquiries:'Buyer Enquiries' };
+const TITLES = { dashboard:'Dashboard', leads:'Buyer Leads', registrations:'Registrations', reports:'Reports', membership:'My Membership', profile:'Company Profile', products:'My Products', enquiries:'Buyer Enquiries', tools:'Member tools' };
 function showPanel(name) {
   document.querySelectorAll('.p-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
   document.querySelectorAll('.sb-link[data-panel]').forEach(l => l.classList.toggle('active', l.dataset.panel === name));
   $('topbarTitle').textContent = TITLES[name] || name;
   closeSidebar();
   window.scrollTo({ top: 0 });
+  if (name === 'tools') startTools();
+  else if (/^#tools/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {} }
+}
+/* Member tools panel: starts once the member, profile and products have loaded */
+let _ready = null, _demo = false;
+function startTools() {
+  if (!/^#tools/.test(location.hash)) { try { history.replaceState(null, '', location.pathname + location.search + '#tools/docs'); } catch (e) {} }
+  (_ready || Promise.resolve()).then(() => {
+    if (!window.BGXMemberTools) return;
+    window.BGXMemberTools.start({ sb: getSB(), client: _client, profile: _profile, products: _products, active: !!(_credits && _credits.active), demo: _demo });
+  });
 }
 document.addEventListener('click', e => {
   const nav = e.target.closest('[data-panel],[data-goto]');

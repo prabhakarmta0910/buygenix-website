@@ -1,11 +1,11 @@
-/* BuyGenix member tools: document pack, quotation maker, buyer replies, demand tracker.
-   Live: Supabase session + active membership (my_lead_quota().active).
-   Preview: ?demo=1 on a local host only, with sample data and browser storage. */
+/* BuyGenix member tools (client portal panel): document pack, quotation maker, buyer replies, demand tracker.
+   The portal calls BGXMemberTools.start({ sb, client, profile, products, active, demo }) when the panel opens.
+   demo is only honoured on a local host (sample data, browser storage). */
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  var DEMO = LOCAL && /[?&]demo=1\b/.test(location.search);
+  var DEMO = false, started = false;
   var sb = null, client = null, profile = null, products = [];
   var CO_KEY = 'bgx_mt_company_v1';
 
@@ -67,32 +67,12 @@
       var li = el('li'); li.appendChild(el('b', '', t[0])); li.appendChild(document.createTextNode(t[1])); ul.appendChild(li);
     });
     box.appendChild(ul);
-    var row = el('div', 'lp-cta-row');
-    var a1 = el('a', 'lp-btn pri', kind === 'login' ? 'Log in' : 'View membership plans'); a1.href = kind === 'login' ? '/login' : '/membership';
-    var a2 = el('a', 'lp-btn out', kind === 'login' ? 'View membership plans' : 'Talk to our team'); a2.href = kind === 'login' ? '/membership' : '/contact';
+    var row = el('div', 'mt-gate-row');
+    var a1 = el('a', 'btn primary', kind === 'login' ? 'Log in' : 'View membership plans'); a1.href = kind === 'login' ? '/login' : '/membership';
+    var a2 = el('a', 'btn ghost', kind === 'login' ? 'View membership plans' : 'Talk to your RM');
+    a2.href = kind === 'login' ? '/membership' : 'https://wa.me/918796787594?text=' + encodeURIComponent('Hello, I would like to activate my BuyGenix membership.');
+    if (kind !== 'login') { a2.target = '_blank'; a2.rel = 'noopener'; }
     row.appendChild(a1); row.appendChild(a2); box.appendChild(row); g.appendChild(box);
-  }
-
-  function boot() {
-    if (DEMO) { profile = DEMO_PROFILE; products = DEMO_PRODUCTS; return start(); }
-    if (!window.supabase || typeof BGX_SUPABASE_URL === 'undefined') return showGate('login');
-    sb = window.supabase.createClient(BGX_SUPABASE_URL, BGX_SUPABASE_ANON);
-    sb.auth.getSession().then(function (r) {
-      if (!r.data || !r.data.session) return showGate('login');
-      var uid = r.data.session.user.id;
-      return sb.rpc('my_lead_quota').then(function (q) {
-        var row = q.data && q.data[0];
-        if (!row || !row.active) return showGate('member');
-        return sb.from('clients').select('id,name,business_name,email,phone,gstin').eq('auth_user_id', uid).maybeSingle().then(function (c) {
-          client = c.data || null;
-          if (!client) return start();
-          return Promise.all([
-            sb.from('company_profiles').select('*').eq('client_id', client.id).maybeSingle().then(function (p) { profile = p.data || null; }, function () {}),
-            sb.from('company_products').select('name,unit,price,min_order').eq('client_id', client.id).order('sort').then(function (p) { products = p.data || []; }, function () {})
-          ]).then(start);
-        });
-      });
-    }).catch(function () { showGate('login'); });
   }
 
   /* ---------- company details (shared by all tools) ---------- */
@@ -137,7 +117,20 @@
     var s = el('div', 'inv-sign'); s.appendChild(el('div', '', 'For ' + (signFor || 'your company'))); s.appendChild(el('div', 'ln', 'Authorised signatory'));
     f.appendChild(l); f.appendChild(s); paper.appendChild(f);
   }
-  function printPaper(id) { var p = $(id); p.classList.add('mt-print'); window.print(); setTimeout(function () { p.classList.remove('mt-print'); }, 500); }
+  function printPaper(id, title) {
+    var p = $(id), w = null;
+    try { w = window.open('', '_blank'); } catch (e) { w = null; }
+    if (!w) { p.classList.add('mt-print'); window.print(); setTimeout(function () { p.classList.remove('mt-print'); }, 500); return; }
+    var base = location.origin + '/', t = String(title || 'Document').replace(/[<>&"]/g, '');
+    w.document.open();
+    w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><base href="' + base + '"><title>' + t + '</title>' +
+      '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">' +
+      '<link rel="stylesheet" href="css/tools.css?v=20261009a"><link rel="stylesheet" href="css/member-tools.css?v=20261009a">' +
+      '<style>@page{size:A4;margin:12mm}html,body{margin:0;background:#fff;font-family:Inter,system-ui,sans-serif}.mt-sheet{max-width:780px;margin:0 auto;padding:24px}@media print{.mt-sheet{padding:0;max-width:none}}</style>' +
+      '</head><body><div class="mt-sheet">' + p.outerHTML.replace(/class="tl-paper"/, 'class="tl-paper mt-print"') + '</div>' +
+      '<script>window.addEventListener("load",function(){setTimeout(function(){window.focus();window.print();},350)});<\/script></body></html>');
+    w.document.close();
+  }
 
   /* ---------- rows editor ---------- */
   function rowsEditor(tbodyId, cols, onChange) {
@@ -219,7 +212,7 @@
     $('dSeg').addEventListener('click', function (e) { var b = e.target.closest('button'); if (!b) return; doc = b.dataset.doc; this.querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); }); renderDoc(); });
     dSaved = savedList('doc_pack', 'dSaved', dSet, function () { var v = dGet(); return { title: [v.no, v.buyName].filter(Boolean).join(' - ') || 'Document pack', data: v }; }, function () { dSet(DEMO ? DEMO_PACK : {}); }, 'dStatus');
     $('dLoad').onclick = dSaved.open; $('dDel').onclick = dSaved.del; $('dSave').onclick = dSaved.save; $('dNew').onclick = dSaved.reset;
-    $('dPrint').onclick = function () { renderDoc(); track('doc_pack', 'pdf_' + doc); printPaper('dPaper'); };
+    $('dPrint').onclick = function () { renderDoc(); track('doc_pack', 'pdf_' + doc); var v = dGet(); printPaper('dPaper', ({ pi: 'Proforma invoice', ci: 'Commercial invoice', pl: 'Packing list', coo: 'Certificate of origin draft' })[doc] + (v.no ? ' ' + v.no : '')); };
     dSet(DEMO ? DEMO_PACK : {}); dSaved.refresh();
   }
 
@@ -258,7 +251,7 @@
     };
     qSaved = savedList('quotation', 'qSaved', qSet, function () { var v = qGet(); return { title: [v.no, v.buyCo || v.buyName].filter(Boolean).join(' - ') || 'Quotation', data: v }; }, function () { qSet(DEMO ? DEMO_QUOTE : {}); }, 'qStatus');
     $('qLoad').onclick = qSaved.open; $('qDel').onclick = qSaved.del; $('qSave').onclick = qSaved.save; $('qNew').onclick = qSaved.reset;
-    $('qPrint').onclick = function () { renderQuote(); track('quotation', 'pdf'); printPaper('qPaper'); };
+    $('qPrint').onclick = function () { renderQuote(); track('quotation', 'pdf'); var v = qGet(); printPaper('qPaper', 'Quotation' + (v.no ? ' ' + v.no : '')); };
     store.list('price_sheet').then(function (list) {
       if (list.length) { sheetId = list[0].id; sRows.set(list[0].data && list[0].data.rows); }
       else sRows.set(products.filter(function (x) { return x.name; }).map(function (x) { return { name: x.name, unit: x.unit || '', price: x.price != null ? x.price : '', moq: x.min_order || '' }; }));
@@ -343,15 +336,21 @@
     var dl = $('dmList'), chips = $('dmMine');
     mine.slice(0, 12).forEach(function (n) { dl.appendChild(new Option(n)); var b = el('button', '', n); b.type = 'button'; b.onclick = function () { $('dmQ').value = n; run(); }; chips.appendChild(b); });
     $('dmForm').addEventListener('submit', run);
-    var qp = new URLSearchParams(location.search).get('q'); if (qp) { $('dmQ').value = qp.slice(0, 80); run(); }
+    var qp = new URLSearchParams(location.search).get('tq'); if (qp) { $('dmQ').value = qp.slice(0, 80); showTab('demand'); run(); }
   }
 
   /* ---------- tabs ---------- */
+  var showTab = function () {};
   function initTabs() {
     var tabs = document.querySelectorAll('.mt-tabs button');
-    function show(t) { tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === t); }); ['docs', 'quote', 'reply', 'demand'].forEach(function (k) { $('t-' + k).hidden = k !== t; }); try { history.replaceState(null, '', location.pathname + location.search + '#' + t); } catch (e) {} }
+    function show(t) {
+      tabs.forEach(function (b) { var on = b.dataset.tab === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      ['docs', 'quote', 'reply', 'demand'].forEach(function (k) { $('t-' + k).hidden = k !== t; });
+      try { history.replaceState(null, '', location.pathname + location.search + '#tools/' + t); } catch (e) {}
+    }
     tabs.forEach(function (b) { b.onclick = function () { show(b.dataset.tab); }; });
-    var h = location.hash.slice(1); if (['docs', 'quote', 'reply', 'demand'].indexOf(h) >= 0) show(h);
+    showTab = show;
+    var m = /^#tools\/(docs|quote|reply|demand)$/.exec(location.hash); show(m ? m[1] : 'docs');
   }
 
   function start() {
@@ -377,5 +376,16 @@
       trend: mons, related: [{ name: 'Chilli powder' }, { name: 'Turmeric' }, { name: 'Coriander seeds' }, { name: 'Cumin seeds' }] };
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  window.BGXMemberTools = {
+    start: function (o) {
+      o = o || {};
+      if (started) { var m = /^#tools\/(docs|quote|reply|demand)$/.exec(location.hash); if (m) showTab(m[1]); return; }
+      started = true;
+      sb = o.sb || null; client = o.client || null; profile = o.profile || null; products = o.products || [];
+      DEMO = !!(o.demo && LOCAL);
+      if (DEMO) { profile = profile || DEMO_PROFILE; if (!products.length) products = DEMO_PRODUCTS; }
+      if (!DEMO && (!sb || !o.active)) return showGate('member');
+      start();
+    }
+  };
 })();

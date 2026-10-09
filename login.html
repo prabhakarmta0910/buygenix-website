@@ -326,10 +326,12 @@ function getSB() {
   return _sb;
 }
 
-/* Where to go after sign-in: only our own lead search page may be passed in ?next= */
+/* Where to go after sign-in: only our own lead search page or the portal's member tools may be passed in ?next= */
 const AFTER_LOGIN = (() => {
   const n = new URLSearchParams(location.search).get('next') || '';
-  return /^\/buy-lead-search(\?[^#]*)?$/.test(n) ? n : 'client-portal.html';
+  if (/^\/buy-lead-search(\?[^#]*)?$/.test(n)) return n;
+  if (/^\/client-portal(\?tq=[^#&]{0,160})?#tools\/(docs|quote|reply|demand)$/.test(n)) return n;
+  return 'client-portal.html';
 })();
 
 (async function() {
@@ -396,7 +398,7 @@ async function onGoogleCredential(resp) {
 async function signInGoogle(btn) {
   const sb = getSB(); if (!sb) return;
   btn.disabled = true;
-  const back = location.origin + '/login' + (AFTER_LOGIN.startsWith('/buy-lead-search') ? '?next=' + encodeURIComponent(AFTER_LOGIN) : '');
+  const back = location.origin + '/login' + (AFTER_LOGIN.startsWith('/') ? '?next=' + encodeURIComponent(AFTER_LOGIN) : '');
   const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: back } });
   if (error) { btn.disabled = false; showAlert('loginErr', 'error', 'Google sign-in is not available right now. Please use email and password.'); }
 }
