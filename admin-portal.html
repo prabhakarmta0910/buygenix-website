@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/tools.css?v=20261009a">
+<link rel="stylesheet" href="css/member-tools.css?v=20261009a">
+<link rel="stylesheet" href="css/admin-proforma.css?v=20261009a">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* ══ ADMIN CRM — design system ══ */
@@ -310,6 +313,8 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
       <div class="asb-link" onclick="showAPanel('postreq',this)"><svg class="ic"><use href="#i-inbox"/></svg>Enquiries<span class="asb-count" id="sbPostCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('leads',this)"><svg class="ic"><use href="#i-target"/></svg>Buy Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('enquiries',this)"><svg class="ic"><use href="#i-mail"/></svg>Contact Messages<span class="asb-count" id="sbEnqCnt">0</span></div>
+      <div class="asb-sec">Billing</div>
+      <div class="asb-link" id="asbProforma" onclick="showAPanel('proforma',this)"><svg class="ic"><use href="#i-rupee"/></svg>Proforma invoices</div>
       <div class="asb-sec">Website</div>
       <div class="asb-link" onclick="showAPanel('payments',this)"><svg class="ic"><use href="#i-card"/></svg>Payments<span class="asb-count" id="sbPayCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('plans',this)"><svg class="ic"><use href="#i-card"/></svg>Membership Plans</div>
@@ -529,6 +534,57 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         </div>
       </div>
 
+
+      <!-- PROFORMA INVOICES -->
+      <div class="a-panel" id="ap-proforma">
+        <div class="ph"><div><h2>Proforma invoices</h2><p>Make a proforma for a member, save it with the next number and download it as a PDF.</p></div></div>
+        <div class="mt-demo" id="piDemo" hidden>Preview mode on this computer: nothing is saved to the server.</div>
+
+        <details class="mt-company" id="piSeller">
+          <summary><div><b id="psTitle">Our details</b><br><span>Company, GST and bank details printed on every proforma. Save once, edit any time.</span></div><span class="go">Edit</span></summary>
+          <div class="tl-group">
+            <div class="tl-row"><div class="tl-f"><label for="ps_name">Company name</label><input id="ps_name"><small>As registered</small></div><div class="tl-f"><label for="ps_state">State</label><select id="ps_state"></select><small>Decides CGST and SGST or IGST</small></div></div>
+            <div class="tl-f"><label for="ps_addr">Address</label><textarea id="ps_addr"></textarea><small>Registered address</small></div>
+            <div class="tl-row"><div class="tl-f"><label for="ps_gstin">GSTIN</label><input id="ps_gstin" maxlength="15"><small>15 characters</small></div><div class="tl-f"><label for="ps_pan">PAN</label><input id="ps_pan" maxlength="10"><small>Optional</small></div></div>
+            <div class="tl-row"><div class="tl-f"><label for="ps_email">Email</label><input id="ps_email" type="email"><small>Shown on the proforma</small></div><div class="tl-f"><label for="ps_phone">Phone</label><input id="ps_phone"><small>With country code</small></div></div>
+            <div class="tl-f"><label for="ps_bank">Bank details</label><textarea id="ps_bank" rows="5" placeholder="Account name&#10;Bank name and branch&#10;Account number&#10;IFSC&#10;UPI ID (optional)"></textarea><small>Printed exactly as typed</small></div>
+            <div class="tl-f"><label for="ps_terms">Terms</label><textarea id="ps_terms" rows="4"></textarea><small>Printed at the bottom of every proforma</small></div>
+            <div class="mt-paper-actions" style="margin:0 0 14px"><button type="button" class="mt-btn pri" id="psSave">Save our details</button><button type="button" class="mt-btn" id="psReset">Use default details</button><span class="mt-status" id="psStatus"></span></div>
+          </div>
+        </details>
+
+        <div class="tl-grid" id="piFormTop">
+          <form class="tl-panel" id="piForm" onsubmit="return false">
+            <div class="tl-group"><b>Bill to</b>
+              <div class="tl-f"><label for="pi_member">Member</label><select id="pi_member"></select><small>Fills the client details and their plan</small></div>
+              <div class="tl-row"><div class="tl-f"><label for="pb_name">Client or company name</label><input id="pb_name"><small>As it should appear</small></div><div class="tl-f"><label for="pb_contact">Contact person</label><input id="pb_contact"><small>Optional</small></div></div>
+              <div class="tl-f"><label for="pb_addr">Address</label><textarea id="pb_addr"></textarea><small>Street, city, PIN</small></div>
+              <div class="tl-row"><div class="tl-f"><label for="pb_state">State (place of supply)</label><select id="pb_state"></select><small>For GST</small></div><div class="tl-f"><label for="pb_gstin">GSTIN</label><input id="pb_gstin" maxlength="15"><small>If registered</small></div></div>
+              <div class="tl-row"><div class="tl-f"><label for="pb_email">Email</label><input id="pb_email" type="email"><small>Optional</small></div><div class="tl-f"><label for="pb_phone">Phone</label><input id="pb_phone"><small>Optional</small></div></div>
+            </div>
+            <div class="tl-group"><b>Proforma details</b>
+              <div class="tl-row three"><div class="tl-f"><label for="pi_no">Proforma no.</label><input id="pi_no"><small>Next number is filled in</small></div><div class="tl-f"><label for="pi_date">Date</label><input id="pi_date" type="date"><small>Issue date</small></div><div class="tl-f"><label for="pi_valid">Valid for (days)</label><input id="pi_valid" type="number" min="1"><small>Offer validity</small></div></div>
+              <div class="tl-row"><div class="tl-f"><label for="pi_gst">GST</label><select id="pi_gst"><option value="auto">Automatic from the states</option><option value="cgst">CGST 9% + SGST 9%</option><option value="igst">IGST 18%</option><option value="none">No GST</option></select><small>Same state: CGST and SGST</small></div><div class="tl-f"><label for="pi_due">Payment due</label><input id="pi_due" placeholder="On receipt"><small>For example, within 7 days</small></div></div>
+            </div>
+            <div class="tl-group"><b>Items</b>
+              <div class="tl-row"><div class="tl-f"><label for="piPlan">Add a plan</label><select id="piPlan"></select><small>Adds the plan at its yearly price</small></div><div class="tl-f"><label>&nbsp;</label><button type="button" class="tl-add" id="piAdd" style="margin:0;min-height:42px">+ Add other item</button><small>Registrations, services</small></div></div>
+              <div class="tl-scroll"><table class="tl-items"><thead><tr><th>Description</th><th>SAC</th><th>Qty</th><th>Rate (excl. GST)</th><th></th></tr></thead><tbody id="piItems"></tbody></table></div>
+              <div class="tl-f"><label for="pi_notes">Notes</label><textarea id="pi_notes" placeholder="Anything specific to this client"></textarea><small>Optional</small></div>
+            </div>
+          </form>
+          <div class="tl-sticky">
+            <p class="api-warn" id="piBankWarn" hidden>Add your bank details in "Our details" above so clients know where to pay.</p>
+            <div class="tl-paper" id="piPaper"></div>
+            <div class="mt-paper-actions"><button type="button" class="mt-btn pri" id="piPrint">Download PDF</button><button type="button" class="mt-btn" id="piSave">Save proforma</button><button type="button" class="mt-btn" id="piNew">New proforma</button><span class="mt-status" id="piStatus"></span></div>
+          </div>
+        </div>
+
+        <div class="api-list">
+          <div class="api-list-h"><b>Saved proforma invoices</b><input id="piSearch" type="search" placeholder="Search by number or client" aria-label="Search proformas"></div>
+          <div id="piList"><div class="empty-row">Loading...</div></div>
+        </div>
+      </div>
+
       <!-- PLANS -->
       <div class="a-panel" id="ap-plans">
         <style>
@@ -670,6 +726,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js?v=20260929a"></script>
+<script src="js/admin-proforma.js?v=20261009a"></script>
 <script>
 /* ───────────────────────────────────────────────────────────────
    ADMIN AUTH — SECURITY FIX (21 Jun 2026)
@@ -1157,6 +1214,13 @@ async function doAdminSignOut() { const sb=getSB(); if(sb) await sb.auth.signOut
 /* Keep an admin signed in across page refreshes — but only if the
    existing session belongs to an allowed admin email. */
 (async function restoreAdminSession() {
+  /* Local preview only (localhost): open the proforma tool without signing in; nothing is saved to the server */
+  if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) && /[?&]demo=1\b/.test(location.search)) {
+    _adminDemo = true;
+    bootAdmin({ email: 'demo@localhost', user_metadata: { full_name: 'Admin Demo' } });
+    setTimeout(() => showAPanel('proforma', document.getElementById('asbProforma')), 0);
+    return;
+  }
   const sb = getSB();
   if (!sb) return;
   try {
@@ -1171,7 +1235,7 @@ function showAPanel(name, el) {
   document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
   const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners',payments:'Payments'};
+  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners',payments:'Payments',proforma:'Proforma invoices'};
   document.getElementById('adminTopTitle').textContent = titles[name]||name;
   if(name==='rms') renderRMs();
   if(name==='plans') loadPlansAdmin();
@@ -1183,6 +1247,16 @@ function showAPanel(name, el) {
   if(name==='leads') loadLeads();
   if(name==='members') loadMembers();
   if(name==='dashboard') refreshDashboardData();
+  if(name==='proforma') startProforma();
+}
+
+/* Proforma invoices: needs the members and plans lists */
+var _adminDemo; /* set by the local preview below */
+async function startProforma() {
+  if (!window.BGXAdminProforma) return;
+  try { if (!allPlans.length) await loadPlansAdmin(); } catch (e) {}
+  try { if (!allMem.length) await loadMembers(); } catch (e) {}
+  window.BGXAdminProforma.init({ sb: getSB(), members: allMem || [], plans: allPlans || [], demo: _adminDemo });
 }
 
 let _dashPollTimer = null;
