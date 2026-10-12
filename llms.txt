@@ -18,6 +18,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Volumetric weight calculator](https://www.buygenixsolutions.com/volumetric-weight-calculator): courier (5,000) and air cargo (6,000) chargeable weight for several box sizes
 - [Export readiness check](https://www.buygenixsolutions.com/export-readiness-check): checklist of the registrations an Indian business needs before its first export
 - [LC date calculator](https://www.buygenixsolutions.com/lc-date-calculator): last day to present documents under a letter of credit (UCP 600), banking days and tolerance
+- [LUT vs IGST calculator](https://www.buygenixsolutions.com/lut-vs-igst-calculator): compares the cash-flow cost of exporting under LUT and on payment of IGST
 - [Buyer time-zone planner](https://www.buygenixsolutions.com/buyer-time-zone-planner): local time, office hours, weekends and the best time to call buyers from India
 - [Services](https://www.buygenixsolutions.com/services): buyer leads, digital catalogue, SEO and registrations
 - [Export registrations](https://www.buygenixsolutions.com/registration): IEC, GST, APEDA, FSSAI, RCMC, Spices Board and other registrations

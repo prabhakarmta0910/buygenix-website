@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
+<title>LUT vs IGST Calculator for Exporters | BuyGenix</title>
+<meta name="description" content="Free LUT vs IGST calculator: compare exporting under LUT with paying IGST and claiming a refund. See tax paid, cash tied up and the monthly cost of each route.">
+<link rel="canonical" href="https://www.buygenixsolutions.com/lut-vs-igst-calculator">
+<meta property="og:title" content="LUT vs IGST Calculator for Exporters | BuyGenix">
+<meta property="og:description" content="Free LUT vs IGST calculator: compare exporting under LUT with paying IGST and claiming a refund. See tax paid, cash tied up and the monthly cost of each route.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.buygenixsolutions.com/lut-vs-igst-calculator">
+<meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BuyGenix Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/lp.css?v=20261006b">
+<link rel="stylesheet" href="css/tools.css?v=20261012b">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.buygenixsolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Free export tools",
+     "item": "https://www.buygenixsolutions.com/export-tools"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "LUT vs IGST calculator",
+     "item": "https://www.buygenixsolutions.com/lut-vs-igst-calculator"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "name": "LUT vs IGST Calculator",
+   "url": "https://www.buygenixsolutions.com/lut-vs-igst-calculator",
+   "description": "Free calculator comparing the cash-flow cost of exporting under LUT and on payment of IGST.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "BuyGenix Solutions",
+    "url": "https://www.buygenixsolutions.com"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is the difference between exporting under LUT and paying IGST?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Under a Letter of Undertaking (LUT) you export without paying IGST, and later claim a refund of the input tax credit that builds up on your purchases. If you export with payment of IGST, you pay the tax, partly or fully from your input tax credit, and the IGST is refunded to you after the shipping bill and your GST returns match."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which option is better for cash flow?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It depends on how much input tax credit you have and how fast each refund reaches you. Under LUT no extra cash leaves your business, but your input tax credit waits for a refund application. Under the IGST route you may need extra cash to pay the tax, but the refund is processed automatically through customs once your returns match. This calculator compares the cost of the money tied up in each case."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is the IGST refund on exports processed?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The shipping bill is treated as the refund claim. Once the shipping bill and export general manifest are filed and your GSTR-1 and GSTR-3B report the same invoices, the refund is processed through ICEGATE and paid to your bank account. Mismatches between the shipping bill and returns are the most common cause of delay."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I claim input tax credit refunds under LUT?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "You file a refund application on the GST portal for the unutilised input tax credit on zero-rated supplies, with the export invoices and shipping details. The law allows a provisional refund for zero-rated supplies and sets time limits for the final decision, so check the current rules with your tax adviser."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can every exporter use the IGST refund route?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not always. Some exporters are restricted, for example where inputs were bought under certain concessional schemes. Check your eligibility with your chartered accountant before choosing the IGST route."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>.tz-tips{padding-left:20px;}.tz-tips li{margin:0 0 8px;}</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions" width="106" height="38">
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-search">
+    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
+      <span id="navSearchLabel">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+  <div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a>
+    <a href="/contact">Contact</a><a href="/membership" class="nav-cta-outline">Membership Plans</a><a href="/login" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a><a href="/contact">Contact</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a><a href="/membership" class="m-cta">Membership Plans →</a><a href="/login" class="m-cta m-cta-gold">Client Login →</a></div>
+
+
+<main class="lp">
+<section class="tl-hero"><div class="lp-wrap">
+<nav class="lp-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/export-tools">Free export tools</a><span>/</span>LUT vs IGST calculator</nav>
+<h1>LUT vs IGST calculator</h1>
+<p class="lp-lead">Compare exporting under LUT with exporting on payment of IGST. See how much tax you would pay, how much cash is tied up and for how long, and what that costs your business each month and each year.</p>
+<div class="tl-badges"><span>Free, no sign-up</span><span>5%, 18% and 40% slabs</span><span>Monthly and yearly cost</span></div>
+</div></section>
+
+<section class="tl-app"><div class="lp-wrap tl-grid">
+<form class="tl-panel" id="luForm" onsubmit="return false">
+<h2>Your exports</h2>
+<p class="tl-hint">Use a typical month. All amounts in Indian rupees.</p>
+<div class="tl-group"><b>Exports and tax</b>
+<div class="tl-row"><div class="tl-f"><label for="uVal">Export value per month</label><div class="tl-in"><span class="tl-pre">&#8377;</span><input id="uVal" type="number" min="0" step="any" value="1000000"></div><small>Taxable value of export invoices</small></div>
+<div class="tl-f"><label for="uRate">IGST rate on your product</label><select id="uRate"><option value="5">5%</option><option value="18" selected>18%</option><option value="40">40%</option></select><small>The rate for your HS code</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="uItc">Input tax credit per month</label><div class="tl-in"><span class="tl-pre">&#8377;</span><input id="uItc" type="number" min="0" step="any" value="120000"></div><small>GST paid on purchases for these exports</small></div><div class="tl-f"></div></div>
+</div>
+<div class="tl-group"><b>Refund timing</b>
+<div class="tl-row"><div class="tl-f"><label for="uDi">IGST refund reaches you after</label><div class="tl-in"><input id="uDi" type="number" min="0" step="1" value="30"><span class="tl-suf">days</span></div><small>From paying the tax to the refund</small></div>
+<div class="tl-f"><label for="uDl">LUT credit refund reaches you after</label><div class="tl-in"><input id="uDl" type="number" min="0" step="1" value="60"><span class="tl-suf">days</span></div><small>From filing the return to the refund</small></div></div>
+<div class="tl-row"><div class="tl-f"><label for="uInt">Your cost of money</label><div class="tl-in"><input id="uInt" type="number" min="0" step="any" value="10"><span class="tl-suf">% a year</span></div><small>Interest on your working capital</small></div><div class="tl-f"></div></div>
+</div>
+<div class="tl-actions"><button type="button" class="lp-btn out tl-sm" id="luReset">Reset example</button></div>
+</form>
+
+<div class="tl-sticky"><div class="pc-res">
+<div class="pc-res-h"><b>Your comparison</b><p id="luSummary"></p></div>
+<div class="pc-hero"><span class="k" id="luHeroK">Lower cost each month</span><strong id="luHero"></strong><span class="s" id="luHeroS"></span></div>
+<div class="pc-sub">Export under LUT</div>
+<div class="pc-break" style="border-top:0"><div id="luL" class="pc-kv"></div></div>
+<div class="pc-sub">Export on payment of IGST</div>
+<div class="pc-break" style="border-top:0"><div id="luI" class="pc-kv"></div></div>
+<p class="tl-note pc-foot">An estimate of the cost of money tied up, for planning only. Refund times depend on correct returns and documents. Confirm which route you are eligible for with your chartered accountant.</p>
+</div></div>
+</div></section>
+
+<section class="tl-content"><div class="lp-wrap lp-narrow">
+<h2>A worked example</h2>
+<p>An exporter ships goods worth &#8377;10,00,000 a month at 18% IGST and has &#8377;1,20,000 of input tax credit on purchases.</p>
+<table><tr><th></th><th>Export under LUT</th><th>Export on payment of IGST</th></tr>
+<tr><td>IGST on the export</td><td>Nil</td><td>&#8377;1,80,000</td></tr>
+<tr><td>Paid from input tax credit</td><td>Nil</td><td>&#8377;1,20,000</td></tr>
+<tr><td>Extra cash paid</td><td>Nil</td><td>&#8377;60,000</td></tr>
+<tr><td>Refund due</td><td>&#8377;1,20,000 of credit, by application</td><td>&#8377;1,80,000 of IGST, through customs</td></tr>
+<tr><td>Money tied up</td><td>&#8377;1,20,000 for about 60 days</td><td>&#8377;1,80,000 for about 30 days</td></tr>
+<tr><td>Cost at 10% a year</td><td>about &#8377;1,973 a month</td><td>about &#8377;1,479 a month</td></tr></table>
+<p>With these timings the IGST route costs slightly less, but it needs &#8377;60,000 of extra cash each month. If the LUT credit refund comes faster, or the IGST refund is delayed by a mismatch, the answer changes. Change the numbers above to match your own business.</p>
+<h2>How to choose</h2>
+<ul class="tz-tips">
+<li><b>Choose LUT</b> if cash is tight, your input tax credit is small, or you would rather not pay tax upfront. File the LUT at the start of every financial year. See our <a href="/gst-lut-filing-guide">LUT filing guide</a>.</li>
+<li><b>Consider the IGST route</b> if you have a large input tax credit balance, your shipping bills and returns always match, and you are eligible for it.</li>
+<li>Whichever you choose, keep your shipping bills, GSTR-1 and GSTR-3B consistent, because mismatches are the main cause of delayed refunds.</li>
+</ul>
+<h2>Frequently asked questions</h2>
+<details><summary>What is the difference between exporting under LUT and paying IGST?</summary><p>Under a Letter of Undertaking (LUT) you export without paying IGST, and later claim a refund of the input tax credit that builds up on your purchases. If you export with payment of IGST, you pay the tax, partly or fully from your input tax credit, and the IGST is refunded to you after the shipping bill and your GST returns match.</p></details><details><summary>Which option is better for cash flow?</summary><p>It depends on how much input tax credit you have and how fast each refund reaches you. Under LUT no extra cash leaves your business, but your input tax credit waits for a refund application. Under the IGST route you may need extra cash to pay the tax, but the refund is processed automatically through customs once your returns match. This calculator compares the cost of the money tied up in each case.</p></details><details><summary>How is the IGST refund on exports processed?</summary><p>The shipping bill is treated as the refund claim. Once the shipping bill and export general manifest are filed and your GSTR-1 and GSTR-3B report the same invoices, the refund is processed through ICEGATE and paid to your bank account. Mismatches between the shipping bill and returns are the most common cause of delay.</p></details><details><summary>How do I claim input tax credit refunds under LUT?</summary><p>You file a refund application on the GST portal for the unutilised input tax credit on zero-rated supplies, with the export invoices and shipping details. The law allows a provisional refund for zero-rated supplies and sets time limits for the final decision, so check the current rules with your tax adviser.</p></details><details><summary>Can every exporter use the IGST refund route?</summary><p>Not always. Some exporters are restricted, for example where inputs were bought under certain concessional schemes. Check your eligibility with your chartered accountant before choosing the IGST route.</p></details>
+<div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
+<div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/export-readiness-check"><b>Export readiness check</b><span>See which registrations you have, what is missing and what to do before your first shipment.</span></a><a href="/export-price-calculator"><b>Export price calculator</b><span>Work out EXW, FOB, CFR and CIF prices per unit from your costs, freight, insurance and margin.</span></a><a href="/lc-date-calculator"><b>LC date calculator</b><span>Last day to present documents under a letter of credit, banking days and tolerance.</span></a></div>
+</div></section>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},KEY='bgx_lutigst_v1',F=['uVal','uRate','uItc','uDi','uDl','uInt'],DEF={};F.forEach(function(k){DEF[k]=$(k).value});
+function n(k){var v=parseFloat($(k).value);return isFinite(v)&&v>0?v:0}
+function r(v){return '₹'+Math.round(v).toLocaleString('en-IN')}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function kv(box,rows){box.textContent='';rows.forEach(function(x){var d=el('div',x[2]?'tot':'');d.appendChild(el('span','',x[0]));d.appendChild(el('span','',x[1]));box.appendChild(d)})}
+var sent=false;
+function calc(){
+ var val=n('uVal'),rate=+$('uRate').value,itc=n('uItc'),di=n('uDi'),dl=n('uDl'),i=n('uInt')/100;
+ var igst=val*rate/100,used=Math.min(itc,igst),cash=igst-used,left=itc-used;
+ var costI=igst*i*di/365+left*i*dl/365,costL=itc*i*dl/365;
+ $('luSummary').textContent=r(val)+' exports a month at '+rate+'% IGST';
+ kv($('luL'),[['IGST paid','Nil'],['Credit waiting for refund',r(itc)],['Waiting time',Math.round(dl)+' days'],['Cost of money each month',r(costL),1],['Cost each year',r(costL*12)]]);
+ var rowsI=[['IGST on the export',r(igst)],['Paid from input tax credit',r(used)],['Extra cash paid each month',r(cash)],['IGST refund due',r(igst)+' after '+Math.round(di)+' days']];
+ if(left>0)rowsI.push(['Credit left over, refunded later',r(left)]);
+ rowsI.push(['Cost of money each month',r(costI),1],['Cost each year',r(costI*12)]);
+ kv($('luI'),rowsI);
+ var diff=Math.abs(costL-costI),lut=costL<=costI;
+ if(!val){$('luHeroK').textContent='Lower cost each month';$('luHero').textContent='-';$('luHeroS').textContent='Enter your monthly export value';}
+ else if(diff<1){$('luHeroK').textContent='Both routes';$('luHero').textContent='About the same';$('luHeroS').textContent='Choose on cash available and paperwork';}
+ else{$('luHeroK').textContent='Lower cost each month';$('luHero').textContent=lut?'LUT':'Paying IGST';$('luHeroS').textContent='Saves about '+r(diff)+' a month, '+r(diff*12)+' a year'+(!lut&&cash>0?'  ·  needs '+r(cash)+' extra cash a month':'');}
+ try{var o={};F.forEach(function(k){o[k]=$(k).value});localStorage.setItem(KEY,JSON.stringify(o))}catch(err){}
+ if(!sent&&window.gtag&&val){sent=true;gtag('event','tool_use',{tool:'lut_vs_igst_calculator',action:'calculate'})}
+}
+try{var s=JSON.parse(localStorage.getItem(KEY)||'null');if(s)F.forEach(function(k){if(s[k]!=null)$(k).value=s[k]})}catch(err){}
+$('luForm').addEventListener('input',calc);$('luForm').addEventListener('change',calc);
+$('luReset').onclick=function(){F.forEach(function(k){$(k).value=DEF[k]});try{localStorage.removeItem(KEY)}catch(err){}calc()};
+calc();
+})();
+</script>
+
+
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-name">Buy<span>genix</span> Solutions</a>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p>
+      <ul class="footer-contact">
+        <li><a href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="18" height="18">WhatsApp +91 87967 87594</a></li>
+        <li><a href="tel:+918796787594"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call +91 87967 87594</a></li>
+        <li><a href="mailto:Info@buygenixsolutions.com"><img src="assets/icons/gmail.svg" alt="" width="18" height="18">Info@buygenixsolutions.com</a></li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delhi, India</li>
+      </ul>
+      <div class="footer-social"><a href="https://www.instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://www.facebook.com/profile.php?id=61589380079379" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/services">Services</a></li><li><a href="/membership">Membership Plans</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/export-buyer-leads">Buyer Leads</a></li><li><a href="/services#catalogue">Digital Catalogue</a></li><li><a href="/services#seo">SEO &amp; SMO</a></li><li><a href="/services#vcard">Virtual Business Card</a></li><li><a href="/registration">Registrations</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/buyers">Buyers by Category</a></li><li><a href="/blog">Blog</a></li><li><a href="/export-tools">Free Export Tools</a></li><li><a href="/faq">FAQ</a></li><li><a href="/login">Client Login</a></li><li><a href="/contact">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BuyGenix Solutions. All rights reserved.</p>
+    <nav aria-label="Legal"><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a></nav>
+  </div>
+</footer>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js?v=20260929a"></script>
+</body>
+</html>
