@@ -226,3 +226,9 @@
 .th-card .th-img{display:block;margin:-24px -24px 18px;aspect-ratio:16/9;background:#EEF3FC;overflow:hidden;}
 .th-card .th-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s;}
 .th-card:hover .th-img img{transform:scale(1.03);}
+
+/* Help box under each tool's result: WhatsApp and the matching service */
+.tl-help{margin-top:16px;border:1px solid var(--lp-line);border-radius:14px;background:#fff;padding:18px 20px;}
+.tl-help h3{font-size:15px;font-weight:500;color:var(--lp-ink);margin:0 0 6px;}
+.tl-help p{font-size:13px;line-height:1.6;color:var(--lp-mid);margin:0 0 14px;}
+.tl-help-row{display:flex;flex-wrap:wrap;gap:10px;}
