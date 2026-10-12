@@ -40,6 +40,7 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [AI-Powered Export Services](https://www.buygenixsolutions.com/ai-powered-export-services): 35 services. AI-assisted export services: buyer and market research, quotation and contract drafting, export document checks and buyer lead qualification.
 - [International Filings & Registrations](https://www.buygenixsolutions.com/international-filings-registrations): 15 services. International filings for exporters: US FDA registration and Prior Notice, D-U-N-S, US LLC and EIN, UK company, UK and EU EORI, REX, GS1, halal, Amazon Global Selling and ECGC.
 - [Monthly & Recurring Compliance](https://www.buygenixsolutions.com/monthly-recurring-compliance-support): 15 services. Monthly compliance support for exporters: GST filing, export documentation support, RCMC, licence, DSC and FSSAI expiry tracking, and DGFT notification monitoring.
+- [Custom ERP development](https://www.buygenixsolutions.com/custom-erp-software-development): ERP software built around an exporter or MSME's own process; price on request
 
 ## Buyer requirements by category
 - [Agriculture buyers](https://www.buygenixsolutions.com/buyers/agriculture): spices, grains, fruits, vegetables, dry fruits
