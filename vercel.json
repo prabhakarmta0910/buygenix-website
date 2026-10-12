@@ -33,6 +33,16 @@
   ],
   "redirects": [
     { "source": "/gst", "destination": "/gst-services", "permanent": true },
+    { "source": "/export-business-kaise-shuru-kare", "destination": "/how-to-start-export-business-in-india-step-by-step", "permanent": true },
+    { "source": "/iec-code-kaise-banaye", "destination": "/iec-code-registration-guide-india", "permanent": true },
+    { "source": "/gst-lut-kya-hai", "destination": "/gst-lut-filing-guide", "permanent": true },
+    { "source": "/rcmc-kya-hai", "destination": "/rcmc-registration-guide-india", "permanent": true },
+    { "source": "/export-buyer-kaise-dhunde", "destination": "/finding-verified-buyers-for-export-business", "permanent": true },
+    { "source": "/fake-export-buyer-se-kaise-bache", "destination": "/how-to-identify-fake-export-buyers-and-avoid-scams", "permanent": true },
+    { "source": "/fob-cif-price-kaise-nikale", "destination": "/export-pricing-how-to-calculate-fob-and-cif-price", "permanent": true },
+    { "source": "/export-documents-list-hindi", "destination": "/export-documents-checklist-india", "permanent": true },
+    { "source": "/incoterms-hindi", "destination": "/incoterms-2020-explained-for-indian-exporters", "permanent": true },
+    { "source": "/letter-of-credit-kya-hai", "destination": "/letter-of-credit-documentation-guide", "permanent": true },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "buygenixsolution.vercel.app" }],
