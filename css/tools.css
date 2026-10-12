@@ -220,3 +220,9 @@
 .tl-content h2{font-weight:600;}
 .tl-content h3,.tl-content th,.tl-content summary,.tl-content b,.tl-content strong{font-weight:500;}
 .pc-kv > div.tot,#pcBreak > div.tot,.pc-table td:first-child b,.pc-table th,.tl-items th{font-weight:500;}
+
+/* Hub cards with a photo on top */
+.th-card{overflow:hidden;}
+.th-card .th-img{display:block;margin:-24px -24px 18px;aspect-ratio:16/9;background:#EEF3FC;overflow:hidden;}
+.th-card .th-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s;}
+.th-card:hover .th-img img{transform:scale(1.03);}
