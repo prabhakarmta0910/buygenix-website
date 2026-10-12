@@ -211,3 +211,12 @@
 .pc-foot{padding:12px 22px 16px;margin:0;border-top:1px solid var(--lp-line);}
 @media (max-width:640px){.pc-sub,.pc-foot{padding-left:14px;padding-right:14px;}}
 @media (max-width:640px){.tl-content table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;font-size:13px;}.tl-content th,.tl-content td{padding:8px 10px;}}
+
+/* Calmer type: medium weights instead of heavy bold (the invoice paper keeps its own weights) */
+.tl-hero h1{font-weight:600;letter-spacing:-.01em;}
+.tl-badges span,.tl-add,.th-card .go,.th-card .k,.pc-hero .k,.pc-sub,.tl-group > b,.tl-pre,.tl-suf{font-weight:500;}
+.tl-panel h2,.pc-res-h b,.tl-more b,.th-card h2,.tl-cta h2,.pc-rows .l b,.pc-rows .r b,.pc-break b{font-weight:500;}
+.pc-hero strong{font-weight:600;}
+.tl-content h2{font-weight:600;}
+.tl-content h3,.tl-content th,.tl-content summary,.tl-content b,.tl-content strong{font-weight:500;}
+.pc-kv > div.tot,#pcBreak > div.tot,.pc-table td:first-child b,.pc-table th,.tl-items th{font-weight:500;}
