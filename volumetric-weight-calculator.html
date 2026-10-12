@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JSBLXX38E9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JSBLXX38E9');
+</script>
+<title>Volumetric Weight Calculator for Courier and Air Freight</title>
+<meta name="description" content="Free volumetric weight calculator: chargeable weight for courier (5,000) and air cargo (6,000) divisors, several box sizes, in cm and kg or inches and pounds.">
+<link rel="canonical" href="https://www.buygenixsolutions.com/volumetric-weight-calculator">
+<meta property="og:title" content="Volumetric Weight Calculator for Courier and Air Freight">
+<meta property="og:description" content="Free volumetric weight calculator: chargeable weight for courier (5,000) and air cargo (6,000) divisors, several box sizes, in cm and kg or inches and pounds.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.buygenixsolutions.com/volumetric-weight-calculator">
+<meta property="og:image" content="https://www.buygenixsolutions.com/assets/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="BuyGenix Solutions">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/shared.css?v=20260927g">
+<link rel="stylesheet" href="css/lp.css?v=20261006b">
+<link rel="stylesheet" href="css/tools.css?v=20261009a">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://www.buygenixsolutions.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Free export tools",
+     "item": "https://www.buygenixsolutions.com/export-tools"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Volumetric weight calculator",
+     "item": "https://www.buygenixsolutions.com/volumetric-weight-calculator"
+    }
+   ]
+  },
+  {
+   "@type": "WebApplication",
+   "name": "Volumetric Weight Calculator",
+   "url": "https://www.buygenixsolutions.com/volumetric-weight-calculator",
+   "description": "Free calculator for volumetric and chargeable weight for courier and air freight.",
+   "applicationCategory": "BusinessApplication",
+   "operatingSystem": "Any",
+   "isAccessibleForFree": true,
+   "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "BuyGenix Solutions",
+    "url": "https://www.buygenixsolutions.com"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "How is volumetric weight calculated?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Multiply the length, width and height of the box in centimetres and divide by the carrier's divisor. Express couriers commonly use 5,000 and air cargo commonly uses 6,000. The result is the volumetric weight in kilograms."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is chargeable weight?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Chargeable weight is the weight you are billed for: the higher of the actual gross weight and the volumetric weight. Light but bulky boxes are charged on volume, and small heavy boxes are charged on actual weight."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why do couriers use 5,000 and air cargo 6,000?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "They are industry conventions. A divisor of 6,000 equals 167 kg per CBM, the standard ratio for general air cargo. Many express couriers use 5,000, which equals 200 kg per CBM and makes bulky parcels more expensive. Always check the divisor in your carrier's rate card."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I reduce volumetric weight?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Use the smallest box that protects the goods, avoid empty space and oversized fillers, combine small items into one well-packed carton where possible, and compare carriers that use a larger divisor."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How do I calculate volumetric weight in inches and pounds?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Multiply length, width and height in inches and divide by 139 for most express couriers, or by 166 for air cargo. The result is in pounds. This calculator converts inches and pounds for you."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+<style>.tl-app .pc-hero strong{font-weight:600;}.tl-app .tl-panel h2,.tl-app .pc-res-h b,.tl-app .pc-rows b,.tl-app .tl-group>b{font-weight:500;}.vw-box .lp-btn.vw-del{margin-top:2px;}.vw-box .lp-btn.vw-del[hidden]{display:none;}</style>
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<nav class="navbar" id="navbar">
+  <a href="/" class="nav-logo">
+    <img src="assets/logo-header.png" alt="BuyGenix Solutions" width="106" height="38">
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-search">
+    <button class="nav-search-dropdown" id="navSearchDrop" type="button">
+      <span id="navSearchLabel">Products / Services</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="nav-search-menu" id="navSearchMenu">
+      <a href="#" class="active" data-val="Products / Services">Products / Services</a>
+      <a href="#" data-val="Companies">Companies</a>
+      <a href="#" data-val="Buy &amp; Leads">Buy &amp; Leads</a>
+    </div>
+    <input class="nav-search-input" type="text" placeholder="Search Product..." id="navSearchInput" autocomplete="off">
+    <button class="nav-search-btn" type="button">Search</button>
+  </div>
+  <div class="nav-links"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a>
+    <a href="/contact">Contact</a><a href="/membership" class="nav-cta-outline">Membership Plans</a><a href="/login" class="nav-cta-solid">Client Login →</a></div>
+  <button class="nav-burger" id="navBurger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-nav" id="mobileNav"><a href="/">Home</a><a href="/services">Services</a><a href="/about">About Us</a><a href="/registration">Registration</a><a href="/contact">Contact</a><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a><a href="/membership" class="m-cta">Membership Plans →</a><a href="/login" class="m-cta m-cta-gold">Client Login →</a></div>
+
+
+<main class="lp">
+<section class="tl-hero"><div class="lp-wrap">
+<nav class="lp-crumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/export-tools">Free export tools</a><span>/</span>Volumetric weight calculator</nav>
+<h1>Volumetric weight calculator</h1>
+<p class="lp-lead">Work out the volumetric weight and chargeable weight of your boxes for courier and air freight. Add several box sizes and compare the 5,000 courier divisor, the 6,000 air cargo divisor or your carrier's own divisor.</p>
+<div class="tl-badges"><span>Free, no sign-up</span><span>Courier and air cargo</span><span>cm and kg, or inches and pounds</span></div>
+</div></section>
+
+<section class="tl-app"><div class="lp-wrap tl-grid">
+<form class="tl-panel" id="vwForm" onsubmit="return false">
+<h2>Your boxes</h2>
+<p class="tl-hint">Measure the outside of each box, including any bulge in the packing.</p>
+<div class="tl-row"><div class="tl-f"><label for="vUnit">Units</label><select id="vUnit"><option value="metric">cm and kg</option><option value="imperial">inches and lb</option></select></div>
+<div class="tl-f"><label for="vDiv">Your carrier's divisor</label><input id="vDiv" type="number" min="1000" step="1" value="5000"><small>Used in the third row of results</small></div></div>
+<div id="vRows"></div>
+<button type="button" class="tl-add" id="vAdd">+ Add another box size</button>
+<div class="tl-actions"><button type="button" class="lp-btn out tl-sm" id="vReset">Reset example</button></div>
+</form>
+
+<div class="tl-sticky"><div class="pc-res">
+<div class="pc-res-h"><b>Your shipment</b><p id="vSummary"></p></div>
+<div class="pc-hero"><span class="k">Courier chargeable weight</span><strong id="vHero"></strong><span class="s" id="vHeroS"></span></div>
+<div class="pc-break" style="border-top:0"><b>Shipment totals</b><div id="vTotals" class="pc-kv"></div></div>
+<div class="pc-sub">Chargeable weight by divisor</div>
+<ul class="pc-rows" id="vBody"></ul>
+<p class="tl-note pc-foot">Couriers usually round up to the next 0.5 kg, and some charge each box separately. Check your carrier's rate card for its divisor and rounding rules.</p>
+</div></div>
+</div></section>
+
+<section class="tl-content"><div class="lp-wrap lp-narrow">
+<h2>The volumetric weight formula</h2>
+<p><b>Volumetric weight (kg) = length x width x height (cm) / divisor.</b> Carriers then charge the <b>chargeable weight</b>, which is the higher of the actual weight and the volumetric weight. For example, a 60 x 50 x 50 cm box weighing 12 kg has a volumetric weight of 30 kg at a 5,000 divisor and 25 kg at 6,000, so you pay for 30 kg by courier and 25 kg as air cargo, not 12 kg.</p>
+<table><tr><th>Divisor</th><th>Used by</th><th>Equals</th><th>In inches and pounds</th></tr>
+<tr><td>5,000</td><td>Most express couriers</td><td>200 kg per CBM</td><td>divide cubic inches by 139</td></tr>
+<tr><td>6,000</td><td>General air cargo</td><td>167 kg per CBM</td><td>divide cubic inches by 166</td></tr>
+<tr><td>4,000</td><td>Some road and postal services</td><td>250 kg per CBM</td><td>check with the carrier</td></tr></table>
+<p>For sea freight, LCL is charged per CBM or per tonne, whichever is higher. Use the <a href="/cbm-calculator">CBM and container load calculator</a> for sea shipments, and read <a href="/air-freight-vs-sea-freight-for-exporters">air freight vs sea freight</a> to choose the right mode.</p>
+<h2>Frequently asked questions</h2>
+<details><summary>How is volumetric weight calculated?</summary><p>Multiply the length, width and height of the box in centimetres and divide by the carrier&#x27;s divisor. Express couriers commonly use 5,000 and air cargo commonly uses 6,000. The result is the volumetric weight in kilograms.</p></details><details><summary>What is chargeable weight?</summary><p>Chargeable weight is the weight you are billed for: the higher of the actual gross weight and the volumetric weight. Light but bulky boxes are charged on volume, and small heavy boxes are charged on actual weight.</p></details><details><summary>Why do couriers use 5,000 and air cargo 6,000?</summary><p>They are industry conventions. A divisor of 6,000 equals 167 kg per CBM, the standard ratio for general air cargo. Many express couriers use 5,000, which equals 200 kg per CBM and makes bulky parcels more expensive. Always check the divisor in your carrier&#x27;s rate card.</p></details><details><summary>How do I reduce volumetric weight?</summary><p>Use the smallest box that protects the goods, avoid empty space and oversized fillers, combine small items into one well-packed carton where possible, and compare carriers that use a larger divisor.</p></details><details><summary>How do I calculate volumetric weight in inches and pounds?</summary><p>Multiply length, width and height in inches and divide by 139 for most express couriers, or by 166 for air cargo. The result is in pounds. This calculator converts inches and pounds for you.</p></details>
+<div class="tl-cta"><div><h2>Have a quotation ready? Find a buyer for it.</h2><p>Browse live requirements from importers by product and country. Product, quantity and location are free to see.</p></div>
+<div class="lp-cta-row"><a href="/buyers/countries" class="lp-btn gold">Browse buyer requirements</a><a href="/membership" class="lp-btn ghost">View plans</a></div></div>
+<h2>More free export tools</h2><div class="tl-more"><a href="/export-readiness-check"><b>Export readiness check</b><span>See which registrations you have, what is missing and what to do before your first shipment.</span></a><a href="/cbm-calculator"><b>CBM and container load calculator</b><span>Total CBM and weight, and cartons per 20 ft, 40 ft and 40 ft high cube container.</span></a><a href="/proforma-invoice-generator"><b>Proforma invoice generator</b><span>Make an export proforma invoice with Incoterm, ports, HS codes and bank details, then save it as a PDF.</span></a></div>
+</div></section>
+</main>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)},KEY='bgx_volweight_v1',rows=$('vRows');
+var DEF={u:'metric',d:5000,r:[[60,50,50,12,2],[40,30,30,6,3]]};
+function f(v,d){return v.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d})}
+function num(x){var v=parseFloat(x);return isFinite(v)&&v>0?v:0}
+function row(vals,i){var g=document.createElement('div');g.className='tl-group vw-box';
+ var im=$('vUnit').value==='imperial',lu=im?'in':'cm',wu=im?'lb':'kg';
+ g.innerHTML='<b>Box size <span class="vw-n"></span></b><div class="tl-row three"><div class="tl-f"><label>Length ('+lu+')</label><input type="number" min="0" step="any" data-k="0"></div><div class="tl-f"><label>Width ('+lu+')</label><input type="number" min="0" step="any" data-k="1"></div><div class="tl-f"><label>Height ('+lu+')</label><input type="number" min="0" step="any" data-k="2"></div></div><div class="tl-row"><div class="tl-f"><label>Actual weight per box ('+wu+')</label><input type="number" min="0" step="any" data-k="3"></div><div class="tl-f"><label>Number of boxes</label><input type="number" min="0" step="1" data-k="4"></div></div><button type="button" class="lp-btn out tl-sm vw-del">Remove this box size</button>';
+ g.querySelectorAll('input').forEach(function(inp){var k=+inp.getAttribute('data-k');inp.value=vals[k]!=null?vals[k]:'';var id='v'+i+'_'+k;inp.id=id;inp.previousElementSibling.setAttribute('for',id)});
+ g.querySelector('.vw-del').onclick=function(){g.remove();number();calc()};rows.appendChild(g)}
+function number(){var b=rows.querySelectorAll('.vw-box');b.forEach(function(g,i){g.querySelector('.vw-n').textContent=b.length>1?(i+1):'';g.querySelector('.vw-del').hidden=b.length<2})}
+function read(){return Array.prototype.map.call(rows.querySelectorAll('.vw-box'),function(g){return Array.prototype.map.call(g.querySelectorAll('input'),function(i){return i.value})})}
+function build(d){rows.textContent='';$('vUnit').value=d.u;$('vDiv').value=d.d;d.r.forEach(function(r,i){row(r,i)});number()}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var sent=false,uid=10;
+function calc(){
+ var im=$('vUnit').value==='imperial',L=im?2.54:1,W=im?0.45359237:1,cust=num($('vDiv').value)||5000;
+ var data=read(),boxes=0,actual=0,cm3=0,per={5000:0,6000:0},perC=0;
+ data.forEach(function(r){var l=num(r[0])*L,w=num(r[1])*L,h=num(r[2])*L,kg=num(r[3])*W,n=Math.floor(num(r[4]));
+  boxes+=n;actual+=kg*n;cm3+=l*w*h*n});
+ var vol=function(d){return cm3/d},disp=function(kg){return im?f(kg/W,1)+' lb':f(kg,1)+' kg'},up=function(kg){return Math.ceil(kg*2-1e-9)/2};
+ var cour=Math.max(actual,vol(5000));
+ $('vSummary').textContent=f(boxes,0)+(boxes===1?' box':' boxes')+' in '+data.length+(data.length===1?' size':' sizes');
+ $('vHero').textContent=im?f(up(cour)/W,1)+' lb':f(up(cour),1)+' kg';
+ $('vHeroS').textContent=(vol(5000)>actual?'Charged on volume':'Charged on actual weight')+'  ·  divisor 5,000, rounded up to 0.5 kg';
+ var t=$('vTotals');t.textContent='';
+ [['Total actual weight',disp(actual)],['Total volume',f(cm3/1e6,3)+' CBM'],['Volumetric weight at 5,000',disp(vol(5000))]].forEach(function(r){var d=el('div');d.appendChild(el('span','',r[0]));d.appendChild(el('span','',r[1]));t.appendChild(d)});
+ var b=$('vBody');b.textContent='';
+ [['Express courier','5,000',5000],['Air cargo','6,000',6000],['Your carrier',f(cust,0),cust]].forEach(function(r,i){var v=vol(r[2]),c=Math.max(actual,v);
+  var li=el('li',i===0?'hl':''),A=el('div','l'),B=el('div','r');A.appendChild(el('b','',r[0]));A.appendChild(el('span','','Divisor '+r[1]+', volumetric '+disp(v)));
+  B.appendChild(el('b','',disp(c)));B.appendChild(el('span','',v>actual?'on volume':'on weight'));li.appendChild(A);li.appendChild(B);b.appendChild(li)});
+ try{localStorage.setItem(KEY,JSON.stringify({u:$('vUnit').value,d:$('vDiv').value,r:data}))}catch(e){}
+ if(!sent&&window.gtag&&boxes){sent=true;gtag('event','tool_use',{tool:'volumetric_weight_calculator',action:'calculate'})}
+}
+var saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+build(saved&&saved.r&&saved.r.length?saved:DEF);lastU=$('vUnit').value;
+$('vwForm').addEventListener('input',calc);
+var lastU='metric';
+$('vUnit').addEventListener('change',function(){var nu=$('vUnit').value,toIm=nu==='imperial',d=read();if(nu!==lastU){d=d.map(function(r){return r.map(function(x,k){var v=parseFloat(x);if(!isFinite(v)||k===4)return x;var m=k<3?2.54:0.45359237;return String(toIm?Math.round(v/m*100)/100:Math.round(v*m*10)/10)})})}lastU=nu;rows.textContent='';d.forEach(function(r,i){row(r,i)});number();calc()});
+$('vAdd').onclick=function(){row(['','','','',1],uid++);number();calc();var g=rows.lastElementChild;g.querySelector('input').focus()};
+$('vReset').onclick=function(){try{localStorage.removeItem(KEY)}catch(e){}build(DEF);lastU='metric';calc()};
+calc();
+})();
+</script>
+
+
+<a href="https://wa.me/918796787594" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><img src="assets/icons/whatsapp-white.svg" alt="" width="30" height="30"></a>
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo-name">Buy<span>genix</span> Solutions</a>
+      <p>India's growing B2B platform connecting exporters with verified buyers across 50+ countries. Your export journey starts here.</p>
+      <ul class="footer-contact">
+        <li><a href="https://wa.me/918796787594" target="_blank" rel="noopener"><img src="assets/icons/whatsapp.svg" alt="" width="18" height="18">WhatsApp +91 87967 87594</a></li>
+        <li><a href="tel:+918796787594"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call +91 87967 87594</a></li>
+        <li><a href="mailto:Info@buygenixsolutions.com"><img src="assets/icons/gmail.svg" alt="" width="18" height="18">Info@buygenixsolutions.com</a></li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Delhi, India</li>
+      </ul>
+      <div class="footer-social"><a href="https://www.instagram.com/buygenixsolutions" target="_blank" rel="noopener" aria-label="Instagram"><img src="assets/icons/instagram.svg" alt="Instagram" width="20" height="20"></a><a href="https://www.facebook.com/profile.php?id=61589380079379" target="_blank" rel="noopener" aria-label="Facebook"><img src="assets/icons/facebook.svg" alt="Facebook" width="20" height="20"></a><a href="https://wa.me/918796787594" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="assets/icons/whatsapp.svg" alt="WhatsApp" width="20" height="20"></a><a href="mailto:Info@buygenixsolutions.com" aria-label="Email"><img src="assets/icons/gmail.svg" alt="Email" width="20" height="20"></a></div>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/">Home</a></li><li><a href="/about">About Us</a></li><li><a href="/services">Services</a></li><li><a href="/membership">Membership Plans</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/export-buyer-leads">Buyer Leads</a></li><li><a href="/services#catalogue">Digital Catalogue</a></li><li><a href="/services#seo">SEO &amp; SMO</a></li><li><a href="/services#vcard">Virtual Business Card</a></li><li><a href="/registration">Registrations</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/buyers">Buyers by Category</a></li><li><a href="/blog">Blog</a></li><li><a href="/export-tools">Free Export Tools</a></li><li><a href="/faq">FAQ</a></li><li><a href="/login">Client Login</a></li><li><a href="/contact">Get Support</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 BuyGenix Solutions. All rights reserved.</p>
+    <nav aria-label="Legal"><a href="/terms">Terms &amp; Conditions</a><a href="/privacy">Privacy Policy</a></nav>
+  </div>
+</footer>
+
+<script src="js/bgx-data.js"></script>
+<script src="js/shared.js?v=20260929a"></script>
+</body>
+</html>

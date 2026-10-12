@@ -15,6 +15,8 @@ Buyer contact details are shared only with paying members. Overseas and domestic
 - [Proforma invoice generator](https://www.buygenixsolutions.com/proforma-invoice-generator): make an export proforma invoice with optional logo, HS codes, Incoterm, ports, payment terms and bank details, and save it as a PDF
 - [Export price calculator](https://www.buygenixsolutions.com/export-price-calculator): EXW, FOB, CFR and CIF price per unit from product cost, packing, port charges, freight, insurance and margin
 - [CBM and container load calculator](https://www.buygenixsolutions.com/cbm-calculator): total CBM and weight, cartons per 20 ft, 40 ft and 40 ft high cube container, and air and LCL chargeable weight
+- [Volumetric weight calculator](https://www.buygenixsolutions.com/volumetric-weight-calculator): courier (5,000) and air cargo (6,000) chargeable weight for several box sizes
+- [Export readiness check](https://www.buygenixsolutions.com/export-readiness-check): checklist of the registrations an Indian business needs before its first export
 - [Services](https://www.buygenixsolutions.com/services): buyer leads, digital catalogue, SEO and registrations
 - [Export registrations](https://www.buygenixsolutions.com/registration): IEC, GST, APEDA, FSSAI, RCMC, Spices Board and other registrations
 
