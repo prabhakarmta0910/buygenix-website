@@ -1,0 +1,238 @@
+/* Proforma invoice: shared parts and 10 templates. Template 1 (Classic) is the base look from tools.css.
+   Each template restyles #invoice.tpl-N; the data is the same in every design. */
+#invoice{display:flex;flex-direction:column;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+#invoice .inv-table td,#invoice .inv-table th{font-variant-numeric:tabular-nums;}
+#invoice .inv-brand img[hidden]{display:none !important;}
+
+/* Parts added for legal and accounting details */
+#invoice .inv-terms{grid-template-columns:repeat(3,minmax(0,1fr));}
+#invoice .inv-more{margin-top:4px !important;color:#475569;font-size:11px;}
+#invoice .inv-words{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;justify-content:flex-end;margin:8px 0 0;font-size:11px;}
+#invoice .inv-words b{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#64748B;}
+#invoice .inv-words span{font-style:italic;color:#0B1929;}
+#invoice .inv-tax{margin-top:10px;font-size:11px;color:#0B1929;padding:7px 10px;border:1px dashed #CBD5E1;border-radius:6px;}
+#invoice [hidden]{display:none !important;}
+#invoice .inv-sign .inv-seal{margin:12px 0 0 auto;width:80px;height:80px;border:1px dashed #CBD5E1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:#94A3B8;}
+#invoice .inv-sign .ln{margin-top:10px;}
+#invoice .inv-legal{margin-top:16px;padding-top:12px;border-top:1px solid #E2E8F0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px 18px;font-size:10.5px;color:#334155;}
+#invoice .inv-legal b{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#64748B;margin-bottom:5px;}
+#invoice .inv-legal ol{margin:0;padding-left:16px;}
+#invoice .inv-legal li{margin:0 0 3px;line-height:1.45;}
+#invoice .inv-legal p{margin:0;line-height:1.5;}
+#invoice .inv-fine{grid-column:1/-1;font-size:9.5px;color:#64748B;}
+.pf-chk{display:flex;gap:9px;align-items:center;font-size:13.5px;color:#334155;margin:4px 0 6px;cursor:pointer;}
+.pf-chk input{width:16px;height:16px;accent-color:#2563EB;}
+
+/* Template picker */
+.pt-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;}
+.pt-opt{position:relative;display:flex;flex-direction:column;gap:6px;padding:7px 7px 8px;border:1px solid #D7DFEA;border-radius:10px;background:#fff;cursor:pointer;font:inherit;text-align:left;transition:border-color .15s,box-shadow .15s;}
+.pt-opt:hover{border-color:#94A3B8;}
+.pt-opt[aria-pressed="true"]{border-color:#2563EB;box-shadow:0 0 0 2px rgba(37,99,235,.18);}
+.pt-opt b{font-size:11.5px;font-weight:500;color:#0B1929;line-height:1.2;}
+.pt-opt small{font-size:10px;color:#64748B;line-height:1.2;}
+.pt-mini{height:46px;border-radius:6px;border:1px solid #E2E8F0;background:#fff;overflow:hidden;display:flex;flex-direction:column;gap:3px;padding:5px;}
+.pt-mini i{display:block;height:4px;border-radius:2px;background:#CBD5E1;}
+.pt-mini i.h{height:7px;width:60%;}
+.pt-mini i.s{width:85%;}
+.pt-mini i.t{height:5px;}
+@media (max-width:1100px){.pt-grid{grid-template-columns:repeat(4,minmax(0,1fr));}}
+@media (max-width:640px){.pt-grid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.pt-m2{padding:0;}.pt-m2 i.h{height:12px;width:100%;border-radius:0;background:#0B1929;}.pt-m2 i.s,.pt-m2 i.t{margin:0 5px;}.pt-m2 i.t{background:#0B1929;}
+.pt-m3 i.h{background:#B8860B;margin:0 auto;width:50%;height:5px;}.pt-m3 i.t{background:none;border-top:1px solid #1E293B;border-bottom:1px solid #1E293B;}
+.pt-m4 i{background:#111;}.pt-m4 i.s{background:#9CA3AF;width:50%;}.pt-m4 i.t{background:none;border-top:1px solid #111;}
+.pt-m5{background:#F6F8FB;}.pt-m5 i{background:#C7D2FE;}.pt-m5 i.h{background:#4F46E5;}
+.pt-m6{border-left:5px solid #0F766E;}.pt-m6 i.h{background:#0F766E;width:80%;height:9px;}.pt-m6 i.t{background:#0F766E;}
+.pt-m7 i.h{background:#7F1D1D;margin:0 auto;width:55%;}.pt-m7 i.s{margin:0 auto;width:40%;}.pt-m7 i.t{background:none;border-bottom:1px solid #7F1D1D;}
+.pt-m8{border-top:4px solid #111;}.pt-m8 i.h{background:#111;width:75%;height:9px;}.pt-m8 i.s{background:#DC2626;width:30%;}
+.pt-m9{border:1.5px solid #334155;padding:3px;}.pt-m9 i{border-radius:0;background:#E2E8F0;border:1px solid #94A3B8;}.pt-m9 i.h{background:#fff;}
+.pt-m10 i.h{background:#047857;}.pt-m10 i.t{background:#D1FAE5;}.pt-m10 i.s{background:#A7F3D0;}
+
+/* ---------- 2. Corporate: navy band, labelled boxes, two-column legal ---------- */
+#invoice.tpl-2{font-family:'IBM Plex Sans',Inter,system-ui,sans-serif;}
+#invoice.tpl-2 .inv-top{background:#0B1929;color:#E2E8F0;margin:-30px -30px 18px;padding:18px 30px;border-bottom:4px solid #2563EB;align-items:center;border-radius:12px 12px 0 0;}
+#invoice.tpl-2 .inv-brand img{background:#fff;padding:5px 8px;border-radius:6px;}
+#invoice.tpl-2 .inv-meta b{color:#fff;}
+#invoice.tpl-2 .inv-title{text-align:left;}
+#invoice.tpl-2 .inv-title h3{font-weight:600;font-size:20px;letter-spacing:.06em;color:#1D4ED8;}
+#invoice.tpl-2 .inv-parties{gap:0;border:1px solid #CBD5E1;}
+#invoice.tpl-2 .inv-parties>div{padding:0 0 10px;}
+#invoice.tpl-2 .inv-parties>div+div{border-left:1px solid #CBD5E1;}
+#invoice.tpl-2 .inv-parties b{background:#F1F5F9;color:#0B1929;padding:6px 12px;margin-bottom:8px;}
+#invoice.tpl-2 .inv-parties p{padding:0 12px;}
+#invoice.tpl-2 .inv-terms{background:#F8FAFC;border-color:#CBD5E1;border-radius:0;}
+#invoice.tpl-2 .inv-table th{background:#0B1929;color:#fff;}
+#invoice.tpl-2 .inv-sum .tot{background:#EFF6FF;border-top:2px solid #1D4ED8;color:#1E3A8A;}
+#invoice.tpl-2 .inv-words{justify-content:flex-start;background:#F8FAFC;border:1px solid #E2E8F0;padding:7px 10px;}
+#invoice.tpl-2 .inv-legal{border-top:0;grid-template-columns:1fr 1fr;}
+#invoice.tpl-2 .inv-legal>div{border-left:3px solid #1D4ED8;padding-left:10px;}
+@media print{#invoice.tpl-2 .inv-top{margin:0 0 18px;border-radius:0;}}
+
+/* ---------- 3. Executive: centred serif, gold rules, signature on the left ---------- */
+#invoice.tpl-3{font-family:'Source Sans 3',Inter,system-ui,sans-serif;font-size:12.5px;color:#1F2937;}
+#invoice.tpl-3 .inv-top{border-bottom:1px solid #B8860B;}
+#invoice.tpl-3 .inv-title{padding:6px 0 10px;border-bottom:1px solid #E5E0D0;}
+#invoice.tpl-3 .inv-title h3{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:21px;letter-spacing:.16em;color:#1F2937;}
+#invoice.tpl-3 .inv-title .nm{font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-style:italic;color:#6B5B2E;}
+#invoice.tpl-3 .inv-parties{gap:0;}
+#invoice.tpl-3 .inv-parties>div+div{border-left:1px solid #B8860B;padding-left:16px;}
+#invoice.tpl-3 .inv-parties b,#invoice.tpl-3 .inv-terms b,#invoice.tpl-3 .inv-foot b,#invoice.tpl-3 .inv-legal b,#invoice.tpl-3 .inv-words b{color:#8A7440;letter-spacing:.12em;}
+#invoice.tpl-3 .inv-terms{border:0;border-top:1px solid #E5E0D0;border-bottom:1px solid #E5E0D0;border-radius:0;padding:10px 0;grid-template-columns:repeat(4,minmax(0,1fr));}
+#invoice.tpl-3 .inv-table th{background:none;color:#1F2937;border-top:1px solid #1F2937;border-bottom:1px solid #1F2937;font-weight:600;}
+#invoice.tpl-3 .inv-table td{border-bottom:1px dotted #CBBF9F;}
+#invoice.tpl-3 .inv-sum .tot{border-top:3px double #B8860B;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;font-variant-numeric:lining-nums tabular-nums;}
+#invoice.tpl-3 .inv-words{justify-content:center;font-family:'Libre Baskerville',Georgia,serif;}
+#invoice.tpl-3 .inv-tax{border-style:solid;border-color:#E5E0D0;text-align:center;}
+#invoice.tpl-3 .inv-foot{direction:rtl;}
+#invoice.tpl-3 .inv-foot>*{direction:ltr;}
+#invoice.tpl-3 .inv-sign{text-align:left;}
+#invoice.tpl-3 .inv-sign .inv-seal{margin-left:0;border-color:#CBBF9F;}
+#invoice.tpl-3 .inv-legal{border-top:1px solid #B8860B;}
+
+/* ---------- 4. Minimal: one column, labels on the left, mono numbers ---------- */
+#invoice.tpl-4{font-family:'IBM Plex Sans',Inter,system-ui,sans-serif;color:#111;}
+#invoice.tpl-4 .inv-top{border-bottom:1px solid #111;}
+#invoice.tpl-4 .inv-meta,#invoice.tpl-4 .inv-table .r,#invoice.tpl-4 .inv-sum{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;}
+#invoice.tpl-4 .inv-title{text-align:left;}
+#invoice.tpl-4 .inv-title h3{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:16px;letter-spacing:.2em;color:#111;}
+#invoice.tpl-4 .inv-parties{grid-template-columns:1fr;gap:8px;}
+#invoice.tpl-4 .inv-parties>div{display:grid;grid-template-columns:110px minmax(0,1fr);column-gap:12px;}
+#invoice.tpl-4 .inv-parties>div>b{grid-row:1 / span 4;}
+#invoice.tpl-4 .inv-parties b,#invoice.tpl-4 .inv-terms b,#invoice.tpl-4 .inv-foot b,#invoice.tpl-4 .inv-legal b,#invoice.tpl-4 .inv-words b{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#6B7280;font-weight:400;}
+#invoice.tpl-4 .inv-parties .nm{color:#111;}
+#invoice.tpl-4 .inv-terms{border:0;border-top:1px solid #111;border-radius:0;padding:8px 0 0;grid-template-columns:1fr 1fr;gap:0 24px;}
+#invoice.tpl-4 .inv-terms>div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px solid #E5E7EB;}
+#invoice.tpl-4 .inv-terms>div b{margin:0;}
+#invoice.tpl-4 .inv-terms>div span{text-align:right;}
+#invoice.tpl-4 .inv-table th{background:none;color:#111;border-bottom:1px solid #111;font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;}
+#invoice.tpl-4 .inv-table td{border-bottom:1px solid #E5E7EB;}
+#invoice.tpl-4 .inv-sum{width:100%;}
+#invoice.tpl-4 .inv-sum .tot{border-top:1px solid #111;color:#111;}
+#invoice.tpl-4 .inv-words{justify-content:space-between;border-bottom:1px solid #111;padding-bottom:6px;}
+#invoice.tpl-4 .inv-tax{border:0;padding:6px 0;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10.5px;}
+#invoice.tpl-4 .inv-legal{grid-template-columns:1fr;border-top:1px solid #111;}
+
+/* ---------- 5. Modern: cards everywhere, indigo ---------- */
+#invoice.tpl-5{font-family:'Manrope',Inter,system-ui,sans-serif;color:#1E1B4B;}
+#invoice.tpl-5 .inv-top{border-bottom:0;padding-bottom:6px;}
+#invoice.tpl-5 .inv-meta{background:#EEF2FF;border-radius:10px;padding:8px 12px;}
+#invoice.tpl-5 .inv-title{text-align:left;}
+#invoice.tpl-5 .inv-title h3{font-weight:800;font-size:20px;letter-spacing:.02em;color:#4F46E5;}
+#invoice.tpl-5 .inv-parties>div{background:#F6F8FB;border-radius:12px;padding:12px 14px;}
+#invoice.tpl-5 .inv-parties b,#invoice.tpl-5 .inv-terms b,#invoice.tpl-5 .inv-foot b,#invoice.tpl-5 .inv-legal b,#invoice.tpl-5 .inv-words b{color:#6366F1;}
+#invoice.tpl-5 .inv-terms{border:0;padding:0;gap:8px;grid-template-columns:repeat(4,minmax(0,1fr));}
+#invoice.tpl-5 .inv-terms>div{background:#F6F8FB;border-radius:10px;padding:8px 10px;}
+#invoice.tpl-5 .inv-table th{background:#EEF2FF;color:#3730A3;}
+#invoice.tpl-5 .inv-table th:first-child{border-radius:8px 0 0 8px;}
+#invoice.tpl-5 .inv-table th:last-child{border-radius:0 8px 8px 0;}
+#invoice.tpl-5 .inv-table td{border-bottom:1px solid #EEF0F6;}
+#invoice.tpl-5 .inv-sum .tot{background:#4F46E5;color:#fff;border:0;border-radius:10px;padding:9px 12px;margin-top:8px;}
+#invoice.tpl-5 .inv-words{background:#EEF2FF;border-radius:100px;padding:6px 14px;margin-left:auto;}
+#invoice.tpl-5 .inv-tax{border:0;background:#F6F8FB;border-radius:10px;}
+#invoice.tpl-5 .inv-legal{border:0;background:#F6F8FB;border-radius:12px;padding:12px 14px;}
+
+/* ---------- 6. Bold: stripe, title first, declaration before terms ---------- */
+#invoice.tpl-6{font-family:'Poppins',Inter,system-ui,sans-serif;font-size:11.5px;border-left:8px solid #0F766E;}
+#invoice.tpl-6 .inv-title{order:-1;text-align:left;margin-bottom:6px;}
+#invoice.tpl-6 .inv-title h3{font-weight:600;font-size:23px;letter-spacing:.01em;color:#0F766E;text-transform:uppercase;}
+#invoice.tpl-6 .inv-top{border-bottom:2px solid #0F766E;flex-direction:row-reverse;}
+#invoice.tpl-6 .inv-top .inv-meta{text-align:left;}
+#invoice.tpl-6 .inv-parties>div{border-top:3px solid #0F766E;padding-top:8px;}
+#invoice.tpl-6 .inv-parties b,#invoice.tpl-6 .inv-terms b,#invoice.tpl-6 .inv-foot b,#invoice.tpl-6 .inv-legal b,#invoice.tpl-6 .inv-words b{color:#0F766E;}
+#invoice.tpl-6 .inv-terms{border-color:#99F6E4;background:#F0FDFA;}
+#invoice.tpl-6 .inv-table th{background:#0F766E;color:#fff;font-weight:500;}
+#invoice.tpl-6 .inv-sum .tot{border-top:2px solid #0F766E;color:#0F766E;}
+#invoice.tpl-6 .inv-tax{border:0;border-left:3px solid #0F766E;background:#F0FDFA;border-radius:0;}
+#invoice.tpl-6 .inv-legal{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);border-top:2px solid #0F766E;}
+#invoice.tpl-6 .inv-legal .inv-decl{order:-1;}
+@media print{#invoice.tpl-6{padding-left:16px;}}
+
+/* ---------- 7. Elegant: everything centred, maroon ---------- */
+#invoice.tpl-7{font-family:'Lato',Inter,system-ui,sans-serif;color:#292524;}
+#invoice.tpl-7 .inv-top{flex-direction:column;align-items:center;border-bottom:1px solid #7F1D1D;text-align:center;}
+#invoice.tpl-7 .inv-brand:has(img[hidden]){display:none;}
+#invoice.tpl-7 .inv-top .inv-meta{text-align:center;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+#invoice.tpl-7 .inv-title h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:27px;letter-spacing:.22em;color:#7F1D1D;}
+#invoice.tpl-7 .inv-title .nm{font-family:'Cormorant Garamond',Georgia,serif;font-size:15px;font-weight:600;color:#44403C;}
+#invoice.tpl-7 .inv-parties{text-align:center;}
+#invoice.tpl-7 .inv-parties b,#invoice.tpl-7 .inv-terms b,#invoice.tpl-7 .inv-foot b,#invoice.tpl-7 .inv-legal b,#invoice.tpl-7 .inv-words b{color:#9F1239;letter-spacing:.14em;}
+#invoice.tpl-7 .inv-terms{border:0;border-top:1px solid #E7D4D4;border-bottom:1px solid #E7D4D4;border-radius:0;text-align:center;grid-template-columns:repeat(4,minmax(0,1fr));}
+#invoice.tpl-7 .inv-table th{background:#FBF5F5;color:#7F1D1D;}
+#invoice.tpl-7 .inv-table td{border-bottom:1px solid #EFE4E4;}
+#invoice.tpl-7 .inv-sum .tot{border-top:1px solid #7F1D1D;color:#7F1D1D;font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-variant-numeric:lining-nums tabular-nums;}
+#invoice.tpl-7 .inv-words{justify-content:center;}
+#invoice.tpl-7 .inv-tax{text-align:center;border-color:#E7D4D4;}
+#invoice.tpl-7 .inv-foot{text-align:center;}
+#invoice.tpl-7 .inv-sign{text-align:center;}
+#invoice.tpl-7 .inv-sign .inv-seal{margin:12px auto 0;border-color:#E7D4D4;}
+#invoice.tpl-7 .inv-legal{grid-template-columns:1fr;text-align:center;border-top-color:#7F1D1D;}
+#invoice.tpl-7 .inv-legal ol{list-style-position:inside;padding:0;}
+
+/* ---------- 8. Swiss: huge title first, red accents, rules ---------- */
+#invoice.tpl-8{font-family:'Work Sans',Inter,system-ui,sans-serif;color:#111;border-top:6px solid #111;}
+#invoice.tpl-8 .inv-title{order:-1;text-align:left;margin:4px 0 14px;}
+#invoice.tpl-8 .inv-title h3{font-weight:600;font-size:30px;letter-spacing:-.02em;color:#111;}
+#invoice.tpl-8 .inv-title h3::after{content:'';display:block;width:56px;height:4px;background:#DC2626;margin-top:8px;}
+#invoice.tpl-8 .inv-top{border-bottom:0;flex-direction:row-reverse;justify-content:space-between;}
+#invoice.tpl-8 .inv-top .inv-meta{text-align:left;display:flex;gap:18px;flex-wrap:wrap;}
+#invoice.tpl-8 .inv-parties b,#invoice.tpl-8 .inv-terms b,#invoice.tpl-8 .inv-foot b,#invoice.tpl-8 .inv-legal b,#invoice.tpl-8 .inv-words b{color:#DC2626;}
+#invoice.tpl-8 .inv-terms{border:0;border-top:2px solid #111;border-radius:0;padding:10px 0 0;grid-template-columns:repeat(4,minmax(0,1fr));}
+#invoice.tpl-8 .inv-table th{background:none;color:#111;border-top:2px solid #111;border-bottom:2px solid #111;}
+#invoice.tpl-8 .inv-sum .tot{border-top:4px solid #111;font-size:15px;}
+#invoice.tpl-8 .inv-words{justify-content:flex-start;}
+#invoice.tpl-8 .inv-tax{border:0;border-top:1px solid #111;border-bottom:1px solid #111;border-radius:0;padding:6px 0;}
+#invoice.tpl-8 .inv-legal{grid-template-columns:1fr;border-top:2px solid #111;}
+@media print{#invoice.tpl-8{padding-top:10px;}}
+
+/* ---------- 9. Trade document: boxed form ---------- */
+#invoice.tpl-9{font-family:'Barlow',Inter,system-ui,sans-serif;font-size:12px;color:#0F172A;}
+#invoice.tpl-9 .inv-top{border:1.5px solid #334155;border-bottom:0;padding:10px 12px;margin-bottom:0;}
+#invoice.tpl-9 .inv-title{border:1.5px solid #334155;padding:8px;margin-bottom:0;background:#F1F5F9;}
+#invoice.tpl-9 .inv-title h3{font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-weight:600;font-size:20px;letter-spacing:.14em;}
+#invoice.tpl-9 .inv-parties{gap:0;border:1.5px solid #334155;border-top:0;margin-bottom:0;}
+#invoice.tpl-9 .inv-parties>div{padding:10px 12px;}
+#invoice.tpl-9 .inv-parties>div+div{border-left:1px solid #334155;}
+#invoice.tpl-9 .inv-parties b,#invoice.tpl-9 .inv-terms b,#invoice.tpl-9 .inv-foot b,#invoice.tpl-9 .inv-legal b,#invoice.tpl-9 .inv-words b{font-family:'Barlow Semi Condensed','Barlow',sans-serif;color:#334155;font-weight:600;}
+#invoice.tpl-9 .inv-terms{gap:0;border:1.5px solid #334155;border-top:0;border-radius:0;padding:0;margin-bottom:12px;}
+#invoice.tpl-9 .inv-terms>div{padding:7px 12px;border-top:1px solid #CBD5E1;border-left:1px solid #CBD5E1;}
+#invoice.tpl-9 .inv-terms>div:nth-child(3n+1){border-left:0;}
+#invoice.tpl-9 .inv-terms>div:nth-child(-n+3){border-top:0;}
+#invoice.tpl-9 .inv-table{border:1.5px solid #334155;}
+#invoice.tpl-9 .inv-table th{background:#E2E8F0;color:#0F172A;border:1px solid #94A3B8;font-family:'Barlow Semi Condensed','Barlow',sans-serif;font-weight:600;}
+#invoice.tpl-9 .inv-table td{border:1px solid #CBD5E1;}
+#invoice.tpl-9 .inv-sum{border:1.5px solid #334155;}
+#invoice.tpl-9 .inv-sum .tot{border-top:1.5px solid #334155;background:#F1F5F9;margin-top:0;}
+#invoice.tpl-9 .inv-words{justify-content:flex-start;border:1.5px solid #334155;border-top:0;padding:7px 12px;margin:0;}
+#invoice.tpl-9 .inv-tax{border:1.5px solid #334155;border-top:0;border-radius:0;margin:0 0 12px;}
+#invoice.tpl-9 .inv-foot{border:1.5px solid #334155;padding:10px 12px;margin-top:0;}
+#invoice.tpl-9 .inv-legal{border:1.5px solid #334155;border-top:0;margin-top:0;padding:10px 12px;gap:0;}
+#invoice.tpl-9 .inv-legal .inv-decl{border-left:1px solid #CBD5E1;padding-left:12px;}
+#invoice.tpl-9 .inv-legal .inv-tc{padding-right:12px;}
+#invoice.tpl-9 .inv-fine{border-top:1px solid #CBD5E1;padding-top:8px;margin-top:10px;}
+
+/* ---------- 10. Fresh: green band, striped rows, tinted legal ---------- */
+#invoice.tpl-10{font-family:'DM Sans',Inter,system-ui,sans-serif;color:#052E26;}
+#invoice.tpl-10 .inv-top{border-bottom:0;background:#ECFDF5;margin:-30px -30px 16px;padding:16px 30px;border-radius:12px 12px 0 0;}
+#invoice.tpl-10 .inv-title h3{font-weight:700;font-size:20px;letter-spacing:.06em;color:#047857;}
+#invoice.tpl-10 .inv-parties b,#invoice.tpl-10 .inv-terms b,#invoice.tpl-10 .inv-foot b,#invoice.tpl-10 .inv-legal b,#invoice.tpl-10 .inv-words b{color:#047857;}
+#invoice.tpl-10 .inv-terms{border-color:#A7F3D0;grid-template-columns:repeat(2,minmax(0,1fr));}
+#invoice.tpl-10 .inv-table th{background:#047857;color:#fff;}
+#invoice.tpl-10 .inv-table tbody tr:nth-child(even) td{background:#F0FDF4;}
+#invoice.tpl-10 .inv-table td{border-bottom:0;}
+#invoice.tpl-10 .inv-sum .tot{background:#047857;color:#fff;border:0;border-radius:100px;padding:8px 14px;margin-top:8px;}
+#invoice.tpl-10 .inv-words{background:#ECFDF5;border-radius:8px;padding:7px 12px;}
+#invoice.tpl-10 .inv-tax{border-color:#A7F3D0;background:#fff;}
+#invoice.tpl-10 .inv-legal{border:0;background:#F0FDF4;border-radius:10px;padding:12px 14px;}
+@media print{#invoice.tpl-10 .inv-top{margin:0 0 16px;border-radius:0;}}
+
+@media (max-width:640px){
+  #invoice .inv-terms,#invoice.tpl-3 .inv-terms,#invoice.tpl-5 .inv-terms,#invoice.tpl-7 .inv-terms,#invoice.tpl-8 .inv-terms{grid-template-columns:1fr 1fr;}
+  #invoice .inv-legal,#invoice.tpl-2 .inv-legal,#invoice.tpl-6 .inv-legal{grid-template-columns:1fr;}
+  #invoice.tpl-2 .inv-top,#invoice.tpl-10 .inv-top{margin:-18px -14px 14px;padding:14px;}
+  #invoice.tpl-2 .inv-parties>div+div,#invoice.tpl-9 .inv-parties>div+div{border-left:0;border-top:1px solid #334155;}
+  #invoice.tpl-3 .inv-parties>div+div{border-left:0;padding-left:0;border-top:1px solid #B8860B;padding-top:10px;}
+  #invoice.tpl-4 .inv-terms{grid-template-columns:1fr;}
+  #invoice.tpl-4 .inv-parties>div{grid-template-columns:1fr;}
+  #invoice.tpl-9 .inv-terms>div{border-left:0 !important;border-top:1px solid #CBD5E1 !important;}
+  #invoice.tpl-9 .inv-legal .inv-decl{border-left:0;padding-left:0;}
+  #invoice.tpl-8 .inv-title h3{font-size:24px;}
+}

@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="css/shared.css?v=20261013a">
 <link rel="stylesheet" href="css/lp.css?v=20261013a">
 <link rel="stylesheet" href="css/tools.css?v=20261012c">
+<link rel="stylesheet" href="css/pi-templates.css?v=20261014a">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -164,17 +165,20 @@
 <h2>Invoice details</h2>
 <p class="tl-hint">The preview updates as you type. Your details stay on this device only.</p>
 
+<!--pt--><div class="tl-group"><b>Design</b><p class="tl-hint" style="margin:-4px 0 10px">Pick a layout. Your details stay the same in every design.</p><div class="pt-grid" id="ptGrid"><button type="button" class="pt-opt" data-tpl="1" aria-pressed="false"><span class="pt-mini pt-m1"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Classic</b><small>Inter</small></button><button type="button" class="pt-opt" data-tpl="2" aria-pressed="false"><span class="pt-mini pt-m2"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Corporate</b><small>IBM Plex Sans</small></button><button type="button" class="pt-opt" data-tpl="3" aria-pressed="false"><span class="pt-mini pt-m3"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Executive</b><small>Baskerville</small></button><button type="button" class="pt-opt" data-tpl="4" aria-pressed="false"><span class="pt-mini pt-m4"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Minimal</b><small>Plex Mono</small></button><button type="button" class="pt-opt" data-tpl="5" aria-pressed="false"><span class="pt-mini pt-m5"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Modern</b><small>Manrope</small></button><button type="button" class="pt-opt" data-tpl="6" aria-pressed="false"><span class="pt-mini pt-m6"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Bold</b><small>Poppins</small></button><button type="button" class="pt-opt" data-tpl="7" aria-pressed="false"><span class="pt-mini pt-m7"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Elegant</b><small>Cormorant</small></button><button type="button" class="pt-opt" data-tpl="8" aria-pressed="false"><span class="pt-mini pt-m8"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Swiss</b><small>Work Sans</small></button><button type="button" class="pt-opt" data-tpl="9" aria-pressed="false"><span class="pt-mini pt-m9"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Trade document</b><small>Barlow</small></button><button type="button" class="pt-opt" data-tpl="10" aria-pressed="false"><span class="pt-mini pt-m10"><i class="h"></i><i class="s"></i><i class="t"></i><i class="s"></i></span><b>Fresh</b><small>DM Sans</small></button></div></div><!--/pt-->
 <div class="tl-group"><b>Exporter (seller)</b>
 <div class="tl-f"><label for="sName">Company name</label><input id="sName" placeholder="Your company name"></div>
 <div class="tl-f"><label for="sLogo">Company logo (optional)</label><div class="tl-logo"><span class="tl-logo-prev" id="logoPrev">No logo</span><label class="tl-add tl-logo-btn" for="sLogo">Upload logo</label><input id="sLogo" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden><button type="button" class="tl-logo-del" id="logoDel" hidden>Remove</button></div><small>PNG or JPG. It is resized in your browser and stays on this device.</small></div>
 <div class="tl-f"><label for="sAddr">Address</label><textarea id="sAddr" placeholder="Street, city, state, PIN, India"></textarea></div>
 <div class="tl-row"><div class="tl-f"><label for="sIec">IEC</label><input id="sIec" placeholder="10-character IEC"></div><div class="tl-f"><label for="sGst">GSTIN</label><input id="sGst" placeholder="15-character GSTIN"></div></div>
 <div class="tl-row"><div class="tl-f"><label for="sEmail">Email</label><input id="sEmail" type="email"></div><div class="tl-f"><label for="sPhone">Phone</label><input id="sPhone"></div></div>
+<!--pf--><div class="tl-row"><div class="tl-f"><label for="sPan">PAN</label><input id="sPan" maxlength="10" placeholder="10-character PAN"></div><div class="tl-f"><label for="sCity">City for jurisdiction</label><input id="sCity" placeholder="e.g. New Delhi"><small>Used in the terms</small></div></div><!--/pf-->
 </div>
 
 <div class="tl-group"><b>Buyer (consignee)</b>
 <div class="tl-f"><label for="bName">Company name</label><input id="bName" placeholder="Buyer company name"></div>
 <div class="tl-f"><label for="bAddr">Address and country</label><textarea id="bAddr" placeholder="Street, city, country"></textarea></div>
+<!--pf--><div class="tl-row"><div class="tl-f"><label for="bContact">Contact person</label><input id="bContact"></div><div class="tl-f"><label for="bTax">Tax / VAT / TRN no.</label><input id="bTax" placeholder="If the buyer has one"></div></div><div class="tl-row"><div class="tl-f"><label for="bEmail">Email</label><input id="bEmail" type="email"></div><div class="tl-f"><label for="bPhone">Phone</label><input id="bPhone"></div></div><!--/pf-->
 </div>
 
 <div class="tl-group"><b>Invoice and shipment</b>
@@ -185,6 +189,7 @@
 <div class="tl-row"><div class="tl-f"><label for="iPol">Port of loading</label><input id="iPol" placeholder="e.g. Nhava Sheva, India"></div><div class="tl-f"><label for="iPod">Port of discharge</label><input id="iPod" placeholder="e.g. Jebel Ali, UAE"></div></div>
 <div class="tl-row"><div class="tl-f"><label for="iPay">Payment terms</label><select id="iPay"><option>30% advance, 70% against copy of bill of lading</option><option>100% advance (T/T)</option><option>Letter of credit at sight</option><option>Documents against payment (D/P)</option><option>Documents against acceptance (D/A) 60 days</option><option>Other (write in notes)</option></select></div>
 <div class="tl-f"><label for="iDel">Delivery time</label><input id="iDel" placeholder="e.g. 30 days from order confirmation"></div></div>
+<!--pf--><div class="tl-row"><div class="tl-f"><label for="iOrigin">Country of origin</label><input id="iOrigin" value="India"></div><div class="tl-f"><label for="iDest">Country of final destination</label><input id="iDest" placeholder="e.g. United Arab Emirates"></div></div><div class="tl-row three"><div class="tl-f"><label for="iMode">Mode of transport</label><select id="iMode"><option>Sea</option><option>Air</option><option>Road</option><option>Rail</option><option>Courier</option></select></div><div class="tl-f"><label for="iPart">Partial shipment</label><select id="iPart"><option>Allowed</option><option>Not allowed</option></select></div><div class="tl-f"><label for="iTrans">Transshipment</label><select id="iTrans"><option>Allowed</option><option>Not allowed</option></select></div></div><div class="tl-f"><label for="iPack">Packing</label><input id="iPack" placeholder="e.g. 25 kg PP bags on pallets"></div><div class="tl-row three"><div class="tl-f"><label for="iNet">Net weight</label><input id="iNet" placeholder="e.g. 20,000 kg"></div><div class="tl-f"><label for="iGross">Gross weight</label><input id="iGross" placeholder="e.g. 20,400 kg"></div><div class="tl-f"><label for="iPkgs">Packages</label><input id="iPkgs" placeholder="e.g. 800 bags"></div></div><!--/pf-->
 </div>
 
 <div class="tl-group"><b>Products</b>
@@ -195,8 +200,9 @@
 <div class="tl-f"><label for="iDisc">Discount</label><input id="iDisc" type="number" min="0" step="0.01" placeholder="0.00"></div></div>
 </div>
 
+<!--pf--><div class="tl-group"><b>Tax, terms and declaration</b><div class="tl-row"><div class="tl-f"><label for="iGstT">GST treatment</label><select id="iGstT"><option value="lut">Export under LUT, without payment of IGST</option><option value="igst">Export on payment of IGST</option><option value="none">Do not show</option></select></div><div class="tl-f"><label for="iLut">LUT ARN</label><input id="iLut" placeholder="ARN of your LUT for this year"><small>Shown with the LUT line</small></div></div><div class="tl-f"><label for="iTerms">Terms and conditions</label><textarea id="iTerms" rows="6"></textarea><small>One term per line. Edit them to suit your deal.</small></div><label class="pf-chk"><input type="checkbox" id="iDecl" checked> Show the exporter declaration</label></div><!--/pf-->
 <div class="tl-group"><b>Bank and notes</b>
-<div class="tl-f"><label for="iBank">Bank details</label><textarea id="iBank" placeholder="Bank name, account name, account no., SWIFT, branch address"></textarea></div>
+<div class="tl-f"><label for="iBank">Bank details</label><textarea id="iBank" placeholder="Beneficiary name, bank name and branch, account no., SWIFT / BIC, IFSC, IBAN if any"></textarea></div>
 <div class="tl-f"><label for="iNotes">Notes</label><textarea id="iNotes" placeholder="Packing, quality, inspection, documents provided"></textarea></div>
 </div>
 
@@ -208,12 +214,16 @@
 <div class="inv-top"><div class="inv-brand"><img id="pLogo" alt="" hidden></div>
 <div class="inv-meta"><div>No. <b id="pNo"></b></div><div>Date: <span id="pDate"></span></div><div>Valid until: <span id="pValid"></span></div></div></div>
 <div class="inv-title"><h3>PROFORMA INVOICE</h3><div id="pSeller" class="nm"></div></div>
-<div class="inv-parties"><div><b>Exporter</b><p id="pSAddr"></p><p id="pSIds"></p></div><div><b>Buyer</b><p class="nm" id="pBName"></p><p id="pBAddr"></p></div></div>
-<div class="inv-terms"><div><b>Incoterm</b><span id="pInco"></span></div><div><b>Port of loading</b><span id="pPol"></span></div><div><b>Port of discharge</b><span id="pPod"></span></div>
-<div><b>Country of origin</b><span>India</span></div><div><b>Payment terms</b><span id="pPay"></span></div><div><b>Delivery</b><span id="pDel"></span></div></div>
+<div class="inv-parties"><div><b>Exporter</b><p id="pSAddr"></p><p id="pSIds"></p></div><div><b>Buyer</b><p class="nm" id="pBName"></p><p id="pBAddr"></p><p id="pBMore" class="inv-more"></p></div></div>
+<div class="inv-terms"><div><b>Incoterm</b><span id="pInco"></span></div><div><b>Payment terms</b><span id="pPay"></span></div><div><b>Delivery</b><span id="pDel"></span></div>
+<div><b>Port of loading</b><span id="pPol"></span></div><div><b>Port of discharge</b><span id="pPod"></span></div><div><b>Final destination</b><span id="pDest"></span></div>
+<div><b>Country of origin</b><span id="pOrigin"></span></div><div><b>Mode of transport</b><span id="pMode"></span></div><div><b>Partial shipment / Transshipment</b><span id="pPT"></span></div>
+<div><b>Packing</b><span id="pPack"></span></div><div><b>Net / gross weight</b><span id="pWt"></span></div><div><b>Packages</b><span id="pPkgs"></span></div></div>
 <div class="tl-scroll"><table class="inv-table"><thead><tr><th>#</th><th>Description</th><th>HS code</th><th class="r">Qty</th><th class="r">Unit price</th><th class="r">Amount</th></tr></thead><tbody id="pItems"></tbody></table></div>
 <div class="inv-sum"><div><span>Subtotal</span><span id="pSub"></span></div><div id="rFreight"><span>Freight</span><span id="pFreight"></span></div><div id="rIns"><span>Insurance</span><span id="pIns"></span></div><div id="rDisc"><span>Discount</span><span id="pDisc"></span></div><div class="tot"><span id="pTotL">Total</span><span id="pTot"></span></div></div>
-<div class="inv-foot"><div><b>Bank details</b><p id="pBank"></p><b style="margin-top:10px">Notes</b><p id="pNotes"></p></div><div class="inv-sign"><div>For <span id="pSign"></span></div><div class="ln">Authorised signatory</div></div></div>
+<div class="inv-words"><b>Amount in words</b><span id="pWords"></span></div><div class="inv-tax" id="pTax"></div>
+<div class="inv-foot"><div><b>Bank details</b><p id="pBank"></p><b style="margin-top:10px">Notes</b><p id="pNotes"></p></div><div class="inv-sign"><div>For <span id="pSign"></span></div><div class="inv-seal">Company seal</div><div class="ln">Authorised signatory</div></div></div>
+<div class="inv-legal"><div class="inv-tc"><b>Terms and conditions</b><ol id="pTerms"></ol></div><div class="inv-decl" id="pDeclBox"><b>Declaration</b><p>We declare that this proforma invoice shows the actual price of the goods described and that all particulars are true and correct.</p></div><p class="inv-fine">This is a proforma invoice for the buyer's confirmation, advance payment or opening of a letter of credit. It is not a tax invoice. The commercial invoice will be issued at the time of shipment.</p></div>
 </div><!--help--><div class="tl-help"><h3>Shipping this order?</h3><p>We handle IEC, GST, LUT and export documentation, so your shipment clears without delays.</p><div class="tl-help-row"><a class="lp-btn gold tl-sm" href="https://wa.me/918796787594?text=Hi%20BuyGenix%2C%20I%20made%20a%20proforma%20invoice%20on%20your%20website.%20I%20need%20help%20with%20export%20registrations%20and%20documents%20for%20this%20order." target="_blank" rel="noopener" onclick="window.gtag&amp;&amp;gtag('event','generate_lead',{lead_source:'proforma_invoice_generator'})">Ask us on WhatsApp</a><a class="lp-btn out tl-sm" href="/registration">See registration services</a></div></div><!--/help--></div>
 </div></section>
 
@@ -318,5 +328,59 @@ render();
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js?v=20260929a"></script>
+<!--pf--><script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var KEY='bgx_pi_extra_v1',F=['sPan','sCity','bContact','bTax','bEmail','bPhone','iOrigin','iDest','iMode','iPart','iTrans','iPack','iNet','iGross','iPkgs','iGstT','iLut','iTerms'];
+  var DEF_TERMS=['Prices are valid until the date shown on this proforma invoice.','Payment as per the payment terms above. Bank charges outside India are for the buyer\'s account.','Delivery time starts from receipt of the advance payment or a workable letter of credit and the buyer\'s written confirmation.','Quality and specifications as agreed in writing. Any claim must be raised in writing within 15 days of the goods reaching the port of discharge.','Neither party is liable for delays caused by events beyond its reasonable control.','Disputes are subject to the jurisdiction of the courts at {city}, India.'];
+  var CUR={USD:['US Dollars','Cents'],EUR:['Euros','Cents'],GBP:['Pounds Sterling','Pence'],AED:['UAE Dirhams','Fils'],SAR:['Saudi Riyals','Halalas'],AUD:['Australian Dollars','Cents'],CAD:['Canadian Dollars','Cents'],SGD:['Singapore Dollars','Cents'],INR:['Indian Rupees','Paise']};
+  var ONES=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'],TENS=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+  function u100(n){return n<20?ONES[n]:TENS[Math.floor(n/10)]+(n%10?'-'+ONES[n%10]:'')}
+  function u1000(n){var h=Math.floor(n/100),r=n%100;return (h?ONES[h]+' hundred'+(r?' ':''):'')+(r?u100(r):'')}
+  function intl(n){if(!n)return 'zero';var sc=['',' thousand',' million',' billion'],out=[],i=0;while(n>0&&i<4){var c=n%1000;if(c)out.unshift(u1000(c)+sc[i]);n=Math.floor(n/1000);i++}return out.join(' ')}
+  function indian(n){if(!n)return 'zero';var out=[],cr=Math.floor(n/1e7),l=Math.floor(n/1e5)%100,t=Math.floor(n/1e3)%100,r=n%1000;if(cr)out.push(indian(cr)+' crore');if(l)out.push(u100(l)+' lakh');if(t)out.push(u100(t)+' thousand');if(r)out.push(u1000(r));return out.join(' ')}
+  function words(v,cur){var c=CUR[cur]||[cur,'Cents'],whole=Math.floor(v+1e-9),frac=Math.round((v-whole)*100);var w=(cur==='INR'?indian(whole):intl(whole));var s=c[0]+' '+w+(frac?' and '+c[1]+' '+u100(frac):'')+' only';return s.replace(/(^|[ -])([a-z])/g,function(m,p,ch){return p+ch.toUpperCase()})}
+  function setT(id,v,ph){var el=$(id);if(!el)return;el.textContent=v||ph||'';el.classList.toggle('inv-empty',!v)}
+  function render(){
+    var v={};F.forEach(function(k){v[k]=($(k).value||'').trim()});
+    var g=function(k){return ($(k)&&$(k).value||'').trim()};
+    var ids=[g('sIec')&&('IEC: '+g('sIec')),g('sGst')&&('GSTIN: '+g('sGst')),v.sPan&&('PAN: '+v.sPan),g('sEmail'),g('sPhone')].filter(Boolean).join('\n');setT('pSIds',ids,'');
+    var more=[v.bContact&&('Attn: '+v.bContact),v.bTax&&('Tax ID: '+v.bTax),v.bEmail,v.bPhone].filter(Boolean).join('\n');setT('pBMore',more,'');
+    setT('pOrigin',v.iOrigin,'India');setT('pDest',v.iDest,'-');setT('pMode',v.iMode,'');setT('pPT',v.iPart+' / '+v.iTrans,'');setT('pPack',v.iPack,'-');
+    setT('pWt',(v.iNet||v.iGross)?((v.iNet||'-')+' / '+(v.iGross||'-')):'','-');setT('pPkgs',v.iPkgs,'-');
+    var tot=parseFloat(($('pTot').textContent||'').replace(/[^0-9.]/g,''))||0;setT('pWords',tot?words(tot,g('iCur')):'','-');
+    var tax=$('pTax');tax.hidden=v.iGstT==='none';tax.textContent=v.iGstT==='igst'?'Supply meant for export on payment of IGST.':'Supply meant for export under Letter of Undertaking (LUT) without payment of IGST'+(v.iLut?', ARN '+v.iLut:'')+'.';
+    var list=$('pTerms');list.textContent='';(v.iTerms||'').split('\n').map(function(x){return x.trim()}).filter(Boolean).forEach(function(t){var li=document.createElement('li');li.textContent=t.replace('{city}',v.sCity||'the exporter\'s place of business');list.appendChild(li)});
+    $('pTerms').parentNode.hidden=!list.children.length;
+    $('pDeclBox').hidden=!$('iDecl').checked;
+    try{var o={};F.forEach(function(k){o[k]=v[k]});o.iDecl=$('iDecl').checked;localStorage.setItem(KEY,JSON.stringify(o))}catch(e){}
+  }
+  var saved=null;try{saved=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){}
+  if(saved){F.forEach(function(k){if(saved[k]!=null&&$(k))$(k).value=saved[k]});$('iDecl').checked=saved.iDecl!==false}
+  if(!$('iTerms').value)$('iTerms').value=DEF_TERMS.join('\n');
+  var form=$('piForm');form.addEventListener('input',render);form.addEventListener('change',render);
+  $('addItem').addEventListener('click',function(){setTimeout(render,0)});
+  $('items').addEventListener('click',function(){setTimeout(render,0)});
+  $('clearBtn').addEventListener('click',function(){try{localStorage.removeItem(KEY)}catch(e){}F.forEach(function(k){var el=$(k);el.value=el.tagName==='SELECT'?el.options[0].value:''});$('iOrigin').value='India';$('iTerms').value=DEF_TERMS.join('\n');$('iDecl').checked=true;render()});
+  $('printBtn').addEventListener('click',render,true);
+  render();
+})();
+</script><!--/pf-->
+<!--pt--><script>
+(function(){
+  var FONTS={2:'IBM+Plex+Sans:wght@400;500;600',3:'Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600',4:'IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600',
+    5:'Manrope:wght@400;600;800',6:'Poppins:wght@400;500;600',7:'Cormorant+Garamond:wght@600&family=Lato:wght@400;700',8:'Work+Sans:wght@400;500;600',
+    9:'Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@600',10:'DM+Sans:wght@400;500;700'};
+  var KEY='bgx_pi_tpl_v1',inv=document.getElementById('invoice'),grid=document.getElementById('ptGrid');
+  if(!inv||!grid)return;
+  function font(n){if(!FONTS[n]||document.getElementById('ptf'+n))return;var l=document.createElement('link');l.id='ptf'+n;l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family='+FONTS[n]+'&display=swap';document.head.appendChild(l)}
+  function set(n,save){n=String(n||'1');inv.className=inv.className.replace(/\btpl-\d+\b/g,'').trim();if(n!=='1')inv.classList.add('tpl-'+n);font(n);
+    grid.querySelectorAll('.pt-opt').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-tpl')===n?'true':'false')});
+    if(save){try{localStorage.setItem(KEY,n)}catch(e){}if(window.gtag)gtag('event','tool_use',{tool:'proforma_invoice',action:'template_'+n})}}
+  grid.addEventListener('click',function(e){var b=e.target.closest('.pt-opt');if(b)set(b.getAttribute('data-tpl'),true)});
+  var saved='1';try{saved=localStorage.getItem(KEY)||'1'}catch(e){}
+  set(saved,false);
+})();
+</script><!--/pt-->
 </body>
 </html>
