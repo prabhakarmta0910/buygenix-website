@@ -387,3 +387,22 @@ select.form-control{appearance:none;background-image:url("data:image/svg+xml,%3C
 
 /* Lighter emphasis sitewide */
 b,strong{font-weight:600;}
+
+/* ── FOOTER v2: CTA band, five-column grid, popular guides row ── */
+.footer-cta{max-width:var(--page-max);margin:0 auto 44px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:22px 26px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(240,200,74,.06));}
+.footer-cta b{display:block;font-size:17px;font-weight:600;color:#fff;margin-bottom:4px;}
+.footer-cta span{display:block;font-size:13px;line-height:1.6;color:rgba(255,255,255,.66);max-width:520px;}
+.footer-cta-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.footer-cta-btns a{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:11px;font-size:13.5px;font-weight:500;text-decoration:none;transition:background .15s,border-color .15s;}
+.footer-cta-btns .fc-p{background:#2563EB;color:#fff;}
+.footer-cta-btns .fc-p:hover{background:#1D4ED8;}
+.footer-cta-btns .fc-g{border:1px solid rgba(255,255,255,.28);color:#fff;}
+.footer-cta-btns .fc-g:hover{border-color:#F0C84A;}
+.footer .footer-grid{grid-template-columns:1.5fr repeat(4,minmax(0,1fr));gap:36px;padding-bottom:40px;}
+.footer .footer-col h4{font-weight:500;}
+.footer-guides{max-width:var(--page-max);margin:0 auto;padding:18px 0;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;}
+.footer-guides span{font-size:11.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-right:4px;}
+.footer-guides a{font-size:13px;color:rgba(255,255,255,.66);text-decoration:none;}
+.footer-guides a:hover{color:#fff;}
+@media(max-width:1100px){.footer .footer-grid{grid-template-columns:repeat(4,minmax(0,1fr));}.footer .footer-brand{grid-column:1/-1;}}
+@media(max-width:760px){.footer .footer-grid{grid-template-columns:1fr 1fr;gap:28px 20px;}.footer-cta{padding:20px 18px;margin-bottom:36px;}.footer-cta-btns{width:100%;flex-direction:column;}.footer-cta-btns a{justify-content:center;}}
