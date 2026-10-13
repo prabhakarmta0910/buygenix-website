@@ -1442,6 +1442,7 @@ function updatePhonePlaceholder(el,active){
 /* Rows */
 .hl6-row{display:grid;grid-template-columns:1.3fr 1.1fr 1.5fr 0.8fr 1.1fr 0.9fr 1.1fr;height:56px;align-items:center;border-bottom:1px solid var(--sky);transition:background .15s;}
 .hl6-row:hover{background:var(--sky);}
+.hl6-blur{display:inline-block;filter:blur(4.5px);user-select:none;-webkit-user-select:none;pointer-events:none;color:#0B1929;font-weight:500;}.hl6-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
 .hl6-cell{padding:0 16px;font-size:13.5px;color:var(--text-body);font-family:"Plus Jakarta Sans",sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* Active badge */
@@ -1507,25 +1508,25 @@ function updatePhonePlaceholder(el,active){
 <script>
 (function(){
   var leads=[
-    {name:"Jaseeb",             place:"Oman",          product:"Tender Coconut",      qty:"1",     date:"2025/07/29"},
-    {name:"Donesvaran Ganesan", place:"Malaysia",      product:"Semi Husked Coconut", qty:"1",     date:"2025/07/29"},
-    {name:"Bogdan Pintilei",    place:"Romania",       product:"Tender Coconuts",     qty:"1",     date:"2025/07/29"},
-    {name:"Ratilal",            place:"Gujarat",       product:"Spirulina Powder",    qty:"10",    date:"2025/07/29"},
-    {name:"Ashutosh Upadhya",   place:"Uttar Pradesh", product:"Formal Shirts",       qty:"500",   date:"2025/07/29"},
-    {name:"Saikat Sarkar",      place:"West Bengal",   product:"Foxtail Millets",     qty:"200",   date:"2025/07/29"},
-    {name:"Akhil R.",           place:"Poonthopu",     product:"Mustard Seed",        qty:"1500",  date:"2025/07/29"},
-    {name:"Steen Andersen",     place:"Denmark",       product:"Men Slippers",        qty:"2000",  date:"2025/07/29"},
-    {name:"Jacob L.",           place:"Denmark",       product:"Garments",            qty:"500",   date:"2025/07/29"},
-    {name:"Daniel Daisuke",     place:"Belgium",       product:"Men T-shirts",        qty:"15000", date:"2025/07/29"},
-    {name:"Mohammed K.",        place:"UAE",           product:"Basmati Rice",        qty:"10 MT", date:"2025/07/28"},
-    {name:"Klaus W.",           place:"Germany",       product:"Organic Turmeric",    qty:"5 MT",  date:"2025/07/28"},
-    {name:"Sarah M.",           place:"USA",           product:"Cotton Fabric",       qty:"2000m", date:"2025/07/28"},
-    {name:"Kim Ji-Y.",          place:"South Korea",   product:"Women Kurtas",        qty:"3000",  date:"2025/07/27"},
-    {name:"Marco R.",           place:"Italy",         product:"Leather Bags",        qty:"500",   date:"2025/07/27"}
+    {place:"Oman",          product:"Tender Coconut",      qty:"1",     date:"2025/07/29"},
+    {place:"Malaysia",      product:"Semi Husked Coconut", qty:"1",     date:"2025/07/29"},
+    {place:"Romania",       product:"Tender Coconuts",     qty:"1",     date:"2025/07/29"},
+    {place:"Gujarat",       product:"Spirulina Powder",    qty:"10",    date:"2025/07/29"},
+    {place:"Uttar Pradesh", product:"Formal Shirts",       qty:"500",   date:"2025/07/29"},
+    {place:"West Bengal",   product:"Foxtail Millets",     qty:"200",   date:"2025/07/29"},
+    {place:"Poonthopu",     product:"Mustard Seed",        qty:"1500",  date:"2025/07/29"},
+    {place:"Denmark",       product:"Men Slippers",        qty:"2000",  date:"2025/07/29"},
+    {place:"Denmark",       product:"Garments",            qty:"500",   date:"2025/07/29"},
+    {place:"Belgium",       product:"Men T-shirts",        qty:"15000", date:"2025/07/29"},
+    {place:"UAE",           product:"Basmati Rice",        qty:"10 MT", date:"2025/07/28"},
+    {place:"Germany",       product:"Organic Turmeric",    qty:"5 MT",  date:"2025/07/28"},
+    {place:"USA",           product:"Cotton Fabric",       qty:"2000m", date:"2025/07/28"},
+    {place:"South Korea",   product:"Women Kurtas",        qty:"3000",  date:"2025/07/27"},
+    {place:"Italy",         product:"Leather Bags",        qty:"500",   date:"2025/07/27"}
   ];
   function row(l){
     return "<div class=\"hl6-row\">"
-      +"<div class=\"hl6-cell\">"+l.name+"</div>"
+      +"<div class=\"hl6-cell\"><span class=\"hl6-blur\" aria-hidden=\"true\">Verified Buyer</span><span class=\"hl6-sr\">Name shared with members</span></div>"
       +"<div class=\"hl6-cell\">"+l.place+"</div>"
       +"<div class=\"hl6-cell\">"+(l.product&&l.product!=="—"?bgxBuyerA(l.product):l.product)+"</div>"
       +"<div class=\"hl6-cell\">"+l.qty+"</div>"
@@ -1559,7 +1560,7 @@ function updatePhonePlaceholder(el,active){
       var live = data.map(function(l){
         var d = l.created_at ? new Date(l.created_at) : new Date();
         var dateStr = d.getFullYear()+"/"+String(d.getMonth()+1).padStart(2,"0")+"/"+String(d.getDate()).padStart(2,"0");
-        return {name:"Verified Buyer", place:l.country||"—", product:l.product||"—", qty:l.quantity||"On request", date:dateStr};
+        return {place:l.country||"—", product:l.product||"—", qty:l.quantity||"On request", date:dateStr};
       });
       paint(live);
     } catch(e) { /* keep demo rows already painted above */ }
