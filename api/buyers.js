@@ -151,9 +151,23 @@ const G = {
   epcg: ['epcg-scheme-guide', 'EPCG scheme'], pack: ['packing-list-for-export-format-and-checklist', 'Export packing list'],
   start: ['how-to-start-export-business-in-india-step-by-step', 'Starting an export business'], fake: ['how-to-identify-fake-export-buyers-and-avoid-scams', 'Checking a buyer before you ship'],
   spice: ['spices-board-registration-guide', 'Spices Board registration'],
+  xbasmati: ['how-to-export-basmati-rice-from-india', 'How to export basmati rice'], xrice: ['how-to-export-non-basmati-rice-from-india', 'How to export non-basmati rice'],
+  xturmeric: ['how-to-export-turmeric-from-india', 'How to export turmeric'], xspice: ['how-to-export-spices-from-india', 'How to export spices'],
+  xonion: ['how-to-export-onion-from-india', 'How to export onion'], xdress: ['how-to-export-ladies-dresses-and-kurtis-from-india', 'How to export dresses and kurtis'],
+  xtshirt: ['how-to-export-t-shirts-from-india', 'How to export T-shirts'], xa4: ['how-to-export-a4-copy-paper-from-india', 'How to export A4 copy paper'],
+  xcoco: ['how-to-export-cocopeat-from-india', 'How to export cocopeat'], xwood: ['how-to-export-wooden-handicrafts-from-india', 'How to export wooden handicrafts'],
 };
 const GUIDE_SETS = [
-  [/spice/, ['spice', 'phyto', 'fssai', 'price']],
+  [/basmati/, ['xbasmati', 'apeda', 'phyto', 'price']],
+  [/(^|\/)((parboiled|broken|non-basmati|white|brown|sona-masoori)-)?rice($|\/)/, ['xrice', 'apeda', 'phyto', 'price']],
+  [/turmeric/, ['xturmeric', 'spice', 'phyto', 'price']],
+  [/spice|masala|black-pepper|white-pepper|cumin|chilli|cardamom|coriander/, ['xspice', 'spice', 'phyto', 'fssai']],
+  [/onion/, ['xonion', 'apeda', 'phyto', 'price']],
+  [/dresses|kurti|(^|\/|-)dress($|\/)/, ['xdress', 'rcmc', 'price', 'pay']],
+  [/t-shirt/, ['xtshirt', 'rcmc', 'price', 'quote']],
+  [/a4|copy-paper/, ['xa4', 'cont', 'price', 'hs']],
+  [/cocopeat|coir/, ['xcoco', 'phyto', 'rcmc', 'price']],
+  [/wooden/, ['xwood', 'rcmc', 'pack', 'price']],
   [/^agriculture/, ['apeda', 'phyto', 'fssai', 'price']],
   [/^food-beverages/, ['fssai', 'apeda', 'docs', 'cont']],
   [/^(apparel-fashion|textiles-fabrics)/, ['rcmc', 'price', 'quote', 'pay']],
@@ -162,8 +176,9 @@ const GUIDE_SETS = [
   [/^(pharma-healthcare|health-beauty)/, ['rcmc', 'docs', 'lm', 'lc']],
   [/^chemicals-dyes/, ['hs', 'docs', 'rcmc', 'fcl']],
   [/^(industrial-machinery|electricals-electronics)/, ['eepc', 'epcg', 'hs', 'lc']],
-  [/^(handicrafts-home-decor|furniture-carpentry|home-supplies)/, ['rcmc', 'cont', 'pack', 'price']],
-  [/^(construction-materials|packaging-paper)/, ['cont', 'fcl', 'price', 'hs']],
+  [/^(handicrafts-home-decor|furniture-carpentry|home-supplies)/, ['xwood', 'rcmc', 'pack', 'price']],
+  [/^packaging-paper/, ['xa4', 'cont', 'price', 'hs']],
+  [/^construction-materials/, ['cont', 'fcl', 'price', 'hs']],
 ];
 function guidesFor(d) {
   const keys = (d.crumbs || []).map(c => c.path).concat(d.path || '').filter(Boolean);
