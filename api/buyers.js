@@ -138,13 +138,47 @@ function leadCard(l) {
   </article>`;
 }
 
+// Export guides shown on buyer pages, by top-level category (first match wins).
+const G = {
+  apeda: ['apeda-registration-guide', 'APEDA registration'], phyto: ['phytosanitary-certificate-for-export-india', 'Phytosanitary certificate'],
+  fssai: ['fssai-license-for-food-exporters-india', 'FSSAI licence for exporters'], price: ['export-pricing-how-to-calculate-fob-and-cif-price', 'How to calculate FOB and CIF price'],
+  docs: ['export-documents-checklist-india', 'Export documents checklist'], cont: ['container-sizes-and-capacity-20ft-vs-40ft-cbm', '20ft vs 40ft container capacity'],
+  rcmc: ['rcmc-registration-guide-india', 'RCMC registration'], quote: ['how-to-write-an-export-quotation-that-wins-orders', 'Writing an export quotation'],
+  pay: ['export-payment-terms-advance-lc-dp-da-open-account', 'Export payment terms'], inv: ['commercial-invoice-vs-proforma-invoice-for-export', 'Commercial vs proforma invoice'],
+  fcl: ['fcl-vs-lcl-shipping-which-is-better-for-exporters', 'FCL vs LCL shipping'], ecgc: ['ecgc-export-credit-insurance-guide', 'ECGC export credit insurance'],
+  lc: ['letter-of-credit-documentation-guide', 'Letter of credit for exporters'], lm: ['legal-metrology-registration-guide', 'Legal Metrology registration'],
+  hs: ['how-to-find-hs-code-for-export-products-india', 'Finding your HS code'], eepc: ['eepc-india-registration-guide', 'EEPC India RCMC'],
+  epcg: ['epcg-scheme-guide', 'EPCG scheme'], pack: ['packing-list-for-export-format-and-checklist', 'Export packing list'],
+  start: ['how-to-start-export-business-in-india-step-by-step', 'Starting an export business'], fake: ['how-to-identify-fake-export-buyers-and-avoid-scams', 'Checking a buyer before you ship'],
+  spice: ['spices-board-registration-guide', 'Spices Board registration'],
+};
+const GUIDE_SETS = [
+  [/spice/, ['spice', 'phyto', 'fssai', 'price']],
+  [/^agriculture/, ['apeda', 'phyto', 'fssai', 'price']],
+  [/^food-beverages/, ['fssai', 'apeda', 'docs', 'cont']],
+  [/^(apparel-fashion|textiles-fabrics)/, ['rcmc', 'price', 'quote', 'pay']],
+  [/^leather-products/, ['rcmc', 'pay', 'inv', 'fcl']],
+  [/^jewellery-gems/, ['pay', 'ecgc', 'lc', 'rcmc']],
+  [/^(pharma-healthcare|health-beauty)/, ['rcmc', 'docs', 'lm', 'lc']],
+  [/^chemicals-dyes/, ['hs', 'docs', 'rcmc', 'fcl']],
+  [/^(industrial-machinery|electricals-electronics)/, ['eepc', 'epcg', 'hs', 'lc']],
+  [/^(handicrafts-home-decor|furniture-carpentry|home-supplies)/, ['rcmc', 'cont', 'pack', 'price']],
+  [/^(construction-materials|packaging-paper)/, ['cont', 'fcl', 'price', 'hs']],
+];
+function guidesFor(d) {
+  const keys = (d.crumbs || []).map(c => c.path).concat(d.path || '').filter(Boolean);
+  for (const [rx, set] of GUIDE_SETS) if (keys.some(k => rx.test(k))) return set.map(k => G[k]);
+  return ['start', 'fake', 'pay', 'quote'].map(k => G[k]);
+}
+
 function page(d) {
   const lvl = d.level, st = d.stats || {}, leads = d.leads || [], total = Number(st.leads || 0);
   const crumbs = [{ name: 'Home', url: SITE + '/' }, { name: 'Buyers', url: url('') }].concat((d.crumbs || []).map(c => ({ name: c.name, url: url(c.path) })));
   const places = st.places || [];
   const noun = d.name;
+  const latest = leads.length ? fmt(leads[0].date) : '';
   const intro = total
-    ? `Live buyer requirements for ${esc(noun)} from importers, wholesalers and bulk buyers.`
+    ? `Live buyer requirements for ${esc(noun)} from importers, wholesalers, distributors and bulk buyers in India and abroad.${latest ? ` Updated ${esc(latest)}.` : ''}`
     : `No open buyer requirements for ${esc(noun)} right now. New requirements are added regularly; post yours or check related products below.`;
   const kids = d.children || [], rel = d.related || [], sup = d.suppliers || [];
   const childTitle = lvl === 'category' ? `Browse ${d.name} by sub-category` : `Browse ${d.name} products`;
@@ -158,6 +192,7 @@ function page(d) {
     <div>
       ${leads.length ? `<h2 class="bx-h2">Latest ${esc(noun)} buyer requirements</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>${total > leads.length ? `<div class="bx-all"><a class="dr-btn out" href="/buy-lead-search?q=${encodeURIComponent(d.name)}">See all ${esc(noun)} buy leads &rarr;</a></div>` : ''}` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>${intro}</p></div>`}
       ${pills(rel.filter(k => k.leads > 0).slice(0, 20), 'Related products')}
+      <section class="bx-sec"><h2>Guides for ${esc(noun)} exporters</h2><div class="bx-pills">${guidesFor(d).map(([s, l]) => `<a href="/${s}">${esc(l)}</a>`).join('')}</div></section>
       <!--FAQ-->
     </div>
     <aside class="bx-side">${alertBox(d.name)}${supHtml}${ctaHtml(d.name, true)}</aside>
@@ -174,7 +209,8 @@ function page(d) {
     itemListElement: leads.slice(0, 20).map((l, i) => ({ '@type': 'ListItem', position: i + 1, name: `${l.product}${l.quantity ? ' – ' + l.quantity : ''}${l.place ? ' – ' + l.place : ''}` })) });
   ld.push({ '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) });
-  return { title: `${d.name} Buyers & Importers | Buy Leads | BuyGenix`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
+  const tt = `${d.name} Buyers in India & Abroad | Buy Leads`;
+  return { title: tt.length <= 62 ? tt : `${d.name} Buyers & Importers`, desc: desc.slice(0, 158), canonical: url(d.path), index, body, ld };
 }
 
 // ── Buyers by country ──
