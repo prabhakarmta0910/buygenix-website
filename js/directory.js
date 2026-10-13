@@ -25,7 +25,7 @@
     const initial = esc((o.company_name || '?').trim().charAt(0).toUpperCase());
     return o.logo_url ? `<div class="dr-logo ${cls || ''}"><img src="${esc(o.logo_url)}" alt="${esc(o.company_name)} logo" loading="lazy"></div>` : `<div class="dr-logo ${cls || ''}">${initial}</div>`;
   }
-  const TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+  const TICK = '';
   function badgesHTML(o) {
     return `<div class="dr-badges">${o.paid ? `<span class="dr-b pro">${TICK}Verified member</span>` : ''}${o.gst ? `<span class="dr-b ok">${TICK}GST</span>` : ''}${o.iec ? `<span class="dr-b ok">${TICK}IEC</span>` : ''}${o.member_years ? `<span class="dr-b">${o.member_years} yr${o.member_years > 1 ? 's' : ''} with BuyGenix</span>` : ''}</div>`;
   }
