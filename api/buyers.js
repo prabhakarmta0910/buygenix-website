@@ -156,10 +156,16 @@ const G = {
   xonion: ['how-to-export-onion-from-india', 'How to export onion'], xdress: ['how-to-export-ladies-dresses-and-kurtis-from-india', 'How to export dresses and kurtis'],
   xtshirt: ['how-to-export-t-shirts-from-india', 'How to export T-shirts'], xa4: ['how-to-export-a4-copy-paper-from-india', 'How to export A4 copy paper'],
   xcoco: ['how-to-export-cocopeat-from-india', 'How to export cocopeat'], xwood: ['how-to-export-wooden-handicrafts-from-india', 'How to export wooden handicrafts'],
+  xsugar: ['how-to-export-sugar-from-india', 'How to export sugar'], xmaize: ['how-to-export-yellow-maize-from-india', 'How to export yellow maize'],
+  xpulse: ['how-to-export-pulses-from-india', 'How to export pulses'], xveg: ['how-to-export-fresh-vegetables-from-india', 'How to export fresh vegetables'],
+  xghee: ['how-to-export-ghee-from-india', 'How to export ghee'], xcup: ['how-to-export-paper-cups-from-india', 'How to export paper cups'],
+  xbag: ['how-to-export-pp-woven-bags-and-jumbo-bags-from-india', 'How to export woven and jumbo bags'], xhb: ['how-to-export-leather-handbags-from-india', 'How to export leather handbags'],
+  xcashew: ['how-to-export-cashew-from-india', 'How to export cashew'], xled: ['how-to-export-led-lights-from-india', 'How to export LED lights'],
 };
 const GUIDE_SETS = [
   [/basmati/, ['xbasmati', 'apeda', 'phyto', 'price']],
   [/(^|\/)((parboiled|broken|non-basmati|white|brown|sona-masoori)-)?rice($|\/)/, ['xrice', 'apeda', 'phyto', 'price']],
+  [/green-chilli|fresh-vegetables|fresh-dried-vegetables|(^|\/)(potato|okra|garlic|fresh-ginger)($|\/)/, ['xveg', 'apeda', 'phyto', 'price']],
   [/turmeric/, ['xturmeric', 'spice', 'phyto', 'price']],
   [/spice|masala|black-pepper|white-pepper|cumin|chilli|cardamom|coriander/, ['xspice', 'spice', 'phyto', 'fssai']],
   [/onion/, ['xonion', 'apeda', 'phyto', 'price']],
@@ -168,6 +174,15 @@ const GUIDE_SETS = [
   [/a4|copy-paper/, ['xa4', 'cont', 'price', 'hs']],
   [/cocopeat|coir/, ['xcoco', 'phyto', 'rcmc', 'price']],
   [/wooden/, ['xwood', 'rcmc', 'pack', 'price']],
+  [/(^|\/)(sugar|raw-sugar|white-sugar|jaggery)($|\/)|sugar-jaggery/, ['xsugar', 'fake', 'lc', 'price']],
+  [/maize|(^|\/)corn($|\/)/, ['xmaize', 'apeda', 'phyto', 'price']],
+  [/pulse|lentil|chana|chickpea/, ['xpulse', 'apeda', 'phyto', 'fssai']],
+  [/ghee|dairy/, ['xghee', 'fssai', 'apeda', 'docs']],
+  [/paper-cup|bagasse|disposable-(cutlery|cups|plates|glass)/, ['xcup', 'cont', 'price', 'quote']],
+  [/woven|jumbo|fibc|gunny|bulk-bags|sacks/, ['xbag', 'cont', 'price', 'quote']],
+  [/handbag|ladies-bags|tote-bags|sling-bags|shoulder-bags|leather-bags|designer-bag/, ['xhb', 'rcmc', 'price', 'pay']],
+  [/cashew|dry-fruits|almond/, ['xcashew', 'fssai', 'price', 'docs']],
+  [/(^|\/|-)led($|\/|-)|lighting/, ['xled', 'eepc', 'hs', 'lc']],
   [/^agriculture/, ['apeda', 'phyto', 'fssai', 'price']],
   [/^food-beverages/, ['fssai', 'apeda', 'docs', 'cont']],
   [/^(apparel-fashion|textiles-fabrics)/, ['rcmc', 'price', 'quote', 'pay']],
@@ -180,6 +195,12 @@ const GUIDE_SETS = [
   [/^packaging-paper/, ['xa4', 'cont', 'price', 'hs']],
   [/^construction-materials/, ['cont', 'fcl', 'price', 'hs']],
 ];
+// Country trade guides, by country slug.
+const CG = new Set('brazil canada china france germany hong-kong italy japan malaysia mexico netherlands poland qatar saudi-arabia south-africa spain sri-lanka thailand uk usa'.split(' '));
+function countryGuide(slug, nm) {
+  if (slug === 'uae') return ['india-uae-cepa-2026-trade-milestone-exporters-guide', 'India-UAE CEPA guide for exporters'];
+  return CG.has(slug) ? [`import-from-india-to-${slug}-trade-compliance-guide`, `Exporting to ${nm}: duty and documents`] : null;
+}
 function guidesFor(d) {
   const keys = (d.crumbs || []).map(c => c.path).concat(d.path || '').filter(Boolean);
   for (const [rx, set] of GUIDE_SETS) if (keys.some(k => rx.test(k))) return set.map(k => G[k]);
@@ -269,6 +290,7 @@ function countryPage(d) {
     <div>
       ${leads.length ? `<h2 class="bx-h2">Latest buyer requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements from ${esc(nm)} are added regularly.</p></div>`}
       ${pills(d.categories || [], `${nm} buyers by category`)}
+      ${(g => g ? `<section class="bx-sec"><h2>Exporting to ${esc(nm)}</h2><div class="bx-pills"><a href="/${g[0]}">${esc(g[1])}</a><a href="/export-documents-checklist-india">Export documents checklist</a><a href="/export-payment-terms-advance-lc-dp-da-open-account">Export payment terms</a></div></section>` : '')(countryGuide(d.slug, nm))}
       <section class="bx-sec bx-faq"><h2>Buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
       ${pills((d.others || []).map(o => ({ name: o.name, path: 'country/' + o.slug })), 'Buyers in other countries')}
     </div>
@@ -314,6 +336,7 @@ function comboPage(d) {
       ${leads.length ? `<h2 class="bx-h2">Latest ${esc(pr.name)} requirements from ${esc(nm)}</h2><div class="bx-leads">${leads.map(leadCard).join('')}</div>` : `<div class="dr-card dr-empty"><h3>No open requirements right now</h3><p>New requirements are added regularly.</p></div>`}
       ${pills((d.other_countries || []).map(o => ({ name: o.name, href: o.leads >= COMBO_MIN ? `/buyers/country/${o.slug}/${pr.slug}` : `/buyers/country/${o.slug}` })), `${pr.name} buyers in other countries`)}
       ${pills((d.other_products || []).map(o => ({ name: o.name, href: o.leads >= COMBO_MIN ? `/buyers/country/${c.slug}/${o.slug}` : `/buyers/${o.slug}` })), `More products wanted in ${nm}`)}
+      ${pills([countryGuide(c.slug, nm)].concat(guidesFor({ path: pr.slug }).slice(0, 3)).filter(Boolean).map(([s, l]) => ({ name: l, href: '/' + s })), `Guides for exporting ${pr.name} to ${nm}`)}
       <section class="bx-sec bx-faq"><h2>${esc(pr.name)} buyers in ${esc(nm)}: frequently asked questions</h2>${faqs.map(([q, a]) => `<div class="bx-faq-i"><h3>${esc(q)}</h3><p>${esc(a)}</p></div>`).join('')}</section>
     </div>
     <aside class="bx-side">${alertBox(pr.name, nm)}${countryCta(nm)}<div class="bx-sec" style="margin-top:14px"><h2>All ${esc(pr.name)} buyers</h2><div class="bx-pills"><a href="/buyers/${esc(pr.slug)}">${esc(pr.name)} buyers worldwide</a><a href="/buyers/country/${esc(c.slug)}">All buyers in ${esc(nm)}</a></div></div></aside>
