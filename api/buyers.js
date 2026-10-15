@@ -161,8 +161,23 @@ const G = {
   xghee: ['how-to-export-ghee-from-india', 'How to export ghee'], xcup: ['how-to-export-paper-cups-from-india', 'How to export paper cups'],
   xbag: ['how-to-export-pp-woven-bags-and-jumbo-bags-from-india', 'How to export woven and jumbo bags'], xhb: ['how-to-export-leather-handbags-from-india', 'How to export leather handbags'],
   xcashew: ['how-to-export-cashew-from-india', 'How to export cashew'], xled: ['how-to-export-led-lights-from-india', 'How to export LED lights'],
+  xeng: ['how-to-export-engineering-goods-from-india', 'How to export engineering goods'], xpharma: ['how-to-export-generic-medicines-from-india', 'How to export generic medicines'],
+  xayur: ['how-to-export-ayurvedic-and-herbal-products-from-india', 'How to export ayurvedic and herbal products'], xsea: ['how-to-export-seafood-from-india', 'How to export seafood'],
+  xtea: ['how-to-export-tea-from-india', 'How to export tea'], xcoffee: ['how-to-export-coffee-from-india', 'How to export coffee'],
+  xjute: ['how-to-export-jute-bags-and-products-from-india', 'How to export jute products'], xhoney: ['how-to-export-honey-from-india', 'How to export honey'],
+  xstone: ['how-to-export-granite-and-marble-from-india', 'How to export granite and marble'], xtowel: ['how-to-export-towels-and-bed-linen-from-india', 'How to export towels and bed linen'],
+  mpeda: ['mpeda-registration-guide', 'MPEDA registration'], teab: ['tea-board-registration-guide', 'Tea Board registration'], coffeeb: ['coffee-board-registration-guide', 'Coffee Board registration'],
 };
 const GUIDE_SETS = [
+  [/(^|\/)(black-tea|green-tea|tea-bags|tea|herbal-tea[a-z-]*|tea-coffee[a-z-]*)($|\/)/, ['xtea', 'teab', 'fssai', 'price']],
+  [/coffee/, ['xcoffee', 'coffeeb', 'fssai', 'price']],
+  [/seafood|shrimp|prawn|(^|\/|-)fish($|\/|-)|marine/, ['xsea', 'mpeda', 'docs', 'lc']],
+  [/honey/, ['xhoney', 'apeda', 'fssai', 'price']],
+  [/granite|marble|sandstone|natural-stone/, ['xstone', 'cont', 'pack', 'price']],
+  [/jute/, ['xjute', 'rcmc', 'price', 'quote']],
+  [/towel|bedsheet|bed-sheet|bed-linen|bed-bath|home-textiles/, ['xtowel', 'rcmc', 'price', 'pay']],
+  [/ayurved|herbal|nutra|supplement/, ['xayur', 'fssai', 'rcmc', 'docs']],
+  [/auto-engine|auto-parts|pump|valve|cnc|fastener|bearing|casting|forging/, ['xeng', 'eepc', 'hs', 'lc']],
   [/basmati/, ['xbasmati', 'apeda', 'phyto', 'price']],
   [/(^|\/)((parboiled|broken|non-basmati|white|brown|sona-masoori)-)?rice($|\/)/, ['xrice', 'apeda', 'phyto', 'price']],
   [/green-chilli|fresh-vegetables|fresh-dried-vegetables|(^|\/)(potato|okra|garlic|fresh-ginger)($|\/)/, ['xveg', 'apeda', 'phyto', 'price']],
@@ -188,9 +203,11 @@ const GUIDE_SETS = [
   [/^(apparel-fashion|textiles-fabrics)/, ['rcmc', 'price', 'quote', 'pay']],
   [/^leather-products/, ['rcmc', 'pay', 'inv', 'fcl']],
   [/^jewellery-gems/, ['pay', 'ecgc', 'lc', 'rcmc']],
+  [/generic-medicines|otc-medicines|injectables|syrups-liquids|ointments-creams|ophthalmic|vaccines|apis-active/, ['xpharma', 'rcmc', 'docs', 'lc']],
   [/^(pharma-healthcare|health-beauty)/, ['rcmc', 'docs', 'lm', 'lc']],
   [/^chemicals-dyes/, ['hs', 'docs', 'rcmc', 'fcl']],
-  [/^(industrial-machinery|electricals-electronics)/, ['eepc', 'epcg', 'hs', 'lc']],
+  [/^industrial-machinery/, ['xeng', 'eepc', 'epcg', 'hs']],
+  [/^electricals-electronics/, ['eepc', 'epcg', 'hs', 'lc']],
   [/^(handicrafts-home-decor|furniture-carpentry|home-supplies)/, ['xwood', 'rcmc', 'pack', 'price']],
   [/^packaging-paper/, ['xa4', 'cont', 'price', 'hs']],
   [/^construction-materials/, ['cont', 'fcl', 'price', 'hs']],
@@ -203,6 +220,9 @@ function countryGuide(slug, nm) {
 }
 function guidesFor(d) {
   const keys = (d.crumbs || []).map(c => c.path).concat(d.path || '').filter(Boolean);
+  // The page's own path decides first, so a product beats its parent category.
+  const own = keys[keys.length - 1];
+  if (own) for (const [rx, set] of GUIDE_SETS) if (rx.test(own)) return set.map(k => G[k]);
   for (const [rx, set] of GUIDE_SETS) if (keys.some(k => rx.test(k))) return set.map(k => G[k]);
   return ['start', 'fake', 'pay', 'quote'].map(k => G[k]);
 }
