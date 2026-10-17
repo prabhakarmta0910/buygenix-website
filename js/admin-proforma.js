@@ -1,17 +1,26 @@
-/* BuyGenix admin: proforma invoices for members (memberships and services).
+/* BuyGenix admin: proforma invoices and GST tax invoices for members (memberships and services).
    Seller details and bank details are saved once in admin_settings and can be edited any time.
    Each saved proforma gets the next number for the financial year: BGX/PI/2026-27/001.
+   Tax invoices use their own series within the 16-character GST limit: BGX/26-27/0001.
+   Issued tax invoices are never deleted, only cancelled (the table has no delete policy).
    BGXAdminProforma.init({ sb, members, plans, demo }) is called when the panel opens. */
 (function () {
   'use strict';
   var $ = function (id) { return document.getElementById(id); };
   var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  var sb = null, DEMO = false, started = false, members = [], plans = [], currentId = null, cache = [];
+  var sb = null, DEMO = false, started = false, members = [], plans = [], currentId = null, cache = [], KIND = 'pi', proformaId = null, cancelled = false;
   var SETTINGS_KEY = 'proforma_seller';
   var STATES = ['Andaman and Nicobar Islands', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka', 'Kerala', 'Ladakh', 'Lakshadweep', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Puducherry', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal', 'Outside India'];
   var SELLER_DEFAULT = { name: 'BuyGenix Solutions', addr: 'Delhi, India', state: 'Delhi', gstin: '', pan: '', email: 'Info@buygenixsolutions.com', phone: '+91 87967 87594', bank: '',
-    terms: 'Membership starts on receipt of full payment and runs for 365 days from activation.\nPrices are in Indian rupees. GST is charged at 18%.\nThis is a proforma invoice, not a tax invoice. The tax invoice is issued after payment.' };
-  var SF = ['name', 'addr', 'state', 'gstin', 'pan', 'email', 'phone', 'bank', 'terms'];
+    terms: 'Membership starts on receipt of full payment and runs for 365 days from activation.\nPrices are in Indian rupees. GST is charged at 18%.\nThis is a proforma invoice, not a tax invoice. The tax invoice is issued after payment.',
+    terms_tax: 'Membership runs for 365 days from activation.\nPrices are in Indian rupees. GST is charged at 18%.' };
+  /* GST state codes, printed with the place of supply */
+  var CODES = { 'Jammu and Kashmir': '01', 'Himachal Pradesh': '02', 'Punjab': '03', 'Chandigarh': '04', 'Uttarakhand': '05', 'Haryana': '06', 'Delhi': '07', 'Rajasthan': '08', 'Uttar Pradesh': '09', 'Bihar': '10', 'Sikkim': '11', 'Arunachal Pradesh': '12', 'Nagaland': '13', 'Manipur': '14', 'Mizoram': '15', 'Tripura': '16', 'Meghalaya': '17', 'Assam': '18', 'West Bengal': '19', 'Jharkhand': '20', 'Odisha': '21', 'Chhattisgarh': '22', 'Madhya Pradesh': '23', 'Gujarat': '24', 'Dadra and Nagar Haveli and Daman and Diu': '26', 'Maharashtra': '27', 'Karnataka': '29', 'Goa': '30', 'Lakshadweep': '31', 'Kerala': '32', 'Tamil Nadu': '33', 'Puducherry': '34', 'Andaman and Nicobar Islands': '35', 'Telangana': '36', 'Andhra Pradesh': '37', 'Ladakh': '38', 'Outside India': '96' };
+  function pos(st) { return st ? st + (CODES[st] ? ' (' + CODES[st] + ')' : '') : '-'; }
+  var WORD = { pi: 'proforma', ti: 'tax invoice' };
+  function TBL() { return KIND === 'ti' ? 'admin_tax_invoices' : 'admin_proformas'; }
+  function DK() { return KIND === 'ti' ? 'bgx_admin_demo_ti' : 'bgx_admin_demo_pi'; }
+  var SF = ['name', 'addr', 'state', 'gstin', 'pan', 'email', 'phone', 'bank', 'terms', 'terms_tax'];
   var BF = ['name', 'contact', 'addr', 'state', 'gstin', 'email', 'phone'];
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -56,24 +65,28 @@
       return sb.from('admin_settings').upsert({ key: SETTINGS_KEY, value: v, updated_at: new Date().toISOString() }, { onConflict: 'key' }).then(function (r) { if (r.error) throw r.error; });
     },
     list: function () {
-      if (DEMO) return Promise.resolve(lsGet('bgx_admin_demo_pi', []));
-      return sb.from('admin_proformas').select('id,number,client_name,total,invoice_date,created_at,data').order('created_at', { ascending: false }).limit(200)
+      if (DEMO) return Promise.resolve(lsGet(DK(), []));
+      return sb.from(TBL()).select('id,number,client_name,total,invoice_date,created_at,data' + (KIND === 'ti' ? ',status,proforma_id' : '')).order('created_at', { ascending: false }).limit(500)
         .then(function (r) { if (r.error) throw r.error; return r.data || []; });
     },
     save: function (row) {
       if (DEMO) {
-        var all = lsGet('bgx_admin_demo_pi', []);
+        var all = lsGet(DK(), []);
         if (row.id) all = all.filter(function (x) { return x.id !== row.id; }); else row.id = 'demo-' + Date.now();
         if (all.some(function (x) { return x.number === row.number; })) return Promise.reject(new Error('duplicate'));
-        row.created_at = new Date().toISOString(); all.unshift(row); lsSet('bgx_admin_demo_pi', all); return Promise.resolve({ id: row.id });
+        row.created_at = new Date().toISOString(); if (KIND === 'ti' && !row.status) row.status = 'issued'; all.unshift(row); lsSet(DK(), all); return Promise.resolve({ id: row.id });
       }
       var id = row.id; delete row.id;
-      var q = id ? sb.from('admin_proformas').update(row).eq('id', id).select('id').single() : sb.from('admin_proformas').insert(row).select('id').single();
+      var q = id ? sb.from(TBL()).update(row).eq('id', id).select('id').single() : sb.from(TBL()).insert(row).select('id').single();
       return q.then(function (r) { if (r.error) throw r.error; return r.data; });
     },
     del: function (id) {
-      if (DEMO) { lsSet('bgx_admin_demo_pi', lsGet('bgx_admin_demo_pi', []).filter(function (x) { return x.id !== id; })); return Promise.resolve(); }
-      return sb.from('admin_proformas').delete().eq('id', id).then(function (r) { if (r.error) throw r.error; });
+      if (DEMO) { lsSet(DK(), lsGet(DK(), []).filter(function (x) { return x.id !== id; })); return Promise.resolve(); }
+      return sb.from(TBL()).delete().eq('id', id).then(function (r) { if (r.error) throw r.error; });
+    },
+    cancel: function (id) {
+      if (DEMO) { lsSet(DK(), lsGet(DK(), []).map(function (x) { if (x.id === id) x.status = 'cancelled'; return x; })); return Promise.resolve(); }
+      return sb.from('admin_tax_invoices').update({ status: 'cancelled' }).eq('id', id).then(function (r) { if (r.error) throw r.error; });
     }
   };
 
@@ -113,22 +126,25 @@
   function party(label, name, body) { var d = el('div'); d.appendChild(el('b', '', label)); if (name) d.appendChild(el('p', 'nm', name)); d.appendChild(el('p', '', body || '')); return d; }
   function render() {
     if (!started) return;
-    var s = seller(), b = buyer(), c = calc(), p = $('piPaper'); p.textContent = '';
+    var s = seller(), b = buyer(), c = calc(), p = $('piPaper'), TI = KIND === 'ti'; p.textContent = '';
     $('psTitle').textContent = s.name || 'Our details';
     var top = el('div', 'inv-top'), brand = el('div', 'inv-brand'), im = el('img'); im.src = '/assets/logo-full.png'; im.alt = 'BuyGenix Solutions'; brand.appendChild(im);
     var meta = el('div', 'inv-meta');
-    [['No.', $('pi_no').value.trim() || '-'], ['Date:', fmtDate($('pi_date').value) || '-'], ['Valid until:', addDays($('pi_date').value, num($('pi_valid').value))]].forEach(function (x) { if (!x[1]) return; var d = el('div'); d.appendChild(document.createTextNode(x[0] + ' ')); d.appendChild(el('b', '', x[1])); meta.appendChild(d); });
+    [[TI ? 'Invoice no.' : 'No.', $('pi_no').value.trim() || '-'], ['Date:', fmtDate($('pi_date').value) || '-'], ['Valid until:', TI ? '' : addDays($('pi_date').value, num($('pi_valid').value))]].forEach(function (x) { if (!x[1]) return; var d = el('div'); d.appendChild(document.createTextNode(x[0] + ' ')); d.appendChild(el('b', '', x[1])); meta.appendChild(d); });
     top.appendChild(brand); top.appendChild(meta); p.appendChild(top);
-    var t = el('div', 'inv-title'); t.appendChild(el('h3', '', 'PROFORMA INVOICE')); t.appendChild(el('div', 'nm', s.name)); p.appendChild(t);
+    var t = el('div', 'inv-title'); t.appendChild(el('h3', '', TI ? 'TAX INVOICE' : 'PROFORMA INVOICE')); t.appendChild(el('div', 'nm', s.name)); if (TI && cancelled) t.appendChild(el('div', 'cx', 'CANCELLED')); p.appendChild(t);
     var pr = el('div', 'inv-parties');
     pr.appendChild(party('From', s.name, lines([s.addr, s.gstin && 'GSTIN: ' + s.gstin, s.pan && 'PAN: ' + s.pan, s.email, s.phone])));
     pr.appendChild(party('Bill to', b.name || 'Client name', lines([b.contact && b.contact !== b.name ? 'Attn: ' + b.contact : '', b.addr, b.state && b.state !== 'Outside India' && b.addr.indexOf(b.state) < 0 ? b.state : '', b.gstin && 'GSTIN: ' + b.gstin, b.email, b.phone])));
     p.appendChild(pr);
     var terms = el('div', 'inv-terms');
-    [['Place of supply', b.state || '-'], ['GST', c.mode === 'cgst' ? 'CGST 9% + SGST 9%' : c.mode === 'igst' ? 'IGST 18%' : 'Not charged'], ['Payment due', $('pi_due').value.trim() || '-']].forEach(function (x) { var d = el('div'); d.appendChild(el('b', '', x[0])); d.appendChild(el('span', '', x[1])); terms.appendChild(d); });
+    var gl = c.mode === 'cgst' ? 'CGST 9% + SGST 9%' : c.mode === 'igst' ? 'IGST 18%' : 'Not charged';
+    (TI ? [['Place of supply', pos(b.state)], ['GST', gl], ['Reverse charge', $('pi_rc').value], $('pi_ref').value.trim() ? ['Against proforma', $('pi_ref').value.trim()] : null,
+      $('pi_paid').value ? ['Payment received', fmtDate($('pi_paid').value) + ($('pi_payref').value.trim() ? ', ref ' + $('pi_payref').value.trim() : '')] : null]
+      : [['Place of supply', b.state || '-'], ['GST', gl], ['Payment due', $('pi_due').value.trim() || '-']]).forEach(function (x) { if (!x) return; var d = el('div'); d.appendChild(el('b', '', x[0])); d.appendChild(el('span', '', x[1])); terms.appendChild(d); });
     p.appendChild(terms);
     var w = el('div', 'tl-scroll'), tb = el('table', 'inv-table'), th = el('thead'), hr = el('tr');
-    ['#', 'Description', 'SAC', 'Qty', 'Rate', 'Amount'].forEach(function (h, i) { hr.appendChild(el('th', i >= 3 ? 'r' : '', h)); }); th.appendChild(hr); tb.appendChild(th);
+    ['#', 'Description', 'SAC', 'Qty', 'Rate', TI ? 'Taxable value' : 'Amount'].forEach(function (h, i) { hr.appendChild(el('th', i >= 3 ? 'r' : '', h)); }); th.appendChild(hr); tb.appendChild(th);
     var body = el('tbody');
     if (!c.items.length) { var r0 = el('tr'), td0 = el('td', 'inv-empty', 'Add an item on the left'); td0.colSpan = 6; r0.appendChild(td0); body.appendChild(r0); }
     c.items.forEach(function (r, i) { var tr = el('tr'); [String(i + 1), r.desc, r.sac, r.qty, r.rate ? inr(num(r.rate)) : '', inr(r.amount)].forEach(function (v, j) { tr.appendChild(el('td', j >= 3 ? 'r' : '', v)); }); body.appendChild(tr); });
@@ -138,20 +154,21 @@
     p.appendChild(sm);
     p.appendChild(el('p', 'api-words', 'Amount in words: ' + words(c.total)));
     var f = el('div', 'inv-foot'), l = el('div');
-    if (s.bank) { l.appendChild(el('b', '', 'Bank details')); l.appendChild(el('p', '', s.bank)); }
+    if (s.bank && !TI) { l.appendChild(el('b', '', 'Bank details')); l.appendChild(el('p', '', s.bank)); }
     var notes = $('pi_notes').value.trim();
-    if (notes) { var b1 = el('b', '', 'Notes'); if (s.bank) b1.style.marginTop = '10px'; l.appendChild(b1); l.appendChild(el('p', '', notes)); }
+    if (notes) { var b1 = el('b', '', 'Notes'); if (s.bank && !TI) b1.style.marginTop = '10px'; l.appendChild(b1); l.appendChild(el('p', '', notes)); }
     var sg = el('div', 'inv-sign'); sg.appendChild(el('div', '', 'For ' + (s.name || 'BuyGenix Solutions'))); sg.appendChild(el('div', 'ln', 'Authorised signatory'));
     f.appendChild(l); f.appendChild(sg); p.appendChild(f);
-    if (s.terms) { var tm = el('div', 'inv-decl'); tm.appendChild(el('b', '', 'Terms')); tm.appendChild(el('p', '', s.terms)); p.appendChild(tm); }
-    $('piBankWarn').hidden = !!s.bank;
+    var tt = TI ? s.terms_tax : s.terms;
+    if (tt) { var tm = el('div', 'inv-decl'); tm.appendChild(el('b', '', 'Terms')); tm.appendChild(el('p', '', tt)); p.appendChild(tm); }
+    $('piBankWarn').hidden = !!s.bank || TI; $('piGstWarn').hidden = !TI || !!s.gstin;
   }
 
   /* ---------- numbering ---------- */
   function nextNumber(list) {
-    var pre = 'BGX/PI/' + fy($('pi_date').value) + '/', max = 0;
+    var f = fy($('pi_date').value), pre = KIND === 'ti' ? 'BGX/' + f.slice(2) + '/' : 'BGX/PI/' + f + '/', max = 0;
     (list || cache).forEach(function (x) { if (x.number && x.number.indexOf(pre) === 0) { var n = parseInt(x.number.slice(pre.length), 10); if (n > max) max = n; } });
-    return pre + String(max + 1).padStart(3, '0');
+    return pre + String(max + 1).padStart(KIND === 'ti' ? 4 : 3, '0');
   }
 
   /* ---------- saved list ---------- */
@@ -159,50 +176,61 @@
     var box = $('piList'); box.textContent = '';
     var q = $('piSearch').value.trim().toLowerCase();
     var list = cache.filter(function (x) { return !q || (x.number + ' ' + (x.client_name || '')).toLowerCase().indexOf(q) >= 0; });
-    if (!list.length) { box.appendChild(el('div', 'empty-row', cache.length ? 'No proforma matches your search.' : 'No proforma invoices yet. Your saved ones will appear here.')); return; }
+    if (!list.length) { box.appendChild(el('div', 'empty-row', cache.length ? 'Nothing matches your search.' : (KIND === 'ti' ? 'No tax invoices yet.' : 'No proforma invoices yet.') + ' Your saved ones will appear here.')); return; }
     list.forEach(function (x) {
-      var row = el('div', 'api-row'); if (x.id === currentId) row.classList.add('on');
-      var a = el('div', 'api-c'); a.appendChild(el('b', '', x.number)); a.appendChild(el('span', '', fmtDate(x.invoice_date) || ''));
+      var off = x.status === 'cancelled', row = el('div', 'api-row'); if (x.id === currentId) row.classList.add('on'); if (off) row.classList.add('off');
+      var a = el('div', 'api-c'), nb = el('b', '', x.number); if (off) nb.appendChild(el('span', 'api-tag', 'Cancelled')); a.appendChild(nb); a.appendChild(el('span', '', fmtDate(x.invoice_date) || ''));
       var b = el('div', 'api-c'); b.appendChild(el('b', '', x.client_name || '-')); b.appendChild(el('span', '', inr(num(x.total))));
       var act = el('div', 'api-act');
       var o = el('button', 'mt-btn', 'Open'); o.type = 'button'; o.onclick = function () { open(x); };
-      var d = el('button', 'mt-btn del', 'Delete'); d.type = 'button'; d.onclick = function () { if (!confirm('Delete proforma ' + x.number + '? This cannot be undone.')) return; store.del(x.id).then(function () { if (currentId === x.id) newPi(); return refresh(); }).then(function () { status('piStatus', 'Deleted.', 'ok'); }).catch(function () { status('piStatus', 'Could not delete. Try again.', 'err'); }); };
-      act.appendChild(o); act.appendChild(d); row.appendChild(a); row.appendChild(b); row.appendChild(act); box.appendChild(row);
+      act.appendChild(o);
+      if (KIND === 'pi') {
+        var mk = el('button', 'mt-btn', 'Make tax invoice'); mk.type = 'button'; mk.onclick = function () { toTax(x); }; act.appendChild(mk);
+        var d = el('button', 'mt-btn del', 'Delete'); d.type = 'button'; d.onclick = function () { if (!confirm('Delete proforma ' + x.number + '? This cannot be undone.')) return; store.del(x.id).then(function () { if (currentId === x.id) newPi(); return refresh(); }).then(function () { status('piStatus', 'Deleted.', 'ok'); }).catch(function () { status('piStatus', 'Could not delete. Try again.', 'err'); }); };
+        act.appendChild(d);
+      } else if (!off) {
+        var cx = el('button', 'mt-btn del', 'Cancel'); cx.type = 'button'; cx.onclick = function () { if (!confirm('Cancel tax invoice ' + x.number + '? It stays in the list marked as cancelled and its number is not reused. If GST was already reported for it, issue a credit note as well.')) return; store.cancel(x.id).then(function () { if (currentId === x.id) cancelled = true; return refresh(); }).then(function () { status('piStatus', 'Cancelled ' + x.number + '.', 'ok'); }).catch(function () { status('piStatus', 'Could not cancel. Try again.', 'err'); }); };
+        act.appendChild(cx);
+      } row.appendChild(a); row.appendChild(b); row.appendChild(act); box.appendChild(row);
     });
   }
-  function refresh() { return store.list().then(function (l) { cache = l; drawList(); if (!currentId) $('pi_no').value = nextNumber(); render(); }).catch(function () { status('piStatus', 'Could not load saved proformas.', 'err'); }); }
+  function refresh() { var k = KIND; return store.list().then(function (l) { if (k !== KIND) return; cache = l; drawList(); if (!currentId) $('pi_no').value = nextNumber(); render(); }).catch(function () { status('piStatus', 'Could not load saved invoices.', 'err'); }); }
   function open(x) {
-    var d = x.data || {}; currentId = x.id;
+    var d = x.data || {}; currentId = x.id; proformaId = x.proforma_id || null; cancelled = x.status === 'cancelled';
+    $('pi_ref').value = d.ref || ''; $('pi_paid').value = d.paid || ''; $('pi_payref').value = d.payref || ''; $('pi_rc').value = d.rc || 'No';
     $('pi_no').value = x.number; $('pi_date').value = d.date || x.invoice_date || today(); $('pi_valid').value = d.valid || '7'; $('pi_due').value = d.due || ''; $('pi_gst').value = d.gst || 'auto'; $('pi_notes').value = d.notes || ''; $('pi_member').value = d.client_id || '';
     BF.forEach(function (k) { $('pb_' + k).value = (d.buyer || {})[k] || ''; }); setRows(d.items); render(); drawList();
     $('piFormTop').scrollIntoView({ behavior: 'smooth', block: 'start' }); status('piStatus', 'Opened ' + x.number + '.', 'ok');
   }
   function newPi() {
-    currentId = null; ['pi_due', 'pi_notes'].forEach(function (k) { $(k).value = ''; }); $('pi_date').value = today(); $('pi_valid').value = '7'; $('pi_gst').value = 'auto'; $('pi_member').value = '';
+    currentId = null; proformaId = null; cancelled = false; $('pi_rc').value = 'No'; ['pi_due', 'pi_notes', 'pi_ref', 'pi_paid', 'pi_payref'].forEach(function (k) { $(k).value = ''; }); $('pi_date').value = today(); $('pi_valid').value = '7'; $('pi_gst').value = 'auto'; $('pi_member').value = '';
     BF.forEach(function (k) { $('pb_' + k).value = ''; }); setRows([]); $('pi_no').value = nextNumber(); render(); drawList();
   }
   function save() {
     var b = buyer(), c = calc(), no = $('pi_no').value.trim();
-    if (!no) return status('piStatus', 'Add a proforma number.', 'err');
+    if (cancelled) return status('piStatus', 'This tax invoice is cancelled and cannot be changed. Press New to make another.', 'err');
+    if (!no) return status('piStatus', 'Add the ' + WORD[KIND] + ' number.', 'err');
+    if (KIND === 'ti' && no.length > 16) return status('piStatus', 'A GST invoice number can have at most 16 characters.', 'err');
     if (!b.name) return status('piStatus', 'Add the client name.', 'err');
     if (!c.items.length) return status('piStatus', 'Add at least one item.', 'err');
     status('piStatus', 'Saving...');
     var row = { id: currentId, number: no, client_id: $('pi_member').value || null, client_name: b.name, total: c.total, invoice_date: $('pi_date').value || today(),
-      data: { date: $('pi_date').value, valid: $('pi_valid').value, due: $('pi_due').value, gst: $('pi_gst').value, notes: $('pi_notes').value, client_id: $('pi_member').value || '', buyer: b, items: c.items.map(function (r) { return { desc: r.desc, sac: r.sac, qty: r.qty, rate: r.rate }; }), seller: seller(), totals: { sub: c.sub, cgst: c.cgst, sgst: c.sgst, igst: c.igst, total: c.total, mode: c.mode } } };
+      data: { date: $('pi_date').value, valid: $('pi_valid').value, due: $('pi_due').value, ref: $('pi_ref').value.trim(), paid: $('pi_paid').value, payref: $('pi_payref').value.trim(), rc: $('pi_rc').value, gst: $('pi_gst').value, notes: $('pi_notes').value, client_id: $('pi_member').value || '', buyer: b, items: c.items.map(function (r) { return { desc: r.desc, sac: r.sac, qty: r.qty, rate: r.rate }; }), seller: seller(), totals: { sub: c.sub, cgst: c.cgst, sgst: c.sgst, igst: c.igst, total: c.total, mode: c.mode } } };
     if (row.client_id && !/^[0-9a-f-]{36}$/i.test(row.client_id)) row.client_id = null;
+    if (KIND === 'ti') row.proforma_id = proformaId && /^[0-9a-f-]{36}$/i.test(proformaId) ? proformaId : null;
     store.save(row).then(function (r) { currentId = r.id; return refresh(); }).then(function () { status('piStatus', 'Saved as ' + no + '.', 'ok'); })
       .catch(function (e) { status('piStatus', /duplicate|unique/i.test(String(e && (e.message || e.code))) ? 'This number is already used. Change the number or press New.' : 'Could not save. Check your connection and try again.', 'err'); });
   }
   function printPi() {
     render();
-    var p = $('piPaper'), w = null, title = 'Proforma ' + ($('pi_no').value.trim().replace(/\//g, '-') || '') + (buyer().name ? ' - ' + buyer().name : '');
+    var p = $('piPaper'), w = null, title = (KIND === 'ti' ? 'Tax invoice ' : 'Proforma ') + ($('pi_no').value.trim().replace(/\//g, '-') || '') + (buyer().name ? ' - ' + buyer().name : '');
     try { w = window.open('', '_blank'); } catch (e) { w = null; }
     if (!w) { alert('Allow pop-ups for this site to download the PDF.'); return; }
     var t = title.replace(/[<>&"]/g, '');
     w.document.open();
     w.document.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><base href="' + location.origin + '/"><title>' + t + '</title>' +
       '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">' +
-      '<link rel="stylesheet" href="css/tools.css?v=20261009a"><link rel="stylesheet" href="css/member-tools.css?v=20261009a"><link rel="stylesheet" href="css/admin-proforma.css?v=20261009a">' +
+      '<link rel="stylesheet" href="css/tools.css?v=20261009a"><link rel="stylesheet" href="css/member-tools.css?v=20261009a"><link rel="stylesheet" href="css/admin-proforma.css?v=20261017a">' +
       '<style>@page{size:A4;margin:12mm}html,body{margin:0;background:#fff;font-family:Inter,system-ui,sans-serif}.mt-sheet{max-width:780px;margin:0 auto;padding:24px}@media print{.mt-sheet{padding:0;max-width:none}}</style>' +
       '</head><body><div class="mt-sheet">' + p.outerHTML.replace(/class="tl-paper"/, 'class="tl-paper mt-print"') + '</div>' +
       '<script>window.addEventListener("load",function(){setTimeout(function(){window.focus();window.print();},350)});<\/script></body></html>');
@@ -238,10 +266,37 @@
     $('piSave').onclick = save; $('piNew').onclick = newPi; $('piPrint').onclick = printPi; $('piSearch').oninput = drawList;
     $('psSave').onclick = function () { status('psStatus', 'Saving...'); store.saveSettings(seller()).then(function () { status('psStatus', 'Saved. Used on every new proforma.', 'ok'); }).catch(function () { status('psStatus', 'Could not save. Try again.', 'err'); }); };
     $('psReset').onclick = function () { if (confirm('Fill in the default BuyGenix details? Your bank details stay as they are.')) { var bank = $('ps_bank').value; setSeller(SELLER_DEFAULT); $('ps_bank').value = bank; render(); } };
+    $('piKindPi').onclick = function () { setKind('pi'); }; $('piKindTi').onclick = function () { setKind('ti'); };
     $('pi_date').value = today(); $('pi_valid').value = '7'; setRows([]);
     store.getSettings().then(function (v) { setSeller(v || SELLER_DEFAULT); if (!v || !v.bank) $('piSeller').open = true; render(); }).catch(function () { setSeller(SELLER_DEFAULT); render(); });
     refresh();
     if (DEMO) $('piDemo').hidden = false;
+  }
+
+  /* ---------- proforma or tax invoice ---------- */
+  function setKind(k, keep) {
+    if (k === KIND && !keep) return Promise.resolve();
+    KIND = k; var TI = k === 'ti'; cache = [];
+    [['piKindPi', !TI], ['piKindTi', TI]].forEach(function (x) { $(x[0]).classList.toggle('on', x[1]); $(x[0]).setAttribute('aria-selected', x[1] ? 'true' : 'false'); });
+    $('piDetTitle').textContent = TI ? 'Tax invoice details' : 'Proforma details'; $('piNoLbl').textContent = TI ? 'Invoice no.' : 'Proforma no.';
+    $('piValidF').hidden = TI; $('piDueF').hidden = TI; $('piRcF').hidden = !TI; $('piTaxF').hidden = !TI;
+    $('piSave').textContent = TI ? 'Save tax invoice' : 'Save proforma'; $('piNew').textContent = TI ? 'New tax invoice' : 'New proforma';
+    $('piListTitle').textContent = TI ? 'Saved tax invoices' : 'Saved proforma invoices';
+    $('piSearch').value = ''; $('piList').textContent = ''; $('piList').appendChild(el('div', 'empty-row', 'Loading...'));
+    newPi();
+    return refresh();
+  }
+  /* Copy a saved proforma into a new tax invoice after payment */
+  function toTax(x) {
+    var d = x.data || {};
+    setKind('ti', true).then(function () {
+      currentId = null; proformaId = x.id; cancelled = false;
+      $('pi_date').value = today(); $('pi_gst').value = d.gst || 'auto'; $('pi_notes').value = d.notes || ''; $('pi_member').value = d.client_id || ''; $('pi_rc').value = 'No';
+      $('pi_ref').value = x.number; $('pi_paid').value = today(); $('pi_payref').value = '';
+      BF.forEach(function (k) { $('pb_' + k).value = (d.buyer || {})[k] || ''; }); setRows(d.items);
+      $('pi_no').value = nextNumber(); render(); drawList();
+      $('piFormTop').scrollIntoView({ behavior: 'smooth', block: 'start' }); status('piStatus', 'Filled from ' + x.number + '. Check the payment details, then save.', 'ok');
+    });
   }
 
   window.BGXAdminProforma = {

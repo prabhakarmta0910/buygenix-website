@@ -28,3 +28,9 @@
 }
 #piPaper .inv-brand{min-height:34px;}
 #piPaper .inv-brand img{max-height:34px;max-width:130px;}
+.api-kind{display:inline-flex;gap:4px;background:#fff;border:1px solid var(--lp-line);border-radius:12px;padding:4px;margin:0 0 18px;}
+.api-kind button{font:inherit;font-size:13.5px;font-weight:600;color:var(--lp-mid);background:none;border:0;border-radius:9px;padding:9px 16px;cursor:pointer;}
+.api-kind button.on{background:var(--ad-blue,#2563EB);color:#fff;}
+.api-tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 7px;margin-left:8px;vertical-align:1px;background:#FEE2E2;color:#B91C1C;}
+.api-row.off .api-c b{text-decoration:line-through;color:var(--lp-mid);}
+.inv-title .cx{color:#B91C1C;font-size:12px;font-weight:700;letter-spacing:.1em;margin-top:4px;}

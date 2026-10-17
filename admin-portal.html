@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="css/shared.css?v=20260927g">
 <link rel="stylesheet" href="css/tools.css?v=20261012c">
 <link rel="stylesheet" href="css/member-tools.css?v=20261009a">
-<link rel="stylesheet" href="css/admin-proforma.css?v=20261009a">
+<link rel="stylesheet" href="css/admin-proforma.css?v=20261017a">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <style>
 /* ══ ADMIN CRM — design system ══ */
@@ -314,7 +314,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
       <div class="asb-link" onclick="showAPanel('leads',this)"><svg class="ic"><use href="#i-target"/></svg>Buy Leads<span class="asb-count" id="sbLeadCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('enquiries',this)"><svg class="ic"><use href="#i-mail"/></svg>Contact Messages<span class="asb-count" id="sbEnqCnt">0</span></div>
       <div class="asb-sec">Billing</div>
-      <div class="asb-link" id="asbProforma" onclick="showAPanel('proforma',this)"><svg class="ic"><use href="#i-rupee"/></svg>Proforma invoices</div>
+      <div class="asb-link" id="asbProforma" onclick="showAPanel('proforma',this)"><svg class="ic"><use href="#i-rupee"/></svg>Invoices</div>
       <div class="asb-sec">Website</div>
       <div class="asb-link" onclick="showAPanel('payments',this)"><svg class="ic"><use href="#i-card"/></svg>Payments<span class="asb-count" id="sbPayCnt">0</span></div>
       <div class="asb-link" onclick="showAPanel('plans',this)"><svg class="ic"><use href="#i-card"/></svg>Membership Plans</div>
@@ -537,11 +537,12 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 
       <!-- PROFORMA INVOICES -->
       <div class="a-panel" id="ap-proforma">
-        <div class="ph"><div><h2>Proforma invoices</h2><p>Make a proforma for a member, save it with the next number and download it as a PDF.</p></div></div>
+        <div class="ph"><div><h2>Invoices</h2><p>Make a proforma or a GST tax invoice for a member, save it with the next number and download it as a PDF.</p></div></div>
+        <div class="api-kind" role="tablist" aria-label="Document type"><button type="button" role="tab" id="piKindPi" class="on" aria-selected="true">Proforma invoice</button><button type="button" role="tab" id="piKindTi" aria-selected="false">Tax invoice</button></div>
         <div class="mt-demo" id="piDemo" hidden>Preview mode on this computer: nothing is saved to the server.</div>
 
         <details class="mt-company" id="piSeller">
-          <summary><div><b id="psTitle">Our details</b><br><span>Company, GST and bank details printed on every proforma. Save once, edit any time.</span></div><span class="go">Edit</span></summary>
+          <summary><div><b id="psTitle">Our details</b><br><span>Company, GST and bank details printed on every proforma and tax invoice. Save once, edit any time.</span></div><span class="go">Edit</span></summary>
           <div class="tl-group">
             <div class="tl-row"><div class="tl-f"><label for="ps_name">Company name</label><input id="ps_name"><small>As registered</small></div><div class="tl-f"><label for="ps_state">State</label><select id="ps_state"></select><small>Decides CGST and SGST or IGST</small></div></div>
             <div class="tl-f"><label for="ps_addr">Address</label><textarea id="ps_addr"></textarea><small>Registered address</small></div>
@@ -549,6 +550,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
             <div class="tl-row"><div class="tl-f"><label for="ps_email">Email</label><input id="ps_email" type="email"><small>Shown on the proforma</small></div><div class="tl-f"><label for="ps_phone">Phone</label><input id="ps_phone"><small>With country code</small></div></div>
             <div class="tl-f"><label for="ps_bank">Bank details</label><textarea id="ps_bank" rows="5" placeholder="Account name&#10;Bank name and branch&#10;Account number&#10;IFSC&#10;UPI ID (optional)"></textarea><small>Printed exactly as typed</small></div>
             <div class="tl-f"><label for="ps_terms">Terms</label><textarea id="ps_terms" rows="4"></textarea><small>Printed at the bottom of every proforma</small></div>
+            <div class="tl-f"><label for="ps_terms_tax">Tax invoice terms</label><textarea id="ps_terms_tax" rows="3"></textarea><small>Printed at the bottom of every tax invoice</small></div>
             <div class="mt-paper-actions" style="margin:0 0 14px"><button type="button" class="mt-btn pri" id="psSave">Save our details</button><button type="button" class="mt-btn" id="psReset">Use default details</button><span class="mt-status" id="psStatus"></span></div>
           </div>
         </details>
@@ -562,9 +564,10 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
               <div class="tl-row"><div class="tl-f"><label for="pb_state">State (place of supply)</label><select id="pb_state"></select><small>For GST</small></div><div class="tl-f"><label for="pb_gstin">GSTIN</label><input id="pb_gstin" maxlength="15"><small>If registered</small></div></div>
               <div class="tl-row"><div class="tl-f"><label for="pb_email">Email</label><input id="pb_email" type="email"><small>Optional</small></div><div class="tl-f"><label for="pb_phone">Phone</label><input id="pb_phone"><small>Optional</small></div></div>
             </div>
-            <div class="tl-group"><b>Proforma details</b>
-              <div class="tl-row three"><div class="tl-f"><label for="pi_no">Proforma no.</label><input id="pi_no"><small>Next number is filled in</small></div><div class="tl-f"><label for="pi_date">Date</label><input id="pi_date" type="date"><small>Issue date</small></div><div class="tl-f"><label for="pi_valid">Valid for (days)</label><input id="pi_valid" type="number" min="1"><small>Offer validity</small></div></div>
-              <div class="tl-row"><div class="tl-f"><label for="pi_gst">GST</label><select id="pi_gst"><option value="auto">Automatic from the states</option><option value="cgst">CGST 9% + SGST 9%</option><option value="igst">IGST 18%</option><option value="none">No GST</option></select><small>Same state: CGST and SGST</small></div><div class="tl-f"><label for="pi_due">Payment due</label><input id="pi_due" placeholder="On receipt"><small>For example, within 7 days</small></div></div>
+            <div class="tl-group"><b id="piDetTitle">Proforma details</b>
+              <div class="tl-row three"><div class="tl-f"><label for="pi_no" id="piNoLbl">Proforma no.</label><input id="pi_no"><small>Next number is filled in</small></div><div class="tl-f"><label for="pi_date">Date</label><input id="pi_date" type="date"><small>Issue date</small></div><div class="tl-f" id="piValidF"><label for="pi_valid">Valid for (days)</label><input id="pi_valid" type="number" min="1"><small>Offer validity</small></div></div>
+              <div class="tl-row"><div class="tl-f"><label for="pi_gst">GST</label><select id="pi_gst"><option value="auto">Automatic from the states</option><option value="cgst">CGST 9% + SGST 9%</option><option value="igst">IGST 18%</option><option value="none">No GST</option></select><small>Same state: CGST and SGST</small></div><div class="tl-f" id="piDueF"><label for="pi_due">Payment due</label><input id="pi_due" placeholder="On receipt"><small>For example, within 7 days</small></div><div class="tl-f" id="piRcF" hidden><label for="pi_rc">Reverse charge</label><select id="pi_rc"><option value="No">No</option><option value="Yes">Yes</option></select><small>Usually No for our services</small></div></div>
+              <div class="tl-row three" id="piTaxF" hidden><div class="tl-f"><label for="pi_ref">Against proforma</label><input id="pi_ref" placeholder="BGX/PI/2026-27/001"><small>Optional</small></div><div class="tl-f"><label for="pi_paid">Payment received on</label><input id="pi_paid" type="date"><small>Optional</small></div><div class="tl-f"><label for="pi_payref">Payment reference</label><input id="pi_payref" placeholder="UTR or UPI ref"><small>Optional</small></div></div>
             </div>
             <div class="tl-group"><b>Items</b>
               <div class="tl-row"><div class="tl-f"><label for="piPlan">Add a plan</label><select id="piPlan"></select><small>Adds the plan at its yearly price</small></div><div class="tl-f"><label>&nbsp;</label><button type="button" class="tl-add" id="piAdd" style="margin:0;min-height:42px">+ Add other item</button><small>Registrations, services</small></div></div>
@@ -573,6 +576,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
             </div>
           </form>
           <div class="tl-sticky">
+            <p class="api-warn" id="piGstWarn" hidden>Add your GSTIN in "Our details" above. A GST tax invoice must show it.</p>
             <p class="api-warn" id="piBankWarn" hidden>Add your bank details in "Our details" above so clients know where to pay.</p>
             <div class="tl-paper" id="piPaper"></div>
             <div class="mt-paper-actions"><button type="button" class="mt-btn pri" id="piPrint">Download PDF</button><button type="button" class="mt-btn" id="piSave">Save proforma</button><button type="button" class="mt-btn" id="piNew">New proforma</button><span class="mt-status" id="piStatus"></span></div>
@@ -580,7 +584,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
         </div>
 
         <div class="api-list">
-          <div class="api-list-h"><b>Saved proforma invoices</b><input id="piSearch" type="search" placeholder="Search by number or client" aria-label="Search proformas"></div>
+          <div class="api-list-h"><b id="piListTitle">Saved proforma invoices</b><input id="piSearch" type="search" placeholder="Search by number or client" aria-label="Search saved invoices"></div>
           <div id="piList"><div class="empty-row">Loading...</div></div>
         </div>
       </div>
@@ -726,7 +730,7 @@ body{background:var(--ad-bg);font-family:'Plus Jakarta Sans',sans-serif;color:va
 
 <script src="js/bgx-data.js"></script>
 <script src="js/shared.js?v=20260929a"></script>
-<script src="js/admin-proforma.js?v=20261009a"></script>
+<script src="js/admin-proforma.js?v=20261017a"></script>
 <script>
 /* ───────────────────────────────────────────────────────────────
    ADMIN AUTH — SECURITY FIX (21 Jun 2026)
@@ -1235,7 +1239,7 @@ function showAPanel(name, el) {
   document.querySelectorAll('.asb-link').forEach(l=>l.classList.remove('active'));
   const panel = document.getElementById('ap-'+name); if(panel) panel.classList.add('active');
   if(el) el.classList.add('active');
-  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners',payments:'Payments',proforma:'Proforma invoices'};
+  const titles = {dashboard:'Dashboard',members:'Members',rms:'Relationship Managers',leads:'Buy Leads',postreq:'Enquiries',enquiries:'Contact Messages',plans:'Membership Plans',categories:'Category Grid',banners:'Site Banners',payments:'Payments',proforma:'Invoices'};
   document.getElementById('adminTopTitle').textContent = titles[name]||name;
   if(name==='rms') renderRMs();
   if(name==='plans') loadPlansAdmin();
